@@ -67,7 +67,7 @@ const Login = () => {
             )}
           />
           <div className={s.wrap}>
-            <Button text="Ввійти" btnClass="btn" />
+            <Button text="Ввійти" btnClass="btnLight" />
           </div>
         </form>
       </Container>

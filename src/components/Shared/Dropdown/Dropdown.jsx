@@ -19,11 +19,11 @@ const Dropdown = ({ value, handleChange }) => {
       <Option className={s.customSelectBottom} value="show all">
         Show all
       </Option>
-      <Option className={s.customSelectBottom} value="follow">
-        Follow
+      <Option className={s.customSelectBottom} value="type 1">
+        Type 1
       </Option>
-      <Option className={s.customSelectBottom} value="following">
-        Following
+      <Option className={s.customSelectBottom} value="type 2">
+        Type 2
       </Option>
     </Select>
   );
