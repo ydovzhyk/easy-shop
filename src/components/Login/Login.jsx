@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import s from './Login.module.scss';
 
@@ -9,14 +9,11 @@ import TextField from 'components/Shared/TextField';
 import { field } from 'components/Shared/TextField/fields';
 import Button from 'components/Shared/Button';
 
-import { getError } from 'redux/auth/auth-selectors';
 import { clearNewUser } from 'redux/auth/auth-slice';
 import { login } from 'redux/auth/auth-opetations';
 
 const Login = () => {
   const dispatch = useDispatch();
-
-  const errorLogin = useSelector(getError);
 
   const { control, handleSubmit, reset } = useForm({
     defaultValues: {
