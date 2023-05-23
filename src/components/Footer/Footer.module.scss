@@ -1,0 +1,36 @@
+@use '../../styles/_mixins.scss';
+
+.footer {
+  width: 100%;
+  height: 569px;
+  border-top: 2px solid #461ca954;
+  background-color: #eee;
+  box-shadow: 0 1px 0 #fff;
+
+  @include mixins.mq(tablet) {
+    height: 531px;
+  }
+
+  @include mixins.mq(desktop) {
+    height: 217px;
+  }
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.copyrightBlock {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.copyrightLink {
+  margin-left: 10px;
+}

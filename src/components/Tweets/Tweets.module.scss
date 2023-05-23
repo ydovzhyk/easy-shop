@@ -1,0 +1,49 @@
+@use '../../styles/mixins';
+
+.tweets {
+  padding-top: 30px;
+
+  @include mixins.mq(tablet) {
+    height: 100vh;
+  }
+
+  @include mixins.mq(desktop) {
+    height: auto;
+  }
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 60px;
+  & button:first-child {
+    margin-bottom: 20px;
+  }
+
+  @include mixins.mq(tablet) {
+    display: block;
+    & button:first-child {
+      margin-right: 32px;
+    }
+  }
+}
+
+.imgDesktop {
+  display: none;
+
+  @include mixins.mq(desktop) {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 1280px;
+    z-index: -1;
+  }
+}

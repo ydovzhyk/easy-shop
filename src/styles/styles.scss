@@ -1,0 +1,24 @@
+@use './mixins';
+@import 'fonts';
+@import 'reset';
+@import 'container';
+@import 'common';
+
+:root {
+  --main-color: #ffffff;
+  --background-color: #f0f1f3;
+  --background-btn-main-color: #ebd8ff;
+  --background-btn-second-color: #48d597;
+  --accent-color: #414141;
+  --text-color: #212121;
+  --second-text-color: #729c62;
+  --border-color: #e0e0e0;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+
+  &.no-scroll {
+    overflow: hidden;
+  }
+}

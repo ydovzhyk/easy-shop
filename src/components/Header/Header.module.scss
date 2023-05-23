@@ -1,0 +1,101 @@
+@use '../../styles/_mixins.scss';
+
+.header {
+  width: 100%;
+  border-bottom: 2px solid #461ca954;
+  background-color: #eee;
+  box-shadow: 0 1px 0 #fff;
+}
+
+.containerTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  max-width: 1280px;
+  margin: 0 auto;
+
+  @include mixins.mq(desktop) {
+    justify-content: flex-start;
+  }
+}
+
+.containerBottom {
+  display: flex;
+  flex-direction: row;
+  // justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  max-width: 1280px;
+  margin: 0 auto;
+
+  @include mixins.mq(desktop) {
+    // justify-content: flex-start;
+  }
+}
+
+.wrap {
+  margin-right: 5px;
+
+  @include mixins.mq(tablet) {
+    margin-right: 10px;
+  }
+
+  @include mixins.mq(tablet) {
+    margin-left: 30px;
+  }
+}
+
+.header a {
+  font-family: 'Montserrat';
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+
+  @include mixins.mq(tablet) {
+    font-size: 15px;
+  }
+
+  @include mixins.mq(desktop) {
+    height: auto;
+    font-size: 16px;
+  }
+}
+
+.link {
+  color: var(--second-text-color);
+  display: inline-block;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  margin-right: 15px;
+}
+
+.active {
+  color: var(--accent-color);
+  display: inline-block;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  margin-right: 15px;
+}
+
+.link:before {
+  content: '';
+  background: var(--accent-color);
+  display: block;
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  transition: all 0.3s ease-in-out;
+}
+
+.link:hover {
+  background-position: 0;
+}
+
+.link:hover::before {
+  width: 100%;
+}
