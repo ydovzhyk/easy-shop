@@ -1,0 +1,32 @@
+{
+  "files": {
+    "main.css": "/easy-shop/static/css/main.360a2ef1.css",
+    "main.js": "/easy-shop/static/js/main.f1570673.js",
+    "static/css/833.1f59bf02.chunk.css": "/easy-shop/static/css/833.1f59bf02.chunk.css",
+    "static/js/833.72f00fda.chunk.js": "/easy-shop/static/js/833.72f00fda.chunk.js",
+    "static/css/278.42f60573.chunk.css": "/easy-shop/static/css/278.42f60573.chunk.css",
+    "static/js/278.9d08ba91.chunk.js": "/easy-shop/static/js/278.9d08ba91.chunk.js",
+    "static/css/252.ae806dc8.chunk.css": "/easy-shop/static/css/252.ae806dc8.chunk.css",
+    "static/js/252.84f368bc.chunk.js": "/easy-shop/static/js/252.84f368bc.chunk.js",
+    "static/css/794.c75bc92e.chunk.css": "/easy-shop/static/css/794.c75bc92e.chunk.css",
+    "static/js/794.a1b43175.chunk.js": "/easy-shop/static/js/794.a1b43175.chunk.js",
+    "static/js/118.947fc2e8.chunk.js": "/easy-shop/static/js/118.947fc2e8.chunk.js",
+    "index.html": "/easy-shop/index.html",
+    "static/media/logo.svg": "/easy-shop/static/media/logo.68a638ea064e7a4a7aaacc86430d8f35.svg",
+    "main.360a2ef1.css.map": "/easy-shop/static/css/main.360a2ef1.css.map",
+    "main.f1570673.js.map": "/easy-shop/static/js/main.f1570673.js.map",
+    "833.1f59bf02.chunk.css.map": "/easy-shop/static/css/833.1f59bf02.chunk.css.map",
+    "833.72f00fda.chunk.js.map": "/easy-shop/static/js/833.72f00fda.chunk.js.map",
+    "278.42f60573.chunk.css.map": "/easy-shop/static/css/278.42f60573.chunk.css.map",
+    "278.9d08ba91.chunk.js.map": "/easy-shop/static/js/278.9d08ba91.chunk.js.map",
+    "252.ae806dc8.chunk.css.map": "/easy-shop/static/css/252.ae806dc8.chunk.css.map",
+    "252.84f368bc.chunk.js.map": "/easy-shop/static/js/252.84f368bc.chunk.js.map",
+    "794.c75bc92e.chunk.css.map": "/easy-shop/static/css/794.c75bc92e.chunk.css.map",
+    "794.a1b43175.chunk.js.map": "/easy-shop/static/js/794.a1b43175.chunk.js.map",
+    "118.947fc2e8.chunk.js.map": "/easy-shop/static/js/118.947fc2e8.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.360a2ef1.css",
+    "static/js/main.f1570673.js"
+  ]
+}
