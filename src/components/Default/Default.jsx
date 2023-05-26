@@ -56,24 +56,6 @@ const Default = () => {
     reset();
   };
 
-  // const onSubmit = async (data, e) => {
-  //   e.preventDefault();
-  // const formData = new FormData();
-  // Array.from(data.files).forEach(file => {
-  //   formData.append('files', file);
-  // });
-  // formData.append('category', data.category.value);
-  // formData.append('shopName', data.shopName);
-  // formData.append('description', data.description);
-  // formData.append('price', data.price);
-  // formData.append('userId', userId);
-  // formData.append('date', today);
-  //   const formData = { date: today };
-
-  //   await dispatch(addProduct(formData));
-  //   reset();
-  // };
-
   return (
     <section className={s.default}>
       {!isUserLogin && (
@@ -98,7 +80,7 @@ const Default = () => {
                   name="category"
                   {...field.category}
                   required={true}
-                  options={['Ресторани', 'Супермаркети', "Здоров'я та краса"]}
+                  options={['Жінкам', 'Чоловікам', 'Дитячі речі']}
                 />
               )}
             />

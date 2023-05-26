@@ -28,7 +28,7 @@ const Header = () => {
             })}
             to="/restaurants"
           >
-            Ресторани
+            Жінкам
           </NavLink>
           <NavLink
             className={getClassName({
@@ -36,15 +36,15 @@ const Header = () => {
             })}
             to="/supermarkets"
           >
-            Супермаркети
+            Чоловікам
           </NavLink>
           <NavLink
             className={getClassName({
               isActive: location.pathname === '/health',
             })}
-            to="/tweets"
+            to="/health"
           >
-            Здоров'я та краса
+            Дитячі речі
           </NavLink>
         </div>
       )}
