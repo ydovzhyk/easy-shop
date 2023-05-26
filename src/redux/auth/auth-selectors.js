@@ -6,7 +6,7 @@ export const getSid = ({ auth }) => auth.sid;
 export const getAccessToken = ({ auth }) => auth.accessToken;
 export const getRefreshToken = ({ auth }) => auth.refreshToken;
 export const getError = ({ auth }) => auth.error;
-export const getID = ({ auth }) => auth.user.id;
+export const getID = ({ auth }) => auth.user._id;
 export const getUser = ({ auth }) => auth.user;
 
 export const getNewUserId = ({ auth }) => auth.newUser?.id;

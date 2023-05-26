@@ -4,7 +4,7 @@ import {
   axiosLogout,
   axiosRegister,
   axiosRefresh,
-  axiosGetUser,
+  axiosUpdateUser,
 } from 'api/auth';
 
 export const register = createAsyncThunk(
@@ -25,6 +25,9 @@ export const login = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const data = await axiosLogin(userData);
+      const { accessToken, refreshToken, sid } = data;
+      const authData = { accessToken, refreshToken, sid };
+      localStorage.setItem('easy-shop.authData', JSON.stringify(authData));
       return data;
     } catch (error) {
       const { data, status } = error.response;
@@ -49,16 +52,16 @@ export const logout = createAsyncThunk(
   }
 );
 
-export const getUser = createAsyncThunk(
+export const updateUser = createAsyncThunk(
   'auth/current',
   async (newAccessToken, { rejectWithValue, getState, dispatch }) => {
     try {
       if (!newAccessToken) {
         const { auth } = getState();
-        const data = await axiosGetUser(auth.accessToken);
+        const data = await axiosUpdateUser(auth.accessToken);
         return data;
       } else {
-        const data = await axiosGetUser(newAccessToken);
+        const data = await axiosUpdateUser(newAccessToken);
         return data;
       }
     } catch (error) {
@@ -82,7 +85,7 @@ export const refresh = createAsyncThunk(
       }
       const data = await axiosRefresh(sid, refreshToken);
       if (auth.sid) {
-        dispatch(getUser(data.newAccessToken));
+        dispatch(updateUser(data.newAccessToken));
       }
       return data;
     } catch (error) {

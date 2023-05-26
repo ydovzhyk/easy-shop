@@ -1,23 +1,40 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateUser } from 'redux/auth/auth-opetations';
+import { getError, getSid } from 'redux/auth/auth-selectors';
 import UserRoutes from './Routes/UserRoutes';
 import Header from './Header';
 import Footer from './Footer/Footer';
+import Loader from './Loader/Loader';
 import ErrorMessage from './Shared/ErrorMessage/ErrorMessage';
-import { getError } from 'redux/auth/auth-selectors';
 
 export const App = () => {
   const error = useSelector(getError);
+  const sid = useSelector(getSid);
+  const dispatch = useDispatch();
   const [errMessage, setErrMessage] = useState('');
+  const [isUserLoaded, setIsUserLoaded] = useState(false);
+
+  useEffect(() => {
+    if (sid) {
+      dispatch(updateUser());
+    } else {
+      setIsUserLoaded(true);
+    }
+  }, [dispatch, sid]);
 
   useEffect(() => {
     if (error) {
       setErrMessage(error);
     } else {
       setErrMessage('');
-      return;
     }
+    setIsUserLoaded(true);
   }, [error]);
+
+  if (!isUserLoaded) {
+    return <Loader />;
+  }
 
   return (
     <>

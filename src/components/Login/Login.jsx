@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 
 import s from './Login.module.scss';
 
@@ -11,6 +11,7 @@ import Button from 'components/Shared/Button';
 
 import { clearNewUser } from 'redux/auth/auth-slice';
 import { login } from 'redux/auth/auth-opetations';
+import { getLogin } from 'redux/auth/auth-selectors';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -22,16 +23,18 @@ const Login = () => {
     },
   });
 
-  useEffect(() => {
-    dispatch(clearNewUser());
-    // eslint-disable-next-line
-  }, []);
-
   const onSubmit = (data, e) => {
     e.preventDefault();
     dispatch(login(data));
     reset();
+    dispatch(clearNewUser());
   };
+
+  const isLogin = useSelector(getLogin);
+
+  if (isLogin) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <section className={s.login}>

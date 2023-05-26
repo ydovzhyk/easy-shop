@@ -19,7 +19,7 @@
   margin-top: 7px;
 
   @include mixins.mq(desktop) {
-    margin-left: 940px;
+    margin-left: 860px;
   }
 }
 
@@ -84,4 +84,14 @@
 
 .link:hover::before {
   width: 100%;
+}
+
+.goodsNumber {
+  margin-right: 15px;
+  margin-left: 10px;
+}
+
+.custom {
+  display: flex;
+  flex-direction: row;
 }

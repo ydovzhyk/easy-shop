@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 export const instance = axios.create({
-  baseURL: 'https://backend-slimmom.herokuapp.com/',
-  // baseURL: 'http://localhost:4000',
+  // baseURL: 'https://easy-shop-backend.herokuapp.com/',
+  baseURL: 'http://localhost:4000',
 });
 
 const token = {
@@ -39,7 +39,7 @@ export const axiosRefresh = async (sid, refreshToken) => {
   return data;
 };
 
-export const axiosGetUser = async accessToken => {
+export const axiosUpdateUser = async accessToken => {
   token.set(accessToken);
   const { data } = await instance.post('/auth/current');
   return data;
