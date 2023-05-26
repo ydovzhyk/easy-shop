@@ -1,20 +1,5 @@
 import instance from './auth';
 
-// Add product
-// export const axiosAddProduct = async userData => {
-//   const { data } = await instance.post('/product/add', userData, {
-//     headers: {
-//       'Content-Type': 'multipart/form-data',
-//     },
-//   });
-//   return data;
-// };
-
-// export const axiosAddProduct = async userData => {
-//   const { data } = await instance.post('/product/add', userData);
-//   return data;
-// };
-
 export const axiosAddProduct = async userData => {
   try {
     const uploadPromise = instance.post('/product/add', userData.files, {
