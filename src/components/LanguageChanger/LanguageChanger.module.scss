@@ -1,6 +1,12 @@
 @use '../../styles/mixins';
 
-.link {
+.languagesList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.languageItem {
   color: #9b9faa;
   background-size: 200% 100%;
   background-position: -100%;
@@ -18,9 +24,9 @@
   flex-direction: row;
   // margin-top: 7px;
 
-  // @include mixins.mq(desktop) {
-  //   margin-left: 860px;
-  // }
+  @include mixins.mq(desktop) {
+    margin-left: 860px;
+  }
 }
 
 .userInfoSide a:last-child {

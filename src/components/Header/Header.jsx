@@ -8,10 +8,10 @@ import { HiOutlineBars4 } from 'react-icons/hi2';
 import s from './Header.module.scss';
 import Logo from 'components/Shared/Logo';
 import Button from 'components/Shared/Button';
+import LanguageChanger from 'components/LanguageChanger/LanguageChanger';
 
 const Header = () => {
   const isDesctop = useMediaQuery({ minWidth: 1280 });
-  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1279 });
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const location = useLocation();
   const getClassName = ({ isActive }) => {
@@ -28,12 +28,13 @@ const Header = () => {
             <Button
               type="button"
               btnClass="burgerButton"
-              text={<HiOutlineBars4 size={isMobile ? 25 : 35} />}
+              text={<HiOutlineBars4 size={isMobile ? 25 : 30} />}
             ></Button>
           )}
           <Logo />
         </div>
-        {!isDesctop && <BiSearchAlt size={isMobile ? 25 : 35} />}
+        {!isDesctop && <BiSearchAlt size={isMobile ? 25 : 30} />}
+        {isDesctop && <LanguageChanger />}
         {isDesctop && <UserInfo />}
       </div>
       {isLogin && (

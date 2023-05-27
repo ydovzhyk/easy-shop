@@ -27,6 +27,17 @@
   margin-right: 10px;
 }
 
+.languageButton:last-child::after {
+  content: '';
+  position: absolute;
+  width: 28px;
+  height: 0px;
+  top: 7px;
+  left: -30px;
+  border: 2px solid var(--border-color);
+  transform: rotate(90deg);
+}
+
 .btnLight:hover {
   background: #ddbffd;
 }

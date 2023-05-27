@@ -1,4 +1,4 @@
-// @use '../../styles/_mixins.scss';
+@use '../../styles/_mixins.scss';
 
 .navigationBottom {
   position: fixed;
@@ -17,10 +17,6 @@
   padding: 0 20px;
   max-width: 1280px;
   margin: 0 auto;
-
-  //   @include mixins.mq(desktop) {
-  //     justify-content: flex-start;
-  //   }
 }
 
 .circleBox {
@@ -32,4 +28,8 @@
   border-radius: 100%;
   box-shadow: 0 0 50px 5px rgba(0, 0, 0, 0.3);
   background-color: #fff;
+  @include mixins.mq(tablet) {
+    width: 60px;
+    height: 60px;
+  }
 }

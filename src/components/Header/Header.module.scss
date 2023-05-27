@@ -18,9 +18,9 @@
   max-width: 1280px;
   margin: 0 auto;
 
-  @include mixins.mq(desktop) {
-    justify-content: flex-start;
-  }
+  // @include mixins.mq(desktop) {
+  //   justify-content: flex-start;
+  // }
 }
 
 .containerBottom {

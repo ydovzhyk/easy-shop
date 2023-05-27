@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 import { BsSuitHeart } from 'react-icons/bs';
 import { HiPlus } from 'react-icons/hi';
 import { SlHome } from 'react-icons/sl';
@@ -7,25 +8,26 @@ import { BiMessageDetail } from 'react-icons/bi';
 import s from './BottomNavigation.module.scss';
 
 const BottomNavigation = () => {
+  const isMobile = useMediaQuery({ maxWidth: 767 });
   return (
     <nav className={s.navigationBottom}>
       <div className={s.containerBottom}>
         <NavLink to="/login">
-          <SlHome size={25} />
+          <SlHome size={isMobile ? 25 : 30} />
         </NavLink>
         <NavLink to="/">
-          <BsSuitHeart size={25} />
+          <BsSuitHeart size={isMobile ? 25 : 30} />
         </NavLink>
         <NavLink to="/">
           <div className={s.circleBox}>
-            <HiPlus size={25} />
+            <HiPlus size={isMobile ? 25 : 30} />
           </div>
         </NavLink>
         <NavLink to="/">
-          <BiMessageDetail size={25} />
+          <BiMessageDetail size={isMobile ? 25 : 30} />
         </NavLink>
         <NavLink to="/">
-          <HiOutlineUser size={25} />
+          <HiOutlineUser size={isMobile ? 25 : 30} />
         </NavLink>
       </div>
     </nav>
