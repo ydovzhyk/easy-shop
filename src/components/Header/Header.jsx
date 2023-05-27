@@ -3,13 +3,16 @@ import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import UserInfo from 'components/UserInfo/UserInfo';
 import { getLogin } from 'redux/auth/auth-selectors';
-
+import { BiSearchAlt } from 'react-icons/bi';
+import { HiOutlineBars4 } from 'react-icons/hi2';
 import s from './Header.module.scss';
 import Logo from 'components/Shared/Logo';
-import search from '../../images/header/search-icon.svg';
+import Button from 'components/Shared/Button';
 
 const Header = () => {
   const isDesctop = useMediaQuery({ minWidth: 1280 });
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1279 });
+  const isMobile = useMediaQuery({ maxWidth: 767 });
   const location = useLocation();
   const getClassName = ({ isActive }) => {
     return isActive ? `${s.link} ${s.active}` : s.link;
@@ -20,20 +23,17 @@ const Header = () => {
   return (
     <header className={s.header}>
       <div className={s.containerTop}>
-        <Logo />
-        {!isDesctop && (
-          <div>
-            <svg
-              className="s.icon-search"
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-            >
-              <use href="../../images/header/search-icon.svg#icon-search"></use>
-            </svg>
-            {/* <img src={search} alt="search icon" width="16" height="16" /> */}
-          </div>
-        )}
+        <div className={s.navTopContainer}>
+          {!isDesctop && (
+            <Button
+              type="button"
+              btnClass="burgerButton"
+              text={<HiOutlineBars4 size={isMobile ? 25 : 35} />}
+            ></Button>
+          )}
+          <Logo />
+        </div>
+        {!isDesctop && <BiSearchAlt size={isMobile ? 25 : 35} />}
         {isDesctop && <UserInfo />}
       </div>
       {isLogin && (

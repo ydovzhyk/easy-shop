@@ -1,6 +1,8 @@
 @use '../../styles/_mixins.scss';
 
 .header {
+  position: fixed;
+  top: 0;
   width: 100%;
   border-bottom: 2px solid #461ca954;
   background-color: #eee;
@@ -100,11 +102,8 @@
   width: 100%;
 }
 
-icon-search {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  stroke-width: 0;
-  stroke: currentColor;
-  fill: currentColor;
+.navTopContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
