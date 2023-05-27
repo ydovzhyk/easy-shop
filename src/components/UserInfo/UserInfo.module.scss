@@ -16,7 +16,7 @@
 .userInfoSide {
   display: flex;
   flex-direction: row;
-  margin-top: 7px;
+  // margin-top: 7px;
 
   @include mixins.mq(desktop) {
     margin-left: 860px;
