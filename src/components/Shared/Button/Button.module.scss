@@ -1,3 +1,5 @@
+@use '../../../styles/mixins';
+
 .btnLight {
   width: 196px;
   height: 50px;
@@ -27,15 +29,31 @@
   margin-right: 10px;
 }
 
-.languageButton:last-child::after {
-  content: '';
-  position: absolute;
-  width: 28px;
-  height: 0px;
-  top: 7px;
-  left: -30px;
-  border: 2px solid var(--border-color);
-  transform: rotate(90deg);
+.languageButton {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  color: rgb(155, 159, 170);
+  &:hover,
+  &:focus {
+    color: #53c198;
+  }
+  @include mixins.mq(tablet) {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  @include mixins.mq(desktop) {
+    font-size: 16px;
+    font-weight: 700;
+  }
+}
+
+.searchBtn {
+  color: rgb(155, 159, 170);
+  &:hover,
+  &:focus {
+    color: #53c198;
+  }
 }
 
 .btnLight:hover {

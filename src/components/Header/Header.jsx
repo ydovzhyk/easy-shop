@@ -8,7 +8,8 @@ import { HiOutlineBars4 } from 'react-icons/hi2';
 import s from './Header.module.scss';
 import Logo from 'components/Shared/Logo';
 import Button from 'components/Shared/Button';
-import LanguageChanger from 'components/LanguageChanger/LanguageChanger';
+import SwitchBtn from 'components/Shared/SwitchBtn/SwitchBtn';
+import LanguageChanger from 'components/Shared/LanguageChanger/LanguageChanger';
 
 const Header = () => {
   const isDesctop = useMediaQuery({ minWidth: 1280 });
@@ -33,8 +34,17 @@ const Header = () => {
           )}
           <Logo />
         </div>
-        {!isDesctop && <BiSearchAlt size={isMobile ? 25 : 30} />}
-        {isDesctop && <LanguageChanger />}
+        <div className={s.switchBtnBox}>
+          <LanguageChanger />
+          <SwitchBtn />
+        </div>
+        {!isDesctop && (
+          <Button
+            type="button"
+            btnClass="searchBtn"
+            text={<BiSearchAlt size={isMobile ? 25 : 30} />}
+          ></Button>
+        )}
         {isDesctop && <UserInfo />}
       </div>
       {isLogin && (

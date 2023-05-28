@@ -1,18 +1,38 @@
-@use '../../styles/mixins';
+@use '../../../styles/mixins';
 
 .languagesList {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 15px;
 }
 
-.languageItem {
-  color: #9b9faa;
-  background-size: 200% 100%;
-  background-position: -100%;
-  display: inline-block;
-  position: relative;
-  transition: all 0.3s ease-in-out;
+.languageItem:not(:last-child) {
+  margin-right: 20px;
+  @include mixins.mq(tablet) {
+    margin-left: 22px;
+  }
+  @include mixins.mq(desktop) {
+    margin-left: 32px;
+  }
+}
+
+.languageItem:last-child::after {
+  content: '';
+  position: absolute;
+  width: 28px;
+  height: 0px;
+  top: 7px;
+  left: 16px;
+  border: 2px solid var(--border-color);
+  transform: rotate(90deg);
+  @include mixins.mq(tablet) {
+    left: 20px;
+  }
+  @include mixins.mq(desktop) {
+    left: 26px;
+  }
 }
 
 .active {
