@@ -39,20 +39,24 @@
     color: #53c198;
   }
   @include mixins.mq(tablet) {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
   }
   @include mixins.mq(desktop) {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 700;
   }
 }
 
 .searchBtn {
+  margin-right: 20px;
   color: rgb(155, 159, 170);
   &:hover,
   &:focus {
     color: #53c198;
+  }
+  @include mixins.mq(tablet) {
+    margin-right: 35px;
   }
 }
 

@@ -111,3 +111,21 @@
 .switchBtnBox {
   text-align: center;
 }
+
+.btnWrapper {
+  display: flex;
+}
+
+// .headerBoxForm {
+//   @include mixins.mq(desktop) {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//   }
+// }
+
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

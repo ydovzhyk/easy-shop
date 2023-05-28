@@ -32,6 +32,21 @@
   }
 }
 
+.headerLabel {
+  @extend .label;
+  margin-bottom: 0;
+  height: auto;
+}
+
+.headerInput {
+  @extend .input;
+  margin-bottom: 0;
+  position: static;
+  height: auto;
+  border: none;
+  padding: 8px;
+}
+
 .span {
   position: absolute;
   top: 1px;
@@ -44,6 +59,13 @@
   pointer-events: none;
 }
 
+.headerSpan {
+  @extend .span;
+  margin-top: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .input:focus {
   outline: none;
   border-bottom: 1px solid var(--accent-color);
@@ -52,5 +74,5 @@
 
 .input:focus + span,
 .input:valid + span {
-  transform: translateX(-10px) translateY(-32px);
+  transform: translateY(-32px);
 }

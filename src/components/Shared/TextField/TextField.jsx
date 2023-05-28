@@ -9,11 +9,14 @@ const TextField = ({
   required,
   pattern,
   title,
+  classLabel = 'label',
+  classInput = 'input',
+  classSpan = 'span',
 }) => {
   return (
-    <label className={s.label}>
+    <label className={s[classLabel]}>
       <input
-        className={s.input}
+        className={s[classInput]}
         type={type}
         name={name}
         value={value}
@@ -22,7 +25,7 @@ const TextField = ({
         pattern={pattern}
         title={title}
       />
-      <span className={s.span}>{placeholder}</span>
+      <span className={s[classSpan]}>{placeholder}</span>
     </label>
   );
 };
