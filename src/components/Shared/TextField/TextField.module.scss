@@ -36,6 +36,9 @@
   @extend .label;
   margin-bottom: 0;
   height: auto;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  overflow: hidden;
 }
 
 .headerInput {
@@ -44,7 +47,8 @@
   position: static;
   height: auto;
   border: none;
-  padding: 8px;
+  border-left: 2px solid rgb(204, 204, 204);
+  padding: 14px;
 }
 
 .span {
@@ -62,6 +66,7 @@
 .headerSpan {
   @extend .span;
   margin-top: 0;
+  margin-left: 14px;
   top: 50%;
   transform: translateY(-50%);
 }

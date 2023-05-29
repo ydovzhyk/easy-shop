@@ -42,10 +42,6 @@
     font-size: 16px;
     font-weight: 500;
   }
-  @include mixins.mq(desktop) {
-    font-size: 18px;
-    font-weight: 700;
-  }
 }
 
 .searchBtn {
