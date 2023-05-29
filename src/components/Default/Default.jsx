@@ -3,7 +3,6 @@ import { getLogin } from 'redux/auth/auth-selectors';
 import SiteStatistic from 'components/SiteStatistic/SiteStatistic';
 
 import s from './Default.module.scss';
-import AddProduct from '../AddProduct/AddProduct';
 
 const Default = () => {
   const isUserLogin = useSelector(getLogin);
@@ -18,7 +17,6 @@ const Default = () => {
       {isUserLogin && (
         <>
           <SiteStatistic />
-          <AddProduct />
         </>
       )}
     </section>
