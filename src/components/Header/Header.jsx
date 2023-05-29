@@ -126,6 +126,11 @@ const Header = () => {
                   />
                 )}
               />
+              <Button
+                type="button"
+                btnClass="searchFormBtn"
+                text={<BiSearchAlt size={isMobile ? 25 : 30} />}
+              ></Button>
             </form>
             <Button text="Додати товар" btnClass="btnLight" />
             <div className={s.switchBtnBox}>

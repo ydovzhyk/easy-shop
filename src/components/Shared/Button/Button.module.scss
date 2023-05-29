@@ -56,6 +56,12 @@
   }
 }
 
+.searchFormBtn {
+  @extend .searchBtn;
+  background-color: transparent;
+  margin-right: 0;
+}
+
 .btnLight:hover {
   background: #ddbffd;
 }
