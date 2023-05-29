@@ -6,14 +6,23 @@
 
 :root {
   --main-color: #ffffff;
+  --accent-color: #fbef35;
   --background-color: #f0f1f3;
-  --background-btn-main-color: #ebd8ff;
-  --background-btn-second-color: #48d597;
+  --background-btn-main-color: #fbef35;
+  --background-btn-second-color: #fff;
+  --btn-text-color: #000;
   --accent-color: #414141;
   --text-color: #212121;
-  --second-text-color: #729c62;
+  --second-text-color: #414141;
+  --title-text-color: #3b3b3b;
   --border-color: #e0e0e0;
+  --icons-color: #3b3b3b;
+  --bg-footer-header: #f5f5f5;
 }
+
+// --link-color: #000;
+// --bg-color: #fff;
+// --btn-border-color: #3b3b3b;
 
 body {
   font-family: 'Montserrat', sans-serif;
