@@ -143,6 +143,18 @@ a {
   color: #000;
 }
 
+.SelectField_headerLabel__ncaow {
+  width: 40%;
+}
+
+.TextField_headerLabel__LiOUb {
+  width: 60%;
+}
+
+.SelectField_headerSelect__su3T9 {
+  width: 100%;
+}
+
 .custom-select__control {
   border: none !important;
   box-shadow: none !important;
@@ -151,7 +163,7 @@ a {
   border-top-right-radius: 0px !important;
   border-bottom-right-radius: 0px !important;
   border-top-left-radius: 8px !important;
-  width: 180px !important;
+  width: 100% !important;
 }
 
 .custom-select__value-container {
@@ -191,7 +203,6 @@ a {
 .css-5kkxb2-requiredInput-RequiredInput {
   padding: 0;
   border: none;
-  bottom: -10px;
 }
 
 .custom-select__menu {
