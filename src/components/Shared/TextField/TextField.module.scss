@@ -81,3 +81,14 @@
 .input:valid + span {
   transform: translateY(-32px);
 }
+
+.headerInput:focus {
+  outline: none;
+  border-bottom: none;
+  background: #ffffff;
+}
+
+.headerInput:focus + span,
+.headerInput:valid + span {
+  display: none;
+}
