@@ -3,7 +3,6 @@ import { BiSearchAlt } from 'react-icons/bi';
 import Button from 'components/Shared/Button';
 import { field } from 'components/Shared/TextField/fields';
 import TextField from 'components/Shared/TextField';
-import SelectField from 'components/Shared/SelectField/SelectField';
 import s from './HeaderForm.module.scss';
 
 const HeaderForm = () => {
@@ -44,25 +43,6 @@ const HeaderForm = () => {
     <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
       <Controller
         control={control}
-        name="category"
-        rules={{
-          required: true,
-        }}
-        render={({ field: { onChange, value } }) => (
-          <SelectField
-            value={value}
-            handleChange={onChange}
-            name="category"
-            {...field.category}
-            required={true}
-            classLabel="headerLabel"
-            classSelect="headerSelect"
-            options={['Жінкам', 'Чоловікам', 'Дитячі речі']}
-          />
-        )}
-      />
-      <Controller
-        control={control}
         name="productName"
         rules={{
           required: true,
@@ -72,9 +52,7 @@ const HeaderForm = () => {
             value={value}
             control={control}
             handleChange={onChange}
-            classLabel="headerLabel"
-            classInput="headerInput"
-            classSpan="headerSpan"
+            className="headerForm"
             {...field.productName}
           />
         )}

@@ -32,8 +32,7 @@
   }
 }
 
-.headerLabel {
-  @extend .label;
+.label.headerForm {
   margin-bottom: 0;
   height: auto;
   border-top-right-radius: 8px;
@@ -41,13 +40,12 @@
   overflow: hidden;
 }
 
-.headerInput {
+.input.headerForm {
   @extend .input;
   margin-bottom: 0;
   position: static;
   height: auto;
   border: none;
-  border-left: 2px solid rgb(204, 204, 204);
   padding: 14px;
 }
 
@@ -63,8 +61,7 @@
   pointer-events: none;
 }
 
-.headerSpan {
-  @extend .span;
+.span.headerForm {
   margin-top: 0;
   margin-left: 14px;
   top: 50%;
@@ -82,13 +79,13 @@
   transform: translateY(-32px);
 }
 
-.headerInput:focus {
+.input.headerForm:focus {
   outline: none;
   border-bottom: none;
   background: #ffffff;
 }
 
-.headerInput:focus + span,
-.headerInput:valid + span {
-  display: none;
+.input.headerForm:focus + span,
+.input.headerForm:valid + span {
+  transform: translateY(-42px);
 }

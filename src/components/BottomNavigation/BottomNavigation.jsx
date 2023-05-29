@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { BsSuitHeart } from 'react-icons/bs';
 import { HiPlus } from 'react-icons/hi';
-import { SlHome } from 'react-icons/sl';
+import { SlBasket } from 'react-icons/sl';
 import { HiOutlineUser } from 'react-icons/hi';
 import { BiMessageDetail } from 'react-icons/bi';
 import s from './BottomNavigation.module.scss';
@@ -13,7 +13,7 @@ const BottomNavigation = () => {
     <nav className={s.navigationBottom}>
       <div className={s.containerBottom}>
         <NavLink to="/login">
-          <SlHome size={isMobile ? 25 : 30} />
+          <SlBasket size={isMobile ? 25 : 30} />
         </NavLink>
         <NavLink to="/">
           <BsSuitHeart size={isMobile ? 25 : 30} />

@@ -9,10 +9,9 @@
   border: 2px solid #c7ccdc;
   border-radius: 8px;
   background-color: #fff;
-  @include mixins.mq(mobile) {
-    width: 100%;
-  }
+  width: 100%;
+
   @include mixins.mq(desktop) {
-    width: auto;
+    width: 440px;
   }
 }

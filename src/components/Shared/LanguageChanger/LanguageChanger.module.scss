@@ -28,7 +28,7 @@
   border: 2px solid var(--border-color);
   transform: rotate(90deg);
   @include mixins.mq(tablet) {
-    left: 20px;
+    left: 22px;
   }
   @include mixins.mq(desktop) {
     left: 28px;
