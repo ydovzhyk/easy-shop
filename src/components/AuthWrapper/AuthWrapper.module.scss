@@ -72,6 +72,33 @@
   }
 }
 
+.authLink {
+  display: inline-block;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  &::before {
+    content: '';
+    background: var(--title-text-color);
+    display: block;
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    transition: all 0.3s ease-in-out;
+  }
+}
+
+.authLink:hover::before {
+  width: 100%;
+}
+
+.activeLink {
+  &::before {
+    width: 100%;
+  }
+}
+
 .googleBtn {
   display: inline-flex;
   justify-content: center;

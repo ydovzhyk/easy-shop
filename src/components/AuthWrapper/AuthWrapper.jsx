@@ -1,4 +1,4 @@
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { NavLink, Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
@@ -27,18 +27,22 @@ const AuthWrapper = () => {
   if (!errorLogin && newUserId) {
     return <Navigate to="/login" />;
   }
-
+  
+  const getClassName = ({ isActive }) => {
+    return isActive ? `${s.authLink} ${s.activeLink}` : s.authLink;
+  };
+    
   return (
     <section className={s.auth}>
       <Container>
         <div className={s.box}>
           <div className={s.linksWrapper}>
-            <Link to="/login">
+            <NavLink className={getClassName} to="/login" end>
               <h2 className={s.title}>Вхід</h2>
-            </Link>
-            <Link to="registration">
+            </NavLink>
+            <NavLink className={getClassName} to="registration">
               <h2 className={s.title}>Реєстрація</h2>
-            </Link>
+            </NavLink>
           </div>
           <Text textClass="google-text" text={googleText} />
           <a
