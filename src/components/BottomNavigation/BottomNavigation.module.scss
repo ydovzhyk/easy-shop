@@ -39,7 +39,7 @@
   transition: color var(--transition-duration) var(--timing-function);
   &:hover,
   &:focus {
-    color: var(--border-color);
+    color: var(--hover-active-color);
   }
 }
 

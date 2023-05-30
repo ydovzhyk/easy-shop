@@ -60,32 +60,37 @@
   color: var(--second-text-color);
   display: inline-block;
   position: relative;
-  transition: transform var(--transition-duration) var(--timing-function);
+  transition: all var(--transition-duration) var(--timing-function);
   margin-right: 15px;
 }
 
 .active {
-  color: var(--accent-color);
+  color: var(--hover-active-color);
   display: inline-block;
   position: relative;
-  transition: transform var(--transition-duration) var(--timing-function);
+  transition: all var(--transition-duration) var(--timing-function);
   margin-right: 15px;
+}
+
+.link.active:before {
+  width: 100%;
 }
 
 .link:before {
   content: '';
-  background: var(--accent-color);
+  background: var(--btn-border-color);
   display: block;
   position: absolute;
   bottom: -3px;
   left: 0;
   width: 0;
   height: 2px;
-  transition: transform var(--transition-duration) var(--timing-function);
+  transition: all var(--transition-duration) var(--timing-function);
 }
 
 .link:hover {
   background-position: 0;
+  color: var(--hover-active-color);
 }
 
 .link:hover::before {
@@ -104,15 +109,4 @@
 
 .btnWrapper {
   display: flex;
-}
-
-.form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-left: 14px;
-  padding-right: 14px;
-  border: 2px solid var(--border-color);
-  border-radius: 8px;
-  background-color: #fff;
 }
