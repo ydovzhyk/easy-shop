@@ -34,7 +34,7 @@ const Header = () => {
     if (isLogin) {
       navigate('/add-product');
     } else {
-      navigate('/registration');
+      navigate('/login');
     }
   };
 

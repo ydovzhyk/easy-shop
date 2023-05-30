@@ -4,9 +4,8 @@
   position: fixed;
   top: 0;
   width: 100%;
-  border-bottom: 2px solid #461ca954;
-  background-color: #eee;
-  box-shadow: 0 1px 0 #fff;
+  background-color: var(--bg-footer-header);
+  z-index: 999;
 }
 
 .containerTop {
@@ -17,25 +16,16 @@
   padding: 20px;
   max-width: 1280px;
   margin: 0 auto;
-
-  // @include mixins.mq(desktop) {
-  //   justify-content: flex-start;
-  // }
 }
 
 .containerBottom {
   display: flex;
   flex-direction: row;
-  // justify-content: space-between;
   align-items: center;
   width: 100%;
   padding: 20px;
   max-width: 1280px;
   margin: 0 auto;
-
-  @include mixins.mq(desktop) {
-    // justify-content: flex-start;
-  }
 }
 
 .wrap {
@@ -70,7 +60,7 @@
   color: var(--second-text-color);
   display: inline-block;
   position: relative;
-  transition: all 0.3s ease-in-out;
+  transition: transform var(--transition-duration) var(--timing-function);
   margin-right: 15px;
 }
 
@@ -78,7 +68,7 @@
   color: var(--accent-color);
   display: inline-block;
   position: relative;
-  transition: all 0.3s ease-in-out;
+  transition: transform var(--transition-duration) var(--timing-function);
   margin-right: 15px;
 }
 
@@ -91,7 +81,7 @@
   left: 0;
   width: 0;
   height: 2px;
-  transition: all 0.3s ease-in-out;
+  transition: transform var(--transition-duration) var(--timing-function);
 }
 
 .link:hover {
@@ -116,21 +106,13 @@
   display: flex;
 }
 
-// .headerBoxForm {
-//   @include mixins.mq(desktop) {
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//   }
-// }
-
 .form {
   display: flex;
   justify-content: center;
   align-items: center;
   padding-left: 14px;
   padding-right: 14px;
-  border: 2px solid #c7ccdc;
+  border: 2px solid var(--border-color);
   border-radius: 8px;
   background-color: #fff;
 }
