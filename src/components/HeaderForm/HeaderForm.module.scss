@@ -1,0 +1,17 @@
+@use '../../styles/_mixins.scss';
+
+.form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 14px;
+  padding-right: 14px;
+  border: 2px solid #c7ccdc;
+  border-radius: 8px;
+  background-color: #fff;
+  width: 100%;
+
+  @include mixins.mq(desktop) {
+    width: 440px;
+  }
+}

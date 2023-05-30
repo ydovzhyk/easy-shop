@@ -1,3 +1,5 @@
+@use '../../../styles/mixins';
+
 .btnLight {
   width: 196px;
   height: 50px;
@@ -22,6 +24,43 @@
   font-weight: 500;
   font-size: 18px;
   line-height: 22px;
+}
+
+.burgerButton {
+  margin-right: 10px;
+}
+
+.languageButton {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  color: rgb(155, 159, 170);
+  &:hover,
+  &:focus {
+    color: #53c198;
+  }
+  @include mixins.mq(tablet) {
+    font-size: 16px;
+    font-weight: 500;
+  }
+}
+
+.searchBtn {
+  margin-right: 20px;
+  color: rgb(155, 159, 170);
+  &:hover,
+  &:focus {
+    color: #53c198;
+  }
+  @include mixins.mq(tablet) {
+    margin-right: 35px;
+  }
+}
+
+.searchFormBtn {
+  @extend .searchBtn;
+  background-color: transparent;
+  margin-right: 0;
 }
 
 .btnLight:hover {

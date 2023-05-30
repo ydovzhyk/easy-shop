@@ -30,3 +30,16 @@
     width: 240px;
   }
 }
+
+.headerLabel {
+  @extend .label;
+  margin-bottom: 0;
+}
+
+.headerSelect {
+  @extend .select;
+  margin-bottom: 0;
+  @include mixins.mq(desktop) {
+    width: 180px;
+  }
+}

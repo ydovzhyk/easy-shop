@@ -32,6 +32,23 @@
   }
 }
 
+.label.headerForm {
+  margin-bottom: 0;
+  height: auto;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  overflow: hidden;
+}
+
+.input.headerForm {
+  @extend .input;
+  margin-bottom: 0;
+  position: static;
+  height: auto;
+  border: none;
+  padding: 14px;
+}
+
 .span {
   position: absolute;
   top: 1px;
@@ -44,6 +61,13 @@
   pointer-events: none;
 }
 
+.span.headerForm {
+  margin-top: 0;
+  margin-left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .input:focus {
   outline: none;
   border-bottom: 1px solid var(--accent-color);
@@ -52,5 +76,16 @@
 
 .input:focus + span,
 .input:valid + span {
-  transform: translateX(-10px) translateY(-32px);
+  transform: translateY(-32px);
+}
+
+.input.headerForm:focus {
+  outline: none;
+  border-bottom: none;
+  background: #ffffff;
+}
+
+.input.headerForm:focus + span,
+.input.headerForm:valid + span {
+  transform: translateY(-42px);
 }

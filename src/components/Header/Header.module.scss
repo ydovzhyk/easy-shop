@@ -1,6 +1,8 @@
 @use '../../styles/_mixins.scss';
 
 .header {
+  position: fixed;
+  top: 0;
   width: 100%;
   border-bottom: 2px solid #461ca954;
   background-color: #eee;
@@ -16,9 +18,9 @@
   max-width: 1280px;
   margin: 0 auto;
 
-  @include mixins.mq(desktop) {
-    justify-content: flex-start;
-  }
+  // @include mixins.mq(desktop) {
+  //   justify-content: flex-start;
+  // }
 }
 
 .containerBottom {
@@ -98,4 +100,37 @@
 
 .link:hover::before {
   width: 100%;
+}
+
+.navTopContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.switchBtnBox {
+  text-align: center;
+}
+
+.btnWrapper {
+  display: flex;
+}
+
+// .headerBoxForm {
+//   @include mixins.mq(desktop) {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//   }
+// }
+
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 14px;
+  padding-right: 14px;
+  border: 2px solid #c7ccdc;
+  border-radius: 8px;
+  background-color: #fff;
 }

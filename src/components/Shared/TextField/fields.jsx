@@ -48,4 +48,10 @@ export const field = {
     placeholder: 'Опис товару*',
     required: true,
   },
+  productName: {
+    name: 'productName',
+    type: 'text',
+    placeholder: 'Я хочу купити...*',
+    required: true,
+  },
 };
