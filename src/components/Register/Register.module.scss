@@ -1,7 +1,7 @@
 @use '../../styles/mixins';
 
 .register {
-  position: relative;
+  // position: relative;
   padding-top: 80px;
   padding-bottom: 80px;
   background-image: url(../../images/register-login-page/bg-register.jpg);
@@ -79,7 +79,8 @@
 }
 
 .box {
-  position: absolute;
+  // position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

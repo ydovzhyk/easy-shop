@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom';
 
 import s from './Login.module.scss';
 
-import Container from 'components/Shared/Container';
+// import Container from 'components/Shared/Container';
 import TextField from 'components/Shared/TextField';
 import { field } from 'components/Shared/TextField/fields';
 import Button from 'components/Shared/Button';
@@ -37,10 +37,10 @@ const Login = () => {
   }
 
   return (
-    <section className={s.login}>
-      <Container>
-        <div className={s.box}>
-          <h2 className={s.title}>Вхід</h2>
+    // <section className={s.login}>
+      // <Container>
+        // <div className={s.box}>
+          // <h2 className={s.title}>Вхід</h2>
           <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
             <Controller
               control={control}
@@ -74,9 +74,9 @@ const Login = () => {
               <Button text="Ввійти" btnClass="btnLight" />
             </div>
           </form>
-        </div>
-      </Container>
-    </section>
+        // </div>
+      // </Container>
+    // </section>
   );
 };
 
