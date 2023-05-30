@@ -33,7 +33,6 @@ export const field = {
   price: {
     name: 'price',
     type: 'text',
-    placeholder: 'Ціна за одиницю*',
     required: true,
   },
   category: {
@@ -70,6 +69,17 @@ export const field = {
     name: 'brendName',
     type: 'text',
     placeholder: 'Наприклад: Calvin Klein',
+    required: true,
+  },
+  section: {
+    name: 'section',
+    type: 'text',
+    placeholder: 'Розділ*',
+    required: true,
+  },
+  quantity: {
+    name: 'quantity',
+    type: 'text',
     required: true,
   },
 };
