@@ -11,6 +11,7 @@ const RegisterPage = lazy(() => import('pages/RegisterPage'));
 const LoginPage = lazy(() => import('pages/LoginPage'));
 const BasketPage = lazy(() => import('pages/BasketPage'));
 const FavoritesPage = lazy(() => import('pages/FavoritesPage'));
+const AddProductPage = lazy(() => import('pages/AddProductPage'));
 
 const UserRoutes = () => {
   return (
@@ -25,6 +26,7 @@ const UserRoutes = () => {
         <Route element={<PrivateRoute />}>
           <Route path="/basket" element={<BasketPage />} />
           <Route path="/favorites" element={<FavoritesPage />} />
+          <Route path="/add-product" element={<AddProductPage />} />
         </Route>
 
         <Route path="*" element={<NotFoundPage />} />
