@@ -1,0 +1,81 @@
+@use '../../styles/mixins';
+
+.section {
+  margin-top: 150px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: 1px solid black;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent-color);
+  text-align: center;
+  margin-bottom: 60px;
+
+  @include mixins.mq(tablet) {
+    text-align: left;
+  }
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 60px;
+  & button:first-child {
+    margin-bottom: 20px;
+  }
+
+  @include mixins.mq(tablet) {
+    display: block;
+    & button:first-child {
+      margin-right: 32px;
+    }
+  }
+}
+
+.textarea {
+  margin-bottom: 20px;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--second-text-color);
+  border: 1px solid var(--border-color);
+}
+.textarea:focus {
+  outline: none;
+  border: 1px solid var(--icons-color);
+  background: transparent;
+}
+
+.textarea::placeholder {
+  font-size: 17px;
+  color: var(--second-text-color);
+}
+
+.blockOne {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.partBlock {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 49%;
+  border: 1px solid black;
+}
