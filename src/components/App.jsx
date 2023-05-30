@@ -9,6 +9,7 @@ import Footer from './Footer/Footer';
 import BottomNavigation from './BottomNavigation';
 import Loader from './Loader/Loader';
 import ErrorMessage from './Shared/ErrorMessage/ErrorMessage';
+import { useLocation } from 'react-router-dom';
 
 export const App = () => {
   const error = useSelector(getError);
@@ -17,6 +18,11 @@ export const App = () => {
   const dispatch = useDispatch();
   const [errMessage, setErrMessage] = useState('');
   const [isUserLoaded, setIsUserLoaded] = useState(false);
+  
+  const location = useLocation();
+  const headerFooterHidden =
+    location.pathname === '/login' ||
+    location.pathname === '/login/registration';
 
   useEffect(() => {
     if (sid) {
@@ -41,13 +47,13 @@ export const App = () => {
 
   return (
     <>
-      <Header />
+      {!headerFooterHidden && <Header />}
       <main>
         {errMessage !== '' && <ErrorMessage text={`${errMessage}`} />}
         <UserRoutes />
       </main>
-      {!isDesctop && <BottomNavigation />}
-      <Footer />
+      {!headerFooterHidden && !isDesctop && <BottomNavigation />}
+      {!headerFooterHidden && <Footer />}
     </>
   );
 };
