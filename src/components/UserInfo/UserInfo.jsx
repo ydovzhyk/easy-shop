@@ -28,7 +28,7 @@ const UserInfo = () => {
         <NavLink className={getClassName} to="/login">
           Вхід
         </NavLink>
-        <NavLink className={getClassName} to="/registration">
+        <NavLink className={getClassName} to="/login/registration">
           Реєстрація
         </NavLink>
       </div>
