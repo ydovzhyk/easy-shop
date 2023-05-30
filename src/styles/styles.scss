@@ -11,18 +11,17 @@
   --background-btn-main-color: #fbef35;
   --background-btn-second-color: #fff;
   --btn-text-color: #000;
-  --accent-color: #414141;
+  --btn-border-color: #3b3b3b;
+  // --accent-color: #414141;
   --text-color: #212121;
   --second-text-color: #414141;
   --title-text-color: #3b3b3b;
   --border-color: #e0e0e0;
   --icons-color: #3b3b3b;
   --bg-footer-header: #f5f5f5;
+  --transition-duration: 250ms;
+  --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-// --link-color: #000;
-// --bg-color: #fff;
-// --btn-border-color: #3b3b3b;
 
 body {
   font-family: 'Montserrat', sans-serif;

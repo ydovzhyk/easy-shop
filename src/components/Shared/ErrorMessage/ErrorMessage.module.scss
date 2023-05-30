@@ -10,16 +10,16 @@
   width: 300px;
   height: 330px;
   padding: 40px;
-  background: var(--background-btn-main-color);
+  background: #fff236;
   box-shadow: 10px 10px 30px rgba(82, 85, 95, 0.4);
   border-radius: 30px;
   z-index: 1200;
 }
 
 .title {
-  font-size: 16px;
+  font-size: 18px;
   margin-top: 15px;
-  color: var(--accent-color);
+  color: var(--icons-color);
 }
 
 .dismissButton {
@@ -96,7 +96,7 @@
   height: 92px;
   margin-left: auto;
   margin-right: auto;
-  border: 4px solid var(--accent-color);
+  border: 4px solid var(--text-color);
   border-bottom: 0;
   overflow: hidden;
   border-radius: 80px 80px 0 0;
@@ -108,7 +108,7 @@
     width: 7px;
     height: 7px;
     border-radius: 6px;
-    background-color: var(--accent-color);
+    background-color: var(--text-color);
     position: absolute;
     left: 50%;
     bottom: 28px;
@@ -120,7 +120,7 @@
       display: block;
       width: round(math.div(math.div(16px, 1.3333), 4));
       height: round(math.div(math.div(16px, 1.3333), 4));
-      background-color: var(--accent-color);
+      background-color: var(--text-color);
       border-radius: 50%;
       position: absolute;
       bottom: 16px + round(math.div(math.div(16px, 1.3333), 3));
@@ -149,25 +149,25 @@
   background-position: left bottom;
   background-image: linear-gradient(
       -45deg,
-      var(--background-color),
+      var(--main-color),
       math.div(16px, 2),
       transparent 0
     ),
     linear-gradient(
       45deg,
-      var(--background-color),
+      var(--main-color),
       math.div(16px, 2),
       transparent 0
     ),
     linear-gradient(
       -45deg,
-      var(--accent-color),
+      var(--icons-color),
       math.div(16px, 1.7),
       transparent 0
     ),
     linear-gradient(
       45deg,
-      var(--accent-color),
+      var(--icons-color),
       math.div(16px, 1.7),
       transparent 0
     );
@@ -176,7 +176,8 @@
 .shadow {
   width: 70px;
   height: 10px;
-  background-color: rgba(226, 228, 232, 0.75);
+  // background-color: rgba(226, 228, 232, 0.75);
+  background-color: var(--text-color);
   margin-top: 20px;
   margin-right: auto;
   margin-left: auto;
