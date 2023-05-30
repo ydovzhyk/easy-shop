@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { getID } from 'redux/auth/auth-selectors';
 import { useForm, Controller } from 'react-hook-form';
+import { useState } from 'react';
 
 import { field } from 'components/Shared/TextField/fields';
 import { addProduct } from 'redux/product/product-operations';
@@ -11,12 +12,14 @@ import TextField from 'components/Shared/TextField';
 import SelectField from 'components/Shared/SelectField/SelectField';
 import Button from 'components/Shared/Button';
 import FormInputFile from 'components/Shared/FormInputFile/FormInputFile';
+import categoryOptions from './category.json';
 
 import s from './AddProduct.module.scss';
 
 const AddProduct = () => {
   const dispatch = useDispatch();
   const userId = useSelector(getID);
+  const [sectionValue, setSectionValue] = useState('');
 
   const date = new Date();
   const today = `${date.getFullYear()}-${
@@ -25,13 +28,14 @@ const AddProduct = () => {
 
   const { control, register, handleSubmit, reset } = useForm({
     defaultValues: {
-      productName: '',
+      nameProduct: '',
       brendName: '',
       category: '',
       condition: '',
-      shopName: '',
+      section: '',
+      quantity: 1,
       description: '',
-      price: '',
+      price: 0,
       files: [],
     },
   });
@@ -42,8 +46,9 @@ const AddProduct = () => {
     dataForUpload.append('nameProduct', data.nameProduct);
     dataForUpload.append('brendName', data.brendName);
     dataForUpload.append('condition', data.condition.value);
+    dataForUpload.append('section', data.section.value);
     dataForUpload.append('category', data.category.value);
-    dataForUpload.append('shopName', data.shopName);
+    dataForUpload.append('quantity', data.quantity);
     dataForUpload.append('description', data.description);
     dataForUpload.append('price', data.price);
     dataForUpload.append('userId', userId);
@@ -137,6 +142,7 @@ const AddProduct = () => {
                     className="addProduct"
                     value={value}
                     control={control}
+                    name="brendName"
                     handleChange={onChange}
                     {...field.brendName}
                   />
@@ -147,6 +153,32 @@ const AddProduct = () => {
           <div className={s.blockOne}>
             <div className={s.partBlock}>
               <Text text={'Виберіть розділ'} textClass="title" />
+              <Controller
+                control={control}
+                name="section"
+                rules={{
+                  required: true,
+                }}
+                render={({ field: { onChange, value } }) => (
+                  <SelectField
+                    value={value}
+                    handleChange={selectedValue => {
+                      onChange(selectedValue);
+                      setSectionValue(selectedValue);
+                    }}
+                    className="addProduct"
+                    name="section"
+                    {...field.section}
+                    required={true}
+                    options={[
+                      'Жінкам',
+                      'Чоловікам',
+                      'Дитячі товари',
+                      "Краса та здоров'я",
+                    ]}
+                  />
+                )}
+              />
             </div>
             <div className={s.partBlock}>
               <Text text={'Виберіть категорію'} textClass="title" />
@@ -156,53 +188,82 @@ const AddProduct = () => {
                 rules={{
                   required: true,
                 }}
-                render={({ field: { onChange, value } }) => (
-                  <SelectField
-                    value={value}
-                    handleChange={onChange}
-                    name="category"
-                    {...field.category}
-                    required={true}
-                    options={['Жінкам', 'Чоловікам', 'Дитячі речі']}
-                  />
-                )}
+                render={({ field: { onChange, value } }) => {
+                  const options =
+                    typeof sectionValue === 'object' && sectionValue?.value
+                      ? categoryOptions[sectionValue.value] || []
+                      : [];
+                  return (
+                    <SelectField
+                      value={value}
+                      handleChange={onChange}
+                      className="addProduct"
+                      name="category"
+                      {...field.category}
+                      required={true}
+                      options={options}
+                    />
+                  );
+                }}
               />
             </div>
           </div>
-
-          <Controller
-            control={control}
-            name="shopName"
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, value } }) => (
-              <TextField
-                value={value}
-                control={control}
-                handleChange={onChange}
-                {...field.shopName}
-              />
-            )}
-          />
-          <Controller
-            control={control}
-            name="price"
-            rules={{
-              required: true,
-              pattern: /^[0-9]+$/,
-            }}
-            render={({ field }) => (
-              <TextField
-                value={field.value}
-                control={control}
-                handleChange={field.onChange}
-                name="price"
-                placeholder="Ціна за одиницю*"
-                required={true}
-              />
-            )}
-          />
+          <div className={s.blockOne}>
+            <div className={s.partBlock}>
+              <Text text={'Наявність'} textClass="title" />
+              <div className={s.partBoxOneGroup}>
+                <Text text={'Кількість*'} textClass="after-title" />
+                <div className={s.partBoxOneAfter}>
+                  <Controller
+                    control={control}
+                    name="quantity"
+                    rules={{
+                      required: true,
+                      pattern: /^[0-9]+$/,
+                    }}
+                    render={({ field: { onChange, value } }) => (
+                      <TextField
+                        value={value}
+                        control={control}
+                        name="quantity"
+                        handleChange={onChange}
+                        className="addProduct"
+                        {...field.quantity}
+                      />
+                    )}
+                  />
+                  <Text text={'шт.'} textClass="after-title-before" />
+                </div>
+              </div>
+            </div>
+            <div className={s.partBlock}>
+              <Text text={'Умови продажу'} textClass="title" />
+              <div className={s.partBoxOneGroup}>
+                <Text text={'Ціна*'} textClass="after-title" />
+                <div className={s.partBoxOneAfter}>
+                  <Controller
+                    control={control}
+                    name="price"
+                    rules={{
+                      required: true,
+                      pattern: /^[0-9]+$/,
+                    }}
+                    render={({ field: { onChange, value } }) => (
+                      <TextField
+                        value={value}
+                        control={control}
+                        name="price"
+                        handleChange={onChange}
+                        className="addProduct"
+                        {...field.price}
+                      />
+                    )}
+                  />
+                  <Text text={'грн.'} textClass="after-title-before" />
+                </div>
+              </div>
+            </div>
+          </div>
           <div className={s.imgForm}>
             <FormInputFile
               name="files"
