@@ -55,7 +55,9 @@ const AuthWrapper = () => {
           {/* {location.pathname === '/registration' && <Register />} */}
           {/* {location.pathname === '/login' && <Login />} */}
           <Outlet />
-          <Link to="/">Повернутися на головну</Link>
+          <Link className={s.linkHome} to="/">
+            Повернутися на головну
+          </Link>
         </div>
       </Container>
     </section>

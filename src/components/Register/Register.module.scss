@@ -58,7 +58,7 @@
   @include mixins.mq(tablet) {
     display: block;
     margin: auto;
-    margin-top: 50px;
+    margin-top: 20px;
     & button:first-child {
       margin-right: 32px;
     }

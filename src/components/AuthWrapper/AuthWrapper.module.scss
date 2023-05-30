@@ -133,3 +133,13 @@
     margin-bottom: 36px;
   }
 }
+
+.linkHome {
+    display: inline-block;
+    margin: auto;
+    text-decoration: underline;
+    font-size: 14px;
+    margin-top: 16px;
+    padding-right: 28px;
+    color: var(--second-text-color);
+}
