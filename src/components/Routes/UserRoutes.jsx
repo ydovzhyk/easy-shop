@@ -9,8 +9,6 @@ import Login from 'components/Login/Login';
 
 const HomePage = lazy(() => import('pages/HomePage'));
 const NotFoundPage = lazy(() => import('pages/NotFoundPage'));
-// const RegisterPage = lazy(() => import('pages/RegisterPage'));
-// const LoginPage = lazy(() => import('pages/LoginPage'));
 const BasketPage = lazy(() => import('pages/BasketPage'));
 const FavoritesPage = lazy(() => import('pages/FavoritesPage'));
 const AddProductPage = lazy(() => import('pages/AddProductPage'));
@@ -23,8 +21,6 @@ const UserRoutes = () => {
         <Route element={<PublicRoute />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/easy-shop-test" element={<HomePage />} />
-          {/* <Route path="/registration" element={<RegisterPage />} /> */}
-          {/* <Route path="/login" element={<LoginPage />} /> */}
           <Route path="/login" element={<AuthPage />}>
             <Route index element={<Login />} />
             <Route path="registration" element={<Register />} />

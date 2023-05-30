@@ -5,20 +5,11 @@
   padding-bottom: 80px;
   background-image: url(../../images/register-login-page/bg-register.jpg);
   background-size: cover;
-//   height: calc(100vh - 80px);
   height: 100vh;
 
   @include mixins.mq(tablet) {
-    // height: calc(100vh - 90px);
     background-repeat: no-repeat;
   }
-
-  @include mixins.mq(desktop) {
-    // padding-top: 160px;
-    // height: auto;
-    // background-image: none;
-  }
-  
 }
 
 .box {
@@ -64,11 +55,9 @@
   text-transform: uppercase;
   color: var(--title-text-color);
   text-align: center;
-//   margin-bottom: 40px;
 
   @include mixins.mq(tablet) {
     text-align: left;
-    // margin-bottom: 60px;
   }
 }
 
@@ -115,7 +104,6 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 16px;
-//   text-align: center;
   letter-spacing: 0.02em;
   color: var(--text-color);
   transition: transform 0.2s ease-in-out;

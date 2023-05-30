@@ -18,7 +18,6 @@ const AuthWrapper = () => {
   const newUserId = useSelector(getNewUserId);
 
   const location = useLocation();
-  console.log(location);
   const googleText =
     location.pathname === '/login'
       ? 'Увійти швидко з Google'
@@ -52,8 +51,6 @@ const AuthWrapper = () => {
             <FcGoogle size={24} />
             Google
           </a>
-          {/* {location.pathname === '/registration' && <Register />} */}
-          {/* {location.pathname === '/login' && <Login />} */}
           <Outlet />
           <Link className={s.linkHome} to="/">
             Повернутися на головну
