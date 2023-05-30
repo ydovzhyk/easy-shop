@@ -13,6 +13,7 @@ const NotFoundPage = lazy(() => import('pages/NotFoundPage'));
 // const LoginPage = lazy(() => import('pages/LoginPage'));
 const BasketPage = lazy(() => import('pages/BasketPage'));
 const FavoritesPage = lazy(() => import('pages/FavoritesPage'));
+const AddProductPage = lazy(() => import('pages/AddProductPage'));
 const AuthPage = lazy(() => import('pages/AuthPage'));
 
 const UserRoutes = () => {
@@ -32,6 +33,7 @@ const UserRoutes = () => {
         <Route element={<PrivateRoute />}>
           <Route path="/basket" element={<BasketPage />} />
           <Route path="/favorites" element={<FavoritesPage />} />
+          <Route path="/add-product" element={<AddProductPage />} />
         </Route>
 
         <Route path="*" element={<NotFoundPage />} />

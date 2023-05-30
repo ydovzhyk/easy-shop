@@ -18,14 +18,16 @@ const SelectField = ({
   placeholder,
   required,
   options,
-  classLabel = 'label',
-  classSelect = 'select',
+  className,
 }) => {
+  const labelClass = className ? `${s.label} ${s[className]}` : `${s.label}`;
+  const selectClass = className ? `${s.select} ${s[className]}` : `${s.select}`;
+
   return (
-    <label className={s[classLabel]}>
+    <label className={labelClass}>
       <Select
         classNamePrefix="custom-select"
-        className={s[classSelect]}
+        className={selectClass}
         name={name}
         value={value}
         onChange={handleChange}

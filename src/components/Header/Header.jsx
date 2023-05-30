@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
@@ -20,6 +20,7 @@ const Header = () => {
   const isDesctop = useMediaQuery({ minWidth: 1280 });
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const location = useLocation();
+  const navigate = useNavigate();
   const getClassName = ({ isActive }) => {
     return isActive ? `${s.link} ${s.active}` : s.link;
   };
@@ -27,6 +28,14 @@ const Header = () => {
 
   const handleSearchBtnClick = () => {
     setShowForm(!showForm);
+  };
+
+  const handleAddProduct = () => {
+    if (isLogin) {
+      navigate('/add-product');
+    } else {
+      navigate('/registration');
+    }
   };
 
   return (
@@ -76,7 +85,11 @@ const Header = () => {
           <>
             <Logo />
             <HeaderForm />
-            <Button text="Додати товар" btnClass="btnLight" />
+            <Button
+              text="Додати товар"
+              btnClass="btnDark"
+              handleClick={handleAddProduct}
+            />
             <div className={s.switchBtnBox}>
               <LanguageChanger />
               <SwitchBtn />
