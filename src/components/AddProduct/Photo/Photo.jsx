@@ -92,7 +92,7 @@ const Photo = ({ register }) => {
                 onChange={handleAdditionalFilesUpload}
                 multiple={true}
                 single={false}
-                label="Інші фотографії"
+                label="Інші"
               />
             </div>
           )}
