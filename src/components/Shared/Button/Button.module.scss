@@ -3,21 +3,23 @@
 .btnLight {
   width: 196px;
   height: 50px;
-  background: var(--background-btn-main-color);
+  background-color: var(--background-btn-main-color);
   // box-shadow: 0px 3.43693px 3.43693px rgba(0, 0, 0, 0.25);
-  border: solid 1px var(--background-btn-main-color);
+  border: solid 1px var(--btn-border-color);
   color: var(--btn-text-color);
   border-radius: 10.3108px;
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
   line-height: 22px;
+  transition: background-color var(--transition-duration) var(--timing-function),
+    color var(--transition-duration) var(--timing-function);
 }
 
 .btnDark {
   width: 196px;
   height: 50px;
-  background: var(--background-btn-second-color);
+  background-color: var(--background-btn-second-color);
   // box-shadow: 0px 3.43693px 3.43693px rgba(0, 0, 0, 0.25);
   border: solid 2px var(--btn-border-color);
   color: var(--second-text-color);
@@ -25,20 +27,34 @@
   font-weight: 500;
   font-size: 18px;
   line-height: 22px;
+  transition: background-color var(--transition-duration) var(--timing-function),
+    color var(--transition-duration) var(--timing-function);
 }
 
 .burgerButton {
   margin-right: 10px;
+  background-color: transparent;
+  color: var(--icons-color);
+  transition: transform var(--transition-duration) var(--timing-function),
+    color var(--transition-duration) var(--timing-function);
+
+  &:hover,
+  &:focus {
+    transform: scale(0.9);
+    color: var(--hover-active-color);
+  }
 }
 
 .languageButton {
   font-family: inherit;
   font-size: 14px;
   font-weight: 400;
-  color: rgb(155, 159, 170);
+  background-color: transparent;
+  color: var(--icons-color);
+  transition: color var(--transition-duration) var(--timing-function);
   &:hover,
   &:focus {
-    color: #53c198;
+    color: var(--hover-active-color);
   }
   @include mixins.mq(tablet) {
     font-size: 16px;
@@ -48,10 +64,13 @@
 
 .searchBtn {
   margin-right: 20px;
-  color: rgb(155, 159, 170);
+  color: var(--icons-color);
+  transition: color var(--transition-duration) var(--timing-function),
+    transform var(--transition-duration) var(--timing-function);
   &:hover,
   &:focus {
-    color: #53c198;
+    color: var(--hover-active-color);
+    transform: scale(0.8);
   }
   @include mixins.mq(tablet) {
     margin-right: 35px;
@@ -65,11 +84,11 @@
 }
 
 .btnLight:hover {
-  background: #f5f5f5;
-  border-color: #f5f5f5;
+  background-color: #f5f5f5;
+  border-color: var(--btn-border-color);
 }
 
 .btnDark:hover {
-  background: #f5f5f5;
+  background-color: #f5f5f5;
   color: var(--btn-text-color);
 }

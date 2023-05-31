@@ -6,12 +6,17 @@
   align-items: center;
   padding-left: 14px;
   padding-right: 14px;
-  border: 2px solid #c7ccdc;
+  border: 2px solid var(--border-color);
   border-radius: 8px;
-  background-color: #fff;
+  background-color: var(--background-color);
   width: 100%;
+  transition: background-color var(--transition-duration) var(--timing-function);
 
   @include mixins.mq(desktop) {
     width: 440px;
   }
+}
+
+.form:focus-within {
+  background-color: var(--background-btn-second-color);
 }
