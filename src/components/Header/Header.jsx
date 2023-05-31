@@ -34,7 +34,7 @@ const Header = () => {
     if (isLogin) {
       navigate('/add-product');
     } else {
-      navigate('/registration');
+      navigate('/login');
     }
   };
 
@@ -87,7 +87,7 @@ const Header = () => {
             <HeaderForm />
             <Button
               text="Додати товар"
-              btnClass="btnDark"
+              btnClass="btnLight"
               handleClick={handleAddProduct}
             />
             <div className={s.switchBtnBox}>

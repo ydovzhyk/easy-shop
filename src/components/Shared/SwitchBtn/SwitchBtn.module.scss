@@ -3,29 +3,29 @@
   width: 34px;
   height: 19px;
   border-radius: 75px;
-  background: #bfbfbf;
+  background-color: var(--accent-color);
   z-index: 0;
   margin: 0;
   padding: 0;
   border: none;
   cursor: pointer;
   position: relative;
-  transition-duration: 300ms;
+  transition-duration: var(--transition-duration);
 }
 .switchBtn::after {
   content: '';
   height: 13px;
   width: 13px;
   border-radius: 17px;
-  background: #fff;
+  background-color: var(--main-color);
   top: 3px;
   left: 3px;
-  transition-duration: 300ms;
+  transition-duration: var(--transition-duration);
   position: absolute;
   z-index: 1;
 }
 .switchOn {
-  background: #53c198;
+  background-color: var(--btn-text-color);
 }
 .switchOn::after {
   left: 18px;

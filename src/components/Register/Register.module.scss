@@ -1,42 +1,5 @@
 @use '../../styles/mixins';
 
-.register {
-  position: relative;
-  padding-top: 80px;
-  padding-bottom: 80px;
-  background-image: url(../../images/register-login-page/bg-register.jpg);
-  background-size: cover;
-  height: calc(100vh - 80px);
-
-  @include mixins.mq(tablet) {
-    height: calc(100vh - 90px);
-    background-repeat: no-repeat;
-  }
-
-  @include mixins.mq(desktop) {
-    // padding-top: 160px;
-    // height: auto;
-    // background-image: none;
-  }
-  
-}
-
-.title {
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 13px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--title-text-color);
-  text-align: center;
-  margin-bottom: 40px;
-
-  @include mixins.mq(tablet) {
-    text-align: left;
-    margin-bottom: 60px;
-  }
-}
-
 .form {
   display: flex;
   justify-content: center;
@@ -58,7 +21,7 @@
   @include mixins.mq(tablet) {
     display: block;
     margin: auto;
-    margin-top: 50px;
+    margin-top: 20px;
     & button:first-child {
       margin-right: 32px;
     }
@@ -75,29 +38,5 @@
     right: 0;
     width: 1280px;
     z-index: -1;
-  }
-}
-
-.box {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 30px 20px;
-  margin: 0 auto;
-  background: var(--main-color);
-  box-shadow: 10px 10px 30px rgba(82, 85, 95, 0.4);
-  border-radius: 30px;
-  z-index: 1200;
-  @include mixins.mq(tablet) {
-    padding: 40px;
-    width: 460px;
-  }
-
-  @include mixins.mq(desktop) {
-    width: 460px;
   }
 }

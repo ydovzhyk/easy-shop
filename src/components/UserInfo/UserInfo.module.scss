@@ -1,16 +1,16 @@
 @use '../../styles/mixins';
 
 .link {
-  color: #9b9faa;
+  color: var(--icons-color);
   background-size: 200% 100%;
   background-position: -100%;
   display: inline-block;
   position: relative;
-  transition: all 0.3s ease-in-out;
+  transition: all var(--transition-duration) var(--timing-function);
 }
 
 .active {
-  color: #212121;
+  color: var(--hover-active-color);
 }
 
 .userInfoSide {
@@ -68,14 +68,14 @@
 
 .link:before {
   content: '';
-  background: #9b9faa;
+  background-color: var(--btn-border-color);
   display: block;
   position: absolute;
   bottom: -3px;
   left: 0;
   width: 0;
   height: 2px;
-  transition: all 0.3s ease-in-out;
+  transition: all var(--transition-duration) var(--timing-function);
 }
 
 .link:hover {
