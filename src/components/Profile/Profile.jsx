@@ -6,7 +6,8 @@ import Container from 'components/Shared/Container';
 import Avatar from 'components/Profile/Avatar';
 import Value from './Value';
 import ProfileDetails from './ProfileDetails';
-import { Suspense} from "react";
+import { Suspense } from "react";
+import DaysValue from "./DaysValue";
 
 import s from './Profile.module.scss';
 
@@ -60,8 +61,12 @@ const Profile = () => {
               <div className={s.partwrapper}>
                 <BsCheck2 className={s.iconBefore} />
                 <p className={s.text}>
-                  На Easy shop <Value className={s.leftvalue}></Value>дні
+                  На Easy shop 
                 </p>
+                <DaysValue
+                    value = {58}
+                    className={`${s.rightvalue} ${s.text}`}
+                  />
               </div>
               <div className={s.profileinfo}>
                 <div className={s.partwrapper}>
@@ -91,28 +96,22 @@ const Profile = () => {
         <Container>
           <ul className={s.list}>
             <li className={s.item}>
-              <ProfileDetails
-                className={s.navlink}
-                
+              <ProfileDetails                
                 to='mythings'
               >Мої речі</ProfileDetails>
-              
             </li>
             <li className={s.item}>
               <ProfileDetails
-                className={s.navlink}
                 to='mywares'
               >Мої товари</ProfileDetails>
             </li>
             <li className={s.item}>
               <ProfileDetails
-                className={s.navlink}
                 to='myshoppings'
               >Мої покупки</ProfileDetails>
             </li>
             <li className={s.item}>
               <ProfileDetails
-                className={s.navlink}
                 to='myreviews'
               >Мої відгуки</ProfileDetails>
             </li>
