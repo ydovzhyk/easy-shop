@@ -40,8 +40,6 @@
 .label.headerForm {
   margin-bottom: 0;
   height: auto;
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
   overflow: hidden;
 }
 
@@ -52,6 +50,7 @@
   height: auto;
   border: none;
   padding: 14px;
+  background-color: transparent;
 }
 
 .span {
@@ -90,7 +89,7 @@
 .input.headerForm:focus {
   outline: none;
   border-bottom: none;
-  background: #ffffff;
+  background: transparent;
 }
 
 .input.headerForm:focus + span,
