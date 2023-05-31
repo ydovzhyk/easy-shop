@@ -1,54 +1,28 @@
 @use '../../styles/mixins';
 
-.login {
-  padding-top: 120px;
-
-  @include mixins.mq(tablet) {
-    padding-top: 240px;
-    height: 100vh;
-    background-repeat: no-repeat;
-    background-position: right 0 bottom 0;
-  }
-
-  @include mixins.mq(desktop) {
-    padding-top: 160px;
-    height: auto;
-    background-image: none;
-  }
-}
-
-.title {
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 13px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--accent-color);
-  text-align: center;
-  margin-bottom: 60px;
-
-  @include mixins.mq(tablet) {
-    text-align: left;
-  }
-}
-
 .form {
   display: flex;
   justify-content: center;
   flex-direction: column;
+  width: 240px;
+  @include mixins.mq(tablet) {
+    width: 320px;
+  }
 }
 .wrap {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: 60px;
+  
   & button:first-child {
     margin-bottom: 20px;
   }
 
   @include mixins.mq(tablet) {
     display: block;
+    margin: auto;
+    margin-top: 20px;
     & button:first-child {
       margin-right: 32px;
     }

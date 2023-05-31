@@ -8,7 +8,6 @@ import s from './Register.module.scss';
 import { field } from 'components/Shared/TextField/fields';
 import TextField from 'components/Shared/TextField';
 import Button from 'components/Shared/Button';
-import Container from 'components/Shared/Container';
 
 import { getError, getNewUserId } from 'redux/auth/auth-selectors';
 
@@ -38,57 +37,52 @@ const Register = () => {
   }
 
   return (
-    <section className={s.register}>
-      <Container>
-        <h2 className={s.title}>Реєстрація</h2>
-        <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
-          <Controller
+    <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
+      <Controller
+        control={control}
+        name="username"
+        rules={{ required: true, maxLength: 16 }}
+        render={({ field: { onChange, value } }) => (
+          <TextField
+            value={value}
             control={control}
-            name="username"
-            rules={{ required: true, maxLength: 16 }}
-            render={({ field: { onChange, value } }) => (
-              <TextField
-                value={value}
-                control={control}
-                handleChange={onChange}
-                {...field.name}
-              />
-            )}
+            handleChange={onChange}
+            {...field.user}
           />
-          <Controller
+        )}
+      />
+      <Controller
+        control={control}
+        name="email"
+        rules={{
+          required: true,
+        }}
+        render={({ field: { onChange, value } }) => (
+          <TextField
+            value={value}
             control={control}
-            name="email"
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, value } }) => (
-              <TextField
-                value={value}
-                control={control}
-                handleChange={onChange}
-                {...field.email}
-              />
-            )}
+            handleChange={onChange}
+            {...field.email}
           />
-          <Controller
+        )}
+      />
+      <Controller
+        control={control}
+        name="password"
+        rules={{ required: true, minLength: 8, maxLength: 30 }}
+        render={({ field: { onChange, value } }) => (
+          <TextField
+            value={value}
             control={control}
-            name="password"
-            rules={{ required: true, minLength: 8, maxLength: 30 }}
-            render={({ field: { onChange, value } }) => (
-              <TextField
-                value={value}
-                control={control}
-                handleChange={onChange}
-                {...field.password}
-              />
-            )}
+            handleChange={onChange}
+            {...field.password}
           />
-          <div className={s.wrap}>
-            <Button text="Реєстрація" btnClass="btnLight" />
-          </div>
-        </form>
-      </Container>
-    </section>
+        )}
+      />
+      <div className={s.wrap}>
+        <Button text="Реєстрація" btnClass="btnLight" />
+      </div>
+    </form>
   );
 };
 

@@ -24,16 +24,27 @@ export const field = {
     name: 'filter',
     placeholder: 'Select filter value',
   },
+  productName: {
+    name: 'productName',
+    type: 'text',
+    placeholder: 'Я хочу купити...*',
+    required: true,
+  },
   price: {
     name: 'price',
     type: 'text',
-    placeholder: 'Ціна за одиницю*',
     required: true,
   },
   category: {
     name: 'category',
     type: 'text',
     placeholder: 'Категорія*',
+    required: true,
+  },
+  condition: {
+    name: 'condition',
+    type: 'text',
+    placeholder: 'Виберіть стан вашої речі*',
     required: true,
   },
   shopName: {
@@ -45,7 +56,30 @@ export const field = {
   description: {
     name: 'description',
     type: 'text',
-    placeholder: 'Опис товару*',
+    placeholder: 'Наприклад: Дуже стильна річ, стан нової...',
+    required: true,
+  },
+  nameProduct: {
+    name: 'nameProduct',
+    type: 'text',
+    placeholder: 'Наприклад: Джинси Calvin Klein',
+    required: true,
+  },
+  brendName: {
+    name: 'brendName',
+    type: 'text',
+    placeholder: 'Наприклад: Calvin Klein',
+    required: true,
+  },
+  section: {
+    name: 'section',
+    type: 'text',
+    placeholder: 'Розділ*',
+    required: true,
+  },
+  quantity: {
+    name: 'quantity',
+    type: 'text',
     required: true,
   },
 };

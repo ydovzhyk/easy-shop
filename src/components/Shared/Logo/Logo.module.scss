@@ -1,3 +1,15 @@
-.logoBackground {
-    margin-top: 1px;
+@use '../../../styles/mixins';
+
+.logo {
+  margin-top: 1px;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 30px;
+
+  @include mixins.mq(tablet) {
+    font-size: 36px;
+  }
+
+  @include mixins.mq(desktop) {
+    font-size: 40px;
+  }
 }

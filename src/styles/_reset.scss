@@ -87,6 +87,7 @@ section,
 summary,
 time,
 mark,
+button,
 audio,
 video {
   margin: 0;
@@ -139,4 +140,11 @@ button {
 
 a {
   text-decoration: none;
+  color: #000;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }

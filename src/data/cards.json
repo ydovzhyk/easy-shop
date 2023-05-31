@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "photo": "/images/krosivku.jpg",
+    "price": 1599,
+    "like": 1,
+    "description": "Стильні кросівки чорного кольору",
+    "size": [36, 37, 38, 39, 40, 41]
+  },
+  {
+    "id": 2,
+    "photo": "/images/zakolka.jpg",
+    "price": 149,
+    "like": 5,
+    "description": "Заколка шпилька краб крабик на волосся на зачіску стильний модний новий",
+    "size": "One size"
+  },
+  {
+    "id": 3,
+    "photo": "/images/parka.jpg",
+    "price": 3400,
+    "like": 3,
+    "description": "Ультралегка пухова парка з капюшоном uniqlo ультралайт пуховик куртка",
+    "size": "36/S/44"
+  },
+  {
+    "id": 4,
+    "photo": "/images/trysuku.jpg",
+    "price": 25,
+    "like": 2,
+    "description": "Трусики дитячі",
+    "size": ["8/128", "11/146"]
+  },
+  {
+    "id": 5,
+    "photo": "/images/sorochka.png",
+    "price": 799,
+    "like": 10,
+    "description": "Біла сорочка old navy ( gap) у квіточку, slim fit!",
+    "size": "38/M/46"
+  }
+]

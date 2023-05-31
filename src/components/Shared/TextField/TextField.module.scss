@@ -3,17 +3,21 @@
 .label {
   position: relative;
   display: inline-block;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   height: 48px;
+  width: 100%;
+  @include mixins.mq(tablet) {
+    margin-bottom: 40px;
+  }
 }
 .input {
   position: absolute;
   top: 0;
   left: 0;
   display: inline-block;
-  margin-bottom: 40px;
+  margin-bottom: 25px;
   width: 100%;
-  height: 48px;
+  height: 40px;
   font-weight: 400;
   line-height: 1.5;
   color: var(--second-text-color);
@@ -22,17 +26,113 @@
   border-left-color: transparent;
   border-right-color: transparent;
   border-top-color: transparent;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid #b9b9b9;
   letter-spacing: 1px;
   -webkit-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   @include mixins.mq(tablet) {
-    width: 240px;
+    margin-bottom: 40px;
+    height: 48px;
   }
 }
 
+.label.headerForm {
+  margin-bottom: 0;
+  height: auto;
+  overflow: hidden;
+}
+
+.input.headerForm {
+  @extend .input;
+  margin-bottom: 0;
+  position: static;
+  height: auto;
+  border: none;
+  padding: 14px;
+  background-color: transparent;
+}
+
 .span {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  display: inline-block;
+  margin-top: 17px;
+  font-size: 14px;
+  color: var(--second-text-color);
+  transition: 0.25s;
+  pointer-events: none;
+  @include mixins.mq(tablet) {
+    font-size: 16px;
+  }
+}
+
+.span.headerForm {
+  margin-top: 0;
+  margin-left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.input:focus {
+  outline: none;
+  border-bottom: 1px solid var(--accent-color);
+  background: transparent;
+}
+
+.input:focus + span,
+.input:valid + span {
+  transform: translateY(-32px);
+}
+
+.input.headerForm:focus {
+  outline: none;
+  border-bottom: none;
+  background: transparent;
+}
+
+.input.headerForm:focus + span,
+.input.headerForm:valid + span {
+  transform: translateY(-42px);
+}
+
+.label.addProduct {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 5px;
+  height: 48px;
+}
+
+.label.addProduct {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 20px;
+  height: 48px;
+}
+
+.input.addProduct {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-left: 10px;
+  display: inline-block;
+  margin-bottom: 10px;
+  width: 100%;
+  height: 48px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--second-text-color);
+  box-shadow: none;
+  border-radius: 0;
+  border: 1px solid var(--border-color);
+  letter-spacing: 1px;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.span.addProduct {
   position: absolute;
   top: 1px;
   left: 1px;
@@ -44,13 +144,13 @@
   pointer-events: none;
 }
 
-.input:focus {
-  outline: none;
-  border-bottom: 1px solid var(--accent-color);
-  background: transparent;
+.input:focus + span.addProduct,
+.input:valid + span.addProduct {
+  opacity: 0;
 }
 
-.input:focus + span,
-.input:valid + span {
-  transform: translateX(-10px) translateY(-32px);
+.input.addProduct:focus {
+  outline: none;
+  border: 1px solid var(--icons-color);
+  background: transparent;
 }

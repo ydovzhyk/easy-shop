@@ -1,0 +1,27 @@
+@use '../../../styles/mixins';
+
+.photoPart {
+  display: flex;
+  flex-direction: row;
+}
+
+.imageCard {
+  width: 220px;
+  height: 285px;
+  border: 1px dashed black;
+  background-size: cover;
+  background-position: center;
+}
+
+.imageCard {
+  width: 220px;
+  height: 285px;
+  border: 1px dashed black;
+  background-size: cover;
+  background-position: center;
+}
+
+.additionalImages {
+  display: flex;
+  flex-direction: row;
+}
