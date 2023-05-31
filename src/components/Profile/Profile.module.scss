@@ -5,8 +5,6 @@ background-color: #eee;
 }
 
 .profile {
-  // padding-top: 30px;
-
   @include mixins.mq(tablet) {
     height: 100vh;
   }
@@ -17,34 +15,39 @@ background-color: #eee;
 }
 
 .profileavatar{
-  background-color: var(--background-color);
+  background-color: var(--bg-footer-header);
+  padding-top: 165px;
+  padding-bottom: 16px;
 }
 
-.profilewrapper{
-  padding: 16px 0;
+.profilewrapper{  
   display: flex;
-    // flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
+  align-items: flex-start;
+  gap: 16px;
 }
 .avatarframe{
   display: flex;
   flex-direction: column;
   gap: 4px;
   align-items: center;
-  // border: 1px solid grey;
 }
 .avatar {
   width: 72px;
-  height: 72px;
   border: 1px solid grey;
   border-radius: 50%;
   text-align: center;
   vertical-align: middle;
+  @include mixins.mq(tablet){
+    width: 144px;
+      height: 144px;
+  }
   }
 
 .photo{
   border-radius: 50%;
+  @include mixins.mq(tablet){
+    width: 144px;
+  }
 }
 
 .userframe{
@@ -62,7 +65,7 @@ background-color: #eee;
 .username{
   font-size: 18px;
   font-weight: 500;
-color: var(--accent-color);
+color: var(--text-color);
 }
 
 .ratingbox{
@@ -76,14 +79,14 @@ color: var(--accent-color);
   gap: 2px;
 }
 .icon{
-  fill: var(--background-btn-main-color);
+  fill: var(--empty-color);
 }
 
 .valuation{
   display: flex;
   font-size: 14px;
   font-weight: 500;
-  color: var(--background-btn-main-color);
+  color: var(--empty-color);
 }
 
 .leftvalue{
@@ -100,20 +103,19 @@ color: var(--accent-color);
 
 .text{
 font-size: 14px;
-color: var(--accent-color)
+color: var(--text-color)
 }
 
 .profileinfo{
   display: flex;
   flex-direction: column;
   gap: 12px;
-  color:var(--accent-color);
+  color:var(--text-color);
   @include mixins.mq(mobile){
     flex-direction:row;
     flex-wrap: wrap;
   }
 }
-
 
 .iconBefore{
   margin-right: 8px;
@@ -131,34 +133,27 @@ color: var(--accent-color)
       flex-direction: row;
       flex-wrap: wrap;
     }
-  
 }
 
 .item{
   display: block;
-  // flex-grow: 1;
   width: 100%;
-  // border: 1px solid grey;
   border-radius: 8px;
   @include mixins.mq(mobile){
     flex-basis: calc(100% / 2 - 10px);
   }
-
-    @include mixins.mq(tablet) {
-      flex-basis: calc(100% / 4 - 10px);
-    }
+  @include mixins.mq(tablet) {
+    flex-basis: calc(100% / 4 - 10px);
+  }
 }
 .navlink {
-  // width: 100%;
   display:flex;
-  // flex-grow: 1;
   align-items: center;
   justify-content: center;
   font-size: 14px;
   text-align: center;
-  font-weight: 500;
+  font-weight: 600;
   padding: 10px 16px;
   border-radius: 8px;
-  // background-color: #eee;
 }
 
