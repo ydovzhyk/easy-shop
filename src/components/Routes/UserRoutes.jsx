@@ -39,8 +39,9 @@ const UserRoutes = () => {
             <Route path="mythings" element={<MyThings />} />
             <Route path="mywares" element={<MyWares />} />
             <Route path="myshoppings" element={<MyShoppings />} />
-            <Route path="myreviews" element={<MyReviews/> } />
+            <Route path="myreviews" element={<MyReviews />} />
           </Route>
+        </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Suspense>
