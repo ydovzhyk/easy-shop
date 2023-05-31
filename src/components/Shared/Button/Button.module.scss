@@ -66,6 +66,7 @@
 .searchBtn {
   margin-right: 20px;
   color: var(--icons-color);
+  background-color: transparent;
   transition: color var(--transition-duration) var(--timing-function),
     transform var(--transition-duration) var(--timing-function);
   &:hover,
