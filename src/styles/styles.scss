@@ -22,6 +22,8 @@
   --transition-duration: 300ms;
   --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   --hover-active-color: #212121;
+  --hover-text-shadow: 0 5px 10px var(--text-color),
+    0 30px 50px var(--accent-color);
 }
 
 body {

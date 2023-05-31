@@ -43,43 +43,45 @@
 .link {
   color: var(--second-text-color);
   display: inline-block;
-  position: relative;
-  transition: all var(--transition-duration) var(--timing-function);
   margin-right: 15px;
+  transition: all var(--transition-duration) var(--timing-function);
 }
 
 .active {
-  color: var(--hover-active-color);
-  display: inline-block;
-  position: relative;
-  transition: all var(--transition-duration) var(--timing-function);
-  margin-right: 15px;
+  transform: scale(0.9);
 }
 
-.link.active:before {
-  width: 100%;
-}
-
-.link:before {
-  content: '';
-  background: var(--btn-border-color);
-  display: block;
-  position: absolute;
-  bottom: -3px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  transition: all var(--transition-duration) var(--timing-function);
-}
-
-.link:hover {
-  background-position: 0;
+.active,
+.link:hover,
+.link:focus {
+  text-shadow: var(--hover-text-shadow);
   color: var(--hover-active-color);
 }
 
-.link:hover::before {
-  width: 100%;
-}
+// .link.active:before {
+//   width: 100%;
+// }
+
+// .link:before {
+//   content: '';
+//   background: var(--btn-border-color);
+//   display: block;
+//   position: absolute;
+//   bottom: -3px;
+//   left: 0;
+//   width: 0;
+//   height: 2px;
+//   transition: all var(--transition-duration) var(--timing-function);
+// }
+
+// .link:hover {
+//   background-position: 0;
+//   color: var(--hover-active-color);
+// }
+
+// .link:hover::before {
+//   width: 100%;
+// }
 
 .navTopContainer {
   display: flex;

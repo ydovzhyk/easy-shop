@@ -12,7 +12,7 @@
 .logo {
   font-family: 'Nunito Sans', sans-serif;
   font-size: 25px;
-  text-shadow: 0 20px 25px #2e2e31, 0 40px 60px #2e2e31;
+  text-shadow: var(--hover-text-shadow);
   letter-spacing: -3px;
   font-weight: 500;
 
@@ -57,5 +57,5 @@
 .logo:after {
   border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) var(--accent-color)
     var(--accent-color);
-  box-shadow: 25px 25px 25px rgba(46, 46, 49, 0.8);
+  box-shadow: 15px 15px 15px gray;
 }

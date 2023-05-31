@@ -123,7 +123,7 @@ const Header = () => {
             })}
             to="/health"
           >
-            Дитячі речі
+            Дитячі товари
           </NavLink>
         </div>
       )}
