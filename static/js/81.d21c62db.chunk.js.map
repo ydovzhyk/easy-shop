@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/81.d21c62db.chunk.js","mappings":"8HAMA,UANiB,WACb,OACI,sCAEP,C","sources":["components/Profile/MyReviews.jsx"],"sourcesContent":["const MyReviews= () => {\n    return (\n        <h3>My reviews</h3>\n    )\n}\n\nexport default MyReviews;"],"names":[],"sourceRoot":""}
