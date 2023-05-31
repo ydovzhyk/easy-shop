@@ -4,13 +4,13 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 800px;
+  // height: 800px;
   @include mixins.mq(tablet) {
     flex-direction: row;
-    height: 625px;
+    // height: 625px;
   }
   @include mixins.mq(desktop) {
-    height: 800px;
+    // height: 800px;
   }
 }
 
