@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 import { field } from 'components/Shared/TextField/fields';
 import { addProduct } from 'redux/product/product-operations';
+import Size from './Size/Size';
 
 import Container from 'components/Shared/Container';
 import Text from 'components/Shared/Text/Text';
@@ -20,11 +21,18 @@ const AddProduct = () => {
   const dispatch = useDispatch();
   const userId = useSelector(getID);
   const [sectionValue, setSectionValue] = useState('');
+  const [selectedSizes, setSelectedSizes] = useState([]);
 
   const date = new Date();
   const today = `${date.getFullYear()}-${
     date.getMonth() + 1
   }-${date.getDate()}`;
+
+  const handleSelectedSizesChange = sizes => {
+    setSelectedSizes(sizes);
+  };
+
+  console.log(selectedSizes);
 
   const { control, register, handleSubmit, reset } = useForm({
     defaultValues: {
@@ -51,6 +59,7 @@ const AddProduct = () => {
     dataForUpload.append('quantity', data.quantity);
     dataForUpload.append('description', data.description);
     dataForUpload.append('price', data.price);
+    dataForUpload.append('size', selectedSizes);
     dataForUpload.append('userId', userId);
     dataForUpload.append('date', today);
 
@@ -264,6 +273,12 @@ const AddProduct = () => {
               </div>
             </div>
           </div>
+          <Text text={'Виберіть розмір'} textClass="title" />
+          <Text
+            text={'Можна вибрати декілька варіантів*'}
+            textClass="after-title"
+          />
+          <Size onSelectedSizesChange={handleSelectedSizesChange} />
           <div className={s.imgForm}>
             <FormInputFile
               name="files"
