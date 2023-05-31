@@ -4,10 +4,13 @@ import {NavLink} from 'react-router-dom';
 import Value from './Value';
 import s from './Profile.module.scss';
 
-const ProfileDetails = ({ children, className, to, value }) => {
+const ProfileDetails = ({ children, to, value }) => {
+    const getClassName = ({ isActive }) => {
+    return isActive ? `${s.navlink} ${s.active}` : `${s.navlink}`;
+  };
     return (
         <NavLink
-            className={className}
+            className={getClassName}
             to={to}
         >
             {children}
@@ -18,13 +21,11 @@ const ProfileDetails = ({ children, className, to, value }) => {
 
 ProfileDetails.propTypes = {
     children: PropTypes.string,
-    className: PropTypes.string,
     to: PropTypes.string,
     value: PropTypes.number,
 }
 
 ProfileDetails.defaultProps = {
-    className: '',
     children: '',
     to: '/',
     value: 0,
