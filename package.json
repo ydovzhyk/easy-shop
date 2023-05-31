@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^13.5.0",
     "antd": "^5.4.2",
     "axios": "^0.27.2",
+    "ci": "^2.2.0",
     "file-saver": "^2.0.5",
     "gotham-pro-font": "^1.0.0",
     "prop-types": "^15.8.1",

@@ -9,11 +9,16 @@ const TextField = ({
   required,
   pattern,
   title,
+  className,
 }) => {
+  const spanClass = className ? `${s.span} ${s[className]}` : `${s.span}`;
+  const labelClass = className ? `${s.label} ${s[className]}` : `${s.label}`;
+  const inputClass = className ? `${s.input} ${s[className]}` : `${s.input}`;
+
   return (
-    <label className={s.label}>
+    <label className={labelClass}>
       <input
-        className={s.input}
+        className={inputClass}
         type={type}
         name={name}
         value={value}
@@ -22,7 +27,7 @@ const TextField = ({
         pattern={pattern}
         title={title}
       />
-      <span className={s.span}>{placeholder}</span>
+      <span className={spanClass}>{placeholder}</span>
     </label>
   );
 };
