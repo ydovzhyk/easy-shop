@@ -6,13 +6,13 @@ import { useState } from 'react';
 import { field } from 'components/Shared/TextField/fields';
 import { addProduct } from 'redux/product/product-operations';
 import Size from './Size/Size';
+import Photo from './Photo/Photo';
 
 import Container from 'components/Shared/Container';
 import Text from 'components/Shared/Text/Text';
 import TextField from 'components/Shared/TextField';
 import SelectField from 'components/Shared/SelectField/SelectField';
 import Button from 'components/Shared/Button';
-import FormInputFile from 'components/Shared/FormInputFile/FormInputFile';
 import categoryOptions from './category.json';
 
 import s from './AddProduct.module.scss';
@@ -32,8 +32,6 @@ const AddProduct = () => {
     setSelectedSizes(sizes);
   };
 
-  console.log(selectedSizes);
-
   const { control, register, handleSubmit, reset } = useForm({
     defaultValues: {
       nameProduct: '',
@@ -45,6 +43,7 @@ const AddProduct = () => {
       description: '',
       price: 0,
       files: [],
+      mainFile: [],
     },
   });
 
@@ -279,13 +278,8 @@ const AddProduct = () => {
             textClass="after-title"
           />
           <Size onSelectedSizesChange={handleSelectedSizesChange} />
-          <div className={s.imgForm}>
-            <FormInputFile
-              name="files"
-              accept="image/png, image/jpeg"
-              register={register}
-            />
-          </div>
+          <Text text={'Завантажте фотографії'} textClass="title" />
+          <Photo register={register} />
           <div className={s.wrap}>
             <Button text="Додати" btnClass="btnLight" />
           </div>
