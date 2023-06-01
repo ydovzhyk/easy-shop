@@ -122,4 +122,8 @@
   // display: inline-block;
   // position: relative;
   transition: all 0.3s ease-in-out;
+  &:hover svg {
+    fill: var(--accent-color);
+    stroke: var(--icons-color);
+  }
 }
