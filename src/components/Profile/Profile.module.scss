@@ -1,10 +1,13 @@
 @use '../../styles/mixins';
 
-.active{
-background-color: #eee;
+.profileavatar {
+  background-color: var(--bg-footer-header);
+  padding-top: 165px;
+  padding-bottom: 16px;
 }
 
-.profile {
+
+.profiledetails {
   @include mixins.mq(tablet) {
     height: 100vh;
   }
@@ -14,146 +17,5 @@ background-color: #eee;
   }
 }
 
-.profileavatar{
-  background-color: var(--bg-footer-header);
-  padding-top: 165px;
-  padding-bottom: 16px;
-}
 
-.profilewrapper{  
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-}
-.avatarframe{
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  align-items: center;
-}
-.avatar {
-  width: 72px;
-  border: 1px solid grey;
-  border-radius: 50%;
-  text-align: center;
-  vertical-align: middle;
-  @include mixins.mq(tablet){
-    width: 144px;
-      height: 144px;
-  }
-  }
-
-.photo{
-  border-radius: 50%;
-  @include mixins.mq(tablet){
-    width: 144px;
-  }
-}
-
-.userframe{
-  display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.profilebox {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-
-}
-.username{
-  font-size: 18px;
-  font-weight: 500;
-color: var(--text-color);
-}
-
-.ratingbox{
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.iconlist{
-  display: flex;
-  gap: 2px;
-}
-.icon{
-  fill: var(--empty-color);
-}
-
-.valuation{
-  display: flex;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--empty-color);
-}
-
-.leftvalue{
-  margin-right: 4px;
-}
-
-.rightvalue {
-  margin-left: 4px;
-}
-
-.partwrapper{
-  display: flex;
-}
-
-.text{
-font-size: 14px;
-color: var(--text-color)
-}
-
-.profileinfo{
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  color:var(--text-color);
-  @include mixins.mq(mobile){
-    flex-direction:row;
-    flex-wrap: wrap;
-  }
-}
-
-.iconBefore{
-  margin-right: 8px;
-  width: 16px;
-  height: 16px;
-}
-.list{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  padding: 16px 0px;
-  @include mixins.mq(mobile) {
-      flex-direction: row;
-      flex-wrap: wrap;
-    }
-}
-
-.item{
-  display: block;
-  width: 100%;
-  border-radius: 8px;
-  @include mixins.mq(mobile){
-    flex-basis: calc(100% / 2 - 10px);
-  }
-  @include mixins.mq(tablet) {
-    flex-basis: calc(100% / 4 - 10px);
-  }
-}
-.navlink {
-  display:flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  text-align: center;
-  font-weight: 600;
-  padding: 10px 16px;
-  border-radius: 8px;
-}
 
