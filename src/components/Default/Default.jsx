@@ -12,14 +12,14 @@ const Default = () => {
 
   return (
     <section className={s.default}>
-      <Slider />
       {!isUserLogin && (
         <div className={s.defaultTitle}>
-          {/* <h2 className={s.title}>Перш ніж почати зареєструйтеся!</h2> */}
-          <CatalogList cards={cards} />
+          <h2 className={s.title}>Перш ніж почати зареєструйтеся!</h2>
+          {/* <CatalogList cards={cards} /> */}
         </div>
       )}
-
+      <Slider />
+      <CatalogList cards={cards} />
       {isUserLogin && (
         <>
           <SiteStatistic />
