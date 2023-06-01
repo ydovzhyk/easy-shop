@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import photo from "../../images/Avatar/Hansel.png"
+import photo from "../../../images/Avatar/Hansel.png"
 
 const Avatar = ({
     src, alt, className, width, heigth, ...attrs }) => {

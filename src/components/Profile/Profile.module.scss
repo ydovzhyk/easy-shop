@@ -1,12 +1,13 @@
 @use '../../styles/mixins';
 
-.active{
-background-color: #eee;
+.profileavatar {
+  background-color: var(--bg-footer-header);
+  padding-top: 165px;
+  padding-bottom: 16px;
 }
 
-.profile {
-  // padding-top: 30px;
 
+.profiledetails {
   @include mixins.mq(tablet) {
     height: 100vh;
   }
@@ -16,149 +17,5 @@ background-color: #eee;
   }
 }
 
-.profileavatar{
-  background-color: var(--background-color);
-}
 
-.profilewrapper{
-  padding: 16px 0;
-  display: flex;
-    // flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-}
-.avatarframe{
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  align-items: center;
-  // border: 1px solid grey;
-}
-.avatar {
-  width: 72px;
-  height: 72px;
-  border: 1px solid grey;
-  border-radius: 50%;
-  text-align: center;
-  vertical-align: middle;
-  }
-
-.photo{
-  border-radius: 50%;
-}
-
-.userframe{
-  display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.profilebox {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-
-}
-.username{
-  font-size: 18px;
-  font-weight: 500;
-color: var(--accent-color);
-}
-
-.ratingbox{
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.iconlist{
-  display: flex;
-  gap: 2px;
-}
-.icon{
-  fill: var(--background-btn-main-color);
-}
-
-.valuation{
-  display: flex;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--background-btn-main-color);
-}
-
-.leftvalue{
-  margin-right: 4px;
-}
-
-.rightvalue {
-  margin-left: 4px;
-}
-
-.partwrapper{
-  display: flex;
-}
-
-.text{
-font-size: 14px;
-color: var(--accent-color)
-}
-
-.profileinfo{
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  color:var(--accent-color);
-  @include mixins.mq(mobile){
-    flex-direction:row;
-    flex-wrap: wrap;
-  }
-}
-
-
-.iconBefore{
-  margin-right: 8px;
-  width: 16px;
-  height: 16px;
-}
-.list{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  padding: 16px 0px;
-  @include mixins.mq(mobile) {
-      flex-direction: row;
-      flex-wrap: wrap;
-    }
-  
-}
-
-.item{
-  display: block;
-  // flex-grow: 1;
-  width: 100%;
-  // border: 1px solid grey;
-  border-radius: 8px;
-  @include mixins.mq(mobile){
-    flex-basis: calc(100% / 2 - 10px);
-  }
-
-    @include mixins.mq(tablet) {
-      flex-basis: calc(100% / 4 - 10px);
-    }
-}
-.navlink {
-  // width: 100%;
-  display:flex;
-  // flex-grow: 1;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  text-align: center;
-  font-weight: 500;
-  padding: 10px 16px;
-  border-radius: 8px;
-  // background-color: #eee;
-}
 
