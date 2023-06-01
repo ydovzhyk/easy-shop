@@ -24,7 +24,7 @@ Avatar.propTypes = {
 }
 
 Avatar.defaultProps = {
-    src: {photo},
+    src: photo,
     alt: 'avatar',
     className: '',
     width: 72,
