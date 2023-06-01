@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@hookform/error-message": "^2.0.0",
@@ -22,6 +23,7 @@
     "react-dom": "^18.1.0",
     "react-hook-form": "^7.36.0",
     "react-icons": "^4.8.0",
+    "react-image-gallery": "^1.2.11",
     "react-loader-spinner": "^5.3.4",
     "react-moment": "^1.1.2",
     "react-redux": "^8.0.2",

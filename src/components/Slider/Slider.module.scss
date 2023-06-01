@@ -1,0 +1,44 @@
+@use '../../styles/mixins';
+
+.gallery {
+    height: 192px;
+    @include mixins.mq(tablet) {
+        height: 226px;
+    }
+    @include mixins.mq(desktop) {
+        height: 300px;
+    }
+}
+
+.image {
+    height: 192px;
+    @include mixins.mq(tablet) {
+        height: 226px;
+    }
+  @include mixins.mq(desktop) {
+    height: 300px;
+  }
+    
+}
+
+.image >  img {
+    object-position: center;
+  } 
+// @use './mixins';
+
+.gallery > .image-gallery-content > .image-gallery-slide-wrapper > .image-gallery-swipe > .image-gallery-slide {
+    height: 192px;
+    @include mixins.mq(tablet) {
+        height: 226px;
+    }
+  @include mixins.mq(desktop) {
+    height: 300px;
+  }
+}
+
+.gallery .image-gallery-slide .image-gallery-image {
+    object-fit: cover;
+    @include mixins.mq(tablet) {
+        object-position: 0 -90px;
+    }
+}
