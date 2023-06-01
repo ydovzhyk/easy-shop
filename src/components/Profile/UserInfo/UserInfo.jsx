@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { BsCheck2, BsGeoAlt, BsHandbag, BsPeople } from "react-icons/bs";
 import { getUserName, getUser } from 'redux/auth/auth-selectors';
 import Container from 'components/Shared/Container';
-import Avatar from 'components/Profile/Avatar';
+import Avatar from 'components/Profile/UserInfo/Avatar';
 import UserRating from './UserRating';
 import Value from '../Value';
 import DaysValue from "components/Profile/UserInfo/DaysValue";
