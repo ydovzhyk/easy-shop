@@ -30,7 +30,7 @@ const BottomNavigation = () => {
         <NavLink to={isLogin ? '/' : '/login'}>
           <BiMessageDetail className={s.navIcon} size={isMobile ? 25 : 30} />
         </NavLink>
-        <NavLink to={isLogin ? '/' : '/login'}>
+        <NavLink to={isLogin ? '/profile' : '/login'}>
           <HiOutlineUser className={s.navIcon} size={isMobile ? 25 : 30} />
         </NavLink>
       </div>
