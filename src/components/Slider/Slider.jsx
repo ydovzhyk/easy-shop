@@ -81,6 +81,7 @@ const sliderImages = array.map(item => ({
   original: `/images/slider/${item}.jpg`,
   thumbnail: `/images/slider/${item}.jpg`,
   originalClass: [s.image],
+  bulletClass: [s.bullet],
 }));
 
 const options = {

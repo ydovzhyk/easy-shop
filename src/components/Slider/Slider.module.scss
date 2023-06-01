@@ -2,6 +2,9 @@
 
 .gallery {
     height: 192px;
+    width: 100%;
+    border-radius: 32px;
+    overflow: hidden;
     @include mixins.mq(tablet) {
         height: 226px;
     }
@@ -14,31 +17,28 @@
     height: 192px;
     @include mixins.mq(tablet) {
         height: 226px;
+        object-position: 0 -90px;
     }
-  @include mixins.mq(desktop) {
-    height: 300px;
-  }
+    @include mixins.mq(desktop) {
+        height: 300px;
+    }
     
 }
 
-.image >  img {
-    object-position: center;
-  } 
-// @use './mixins';
-
-.gallery > .image-gallery-content > .image-gallery-slide-wrapper > .image-gallery-swipe > .image-gallery-slide {
-    height: 192px;
-    @include mixins.mq(tablet) {
-        height: 226px;
-    }
-  @include mixins.mq(desktop) {
-    height: 300px;
-  }
-}
-
-.gallery .image-gallery-slide .image-gallery-image {
+.gallery .image >  img {
     object-fit: cover;
+    object-position: center;
     @include mixins.mq(tablet) {
         object-position: 0 -90px;
     }
+  } 
+
+  .gallery .bullet {
+    background-color: var(--accent-color);
+  }
+
+  .gallery .bullet.active {
+    transform: scale(1.2);
+    border: 1px solid #fff;
+    background-color:#000000;
 }
