@@ -116,7 +116,8 @@
 }
 
 .link {
-  color: #9b9faa;
+  // color: #9b9faa;
+  color: var(--second-text-color);
   // background-size: 200% 100%;
   // background-position: -100%;
   // display: inline-block;
