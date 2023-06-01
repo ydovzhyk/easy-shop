@@ -44,7 +44,7 @@ export const field = {
   condition: {
     name: 'condition',
     type: 'text',
-    placeholder: 'Виберіть стан вашої речі*',
+    placeholder: 'Виберіть стан*',
     required: true,
   },
   shopName: {
@@ -80,6 +80,19 @@ export const field = {
   quantity: {
     name: 'quantity',
     type: 'text',
+    required: true,
+  },
+  keyWords: {
+    name: 'keyWords',
+    type: 'text',
+    placeholder:
+      'Наприклад слова, такі як: сукня, сукня zara, zara, червона сукня горошок',
+    required: true,
+  },
+  vip: {
+    name: 'vip',
+    type: 'text',
+    placeholder: 'Виберіть статус',
     required: true,
   },
 };

@@ -1,11 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import FormInputFile from 'components/Shared/FormInputFile/FormInputFile';
 import Text from 'components/Shared/Text/Text';
 import s from './Photo.module.scss';
 
-const Photo = ({ register }) => {
+const Photo = ({
+  register,
+  isFormSubmitted,
+  onChangeMainFile,
+  onChangeAdditionalFiles,
+}) => {
   const [backgroundImage, setBackgroundImage] = useState('');
   const [additionalImages, setAdditionalImages] = useState([]);
+  const text = [
+    'Фото iз зворотньої сторони виробу',
+    'Фото на вішалці',
+    'Фото бірки виробу',
+    'Фото плям та інші недоліки',
+    'Інше',
+  ];
 
   const handleMainFileUpload = event => {
     const file = event.target.files[0];
@@ -21,15 +33,12 @@ const Photo = ({ register }) => {
     const files = event.target.files;
     const images = [];
 
-    for (let i = 0; i < files.length && i < 4; i++) {
+    for (let i = 0; i < files.length && i < 5; i++) {
       const file = files[i];
       const dataURL = await readFileAsDataURL(file);
       images.push(dataURL);
-
-      if (i === 3 || i === files.length - 1) {
-        setAdditionalImages(images);
-      }
     }
+    setAdditionalImages(images);
   };
 
   const readFileAsDataURL = file => {
@@ -42,60 +51,85 @@ const Photo = ({ register }) => {
     });
   };
 
+  useEffect(() => {
+    onChangeMainFile(backgroundImage);
+    onChangeAdditionalFiles(additionalImages);
+  }, [
+    backgroundImage,
+    additionalImages,
+    onChangeMainFile,
+    onChangeAdditionalFiles,
+  ]);
+
+  useEffect(() => {
+    if (isFormSubmitted) {
+      setBackgroundImage('');
+      setAdditionalImages([]);
+    }
+  }, [isFormSubmitted]);
+
   return (
     <div className={s.photoPart}>
       <div>
         <Text text={'Виберіть основну фотографію*'} textClass="after-title" />
         <div
           className={s.imageCard}
-          style={{ backgroundImage: backgroundImage }}
+          style={{ backgroundImage: backgroundImage, marginBottom: 10 }}
         >
-          <FormInputFile
-            name="mainFile"
-            accept="image/png, image/jpeg"
-            register={register}
-            onChange={handleMainFileUpload}
-            multiple={false}
-            single={true}
-            label="Основна"
-          />
+          <div className={s.imageCardContent}>
+            <Text
+              text={'Фото виробу у повному розмірі'}
+              textClass="after-title-cardContent"
+            />
+            <FormInputFile
+              name="mainFile"
+              accept="image/png, image/jpeg"
+              register={register}
+              onChange={handleMainFileUpload}
+              multiple={false}
+              single={true}
+              label="Основна"
+            />
+          </div>
         </div>
       </div>
       <div>
-        <Text text={'Додайте ще 4 фотографії*'} textClass="after-title" />
+        <Text text={'Додайте ще 5 фотографій*'} textClass="after-title" />
         <div className={s.additionalImages}>
-          {additionalImages.map((image, index) => (
+          {Array.from({ length: 5 }).map((_, index) => (
             <div
               key={index}
               className={s.imageCard}
-              style={{ backgroundImage: `url(${image})` }}
+              style={{
+                backgroundImage:
+                  additionalImages[index] && `url(${additionalImages[index]})`,
+              }}
             >
-              {index < 1 && (
-                <FormInputFile
-                  name="files"
-                  accept="image/png, image/jpeg"
-                  register={register}
-                  onChange={handleAdditionalFilesUpload}
-                  multiple={true}
-                  single={false}
-                  label="Інші"
+              {index > 0 && (
+                <Text
+                  text={`${text[index]}`}
+                  textClass="after-title-cardContent"
                 />
+              )}
+              {index === 0 && (
+                <div className={s.imageCardContent}>
+                  <Text
+                    text={`${text[index]}`}
+                    textClass="after-title-cardContent"
+                  />
+                  <FormInputFile
+                    name="files"
+                    accept="image/png, image/jpeg"
+                    register={register}
+                    onChange={handleAdditionalFilesUpload}
+                    multiple={true}
+                    single={false}
+                    label="Інші"
+                  />
+                </div>
               )}
             </div>
           ))}
-          {additionalImages.length < 1 && (
-            <div className={s.imageCard}>
-              <FormInputFile
-                name="files"
-                accept="image/png, image/jpeg"
-                register={register}
-                onChange={handleAdditionalFilesUpload}
-                multiple={true}
-                single={false}
-                label="Інші"
-              />
-            </div>
-          )}
         </div>
       </div>
     </div>
