@@ -5,7 +5,6 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  border: 1px solid black;
   background-color: var(--main-color);
 }
 
@@ -35,17 +34,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: 60px;
-  & button:first-child {
-    margin-bottom: 20px;
-  }
-
-  @include mixins.mq(tablet) {
-    display: block;
-    & button:first-child {
-      margin-right: 32px;
-    }
-  }
+  margin-bottom: 20px;
 }
 
 .textarea {
@@ -78,13 +67,12 @@
   flex-direction: column;
   justify-content: space-between;
   width: 49%;
-  // border: 1px solid black;
 }
 
 .partBoxOneGroup {
   display: flex;
   flex-direction: column;
-  width: 40%;
+  width: 45%;
 }
 
 .partBoxOneAfter {

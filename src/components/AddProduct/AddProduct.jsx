@@ -22,6 +22,9 @@ const AddProduct = () => {
   const userId = useSelector(getID);
   const [sectionValue, setSectionValue] = useState('');
   const [selectedSizes, setSelectedSizes] = useState([]);
+  const [mainFileURL, setMainFileURL] = useState('');
+  const [additionalFilesURL, setAdditionalFilesURL] = useState([]);
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
   const date = new Date();
   const today = `${date.getFullYear()}-${
@@ -30,6 +33,14 @@ const AddProduct = () => {
 
   const handleSelectedSizesChange = sizes => {
     setSelectedSizes(sizes);
+  };
+
+  const handleMainFileChange = url => {
+    setMainFileURL(url);
+  };
+
+  const handleAdditionalFilesChange = urls => {
+    setAdditionalFilesURL(urls);
   };
 
   const { control, register, handleSubmit, reset } = useForm({
@@ -41,31 +52,36 @@ const AddProduct = () => {
       section: '',
       quantity: 1,
       description: '',
+      keyWords: '',
       price: 0,
-      files: [],
-      mainFile: [],
+      vip: 'Ні',
     },
   });
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
-    const dataForUpload = new FormData();
-    dataForUpload.append('nameProduct', data.nameProduct);
-    dataForUpload.append('brendName', data.brendName);
-    dataForUpload.append('condition', data.condition.value);
-    dataForUpload.append('section', data.section.value);
-    dataForUpload.append('category', data.category.value);
-    dataForUpload.append('quantity', data.quantity);
-    dataForUpload.append('description', data.description);
-    dataForUpload.append('price', data.price);
-    dataForUpload.append('size', selectedSizes);
-    dataForUpload.append('userId', userId);
-    dataForUpload.append('date', today);
-
-    Array.from(data.files).forEach(file => {
-      dataForUpload.append('files', file);
-    });
+    const dataForUpload = {
+      nameProduct: data.nameProduct,
+      brendName: data.brendName,
+      condition: data.condition.value,
+      section: data.section.value,
+      category: data.category.value,
+      vip: data.vip.value,
+      quantity: data.quantity,
+      description: data.description,
+      keyWords: data.keyWords,
+      price: data.price,
+      size: selectedSizes,
+      file: mainFileURL,
+      files: additionalFilesURL,
+      owner: userId,
+      date: today,
+    };
     dispatch(addProduct(dataForUpload));
+    setMainFileURL('');
+    setAdditionalFilesURL([]);
+    setSelectedSizes([]);
+    setIsFormSubmitted(true);
     reset();
   };
 
@@ -277,9 +293,54 @@ const AddProduct = () => {
             text={'Можна вибрати декілька варіантів*'}
             textClass="after-title"
           />
-          <Size onSelectedSizesChange={handleSelectedSizesChange} />
+          <Size
+            onSelectedSizesChange={handleSelectedSizesChange}
+            isFormSubmitted={isFormSubmitted}
+          />
           <Text text={'Завантажте фотографії'} textClass="title" />
-          <Photo register={register} />
+          <Photo
+            register={register}
+            onChangeMainFile={handleMainFileChange}
+            onChangeAdditionalFiles={handleAdditionalFilesChange}
+            isFormSubmitted={isFormSubmitted}
+          />
+          <Text text={'Ключові слова'} textClass="title" />
+          <Controller
+            control={control}
+            name="keyWords"
+            rules={{
+              required: true,
+            }}
+            render={({ field: { onChange, value } }) => (
+              <textarea
+                className={s.textarea}
+                value={value}
+                onChange={onChange}
+                {...field.keyWords}
+                rows={1}
+                cols={240}
+              />
+            )}
+          />
+          <Text text={'VIP статус оголошення'} textClass="title" />
+          <Controller
+            control={control}
+            name="vip"
+            rules={{
+              required: true,
+            }}
+            render={({ field: { onChange, value } }) => (
+              <SelectField
+                value={value}
+                handleChange={onChange}
+                className="vip"
+                name="vip"
+                {...field.condition}
+                required={true}
+                options={['Так', 'Ні']}
+              />
+            )}
+          />
           <div className={s.wrap}>
             <Button text="Додати" btnClass="btnLight" />
           </div>
@@ -290,3 +351,22 @@ const AddProduct = () => {
 };
 
 export default AddProduct;
+
+// const dataForUpload = new FormData();
+// dataForUpload.append('nameProduct', data.nameProduct);
+// dataForUpload.append('brendName', data.brendName);
+// dataForUpload.append('condition', data.condition.value);
+// dataForUpload.append('section', data.section.value);
+// dataForUpload.append('category', data.category.value);
+// dataForUpload.append('vip', data.vip.value);
+// dataForUpload.append('quantity', data.quantity);
+// dataForUpload.append('description', data.description);
+// dataForUpload.append('keyWords', data.keyWords);
+// dataForUpload.append('price', data.price);
+// dataForUpload.append('size', selectedSizes);
+// dataForUpload.append('mainFile', mainFileURL);
+// additionalFilesURL.forEach(url => {
+//   dataForUpload.append('files', url);
+// });
+// dataForUpload.append('owner', userId);
+// dataForUpload.append('date', today);
