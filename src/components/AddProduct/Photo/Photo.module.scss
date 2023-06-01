@@ -2,7 +2,11 @@
 
 .photoPart {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: center;
+  @include mixins.mq(tablet) {
+    align-items: initial;
+  }
 }
 
 .imageCard {
@@ -17,11 +21,35 @@
   width: 220px;
   height: 285px;
   border: 1px dashed black;
+  border-radius: 10px;
   background-size: cover;
   background-position: center;
+  margin-bottom: 10px;
+  @include mixins.mq(tablet) {
+    margin-left: 10px;
+  }
+  @include mixins.mq(desktop) {
+    margin-left: 0px;
+  }
 }
 
 .additionalImages {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: center;
+  @include mixins.mq(tablet) {
+    align-items: initial;
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+  @include mixins.mq(desktop) {
+    justify-content: space-between;
+  }
+}
+
+.imageCardContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
 }
