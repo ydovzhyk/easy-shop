@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 export const instance = axios.create({
-  // baseURL: 'https://easy-shop-backend.herokuapp.com/',
-  baseURL: 'http://localhost:4000',
+  baseURL: 'https://easy-shop-backend.herokuapp.com/',
+  // baseURL: 'http://localhost:4000',
 });
 
 const token = {
