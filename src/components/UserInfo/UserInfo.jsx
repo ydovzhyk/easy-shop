@@ -54,7 +54,7 @@ const UserInfo = () => {
           />
           <span className={s.goodsNumber}>{user.userLikes.length}</span>
         </NavLink>
-        <p>{userName}</p>
+        <NavLink to="/profile">{userName}</NavLink>
         <p onClick={onLogout}>Вихід</p>
       </div>
     );
