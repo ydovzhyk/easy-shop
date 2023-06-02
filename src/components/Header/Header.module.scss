@@ -21,6 +21,7 @@
 .containerBottom {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   padding: 20px;
@@ -45,7 +46,9 @@
   display: inline-block;
   position: relative;
   transition: all var(--transition-duration) var(--timing-function);
-  margin-right: 15px;
+  &:not(:last-of-type) {
+    margin-right: 15px;
+  }
 }
 
 .active {
@@ -87,6 +90,9 @@
   align-items: center;
 }
 
+.switchMainBox {
+  display: flex;
+}
 .switchBtnBox {
   text-align: center;
 }

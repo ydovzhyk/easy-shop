@@ -12,8 +12,7 @@ import s from './Header.module.scss';
 import HeaderForm from 'components/HeaderForm/HeaderForm';
 import Logo from 'components/Shared/Logo';
 import Button from 'components/Shared/Button';
-import SwitchBtn from 'components/Shared/SwitchBtn/SwitchBtn';
-import Changer from 'components/Shared/Changer/Changer';
+import SwitchBox from 'components/SwitchBox/SwitchBox';
 
 const Header = () => {
   const [showForm, setShowForm] = useState(false);
@@ -71,10 +70,6 @@ const Header = () => {
                     handleClick={handleSearchBtnClick}
                     text={<BiSearchAlt size={isMobile ? 25 : 30} />}
                   ></Button>
-                  {/* <div className={s.switchBtnBox}>
-                    <Changer />
-                    <SwitchBtn />
-                  </div> */}
                 </div>
               </>
             )}
@@ -90,10 +85,6 @@ const Header = () => {
               btnClass="btnLight"
               handleClick={handleAddProduct}
             />
-            {/* <div className={s.switchBtnBox}>
-              <Changer />
-              <SwitchBtn />
-            </div> */}
             <UserInfo />
           </>
         )}
@@ -101,39 +92,35 @@ const Header = () => {
 
       {isLogin && (
         <div className={s.containerBottom}>
-          <NavLink
-            className={getClassName({
-              isActive: location.pathname === '/restaurants',
-            })}
-            to="/restaurants"
-          >
-            Жінкам
-          </NavLink>
-          <NavLink
-            className={getClassName({
-              isActive: location.pathname === '/supermarkets',
-            })}
-            to="/supermarkets"
-          >
-            Чоловікам
-          </NavLink>
-          <NavLink
-            className={getClassName({
-              isActive: location.pathname === '/health',
-            })}
-            to="/health"
-          >
-            Дитячі речі
-          </NavLink>
-          <div style={{ display: 'flex' }}>
-            <div className={s.switchBtnBox}>
-              <Changer type="language" />
-              <SwitchBtn />
-            </div>
-            <div className={s.switchBtnBox}>
-              <Changer type="theme" />
-              <SwitchBtn />
-            </div>{' '}
+          <div>
+            <NavLink
+              className={getClassName({
+                isActive: location.pathname === '/restaurants',
+              })}
+              to="/restaurants"
+            >
+              Жінкам
+            </NavLink>
+            <NavLink
+              className={getClassName({
+                isActive: location.pathname === '/supermarkets',
+              })}
+              to="/supermarkets"
+            >
+              Чоловікам
+            </NavLink>
+            <NavLink
+              className={getClassName({
+                isActive: location.pathname === '/health',
+              })}
+              to="/health"
+            >
+              Дитячі речі
+            </NavLink>
+          </div>
+          <div className={s.switchMainBox}>
+            <SwitchBox type="language" />
+            <SwitchBox type="theme" />
           </div>
         </div>
       )}
