@@ -13,11 +13,11 @@ import HeaderForm from 'components/HeaderForm/HeaderForm';
 import Logo from 'components/Shared/Logo';
 import Button from 'components/Shared/Button';
 import SwitchBtn from 'components/Shared/SwitchBtn/SwitchBtn';
-import LanguageChanger from 'components/Shared/LanguageChanger/LanguageChanger';
+import Changer from 'components/Shared/Changer/Changer';
 
 const Header = () => {
   const [showForm, setShowForm] = useState(false);
-  const isDesctop = useMediaQuery({ minWidth: 1280 });
+  const isDesktop = useMediaQuery({ minWidth: 1280 });
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const location = useLocation();
   const navigate = useNavigate();
@@ -41,7 +41,7 @@ const Header = () => {
   return (
     <header className={s.header}>
       <div className={s.containerTop}>
-        {!isDesctop && (
+        {!isDesktop && (
           <>
             {showForm && (
               <div style={{ display: 'flex', width: '100%' }}>
@@ -71,17 +71,17 @@ const Header = () => {
                     handleClick={handleSearchBtnClick}
                     text={<BiSearchAlt size={isMobile ? 25 : 30} />}
                   ></Button>
-                  <div className={s.switchBtnBox}>
-                    <LanguageChanger />
+                  {/* <div className={s.switchBtnBox}>
+                    <Changer />
                     <SwitchBtn />
-                  </div>
+                  </div> */}
                 </div>
               </>
             )}
           </>
         )}
 
-        {isDesctop && (
+        {isDesktop && (
           <>
             <Logo />
             <HeaderForm />
@@ -90,10 +90,10 @@ const Header = () => {
               btnClass="btnLight"
               handleClick={handleAddProduct}
             />
-            <div className={s.switchBtnBox}>
-              <LanguageChanger />
+            {/* <div className={s.switchBtnBox}>
+              <Changer />
               <SwitchBtn />
-            </div>
+            </div> */}
             <UserInfo />
           </>
         )}
@@ -125,6 +125,16 @@ const Header = () => {
           >
             Дитячі речі
           </NavLink>
+          <div style={{ display: 'flex' }}>
+            <div className={s.switchBtnBox}>
+              <Changer type="language" />
+              <SwitchBtn />
+            </div>
+            <div className={s.switchBtnBox}>
+              <Changer type="theme" />
+              <SwitchBtn />
+            </div>{' '}
+          </div>
         </div>
       )}
     </header>

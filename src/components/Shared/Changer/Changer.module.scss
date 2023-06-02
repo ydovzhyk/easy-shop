@@ -1,6 +1,6 @@
 @use '../../../styles/mixins';
 
-.languagesList {
+.changerList {
   position: relative;
   display: flex;
   justify-content: center;
@@ -8,7 +8,7 @@
   margin-bottom: 15px;
 }
 
-.languageItem:not(:last-child) {
+.changerItem:not(:last-child) {
   margin-right: 20px;
   @include mixins.mq(tablet) {
     margin-right: 26px;
@@ -18,7 +18,7 @@
   }
 }
 
-.languageItem:last-child::after {
+.changerItem:last-child::after {
   content: '';
   position: absolute;
   width: 28px;
@@ -37,4 +37,19 @@
 
 .active {
   color: #212121;
+}
+
+.changerText {
+  font-size: 14px;
+  background-color: transparent;
+  color: var(--icons-color);
+  transition: color var(--transition-duration) var(--timing-function);
+  &:hover,
+  &:focus {
+    color: var(--hover-active-color);
+  }
+  @include mixins.mq(tablet) {
+    font-size: 16px;
+    font-weight: 500;
+  }
 }
