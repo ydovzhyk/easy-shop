@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { HiOutlineUserCircle } from "react-icons/hi";
 
-
 // import photo from "../../../images/Avatar/Hansel.png"
 
 const Avatar = ({
