@@ -28,8 +28,8 @@ jobs:
       - name: Build the application
         run: npm run build
 
-      - name: Move images folder to build folder
-        run: mv public/images build/
+      - name: Copy images folder to build folder
+        run: cp -R public/images build/
 
       - name: Build Docker image
         run: docker build -t yuriydovzhyk/easy-shop:latest .
