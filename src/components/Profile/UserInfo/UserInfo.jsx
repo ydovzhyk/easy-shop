@@ -21,7 +21,7 @@ const UserInfo = () => {
     const salesAmount = 16;
     return (
         <Container>
-            <div className={s.profilewrapper}>
+          <div className={s.profilewrapper}>
             <div className={s.avatarframe}>
               <div className={s.avatar}>
                 <Avatar
