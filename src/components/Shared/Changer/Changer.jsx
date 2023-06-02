@@ -1,15 +1,14 @@
 import s from './Changer.module.scss';
+import { fields } from './fields';
 
-const Changer = type => {
+const Changer = ({ type }) => {
   let mainArray;
   switch (type) {
     case 'language':
-      mainArray = ['UA', 'EN'];
-      console.log(mainArray);
+      mainArray = fields.language;
       break;
     case 'theme':
-      mainArray = ['Light', 'Dark'];
-      console.log(mainArray);
+      mainArray = fields.theme;
       break;
     default:
       break;
