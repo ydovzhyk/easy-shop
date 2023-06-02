@@ -2,25 +2,23 @@
 
 .link {
   color: var(--icons-color);
-  background-size: 200% 100%;
-  background-position: -100%;
-  display: inline-block;
-  position: relative;
+  // background-size: 200% 100%;
+  // background-position: -100%;
+  // display: inline-block;
+  // position: relative;
   transition: all var(--transition-duration) var(--timing-function);
 }
 
-.active {
+.active,
+.link:hover,
+.link:focus {
+  text-shadow: var(--hover-text-shadow);
   color: var(--hover-active-color);
 }
 
 .userInfoSide {
   display: flex;
   flex-direction: row;
-  // margin-top: 7px;
-
-  // @include mixins.mq(desktop) {
-  //   margin-left: 860px;
-  // }
 }
 
 .userInfoSide a:last-child {
@@ -39,52 +37,79 @@
   transform: rotate(90deg);
 }
 
-.userInfoSide p:last-child {
-  color: var(--second-text-color);
-  margin-left: 32px;
+.link {
+  display: inline-block;
   position: relative;
-}
-
-.userInfoSide p:before {
-  content: '';
-  position: absolute;
-  width: 32px;
-  height: 0px;
-  top: 17px;
-  left: -30px;
-  border: 2px solid var(--border-color);
-  transform: rotate(90deg);
-  @include mixins.mq(tablet) {
-    top: 7px;
+  transition: all 0.3s ease-in-out;
+  &::before {
+    content: '';
+    background: var(--title-text-color);
+    display: block;
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    transition: all 0.3s ease-in-out;
   }
-  @include mixins.mq(desktop) {
-    top: 7px;
-  }
-}
-
-.userInfoSide p {
-  cursor: pointer;
-}
-
-.link:before {
-  content: '';
-  background-color: var(--btn-border-color);
-  display: block;
-  position: absolute;
-  bottom: -3px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  transition: all var(--transition-duration) var(--timing-function);
-}
-
-.link:hover {
-  background-position: 0;
 }
 
 .link:hover::before {
   width: 100%;
 }
+
+.active {
+  &::before {
+    width: 100%;
+  }
+}
+
+// .userInfoSide p:last-child {
+//   color: var(--second-text-color);
+//   margin-left: 32px;
+//   position: relative;
+// }
+
+// .userInfoSide p:before {
+//   content: '';
+//   position: absolute;
+//   width: 32px;
+//   height: 0px;
+//   top: 17px;
+//   left: -30px;
+//   border: 2px solid var(--border-color);
+//   transform: rotate(90deg);
+//   @include mixins.mq(tablet) {
+//     top: 7px;
+//   }
+//   @include mixins.mq(desktop) {
+//     top: 7px;
+//   }
+// }
+
+// .userInfoSide p {
+//   cursor: pointer;
+// }
+
+// .link:before {
+//   content: '';
+//   background-color: var(--btn-border-color);
+//   display: block;
+//   position: absolute;
+//   bottom: -3px;
+//   left: 0;
+//   width: 0;
+//   height: 2px;
+//   transition: all var(--transition-duration) var(--timing-function);
+// }
+
+// .link:hover {
+//   background-position: 0;
+// }
+
+// .link:hover::before {
+//   width: 100%;
+// }
 
 .goodsNumber {
   margin-right: 15px;
