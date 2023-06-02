@@ -32,9 +32,9 @@ const options = {
 };
 
 const Slider = () => {
-    return (
-      <ImageGallery items={sliderImages} {...options} className={s.gallery} />
-    );
+  return (
+    <ImageGallery items={sliderImages} {...options} className={s.gallery} />
+  );
 };
 
 export default Slider;
