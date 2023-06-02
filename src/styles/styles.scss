@@ -3,6 +3,7 @@
 @import 'reset';
 @import 'container';
 @import 'common';
+@import 'libraries';
 
 :root {
   --main-color: #ffffff;
@@ -24,6 +25,7 @@
   --hover-active-color: #212121;
   --hover-text-shadow: 0 5px 10px var(--text-color),
     0 30px 50px var(--accent-color);
+  --empty-color: #cdc6c6;
 }
 
 body {
@@ -33,3 +35,4 @@ body {
     overflow: hidden;
   }
 }
+

@@ -18,7 +18,7 @@
   line-height: 13px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--accent-color);
+  color: var(--title-text-color);
   text-align: center;
 
   margin-bottom: 20px;
@@ -81,7 +81,7 @@
 
   font-size: 18px;
   font-weight: 500;
-  color: var(--accent-color);
+  color: var(--title-text-color);
 }
 
 .styleLike {
@@ -94,7 +94,7 @@
 
   font-size: 12px;
   line-height: 16px;
-  color: var(--accent-color);
+  color: var(--second-text-color);
 }
 
 .descriptionCard {
@@ -102,13 +102,13 @@
 
   font-size: 14px;
   text-decoration: none;
-  color: var(--accent-color);
+  color: var(--second-text-color);
 }
 
 .sizeCard {
   font-size: 13px;
   font-weight: 500;
-  color: var(--accent-color);
+  color: var(--text-color);
 }
 
 .styleTitleText {
@@ -116,10 +116,15 @@
 }
 
 .link {
-  color: #9b9faa;
+  // color: #9b9faa;
+  color: var(--second-text-color);
   // background-size: 200% 100%;
   // background-position: -100%;
   // display: inline-block;
   // position: relative;
   transition: all 0.3s ease-in-out;
+  &:hover svg {
+    fill: var(--accent-color);
+    stroke: var(--icons-color);
+  }
 }

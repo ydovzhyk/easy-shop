@@ -4,7 +4,7 @@ import sizeOption from './sizeTable.json';
 import Text from 'components/Shared/Text/Text';
 import s from './Size.module.scss';
 
-const Size = ({ onSelectedSizesChange }) => {
+const Size = ({ onSelectedSizesChange, isFormSubmitted }) => {
   const [selectedSizes, setSelectedSizes] = useState([]);
 
   const handleSizeClick = size => {
@@ -26,6 +26,12 @@ const Size = ({ onSelectedSizesChange }) => {
     onSelectedSizesChange(selectedSizes);
   }, [selectedSizes, onSelectedSizesChange]);
 
+  useEffect(() => {
+    if (isFormSubmitted) {
+      setSelectedSizes([]);
+    }
+  }, [isFormSubmitted]);
+
   return (
     <div className={s.sizeBox}>
       <ul className={s.menuGroupList}>
@@ -33,7 +39,6 @@ const Size = ({ onSelectedSizesChange }) => {
           const isSelected = selectedSizes.some(
             s => Object.keys(s)[0] === size
           );
-
           return (
             <li
               key={nanoid()}

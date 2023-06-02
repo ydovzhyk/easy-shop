@@ -18,7 +18,7 @@ export const App = () => {
   const dispatch = useDispatch();
   const [errMessage, setErrMessage] = useState('');
   const [isUserLoaded, setIsUserLoaded] = useState(false);
-  
+
   const location = useLocation();
   const headerFooterHidden =
     location.pathname === '/login' ||
@@ -47,9 +47,9 @@ export const App = () => {
 
   return (
     <>
+      {errMessage !== '' && <ErrorMessage text={`${errMessage}`} />}
       {!headerFooterHidden && <Header />}
       <main>
-        {errMessage !== '' && <ErrorMessage text={`${errMessage}`} />}
         <UserRoutes />
       </main>
       {!headerFooterHidden && !isDesctop && <BottomNavigation />}

@@ -11,7 +11,7 @@ const Value = ({children, className }) => {
 
 Value.propTypes = {
     className: PropTypes.string,
-    children:PropTypes.number,
+    children: PropTypes.number,
 }
 
 Value.defaultProps = {
