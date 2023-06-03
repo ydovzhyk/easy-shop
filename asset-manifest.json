@@ -1,9 +1,9 @@
 {
   "files": {
     "main.css": "/easy-shop/static/css/main.ddb7b1da.css",
-    "main.js": "/easy-shop/static/js/main.0eeb3682.js",
+    "main.js": "/easy-shop/static/js/main.bbac0b7e.js",
     "static/css/695.51a764b7.chunk.css": "/easy-shop/static/css/695.51a764b7.chunk.css",
-    "static/js/695.0b618356.chunk.js": "/easy-shop/static/js/695.0b618356.chunk.js",
+    "static/js/695.e3ea8e51.chunk.js": "/easy-shop/static/js/695.e3ea8e51.chunk.js",
     "static/css/278.b8722b31.chunk.css": "/easy-shop/static/css/278.b8722b31.chunk.css",
     "static/js/278.89ed5c61.chunk.js": "/easy-shop/static/js/278.89ed5c61.chunk.js",
     "static/css/0.17e893da.chunk.css": "/easy-shop/static/css/0.17e893da.chunk.css",
@@ -23,15 +23,23 @@
     "static/js/497.32e5a32d.chunk.js": "/easy-shop/static/js/497.32e5a32d.chunk.js",
     "static/js/108.90d0cadc.chunk.js": "/easy-shop/static/js/108.90d0cadc.chunk.js",
     "static/js/728.dda53fe9.chunk.js": "/easy-shop/static/js/728.dda53fe9.chunk.js",
+    "static/media/beauty.jpg": "/easy-shop/static/media/beauty.e401b43d9109f6d25852.jpg",
+    "static/media/cosmetics.jpg": "/easy-shop/static/media/cosmetics.b2b35a866f11d0069b67.jpg",
     "static/media/bg-register.jpg": "/easy-shop/static/media/bg-register.cffe2874b9c998bb7a50.jpg",
+    "static/media/client.jpg": "/easy-shop/static/media/client.b58262b405c398abf00e.jpg",
+    "static/media/men.jpg": "/easy-shop/static/media/men.faad95bbfaa6b630aea0.jpg",
+    "static/media/shop-maneken.jpg": "/easy-shop/static/media/shop-maneken.27f1f2c8eac41ec2eac6.jpg",
+    "static/media/man.jpg": "/easy-shop/static/media/man.72db98eb8116530c87a4.jpg",
+    "static/media/women.jpg": "/easy-shop/static/media/women.a71b2bf5259f89a780ac.jpg",
+    "static/media/kids.jpg": "/easy-shop/static/media/kids.51f3f5dea4eb7c951fa2.jpg",
     "static/media/no_photo.jpg": "/easy-shop/static/media/no_photo.e1c9f7d877f5eac85cc7.jpg",
     "static/media/cart-icon.svg": "/easy-shop/static/media/cart-icon.015c100ed4478f2bca416b06ab14e802.svg",
     "index.html": "/easy-shop/index.html",
     "static/media/heart-icon.svg": "/easy-shop/static/media/heart-icon.40c4bb93f173ed25329096595cd76cbe.svg",
     "main.ddb7b1da.css.map": "/easy-shop/static/css/main.ddb7b1da.css.map",
-    "main.0eeb3682.js.map": "/easy-shop/static/js/main.0eeb3682.js.map",
+    "main.bbac0b7e.js.map": "/easy-shop/static/js/main.bbac0b7e.js.map",
     "695.51a764b7.chunk.css.map": "/easy-shop/static/css/695.51a764b7.chunk.css.map",
-    "695.0b618356.chunk.js.map": "/easy-shop/static/js/695.0b618356.chunk.js.map",
+    "695.e3ea8e51.chunk.js.map": "/easy-shop/static/js/695.e3ea8e51.chunk.js.map",
     "278.b8722b31.chunk.css.map": "/easy-shop/static/css/278.b8722b31.chunk.css.map",
     "278.89ed5c61.chunk.js.map": "/easy-shop/static/js/278.89ed5c61.chunk.js.map",
     "0.17e893da.chunk.css.map": "/easy-shop/static/css/0.17e893da.chunk.css.map",
@@ -54,6 +62,6 @@
   },
   "entrypoints": [
     "static/css/main.ddb7b1da.css",
-    "static/js/main.0eeb3682.js"
+    "static/js/main.bbac0b7e.js"
   ]
 }
