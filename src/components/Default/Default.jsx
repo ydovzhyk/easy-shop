@@ -6,6 +6,7 @@ import CatalogList from '../Catalog/CatalogList';
 import cards from '../../data/cards.json';
 import s from './Default.module.scss';
 import Slider from 'components/Slider/Slider';
+import Text from 'components/Shared/Text/Text';
 
 const Default = () => {
   const isUserLogin = useSelector(getLogin);
@@ -14,7 +15,7 @@ const Default = () => {
     <section className={s.default}>
       {!isUserLogin && (
         <div className={s.defaultTitle}>
-          <h2 className={s.title}>Перш ніж почати зареєструйтеся!</h2>
+          <Text text={'Перш ніж почати зареєструйтеся!'} textClass="title" />
           {/* <CatalogList cards={cards} /> */}
         </div>
       )}

@@ -3,7 +3,7 @@
 .gallery {
   height: 192px;
   width: 100%;
-  border-radius: 32px;
+  border-radius: 20px;
   overflow: hidden;
   @include mixins.mq(tablet) {
     height: 226px;
