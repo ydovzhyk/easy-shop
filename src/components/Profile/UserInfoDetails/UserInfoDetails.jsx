@@ -27,7 +27,7 @@ const UserInfoDetails = () => {
                 </li>
                 <li className={s.item}>
                     <ProfileDetails                
-                    to='mysettings'
+                    to='/mysettings'
                     >Мої налаштування</ProfileDetails>
                 </li>
             </ul>

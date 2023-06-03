@@ -20,35 +20,6 @@ const Profile = () => {
       </section>
       <section className={s.profiledeatails}>
         <UserInfoDetails/>
-        {/* <Container>
-          <ul className={s.list}>
-            <li className={s.item}>
-              <ProfileDetails                
-                to='mythings'
-              >Мої речі</ProfileDetails>
-            </li>
-            <li className={s.item}>
-              <ProfileDetails
-                to='mywares'
-              >Мої товари</ProfileDetails>
-            </li>
-            <li className={s.item}>
-              <ProfileDetails
-                to='myshoppings'
-              >Мої покупки</ProfileDetails>
-            </li>
-            <li className={s.item}>
-              <ProfileDetails
-                to='myreviews'
-              >Мої відгуки</ProfileDetails>
-            </li>
-            
-          </ul>
-
-          <Suspense fallback={<div>Loading...</div>}>
-            <Outlet/>
-          </Suspense>
-        </Container> */}
       </section>
       </>
   );

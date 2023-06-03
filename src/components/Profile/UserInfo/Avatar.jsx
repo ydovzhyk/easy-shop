@@ -1,22 +1,25 @@
 import PropTypes from 'prop-types';
-import photo from "../../../images/Avatar/Hansel.png"
+import { HiOutlineUserCircle } from "react-icons/hi";
+
+// import photo from "../../../images/Avatar/Hansel.png"
 
 const Avatar = ({
     src, alt, className, width, heigth, ...attrs }) => {
     return (
-        <img
+        src ?
+        (<img
             src={src}
             alt={alt}
             className={className}
             width={width}
             height={heigth}
             {...attrs}
-        />
+            />) : (<HiOutlineUserCircle className={className } />)
     );
 };
 
 Avatar.propTypes = {
-    src: PropTypes.string,
+    src: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     alt: PropTypes.string,
     className: PropTypes.string,
     width: PropTypes.number,
@@ -24,7 +27,6 @@ Avatar.propTypes = {
 }
 
 Avatar.defaultProps = {
-    src: photo,
     alt: 'avatar',
     className: '',
     width: 72,

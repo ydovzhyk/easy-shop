@@ -14,23 +14,20 @@
 }
 
 .avatar {
-    width: 72px;
-    border: 1px solid grey;
     border-radius: 50%;
     text-align: center;
     vertical-align: middle;
+    
+}
+
+.photo {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
 
     @include mixins.mq(tablet) {
         width: 144px;
         height: 144px;
-    }
-}
-
-.photo {
-    border-radius: 50%;
-
-    @include mixins.mq(tablet) {
-        width: 144px;
     }
 }
 

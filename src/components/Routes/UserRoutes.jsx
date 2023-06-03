@@ -17,7 +17,7 @@ const MyShoppings = lazy(() => import('../Profile/MyShoppings'));
 const MyReviews = lazy(() => import('../Profile/MyReviews'));
 const AddProductPage = lazy(() => import('pages/AddProductPage'));
 const AuthPage = lazy(() => import('pages/AuthPage'));
-const MySettings = lazy(() => import('../Profile/MySettings'));
+const MySettings = lazy(() => import('../Profile/MySettings/MySettings'));
 
 const UserRoutes = () => {
   return (
@@ -39,8 +39,8 @@ const UserRoutes = () => {
             <Route path="mywares" element={<MyWares />} />
             <Route path="myshoppings" element={<MyShoppings />} />
             <Route path="myreviews" element={<MyReviews />} />
-            <Route path="mysettings" element={<MySettings />} />
           </Route>
+          <Route path="/mysettings" element={<MySettings />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
