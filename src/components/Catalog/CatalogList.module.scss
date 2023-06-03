@@ -1,11 +1,7 @@
 @use '../../styles/_mixins.scss';
 
 .container {
-  // display: flex;
-  // justify-content: space-between;
-  // align-items: center;
-  padding: 20px;
-  max-width: 1280px;
+  padding: 20px 15px;
   margin: 0 auto;
 }
 
@@ -14,73 +10,104 @@
   align-items: center;
 
   font-weight: 700;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 13px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--title-text-color);
   text-align: center;
 
-  margin-bottom: 20px;
+  padding-top: 1em;
+  padding-bottom: 1em;
+
+  @include mixins.mq(tablet) {
+    font-size: 24px;
+  }
 }
 
 .listCard {
-  margin-bottom: 25px;
+  margin: -15px;
 
   @include mixins.mq(tablet) {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, auto));
-    grid-gap: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    // display: grid;
+    // grid-template-columns: repeat(auto-fill, minmax(320px, auto));
+    // grid-gap: 15px;
 
-    width: 460;
-  }
-  @include mixins.mq(desktop) {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, auto));
-    grid-gap: 15px;
-
-    width: 770;
+    // width: 460;
   }
 }
 
 .itemCard {
-  max-width: 1200px;
-  padding-left: 15px;
-  padding-right: 15px;
-  margin: 0 auto 20px auto;
-  // margin-left: auto;
-  // margin-right: auto;
+  margin: 15px;
+
+  @include mixins.mq(tablet) {
+    width: calc(100% / 2 - 30px);
+  }
+
+  @include mixins.mq(desktop) {
+    width: calc(100% / 5 - 30px);
+  }
 }
 
 .stylePhotoCard {
   display: flex;
-  flex-wrap: wrap;
-  // max-width: 100%;
-  // max-height: 100%;
-  // object-fit: contain;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .photoCard {
-  // width: 220px;
-  // height: 300px;
-  // object-fit: cover;
-  // width: 220px;
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+
   margin-bottom: 8px;
 
   border-radius: 25px;
+
+  &:before,
+  &:after {
+    content: '';
+    // position: absolute;
+    // top: 50%;
+    // transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    background-color: aqua;
+    border-radius: 50%;
+    color: aqua;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+
+  &:before {
+    left: 10px;
+    content: '<'; /* встановіть потрібний символ для лівої стрілки */
+  }
+
+  &:after {
+    right: 10px;
+    content: '>'; /* встановіть потрібний символ для правої стрілки */
+  }
 }
 
 .stylePriceLike {
+  margin-bottom: 12px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .priceCard {
-  margin-bottom: 12px;
-
+  font-weight: 700;
   font-size: 18px;
-  font-weight: 500;
+
   color: var(--title-text-color);
 }
 
@@ -94,6 +121,7 @@
 
   font-size: 12px;
   line-height: 16px;
+
   color: var(--second-text-color);
 }
 
@@ -101,13 +129,18 @@
   margin-bottom: 12px;
 
   font-size: 14px;
+  line-height: 20px;
   text-decoration: none;
+
   color: var(--second-text-color);
 }
 
 .sizeCard {
+  padding-bottom: 12px;
+
+  font-weight: 700;
   font-size: 13px;
-  font-weight: 500;
+
   color: var(--text-color);
 }
 
@@ -116,15 +149,23 @@
 }
 
 .link {
-  // color: #9b9faa;
   color: var(--second-text-color);
-  // background-size: 200% 100%;
-  // background-position: -100%;
-  // display: inline-block;
-  // position: relative;
+
   transition: all 0.3s ease-in-out;
   &:hover svg {
     fill: var(--accent-color);
     stroke: var(--icons-color);
   }
 }
+
+// .arrowRight {
+//   position: absolute;
+//   top: 69%;
+//   left: calc(20% + 20px);
+// }
+
+// .arrowRight {
+//   position: absolute;
+//   top: 69%;
+//   left: calc(20% + 20px);
+// }
