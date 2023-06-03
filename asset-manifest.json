@@ -1,9 +1,9 @@
 {
   "files": {
     "main.css": "/easy-shop/static/css/main.ddb7b1da.css",
-    "main.js": "/easy-shop/static/js/main.bbac0b7e.js",
-    "static/css/695.51a764b7.chunk.css": "/easy-shop/static/css/695.51a764b7.chunk.css",
-    "static/js/695.e3ea8e51.chunk.js": "/easy-shop/static/js/695.e3ea8e51.chunk.js",
+    "main.js": "/easy-shop/static/js/main.1a39b47d.js",
+    "static/css/695.eeebd635.chunk.css": "/easy-shop/static/css/695.eeebd635.chunk.css",
+    "static/js/695.e4b663e5.chunk.js": "/easy-shop/static/js/695.e4b663e5.chunk.js",
     "static/css/278.b8722b31.chunk.css": "/easy-shop/static/css/278.b8722b31.chunk.css",
     "static/js/278.89ed5c61.chunk.js": "/easy-shop/static/js/278.89ed5c61.chunk.js",
     "static/css/0.17e893da.chunk.css": "/easy-shop/static/css/0.17e893da.chunk.css",
@@ -37,9 +37,9 @@
     "index.html": "/easy-shop/index.html",
     "static/media/heart-icon.svg": "/easy-shop/static/media/heart-icon.40c4bb93f173ed25329096595cd76cbe.svg",
     "main.ddb7b1da.css.map": "/easy-shop/static/css/main.ddb7b1da.css.map",
-    "main.bbac0b7e.js.map": "/easy-shop/static/js/main.bbac0b7e.js.map",
-    "695.51a764b7.chunk.css.map": "/easy-shop/static/css/695.51a764b7.chunk.css.map",
-    "695.e3ea8e51.chunk.js.map": "/easy-shop/static/js/695.e3ea8e51.chunk.js.map",
+    "main.1a39b47d.js.map": "/easy-shop/static/js/main.1a39b47d.js.map",
+    "695.eeebd635.chunk.css.map": "/easy-shop/static/css/695.eeebd635.chunk.css.map",
+    "695.e4b663e5.chunk.js.map": "/easy-shop/static/js/695.e4b663e5.chunk.js.map",
     "278.b8722b31.chunk.css.map": "/easy-shop/static/css/278.b8722b31.chunk.css.map",
     "278.89ed5c61.chunk.js.map": "/easy-shop/static/js/278.89ed5c61.chunk.js.map",
     "0.17e893da.chunk.css.map": "/easy-shop/static/css/0.17e893da.chunk.css.map",
@@ -62,6 +62,6 @@
   },
   "entrypoints": [
     "static/css/main.ddb7b1da.css",
-    "static/js/main.bbac0b7e.js"
+    "static/js/main.1a39b47d.js"
   ]
 }
