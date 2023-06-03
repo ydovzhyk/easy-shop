@@ -10,9 +10,9 @@ import { AiOutlineArrowLeft } from 'react-icons/ai';
 
 import s from './Header.module.scss';
 import HeaderForm from 'components/HeaderForm/HeaderForm';
+import SwitchBtn from 'components/Shared/SwitchBtn/SwitchBtn';
 import Logo from 'components/Shared/Logo';
 import Button from 'components/Shared/Button';
-import SwitchBox from 'components/SwitchBox/SwitchBox';
 
 const Header = () => {
   const [showForm, setShowForm] = useState(false);
@@ -119,8 +119,8 @@ const Header = () => {
             </NavLink>
           </div>
           <div className={s.switchMainBox}>
-            <SwitchBox type="language" />
-            <SwitchBox type="theme" />
+            <SwitchBtn type="language" />
+            <SwitchBtn type="theme" />
           </div>
         </div>
       )}

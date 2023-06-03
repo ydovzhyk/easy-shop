@@ -18,7 +18,7 @@ const Changer = ({ type }) => {
     <ul className={s.changerList}>
       {mainArray.map(el => (
         <li key={el} className={s.changerItem}>
-          <p className={s.changerText}>{el}</p>
+          <p className={s.changerContent}>{el}</p>
         </li>
       ))}
     </ul>

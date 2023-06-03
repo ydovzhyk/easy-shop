@@ -2,54 +2,19 @@
 
 .changerList {
   position: relative;
+  width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
 }
 
-.changerItem:not(:last-child) {
-  margin-right: 20px;
-  @include mixins.mq(tablet) {
-    margin-right: 26px;
-  }
-  @include mixins.mq(desktop) {
-    margin-right: 36px;
-  }
-}
-
-.changerItem:last-child::after {
-  content: '';
-  position: absolute;
-  width: 28px;
-  height: 0px;
-  top: 7px;
-  left: 16px;
-  border: 2px solid var(--border-color);
-  transform: rotate(90deg);
-  @include mixins.mq(tablet) {
-    left: 22px;
-  }
-  @include mixins.mq(desktop) {
-    left: 28px;
-  }
-}
-
-.active {
-  color: #212121;
-}
-
-.changerText {
-  font-size: 14px;
+.changerContent {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
   background-color: transparent;
-  color: var(--icons-color);
   transition: color var(--transition-duration) var(--timing-function);
-  &:hover,
-  &:focus {
-    color: var(--hover-active-color);
-  }
-  @include mixins.mq(tablet) {
+  @include mixins.mq(desktop) {
     font-size: 16px;
-    font-weight: 500;
   }
 }
