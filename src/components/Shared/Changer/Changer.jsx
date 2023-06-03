@@ -19,7 +19,6 @@ const Changer = ({ type }) => {
       {mainArray.map(el => (
         <li key={el} className={s.changerItem}>
           <p className={s.changerText}>{el}</p>
-          {/* <Button type="button" btnClass="languageButton" text={el}></Button> */}
         </li>
       ))}
     </ul>
