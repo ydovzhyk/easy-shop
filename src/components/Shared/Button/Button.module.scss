@@ -46,23 +46,6 @@
   }
 }
 
-.languageButton {
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 400;
-  background-color: transparent;
-  color: var(--icons-color);
-  transition: color var(--transition-duration) var(--timing-function);
-  &:hover,
-  &:focus {
-    color: var(--hover-active-color);
-  }
-  @include mixins.mq(tablet) {
-    font-size: 16px;
-    font-weight: 500;
-  }
-}
-
 .searchBtn {
   margin-right: 20px;
   color: var(--icons-color);

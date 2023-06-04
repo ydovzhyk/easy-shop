@@ -1,0 +1,20 @@
+@use '../../../styles/mixins';
+
+.changerList {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.changerContent {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  background-color: transparent;
+  transition: color var(--transition-duration) var(--timing-function);
+  @include mixins.mq(desktop) {
+    font-size: 16px;
+  }
+}
