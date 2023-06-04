@@ -22,8 +22,8 @@ const AddProduct = () => {
   const userId = useSelector(getID);
   const [sectionValue, setSectionValue] = useState('');
   const [selectedSizes, setSelectedSizes] = useState([]);
-  const [mainFileURL, setMainFileURL] = useState('');
-  const [additionalFilesURL, setAdditionalFilesURL] = useState([]);
+  const [mainFile, setMainFile] = useState(null);
+  const [additionalFiles, setAdditionalFiles] = useState([]);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
   const date = new Date();
@@ -35,12 +35,12 @@ const AddProduct = () => {
     setSelectedSizes(sizes);
   };
 
-  const handleMainFileChange = url => {
-    setMainFileURL(url);
+  const handleMainFileChange = file => {
+    setMainFile(file);
   };
 
-  const handleAdditionalFilesChange = urls => {
-    setAdditionalFilesURL(urls);
+  const handleAdditionalFilesChange = files => {
+    setAdditionalFiles(files);
   };
 
   const { control, register, handleSubmit, reset } = useForm({
@@ -60,26 +60,29 @@ const AddProduct = () => {
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
-    const dataForUpload = {
-      nameProduct: data.nameProduct,
-      brendName: data.brendName,
-      condition: data.condition.value,
-      section: data.section.value,
-      category: data.category.value,
-      vip: data.vip.value,
-      quantity: data.quantity,
-      description: data.description,
-      keyWords: data.keyWords,
-      price: data.price,
-      size: selectedSizes,
-      file: mainFileURL,
-      files: additionalFilesURL,
-      owner: userId,
-      date: today,
-    };
+    const dataForUpload = new FormData();
+    dataForUpload.append('nameProduct', data.nameProduct);
+    dataForUpload.append('brendName', data.brendName);
+    dataForUpload.append('condition', data.condition.value);
+    dataForUpload.append('section', data.section.value);
+    dataForUpload.append('category', data.category.value);
+    dataForUpload.append('vip', data.vip.value);
+    dataForUpload.append('quantity', data.quantity);
+    dataForUpload.append('description', data.description);
+    dataForUpload.append('keyWords', data.keyWords);
+    dataForUpload.append('price', data.price);
+    dataForUpload.append('size', selectedSizes);
+    dataForUpload.append('mainFileName', mainFile.name);
+    const allFiles = [...additionalFiles, mainFile];
+    allFiles.forEach(file => {
+      dataForUpload.append('files', file);
+    });
+    dataForUpload.append('owner', userId);
+    dataForUpload.append('date', today);
+
     dispatch(addProduct(dataForUpload));
-    setMainFileURL('');
-    setAdditionalFilesURL([]);
+    setMainFile('');
+    setAdditionalFiles([]);
     setSelectedSizes([]);
     setIsFormSubmitted(true);
     reset();
@@ -351,22 +354,3 @@ const AddProduct = () => {
 };
 
 export default AddProduct;
-
-// const dataForUpload = new FormData();
-// dataForUpload.append('nameProduct', data.nameProduct);
-// dataForUpload.append('brendName', data.brendName);
-// dataForUpload.append('condition', data.condition.value);
-// dataForUpload.append('section', data.section.value);
-// dataForUpload.append('category', data.category.value);
-// dataForUpload.append('vip', data.vip.value);
-// dataForUpload.append('quantity', data.quantity);
-// dataForUpload.append('description', data.description);
-// dataForUpload.append('keyWords', data.keyWords);
-// dataForUpload.append('price', data.price);
-// dataForUpload.append('size', selectedSizes);
-// dataForUpload.append('mainFile', mainFileURL);
-// additionalFilesURL.forEach(url => {
-//   dataForUpload.append('files', url);
-// });
-// dataForUpload.append('owner', userId);
-// dataForUpload.append('date', today);

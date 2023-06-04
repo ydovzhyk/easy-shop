@@ -10,7 +10,9 @@ const Photo = ({
   onChangeAdditionalFiles,
 }) => {
   const [backgroundImage, setBackgroundImage] = useState('');
+  const [mainFile, setMainFile] = useState('');
   const [additionalImages, setAdditionalImages] = useState([]);
+  const [additionalFiles, setAdditionalFiles] = useState([]);
   const text = [
     'Фото iз зворотньої сторони виробу',
     'Фото на вішалці',
@@ -25,6 +27,7 @@ const Photo = ({
     reader.onload = () => {
       const dataURL = reader.result;
       setBackgroundImage(`url(${dataURL})`);
+      setMainFile(file);
     };
     reader.readAsDataURL(file);
   };
@@ -32,13 +35,16 @@ const Photo = ({
   const handleAdditionalFilesUpload = async event => {
     const files = event.target.files;
     const images = [];
+    const additionalFiles = [];
 
     for (let i = 0; i < files.length && i < 5; i++) {
       const file = files[i];
       const dataURL = await readFileAsDataURL(file);
       images.push(dataURL);
+      additionalFiles.push(file);
     }
     setAdditionalImages(images);
+    setAdditionalFiles(additionalFiles);
   };
 
   const readFileAsDataURL = file => {
@@ -52,14 +58,9 @@ const Photo = ({
   };
 
   useEffect(() => {
-    onChangeMainFile(backgroundImage);
-    onChangeAdditionalFiles(additionalImages);
-  }, [
-    backgroundImage,
-    additionalImages,
-    onChangeMainFile,
-    onChangeAdditionalFiles,
-  ]);
+    onChangeMainFile(mainFile);
+    onChangeAdditionalFiles(additionalFiles);
+  }, [mainFile, additionalFiles, onChangeMainFile, onChangeAdditionalFiles]);
 
   useEffect(() => {
     if (isFormSubmitted) {

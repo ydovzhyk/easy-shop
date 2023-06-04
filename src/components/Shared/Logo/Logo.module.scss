@@ -1,15 +1,61 @@
 @use '../../../styles/mixins';
 
+.logoBox {
+  width: 112px;
+  position: relative;
+  text-align: center;
+  @include mixins.mq(tablet) {
+    width: 160px;
+  }
+}
+
 .logo {
-  margin-top: 1px;
   font-family: 'Nunito Sans', sans-serif;
-  font-size: 30px;
+  font-size: 25px;
+  text-shadow: var(--hover-text-shadow);
+  letter-spacing: -3px;
+  font-weight: 500;
 
   @include mixins.mq(tablet) {
     font-size: 36px;
   }
 
   @include mixins.mq(desktop) {
-    font-size: 40px;
+    font-size: 35px;
   }
+}
+
+@keyframes tipsy {
+  0% {
+    transform: translateX(-50%) translateY(-50%) rotate(0deg);
+  }
+  100% {
+    transform: translateX(-50%) translateY(-50%) rotate(360deg);
+  }
+}
+
+.logo:before,
+.logo:after {
+  content: '';
+  padding: 0.9em 0.4em;
+  position: absolute;
+  left: 50%;
+  width: 100%;
+  top: 50%;
+  display: block;
+  border: 10px solid var(--accent-color);
+  transform: translateX(-50%) translateY(-50%) rotate(0deg);
+  animation: 10s infinite alternate ease-in-out tipsy;
+}
+
+.logo:before {
+  border-color: var(--accent-color) var(--accent-color) rgba(0, 0, 0, 0)
+    rgba(0, 0, 0, 0);
+  z-index: -1;
+}
+
+.logo:after {
+  border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) var(--accent-color)
+    var(--accent-color);
+  box-shadow: 15px 15px 15px gray;
 }

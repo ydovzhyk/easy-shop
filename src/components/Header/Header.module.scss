@@ -51,37 +51,38 @@
   }
 }
 
-.active {
+.active,
+.link:hover,
+.link:focus {
+  text-shadow: var(--hover-text-shadow);
   color: var(--hover-active-color);
+}
+
+.link {
   display: inline-block;
   position: relative;
-  transition: all var(--transition-duration) var(--timing-function);
-  margin-right: 15px;
-}
-
-.link.active:before {
-  width: 100%;
-}
-
-.link:before {
-  content: '';
-  background: var(--btn-border-color);
-  display: block;
-  position: absolute;
-  bottom: -3px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  transition: all var(--transition-duration) var(--timing-function);
-}
-
-.link:hover {
-  background-position: 0;
-  color: var(--hover-active-color);
+  transition: all 0.3s ease-in-out;
+  &::before {
+    content: '';
+    background: var(--title-text-color);
+    display: block;
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    transition: all 0.3s ease-in-out;
+  }
 }
 
 .link:hover::before {
   width: 100%;
+}
+
+.active {
+  &::before {
+    width: 100%;
+  }
 }
 
 .navTopContainer {
