@@ -45,7 +45,7 @@ const MySettings = () => {
         dispatch(updateUser(dataForUpload));
         setAvatarFileURL('');
         setIsFormSubmitted(true);
-        // reset();
+        reset();
     }
 
     
