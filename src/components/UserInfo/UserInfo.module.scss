@@ -40,7 +40,7 @@
 .link {
   display: inline-block;
   position: relative;
-  transition: all 0.3s ease-in-out;
+  transition: all var(--transition-duration) var(--timing-function);
   &::before {
     content: '';
     background: var(--title-text-color);
@@ -49,8 +49,8 @@
     bottom: -8px;
     left: 0;
     width: 0;
-    height: 2px;
-    transition: all 0.3s ease-in-out;
+    height: 1px;
+    transition: all var(--transition-duration) var(--timing-function);
   }
 }
 
