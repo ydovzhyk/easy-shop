@@ -9,7 +9,7 @@
   width: 60px;
   background-color: var(--accent-color);
   z-index: 0;
-  border: none;
+  border: 1px solid var(--btn-border-color);
   border-radius: 60px;
   cursor: pointer;
   transition-duration: var(--transition-duration);
