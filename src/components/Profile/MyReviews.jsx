@@ -1,4 +1,4 @@
-const MyReviews= () => {
+const MyReviews = () => {
     return (
         <h3>My reviews</h3>
     )
