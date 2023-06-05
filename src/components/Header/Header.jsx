@@ -90,40 +90,38 @@ const Header = () => {
         )}
       </div>
 
-      {isLogin && (
-        <div className={s.containerBottom}>
-          <div>
-            <NavLink
-              className={getClassName({
-                isActive: location.pathname === '/restaurants',
-              })}
-              to="/restaurants"
-            >
-              Жінкам
-            </NavLink>
-            <NavLink
-              className={getClassName({
-                isActive: location.pathname === '/supermarkets',
-              })}
-              to="/supermarkets"
-            >
-              Чоловікам
-            </NavLink>
-            <NavLink
-              className={getClassName({
-                isActive: location.pathname === '/health',
-              })}
-              to="/health"
-            >
-              Дитячі речі
-            </NavLink>
-          </div>
-          <div className={s.switchMainBox}>
-            <SwitchBtn type="language" />
-            <SwitchBtn type="theme" />
-          </div>
+      <div className={s.containerBottom}>
+        <div>
+          <NavLink
+            className={getClassName({
+              isActive: location.pathname === '/restaurants',
+            })}
+            to="/restaurants"
+          >
+            Жінкам
+          </NavLink>
+          <NavLink
+            className={getClassName({
+              isActive: location.pathname === '/supermarkets',
+            })}
+            to="/supermarkets"
+          >
+            Чоловікам
+          </NavLink>
+          <NavLink
+            className={getClassName({
+              isActive: location.pathname === '/health',
+            })}
+            to="/health"
+          >
+            Дитячі речі
+          </NavLink>
         </div>
-      )}
+        <div className={s.switchMainBox}>
+          <SwitchBtn type="language" />
+          <SwitchBtn type="theme" />
+        </div>
+      </div>
     </header>
   );
 };
