@@ -20,16 +20,6 @@
     
 }
 
-.photo {
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-
-    @include mixins.mq(tablet) {
-        width: 144px;
-        height: 144px;
-    }
-}
 
 .userframe {
     display: flex;
