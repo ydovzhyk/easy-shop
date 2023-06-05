@@ -19,3 +19,8 @@ export const axiosDeleteProduct = async userData => {
   const { data } = await instance.delete(`/product/delete/${userData}`);
   return data;
 };
+
+export const axiosGetAllProducts = async () => {
+  const { data } = await instance.get(`/product/`);
+  return data;
+};
