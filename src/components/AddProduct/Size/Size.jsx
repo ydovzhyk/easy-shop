@@ -73,40 +73,6 @@ const Size = ({ onSelectedSizesChange, isFormSubmitted }) => {
           );
         })}
       </ul>
-      {/* <div>
-        <ul className={s.menuGroupList}>
-          {selectedSizes.map(size => {
-            const key = Object.keys(size)[0];
-            const values = size[key];
-
-            return (
-              <li key={nanoid()}>
-                <div>
-                  {key === 'Інший' || key === 'One size' ? (
-                    <Text text={key} textClass="title" />
-                  ) : (
-                    <>
-                      <ul>
-                        {values.map((value, index) => (
-                          <li key={index}>
-                            {Object.entries(value).map(([key, value]) => (
-                              <Text
-                                key={key}
-                                text={`${key}: ${value}`}
-                                textClass="title"
-                              />
-                            ))}
-                          </li>
-                        ))}
-                      </ul>
-                    </>
-                  )}
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      </div> */}
     </div>
   );
 };

@@ -16,8 +16,8 @@ const Changer = ({ type }) => {
 
   return (
     <ul className={s.changerList}>
-      {mainArray.map(el => (
-        <li key={el} className={s.changerItem}>
+      {mainArray.map((el, index) => (
+        <li key={index} className={s.changerItem}>
           <p className={s.changerContent}>{el}</p>
         </li>
       ))}
