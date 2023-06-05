@@ -13,16 +13,19 @@ const UserInfoDetails = () => {
                 <li className={s.item}>
                     <ProfileDetails
                         to='mywares'
+                        addValue
                     >Мої товари</ProfileDetails>
                 </li>
                 <li className={s.item}>
                     <ProfileDetails
-                    to='myshoppings'
+                        to='myshoppings'
+                        addValue
                     >Мої покупки</ProfileDetails>
                 </li>
                 <li className={s.item}>
                     <ProfileDetails
-                    to='myreviews'
+                        to='myreviews'
+                        addValue
                     >Мої відгуки</ProfileDetails>
                 </li>
                 <li className={s.item}>
