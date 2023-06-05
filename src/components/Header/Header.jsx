@@ -15,6 +15,9 @@ import Button from 'components/Shared/Button';
 import SwitchBtn from 'components/Shared/SwitchBtn/SwitchBtn';
 import LanguageChanger from 'components/Shared/LanguageChanger/LanguageChanger';
 
+import { Catalog } from 'components/DropDownMenu/Catalog';
+import menuItems from 'components/DropDownMenu/menuItems';
+
 const Header = () => {
   const [showForm, setShowForm] = useState(false);
   const isDesctop = useMediaQuery({ minWidth: 1280 });
@@ -101,6 +104,7 @@ const Header = () => {
 
       {isLogin && (
         <div className={s.containerBottom}>
+          <Catalog data={menuItems} />
           <NavLink
             className={getClassName({
               isActive: location.pathname === '/restaurants',
