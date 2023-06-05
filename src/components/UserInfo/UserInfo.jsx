@@ -7,6 +7,7 @@ import { getLogin, getUserName, getUser } from 'redux/auth/auth-selectors';
 import { logout } from 'redux/auth/auth-opetations';
 import cartIcon from '../../images/header/cart-icon.svg';
 import heartIcon from '../../images/header/heart-icon.svg';
+import userPhoto from '../../images/Avatar/Hansel.png';
 import Button from 'components/Shared/Button';
 
 const UserInfo = () => {
@@ -61,15 +62,27 @@ const UserInfo = () => {
           />
           <span className={s.goodsNumber}>{user.userLikes.length}</span>
         </NavLink>
-        <NavLink to="/profile" className={getClassName}>
-          {userName}
-        </NavLink>
-        <Button
-          text="Вихід"
-          type="button"
-          handleClick={onLogout}
-          btnClass="exitHeaderBtn"
-        />
+        <div className={s.userWrapper}>
+          <NavLink
+            className={`${s.link} ${s.custom} ${s.userInfoBox}`}
+            to="/profile"
+          >
+            <img
+              src={userPhoto}
+              alt="Userphoto"
+              className={s.userPhoto}
+              width={40}
+              height={40}
+            />
+            <span>{userName}</span>
+          </NavLink>
+          <Button
+            text="Вихід"
+            type="button"
+            handleClick={onLogout}
+            btnClass="exitHeaderBtn"
+          />
+        </div>
       </div>
     );
   }

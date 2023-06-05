@@ -1,11 +1,11 @@
 @use '../../styles/mixins';
 
 .link {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
   color: var(--icons-color);
-  // background-size: 200% 100%;
-  // background-position: -100%;
-  // display: inline-block;
-  // position: relative;
   transition: all var(--transition-duration) var(--timing-function);
 }
 
@@ -18,6 +18,8 @@
 
 .userInfoSide {
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: row;
 }
 
@@ -64,53 +66,6 @@
   }
 }
 
-// .userInfoSide p:last-child {
-//   color: var(--second-text-color);
-//   margin-left: 32px;
-//   position: relative;
-// }
-
-// .userInfoSide p:before {
-//   content: '';
-//   position: absolute;
-//   width: 32px;
-//   height: 0px;
-//   top: 17px;
-//   left: -30px;
-//   border: 2px solid var(--border-color);
-//   transform: rotate(90deg);
-//   @include mixins.mq(tablet) {
-//     top: 7px;
-//   }
-//   @include mixins.mq(desktop) {
-//     top: 7px;
-//   }
-// }
-
-// .userInfoSide p {
-//   cursor: pointer;
-// }
-
-// .link:before {
-//   content: '';
-//   background-color: var(--btn-border-color);
-//   display: block;
-//   position: absolute;
-//   bottom: -3px;
-//   left: 0;
-//   width: 0;
-//   height: 2px;
-//   transition: all var(--transition-duration) var(--timing-function);
-// }
-
-// .link:hover {
-//   background-position: 0;
-// }
-
-// .link:hover::before {
-//   width: 100%;
-// }
-
 .goodsNumber {
   margin-right: 15px;
   margin-left: 10px;
@@ -119,4 +74,20 @@
 .custom {
   display: flex;
   flex-direction: row;
+}
+
+.userInfoBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.userWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.userInfoBox .userPhoto {
+  border-radius: 50%;
 }
