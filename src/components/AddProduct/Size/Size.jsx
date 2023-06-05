@@ -73,14 +73,7 @@ const Size = ({ onSelectedSizesChange, isFormSubmitted }) => {
           );
         })}
       </ul>
-    </div>
-  );
-};
-
-export default Size;
-
-{
-  /* <div>
+      {/* <div>
         <ul className={s.menuGroupList}>
           {selectedSizes.map(size => {
             const key = Object.keys(size)[0];
@@ -113,5 +106,9 @@ export default Size;
             );
           })}
         </ul>
-      </div> */
-}
+      </div> */}
+    </div>
+  );
+};
+
+export default Size;
