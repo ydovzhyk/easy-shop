@@ -82,11 +82,11 @@ const AddProduct = () => {
     dataForUpload.append('date', today);
 
     dispatch(addProduct(dataForUpload));
-    // setMainFile('');
-    // setAdditionalFiles([]);
-    // setSelectedSizes([]);
-    // setIsFormSubmitted(true);
-    // reset();
+    setMainFile('');
+    setAdditionalFiles([]);
+    setSelectedSizes([]);
+    setIsFormSubmitted(true);
+    reset();
   };
 
   return (
