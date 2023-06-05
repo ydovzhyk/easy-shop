@@ -12,23 +12,6 @@
     align-items: center;
 }
 
-.avatar {
-    border-radius: 50%;
-    text-align: center;
-    vertical-align: middle;
-
-}
-
-.photo {
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-
-    // @include mixins.mq(tablet) {
-    //     width: 144px;
-    //     height: 144px;
-    // }
-}
 
 .title {
     font-size: 24px;
@@ -36,15 +19,24 @@
     color: var(--text-color);
 }
 
-.changePhotoWrapper {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-}
-
-.changePhoto {
+.partwrapper {
+    padding: 16px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    align-items:flex-start;
+    gap: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+}
+
+.partFrame{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
