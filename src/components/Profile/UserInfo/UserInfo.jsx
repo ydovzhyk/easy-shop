@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { BsCheck2, BsGeoAlt, BsHandbag, BsPeople } from "react-icons/bs";
 import { getUserName, getUser } from 'redux/auth/auth-selectors';
 import Container from 'components/Shared/Container';
-import Avatar from 'components/Profile/UserInfo/Avatar';
+import Avatar from 'components/Profile/Avatar/Avatar';
 import UserRating from './UserRating';
 import Value from '../Value';
 import DaysValue from "components/Profile/UserInfo/DaysValue";
@@ -25,7 +25,7 @@ const UserInfo = () => {
             <div className={s.avatarframe}>
               <div className={s.avatar}>
                 <Avatar
-                  className={s.photo}
+                  avatarClass="photoAvatar"
                 />
               </div>
             </div>
