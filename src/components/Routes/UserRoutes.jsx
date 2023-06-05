@@ -18,6 +18,7 @@ const MyReviews = lazy(() => import('../Profile/MyReviews'));
 const AddProductPage = lazy(() => import('pages/AddProductPage'));
 const AuthPage = lazy(() => import('pages/AuthPage'));
 const MySettings = lazy(() => import('../Profile/MySettings/MySettings'));
+const PhoneVerification = lazy(() => import('../Profile/PhoneVerification'));
 
 const UserRoutes = () => {
   return (
@@ -41,6 +42,7 @@ const UserRoutes = () => {
             <Route path="myreviews" element={<MyReviews />} />
           </Route>
           <Route path="/mysettings" element={<MySettings />} />
+          <Route path="/phone-verification" element={ <PhoneVerification/>} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
