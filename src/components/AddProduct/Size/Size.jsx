@@ -8,18 +8,22 @@ const Size = ({ onSelectedSizesChange, isFormSubmitted }) => {
   const [selectedSizes, setSelectedSizes] = useState([]);
 
   const handleSizeClick = size => {
-    let formattedSize = {};
+    let formattedSize = [];
     if (sizeOption.hasOwnProperty(size)) {
-      formattedSize[size] = sizeOption[size];
+      formattedSize.push({ name: size, value: sizeOption[size] });
     } else {
-      formattedSize[size] = [{ [size]: size }];
+      formattedSize.push({ name: size, value: size });
     }
 
-    if (selectedSizes.some(s => Object.keys(s)[0] === size)) {
-      setSelectedSizes(selectedSizes.filter(s => Object.keys(s)[0] !== size));
+    if (isSelected(size)) {
+      setSelectedSizes(selectedSizes.filter(s => s[0].name !== size));
     } else {
       setSelectedSizes([...selectedSizes, formattedSize]);
     }
+  };
+
+  const isSelected = size => {
+    return selectedSizes.some(s => s[0].name === size);
   };
 
   useEffect(() => {
@@ -36,9 +40,7 @@ const Size = ({ onSelectedSizesChange, isFormSubmitted }) => {
     <div className={s.sizeBox}>
       <ul className={s.menuGroupList}>
         {Object.entries(sizeOption).map(([size, values]) => {
-          const isSelected = selectedSizes.some(
-            s => Object.keys(s)[0] === size
-          );
+          const isSelected = selectedSizes.some(s => s[0].name === size);
           return (
             <li
               key={nanoid()}
@@ -71,7 +73,14 @@ const Size = ({ onSelectedSizesChange, isFormSubmitted }) => {
           );
         })}
       </ul>
-      {/* <div>
+    </div>
+  );
+};
+
+export default Size;
+
+{
+  /* <div>
         <ul className={s.menuGroupList}>
           {selectedSizes.map(size => {
             const key = Object.keys(size)[0];
@@ -104,9 +113,5 @@ const Size = ({ onSelectedSizesChange, isFormSubmitted }) => {
             );
           })}
         </ul>
-      </div> */}
-    </div>
-  );
-};
-
-export default Size;
+      </div> */
+}

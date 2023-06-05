@@ -25,6 +25,7 @@ const AddProduct = () => {
   const [mainFile, setMainFile] = useState(null);
   const [additionalFiles, setAdditionalFiles] = useState([]);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+  console.log(selectedSizes);
 
   const date = new Date();
   const today = `${date.getFullYear()}-${
@@ -71,7 +72,7 @@ const AddProduct = () => {
     dataForUpload.append('description', data.description);
     dataForUpload.append('keyWords', data.keyWords);
     dataForUpload.append('price', data.price);
-    dataForUpload.append('size', selectedSizes);
+    dataForUpload.append('size', JSON.stringify(selectedSizes));
     dataForUpload.append('mainFileName', mainFile.name);
     const allFiles = [...additionalFiles, mainFile];
     allFiles.forEach(file => {
@@ -81,11 +82,11 @@ const AddProduct = () => {
     dataForUpload.append('date', today);
 
     dispatch(addProduct(dataForUpload));
-    setMainFile('');
-    setAdditionalFiles([]);
-    setSelectedSizes([]);
-    setIsFormSubmitted(true);
-    reset();
+    // setMainFile('');
+    // setAdditionalFiles([]);
+    // setSelectedSizes([]);
+    // setIsFormSubmitted(true);
+    // reset();
   };
 
   return (

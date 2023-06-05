@@ -42,7 +42,9 @@ const options = {
 
 const Slider = () => {
   return (
-    <ImageGallery items={sliderImages} {...options} className={s.gallery} />
+    <div className={s.sliderPart}>
+      <ImageGallery items={sliderImages} {...options} className={s.gallery} />
+    </div>
   );
 };
 
