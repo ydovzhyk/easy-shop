@@ -47,3 +47,7 @@
 .circleBox:has(.navIcon:focus) {
   transform: scale(0.93);
 }
+
+.userPhoto {
+  border-radius: 50%;
+}
