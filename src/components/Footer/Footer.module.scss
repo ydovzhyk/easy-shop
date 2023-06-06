@@ -26,9 +26,21 @@
   }
 }
 
+.mainFooterContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  @include mixins.mq(desktop) {
+    margin-bottom: 0;
+    align-items: start;
+  }
+}
+
 .copyrightBlock {
   display: flex;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .copyrightLink {
@@ -41,9 +53,15 @@
 }
 
 .footerMainText {
+  position: relative;
   font-size: 14px;
   margin-bottom: 15px;
   line-height: 1.2;
+}
+
+h3.footerMainText {
+  display: inline-block;
+  border-bottom: 1px solid var(--btn-border-color);
 }
 
 .footerBtn {
@@ -102,12 +120,6 @@
   }
 }
 
-.addressBox {
-  @include mixins.mq(desktop) {
-    margin-right: 30px;
-  }
-}
-
 .footerItemText {
   @extend .footerMainText;
   transition: all var(--transition-duration) var(--timing-function);
@@ -155,28 +167,27 @@
   }
 }
 
-.footerContentWrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .footerContentBox {
-  @extend .footerContentWrapper;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   @include mixins.mq(desktop) {
     align-items: start;
   }
 }
 
-.mainFooterContent {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 30px;
-  @include mixins.mq(desktop) {
-    margin-bottom: 0;
-    align-items: start;
+@keyframes pulsate {
+  50% {
+    color: #fff;
+    text-shadow: 0 -1px rgba(0, 0, 0, 0.3), 0 0 5px #ffd, 0 0 8px #fff;
   }
+}
+
+.footerAccentLink {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-shadow: 0.5 -0.5px var(--accent-color);
+  animation: pulsate 2s linear infinite;
 }

@@ -1,9 +1,9 @@
-import { NavLink } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { ImAppleinc } from 'react-icons/im';
 import { SiGoogleplay } from 'react-icons/si';
-import { HiOutlineCursorClick } from 'react-icons/hi';
 import { BsFacebook, BsInstagram, BsYoutube, BsTwitter } from 'react-icons/bs';
+import Logo from 'components/Shared/Logo/Logo';
 import s from './Footer.module.scss';
 
 const Footer = () => {
@@ -13,10 +13,11 @@ const Footer = () => {
       <div className={s.container}>
         <div className={s.mainFooterContent}>
           <div className={s.copyrightBlock}>
-            <p className={s.copyright}>&copy; 2023&nbsp;</p>
-            <NavLink to="/" className={s.copyrightLink}>
+            <p>&copy; 2023&nbsp;</p>
+            <Logo className="static"></Logo>
+            {/* <Link to="/" className={s.copyrightLink}>
               EASYshop
-            </NavLink>
+            </Link> */}
           </div>
           <p className={s.footerMainText}>
             Модні товари для усієї сім'ї за доступною ціною.
@@ -47,7 +48,7 @@ const Footer = () => {
           </div>
         </div>
         <address className={s.addressFooterContent}>
-          <div className={s.addressBox}>
+          <div>
             <h3 className={s.footerMainText}>Як нас знайти?</h3>
             <ul>
               <li className={s.footerItemText}>
@@ -90,9 +91,9 @@ const Footer = () => {
           width="180"
           height="160"
           title="googleMap"
-          allowfullscreen=""
+          allowFullScreen=""
           loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
+          referrerPolicy="no-referrer-when-downgrade"
         ></iframe>
         <div className={s.footerContentBox}>
           <h3 className={s.footerMainText}>Ми у соцмережах</h3>
@@ -134,14 +135,11 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer nofollow"
               >
-                <BsYoutube size={25} className={s.footerSocialIcon} />
+                <BsYoutube size={27} className={s.footerSocialIcon} />
               </a>
             </li>
           </ul>
-          <div className={s.footerContentWrapper}>
-            <h3 className={s.footerLink}>Команда розробників сайту</h3>
-            <HiOutlineCursorClick size={18} />
-          </div>
+          <h3 className={s.footerAccentLink}>Команда розробників сайту</h3>
         </div>
       </div>
     </footer>

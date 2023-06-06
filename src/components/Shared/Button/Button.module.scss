@@ -47,7 +47,6 @@
 }
 
 .searchBtn {
-  margin-right: 20px;
   color: var(--icons-color);
   background-color: transparent;
   transition: color var(--transition-duration) var(--timing-function),
@@ -57,15 +56,6 @@
     color: var(--hover-active-color);
     transform: scale(0.8);
   }
-  @include mixins.mq(tablet) {
-    margin-right: 35px;
-  }
-}
-
-.searchFormBtn {
-  @extend .searchBtn;
-  background-color: transparent;
-  margin-right: 0;
 }
 
 .btnLight:hover {
@@ -97,7 +87,7 @@
     bottom: -8px;
     left: 0;
     width: 0;
-    height: 2px;
+    height: 1px;
     transition: all var(--transition-duration) var(--timing-function);
   }
   &::after {
