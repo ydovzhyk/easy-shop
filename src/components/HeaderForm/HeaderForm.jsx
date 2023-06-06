@@ -1,5 +1,5 @@
 import { useForm, Controller } from 'react-hook-form';
-import { BiSearchAlt } from 'react-icons/bi';
+import { CiSearch } from 'react-icons/ci';
 import Button from 'components/Shared/Button';
 import { field } from 'components/Shared/TextField/fields';
 import TextField from 'components/Shared/TextField';
@@ -60,7 +60,7 @@ const HeaderForm = () => {
       <Button
         type="button"
         btnClass="searchFormBtn"
-        text={<BiSearchAlt size={30} />}
+        text={<CiSearch size={30} />}
       ></Button>
     </form>
   );

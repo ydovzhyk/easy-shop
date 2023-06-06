@@ -7,6 +7,7 @@ import { getLogin, getUserName, getUser } from 'redux/auth/auth-selectors';
 import { logout } from 'redux/auth/auth-opetations';
 import cartIcon from '../../images/header/cart-icon.svg';
 import heartIcon from '../../images/header/heart-icon.svg';
+import Button from 'components/Shared/Button';
 
 const UserInfo = () => {
   const isUserLogin = useSelector(getLogin);
@@ -22,13 +23,19 @@ const UserInfo = () => {
     return isActive ? `${s.link} ${s.active}` : s.link;
   };
 
+  const getClassNameProfile = ({ isActive }) => {
+    return isActive
+      ? `${s.link} ${s.active} ${s.custom}`
+      : `${s.link} ${s.custom}`;
+  };
+
   if (!isUserLogin) {
     return (
       <div className={s.userInfoSide}>
         <NavLink className={getClassName} to="/login">
           Вхід
         </NavLink>
-        <NavLink className={getClassName} to="/registration">
+        <NavLink className={getClassName} to="login/registration">
           Реєстрація
         </NavLink>
       </div>
@@ -38,7 +45,7 @@ const UserInfo = () => {
   if (isUserLogin) {
     return (
       <div className={s.userInfoSide}>
-        <NavLink to="/basket" className={`${s.link} ${s.custom}`}>
+        <NavLink to="/basket" className={getClassNameProfile}>
           <img
             src={cartIcon}
             alt="Cart Icon"
@@ -46,7 +53,7 @@ const UserInfo = () => {
           />
           <span className={s.goodsNumber}>{user.userBasket.length}</span>
         </NavLink>
-        <NavLink to="/favorites" className={`${s.link} ${s.custom}`}>
+        <NavLink to="/favorites" className={getClassNameProfile}>
           <img
             src={heartIcon}
             alt="Heart Icon"
@@ -54,8 +61,15 @@ const UserInfo = () => {
           />
           <span className={s.goodsNumber}>{user.userLikes.length}</span>
         </NavLink>
-        <p>{userName}</p>
-        <p onClick={onLogout}>Вихід</p>
+        <NavLink to="/profile" className={getClassName}>
+          {userName}
+        </NavLink>
+        <Button
+          text="Вихід"
+          type="button"
+          handleClick={onLogout}
+          btnClass="exitHeaderBtn"
+        />
       </div>
     );
   }

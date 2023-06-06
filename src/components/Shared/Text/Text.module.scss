@@ -1,3 +1,4 @@
+@use '../../../styles/mixins';
 .textError {
   margin-top: 20px;
   color: var(--accent-color);
@@ -5,10 +6,22 @@
 
 .title {
   font-weight: 400;
-  font-size: 24px;
+  font-size: 18px;
   color: var(--text-color);
   margin-bottom: 20px;
   margin-top: 20px;
+  @include mixins.mq(tablet) {
+    font-size: 24px;
+  }
+}
+
+.titleGroupItems {
+  font-weight: 400;
+  font-size: 20px;
+  color: var(--text-color);
+  margin-bottom: 5px;
+  margin-top: 5px;
+  text-align: center;
 }
 
 .after-title {
@@ -24,4 +37,41 @@
   font-weight: 200;
   font-size: 14px;
   color: var(--text-color);
+}
+
+.after-title-bigger {
+  font-weight: 200;
+  font-size: 16px;
+  color: var(--text-color);
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.after-title-cardContent {
+  margin-top: 130px;
+  margin-bottom: 60px;
+  font-weight: 200;
+  font-size: 14px;
+  color: var(--text-color);
+  text-align: center;
+}
+
+.google-text {
+  font-weight: 200;
+  font-size: 14px;
+  color: var(--text-color);
+  margin-bottom: 12px;
+}
+
+.text {
+  font-size: 12px;
+}
+
+.lable-form {
+  font-size: 16px;
+}
+
+.second-text{
+  font-size: 12px;
+  color: var(--empty-color);
 }

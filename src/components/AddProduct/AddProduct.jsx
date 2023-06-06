@@ -5,13 +5,14 @@ import { useState } from 'react';
 
 import { field } from 'components/Shared/TextField/fields';
 import { addProduct } from 'redux/product/product-operations';
+import Size from './Size/Size';
+import Photo from './Photo/Photo';
 
 import Container from 'components/Shared/Container';
 import Text from 'components/Shared/Text/Text';
 import TextField from 'components/Shared/TextField';
 import SelectField from 'components/Shared/SelectField/SelectField';
 import Button from 'components/Shared/Button';
-import FormInputFile from 'components/Shared/FormInputFile/FormInputFile';
 import categoryOptions from './category.json';
 
 import s from './AddProduct.module.scss';
@@ -20,11 +21,28 @@ const AddProduct = () => {
   const dispatch = useDispatch();
   const userId = useSelector(getID);
   const [sectionValue, setSectionValue] = useState('');
+  const [selectedSizes, setSelectedSizes] = useState([]);
+  const [mainFile, setMainFile] = useState(null);
+  const [additionalFiles, setAdditionalFiles] = useState([]);
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+  console.log(selectedSizes);
 
   const date = new Date();
   const today = `${date.getFullYear()}-${
     date.getMonth() + 1
   }-${date.getDate()}`;
+
+  const handleSelectedSizesChange = sizes => {
+    setSelectedSizes(sizes);
+  };
+
+  const handleMainFileChange = file => {
+    setMainFile(file);
+  };
+
+  const handleAdditionalFilesChange = files => {
+    setAdditionalFiles(files);
+  };
 
   const { control, register, handleSubmit, reset } = useForm({
     defaultValues: {
@@ -35,8 +53,9 @@ const AddProduct = () => {
       section: '',
       quantity: 1,
       description: '',
+      keyWords: '',
       price: 0,
-      files: [],
+      vip: 'Ні',
     },
   });
 
@@ -48,16 +67,25 @@ const AddProduct = () => {
     dataForUpload.append('condition', data.condition.value);
     dataForUpload.append('section', data.section.value);
     dataForUpload.append('category', data.category.value);
+    dataForUpload.append('vip', data.vip.value);
     dataForUpload.append('quantity', data.quantity);
     dataForUpload.append('description', data.description);
+    dataForUpload.append('keyWords', data.keyWords);
     dataForUpload.append('price', data.price);
-    dataForUpload.append('userId', userId);
-    dataForUpload.append('date', today);
-
-    Array.from(data.files).forEach(file => {
+    dataForUpload.append('size', JSON.stringify(selectedSizes));
+    dataForUpload.append('mainFileName', mainFile.name);
+    const allFiles = [...additionalFiles, mainFile];
+    allFiles.forEach(file => {
       dataForUpload.append('files', file);
     });
+    dataForUpload.append('owner', userId);
+    dataForUpload.append('date', today);
+
     dispatch(addProduct(dataForUpload));
+    setMainFile('');
+    setAdditionalFiles([]);
+    setSelectedSizes([]);
+    setIsFormSubmitted(true);
     reset();
   };
 
@@ -264,13 +292,59 @@ const AddProduct = () => {
               </div>
             </div>
           </div>
-          <div className={s.imgForm}>
-            <FormInputFile
-              name="files"
-              accept="image/png, image/jpeg"
-              register={register}
-            />
-          </div>
+          <Text text={'Виберіть розмір'} textClass="title" />
+          <Text
+            text={'Можна вибрати декілька варіантів*'}
+            textClass="after-title"
+          />
+          <Size
+            onSelectedSizesChange={handleSelectedSizesChange}
+            isFormSubmitted={isFormSubmitted}
+          />
+          <Text text={'Завантажте фотографії'} textClass="title" />
+          <Photo
+            register={register}
+            onChangeMainFile={handleMainFileChange}
+            onChangeAdditionalFiles={handleAdditionalFilesChange}
+            isFormSubmitted={isFormSubmitted}
+          />
+          <Text text={'Ключові слова'} textClass="title" />
+          <Controller
+            control={control}
+            name="keyWords"
+            rules={{
+              required: true,
+            }}
+            render={({ field: { onChange, value } }) => (
+              <textarea
+                className={s.textarea}
+                value={value}
+                onChange={onChange}
+                {...field.keyWords}
+                rows={1}
+                cols={240}
+              />
+            )}
+          />
+          <Text text={'VIP статус оголошення'} textClass="title" />
+          <Controller
+            control={control}
+            name="vip"
+            rules={{
+              required: true,
+            }}
+            render={({ field: { onChange, value } }) => (
+              <SelectField
+                value={value}
+                handleChange={onChange}
+                className="vip"
+                name="vip"
+                {...field.condition}
+                required={true}
+                options={['Так', 'Ні']}
+              />
+            )}
+          />
           <div className={s.wrap}>
             <Button text="Додати" btnClass="btnLight" />
           </div>

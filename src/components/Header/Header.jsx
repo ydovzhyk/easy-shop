@@ -10,17 +10,16 @@ import { AiOutlineArrowLeft } from 'react-icons/ai';
 
 import s from './Header.module.scss';
 import HeaderForm from 'components/HeaderForm/HeaderForm';
+import SwitchBtn from 'components/Shared/SwitchBtn/SwitchBtn';
 import Logo from 'components/Shared/Logo';
 import Button from 'components/Shared/Button';
-import SwitchBtn from 'components/Shared/SwitchBtn/SwitchBtn';
-import LanguageChanger from 'components/Shared/LanguageChanger/LanguageChanger';
 
 import { Catalog } from 'components/DropDownMenu/Catalog';
 import menuItems from 'components/DropDownMenu/menuItems';
 
 const Header = () => {
   const [showForm, setShowForm] = useState(false);
-  const isDesctop = useMediaQuery({ minWidth: 1280 });
+  const isDesktop = useMediaQuery({ minWidth: 1280 });
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const location = useLocation();
   const navigate = useNavigate();
@@ -37,14 +36,14 @@ const Header = () => {
     if (isLogin) {
       navigate('/add-product');
     } else {
-      navigate('/registration');
+      navigate('/login');
     }
   };
 
   return (
     <header className={s.header}>
       <div className={s.containerTop}>
-        {!isDesctop && (
+        {!isDesktop && (
           <>
             {showForm && (
               <div style={{ display: 'flex', width: '100%' }}>
@@ -74,29 +73,21 @@ const Header = () => {
                     handleClick={handleSearchBtnClick}
                     text={<BiSearchAlt size={isMobile ? 25 : 30} />}
                   ></Button>
-                  <div className={s.switchBtnBox}>
-                    <LanguageChanger />
-                    <SwitchBtn />
-                  </div>
                 </div>
               </>
             )}
           </>
         )}
 
-        {isDesctop && (
+        {isDesktop && (
           <>
             <Logo />
             <HeaderForm />
             <Button
               text="Додати товар"
-              btnClass="btnDark"
+              btnClass="btnLight"
               handleClick={handleAddProduct}
             />
-            <div className={s.switchBtnBox}>
-              <LanguageChanger />
-              <SwitchBtn />
-            </div>
             <UserInfo />
           </>
         )}
@@ -104,31 +95,37 @@ const Header = () => {
 
       {isLogin && (
         <div className={s.containerBottom}>
-          <Catalog data={menuItems} />
-          <NavLink
-            className={getClassName({
-              isActive: location.pathname === '/restaurants',
-            })}
-            to="/restaurants"
-          >
-            Жінкам
-          </NavLink>
-          <NavLink
-            className={getClassName({
-              isActive: location.pathname === '/supermarkets',
-            })}
-            to="/supermarkets"
-          >
-            Чоловікам
-          </NavLink>
-          <NavLink
-            className={getClassName({
-              isActive: location.pathname === '/health',
-            })}
-            to="/health"
-          >
-            Дитячі речі
-          </NavLink>
+          <div>
+            <Catalog data={menuItems} />
+            <NavLink
+              className={getClassName({
+                isActive: location.pathname === '/restaurants',
+              })}
+              to="/restaurants"
+            >
+              Жінкам
+            </NavLink>
+            <NavLink
+              className={getClassName({
+                isActive: location.pathname === '/supermarkets',
+              })}
+              to="/supermarkets"
+            >
+              Чоловікам
+            </NavLink>
+            <NavLink
+              className={getClassName({
+                isActive: location.pathname === '/health',
+              })}
+              to="/health"
+            >
+              Дитячі речі
+            </NavLink>
+          </div>
+          <div className={s.switchMainBox}>
+            <SwitchBtn type="language" />
+            <SwitchBtn type="theme" />
+          </div>
         </div>
       )}
     </header>

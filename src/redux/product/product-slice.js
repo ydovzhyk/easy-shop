@@ -1,11 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { addProduct, deleteProduct } from './product-operations';
+import {
+  addProduct,
+  deleteProduct,
+  getAllProducts,
+} from './product-operations';
 
 const initialState = {
   message: null,
   loading: false,
   error: null,
+  allProducts: [],
 };
 
 const products = createSlice({
@@ -43,6 +48,18 @@ const products = createSlice({
       store.message = payload.message;
     },
     [deleteProduct.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
+    [getAllProducts.pending]: store => {
+      store.loading = true;
+      store.error = null;
+    },
+    [getAllProducts.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.allProducts = payload;
+    },
+    [getAllProducts.rejected]: (store, { payload }) => {
       store.loading = false;
       store.error = payload;
     },

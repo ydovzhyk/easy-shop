@@ -28,6 +28,9 @@ jobs:
       - name: Build the application
         run: npm run build
 
+      - name: Copy images folder to build folder
+        run: cp -R public/images build/
+
       - name: Build Docker image
         run: docker build -t yuriydovzhyk/easy-shop:latest .
 
@@ -60,8 +63,6 @@ jobs:
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.2
-        #         env:
-        #           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         with:
           branch: gh-pages
           folder: ./build

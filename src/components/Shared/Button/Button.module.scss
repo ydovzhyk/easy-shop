@@ -3,21 +3,24 @@
 .btnLight {
   width: 196px;
   height: 50px;
-  background: var(--background-btn-main-color);
+  background-color: var(--background-btn-main-color);
   // box-shadow: 0px 3.43693px 3.43693px rgba(0, 0, 0, 0.25);
-  border: solid 1px var(--background-btn-main-color);
+  border: 1px solid var(--btn-border-color);
+  // border: 2px solid var(--border-color);
   color: var(--btn-text-color);
   border-radius: 10.3108px;
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
   line-height: 22px;
+  transition: background-color var(--transition-duration) var(--timing-function),
+    color var(--transition-duration) var(--timing-function);
 }
 
 .btnDark {
   width: 196px;
   height: 50px;
-  background: var(--background-btn-second-color);
+  background-color: var(--background-btn-second-color);
   // box-shadow: 0px 3.43693px 3.43693px rgba(0, 0, 0, 0.25);
   border: solid 2px var(--btn-border-color);
   color: var(--second-text-color);
@@ -25,33 +28,34 @@
   font-weight: 500;
   font-size: 18px;
   line-height: 22px;
+  transition: background-color var(--transition-duration) var(--timing-function),
+    color var(--transition-duration) var(--timing-function);
 }
 
 .burgerButton {
   margin-right: 10px;
-}
+  background-color: transparent;
+  color: var(--icons-color);
+  transition: transform var(--transition-duration) var(--timing-function),
+    color var(--transition-duration) var(--timing-function);
 
-.languageButton {
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 400;
-  color: rgb(155, 159, 170);
   &:hover,
   &:focus {
-    color: #53c198;
-  }
-  @include mixins.mq(tablet) {
-    font-size: 16px;
-    font-weight: 500;
+    transform: scale(0.9);
+    color: var(--hover-active-color);
   }
 }
 
 .searchBtn {
   margin-right: 20px;
-  color: rgb(155, 159, 170);
+  color: var(--icons-color);
+  background-color: transparent;
+  transition: color var(--transition-duration) var(--timing-function),
+    transform var(--transition-duration) var(--timing-function);
   &:hover,
   &:focus {
-    color: #53c198;
+    color: var(--hover-active-color);
+    transform: scale(0.8);
   }
   @include mixins.mq(tablet) {
     margin-right: 35px;
@@ -65,11 +69,60 @@
 }
 
 .btnLight:hover {
-  background: #f5f5f5;
-  border-color: #f5f5f5;
+  background-color: #f5f5f5;
+  border-color: var(--btn-border-color);
 }
 
 .btnDark:hover {
-  background: #f5f5f5;
+  background-color: #f5f5f5;
   color: var(--btn-text-color);
+}
+
+.exitHeaderBtn:last-child {
+  color: var(--second-text-color);
+  margin-left: 32px;
+  position: relative;
+}
+
+.exitHeaderBtn {
+  background-color: transparent;
+  display: inline-flex;
+  align-items: baseline;
+  transition: all var(--transition-duration) var(--timing-function);
+  &::before {
+    content: '';
+    background: var(--title-text-color);
+    display: block;
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    transition: all var(--transition-duration) var(--timing-function);
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    width: 32px;
+    height: 0px;
+    top: 17px;
+    left: -32px;
+    border: 2px solid var(--border-color);
+    transform: rotate(90deg);
+    @include mixins.mq(tablet) {
+      top: 7px;
+    }
+    @include mixins.mq(desktop) {
+      top: 7px;
+    }
+  }
+}
+
+.exitHeaderBtn:hover,
+.exitHeaderBtn:focus {
+  text-shadow: var(--hover-text-shadow);
+  color: var(--hover-active-color);
+  &::before {
+    width: 100%;
+  }
 }

@@ -4,9 +4,8 @@
   position: fixed;
   top: 0;
   width: 100%;
-  border-bottom: 2px solid #461ca954;
-  background-color: #eee;
-  box-shadow: 0 1px 0 #fff;
+  background-color: var(--bg-footer-header);
+  z-index: 999;
 }
 
 .containerTop {
@@ -17,25 +16,17 @@
   padding: 20px;
   max-width: 1280px;
   margin: 0 auto;
-
-  // @include mixins.mq(desktop) {
-  //   justify-content: flex-start;
-  // }
 }
 
 .containerBottom {
   display: flex;
   flex-direction: row;
-  // justify-content: space-between;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   padding: 20px;
   max-width: 1280px;
   margin: 0 auto;
-
-  @include mixins.mq(desktop) {
-    // justify-content: flex-start;
-  }
 }
 
 .wrap {
@@ -50,56 +41,48 @@
   }
 }
 
-.header a {
-  font-family: 'Montserrat';
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 700;
-
-  @include mixins.mq(tablet) {
-    font-size: 15px;
-  }
-
-  @include mixins.mq(desktop) {
-    height: auto;
-    font-size: 16px;
-  }
-}
-
 .link {
   color: var(--second-text-color);
   display: inline-block;
   position: relative;
-  transition: all 0.3s ease-in-out;
-  margin-right: 15px;
+  transition: all var(--transition-duration) var(--timing-function);
+  &:not(:last-of-type) {
+    margin-right: 15px;
+  }
 }
 
-.active {
-  color: var(--accent-color);
+.active,
+.link:hover,
+.link:focus {
+  text-shadow: var(--hover-text-shadow);
+  color: var(--hover-active-color);
+}
+
+.link {
   display: inline-block;
   position: relative;
   transition: all 0.3s ease-in-out;
-  margin-right: 15px;
-}
-
-.link:before {
-  content: '';
-  background: var(--accent-color);
-  display: block;
-  position: absolute;
-  bottom: -3px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  transition: all 0.3s ease-in-out;
-}
-
-.link:hover {
-  background-position: 0;
+  &::before {
+    content: '';
+    background: var(--title-text-color);
+    display: block;
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    transition: all 0.3s ease-in-out;
+  }
 }
 
 .link:hover::before {
   width: 100%;
+}
+
+.active {
+  &::before {
+    width: 100%;
+  }
 }
 
 .navTopContainer {
@@ -108,29 +91,13 @@
   align-items: center;
 }
 
+.switchMainBox {
+  display: flex;
+}
 .switchBtnBox {
   text-align: center;
 }
 
 .btnWrapper {
   display: flex;
-}
-
-// .headerBoxForm {
-//   @include mixins.mq(desktop) {
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//   }
-// }
-
-.form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-left: 14px;
-  padding-right: 14px;
-  border: 2px solid #c7ccdc;
-  border-radius: 8px;
-  background-color: #fff;
 }
