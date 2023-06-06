@@ -1,20 +1,17 @@
+import { useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import { CiSearch } from 'react-icons/ci';
 import Button from 'components/Shared/Button';
 import { field } from 'components/Shared/TextField/fields';
 import TextField from 'components/Shared/TextField';
 import s from './HeaderForm.module.scss';
+import React from 'react';
 
 const HeaderForm = () => {
   // const dispatch = useDispatch();
-
-  const { control, handleSubmit, reset } = useForm({
+  const { control, handleSubmit } = useForm({
     defaultValues: {
-      category: '',
-      shopName: '',
-      description: '',
-      price: '',
-      files: [],
+      productName: '',
     },
   });
 
@@ -23,20 +20,12 @@ const HeaderForm = () => {
 
     const dataForUpload = {
       data: {
-        category: data.category.value,
-        shopName: data.shopName,
-        description: data.description,
-        price: data.price,
+        productName: data.productName,
       },
-      files: new FormData(),
     };
+    console.log(data);
 
-    Array.from(data.files).forEach(file => {
-      dataForUpload.files.append('files', file);
-    });
-
-    // await dispatch(addProduct(dataForUpload));
-    reset();
+    // await dispatch(searchProduct(dataForUpload));
   };
 
   return (
@@ -44,21 +33,17 @@ const HeaderForm = () => {
       <Controller
         control={control}
         name="productName"
-        rules={{
-          required: true,
-        }}
-        render={({ field: { onChange, value } }) => (
+        render={({ field: { value, onChange } }) => (
           <TextField
-            value={value}
-            control={control}
-            handleChange={onChange}
             className="headerForm"
+            value={value}
+            handleChange={onChange}
             {...field.productName}
           />
         )}
       />
       <Button
-        type="button"
+        type="submit"
         btnClass="searchBtn"
         text={<CiSearch size={30} />}
       ></Button>
