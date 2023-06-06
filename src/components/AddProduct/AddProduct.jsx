@@ -7,6 +7,7 @@ import { field } from 'components/Shared/TextField/fields';
 import { addProduct } from 'redux/product/product-operations';
 import Size from './Size/Size';
 import Photo from './Photo/Photo';
+import ErrorMessage from 'components/Shared/ErrorMessage/ErrorMessage';
 
 import Container from 'components/Shared/Container';
 import Text from 'components/Shared/Text/Text';
@@ -25,7 +26,8 @@ const AddProduct = () => {
   const [mainFile, setMainFile] = useState(null);
   const [additionalFiles, setAdditionalFiles] = useState([]);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
-  console.log(selectedSizes);
+  const [errorFormFilling, setErrorFormFilling] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const date = new Date();
   const today = `${date.getFullYear()}-${
@@ -42,6 +44,30 @@ const AddProduct = () => {
 
   const handleAdditionalFilesChange = files => {
     setAdditionalFiles(files);
+  };
+
+  const error = (mainFile, additionalFiles, selectedSizes) => {
+    if (!mainFile && additionalFiles.length === 0) {
+      setErrorFormFilling(true);
+      setErrorMessage(
+        prevErrorMessage =>
+          prevErrorMessage + ' Виберіть хоча б одну фотографію'
+      );
+      return true;
+    }
+    if (selectedSizes.length === 0) {
+      setErrorFormFilling(true);
+      setErrorMessage(
+        prevErrorMessage => prevErrorMessage + ' Виберіть хоча б один розмір'
+      );
+      return true;
+    }
+    return false;
+  };
+
+  const resetError = () => {
+    setErrorFormFilling(false);
+    setErrorMessage('');
   };
 
   const { control, register, handleSubmit, reset } = useForm({
@@ -61,32 +87,37 @@ const AddProduct = () => {
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
-    const dataForUpload = new FormData();
-    dataForUpload.append('nameProduct', data.nameProduct);
-    dataForUpload.append('brendName', data.brendName);
-    dataForUpload.append('condition', data.condition.value);
-    dataForUpload.append('section', data.section.value);
-    dataForUpload.append('category', data.category.value);
-    dataForUpload.append('vip', data.vip.value);
-    dataForUpload.append('quantity', data.quantity);
-    dataForUpload.append('description', data.description);
-    dataForUpload.append('keyWords', data.keyWords);
-    dataForUpload.append('price', data.price);
-    dataForUpload.append('size', JSON.stringify(selectedSizes));
-    dataForUpload.append('mainFileName', mainFile.name);
-    const allFiles = [...additionalFiles, mainFile];
-    allFiles.forEach(file => {
-      dataForUpload.append('files', file);
-    });
-    dataForUpload.append('owner', userId);
-    dataForUpload.append('date', today);
+    const errorFilling = await error(mainFile, additionalFiles, selectedSizes);
+    if (!errorFilling) {
+      const dataForUpload = new FormData();
+      dataForUpload.append('nameProduct', data.nameProduct);
+      dataForUpload.append('brendName', data.brendName);
+      dataForUpload.append('condition', data.condition.value);
+      dataForUpload.append('section', data.section.value);
+      dataForUpload.append('category', data.category.value);
+      dataForUpload.append('vip', data.vip.value);
+      dataForUpload.append('quantity', data.quantity);
+      dataForUpload.append('description', data.description);
+      dataForUpload.append('keyWords', data.keyWords);
+      dataForUpload.append('price', data.price);
+      dataForUpload.append('size', JSON.stringify(selectedSizes));
+      dataForUpload.append('mainFileName', mainFile.name);
+      const allFiles = [...additionalFiles, mainFile];
+      allFiles.forEach(file => {
+        dataForUpload.append('files', file);
+      });
+      dataForUpload.append('owner', userId);
+      dataForUpload.append('date', today);
 
-    dispatch(addProduct(dataForUpload));
-    setMainFile('');
-    setAdditionalFiles([]);
-    setSelectedSizes([]);
-    setIsFormSubmitted(true);
-    reset();
+      dispatch(addProduct(dataForUpload));
+      setMainFile('');
+      setAdditionalFiles([]);
+      setSelectedSizes([]);
+      setIsFormSubmitted(true);
+      setErrorMessage('');
+      setErrorFormFilling(false);
+      reset();
+    }
   };
 
   return (
@@ -349,6 +380,9 @@ const AddProduct = () => {
             <Button text="Додати" btnClass="btnLight" />
           </div>
         </form>
+        {errorFormFilling && (
+          <ErrorMessage text={`${errorMessage}`} onDismiss={resetError} />
+        )}
       </section>
     </Container>
   );

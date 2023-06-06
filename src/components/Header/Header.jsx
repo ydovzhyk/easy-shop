@@ -95,8 +95,8 @@ const Header = () => {
 
       {isLogin && (
         <div className={s.containerBottom}>
+          <Catalog data={menuItems} />
           <div>
-            <Catalog data={menuItems} />
             <NavLink
               className={getClassName({
                 isActive: location.pathname === '/restaurants',
