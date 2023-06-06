@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import { CiSearch } from 'react-icons/ci';
 import Button from 'components/Shared/Button';
@@ -7,7 +7,7 @@ import TextField from 'components/Shared/TextField';
 import s from './HeaderForm.module.scss';
 import React from 'react';
 
-const HeaderForm = () => {
+const HeaderForm = ({ onChange }) => {
   // const dispatch = useDispatch();
   const { control, handleSubmit } = useForm({
     defaultValues: {
@@ -18,11 +18,12 @@ const HeaderForm = () => {
   const onSubmit = async (data, e) => {
     e.preventDefault();
 
-    const dataForUpload = {
-      data: {
-        productName: data.productName,
-      },
-    };
+    await onChange(data);
+    // const dataForUpload = {
+    //   data: {
+    //     productName: data.productName,
+    //   },
+    // };
     console.log(data);
 
     // await dispatch(searchProduct(dataForUpload));

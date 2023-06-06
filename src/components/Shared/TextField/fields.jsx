@@ -27,6 +27,7 @@ export const field = {
   productName: {
     name: 'productName',
     type: 'text',
+    autoComplete: 'off',
     placeholder: 'Я хочу купити...*',
     required: true,
   },
