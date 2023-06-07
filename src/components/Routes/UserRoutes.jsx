@@ -13,12 +13,12 @@ const BasketPage = lazy(() => import('pages/BasketPage'));
 const FavoritesPage = lazy(() => import('pages/FavoritesPage'));
 const ProfilePage = lazy(() => import('pages/ProfilePage'));
 const MyWares = lazy(() => import('../Profile/MyWares'));
-const MyShoppings = lazy(() => import('../Profile/MyShoppings'));
-const MyReviews = lazy(() => import('../Profile/MyReviews'));
+const MyPurchases = lazy(() => import('components/Profile/MyPurchases/MyPurchases'));
+const MyReviews = lazy(() => import('components/Profile/MyReviews/MyReviews'));
 const AddProductPage = lazy(() => import('pages/AddProductPage'));
 const AuthPage = lazy(() => import('pages/AuthPage'));
-const MySettings = lazy(() => import('../Profile/MySettings/MySettings'));
-const PhoneVerification = lazy(() => import('../Profile/PhoneVerification'));
+const MySettings = lazy(() => import('components/Profile/MySettings/MySettings'));
+const PhoneVerification = lazy(() => import('components/Profile/PhoneVerification/PhoneVerification'));
 
 const UserRoutes = () => {
   return (
@@ -38,7 +38,7 @@ const UserRoutes = () => {
           <Route path="/favorites" element={<FavoritesPage />} />
           <Route path="/profile" element={<ProfilePage />}>
             <Route path="mywares" element={<MyWares />} />
-            <Route path="myshoppings" element={<MyShoppings />} />
+            <Route path="mypurchases" element={<MyPurchases />} />
             <Route path="myreviews" element={<MyReviews />} />
           </Route>
           <Route path="/mysettings" element={<MySettings />} />
