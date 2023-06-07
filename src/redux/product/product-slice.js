@@ -65,7 +65,7 @@ const products = createSlice({
       store.loading = false;
       store.error = payload;
     },
-    //* searchProduct
+    //* search Product
     [searchProducts.rejected]: (store, { payload }) => {
       store.loading = false;
       store.error = payload;

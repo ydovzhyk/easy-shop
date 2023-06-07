@@ -12,6 +12,7 @@ const NotFoundPage = lazy(() => import('pages/NotFoundPage'));
 const BasketPage = lazy(() => import('pages/BasketPage'));
 const FavoritesPage = lazy(() => import('pages/FavoritesPage'));
 const ProfilePage = lazy(() => import('pages/ProfilePage'));
+const ProductsSearchPage = lazy(() => import('pages/ProductsSearchPage'));
 const MyWares = lazy(() => import('../Profile/MyWares'));
 const MyShoppings = lazy(() => import('../Profile/MyShoppings'));
 const MyReviews = lazy(() => import('../Profile/MyReviews'));
@@ -36,13 +37,14 @@ const UserRoutes = () => {
           <Route path="/add-product" element={<AddProductPage />} />
           <Route path="/basket" element={<BasketPage />} />
           <Route path="/favorites" element={<FavoritesPage />} />
+          <Route path="/products" element={<ProductsSearchPage />} />
           <Route path="/profile" element={<ProfilePage />}>
             <Route path="mywares" element={<MyWares />} />
             <Route path="myshoppings" element={<MyShoppings />} />
             <Route path="myreviews" element={<MyReviews />} />
           </Route>
           <Route path="/mysettings" element={<MySettings />} />
-          <Route path="/phone-verification" element={ <PhoneVerification/>} />
+          <Route path="/phone-verification" element={<PhoneVerification />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

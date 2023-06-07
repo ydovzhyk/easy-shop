@@ -46,11 +46,10 @@ export const getAllProducts = createAsyncThunk(
 );
 
 export const searchProducts = createAsyncThunk(
-  'product/search',
-  async (query, { rejectWithValue, dispatch }) => {
+  'products/search',
+  async (searchQuery, { rejectWithValue, dispatch }) => {
     try {
-      console.log(query);
-      const { data } = await axiosGetProductsByQuery(`/product/search${query}`);
+      const { data } = await axiosGetProductsByQuery(searchQuery);
       return data;
     } catch (error) {
       const { data, status } = error.response;

@@ -1,17 +1,17 @@
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
+import { useSearchParams } from 'react-router-dom';
 import { CiSearch } from 'react-icons/ci';
 import Button from 'components/Shared/Button';
 import { field } from 'components/Shared/TextField/fields';
 import TextField from 'components/Shared/TextField';
-import s from './HeaderForm.module.scss';
-import { useSearchParams } from 'react-router-dom';
 import { searchProducts } from 'redux/product/product-operations';
+import s from './HeaderForm.module.scss';
 
 const HeaderForm = ({ onChange }) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const query = searchParams.get('query') ?? '';
+  // const query = searchParams.get('search') ?? '';
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -28,16 +28,11 @@ const HeaderForm = ({ onChange }) => {
   const onSubmit = async (data, e) => {
     e.preventDefault();
 
-    const dataForUpload = {
-      data: {
-        productName: data.productName,
-      },
-    };
-    console.log(data.productName);
-    // navigate(`/search/${query}`)
-    // setSearchParams(data.productName.trim() !== '' ? { query: data } : {});
+    await setSearchParams(
+      data.productName.trim() !== '' ? { search: data.productName } : {}
+    );
 
-    await dispatch(searchProducts(dataForUpload));
+    await dispatch(searchProducts(data.productName));
   };
 
   return (
@@ -60,6 +55,7 @@ const HeaderForm = ({ onChange }) => {
         type="submit"
         btnClass="searchBtn"
         text={<CiSearch size={30} />}
+        handleClick={() => navigate(`/products`)}
       ></Button>
     </form>
   );

@@ -46,14 +46,21 @@ export const App = () => {
   }
 
   return (
-    <>
+    <div
+      style={{
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+      }}
+    >
       {errMessage !== '' && <ErrorMessage text={`${errMessage}`} />}
       {!headerFooterHidden && <Header />}
-      <main>
+      <main style={{ flexGrow: 1 }}>
         <UserRoutes />
       </main>
       {!headerFooterHidden && !isDesctop && <BottomNavigation />}
       {!headerFooterHidden && <Footer />}
-    </>
+    </div>
   );
 };
