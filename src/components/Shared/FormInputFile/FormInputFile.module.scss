@@ -17,6 +17,9 @@
 .label {
   margin-top: 15px;
   text-transform: capitalize;
+  .box:hover &{
+    cursor: pointer;
+  }
 }
 
 .box:hover {
