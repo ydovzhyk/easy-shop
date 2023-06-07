@@ -1,6 +1,5 @@
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import UserInfo from 'components/UserInfo/UserInfo';
@@ -24,7 +23,6 @@ const Header = () => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const location = useLocation();
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
 
   const getClassName = ({ isActive }) => {
     return isActive ? `${s.link} ${s.active}` : s.link;
@@ -43,11 +41,6 @@ const Header = () => {
     }
   };
 
-  const queryHandler = value => {
-    console.log('123');
-    setSearchParams(value.trim() !== '' ? { query: value } : {});
-  };
-
   return (
     <header className={s.header}>
       <div className={s.containerTop}>
@@ -61,7 +54,7 @@ const Header = () => {
                   handleClick={handleSearchBtnClick}
                   text={<AiOutlineArrowLeft size={isMobile ? 15 : 20} />}
                 ></Button>
-                <HeaderForm onChange={queryHandler} />
+                <HeaderForm />
               </div>
             )}
             {!showForm && (

@@ -3,6 +3,7 @@ import {
   axiosAddProduct,
   axiosDeleteProduct,
   axiosGetAllProducts,
+  axiosGetProductsByQuery,
 } from 'api/product';
 
 export const addProduct = createAsyncThunk(
@@ -36,6 +37,20 @@ export const getAllProducts = createAsyncThunk(
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const data = await axiosGetAllProducts();
+      return data;
+    } catch (error) {
+      const { data, status } = error.response;
+      return rejectWithValue({ data, status });
+    }
+  }
+);
+
+export const searchProducts = createAsyncThunk(
+  'product/search',
+  async (query, { rejectWithValue, dispatch }) => {
+    try {
+      console.log(query);
+      const { data } = await axiosGetProductsByQuery(`/product/search${query}`);
       return data;
     } catch (error) {
       const { data, status } = error.response;
