@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkeasy_shop=self.webpackChunkeasy_shop||[]).push([[529],{1529:function(s,e,n){n.r(e);var h=n(184);e.default=function(){return(0,h.jsx)("h3",{children:"My shoppings"})}}}]);
-//# sourceMappingURL=529.ee880295.chunk.js.map
