@@ -1,23 +1,28 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { getID } from 'redux/auth/auth-selectors';
+// import { getID } from 'redux/auth/auth-selectors';
 import { useForm, Controller } from 'react-hook-form';
 import { useState } from 'react';
-import { updateUser } from 'redux/auth/auth-opetations';
+import { updateUserSettings } from 'redux/auth/auth-opetations';
 import { field } from 'components/Shared/TextField/fields';
-// import {NavLink} from 'react-router-dom';
+import { getUser } from 'redux/auth/auth-selectors';
 import Container from 'components/Shared/Container';
 import ChangePhoto from '../ChangePhoto/ChangePhoto';
 import Text from 'components/Shared/Text/Text';
 import Button from 'components/Shared/Button';
 import TextField from 'components/Shared/TextField/TextField';
+import SelectField from 'components/Shared/SelectField/SelectField';
 import ProfileDetails from '../UserInfoDetails/ProfileDetails';
-// import FormInputFile from 'components/Shared/FormInputFile/FormInputFile';
+import { CityNames } from './Options';
+
 
 import s from './MySettings.module.scss';
+// import { axiosUpdateUserSettings } from 'api/auth';
 
 const MySettings = () => {
     const dispatch = useDispatch();
-    const userId = useSelector(getID);
+    // const userId = useSelector(getID);
+    const user = useSelector(getUser);
+    const email = user.email;
     const [avatarFileURL, setAvatarFileURL] = useState('');
     const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
@@ -25,9 +30,20 @@ const MySettings = () => {
     setAvatarFileURL(url);
     };
     
-    const { control, register, handleSubmit, reset } = useForm({
-    defaultValues: {
-      
+    const { control, register, handleSubmit,
+        // reset
+    } = useForm({
+        defaultValues: {
+            secondName: '',
+            firstName: '',
+            surName: '',
+            email,
+            tel: '',
+            cityName: 'Київ',
+            streetName: '',
+            houseNamber: '',
+            sex: '',
+            about: ''
     },
   });
 
@@ -39,11 +55,16 @@ const MySettings = () => {
             surName: data.surName,
             email: data.email,
             tel: data.tel,
-            file: avatarFileURL,
-            owner: userId,
+            userAvatar: avatarFileURL,
+            // owner: userId,
+            cityName: data.cityName,
+            streetName: data.streetName,
+            houseNamber: data.houseNamber,
+            sex: data.sex,
+            about: data.about
         };
-        dispatch(updateUser(dataForUpload));
-        setAvatarFileURL('');
+        dispatch(updateUserSettings(dataForUpload));
+        // setAvatarFileURL('');
         setIsFormSubmitted(true);
         // reset();
     }
@@ -157,24 +178,110 @@ const MySettings = () => {
                                     />
                                 )}
                             />
-                            <ProfileDetails
-                                className={s.change}
-                                to={"/phone-verification"}
-                            navClass="change">Змінити</ProfileDetails>
+                            <div className={s.navButton}>
+                                <ProfileDetails
+                                    to={"/phone-verification"}
+                                >Змінити</ProfileDetails>                                
+                            </div>
+                            
                         </div>
                         <div className={s.partFrame}>
-                            <Text text={'Пароль'} textClass="lable-form" />
-                            <ProfileDetails
-                                className={s.change}
-                                to={"/login/create-password"}
-                            navClass="change">Змінити</ProfileDetails>
+                            <Text text={'Місто'} textClass="lable-form" />
+                            <Controller
+                                control={control}
+                                name="cityName"
+                                render={({ field: { onChange, value } }) => (
+                                    <SelectField
+                                        value={value}
+                                        handleChange={onChange}
+                                        className="changeProfile"
+                                        name="cityName"
+                                        {...field.cityName}
+                                        options={CityNames}
+                                    />
+                            )}/>
+                        </div>
+                        <div className={s.partFrame}>
+                            <Text text={'Вулиця'} textClass="lable-form" />
+                            <Controller
+                                control={control}
+                                name="streetName"
+                                rules={{
+                                    required: true,
+                                }}
+                                render={({ field: { onChange, value } }) => (
+                                    <TextField
+                                        className="changeProfile"
+                                        value={value}
+                                        control={control}
+                                        handleChange={onChange}
+                                        {...field.streetName}
+                                    />
+                                )}
+                            />
+                        </div>
+                        <div className={s.partFrame}>
+                            <Text text={'Номер будинку'} textClass="lable-form" />
+                            <Controller
+                                control={control}
+                                name="houseNamber"
+                                rules={{
+                                    required: true,
+                                }}
+                                render={({ field: { onChange, value } }) => (
+                                    <TextField
+                                        className="changeProfile"
+                                        value={value}
+                                        control={control}
+                                        handleChange={onChange}
+                                        {...field.houseNamber}
+                                    />
+                                )}
+                            />
+                        </div>
+                        <div className={s.partFrame}>
+                            <Text text={'Стать'} textClass="lable-form" />
+                            <Controller
+                                control={control}
+                                name="sex"
+                                render={({ field: { onChange, value } }) => (
+                                    <SelectField
+                                        value={value}
+                                        handleChange={onChange}
+                                        className="changeProfile"
+                                        name="sex"
+                                        {...field.sex}
+                                        options={[
+                                            'Чоловік',
+                                            'Жінка',
+                                            'Інше'
+                                        ]}
+                                    />
+                            )}/>
+                        </div>
+                        <div className={s.partFrame}>
+                            <Text text={'Про себе'} textClass="lable-form" />
+                            <Controller
+                                control={control}
+                                name="about"
+                                render={({ field: { onChange, value } }) => (
+                                    <textarea
+                                        className={s.aboutChangeProfile}
+                                        value={value}
+                                        control={control}
+                                        handleChange={onChange}
+                                        {...field.about}
+                                    />
+                                )}
+                            />
                         </div>
                     </div>
-                    <Button text="Зберегти" btnClass="btnLight" />
+                    <div className={s.buttonFrame}>
+                        <Button text="Зберегти" btnClass="btnLight" />
+                    </div>
+                    
                 </form>
             </section>
-            
-    
         </Container>
         )
 }
