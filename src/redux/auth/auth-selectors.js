@@ -2,6 +2,17 @@ export const getLogin = ({ auth }) => auth.isLogin;
 export const getIsRefreshing = ({ auth }) => auth.isRefreshing;
 export const getLoading = ({ auth }) => auth.isLoading;
 export const getUserName = ({ auth }) => auth.user.username;
+export const getUserSecondName = ({ auth }) => auth.user.secondName;
+export const getUserFirstName = ({ auth }) => auth.user.firstName;
+export const getUserSurName = ({ auth }) => auth.user.surName;
+export const getUserEmail = ({ auth }) => auth.user.email;
+export const getUserTel = ({ auth }) => auth.user.tel;
+export const getUserCityName = ({ auth }) => auth.user.cityName.value;
+export const getUserStreetName = ({ auth }) => auth.user.streetName;
+export const getUserHouseNamber = ({ auth }) => auth.user.houseNamber;
+export const getUserSex = ({ auth }) => auth.user.sex.value;
+export const getUserAbout = ({ auth }) => auth.user.about;
+
 export const getSid = ({ auth }) => auth.sid;
 export const getAccessToken = ({ auth }) => auth.accessToken;
 export const getRefreshToken = ({ auth }) => auth.refreshToken;
