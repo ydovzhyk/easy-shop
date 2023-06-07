@@ -26,11 +26,11 @@ const AuthWrapper = () => {
   if (!errorLogin && newUserId) {
     return <Navigate to="/login" />;
   }
-  
+
   const getClassName = ({ isActive }) => {
     return isActive ? `${s.authLink} ${s.activeLink}` : s.authLink;
   };
-    
+
   return (
     <section className={s.auth}>
       <Container>

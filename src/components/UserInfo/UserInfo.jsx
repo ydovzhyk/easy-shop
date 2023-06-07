@@ -3,16 +3,21 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import s from './UserInfo.module.scss';
 
-import { getLogin, getUserName, getUser } from 'redux/auth/auth-selectors';
+import {
+  getLogin,
+  getUserName,
+  getUser,
+  getUserAvatar,
+} from 'redux/auth/auth-selectors';
 import { logout } from 'redux/auth/auth-opetations';
 import cartIcon from '../../images/header/cart-icon.svg';
 import heartIcon from '../../images/header/heart-icon.svg';
-import userPhoto from '../../images/Avatar/Hansel.png';
 import Button from 'components/Shared/Button';
 
 const UserInfo = () => {
   const isUserLogin = useSelector(getLogin);
   const userName = useSelector(getUserName);
+  const userAvatar = useSelector(getUserAvatar);
   const user = useSelector(getUser);
   const dispatch = useDispatch();
 
@@ -36,7 +41,7 @@ const UserInfo = () => {
         <NavLink className={getClassName} to="/login">
           Вхід
         </NavLink>
-        <NavLink className={getClassName} to="login/registration">
+        <NavLink className={getClassName} to="/registration">
           Реєстрація
         </NavLink>
       </div>
@@ -67,13 +72,15 @@ const UserInfo = () => {
             className={`${s.link} ${s.custom} ${s.userInfoBox}`}
             to="/profile"
           >
-            <img
-              src={userPhoto}
-              alt="Userphoto"
-              className={s.userPhoto}
-              width={40}
-              height={40}
-            />
+            <div className={s.userBlock}>
+              <img
+                src={userAvatar}
+                alt="Userphoto"
+                className={s.userPhoto}
+                width={30}
+                height={30}
+              />
+            </div>
             <span>{userName}</span>
           </NavLink>
           <Button

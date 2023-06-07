@@ -42,7 +42,7 @@ const UserRoutes = () => {
             <Route path="myreviews" element={<MyReviews />} />
           </Route>
           <Route path="/mysettings" element={<MySettings />} />
-          <Route path="/phone-verification" element={ <PhoneVerification/>} />
+          <Route path="/phone-verification" element={<PhoneVerification />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
