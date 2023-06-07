@@ -59,7 +59,7 @@ const HeaderForm = () => {
       />
       <Button
         type="button"
-        btnClass="searchFormBtn"
+        btnClass="searchBtn"
         text={<CiSearch size={30} />}
       ></Button>
     </form>

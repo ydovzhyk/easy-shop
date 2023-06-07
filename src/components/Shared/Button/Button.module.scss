@@ -46,26 +46,9 @@
   }
 }
 
-.languageButton {
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 400;
-  background-color: transparent;
-  color: var(--icons-color);
-  transition: color var(--transition-duration) var(--timing-function);
-  &:hover,
-  &:focus {
-    color: var(--hover-active-color);
-  }
-  @include mixins.mq(tablet) {
-    font-size: 16px;
-    font-weight: 500;
-  }
-}
-
 .searchBtn {
-  margin-right: 20px;
   color: var(--icons-color);
+  background-color: transparent;
   transition: color var(--transition-duration) var(--timing-function),
     transform var(--transition-duration) var(--timing-function);
   &:hover,
@@ -73,15 +56,6 @@
     color: var(--hover-active-color);
     transform: scale(0.8);
   }
-  @include mixins.mq(tablet) {
-    margin-right: 35px;
-  }
-}
-
-.searchFormBtn {
-  @extend .searchBtn;
-  background-color: transparent;
-  margin-right: 0;
 }
 
 .btnLight:hover {
@@ -92,4 +66,53 @@
 .btnDark:hover {
   background-color: #f5f5f5;
   color: var(--btn-text-color);
+}
+
+.exitHeaderBtn:last-child {
+  color: var(--second-text-color);
+  margin-left: 32px;
+  position: relative;
+}
+
+.exitHeaderBtn {
+  background-color: transparent;
+  display: inline-flex;
+  align-items: baseline;
+  transition: all var(--transition-duration) var(--timing-function);
+  &::before {
+    content: '';
+    background: var(--title-text-color);
+    display: block;
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    transition: all var(--transition-duration) var(--timing-function);
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    width: 32px;
+    height: 0px;
+    top: 17px;
+    left: -32px;
+    border: 2px solid var(--border-color);
+    transform: rotate(90deg);
+    @include mixins.mq(tablet) {
+      top: 7px;
+    }
+    @include mixins.mq(desktop) {
+      top: 7px;
+    }
+  }
+}
+
+.exitHeaderBtn:hover,
+.exitHeaderBtn:focus {
+  text-shadow: var(--hover-text-shadow);
+  color: var(--hover-active-color);
+  &::before {
+    width: 100%;
+  }
 }

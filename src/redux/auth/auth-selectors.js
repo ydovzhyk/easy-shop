@@ -12,6 +12,7 @@ export const getUserStreetName = ({ auth }) => auth.user.streetName;
 export const getUserHouseNamber = ({ auth }) => auth.user.houseNamber;
 export const getUserSex = ({ auth }) => auth.user.sex.value;
 export const getUserAbout = ({ auth }) => auth.user.about;
+export const getUserAvatar = ({ auth }) => auth.user.userAvatar;
 
 export const getSid = ({ auth }) => auth.sid;
 export const getAccessToken = ({ auth }) => auth.accessToken;

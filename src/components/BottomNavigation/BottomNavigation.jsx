@@ -7,6 +7,7 @@ import { SlBasket } from 'react-icons/sl';
 import { HiOutlineUser } from 'react-icons/hi';
 import { BiMessageDetail } from 'react-icons/bi';
 import { getLogin } from 'redux/auth/auth-selectors';
+import userPhoto from '../../images/Avatar/avatar.svg';
 import s from './BottomNavigation.module.scss';
 
 const BottomNavigation = () => {
@@ -31,7 +32,18 @@ const BottomNavigation = () => {
           <BiMessageDetail className={s.navIcon} size={isMobile ? 25 : 30} />
         </NavLink>
         <NavLink to={isLogin ? '/profile' : '/login'}>
-          <HiOutlineUser className={s.navIcon} size={isMobile ? 25 : 30} />
+          {!isLogin && (
+            <HiOutlineUser className={s.navIcon} size={isMobile ? 25 : 30} />
+          )}
+          {isLogin && (
+            <img
+              src={userPhoto}
+              alt="Userphoto"
+              className={s.userPhoto}
+              width={isMobile ? 30 : 40}
+              height={isMobile ? 30 : 40}
+            />
+          )}
         </NavLink>
       </div>
     </nav>

@@ -100,15 +100,11 @@
 .label.addProduct {
   position: relative;
   display: inline-block;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   height: 48px;
-}
-
-.label.addProduct {
-  position: relative;
-  display: inline-block;
-  margin-bottom: 20px;
-  height: 48px;
+  @include mixins.mq(tablet) {
+    margin-bottom: 20px;
+  }
 }
 
 .input.addProduct {
@@ -157,7 +153,7 @@
   background: transparent;
 }
 
-.input.changeProfile{
+.input.changeProfile {
   position: absolute;
     top: 0;
     left: 0;
