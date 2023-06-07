@@ -95,4 +95,44 @@ export const field = {
     placeholder: 'Виберіть статус',
     required: true,
   },
+  secondName: {
+    name: 'secondName',
+    type: 'text',
+  },
+  firstName: {
+    name: 'firstName',
+    type: 'text',
+  },
+  surName: {
+    name: 'surName',
+    type: 'text',
+  },
+  tel: {
+    name: 'tel',
+    type: 'text',
+  },
+  cityName: {
+    name: 'cityName',
+    type: 'text',
+  },
+  streetName: {
+    name: 'streetName',
+    type: 'text',
+  },
+  houseNamber: {
+    name: 'houseNamber',
+    
+  },
+  sex: {
+    name: 'sex',
+    type: 'text',
+  },
+  about: {
+    name: 'about',
+    type: 'text',
+  },
+  phone: {
+    name: 'phone',
+    type: 'text',
+  }
 };
