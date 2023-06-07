@@ -7,6 +7,8 @@ import {
   axiosUpdateUser,
 } from 'api/auth';
 
+import { axiosUpdateUserSettings } from 'api/updateUser';
+
 export const register = createAsyncThunk(
   'auth/register',
   async (userData, { rejectWithValue }) => {
@@ -64,6 +66,19 @@ export const updateUser = createAsyncThunk(
         const data = await axiosUpdateUser(newAccessToken);
         return data;
       }
+    } catch (error) {
+      const { data, status } = error.response;
+      return rejectWithValue({ data, status });
+    }
+  }
+);
+
+export const updateUserSettings = createAsyncThunk(
+  'auth/current/settings',
+  async (userData, { rejectWithValue, getState, dispatch }) => {
+    try {
+      const data = await axiosUpdateUserSettings(userData);
+      return data;
     } catch (error) {
       const { data, status } = error.response;
       return rejectWithValue({ data, status });
