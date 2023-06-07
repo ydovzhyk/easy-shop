@@ -18,7 +18,7 @@ const UserInfoDetails = () => {
                 </li>
                 <li className={s.item}>
                     <ProfileDetails
-                        to='myshoppings'
+                        to='mypurchases'
                         addValue
                     >Мої покупки</ProfileDetails>
                 </li>
