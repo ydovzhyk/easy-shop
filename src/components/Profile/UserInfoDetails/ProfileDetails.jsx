@@ -6,8 +6,7 @@ import s from './UserInfoDetails.module.scss';
 
 const ProfileDetails = ({ children, to, value, addValue}) => {
     
-    const getClassName = ({ isActive }) => {  
-        
+    const getClassName = ({ isActive }) => { 
     return isActive ? `${s.navlink} ${s.active}` : `${s.navlink}`;
     };
     

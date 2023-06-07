@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { HiOutlineUserCircle } from "react-icons/hi";
+import { CiUser } from "react-icons/ci";
 import s from './Avatar.module.scss';
 
 // import photo from "../../../images/Avatar/Hansel.png"
@@ -15,7 +15,7 @@ const Avatar = ({
             width={width}
             height={heigth}
             {...attrs}
-            />) : (<HiOutlineUserCircle className={s[avatarClass]} />)
+            />) : (<CiUser className={s[avatarClass]} />)
     );
 };
 

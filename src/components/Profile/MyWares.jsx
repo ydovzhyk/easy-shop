@@ -1,4 +1,4 @@
-const MyWares= () => {
+const MyWares = () => {
     return (
         <h3>My wares</h3>
     )

@@ -5,12 +5,23 @@ import {
   logout,
   refresh,
   updateUser,
+  updateUserSettings,
 } from './auth-opetations';
 
 const initialState = {
   user: {
     email: '',
     id: '',
+    secondName: '',
+    firstName: '',
+    surName: '',
+    tel: '',
+    userAvatar: '',
+    cityName: '',
+    streetName: '',
+    houseNamber: '',
+    sex: '',
+    about: '',
     userAvatar: '',
     orders: [],
     userAddress: '',
@@ -131,6 +142,30 @@ const auth = createSlice({
       store.user = payload;
     },
     [updateUser.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
+    // * UPDATE USER
+    [updateUserSettings.pending]: store => {
+      store.loading = true;
+      store.error = null;
+    },
+    [updateUserSettings.fulfilled]: (store, { payload }) => {
+      store.isLogin = true;
+      store.loading = false;
+      store.secondName = payload.secondName;
+      store.firstName = payload.firstName;
+      store.surName = payload.surName;
+      store.email = payload.email;
+      store.tel = payload.tel;
+      store.userAvatar = payload.userAvatar;
+      store.cityName = payload.cityName;
+      store.streetName = payload.streetName;
+      store.houseNamber = payload.houseNamber;
+      store.sex = payload.sex;
+      store.about = payload.about;
+    },
+    [updateUserSettings.rejected]: (store, { payload }) => {
       store.loading = false;
       store.error = payload;
     },

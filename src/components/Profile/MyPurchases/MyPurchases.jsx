@@ -1,6 +1,6 @@
 const MyShoppings= () => {
     return (
-        <h3>My shoppings</h3>
+        <h3>Мої покупки</h3>
     )
 }
 
