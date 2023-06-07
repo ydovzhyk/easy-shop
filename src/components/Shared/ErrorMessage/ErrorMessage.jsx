@@ -14,7 +14,9 @@ export default function ErrorMessage({ text, onDismiss }) {
 
   const handleDismissClick = () => {
     setIsDisplayed(false);
-    onDismiss();
+    if (typeof onDismiss === 'function') {
+      onDismiss();
+    }
     dispatch(clearError());
   };
 

@@ -11,6 +11,7 @@ const initialState = {
   user: {
     email: '',
     id: '',
+    userAvatar: '',
     orders: [],
     userAddress: '',
     userBasket: '',

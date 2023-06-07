@@ -7,7 +7,7 @@ import { SlBasket } from 'react-icons/sl';
 import { HiOutlineUser } from 'react-icons/hi';
 import { BiMessageDetail } from 'react-icons/bi';
 import { getLogin } from 'redux/auth/auth-selectors';
-import userPhoto from '../../images/Avatar/Hansel.png';
+import userPhoto from '../../images/Avatar/avatar.svg';
 import s from './BottomNavigation.module.scss';
 
 const BottomNavigation = () => {

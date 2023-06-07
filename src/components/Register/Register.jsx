@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import { register } from 'redux/auth/auth-opetations';
@@ -11,7 +12,10 @@ import Button from 'components/Shared/Button';
 
 import { getError, getNewUserId } from 'redux/auth/auth-selectors';
 
+import avatarImage from '../../images/Avatar/avatar.svg';
+
 const Register = () => {
+  const [userAvatar, setUserAvatar] = useState('');
   const dispatch = useDispatch();
 
   const errorLogin = useSelector(getError);
@@ -26,9 +30,29 @@ const Register = () => {
     },
   });
 
+  useEffect(() => {
+    const loadImage = async () => {
+      try {
+        const response = await fetch(avatarImage);
+        const blob = await response.blob();
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setUserAvatar(reader.result);
+        };
+        reader.readAsDataURL(blob);
+      } catch (error) {
+        console.log('Error loading image:', error);
+      }
+    };
+
+    loadImage();
+  }, []);
+
   const onSubmit = (data, e) => {
     e.preventDefault();
-    dispatch(register(data));
+    console.log(userAvatar);
+    const dataWithAvatar = { ...data, userAvatar: userAvatar };
+    dispatch(register(dataWithAvatar));
     reset();
   };
 
