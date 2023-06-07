@@ -22,7 +22,6 @@ const initialState = {
     houseNamber: '',
     sex: '',
     about: '',
-    userAvatar: '',
     orders: [],
     userAddress: '',
     userBasket: '',
