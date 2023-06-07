@@ -20,13 +20,15 @@
 
 .containerBottom {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  justify-content: right;
   align-items: center;
   width: 100%;
-  padding: 20px;
+  padding: 0 20px 20px 20px;
   max-width: 1280px;
   margin: 0 auto;
+  @include mixins.mq(desktop) {
+    justify-content: space-between;
+  }
 }
 
 .wrap {

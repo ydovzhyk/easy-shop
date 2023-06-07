@@ -14,7 +14,11 @@ export const Catalog = () => {
         <div className={s.catalog}>
           <button
             onClick={() => setActiveMenu(!activeMenu)}
-            style={{ display: 'flex', alignItems: 'center' }}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              backgroundColor: 'transparent',
+            }}
           >
             <Line className={s.line} />
             Catalog

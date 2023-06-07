@@ -16,6 +16,7 @@ import Button from 'components/Shared/Button';
 
 import { Catalog } from 'components/DropDownMenu/Catalog';
 import menuItems from 'components/DropDownMenu/menuItems';
+import navItems from './navItems';
 
 const Header = () => {
   const [showForm, setShowForm] = useState(false);
@@ -94,37 +95,34 @@ const Header = () => {
       </div>
 
       <div className={s.containerBottom}>
-        <div className={s.navigationMenuWrapper}>
-          <Catalog data={menuItems} />
-          <NavLink
-            className={getClassName({
-              isActive: location.pathname === '/restaurants',
-            })}
-            to="/restaurants"
-          >
-            Жінкам
-          </NavLink>
-          <NavLink
-            className={getClassName({
-              isActive: location.pathname === '/supermarkets',
-            })}
-            to="/supermarkets"
-          >
-            Чоловікам
-          </NavLink>
-          <NavLink
-            className={getClassName({
-              isActive: location.pathname === '/health',
-            })}
-            to="/health"
-          >
-            Дитячі товари
-          </NavLink>
-        </div>
-        <div className={s.switchMainBox}>
-          <SwitchBtn type="language" />
-          <SwitchBtn type="theme" />
-        </div>
+        {isDesktop && (
+          <>
+            <div className={s.navigationMenuWrapper}>
+              <Catalog data={menuItems} />
+              {navItems.map(({ id, name, link }) => (
+                <NavLink
+                  key={id}
+                  className={getClassName({
+                    isActive: location.pathname === { link },
+                  })}
+                  to={link}
+                >
+                  {name}
+                </NavLink>
+              ))}
+            </div>
+            <div className={s.switchMainBox}>
+              <SwitchBtn type="language" />
+              <SwitchBtn type="theme" />
+            </div>
+          </>
+        )}
+        {!isDesktop && (
+          <div className={s.switchMainBox}>
+            <SwitchBtn type="language" />
+            <SwitchBtn type="theme" />
+          </div>
+        )}
       </div>
     </header>
   );
