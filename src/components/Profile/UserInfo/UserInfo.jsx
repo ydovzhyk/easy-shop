@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { BsCheck2, BsGeoAlt, BsHandbag, BsPeople } from "react-icons/bs";
-import { getUserName, getUser } from 'redux/auth/auth-selectors';
+import { getUserName, getUser,getUserAvatar } from 'redux/auth/auth-selectors';
 import Container from 'components/Shared/Container';
 import Avatar from 'components/Profile/Avatar/Avatar';
 import UserRating from './UserRating';
@@ -10,7 +10,8 @@ import s from './UserInfo.module.scss';
 
 const UserInfo = () => {
     const userName = useSelector(getUserName);
-    const user = useSelector(getUser);
+  const user = useSelector(getUser);
+  const userAvatar = useSelector(getUserAvatar);
     console.log(user);
     const userAddress = user.userAddress || "Kyiv";
     console.log(userAddress);
@@ -24,8 +25,9 @@ const UserInfo = () => {
           <div className={s.profilewrapper}>
             <div className={s.avatarframe}>
               <div className={s.avatar}>
-                <Avatar
-                  avatarClass="photoAvatar"
+              <Avatar
+                src={userAvatar}
+                avatarClass="photoAvatar"
                 />
               </div>
             </div>
