@@ -36,16 +36,24 @@
 
 .navIcon {
   color: var(--icons-color);
-  transition: color var(--transition-duration) var(--timing-function);
+  transition: color var(--transition-duration) var(--timing-function),
+    transform var(--transition-duration) var(--timing-function);
   &:hover,
   &:focus {
     color: var(--hover-active-color);
+    transform: scale(0.9);
+  }
+}
+
+a.active {
+  .navIcon {
+    color: var(--accent-color);
   }
 }
 
 .circleBox:has(.navIcon:hover),
 .circleBox:has(.navIcon:focus) {
-  transform: scale(0.93);
+  transform: scale(0.9);
 }
 
 .userPhoto {
