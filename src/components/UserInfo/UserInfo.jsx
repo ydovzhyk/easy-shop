@@ -73,13 +73,7 @@ const UserInfo = () => {
             to="/profile"
           >
             <div className={s.userBlock}>
-              <img
-                src={userAvatar}
-                alt="Userphoto"
-                className={s.userPhoto}
-                width={30}
-                height={30}
-              />
+              <img src={userAvatar} alt="Userphoto" className={s.userPhoto} />
             </div>
             <span>{userName}</span>
           </NavLink>

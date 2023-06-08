@@ -88,8 +88,11 @@
   align-items: center;
 }
 
-.userInfoBox .userPhoto {
+.userPhoto {
+  width: 37px;
+  height: 37px;
   border-radius: 50%;
+  border: 1px solid var(--icons-color);
 }
 
 .userBlock {
@@ -98,7 +101,6 @@
   align-items: center;
   width: 40px;
   height: 40px;
-  border: 1px solid var(--icons-color);
   border-radius: 50%;
   margin-right: 10px;
 }
