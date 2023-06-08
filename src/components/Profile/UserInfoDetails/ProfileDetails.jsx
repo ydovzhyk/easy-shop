@@ -28,7 +28,6 @@ ProfileDetails.propTypes = {
     to: PropTypes.string,
     value: PropTypes.number,
     addValue: PropTypes.bool,
-    navClass: PropTypes.string,
 }
 
 ProfileDetails.defaultProps = {
@@ -36,6 +35,5 @@ ProfileDetails.defaultProps = {
     to: '/',
     value: 0,
     addValue: false,
-    navClass: '',
 }
 export default ProfileDetails;

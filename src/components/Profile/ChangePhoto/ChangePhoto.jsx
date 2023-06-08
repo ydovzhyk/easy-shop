@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { useSelector} from 'react-redux';
+import { getUserAvatar } from 'redux/auth/auth-selectors';
 import Avatar from 'components/Profile/Avatar/Avatar';
 import Text from 'components/Shared/Text/Text';
 import s from './ChangePhoto.module.scss';
@@ -9,7 +11,8 @@ const ChangePhoto = ({
     isFormSubmitted,
     onChangeAvatar,
 }) => {
-    const [avatar, setAvatar] = useState('');
+    const userAvatar = useSelector(getUserAvatar);
+    const [avatar, setAvatar] = useState(userAvatar);
     
     const handleUploadFile =  event => {
         const file = event.target.files[0];

@@ -56,7 +56,6 @@ const MySettings = () => {
             email: data.email,
             tel: data.tel,
             userAvatar: avatarFileURL,
-            // owner: userId,
             cityName: data.cityName,
             streetName: data.streetName,
             houseNamber: data.houseNamber,
@@ -264,8 +263,8 @@ const MySettings = () => {
                                 control={control}
                                 name="about"
                                 render={({ field: { onChange, value } }) => (
-                                    <textarea
-                                        className={s.aboutChangeProfile}
+                                    <TextField
+                                        className="aboutChangeProfile"
                                         value={value}
                                         control={control}
                                         handleChange={onChange}
