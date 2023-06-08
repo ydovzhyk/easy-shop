@@ -7,6 +7,7 @@ import { getLogin } from 'redux/auth/auth-selectors';
 import { BiSearchAlt } from 'react-icons/bi';
 import { HiOutlineBars4 } from 'react-icons/hi2';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
+import { VscAdd } from 'react-icons/vsc';
 
 import s from './Header.module.scss';
 import HeaderForm from 'components/HeaderForm/HeaderForm';
@@ -81,7 +82,7 @@ const Header = () => {
               }
               to={isLogin ? '/add-product' : '/login'}
             >
-              Додати товар
+              <VscAdd size={18} style={{ marginRight: '10px' }} /> Додати товар
             </NavLink>
             <UserInfo />
           </>
