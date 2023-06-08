@@ -24,3 +24,8 @@ export const axiosGetAllProducts = async () => {
   const { data } = await instance.get(`/product/`);
   return data;
 };
+
+export const axiosGetUserProducts = async userData => {
+  const { data } = await instance.get(`/product/user-products`, userData);
+  return data;
+};
