@@ -4,6 +4,7 @@ import {
   addProduct,
   deleteProduct,
   getAllProducts,
+  getUserProducts,
 } from './product-operations';
 
 const initialState = {
@@ -11,6 +12,7 @@ const initialState = {
   loading: false,
   error: null,
   allProducts: [],
+  userProducts: [],
 };
 
 const products = createSlice({
@@ -51,6 +53,7 @@ const products = createSlice({
       store.loading = false;
       store.error = payload;
     },
+    //* get all products
     [getAllProducts.pending]: store => {
       store.loading = true;
       store.error = null;
@@ -60,6 +63,20 @@ const products = createSlice({
       store.allProducts = payload;
     },
     [getAllProducts.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
+
+    //* get user product
+    [getUserProducts.pending]: store => {
+      store.loading = true;
+      store.error = null;
+    },
+    [getUserProducts.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.userProducts = payload;
+    },
+    [getUserProducts.rejected]: (store, { payload }) => {
       store.loading = false;
       store.error = payload;
     },
