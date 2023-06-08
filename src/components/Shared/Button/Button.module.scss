@@ -114,3 +114,19 @@
     width: 100%;
   }
 }
+
+@keyframes pulsate {
+  50% {
+    color: #fff;
+    text-shadow: 0 -1px rgba(0, 0, 0, 0.3), 0 0 5px #ffd, 0 0 8px #fff;
+  }
+}
+
+.footerAccentLink {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  background-color: transparent;
+  text-shadow: 0.5 -0.5px var(--accent-color);
+  animation: pulsate 2s linear infinite;
+}
