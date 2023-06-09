@@ -58,7 +58,7 @@ const UserInfo = () => {
               x2={15}
               y2={35}
               stroke="var(--border-color)"
-              stroke-width={3}
+              strokeWidth={3}
             />
           </svg>
           <div className={s.wrapper}>
