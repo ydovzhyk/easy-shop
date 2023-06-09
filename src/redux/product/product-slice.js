@@ -66,10 +66,6 @@ const products = createSlice({
       store.error = payload;
     },
     //* search Product
-    [searchProducts.rejected]: (store, { payload }) => {
-      store.loading = false;
-      store.error = payload;
-    },
     [searchProducts.pending]: store => {
       store.loading = true;
       store.error = null;
@@ -77,6 +73,10 @@ const products = createSlice({
     [searchProducts.fulfilled]: (store, { payload }) => {
       store.loading = false;
       store.productsByQuery = payload;
+    },
+    [searchProducts.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
     },
   },
 });
