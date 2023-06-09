@@ -1,9 +1,9 @@
-// import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { ImAppleinc } from 'react-icons/im';
 import { SiGoogleplay } from 'react-icons/si';
 import { BsFacebook, BsInstagram, BsYoutube, BsTwitter } from 'react-icons/bs';
 import Logo from 'components/Shared/Logo/Logo';
+import Button from 'components/Shared/Button/Button';
 import s from './Footer.module.scss';
 
 const Footer = () => {
@@ -15,9 +15,6 @@ const Footer = () => {
           <div className={s.copyrightBlock}>
             <p>&copy; 2023&nbsp;</p>
             <Logo className="static"></Logo>
-            {/* <Link to="/" className={s.copyrightLink}>
-              EASYshop
-            </Link> */}
           </div>
           <p className={s.footerMainText}>
             Модні товари для усієї сім'ї за доступною ціною.
@@ -139,7 +136,11 @@ const Footer = () => {
               </a>
             </li>
           </ul>
-          <h3 className={s.footerAccentLink}>Команда розробників сайту</h3>
+          <Button
+            type="button"
+            text="Команда розробників сайту"
+            btnClass="footerAccentLink"
+          />
         </div>
       </div>
     </footer>

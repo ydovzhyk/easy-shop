@@ -21,8 +21,7 @@ export const App = () => {
 
   const location = useLocation();
   const headerFooterHidden =
-    location.pathname === '/login' ||
-    location.pathname === '/login/registration';
+    location.pathname === '/login' || location.pathname === '/registration';
 
   useEffect(() => {
     if (sid) {
@@ -46,14 +45,21 @@ export const App = () => {
   }
 
   return (
-    <>
+    <div
+      style={{
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+      }}
+    >
       {errMessage !== '' && <ErrorMessage text={`${errMessage}`} />}
       {!headerFooterHidden && <Header />}
-      <main>
+      <main style={{ flexGrow: 1 }}>
         <UserRoutes />
       </main>
       {!headerFooterHidden && !isDesctop && <BottomNavigation />}
       {!headerFooterHidden && <Footer />}
-    </>
+    </div>
   );
 };

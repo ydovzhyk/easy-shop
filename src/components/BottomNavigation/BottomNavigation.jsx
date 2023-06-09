@@ -17,21 +17,36 @@ const BottomNavigation = () => {
   return (
     <nav className={s.navigationBottom}>
       <div className={s.containerBottom}>
-        <NavLink to={isLogin ? '/basket' : '/login'}>
+        <NavLink
+          to={isLogin ? '/basket' : '/login'}
+          className={({ isActive }) => `${isActive ? s.active : ''}`}
+        >
           <SlBasket className={s.navIcon} size={isMobile ? 25 : 30} />
         </NavLink>
-        <NavLink to={isLogin ? '/favorites' : '/login'}>
+        <NavLink
+          to={isLogin ? '/favorites' : '/login'}
+          className={({ isActive }) => `${isActive ? s.active : ''}`}
+        >
           <BsSuitHeart className={s.navIcon} size={isMobile ? 25 : 30} />
         </NavLink>
-        <NavLink to={isLogin ? '/add-product' : '/login'}>
+        <NavLink
+          to={isLogin ? '/add-product' : '/login'}
+          className={({ isActive }) => `${isActive ? s.active : ''}`}
+        >
           <div className={s.circleBox}>
             <HiPlus className={s.navIcon} size={isMobile ? 25 : 30} />
           </div>
         </NavLink>
-        <NavLink to={isLogin ? '/' : '/login'}>
+        <NavLink
+          to={isLogin ? '/products' : '/login'}
+          className={({ isActive }) => `${isActive ? s.active : ''}`}
+        >
           <BiMessageDetail className={s.navIcon} size={isMobile ? 25 : 30} />
         </NavLink>
-        <NavLink to={isLogin ? '/profile' : '/login'}>
+        <NavLink
+          to={isLogin ? '/profile' : '/login'}
+          className={({ isActive }) => `${isActive ? s.active : ''}`}
+        >
           {!isLogin && (
             <HiOutlineUser className={s.navIcon} size={isMobile ? 25 : 30} />
           )}

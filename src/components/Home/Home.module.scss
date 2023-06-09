@@ -1,8 +1,8 @@
 @use '../../styles/mixins';
 
 .home {
-  // padding-top: 30px;
-  padding-top: 150px;
+  padding-top: 30px;
+  // padding-top: 150px;
 
   @include mixins.mq(tablet) {
     // height: 100vh;

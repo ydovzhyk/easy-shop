@@ -15,6 +15,10 @@
   line-height: 22px;
   transition: background-color var(--transition-duration) var(--timing-function),
     color var(--transition-duration) var(--timing-function);
+  &:hover {
+    background-color: #f5f5f5;
+    border-color: var(--btn-border-color);
+  }
 }
 
 .btnDark {
@@ -30,6 +34,10 @@
   line-height: 22px;
   transition: background-color var(--transition-duration) var(--timing-function),
     color var(--transition-duration) var(--timing-function);
+  &:hover {
+    background-color: #f5f5f5;
+    color: var(--btn-text-color);
+  }
 }
 
 .burgerButton {
@@ -58,19 +66,8 @@
   }
 }
 
-.btnLight:hover {
-  background-color: #f5f5f5;
-  border-color: var(--btn-border-color);
-}
-
-.btnDark:hover {
-  background-color: #f5f5f5;
-  color: var(--btn-text-color);
-}
-
 .exitHeaderBtn:last-child {
   color: var(--second-text-color);
-  margin-left: 32px;
   position: relative;
 }
 
@@ -79,40 +76,26 @@
   display: inline-flex;
   align-items: baseline;
   transition: all var(--transition-duration) var(--timing-function);
-  &::before {
-    content: '';
-    background: var(--title-text-color);
-    display: block;
-    position: absolute;
-    bottom: -8px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    transition: all var(--transition-duration) var(--timing-function);
-  }
-  &::after {
-    content: '';
-    position: absolute;
-    width: 32px;
-    height: 0px;
-    top: 17px;
-    left: -32px;
-    border: 2px solid var(--border-color);
-    transform: rotate(90deg);
-    @include mixins.mq(tablet) {
-      top: 7px;
-    }
-    @include mixins.mq(desktop) {
-      top: 7px;
-    }
-  }
 }
 
 .exitHeaderBtn:hover,
 .exitHeaderBtn:focus {
   text-shadow: var(--hover-text-shadow);
   color: var(--hover-active-color);
-  &::before {
-    width: 100%;
+}
+
+@keyframes pulsate {
+  50% {
+    color: #fff;
+    text-shadow: 0 -1px rgba(0, 0, 0, 0.3), 0 0 5px #ffd, 0 0 8px #fff;
   }
+}
+
+.footerAccentLink {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  background-color: transparent;
+  text-shadow: 0.5 -0.5px var(--accent-color);
+  animation: pulsate 2s linear infinite;
 }
