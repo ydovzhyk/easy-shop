@@ -3,8 +3,21 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import { useState } from 'react';
 import { updateUserSettings } from 'redux/auth/auth-opetations';
+import {
+    getUserSecondName,
+    getUserFirstName,
+    getUserSurName,
+    getUserAvatar,
+    getUserEmail,
+    getUserTel,
+    getUserCityName,
+    getUserStreetName,
+    getUserHouseNamber,
+    getUserSex,
+    getUserAbout,
+} from 'redux/auth/auth-selectors';
 import { field } from 'components/Shared/TextField/fields';
-import { getUser } from 'redux/auth/auth-selectors';
+
 import Container from 'components/Shared/Container';
 import ChangePhoto from '../ChangePhoto/ChangePhoto';
 import Text from 'components/Shared/Text/Text';
@@ -21,9 +34,19 @@ import s from './MySettings.module.scss';
 const MySettings = () => {
     const dispatch = useDispatch();
     // const userId = useSelector(getID);
-    const user = useSelector(getUser);
-    const email = user.email;
-    const [avatarFileURL, setAvatarFileURL] = useState('');
+    // const user = useSelector(getUser);
+    const avatar = useSelector(getUserAvatar);
+    const secondName = useSelector(getUserSecondName);
+    const firstName = useSelector(getUserFirstName);
+    const surName = useSelector(getUserSurName);
+    const email = useSelector(getUserEmail);
+    const tel = useSelector(getUserTel);
+    const cityName = useSelector(getUserCityName);
+    const streetName = useSelector(getUserStreetName);
+    const houseNamber = useSelector(getUserHouseNamber);
+    const sex = useSelector(getUserSex);
+    const about = useSelector(getUserAbout);
+    const [avatarFileURL, setAvatarFileURL] = useState(avatar);
     const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
     const handleChangeAvatar = url => {
@@ -34,16 +57,17 @@ const MySettings = () => {
         // reset
     } = useForm({
         defaultValues: {
-            secondName: '',
-            firstName: '',
-            surName: '',
+            avatar,
+            secondName,
+            firstName,
+            surName,
             email,
-            tel: '',
-            cityName: 'Київ',
-            streetName: '',
-            houseNamber: '',
-            sex: '',
-            about: ''
+            tel,
+            cityName,
+            streetName,
+            houseNamber,
+            sex,
+            about,
     },
   });
 
@@ -63,7 +87,6 @@ const MySettings = () => {
             about: data.about
         };
         dispatch(updateUserSettings(dataForUpload));
-        // setAvatarFileURL('');
         setIsFormSubmitted(true);
     }
 
