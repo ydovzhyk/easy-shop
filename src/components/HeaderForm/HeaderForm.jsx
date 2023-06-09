@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
-import { useSearchParams } from 'react-router-dom';
+// import { useSearchParams } from 'react-router-dom';
 import { CiSearch } from 'react-icons/ci';
 import Button from 'components/Shared/Button';
 import { field } from 'components/Shared/TextField/fields';
