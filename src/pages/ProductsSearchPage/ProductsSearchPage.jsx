@@ -5,7 +5,7 @@ import Container from 'components/Shared/Container/Container';
 
 const ProductsSearchPage = () => {
 //   const [searchParams, setSearchParams] = useSearchParams();
-  const searchQuery = searchParams.get('search') ?? '';
+//   const searchQuery = searchParams.get('search') ?? '';
 
   useEffect(() => {
     if (searchQuery === '') {
