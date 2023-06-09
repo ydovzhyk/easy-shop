@@ -4,7 +4,6 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
-
   color: var(--icons-color);
   transition: all var(--transition-duration) var(--timing-function);
 }
@@ -24,11 +23,10 @@
 }
 
 .userInfoSide a:last-child {
-  margin-left: 32px;
   position: relative;
 }
 
-.userInfoSide a:last-child::after {
+.userInfoSide a:not(:last-of-type)::after {
   content: '';
   position: absolute;
   width: 28px;
@@ -43,43 +41,11 @@
   display: inline-block;
   position: relative;
   transition: all var(--transition-duration) var(--timing-function);
-  &::before {
-    content: '';
-    background: var(--title-text-color);
-    display: block;
-    position: absolute;
-    bottom: -8px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    transition: all var(--transition-duration) var(--timing-function);
-  }
-}
-
-.link:hover::before {
-  width: 100%;
-}
-
-.active {
-  &::before {
-    width: 100%;
-  }
-}
-
-.goodsNumber {
-  margin-right: 15px;
-  margin-left: 10px;
 }
 
 .custom {
   display: flex;
   flex-direction: row;
-}
-
-.userInfoBox {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .userWrapper {
@@ -89,8 +55,8 @@
 }
 
 .userPhoto {
-  width: 45px;
-  height: 45px;
+  // width: 45px;
+  // height: 45px;
   border-radius: 50%;
   border: 1px solid var(--icons-color);
 }
@@ -103,4 +69,42 @@
   height: 45px;
   border-radius: 50%;
   margin-right: 10px;
+}
+
+.wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 45px;
+  &::before {
+    content: '';
+    background: var(--title-text-color);
+    display: block;
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    transition: all var(--transition-duration) var(--timing-function);
+  }
+  &:hover::before,
+  &:focus::before {
+    width: 100%;
+  }
+}
+
+.wrapper:has(a.active) {
+  position: relative;
+  &::before {
+    content: '';
+    background: var(--title-text-color);
+    display: block;
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    transition: all var(--transition-duration) var(--timing-function);
+  }
 }
