@@ -4,7 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import Container from 'components/Shared/Container/Container';
 
 const ProductsSearchPage = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+//   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = searchParams.get('search') ?? '';
 
   useEffect(() => {
