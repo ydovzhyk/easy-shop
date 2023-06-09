@@ -117,13 +117,7 @@ const UserInfo = () => {
           <div className={s.wrapper}>
             <NavLink className={getClassName} to="/profile">
               <div className={s.userBlock}>
-                <img
-                  src={userAvatar}
-                  alt="Userphoto"
-                  width={45}
-                  height={45}
-                  className={s.userPhoto}
-                />
+                <img src={userAvatar} alt="Userphoto" className={s.userPhoto} />
               </div>
               <span>{userName}</span>
             </NavLink>
