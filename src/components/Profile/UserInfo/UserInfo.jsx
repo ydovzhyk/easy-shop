@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { BsCheck2, BsGeoAlt, BsHandbag, BsPeople } from "react-icons/bs";
-import { getUserName, getUser,getUserAvatar } from 'redux/auth/auth-selectors';
+import { getUserName, getUser, getUserAvatar, getUserDateCreate } from 'redux/auth/auth-selectors';
 import Container from 'components/Shared/Container';
 import Avatar from 'components/Profile/Avatar/Avatar';
 import UserRating from './UserRating';
@@ -12,12 +12,22 @@ const UserInfo = () => {
     const userName = useSelector(getUserName);
   const user = useSelector(getUser);
   const userAvatar = useSelector(getUserAvatar);
-    console.log(user);
+  console.log('user:', user);
+  const dateCreate = useSelector(getUserDateCreate);
+  
+  const getDaysPassedFromDate = (dateString) => {
+    const date = new Date(dateString);
+    const currentDate = new Date();
+    const deltaTime = currentDate - date;
+    const daysPassed = Math.floor(deltaTime / (1000 * 60 * 60 * 24));
+    return daysPassed;
+}
+
     const userAddress = user.userAddress || "Kyiv";
     console.log(userAddress);
     const rating = 3.2;
     const gradesAmount = 12;
-    const daysAmount = 15;
+    const daysAmount = getDaysPassedFromDate(dateCreate);
     const followersAmount = 36;
     const salesAmount = 16;
     return (

@@ -1,0 +1,38 @@
+@use '../../../styles/mixins';
+
+.myWaresWrapper {
+    padding: 16px;
+}
+
+.partWrapper{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.waresList {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.wareItem {
+    border: 1px solid var(--border-color);
+    border-radius: 25px;
+    @include mixins.mq(tablet) {
+        display: flex;
+        gap: 12px;
+    }
+}
+
+.photoCard {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 25px;    
+}
+
+
