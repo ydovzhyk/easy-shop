@@ -5,7 +5,7 @@
   bottom: 0;
   width: 100%;
   background-color: var(--bg-footer-header);
-  // border: 1px solid var(--border-color);
+  z-index: 999;
 }
 
 .containerBottom {

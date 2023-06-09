@@ -4,6 +4,7 @@ import {
   addProduct,
   deleteProduct,
   getAllProducts,
+  searchProducts,
 } from './product-operations';
 
 const initialState = {
@@ -11,6 +12,7 @@ const initialState = {
   loading: false,
   error: null,
   allProducts: [],
+  productsByQuery: [],
 };
 
 const products = createSlice({
@@ -62,6 +64,19 @@ const products = createSlice({
     [getAllProducts.rejected]: (store, { payload }) => {
       store.loading = false;
       store.error = payload;
+    },
+    //* search Product
+    [searchProducts.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
+    [searchProducts.pending]: store => {
+      store.loading = true;
+      store.error = null;
+    },
+    [searchProducts.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.productsByQuery = payload;
     },
   },
 });

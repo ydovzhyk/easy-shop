@@ -2,10 +2,9 @@
 
 .profileavatar {
   background-color: var(--bg-footer-header);
-  padding-top: 165px;
+  // padding-top: 165px;  //Юля закоментувала, бо виправила хеддер
   padding-bottom: 16px;
 }
-
 
 .profiledetails {
   @include mixins.mq(tablet) {
@@ -16,6 +15,3 @@
     height: auto;
   }
 }
-
-
-
