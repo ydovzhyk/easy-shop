@@ -22,7 +22,7 @@ const SelectField = ({
 }) => {
   const labelClass = className ? `${s.label} ${s[className]}` : `${s.label}`;
   const selectClass = className ? `${s.select} ${s[className]}` : `${s.select}`;
-
+  
   return (
     <label className={labelClass}>
       <Select
