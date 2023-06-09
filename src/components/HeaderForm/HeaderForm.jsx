@@ -28,9 +28,9 @@ const HeaderForm = ({ onChange }) => {
   const onSubmit = async (data, e) => {
     e.preventDefault();
 
-    await setSearchParams(
-      data.productName.trim() !== '' ? { search: data.productName } : {}
-    );
+//     await setSearchParams(
+//       data.productName.trim() !== '' ? { search: data.productName } : {}
+//     );
 
     await dispatch(searchProducts(data.productName));
   };
