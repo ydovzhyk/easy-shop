@@ -115,6 +115,7 @@ export const field = {
   cityName: {
     name: 'cityName',
     type: 'text',
+    placeholder: 'Київ',
   },
   streetName: {
     name: 'streetName',
@@ -122,7 +123,6 @@ export const field = {
   },
   houseNamber: {
     name: 'houseNamber',
-    
   },
   sex: {
     name: 'sex',
@@ -135,5 +135,5 @@ export const field = {
   phone: {
     name: 'phone',
     type: 'text',
-  }
+  },
 };

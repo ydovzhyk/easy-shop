@@ -1,5 +1,4 @@
 import { useSelector, useDispatch } from 'react-redux';
-// import { getID } from 'redux/auth/auth-selectors';
 import { useForm, Controller } from 'react-hook-form';
 import { useState } from 'react';
 import { updateUserSettings } from 'redux/auth/auth-opetations';
@@ -21,12 +20,23 @@ import s from './MySettings.module.scss';
 
 const MySettings = () => {
   const dispatch = useDispatch();
-  // const userId = useSelector(getID);
   const user = useSelector(getUser);
   const userAvatar = useSelector(getUserAvatar);
-  const email = user.email;
   const [avatarFileURL, setAvatarFileURL] = useState(userAvatar);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+
+  const {
+    secondName,
+    firstName,
+    surName,
+    tel,
+    email,
+    cityName,
+    streetName,
+    houseNamber,
+    sex,
+    about,
+  } = user || {};
 
   const handleChangeAvatar = url => {
     setAvatarFileURL(url);
@@ -39,16 +49,16 @@ const MySettings = () => {
     // reset
   } = useForm({
     defaultValues: {
-      secondName: '',
-      firstName: '',
-      surName: '',
-      email,
-      tel: '',
-      cityName: 'Київ',
-      streetName: '',
-      houseNamber: '',
-      sex: '',
-      about: '',
+      secondName: secondName ? secondName : '',
+      firstName: firstName ? firstName : '',
+      surName: surName ? surName : '',
+      tel: tel ? tel : '',
+      email: email ? email : '',
+      cityName: cityName ? cityName : 'Київ',
+      streetName: streetName ? streetName : '',
+      houseNamber: houseNamber ? houseNamber : '',
+      sex: sex ? sex : '',
+      about: about ? about : '',
     },
   });
 
@@ -67,7 +77,6 @@ const MySettings = () => {
       sex: data.sex.value !== undefined ? data.sex.value : '',
       about: data.about,
     };
-    console.log('dataForUpload', dataForUpload);
     await dispatch(updateUserSettings(dataForUpload));
     await dispatch(updateUser());
     setIsFormSubmitted(true);
@@ -89,9 +98,6 @@ const MySettings = () => {
               <Controller
                 control={control}
                 name="secondName"
-                // rules={{
-                //   required: true,
-                // }}
                 render={({ field: { onChange, value } }) => (
                   <TextField
                     className="changeProfile"
@@ -108,9 +114,6 @@ const MySettings = () => {
               <Controller
                 control={control}
                 name="firstName"
-                // rules={{
-                //   required: true,
-                // }}
                 render={({ field: { onChange, value } }) => (
                   <TextField
                     className="changeProfile"
@@ -127,9 +130,6 @@ const MySettings = () => {
               <Controller
                 control={control}
                 name="surName"
-                // rules={{
-                //   required: true,
-                // }}
                 render={({ field: { onChange, value } }) => (
                   <TextField
                     className="changeProfile"
@@ -146,9 +146,6 @@ const MySettings = () => {
               <Controller
                 control={control}
                 name="email"
-                // rules={{
-                //   required: true,
-                // }}
                 render={({ field: { onChange, value } }) => (
                   <TextField
                     className="changeProfile"
@@ -171,9 +168,6 @@ const MySettings = () => {
               <Controller
                 control={control}
                 name="tel"
-                // rules={{
-                //   required: true,
-                // }}
                 render={({ field: { onChange, value } }) => (
                   <TextField
                     className="changeProfile"
@@ -203,6 +197,8 @@ const MySettings = () => {
                     name="cityName"
                     {...field.cityName}
                     options={CityNames}
+                    defaultValue={cityName}
+                    placeholder={cityName}
                   />
                 )}
               />
@@ -212,9 +208,6 @@ const MySettings = () => {
               <Controller
                 control={control}
                 name="streetName"
-                // rules={{
-                //   required: true,
-                // }}
                 render={({ field: { onChange, value } }) => (
                   <TextField
                     className="changeProfile"
@@ -231,9 +224,6 @@ const MySettings = () => {
               <Controller
                 control={control}
                 name="houseNamber"
-                // rules={{
-                //   required: true,
-                // }}
                 render={({ field: { onChange, value } }) => (
                   <TextField
                     className="changeProfile"
@@ -258,6 +248,8 @@ const MySettings = () => {
                     name="sex"
                     {...field.sex}
                     options={['Чоловік', 'Жінка', 'Інше']}
+                    defaultValue={sex}
+                    placeholder={sex}
                   />
                 )}
               />
