@@ -10,7 +10,7 @@ import { searchProducts } from 'redux/product/product-operations';
 import s from './HeaderForm.module.scss';
 
 const HeaderForm = ({ onChange }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
+//   const [searchParams, setSearchParams] = useSearchParams();
   // const query = searchParams.get('search') ?? '';
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const HeaderForm = ({ onChange }) => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+//     formState: { errors },
   } = useForm({
     defaultValues: {
       productName: '',
