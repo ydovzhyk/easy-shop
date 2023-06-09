@@ -21,8 +21,7 @@ export const App = () => {
 
   const location = useLocation();
   const headerFooterHidden =
-    location.pathname === '/login' ||
-    location.pathname === '/login/registration';
+    location.pathname === '/login' || location.pathname === '/registration';
 
   useEffect(() => {
     if (sid) {
