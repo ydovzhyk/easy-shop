@@ -3,6 +3,7 @@ import {
   axiosAddProduct,
   axiosDeleteProduct,
   axiosGetAllProducts,
+  axiosGetUserProducts,
   axiosGetProductsByQuery,
 } from 'api/product';
 
