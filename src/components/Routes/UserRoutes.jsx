@@ -14,7 +14,9 @@ const FavoritesPage = lazy(() => import('pages/FavoritesPage'));
 const ProfilePage = lazy(() => import('pages/ProfilePage'));
 const ProductsSearchPage = lazy(() => import('pages/ProductsSearchPage'));
 const MyWares = lazy(() => import('components/Profile/MyWares/MyWares'));
-const MyPurchases = lazy(() => import('components/Profile/MyPurchases/MyPurchases'));
+const MyPurchases = lazy(() =>
+  import('components/Profile/MyPurchases/MyPurchases')
+);
 const MyReviews = lazy(() => import('components/Profile/MyReviews/MyReviews'));
 const AddProductPage = lazy(() => import('pages/AddProductPage'));
 const MySettings = lazy(() =>
@@ -29,8 +31,9 @@ const UserRoutes = () => {
     <Suspense fallback={<Loader />}>
       <Routes>
         <Route element={<PublicRoute />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/easy-shop-test" element={<HomePage />} />
+          <Route path="/" element={<ProductsSearchPage />} />
+          {/* <Route path="/" element={<HomePage />} /> */}
+          {/* <Route path="/easy-shop-test" element={<HomePage />} /> */}
           <Route path="/registration" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
         </Route>

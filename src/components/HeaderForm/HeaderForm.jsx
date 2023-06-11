@@ -28,8 +28,6 @@ const HeaderForm = ({ onChange }) => {
     await setSearchParams(
       data.productName.trim() !== '' ? { search: data.productName } : {}
     );
-
-    // await dispatch(searchProducts(data.productName));
   };
 
   return (

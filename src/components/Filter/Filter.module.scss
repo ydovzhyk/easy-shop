@@ -1,0 +1,63 @@
+@use '../../styles/mixins';
+
+.title {
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: 700;
+  @include mixins.mq(tablet) {
+    font-size: 20px;
+  }
+}
+
+.optionsTitle {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  @include mixins.mq(tablet) {
+    font-size: 18px;
+  }
+}
+
+.sizeGroupList {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  @include mixins.mq(tablet) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.sizeGroupItem {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--btn-border-color);
+  @include mixins.mq(mobile) {
+    padding: 3px;
+  }
+  @include mixins.mq(tablet) {
+    padding: 5px;
+  }
+}
+
+.optionsWrapper {
+  width: 30%;
+  @include mixins.mq(tablet) {
+    width: 25%;
+  }
+}
+
+.optionsBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.operationIcon {
+  transition: transform var(--transition-duration) var(--timing-function);
+  &.active {
+    transform: rotate(180deg);
+  }
+}

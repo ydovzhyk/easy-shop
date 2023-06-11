@@ -15,9 +15,13 @@ const ProductsSearchPage = () => {
     if (searchQuery === '') {
       return;
     }
-    dispatch(searchProducts(searchQuery));
-  }, [searchQuery, dispatch]);
 
+    // dispatch(searchProducts(searchQuery));
+  }, [
+    searchQuery,
+    // , dispatch
+  ]);
+  console.log('123');
   return (
     <section>
       <Container>
