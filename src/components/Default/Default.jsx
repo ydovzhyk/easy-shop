@@ -15,9 +15,9 @@ const Default = () => {
   const dispatch = useDispatch();
   const isUserLogin = useSelector(getLogin);
 
-  useEffect(() => {
-    dispatch(getAllProducts());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getAllProducts());
+  // }, [dispatch]);
 
   const products = useSelector(getProducts);
 
