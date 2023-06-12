@@ -5,7 +5,6 @@ import {
   // getProducts,
   getMyProducts,
 } from 'redux/product/product-selectors';
-import { getID } from 'redux/auth/auth-selectors';
 import Container from 'components/Shared/Container';
 import NoPhoto from 'images/catalog_photo/no_photo.jpg';
 import Text from 'components/Shared/Text/Text';
@@ -14,11 +13,10 @@ import s from './MyWares.module.scss';
 
 const MyWares = () => {
   const dispatch = useDispatch();
-  const userID = useSelector(getID);
 
   useEffect(() => {
-    dispatch(getUserProducts(userID));
-  }, [dispatch, userID]);
+    dispatch(getUserProducts());
+  }, [dispatch]);
 
   const myProducts = useSelector(getMyProducts);
   console.log(myProducts);
