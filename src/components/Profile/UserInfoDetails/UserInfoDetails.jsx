@@ -1,12 +1,15 @@
 import { Suspense, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation, Outlet } from 'react-router-dom';
+import {
+  // useLocation,
+  Outlet
+} from 'react-router-dom';
 import { getUserProducts } from 'redux/product/product-operations';
 import { getID } from 'redux/auth/auth-selectors';
-import {
-  // getProducts,
-  getMyProducts,
-} from 'redux/product/product-selectors';
+// import {
+//   // getProducts,
+//   getMyProducts,
+// } from 'redux/product/product-selectors';
 import Container from 'components/Shared/Container';
 import ProfileDetails from './ProfileDetails';
 import s from './UserInfoDetails.module.scss';
@@ -19,7 +22,7 @@ const UserInfoDetails = () => {
   useEffect(() => {
         dispatch(getUserProducts(userID));
     }, [dispatch, userID]);
-  const myProducts = useSelector(getMyProducts);
+  // const myProducts = useSelector(getMyProducts);
 
   // console.log(myProducts);
   // console.log(location);
