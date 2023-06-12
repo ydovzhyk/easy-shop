@@ -6,7 +6,6 @@ import {
   refresh,
   updateUser,
   updateUserSettings,
-  googleUpdate,
 } from './auth-opetations';
 
 const initialState = {
@@ -24,10 +23,8 @@ const initialState = {
     sex: '',
     about: '',
     orders: [],
-    userAddress: '',
-    userBasket: '',
-    userLikes: '',
-    username: '',
+    userBasket: [],
+    userLikes: [],
   },
   sid: '',
   accessToken: '',
@@ -136,11 +133,7 @@ const auth = createSlice({
       store.loading = true;
       store.error = null;
     },
-    [updateUser.fulfilled]: (store, { payload }) => {
-      store.isLogin = true;
-      store.loading = false;
-      store.user = payload;
-    },
+    [updateUser.fulfilled]: (store, { payload }) => accessAuth(store, payload),
     [updateUser.rejected]: (store, { payload }) => {
       store.loading = false;
       store.error = payload;
@@ -168,21 +161,6 @@ const auth = createSlice({
     [updateUserSettings.rejected]: (store, { payload }) => {
       store.loading = false;
       store.error = payload;
-    },
-    [googleUpdate.pending]: store => {
-      store.loading = true;
-      store.error = null;
-    },
-    [googleUpdate.fulfilled]: (store, { payload }) => {
-      store.loading = false;
-      store.isLogin = true;
-      store.sid = payload.sid;
-      store.accessToken = payload.accessToken;
-      store.refreshToken = payload.refreshToken;
-    },
-    [googleUpdate.rejected]: (store, { payload }) => {
-      store.loading = false;
-      store.error = payload.data.message;
     },
   },
 });

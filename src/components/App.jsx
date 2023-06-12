@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import { updateUser } from 'redux/auth/auth-opetations';
-import { getError, getSid } from 'redux/auth/auth-selectors';
+import { getError } from 'redux/auth/auth-selectors';
 import UserRoutes from './Routes/UserRoutes';
 import Header from './Header';
 import Footer from './Footer/Footer';
@@ -13,7 +13,6 @@ import { useLocation } from 'react-router-dom';
 
 export const App = () => {
   const error = useSelector(getError);
-  const sid = useSelector(getSid);
   const isDesctop = useMediaQuery({ minWidth: 1280 });
   const dispatch = useDispatch();
   const [errMessage, setErrMessage] = useState('');
@@ -24,12 +23,18 @@ export const App = () => {
     location.pathname === '/login' || location.pathname === '/registration';
 
   useEffect(() => {
-    if (sid) {
-      dispatch(updateUser());
+    const authData = JSON.parse(localStorage.getItem('easy-shop.authData'));
+    if (authData.accessToken) {
+      const userData = {
+        accessToken: authData.accessToken,
+        refreshToken: authData.refreshToken,
+        sid: authData.sid,
+      };
+      dispatch(updateUser(userData));
     } else {
       setIsUserLoaded(true);
     }
-  }, [dispatch, sid]);
+  }, [dispatch]);
 
   useEffect(() => {
     if (error) {
