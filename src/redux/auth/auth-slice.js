@@ -6,6 +6,7 @@ import {
   refresh,
   updateUser,
   updateUserSettings,
+  googleUpdate,
 } from './auth-opetations';
 
 const initialState = {
@@ -167,6 +168,21 @@ const auth = createSlice({
     [updateUserSettings.rejected]: (store, { payload }) => {
       store.loading = false;
       store.error = payload;
+    },
+    [googleUpdate.pending]: store => {
+      store.loading = true;
+      store.error = null;
+    },
+    [googleUpdate.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.isLogin = true;
+      store.sid = payload.sid;
+      store.accessToken = payload.accessToken;
+      store.refreshToken = payload.refreshToken;
+    },
+    [googleUpdate.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload.data.message;
     },
   },
 });

@@ -109,3 +109,8 @@ export const refresh = createAsyncThunk(
     }
   }
 );
+
+export const googleUpdate = (accessToken, refreshToken, sid) => ({
+  type: 'auth/googleUpdate',
+  payload: { accessToken, refreshToken, sid },
+});
