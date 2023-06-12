@@ -24,6 +24,7 @@ const Register = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const [userAvatar, setUserAvatar] = useState('');
+  const { REACT_APP_API_URL } = process.env;
 
   useEffect(() => {
     const loadImage = async () => {
@@ -88,10 +89,7 @@ const Register = () => {
             </NavLink>
           </div>
           <Text textClass="google-text" text={googleText} />
-          <a
-            href="https://ydovzhyk.github.io/easy-shop/"
-            className={s.googleBtn}
-          >
+          <a href={`${REACT_APP_API_URL}/google`} className={s.googleBtn}>
             <FcGoogle size={24} />
             Google
           </a>
