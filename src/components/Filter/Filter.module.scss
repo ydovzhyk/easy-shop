@@ -9,19 +9,10 @@
     font-size: 20px;
   }
 }
-
-.optionsTitle {
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 10px;
-  @include mixins.mq(tablet) {
-    font-size: 18px;
-  }
-}
-
 .sizeGroupList {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  margin-bottom: 20px;
   @include mixins.mq(tablet) {
     grid-template-columns: 1fr 1fr 1fr;
   }
@@ -45,19 +36,5 @@
   width: 30%;
   @include mixins.mq(tablet) {
     width: 25%;
-  }
-}
-
-.optionsBox {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.operationIcon {
-  transition: transform var(--transition-duration) var(--timing-function);
-  &.active {
-    transform: rotate(180deg);
   }
 }
