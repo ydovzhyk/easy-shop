@@ -41,9 +41,9 @@ export const axiosRefresh = async (sid, refreshToken) => {
   return data;
 };
 
-export const axiosUpdateUser = async accessToken => {
+export const axiosUpdateUser = async (accessToken, userData) => {
   token.set(accessToken);
-  const { data } = await instance.post('/auth/current');
+  const { data } = await instance.post('/auth/current', userData);
   return data;
 };
 

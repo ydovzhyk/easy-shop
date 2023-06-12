@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateUser, googleUpdate } from 'redux/auth/auth-opetations';
+import { Navigate } from 'react-router-dom';
+import { updateUser } from 'redux/auth/auth-opetations';
 import Container from 'components/Shared/Container';
 import Default from 'components/Default/Default';
 
@@ -15,10 +16,17 @@ const Home = () => {
     const accessToken = urlParams.get('accessToken');
     const refreshToken = urlParams.get('refreshToken');
     const sid = urlParams.get('sid');
-    const authData = { accessToken, refreshToken, sid };
-    localStorage.setItem('easy-shop.authData', JSON.stringify(authData));
-    dispatch(updateUser(accessToken));
-    dispatch(googleUpdate(accessToken, refreshToken, sid));
+    if (accessToken) {
+      const userData = {
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+        sid: sid,
+      };
+      dispatch(updateUser(userData));
+      localStorage.setItem('easy-shop.authData', JSON.stringify(userData));
+    } else {
+      return;
+    }
   }, [dispatch]);
 
   return (

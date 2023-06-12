@@ -56,16 +56,10 @@ export const logout = createAsyncThunk(
 
 export const updateUser = createAsyncThunk(
   'auth/current',
-  async (newAccessToken, { rejectWithValue, getState, dispatch }) => {
+  async (userData, { rejectWithValue, dispatch }) => {
     try {
-      if (!newAccessToken) {
-        const { auth } = getState();
-        const data = await axiosUpdateUser(auth.accessToken);
-        return data;
-      } else {
-        const data = await axiosUpdateUser(newAccessToken);
-        return data;
-      }
+      const data = await axiosUpdateUser(userData.accessToken, userData);
+      return data;
     } catch (error) {
       const { data, status } = error.response;
       return rejectWithValue({ data, status });
