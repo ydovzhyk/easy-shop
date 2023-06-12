@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, Outlet } from 'react-router-dom';
 import { getUserProducts } from 'redux/product/product-operations';
@@ -13,13 +13,16 @@ import s from './UserInfoDetails.module.scss';
 
 const UserInfoDetails = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
+  // const location = useLocation();
   const userID = useSelector(getID);
-  dispatch(getUserProducts(userID));
+
+  useEffect(() => {
+        dispatch(getUserProducts(userID));
+    }, [dispatch, userID]);
   const myProducts = useSelector(getMyProducts);
 
-  console.log(myProducts);
-  console.log(location);
+  // console.log(myProducts);
+  // console.log(location);
   return (
     <Container>
       <ul className={s.list}>
