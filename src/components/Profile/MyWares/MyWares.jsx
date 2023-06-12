@@ -1,9 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import {getUserProducts } from 'redux/product/product-operations';
+import { getUserProducts } from 'redux/product/product-operations';
 import {
-    // getProducts,
-getMyProducts,
+  // getProducts,
+  getMyProducts,
 } from 'redux/product/product-selectors';
 import { getID } from 'redux/auth/auth-selectors';
 import Container from 'components/Shared/Container';
@@ -13,51 +13,45 @@ import Button from 'components/Shared/Button/Button';
 import s from './MyWares.module.scss';
 
 const MyWares = () => {
-    const dispatch = useDispatch();
-    // const products = useSelector(getProducts);
-    const userID = useSelector(getID);
-    // console.log(products);
-    
-    useEffect(() => {
-        dispatch(getUserProducts(userID));
-    }, [dispatch, userID]);
-    
-    const myProducts = useSelector(getMyProducts);
-    console.log(myProducts);
-    
-    return (
-        <Container>
-            <section className={s.myWaresWrapper}>
-                <ul className={s.waresList}>
-                    {myProducts.map(({ _id, mainPhotoUrl, nameProduct, price, }) => (
-                        <li className={s.wareItem} key={_id}>
-                            <div className={s.partWrapper}>
-                                <img
-                                    className={s.photoCard}
-                                    src={mainPhotoUrl}
-                                    onError={e => (e.target.src = NoPhoto)}
-                                    alt={nameProduct}
-                                />
-                            </div>
-                            <div className={s.partWrapper}>
-                                <Text textClass="titleGroupItems" text={nameProduct} />
-                                <Text textClass="after-title" text={`${price}грн.`}/>
-                            </div>
-                            <div className={s.partWrapper}>
-                                <Button btnClass = 'btnLight' text='Відгуки'/>
-                                <Button btnClass = 'btnLight' text='Змінити'/>
-                                <Button btnClass = 'btnLight' text='Видалити'/>
-                            </div>
-                        </li>
-                    ))}
-                    
-                </ul>
-                
-            </section>
-            
-        </Container>
-        
-    )
-}
+  const dispatch = useDispatch();
+  const userID = useSelector(getID);
+
+  useEffect(() => {
+    dispatch(getUserProducts(userID));
+  }, [dispatch, userID]);
+
+  const myProducts = useSelector(getMyProducts);
+  console.log(myProducts);
+
+  return (
+    <Container>
+      <section className={s.myWaresWrapper}>
+        <ul className={s.waresList}>
+          {myProducts.map(({ _id, mainPhotoUrl, nameProduct, price }) => (
+            <li className={s.wareItem} key={_id}>
+              <div className={s.partWrapper}>
+                <img
+                  className={s.photoCard}
+                  src={mainPhotoUrl}
+                  onError={e => (e.target.src = NoPhoto)}
+                  alt={nameProduct}
+                />
+              </div>
+              <div className={s.partWrapper}>
+                <Text textClass="titleGroupItems" text={nameProduct} />
+                <Text textClass="after-title" text={`${price}грн.`} />
+              </div>
+              <div className={s.partWrapper}>
+                <Button btnClass="btnLight" text="Відгуки" />
+                <Button btnClass="btnLight" text="Змінити" />
+                <Button btnClass="btnLight" text="Видалити" />
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </Container>
+  );
+};
 
 export default MyWares;
