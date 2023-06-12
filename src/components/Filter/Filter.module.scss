@@ -38,3 +38,17 @@
     width: 25%;
   }
 }
+
+.radioBox {
+  display: flex;
+  flex-direction: column;
+}
+
+.labelRadio:not(:last-of-type) {
+  margin-bottom: 10px;
+}
+
+.filterInputBox {
+  display: flex;
+  border: 1px solid var(--btn-border-color);
+}

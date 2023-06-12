@@ -31,9 +31,9 @@ const UserRoutes = () => {
     <Suspense fallback={<Loader />}>
       <Routes>
         <Route element={<PublicRoute />}>
-          {/* <Route path="/" element={<ProductsSearchPage />} /> */}
-          <Route path="/" element={<HomePage />} />
-          <Route path="/easy-shop-test" element={<HomePage />} />
+          <Route path="/" element={<ProductsSearchPage />} />
+          {/* <Route path="/" element={<HomePage />} /> */}
+          {/* <Route path="/easy-shop-test" element={<HomePage />} /> */}
           <Route path="/registration" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
         </Route>

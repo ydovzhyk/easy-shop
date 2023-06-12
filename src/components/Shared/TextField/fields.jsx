@@ -136,4 +136,20 @@ export const field = {
     name: 'phone',
     type: 'text',
   },
+  filterPriceMain: {
+    type: 'number',
+    name: 'filterPriceMain',
+    placeholder: 'Від',
+    min: '0',
+    step: '1',
+    value: '0',
+  },
+  filterPriceSecondary: {
+    type: 'number',
+    name: 'filterPriceSecondary',
+    placeholder: 'До',
+    min: '0',
+    step: '1',
+    value: '0',
+  },
 };
