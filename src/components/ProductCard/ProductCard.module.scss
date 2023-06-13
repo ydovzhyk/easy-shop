@@ -27,13 +27,84 @@
     border-radius: 12px;
 }
 
-.size {
-    display: flex;
-    justify-content: center;
-    border: 1px solid #dedddd;
-    border-radius: 5px;
+.productPrice > p {
+    font-weight: 600;
 }
 
-.favorite {
+.productOldPrice {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    text-decoration: line-through;
+    color: #8e8e8e;
+}
+
+.productPriceDiscount {
+    display: inline-block;
+    padding: 4px;
+    border-radius: 4px;
+    border: 1px solid var(--accent-color);
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--btn-text-color);
+    text-transform: lowercase;
+}
+
+.size {
+    display: inline-block;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 8px;
+    margin-bottom: 20px;
+}
+
+.buyBtns {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    & > button {
+        width: 100%;
+    }
+}
+
+.additionalOpts {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.productInfo {
+    padding: 12px 0;
+}
+
+.productDescription {
+    margin-bottom: 16px;
+}
+
+.deliveryList {
+    margin-bottom: 24px;
+}
+
+.deliveryItem {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.deliveryItem:not(:last-child) {
+    margin-bottom: 8px;
+}
+
+.deliveryIcon {
+    width: 22px;
+    height: 22px;
+}
+
+.sellerInfo {
+    padding: 16px 0;
 }
