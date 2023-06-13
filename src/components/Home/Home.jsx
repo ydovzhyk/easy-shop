@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Navigate } from 'react-router-dom';
 import { updateUser } from 'redux/auth/auth-opetations';
 import Container from 'components/Shared/Container';
 import Default from 'components/Default/Default';
