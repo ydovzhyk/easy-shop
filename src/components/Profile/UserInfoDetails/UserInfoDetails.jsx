@@ -1,51 +1,41 @@
-import { Suspense, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { Suspense} from 'react';
+import {useSelector} from 'react-redux';
 import {
-  // useLocation,
+  useLocation,
   Outlet
 } from 'react-router-dom';
-import { getUserProducts } from 'redux/product/product-operations';
-import { getID } from 'redux/auth/auth-selectors';
-// import {
-//   // getProducts,
-//   getMyProducts,
-// } from 'redux/product/product-selectors';
+
+import {getMyProducts} from 'redux/product/product-selectors';
 import Container from 'components/Shared/Container';
-import ProfileDetails from './ProfileDetails';
+import ProfileLink from './ProfileLink';
 import s from './UserInfoDetails.module.scss';
 
 const UserInfoDetails = () => {
-  const dispatch = useDispatch();
-  // const location = useLocation();
-  const userID = useSelector(getID);
-
-  useEffect(() => {
-        dispatch(getUserProducts(userID));
-    }, [dispatch, userID]);
-  // const myProducts = useSelector(getMyProducts);
-
-  // console.log(myProducts);
-  // console.log(location);
+  const myProducts = useSelector(getMyProducts);
+  console.log('myProducts in UserInfoDetails', myProducts);
+  const location = useLocation();
+  console.log(location?.pathname);
+  
   return (
     <Container>
       <ul className={s.list}>
         <li className={s.item}>
-          <ProfileDetails to="mywares" addValue value={0}>
+          <ProfileLink to="mywares" addValue value={myProducts.length} state={{from:location}} >
             Мої товари
-          </ProfileDetails>
+          </ProfileLink>
         </li>
         <li className={s.item}>
-          <ProfileDetails to="mypurchases" addValue>
+          <ProfileLink to="mypurchases" addValue>
             Мої покупки
-          </ProfileDetails>
+          </ProfileLink>
         </li>
         <li className={s.item}>
-          <ProfileDetails to="myreviews" addValue>
+          <ProfileLink to="myreviews" addValue>
             Мої відгуки
-          </ProfileDetails>
+          </ProfileLink>
         </li>
         <li className={s.item}>
-          <ProfileDetails to="/mysettings">Мої налаштування</ProfileDetails>
+          <ProfileLink to="mysettings">Мої налаштування</ProfileLink>
         </li>
       </ul>
       <Suspense fallback={<div>Loading...</div>}>
