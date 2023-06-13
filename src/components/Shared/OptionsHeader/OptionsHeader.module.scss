@@ -3,7 +3,6 @@
 .optionsTitle {
   font-size: 16px;
   font-weight: 600;
-  margin-bottom: 10px;
   @include mixins.mq(tablet) {
     font-size: 18px;
   }

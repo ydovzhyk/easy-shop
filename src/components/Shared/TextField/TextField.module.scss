@@ -94,7 +94,7 @@
 
 .input.headerForm:focus + span,
 .input.headerForm:valid + span {
-  transform: translateY(-42px);
+  transform: translateY(-44px);
 }
 
 .label.addProduct {
@@ -211,9 +211,4 @@
 
 .span.aboutChangeProfile {
   display: none;
-}
-
-.priceFilter {
-  border: 1px solid var(--btn-border-color);
-  border-radius: 8px;
 }

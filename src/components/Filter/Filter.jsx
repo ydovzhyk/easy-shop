@@ -1,16 +1,19 @@
 import { useState } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
 import { useForm, Controller } from 'react-hook-form';
+import { BiCheck } from 'react-icons/bi';
 import sizeOption from '../AddProduct/Size/sizeTable.json';
 import OptionsHeader from 'components/Shared/OptionsHeader/OptionsHeader';
 import Text from 'components/Shared/Text/Text';
-import TextField from 'components/Shared/TextField';
-import { field } from 'components/Shared/TextField/fields';
 import s from './Filter.module.scss';
+import { filterPrices } from './filterPrice';
+import { filterConditions } from './filterСonditions';
 
 const Filter = () => {
   const [showSizes, setShowSizes] = useState(true);
   const [showPrices, setShowPrices] = useState(true);
+  const [showCondition, setShowCondition] = useState(true);
+  const [showBrand, setShowBrand] = useState(true);
 
   const handleOptionsChange = type => {
     switch (type) {
@@ -19,6 +22,12 @@ const Filter = () => {
         break;
       case 'Ціна':
         setShowPrices(!showPrices);
+        break;
+      case 'Стан':
+        setShowCondition(!showCondition);
+        break;
+      case 'Бренд':
+        setShowBrand(!showBrand);
         break;
       default:
         break;
@@ -30,9 +39,10 @@ const Filter = () => {
     // register, handleSubmit, reset
   } = useForm({
     defaultValues: {
-      priceFilter: 0,
+      priceFilter: '',
       filterPriceMain: 0,
       filterPriceSecondary: 0,
+      conditionFilter: '',
     },
   });
 
@@ -74,116 +84,145 @@ const Filter = () => {
         <OptionsHeader title="Ціна" onChange={handleOptionsChange} />
         {showPrices && (
           <>
-            <div className={s.radioBox}>
-              <Controller
-                control={control}
-                name="priceFilter"
-                render={({ field: { onChange, value } }) => (
-                  <label className={s.labelRadio}>
-                    <input
-                      type="radio"
-                      name="priceFilter"
-                      onChange={onChange}
+            <ul className={s.radioList}>
+              {filterPrices.map(el => {
+                return (
+                  <li key={nanoid()} className={s.radioItem}>
+                    <Controller
                       control={control}
-                      value={value}
-                    />
-                    До 100грн
-                  </label>
-                )}
-              />
-              <Controller
-                control={control}
-                name="priceFilter"
-                render={({ field: { onChange, value } }) => (
-                  <label className={s.labelRadio}>
-                    <input
-                      type="radio"
                       name="priceFilter"
-                      onChange={onChange}
-                      control={control}
-                      value={value}
+                      render={({ field: { onChange, value } }) => (
+                        <div className={s.radioContent}>
+                          <input
+                            className={s.radioInput}
+                            type="radio"
+                            name="priceFilter"
+                            onChange={onChange}
+                            control={control}
+                            value={value}
+                            id="input-radio"
+                          />
+                          <label htmlFor="input-radio" className={s.labelRadio}>
+                            <BiCheck
+                              size={22}
+                              style={{
+                                border: '1px solid var(--btn-border-color)',
+                              }}
+                              className={s.radioIcon}
+                            />
+                            <span>{el}</span>
+                          </label>
+                        </div>
+                      )}
                     />
-                    Від 100 до 300грн
-                  </label>
-                )}
-              />
-              <Controller
-                control={control}
-                name="priceFilter"
-                render={({ field: { onChange, value } }) => (
-                  <label className={s.labelRadio}>
-                    <input
-                      type="radio"
-                      name="priceFilter"
-                      onChange={onChange}
-                      control={control}
-                      value={value}
-                    />
-                    Від 300 до 500грн
-                  </label>
-                )}
-              />
-              <Controller
-                control={control}
-                name="priceFilter"
-                render={({ field: { onChange, value } }) => (
-                  <label className={s.labelRadio}>
-                    <input
-                      type="radio"
-                      name="priceFilter"
-                      onChange={onChange}
-                      control={control}
-                      value={value}
-                    />
-                    Від 500 до 1000грн
-                  </label>
-                )}
-              />
-              <Controller
-                control={control}
-                name="priceFilter"
-                render={({ field: { onChange, value } }) => (
-                  <label className={s.labelRadio}>
-                    <input
-                      type="radio"
-                      name="priceFilter"
-                      onChange={onChange}
-                      control={control}
-                      value={value}
-                    />
-                    Більше 1000 грн
-                  </label>
-                )}
-              />
-            </div>
+                  </li>
+                );
+              })}
+            </ul>
             <div className={s.filterInputBox}>
               <Controller
                 control={control}
                 name="filterPriceMain"
                 render={({ field: { onChange, value } }) => (
-                  <TextField
-                    value={value}
-                    control={control}
-                    handleChange={onChange}
-                    className="priceFilter"
-                    {...field.filterPriceMain}
-                  />
+                  <label className={s.filterLabel}>
+                    <input
+                      onChange={onChange}
+                      className={s.inputFilter}
+                      control={control}
+                      // value={value}
+                      type="number"
+                      name="filterPriceMain"
+                      placeholder="Від"
+                      min="0"
+                      step="1"
+                    />
+                  </label>
                 )}
               />
               <Controller
                 control={control}
                 name="filterPriceSecondary"
                 render={({ field: { onChange, value } }) => (
-                  <TextField
-                    value={value}
-                    control={control}
-                    handleChange={onChange}
-                    className="priceFilter"
-                    {...field.filterPriceMain}
-                  />
+                  <label className={s.filterLabel}>
+                    <input
+                      onChange={onChange}
+                      className={s.inputFilter}
+                      control={control}
+                      // value={value}
+                      type="number"
+                      name="filterPriceSecondary"
+                      placeholder="До"
+                      min="0"
+                      step="1"
+                    />
+                  </label>
                 )}
               />
             </div>
+          </>
+        )}
+        <OptionsHeader title="Стан" onChange={handleOptionsChange} />
+        {showCondition && (
+          <>
+            <ul className={s.radioList}>
+              {filterConditions.map(el => {
+                return (
+                  <li key={nanoid()} className={s.radioItem}>
+                    <Controller
+                      control={control}
+                      name="conditionFilter"
+                      render={({ field: { onChange, value } }) => (
+                        <div className={s.radioContent}>
+                          <input
+                            className={s.radioInput}
+                            type="radio"
+                            name="conditionFilter"
+                            onChange={onChange}
+                            control={control}
+                            value={value}
+                            id="input-radio"
+                          />
+                          <label htmlFor="input-radio" className={s.labelRadio}>
+                            <BiCheck
+                              size={22}
+                              style={{
+                                border: '1px solid var(--btn-border-color)',
+                              }}
+                              className={s.radioIcon}
+                            />
+                            <span>{el}</span>
+                          </label>
+                        </div>
+                      )}
+                    />
+                  </li>
+                );
+              })}
+            </ul>
+          </>
+        )}
+
+        <OptionsHeader title="Бренд" onChange={handleOptionsChange} />
+        {showBrand && (
+          <>
+            <Controller
+              control={control}
+              name="filterBrand"
+              render={({ field: { onChange, value } }) => (
+                <label className={s.filterLabel}>
+                  <input
+                    onChange={onChange}
+                    className={s.inputFilter}
+                    control={control}
+                    // value={value}
+                    type="text"
+                    name="filterBrand"
+                    placeholder="Enter brand name"
+                    minLength={2}
+                  />
+                </label>
+              )}
+            />
           </>
         )}
       </form>

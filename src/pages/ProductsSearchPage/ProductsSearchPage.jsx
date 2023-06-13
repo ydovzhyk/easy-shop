@@ -21,12 +21,10 @@ const ProductsSearchPage = () => {
     searchQuery,
     // , dispatch
   ]);
-  console.log('123');
+
   return (
     <section>
       <Container>
-        <h1>ProductsSearchPage</h1>
-        <p>Search Query Is: {searchQuery}</p>
         <Filter />
       </Container>
     </section>
