@@ -1,0 +1,39 @@
+@use '../../styles/mixins';
+
+.productCard {
+  padding-top: 30px;
+  // padding-top: 150px;
+
+  @include mixins.mq(tablet) {
+    // height: 100vh;
+  }
+
+  @include mixins.mq(desktop) {
+    // height: auto;
+  }
+}
+
+.fotoGalery {
+    background-color: grey;
+    width: 280px;
+    height: 400px;
+}
+
+.availability {
+    color: var(--text-color);
+    padding: 8px;
+    background-color: var(--accent-color);
+    display: inline-block;
+    border-radius: 12px;
+}
+
+.size {
+    display: flex;
+    justify-content: center;
+    border: 1px solid #dedddd;
+    border-radius: 5px;
+}
+
+.favorite {
+    display: flex;
+}
