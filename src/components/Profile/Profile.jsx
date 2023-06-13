@@ -1,7 +1,12 @@
 // import { useLocation, Outlet } from 'react-router-dom';
-// import { Suspense } from "react";
-// import Container from 'components/Shared/Container';
-// import ProfileDetails from './ProfileDetails';
+import {
+  useDispatch
+} from 'react-redux';
+import {
+  // Suspense,
+  useEffect
+} from "react";
+import { getUserProducts } from 'redux/product/product-operations';
 import UserInfo from 'components/Profile/UserInfo/UserInfo';
 import UserInfoDetails from './UserInfoDetails/UserInfoDetails';
 
@@ -9,7 +14,10 @@ import UserInfoDetails from './UserInfoDetails/UserInfoDetails';
 import s from './Profile.module.scss';
 
 const Profile = () => {
-  
+  const dispatch = useDispatch();
+  useEffect(() => {
+        dispatch(getUserProducts());
+    }, [dispatch]);
   // const location = useLocation();
   // console.log(location);
   
