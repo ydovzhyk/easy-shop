@@ -12,7 +12,7 @@ import Text from 'components/Shared/Text/Text';
 import Button from 'components/Shared/Button';
 import TextField from 'components/Shared/TextField/TextField';
 import SelectField from 'components/Shared/SelectField/SelectField';
-import ProfileDetails from '../UserInfoDetails/ProfileDetails';
+import ProfileLink from '../UserInfoDetails/ProfileLink';
 import { CityNames } from './Options';
 
 import s from './MySettings.module.scss';
@@ -179,9 +179,9 @@ const MySettings = () => {
                 )}
               />
               <div className={s.navButton}>
-                <ProfileDetails to={'/phone-verification'}>
+                <ProfileLink to={'/phone-verification'}>
                   Змінити
-                </ProfileDetails>
+                </ProfileLink>
               </div>
             </div>
             <div className={s.partFrame}>
