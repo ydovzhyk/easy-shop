@@ -44,6 +44,12 @@ const UserInfo = () => {
   }, [user]);
 
   const onLogout = () => {
+    const authData = {
+      accessToken: null,
+      refreshToken: null,
+      sid: null,
+    };
+    localStorage.setItem('easy-shop.authData', JSON.stringify(authData));
     dispatch(logout());
   };
 
