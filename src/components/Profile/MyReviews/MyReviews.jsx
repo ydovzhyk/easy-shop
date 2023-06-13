@@ -1,5 +1,5 @@
 import Text from 'components/Shared/Text/Text';
-import ProfileDetails from 'components/Profile/UserInfoDetails/ProfileDetails';
+import ProfileLink from 'components/Profile/UserInfoDetails/ProfileLink';
 import s from './MyReviews.module.scss';
 
 const MyReviews = () => {
@@ -8,14 +8,14 @@ const MyReviews = () => {
             <Text text={'Відгуки'} textClass="verifyTextTitle" />
             <ul className={s.list}>
                 <li className={s.item}>
-                    <ProfileDetails
+                    <ProfileLink
                     to='s'
-                addValue>Як про продавця</ProfileDetails>
+                addValue>Як про продавця</ProfileLink>
                 </li>
                 <li className={s.item}>
-                    <ProfileDetails
+                    <ProfileLink
                     to='b'
-                addValue>Як про покупця</ProfileDetails>
+                addValue>Як про покупця</ProfileLink>
                 </li>
                 
             </ul>
