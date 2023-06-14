@@ -5,7 +5,8 @@ import {
   getMyProductsPages,
   getMyProducts,
 } from 'redux/product/product-selectors';
-import Container from 'components/Shared/Container';
+
+import Container from 'components/Shared/Container/Container';
 import NoPhoto from 'images/catalog_photo/no_photo.jpg';
 import Text from 'components/Shared/Text/Text';
 import Button from 'components/Shared/Button/Button';
