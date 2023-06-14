@@ -5,7 +5,8 @@ import {
   Outlet
 } from 'react-router-dom';
 
-import {getMyProducts} from 'redux/product/product-selectors';
+import { getMyProducts } from 'redux/product/product-selectors';
+import Loader from 'components/Loader';
 import Container from 'components/Shared/Container';
 import ProfileLink from 'components/Profile/ProfileLink/ProfileLink';
 import s from 'components/Profile/UserInfoDetails/UserInfoDetails.module.scss';
@@ -73,7 +74,7 @@ const UserInfoDetails = () => {
           </ProfileLink>
         </li>
       </ul>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loader/>}>
         <Outlet />
       </Suspense>
     </Container>
