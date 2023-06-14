@@ -78,21 +78,44 @@
   color: var(--empty-color);
 }
 
-.verifyTextTitle{
+.verifyTextTitle {
   font-size: 26px;
   font-weight: 500;
 }
 
-.verifyTextmiddle{
+.verifyTextmiddle {
   font-size: 20px;
   font-weight: 500;
 }
 
-.verifyTextSmall{
+.verifyTextSmall {
   font-size: 14px;
 }
 
 .verifyAttention {
   font-size: 14px;
   font-weight: 600;
+}
+
+.sizeGroupTextContent {
+  font-size: 10px;
+  text-align: center;
+  @include mixins.mq(mobile) {
+    font-size: 12px;
+  }
+  @include mixins.mq(desktop) {
+    font-size: 14px;
+  }
+}
+
+.sizeGroupMainTextContent {
+  font-size: 12px;
+  text-align: center;
+  @include mixins.mq(mobile) {
+    font-size: 14px;
+  }
+
+  @include mixins.mq(desktop) {
+    font-size: 18px;
+  }
 }

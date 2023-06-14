@@ -1,70 +1,69 @@
 @use '../../../styles/mixins';
 
 .mysetwrapper {
-    padding-bottom: 16px;
+  //   padding-top: 30px;
+  padding-bottom: 16px;
 }
 
 .avatarframe {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
 }
 
 .title {
-    font-size: 24px;
-    font-weight: 500;
-    color: var(--text-color);
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--text-color);
 }
 
 .partwrapper {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
 }
 
-.form{
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.partFrame{
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+.partFrame {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.navButton{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 92px;
-    height: 40px;
-    border: 1px solid var(--btn-border-color);
-    border-radius: 10.3108px;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    transition: background-color var(--transition-duration) var(--timing-function),
-        color var(--transition-duration) var(--timing-function);
-        &:hover,
-        &:focus{
-            border-color: var(--accent-color);
-            }
+.navButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 92px;
+  height: 40px;
+  border: 1px solid var(--btn-border-color);
+  border-radius: 10.3108px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  transition: background-color var(--transition-duration) var(--timing-function),
+    color var(--transition-duration) var(--timing-function);
+  &:hover,
+  &:focus {
+    border-color: var(--accent-color);
+  }
 }
-
 
 .buttonFrame {
-    display: flex;
-    justify-content: center;
-    @include mixins.mq(tablet){
-        justify-content: flex-start;
-    }
+  display: flex;
+  justify-content: center;
+  @include mixins.mq(tablet) {
+    justify-content: flex-start;
+  }
 }
 
 .aboutChangeProfile {
