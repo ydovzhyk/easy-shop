@@ -39,7 +39,7 @@ const UserRoutes = () => {
           <Route path="/registration" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route
-            path="/product/:category/:subcategory/:id"
+            path="/products/:category/:subcategory/:id"
             element={<ProductDetails />}
           />
         </Route>

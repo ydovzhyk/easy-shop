@@ -61,7 +61,7 @@ const CatalogList = ({ newCards }) => {
             }) => (
               <li className={s.itemCard} key={_id}>
                 <Link
-                  to={`/product/${section}/${category}/${_id}`}
+                  to={`/products/${section}/${category}/${_id}`}
                   className={s.photoLink}
                 >
                   <div className={s.stylePhotoCardWrap}>
