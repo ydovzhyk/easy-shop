@@ -6,7 +6,7 @@ import s from './ProductCard.module.scss';
 
 const DeliveryList = () => {
   return (
-    <div>
+    <div className={s.deliveryListContainer}>
       <Text text="Способи доставки:" textClass="productHeadings" />
       <ul className={s.deliveryList}>
         <li className={s.deliveryItem}>

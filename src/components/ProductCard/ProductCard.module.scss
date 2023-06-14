@@ -13,10 +13,40 @@
   }
 }
 
+.productCardWrapper{
+    @include mixins.mq(desktop) {
+    display: flex;
+  } 
+}
+
+.fotoContainer {
+  width: 100%;
+  height: 400px;
+  
+  margin-bottom: 20px;
+
+  @include mixins.mq(tablet) {
+    width: 380px;
+    margin-bottom: 0;
+  }
+
+  @include mixins.mq(desktop) {
+    width: 420px;
+  }
+}
+
 .fotoGalery {
     background-color: grey;
-    width: 280px;
-    height: 400px;
+    width: 100%;
+    height: 100%;
+}
+
+.productMainInfo {
+  @include mixins.mq(tablet) {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 20px;
+  }
 }
 
 .availability {
@@ -67,9 +97,25 @@
     align-items: center;
     gap: 12px;
     margin-bottom: 24px;
-    & > button {
-        width: 100%;
-    }
+    
+    @include mixins.mq(desktop) {
+      flex-direction: row;
+      gap: 24px;
+  }
+}
+
+.buyBtns > button {
+    width: 100%;
+    @include mixins.mq(desktop) {
+      width: 200px;
+  }
+}
+
+.additionalOptsContainer {
+    @include mixins.mq(tablet) {
+      display: flex;
+      gap: 24px;
+  }
 }
 
 .additionalOpts {
@@ -79,11 +125,25 @@
 }
 
 .productInfo {
-    padding: 12px 0;
+    padding: 8px 0;
+    @include mixins.mq(tablet) {
+      display: flex;
+      gap: 48px;
+  }
+}
+
+.productDetails {
+    @include mixins.mq(desktop) {
+      display: flex;
+  }
 }
 
 .productDescription {
     margin-bottom: 16px;
+}
+
+.deliveryListContainer{
+    min-width: 220px;
 }
 
 .deliveryList {
