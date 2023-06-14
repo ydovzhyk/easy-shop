@@ -15,6 +15,8 @@ const initialState = {
   error: null,
   allProducts: [],
   userProducts: [],
+  userTotalProducts: null,
+  userProductsTotalPages: null,
   productsByQuery: [],
   vipProducts: [],
   vipPages: 1,
@@ -90,7 +92,9 @@ const products = createSlice({
     },
     [getUserProducts.fulfilled]: (store, { payload }) => {
       store.loading = false;
-      store.userProducts = payload;
+      store.userProducts = [...store.userProducts, ...payload.products];
+      store.userTotalProducts = payload.totalUserPoducts;
+      store.userProductsTotalPages = payload.totalPages;
     },
     [getUserProducts.rejected]: (store, { payload }) => {
       store.loading = false;
