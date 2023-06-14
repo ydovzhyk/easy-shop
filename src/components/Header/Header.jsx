@@ -8,20 +8,13 @@ import { BiSearchAlt } from 'react-icons/bi';
 import { HiOutlineBars4 } from 'react-icons/hi2';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { VscAdd } from 'react-icons/vsc';
-
 import s from './Header.module.scss';
 import HeaderForm from 'components/HeaderForm/HeaderForm';
 import SwitchBtn from 'components/Shared/SwitchBtn/SwitchBtn';
 import Logo from 'components/Shared/Logo';
 import Button from 'components/Shared/Button';
-
 import { Catalog } from 'components/DropDownMenu/Catalog';
 import menuItems from 'components/DropDownMenu/menuItems';
-import navItems from './navItems';
-
-
-import { ModalCatalog } from 'components/DropDownMenu/ModalCatalog';
-
 import navItems from './navItems';
 import { ModalCatalog } from 'components/DropDownMenu/ModalCatalog';
 
