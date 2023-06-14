@@ -35,6 +35,10 @@
 .gallery .bullet {
   background-color: var(--accent-color);
 }
+.gallery .bullet:hover {
+  background: var(--main-color);
+  border: 1px solid var(--accent-color);
+}
 
 .gallery .bullet.active {
   transform: scale(1.2);
