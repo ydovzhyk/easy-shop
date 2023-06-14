@@ -7,7 +7,7 @@ import {
   useEffect
 } from "react";
 import { getUserProducts } from 'redux/product/product-operations';
-import UserInfo from 'components/Profile/UserInfo/UserInfo';
+import UserProfileInfo from 'components/Profile/UserProfileInfo/UserProfileInfo';
 import UserInfoDetails from './UserInfoDetails/UserInfoDetails';
 
 
@@ -24,7 +24,7 @@ const Profile = () => {
   return (
     <>
       <section className={s.profileavatar}>
-        <UserInfo/>
+        <UserProfileInfo/>
       </section>
       <section className={s.profiledeatails}>
         <UserInfoDetails/>
