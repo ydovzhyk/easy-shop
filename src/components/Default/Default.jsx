@@ -1,7 +1,6 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+
 import { getLogin } from 'redux/auth/auth-selectors';
-import { getAllProducts } from 'redux/product/product-operations';
 import { getProducts } from 'redux/product/product-selectors';
 
 import CatalogList from '../Catalog/CatalogList';
@@ -12,12 +11,7 @@ import Slider from 'components/Slider/Slider';
 import Text from 'components/Shared/Text/Text';
 
 const Default = () => {
-  const dispatch = useDispatch();
   const isUserLogin = useSelector(getLogin);
-
-  useEffect(() => {
-    dispatch(getAllProducts());
-  }, [dispatch]);
 
   const products = useSelector(getProducts);
 

@@ -47,7 +47,7 @@ export const getAllProducts = createAsyncThunk(
 );
 
 export const getUserProducts = createAsyncThunk(
-  'product/',
+  'product/user-products',
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const data = await axiosGetUserProducts();

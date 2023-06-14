@@ -10,27 +10,26 @@ import {
 
 const initialState = {
   user: {
-    email: '',
-    id: '',
-    secondName: '',
-    firstName: '',
-    surName: '',
-    tel: '',
-    userAvatar: '',
-    cityName: '',
-    streetName: '',
-    houseNamber: '',
-    sex: '',
-    about: '',
+    email: null,
+    id: null,
+    secondName: null,
+    firstName: null,
+    surName: null,
+    tel: null,
+    userAvatar: null,
+    cityName: null,
+    streetName: null,
+    houseNamber: null,
+    sex: null,
+    about: null,
     orders: [],
-    userAddress: '',
-    userBasket: '',
-    userLikes: '',
-    username: '',
+    userBasket: [],
+    userLikes: [],
+    username: null,
   },
-  sid: '',
-  accessToken: '',
-  refreshToken: '',
+  sid: null,
+  accessToken: null,
+  refreshToken: null,
   isLogin: false,
   loading: false,
   isRefreshing: false,
@@ -135,14 +134,10 @@ const auth = createSlice({
       store.loading = true;
       store.error = null;
     },
-    [updateUser.fulfilled]: (store, { payload }) => {
-      store.isLogin = true;
-      store.loading = false;
-      store.user = payload;
-    },
+    [updateUser.fulfilled]: (store, { payload }) => accessAuth(store, payload),
     [updateUser.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload;
+      store.error = payload.message;
     },
     // * UPDATE USER
     [updateUserSettings.pending]: store => {

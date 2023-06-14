@@ -3,12 +3,12 @@ import { BsCheck2, BsGeoAlt, BsHandbag, BsPeople } from "react-icons/bs";
 import { getUserName, getUser, getUserAvatar, getUserDateCreate } from 'redux/auth/auth-selectors';
 import Container from 'components/Shared/Container';
 import Avatar from 'components/Profile/Avatar/Avatar';
-import UserRating from './UserRating';
-import Value from '../Value';
-import DaysValue from "components/Profile/UserInfo/DaysValue";
-import s from './UserInfo.module.scss';
+import UserRating from 'components/Profile/UserProfileInfo/UserRating';
+import Value from 'components/Profile/Value';
+import DaysValue from "components/Profile/UserProfileInfo/DaysValue";
+import s from 'components/Profile/UserProfileInfo/UserProfileInfo.module.scss';
 
-const UserInfo = () => {
+const UserProfileInfo = () => {
     const userName = useSelector(getUserName);
   const user = useSelector(getUser);
   const userAvatar = useSelector(getUserAvatar);
@@ -87,4 +87,4 @@ const UserInfo = () => {
     )
 
 };
-export default UserInfo;
+export default UserProfileInfo;

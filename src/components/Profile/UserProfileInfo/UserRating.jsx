@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { BsStarFill } from "react-icons/bs";
-import Value from '../Value';
-import s from './UserInfo.module.scss';
+import Value from 'components/Profile/Value';
+import s from 'components/Profile/UserProfileInfo/UserProfileInfo.module.scss';
 
 const UserRating = ({ rating, gradesAmount }) => {
     const renderStars = () => {

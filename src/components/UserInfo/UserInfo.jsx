@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
 import { BsEscape } from 'react-icons/bs';
 import { RxDividerVertical } from 'react-icons/rx';
 import { RxOpenInNewWindow } from 'react-icons/rx';
@@ -25,7 +26,30 @@ const UserInfo = () => {
   const user = useSelector(getUser);
   const dispatch = useDispatch();
 
+  const [userBasketLength, setUserBasketLength] = useState(0);
+  const [userLikesLength, setUserLikesLength] = useState(0);
+
+  useEffect(() => {
+    if (user && user.userBasket) {
+      setUserBasketLength(user.userBasket.length);
+    } else {
+      setUserBasketLength(0);
+    }
+
+    if (user && user.userLikes) {
+      setUserLikesLength(user.userLikes.length);
+    } else {
+      setUserLikesLength(0);
+    }
+  }, [user]);
+
   const onLogout = () => {
+    const authData = {
+      accessToken: null,
+      refreshToken: null,
+      sid: null,
+    };
+    localStorage.setItem('easy-shop.authData', JSON.stringify(authData));
     dispatch(logout());
   };
 
@@ -93,7 +117,7 @@ const UserInfo = () => {
               alt="Cart Icon"
               style={{ width: '26px', height: '26px', marginRight: '10px' }}
             />
-            <span>{user.userBasket.length}</span>
+            <span>{userBasketLength}</span>
           </NavLink>
         </div>
         <div
@@ -110,7 +134,7 @@ const UserInfo = () => {
               height={24}
               style={{ marginRight: '10px' }}
             />
-            <span>{user.userLikes.length}</span>
+            <span>{userLikesLength}</span>
           </NavLink>
         </div>
         <div className={s.userWrapper}>

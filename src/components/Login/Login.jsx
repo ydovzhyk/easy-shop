@@ -21,6 +21,8 @@ const Login = () => {
   const isLogin = useSelector(getLogin);
   const location = useLocation();
   const dispatch = useDispatch();
+  // const REACT_APP_API_URL = 'http://localhost:4000';
+  const REACT_APP_API_URL = 'https://easy-shop-backend.herokuapp.com';
 
   const { control, handleSubmit, reset } = useForm({
     defaultValues: {
@@ -66,10 +68,7 @@ const Login = () => {
             </NavLink>
           </div>
           <Text textClass="google-text" text={googleText} />
-          <a
-            href="https://ydovzhyk.github.io/easy-shop/"
-            className={s.googleBtn}
-          >
+          <a href={`${REACT_APP_API_URL}/google`} className={s.googleBtn}>
             <FcGoogle size={24} />
             Google
           </a>
