@@ -84,7 +84,7 @@ const CatalogList = ({ newCards }) => {
                     </NavLink>
                   </div>
                 </div>
-                <Link to={`/product/${section}/${category}/${_id}`}>
+                <Link to={`/products/${section}/${category}/${_id}`}>
                   <p className={s.nameProductCard}>{nameProduct}</p>
                 </Link>
                 <p className={s.sizeCard}>36</p>
