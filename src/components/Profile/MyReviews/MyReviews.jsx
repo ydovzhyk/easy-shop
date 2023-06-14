@@ -1,5 +1,5 @@
 import Text from 'components/Shared/Text/Text';
-import ProfileLink from 'components/Profile/UserInfoDetails/ProfileLink';
+import ProfileLink from 'components/Profile/ProfileLink/ProfileLink';
 import s from './MyReviews.module.scss';
 
 const MyReviews = () => {
