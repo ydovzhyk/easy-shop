@@ -1,3 +1,4 @@
+import { useParams, useLocation, Link } from 'react-router-dom';
 import Container from 'components/Shared/Container/Container';
 import s from './ProductCard.module.scss';
 import Text from 'components/Shared/Text/Text';
@@ -9,9 +10,20 @@ import SellerInfo from './SellerInfo/SellerInfo';
 import DeliveryList from './DeliveryList';
 
 const ProductCard = () => {
+  const { category, subcategory, id } = useParams();
+  // const product = getProductById(id);
+  const location = useLocation();
+  console.log(location, id);
+  // const backLinkHref = location.state?.from ?? '/products';
+
   return (
     <section className={s.productCard}>
       <Container>
+        <p className={s.navigation}>
+          <Link to={`/`}>Easy shop </Link> &#8250;
+          <Link to={`/products/${category}`}> {category} </Link>&#8250;
+          <Link to={`/products/${category}/${subcategory}`}> {subcategory} </Link>
+        </p>
         <div className={s.productCardWrapper}>
           <div>
             <div className={s.productMainInfo}>
