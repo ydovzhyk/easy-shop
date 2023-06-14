@@ -1,5 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { axiosAddProduct, axiosDeleteProduct } from 'api/product';
+import {
+  axiosAddProduct,
+  axiosDeleteProduct,
+  axiosGetAllProducts,
+  axiosGetUserProducts,
+  axiosGetProductsByQuery,
+  axiosGetVipProducts,
+} from 'api/product';
 
 export const addProduct = createAsyncThunk(
   'product/add',
@@ -19,6 +26,60 @@ export const deleteProduct = createAsyncThunk(
   async (userData, { rejectWithValue, dispatch }) => {
     try {
       const data = await axiosDeleteProduct(userData);
+      return data;
+    } catch (error) {
+      const { data, status } = error.response;
+      return rejectWithValue({ data, status });
+    }
+  }
+);
+
+export const getAllProducts = createAsyncThunk(
+  'product/',
+  async (_, { rejectWithValue, dispatch }) => {
+    try {
+      const data = await axiosGetAllProducts();
+      return data;
+    } catch (error) {
+      const { data, status } = error.response;
+      return rejectWithValue({ data, status });
+    }
+  }
+);
+
+export const getUserProducts = createAsyncThunk(
+  'product/user-products',
+  async (_, { rejectWithValue, dispatch }) => {
+    try {
+      const data = await axiosGetUserProducts();
+      return data;
+    } catch (error) {
+      const { data, status } = error.response;
+      return rejectWithValue({ data, status });
+    }
+  }
+);
+
+export const searchProducts = createAsyncThunk(
+  'products/search',
+  async (searchQuery, { rejectWithValue, dispatch }) => {
+    try {
+      console.log(searchQuery);
+      const data = await axiosGetProductsByQuery(searchQuery);
+      return data;
+    } catch (error) {
+      const { data, status } = error.response;
+      return rejectWithValue({ data, status });
+    }
+  }
+);
+
+export const getVipProducts = createAsyncThunk(
+  'product/vip',
+  async (userData, { rejectWithValue, dispatch }) => {
+    console.log(userData);
+    try {
+      const data = await axiosGetVipProducts(userData);
       return data;
     } catch (error) {
       const { data, status } = error.response;

@@ -7,6 +7,8 @@ import {
   axiosUpdateUser,
 } from 'api/auth';
 
+import { axiosUpdateUserSettings } from 'api/updateUser';
+
 export const register = createAsyncThunk(
   'auth/register',
   async (userData, { rejectWithValue }) => {
@@ -54,16 +56,23 @@ export const logout = createAsyncThunk(
 
 export const updateUser = createAsyncThunk(
   'auth/current',
-  async (newAccessToken, { rejectWithValue, getState, dispatch }) => {
+  async (userData, { rejectWithValue, dispatch }) => {
     try {
-      if (!newAccessToken) {
-        const { auth } = getState();
-        const data = await axiosUpdateUser(auth.accessToken);
-        return data;
-      } else {
-        const data = await axiosUpdateUser(newAccessToken);
-        return data;
-      }
+      const data = await axiosUpdateUser(userData.accessToken, userData);
+      return data;
+    } catch (error) {
+      const { data, status } = error.response;
+      return rejectWithValue({ data, status });
+    }
+  }
+);
+
+export const updateUserSettings = createAsyncThunk(
+  'auth/current/settings',
+  async (userData, { rejectWithValue, getState, dispatch }) => {
+    try {
+      const data = await axiosUpdateUserSettings(userData);
+      return data;
     } catch (error) {
       const { data, status } = error.response;
       return rejectWithValue({ data, status });
@@ -94,3 +103,8 @@ export const refresh = createAsyncThunk(
     }
   }
 );
+
+export const googleUpdate = (accessToken, refreshToken, sid) => ({
+  type: 'auth/googleUpdate',
+  payload: { accessToken, refreshToken, sid },
+});

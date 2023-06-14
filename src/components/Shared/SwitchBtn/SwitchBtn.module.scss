@@ -1,32 +1,57 @@
+@use '../../../styles/mixins';
+
 .switchBtn {
-  display: inline-block;
-  width: 34px;
-  height: 19px;
-  border-radius: 75px;
-  background: #bfbfbf;
-  z-index: 0;
-  margin: 0;
-  padding: 0;
-  border: none;
-  cursor: pointer;
+  display: flex;
+  align-items: center;
   position: relative;
-  transition-duration: 300ms;
+  padding: 6px 6px;
+  margin: 0;
+  width: 60px;
+  background-color: var(--accent-color);
+  z-index: 0;
+  border: 1px solid var(--btn-border-color);
+  border-radius: 60px;
+  cursor: pointer;
+  transition-duration: var(--transition-duration);
+  &:not(:last-of-type) {
+    margin-right: 10px;
+  }
+  @include mixins.mq(desktop) {
+    padding: 9px 8px;
+    width: 70px;
+    border-radius: 75px;
+    &:not(:last-of-type) {
+      margin-right: 30px;
+    }
+  }
 }
 .switchBtn::after {
   content: '';
-  height: 13px;
-  width: 13px;
-  border-radius: 17px;
-  background: #fff;
-  top: 3px;
-  left: 3px;
-  transition-duration: 300ms;
   position: absolute;
+
+  border-radius: 16px;
+  background-color: var(--main-color);
+  transition-duration: var(--transition-duration);
   z-index: 1;
+  top: 3px;
+  left: 4px;
+  width: 26px;
+  height: 26px;
+
+  @include mixins.mq(desktop) {
+    top: 4px;
+    left: 4px;
+    width: 30px;
+    height: 30px;
+  }
 }
 .switchOn {
-  background: #53c198;
+  background-color: var(--second-text-color);
+  color: var(--accent-color);
 }
 .switchOn::after {
-  left: 18px;
+  left: 30px;
+  @include mixins.mq(desktop) {
+    left: 36px;
+  }
 }

@@ -1,11 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { addProduct, deleteProduct } from './product-operations';
+import {
+  addProduct,
+  deleteProduct,
+  getAllProducts,
+  getUserProducts,
+  searchProducts,
+  getVipProducts,
+} from './product-operations';
 
 const initialState = {
   message: null,
   loading: false,
   error: null,
+  allProducts: [],
+  userProducts: [],
+  userTotalProducts: null,
+  userProductsTotalPages: null,
+  productsByQuery: [],
+  vipProducts: [],
+  vipPages: 1,
 };
 
 const products = createSlice({
@@ -43,6 +57,60 @@ const products = createSlice({
       store.message = payload.message;
     },
     [deleteProduct.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
+    [getAllProducts.pending]: store => {
+      store.loading = true;
+      store.error = null;
+    },
+    [getAllProducts.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.allProducts = payload;
+    },
+    [getAllProducts.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
+    //* search Product
+    [searchProducts.pending]: store => {
+      store.loading = true;
+      store.error = null;
+    },
+    [searchProducts.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.productsByQuery = payload;
+    },
+    [searchProducts.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
+    //* get my product
+    [getUserProducts.pending]: store => {
+      store.loading = true;
+      store.error = null;
+    },
+    [getUserProducts.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.userProducts = [...store.userProducts, ...payload.products];
+      store.userTotalProducts = payload.totalUserPoducts;
+      store.userProductsTotalPages = payload.totalPages;
+    },
+    [getUserProducts.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
+    //get products page
+    [getVipProducts.pending]: store => {
+      store.loading = true;
+      store.error = null;
+    },
+    [getVipProducts.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.vipProducts = payload.products;
+      store.vipPages = payload.totalPages;
+    },
+    [getVipProducts.rejected]: (store, { payload }) => {
       store.loading = false;
       store.error = payload;
     },

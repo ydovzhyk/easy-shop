@@ -1,14 +1,29 @@
+@use '../../../styles/mixins';
+
 .textError {
+  text-align: center;
   margin-top: 20px;
-  color: var(--accent-color);
+  color: var(--text-color);
 }
 
 .title {
   font-weight: 400;
-  font-size: 24px;
+  font-size: 18px;
   color: var(--text-color);
   margin-bottom: 20px;
   margin-top: 20px;
+  @include mixins.mq(tablet) {
+    font-size: 24px;
+  }
+}
+
+.titleGroupItems {
+  font-weight: 400;
+  font-size: 20px;
+  color: var(--text-color);
+  margin-bottom: 5px;
+  margin-top: 5px;
+  text-align: center;
 }
 
 .after-title {
@@ -21,6 +36,116 @@
 .after-title-before {
   margin-left: 10px;
   margin-bottom: 15px;
+  font-weight: 200;
+  font-size: 14px;
+  color: var(--text-color);
+}
+
+.after-title-bigger {
+  font-weight: 200;
+  font-size: 16px;
+  color: var(--text-color);
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.after-title-cardContent {
+  margin-top: 130px;
+  margin-bottom: 60px;
+  font-weight: 200;
+  font-size: 14px;
+  color: var(--text-color);
+  text-align: center;
+}
+
+.google-text {
+  font-weight: 200;
+  font-size: 14px;
+  color: var(--text-color);
+  margin-bottom: 12px;
+}
+
+.text {
+  font-size: 12px;
+}
+
+.lable-form {
+  font-size: 16px;
+}
+
+.second-text {
+  font-size: 12px;
+  color: var(--empty-color);
+}
+
+.verifyTextTitle {
+  font-size: 26px;
+  font-weight: 500;
+}
+
+.verifyTextmiddle {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.verifyTextSmall {
+  font-size: 14px;
+}
+
+.verifyAttention {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.sizeGroupTextContent {
+  font-size: 10px;
+  text-align: center;
+  @include mixins.mq(mobile) {
+    font-size: 12px;
+  }
+  @include mixins.mq(desktop) {
+    font-size: 14px;
+  }
+}
+
+.sizeGroupMainTextContent {
+  font-size: 12px;
+  text-align: center;
+  @include mixins.mq(mobile) {
+    font-size: 14px;
+  }
+
+  @include mixins.mq(desktop) {
+    font-size: 18px;
+  }
+}
+
+.productName {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--title-text-color);
+  margin-bottom: 20px;
+  margin-top: 20px;
+  @include mixins.mq(tablet) {
+    font-size: 28px;
+  }
+}
+
+.productLabels {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--second-text-color);
+  margin-bottom: 5px;
+}
+
+.productHeadings {
+  font-size: 16px;
+  color: var(--second-text-color);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.productText {
   font-weight: 200;
   font-size: 14px;
   color: var(--text-color);

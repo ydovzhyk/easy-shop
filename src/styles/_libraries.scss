@@ -1,0 +1,8 @@
+@import '~react-image-gallery/styles/scss/image-gallery.scss';
+.image-gallery-icon:hover {
+    color: #fbef35;
+}
+
+.image-gallery-bullets .image-gallery-bullet.active:hover {
+    background: #ffffff;
+}

@@ -50,6 +50,8 @@ var,
 b,
 u,
 i,
+input,
+label,
 center,
 dl,
 dt,
@@ -141,4 +143,10 @@ button {
 a {
   text-decoration: none;
   color: #000;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }

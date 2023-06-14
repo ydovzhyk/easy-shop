@@ -1,4 +1,4 @@
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
@@ -7,16 +7,20 @@ import { getLogin } from 'redux/auth/auth-selectors';
 import { BiSearchAlt } from 'react-icons/bi';
 import { HiOutlineBars4 } from 'react-icons/hi2';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
+import { VscAdd } from 'react-icons/vsc';
 
 import s from './Header.module.scss';
 import HeaderForm from 'components/HeaderForm/HeaderForm';
+import SwitchBtn from 'components/Shared/SwitchBtn/SwitchBtn';
 import Logo from 'components/Shared/Logo';
 import Button from 'components/Shared/Button';
-import SwitchBtn from 'components/Shared/SwitchBtn/SwitchBtn';
-import LanguageChanger from 'components/Shared/LanguageChanger/LanguageChanger';
 
 import { Catalog } from 'components/DropDownMenu/Catalog';
 import menuItems from 'components/DropDownMenu/menuItems';
+import navItems from './navItems';
+
+
+import { ModalCatalog } from 'components/DropDownMenu/ModalCatalog';
 
 import navItems from './navItems';
 import { ModalCatalog } from 'components/DropDownMenu/ModalCatalog';
@@ -27,7 +31,7 @@ const Header = () => {
   const isDesktop = useMediaQuery({ minWidth: 1280 });
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const location = useLocation();
-  const navigate = useNavigate();
+
   const getClassName = ({ isActive }) => {
     return isActive ? `${s.link} ${s.active}` : s.link;
   };
@@ -37,14 +41,6 @@ const Header = () => {
   };
   const handleSearchBtnClick = () => {
     setShowForm(!showForm);
-  };
-
-  const handleAddProduct = () => {
-    if (isLogin) {
-      navigate('/add-product');
-    } else {
-      navigate('/registration');
-    }
   };
 
   return (
@@ -84,10 +80,6 @@ const Header = () => {
                     handleClick={handleSearchBtnClick}
                     text={<BiSearchAlt size={isMobile ? 25 : 30} />}
                   ></Button>
-                  <div className={s.switchBtnBox}>
-                    <LanguageChanger />
-                    <SwitchBtn />
-                  </div>
                 </div>
               </>
             )}
@@ -98,49 +90,49 @@ const Header = () => {
           <>
             <Logo />
             <HeaderForm />
-            <Button
-              text="Додати товар"
-              btnClass="btnDark"
-              handleClick={handleAddProduct}
-            />
-            <div className={s.switchBtnBox}>
-              <LanguageChanger />
-              <SwitchBtn />
-            </div>
+            <NavLink
+              className={({ isActive }) =>
+                `${isActive ? s.activeBtn : s.btnLight}`
+              }
+              to={isLogin ? '/add-product' : '/login'}
+            >
+              <VscAdd size={18} style={{ marginRight: '10px' }} /> Додати товар
+            </NavLink>
             <UserInfo />
           </>
         )}
       </div>
 
-      {isLogin && (
-        <div className={s.containerBottom}>
-          <Catalog data={menuItems} />
-          <NavLink
-            className={getClassName({
-              isActive: location.pathname === '/restaurants',
-            })}
-            to="/restaurants"
-          >
-            Жінкам
-          </NavLink>
-          <NavLink
-            className={getClassName({
-              isActive: location.pathname === '/supermarkets',
-            })}
-            to="/supermarkets"
-          >
-            Чоловікам
-          </NavLink>
-          <NavLink
-            className={getClassName({
-              isActive: location.pathname === '/health',
-            })}
-            to="/health"
-          >
-            Дитячі речі
-          </NavLink>
-        </div>
-      )}
+      <div className={s.containerBottom}>
+        {isDesktop && (
+          <>
+            <div className={s.navigationMenuWrapper}>
+              <Catalog data={menuItems} />
+              {navItems.map(({ id, name, link }) => (
+                <NavLink
+                  key={id}
+                  className={getClassName({
+                    isActive: location.pathname === { link },
+                  })}
+                  to={link}
+                >
+                  {name}
+                </NavLink>
+              ))}
+            </div>
+            <div className={s.switchMainBox}>
+              <SwitchBtn type="language" />
+              <SwitchBtn type="theme" />
+            </div>
+          </>
+        )}
+        {!isDesktop && (
+          <div className={s.switchMainBox}>
+            <SwitchBtn type="language" />
+            <SwitchBtn type="theme" />
+          </div>
+        )}
+      </div>
     </header>
   );
 };

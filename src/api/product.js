@@ -14,3 +14,31 @@ export const axiosDeleteProduct = async userData => {
   const { data } = await instance.delete(`/product/delete/${userData}`);
   return data;
 };
+
+export const axiosGetAllProducts = async () => {
+  const { data } = await instance.get(`/product/`);
+  return data;
+};
+
+export const axiosGetUserProducts = async userData => {
+  const { data } = await instance.get(
+    `/product/user-products?page=${userData}`
+  );
+  return data;
+};
+
+// Get products by Query
+export const axiosGetProductsByQuery = async searchQuery => {
+  const { data } = await instance.get('/product/search/', {
+    params: {
+      search: `${searchQuery}`,
+    },
+  });
+  return data;
+};
+
+//Get vipProducts page
+export const axiosGetVipProducts = async userData => {
+  const { data } = await instance.get(`/product/vip?page=${userData}`);
+  return data;
+};

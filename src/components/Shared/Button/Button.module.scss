@@ -3,21 +3,28 @@
 .btnLight {
   width: 196px;
   height: 50px;
-  background: var(--background-btn-main-color);
+  background-color: var(--background-btn-main-color);
   // box-shadow: 0px 3.43693px 3.43693px rgba(0, 0, 0, 0.25);
-  border: solid 1px var(--background-btn-main-color);
+  border: 1px solid var(--btn-border-color);
+  // border: 2px solid var(--border-color);
   color: var(--btn-text-color);
   border-radius: 10.3108px;
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
   line-height: 22px;
+  transition: background-color var(--transition-duration) var(--timing-function),
+    color var(--transition-duration) var(--timing-function);
+  &:hover {
+    background-color: #f5f5f5;
+    border-color: var(--btn-border-color);
+  }
 }
 
 .btnDark {
   width: 196px;
   height: 50px;
-  background: var(--background-btn-second-color);
+  background-color: var(--background-btn-second-color);
   // box-shadow: 0px 3.43693px 3.43693px rgba(0, 0, 0, 0.25);
   border: solid 2px var(--btn-border-color);
   color: var(--second-text-color);
@@ -25,51 +32,77 @@
   font-weight: 500;
   font-size: 18px;
   line-height: 22px;
+  transition: background-color var(--transition-duration) var(--timing-function),
+    color var(--transition-duration) var(--timing-function);
+  &:hover {
+    background-color: #f5f5f5;
+    color: var(--btn-text-color);
+  }
 }
 
 .burgerButton {
   margin-right: 10px;
-}
+  background-color: transparent;
+  color: var(--icons-color);
+  transition: transform var(--transition-duration) var(--timing-function),
+    color var(--transition-duration) var(--timing-function);
 
-.languageButton {
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 400;
-  color: rgb(155, 159, 170);
   &:hover,
   &:focus {
-    color: #53c198;
-  }
-  @include mixins.mq(tablet) {
-    font-size: 16px;
-    font-weight: 500;
+    transform: scale(0.9);
+    color: var(--hover-active-color);
   }
 }
 
 .searchBtn {
-  margin-right: 20px;
-  color: rgb(155, 159, 170);
+  color: var(--icons-color);
+  background-color: transparent;
+  transition: color var(--transition-duration) var(--timing-function),
+    transform var(--transition-duration) var(--timing-function);
   &:hover,
   &:focus {
-    color: #53c198;
-  }
-  @include mixins.mq(tablet) {
-    margin-right: 35px;
+    color: var(--hover-active-color);
+    transform: scale(0.8);
   }
 }
 
-.searchFormBtn {
-  @extend .searchBtn;
+.exitHeaderBtn:last-child {
+  color: var(--second-text-color);
+  position: relative;
+}
+
+.exitHeaderBtn {
   background-color: transparent;
-  margin-right: 0;
+  display: inline-flex;
+  align-items: baseline;
+  transition: all var(--transition-duration) var(--timing-function);
 }
 
-.btnLight:hover {
-  background: #f5f5f5;
-  border-color: #f5f5f5;
+.exitHeaderBtn:hover,
+.exitHeaderBtn:focus {
+  text-shadow: var(--hover-text-shadow);
+  color: var(--hover-active-color);
 }
 
-.btnDark:hover {
-  background: #f5f5f5;
-  color: var(--btn-text-color);
+@keyframes pulsate {
+  50% {
+    color: #fff;
+    text-shadow: 0 -1px rgba(0, 0, 0, 0.3), 0 0 5px #ffd, 0 0 8px #fff;
+  }
+}
+
+.footerAccentLink {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  background-color: transparent;
+  text-shadow: 0.5 -0.5px var(--accent-color);
+  animation: pulsate 2s linear infinite;
+}
+.myWareButton{
+  composes: btnLight;
+  @include mixins.mq(tablet){
+    width: 100px;
+    height: 40px;
+  }
 }

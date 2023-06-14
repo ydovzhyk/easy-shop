@@ -47,8 +47,11 @@
 .label.addProduct {
   position: relative;
   display: inline-block;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   height: 48px;
+  @include mixins.mq(desktop) {
+    margin-bottom: 20px;
+  }
 }
 
 .select.addProduct {
@@ -56,7 +59,7 @@
   top: 0;
   left: 0;
   display: inline-block;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
   width: 100%;
   height: 48px;
   font-weight: 400;
@@ -68,4 +71,39 @@
   -webkit-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
+  @include mixins.mq(tablet) {
+    margin-bottom: 20px;
+  }
+}
+
+.label.vip {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 20px;
+  height: 48px;
+}
+
+.select.vip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  margin-bottom: 20px;
+  width: 50%;
+  height: 48px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--second-text-color);
+  box-shadow: none;
+  border-radius: 0;
+  letter-spacing: 1px;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  @include mixins.mq(tablet) {
+    width: 30%;
+  }
+  @include mixins.mq(desktop) {
+    width: 20%;
+  }
 }

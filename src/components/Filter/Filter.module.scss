@@ -1,0 +1,127 @@
+@use '../../styles/mixins';
+
+.title {
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: 700;
+  @include mixins.mq(tablet) {
+    font-size: 20px;
+  }
+}
+.sizeGroupList {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 20px;
+  @include mixins.mq(tablet) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.sizeGroupItem {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--btn-border-color);
+  @include mixins.mq(mobile) {
+    padding: 3px;
+  }
+  @include mixins.mq(tablet) {
+    padding: 5px;
+  }
+}
+
+.optionsWrapper {
+  width: 30%;
+  padding: 20px 0;
+  @include mixins.mq(tablet) {
+    width: 25%;
+    padding: 30px 0;
+  }
+}
+
+.radioBox {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.labelRadio:not(:last-of-type) {
+  margin-bottom: 10px;
+}
+
+.filterInputBox {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 15px;
+  @include mixins.mq(desktop) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.inputFilter {
+  border: 1px solid var(--btn-border-color);
+  border-radius: 8px;
+  padding: 10px;
+  width: 100%;
+  &:focus,
+  &:hover {
+    background-color: var(--background-btn-second-color);
+    border-color: var(--accent-color);
+    outline: none;
+  }
+}
+
+.filterLabel {
+  flex-basis: 100%;
+  transition: background-color var(--transition-duration) var(--timing-function),
+    border-color var(--transition-duration) var(--timing-function);
+
+  &:focus,
+  &:hover {
+    background-color: var(--background-btn-second-color);
+    border-color: var(--accent-color);
+  }
+
+  @include mixins.mq(desktop) {
+    flex-basis: calc(50% - 5px);
+  }
+}
+
+.radioList {
+  margin-bottom: 20px;
+}
+
+.radioItem {
+  position: relative;
+  &:not(:last-of-type) {
+    margin-bottom: 10px;
+  }
+}
+
+.radioIcon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--icons-color);
+  background-color: var(--background-btn-second-color);
+  transition: color var(--transition-duration) var(--timing-function);
+
+  .radioContent:hover &,
+  .radioContent:focus & {
+    color: var(--accent-color);
+  }
+}
+
+.radioInput {
+  margin-right: 10px;
+}
+
+.radioInput:checked .labelRadio .radioIcon {
+  color: var(--accent-color);
+}

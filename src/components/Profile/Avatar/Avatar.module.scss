@@ -1,0 +1,17 @@
+@use '../../../styles/mixins';
+.photoAvatar {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+
+  @include mixins.mq(tablet) {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+.photo {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+}

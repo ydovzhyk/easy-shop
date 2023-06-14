@@ -1,42 +1,33 @@
+import { useNavigate } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
-import { BiSearchAlt } from 'react-icons/bi';
+import { useSearchParams } from 'react-router-dom';
+import { CiSearch } from 'react-icons/ci';
 import Button from 'components/Shared/Button';
 import { field } from 'components/Shared/TextField/fields';
 import TextField from 'components/Shared/TextField';
 import s from './HeaderForm.module.scss';
 
-const HeaderForm = () => {
-  // const dispatch = useDispatch();
+const HeaderForm = ({ onChange }) => {
+  const [, setSearchParams] = useSearchParams();
 
-  const { control, handleSubmit, reset } = useForm({
+  const navigate = useNavigate();
+
+  const {
+    control,
+    handleSubmit,
+    //     formState: { errors },
+  } = useForm({
     defaultValues: {
-      category: '',
-      shopName: '',
-      description: '',
-      price: '',
-      files: [],
+      productName: '',
     },
   });
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
 
-    const dataForUpload = {
-      data: {
-        category: data.category.value,
-        shopName: data.shopName,
-        description: data.description,
-        price: data.price,
-      },
-      files: new FormData(),
-    };
-
-    Array.from(data.files).forEach(file => {
-      dataForUpload.files.append('files', file);
-    });
-
-    // await dispatch(addProduct(dataForUpload));
-    reset();
+    await setSearchParams(
+      data.productName.trim() !== '' ? { search: data.productName } : {}
+    );
   };
 
   return (
@@ -44,23 +35,22 @@ const HeaderForm = () => {
       <Controller
         control={control}
         name="productName"
-        rules={{
-          required: true,
-        }}
-        render={({ field: { onChange, value } }) => (
+        rules={{ required: true }}
+        render={({ field: { value, onChange } }) => (
           <TextField
-            value={value}
-            control={control}
-            handleChange={onChange}
             className="headerForm"
+            value={value}
+            handleChange={onChange}
             {...field.productName}
           />
         )}
       />
+
       <Button
-        type="button"
-        btnClass="searchFormBtn"
-        text={<BiSearchAlt size={30} />}
+        type="submit"
+        btnClass="searchBtn"
+        text={<CiSearch size={30} />}
+        handleClick={() => navigate(`/products`)}
       ></Button>
     </form>
   );

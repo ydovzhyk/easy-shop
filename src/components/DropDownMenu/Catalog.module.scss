@@ -41,7 +41,7 @@
 .nav {
   display: flex;
 
-  padding-right: 10px;
+  margin-right: 15px;
   :hover {
     color: var(--accent-color);
   }
@@ -62,7 +62,6 @@
 .catalog {
   cursor: pointer;
   display: flex;
-
   :hover {
     // color: var(--accent-color);
     text-shadow: var(--hover-text-shadow);

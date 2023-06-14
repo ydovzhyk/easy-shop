@@ -27,6 +27,7 @@ export const field = {
   productName: {
     name: 'productName',
     type: 'text',
+    autoComplete: 'off',
     placeholder: 'Я хочу купити...*',
     required: true,
   },
@@ -44,7 +45,7 @@ export const field = {
   condition: {
     name: 'condition',
     type: 'text',
-    placeholder: 'Виберіть стан вашої речі*',
+    placeholder: 'Виберіть стан*',
     required: true,
   },
   shopName: {
@@ -81,5 +82,58 @@ export const field = {
     name: 'quantity',
     type: 'text',
     required: true,
+  },
+  keyWords: {
+    name: 'keyWords',
+    type: 'text',
+    placeholder:
+      'Наприклад слова, такі як: сукня, сукня zara, zara, червона сукня горошок',
+    required: true,
+  },
+  vip: {
+    name: 'vip',
+    type: 'text',
+    placeholder: 'Виберіть статус',
+    required: true,
+  },
+  secondName: {
+    name: 'secondName',
+    type: 'text',
+  },
+  firstName: {
+    name: 'firstName',
+    type: 'text',
+  },
+  surName: {
+    name: 'surName',
+    type: 'text',
+  },
+  tel: {
+    name: 'tel',
+    type: 'text',
+  },
+  cityName: {
+    name: 'cityName',
+    type: 'text',
+    placeholder: 'Київ',
+  },
+  streetName: {
+    name: 'streetName',
+    type: 'text',
+  },
+  houseNamber: {
+    name: 'houseNamber',
+  },
+  sex: {
+    name: 'sex',
+    type: 'text',
+  },
+  about: {
+    name: 'about',
+    type: 'text',
+  },
+  phone: {
+    name: 'phone',
+    type: 'text',
   },
 };

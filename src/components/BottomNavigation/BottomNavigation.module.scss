@@ -4,9 +4,8 @@
   position: fixed;
   bottom: 0;
   width: 100%;
-  border-top: 2px solid #461ca954;
-  background-color: #eee;
-  box-shadow: 0 1px 0 #fff;
+  background-color: var(--bg-footer-header);
+  z-index: 999;
 }
 
 .containerBottom {
@@ -26,10 +25,55 @@
   width: 50px;
   height: 50px;
   border-radius: 100%;
-  box-shadow: 0 0 50px 5px rgba(0, 0, 0, 0.3);
-  background-color: #fff;
+  box-shadow: 0 0 20px 3px rgba(0, 0, 0, 0.2);
+  background-color: var(--background-color);
+  transition: transform var(--transition-duration) var(--timing-function);
   @include mixins.mq(tablet) {
     width: 60px;
     height: 60px;
   }
+}
+
+.navIcon {
+  color: var(--icons-color);
+  transition: color var(--transition-duration) var(--timing-function),
+    transform var(--transition-duration) var(--timing-function);
+  &:hover,
+  &:focus {
+    color: var(--hover-active-color);
+    transform: scale(0.9);
+  }
+}
+
+a {
+  transition: transform var(--transition-duration) var(--timing-function);
+  &.active {
+    position: relative;
+    &::before {
+      content: '';
+      background: var(--title-text-color);
+      display: block;
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      transition: all var(--transition-duration) var(--timing-function);
+    }
+  }
+}
+
+.circleBox:has(.navIcon:hover),
+.circleBox:has(.navIcon:focus) {
+  transform: scale(0.9);
+}
+
+.userPhoto {
+  border-radius: 50%;
+  transition: transform var(--transition-duration) var(--timing-function);
+}
+
+a:has(.userPhoto:hover),
+a:has(.userPhoto:focus) {
+  transform: scale(0.9);
 }

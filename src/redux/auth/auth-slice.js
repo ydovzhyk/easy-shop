@@ -5,21 +5,31 @@ import {
   logout,
   refresh,
   updateUser,
+  updateUserSettings,
 } from './auth-opetations';
 
 const initialState = {
   user: {
-    email: '',
-    id: '',
+    email: null,
+    id: null,
+    secondName: null,
+    firstName: null,
+    surName: null,
+    tel: null,
+    userAvatar: null,
+    cityName: null,
+    streetName: null,
+    houseNamber: null,
+    sex: null,
+    about: null,
     orders: [],
-    userAddress: '',
-    userBasket: '',
-    userLikes: '',
-    username: '',
+    userBasket: [],
+    userLikes: [],
+    username: null,
   },
-  sid: '',
-  accessToken: '',
-  refreshToken: '',
+  sid: null,
+  accessToken: null,
+  refreshToken: null,
   isLogin: false,
   loading: false,
   isRefreshing: false,
@@ -124,12 +134,32 @@ const auth = createSlice({
       store.loading = true;
       store.error = null;
     },
-    [updateUser.fulfilled]: (store, { payload }) => {
+    [updateUser.fulfilled]: (store, { payload }) => accessAuth(store, payload),
+    [updateUser.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
+    // * UPDATE USER
+    [updateUserSettings.pending]: store => {
+      store.loading = true;
+      store.error = null;
+    },
+    [updateUserSettings.fulfilled]: (store, { payload }) => {
       store.isLogin = true;
       store.loading = false;
-      store.user = payload;
+      store.secondName = payload.secondName;
+      store.firstName = payload.firstName;
+      store.surName = payload.surName;
+      store.email = payload.email;
+      store.tel = payload.tel;
+      store.userAvatar = payload.userAvatar;
+      store.cityName = payload.cityName;
+      store.streetName = payload.streetName;
+      store.houseNamber = payload.houseNamber;
+      store.sex = payload.sex;
+      store.about = payload.about;
     },
-    [updateUser.rejected]: (store, { payload }) => {
+    [updateUserSettings.rejected]: (store, { payload }) => {
       store.loading = false;
       store.error = payload;
     },
