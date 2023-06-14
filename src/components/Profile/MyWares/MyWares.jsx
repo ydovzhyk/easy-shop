@@ -1,11 +1,8 @@
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getUserProducts } from 'redux/product/product-operations';
 import {
-    useSelector,
-    // useDispatch
-} from 'react-redux';
-// import { useEffect } from 'react';
-// import { getUserProducts } from 'redux/product/product-operations';
-import {
-  // getProducts,
+  getMyProductsPages,
   getMyProducts,
 } from 'redux/product/product-selectors';
 import NoPhoto from 'images/catalog_photo/no_photo.jpg';
@@ -14,70 +11,64 @@ import Button from 'components/Shared/Button/Button';
 import s from './MyWares.module.scss';
 
 const MyWares = () => {
-//   const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const [currentPage, setCurrentPage] = useState(1);
+  const myProducts = useSelector(getMyProducts);
+  const myProductsTotalPages = useSelector(getMyProductsPages);
+  const [products, setProducts] = useState([]);
+  console.log('currentPage', currentPage);
 
-//   useEffect(() => {
-//     dispatch(getUserProducts());
-//   }, [dispatch]);
+  useEffect(() => {
+    console.log('відправляємо запрос');
+    dispatch(getUserProducts(currentPage));
+  }, [dispatch, currentPage]);
 
-const myProducts = useSelector(getMyProducts);
-console.log('myProducts in MyWares', myProducts);
+  const handleLoadMore = () => {
+    setCurrentPage(prevPage => prevPage + 1);
+  };
 
-return (
-    <div>
-    
-        <section className={s.myWaresWrapper}>
-            <ul className={s.waresList}>
-                {myProducts.map(({ _id, mainPhotoUrl, additionalPhotoUrl, nameProduct, price }) => (
-                    <li className={s.wareItem} key={_id}>
-                        <div className={s.partPhotoWrapper}>
+  useEffect(() => {
+    setProducts(prevProducts => [...prevProducts, ...myProducts]);
+  }, [myProducts]);
 
-                            <img
-                                className={s.photoCard}
-                                src={mainPhotoUrl}
-                                onError={e => (e.target.src = NoPhoto)}
-                                alt={nameProduct}
-                            />
-                            <ul className={s.additionalPhotoWrapper}>
-                                {additionalPhotoUrl.map(photo => (
-                                    <li className={s.additionalPhoto} key={photo.index}>
-                                        <img
-                                            className={s.additionalPhotoCard}
-                                            src={photo}
-                                            onError={e => (e.target.src = NoPhoto)}
-                                            alt={nameProduct}
-                                        />
-                                    </li>
-                                )
-                                    
-                                )}
+  console.log('myProducts in MyWares', myProducts);
 
-                            </ul>
-                        </div>
-                        <div className={s.descriptionWrapper}>
-                            <Text textClass="after-title" text={nameProduct} />
-                            <Text textClass="after-title" text={`${price}грн.`} />
-                        </div>
-                        <div className={s.buttonWrapper}>
-                            <Button btnClass="myWareButton" text="Відгуки" />
-                            <Button btnClass="myWareButton" text="Змінити" />
-                            <Button btnClass="myWareButton" text="Видалити" />
-                        </div>
-                    </li>
-                ))}
-            </ul>
-            {myProducts.length > 0 &&
-                <>
-                <Button btnClass="btnLight" text="Завантажити ще" />
-                <Button btnClass="btnLight" text="На початок"/>
-                </>
-                
-            }
-            
-            </section>
-            
-    </div>
-);
+  return (
+    <Container>
+      <section className={s.myWaresWrapper}>
+        <ul className={s.waresList}>
+          {products.map(({ _id, mainPhotoUrl, nameProduct, price }) => (
+            <li className={s.wareItem} key={_id}>
+              <div className={s.partWrapper}>
+                <img
+                  className={s.photoCard}
+                  src={mainPhotoUrl}
+                  onError={e => (e.target.src = NoPhoto)}
+                  alt={nameProduct}
+                />
+              </div>
+              <div className={s.partWrapper}>
+                <Text textClass="titleGroupItems" text={nameProduct} />
+                <Text textClass="after-title" text={`${price}грн.`} />
+              </div>
+              <div className={s.partWrapper}>
+                <Button btnClass="btnLight" text="Відгуки" />
+                <Button btnClass="btnLight" text="Змінити" />
+                <Button btnClass="btnLight" text="Видалити" />
+              </div>
+            </li>
+          ))}
+        </ul>
+        {currentPage < myProductsTotalPages && (
+          <Button
+            btnClass="btnLight"
+            text="Завантажити ще"
+            handleClick={handleLoadMore}
+          />
+        )}
+      </section>
+    </Container>
+  );
 };
 
 export default MyWares;
