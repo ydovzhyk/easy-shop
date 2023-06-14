@@ -1,8 +1,8 @@
 import { BsCheck2, BsGeoAlt, BsHandbag, BsPeople } from 'react-icons/bs';
 import Avatar from 'components/Profile/Avatar/Avatar';
-import UserRating from 'components/Profile/UserInfo/UserRating';
+import UserRating from 'components/Profile/UserProfileInfo/UserRating';
 import Value from 'components/Profile/Value';
-import DaysValue from 'components/Profile/UserInfo/DaysValue';
+import DaysValue from 'components/Profile/UserProfileInfo/DaysValue';
 import s from './SellerInfo.module.scss';
 
 const SellerInfo = () => {
