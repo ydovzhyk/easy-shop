@@ -18,9 +18,13 @@ import LanguageChanger from 'components/Shared/LanguageChanger/LanguageChanger';
 import { Catalog } from 'components/DropDownMenu/Catalog';
 import menuItems from 'components/DropDownMenu/menuItems';
 
+import navItems from './navItems';
+import { ModalCatalog } from 'components/DropDownMenu/ModalCatalog';
+
 const Header = () => {
   const [showForm, setShowForm] = useState(false);
-  const isDesctop = useMediaQuery({ minWidth: 1280 });
+  const [isModalCatalogOpen, setIsModalCatalogOpen] = useState(false);
+  const isDesktop = useMediaQuery({ minWidth: 1280 });
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const location = useLocation();
   const navigate = useNavigate();
@@ -28,7 +32,9 @@ const Header = () => {
     return isActive ? `${s.link} ${s.active}` : s.link;
   };
   const isLogin = useSelector(getLogin);
-
+  const handleModalCatalogOpen = () => {
+    setIsModalCatalogOpen(true);
+  };
   const handleSearchBtnClick = () => {
     setShowForm(!showForm);
   };
@@ -44,7 +50,7 @@ const Header = () => {
   return (
     <header className={s.header}>
       <div className={s.containerTop}>
-        {!isDesctop && (
+        {!isDesktop && (
           <>
             {showForm && (
               <div style={{ display: 'flex', width: '100%' }}>
@@ -53,7 +59,7 @@ const Header = () => {
                   btnClass="burgerButton"
                   handleClick={handleSearchBtnClick}
                   text={<AiOutlineArrowLeft size={isMobile ? 15 : 20} />}
-                ></Button>
+                />
                 <HeaderForm />
               </div>
             )}
@@ -63,8 +69,12 @@ const Header = () => {
                   <Button
                     type="button"
                     btnClass="burgerButton"
+                    handleClick={handleModalCatalogOpen}
                     text={<HiOutlineBars4 size={isMobile ? 25 : 30} />}
-                  ></Button>
+                  />
+                  {isModalCatalogOpen && (
+                    <ModalCatalog closeModal={setIsModalCatalogOpen} />
+                  )}
                   <Logo />
                 </div>
                 <div className={s.btnWrapper}>
@@ -84,7 +94,7 @@ const Header = () => {
           </>
         )}
 
-        {isDesctop && (
+        {isDesktop && (
           <>
             <Logo />
             <HeaderForm />

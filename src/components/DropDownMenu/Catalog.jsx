@@ -9,31 +9,35 @@ export const Catalog = () => {
   const [activeItem, setActiveItem] = useState('');
 
   return (
-    <div className={s.nav}>
-      <nav>
-        <div className={s.catalog}>
-          <button
-            onClick={() => setActiveMenu(!activeMenu)}
-            style={{ display: 'flex', alignItems: 'center' }}
-          >
-            <Line className={s.line} />
-            Catalog
-          </button>
-        </div>
+    <div className={s.nav} onBlur={() => setActiveMenu(false)}>
+      {/* <nav> */}
+      <div className={s.catalog}>
+        <button
+          onClick={() => setActiveMenu(!activeMenu)}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            backgroundColor: 'transparent',
+          }}
+        >
+          <Line className={s.line} />
+          Каталог
+        </button>
+      </div>
 
-        {activeMenu && (
-          <div className={s.dropdownMenu}>
-            {menuItems.map(menuItem => (
-              <MenuItem
-                key={menuItem.id}
-                menuItem={menuItem}
-                activeItem={activeItem}
-                setActiveItem={setActiveItem}
-              />
-            ))}
-          </div>
-        )}
-      </nav>
+      {activeMenu && (
+        <div className={s.dropdownMenu}>
+          {menuItems.map(menuItem => (
+            <MenuItem
+              key={menuItem.id}
+              menuItem={menuItem}
+              activeItem={activeItem}
+              setActiveItem={setActiveItem}
+            />
+          ))}
+        </div>
+      )}
+      {/* </nav> */}
     </div>
   );
 };
