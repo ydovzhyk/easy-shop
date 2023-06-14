@@ -1,7 +1,7 @@
 @use '../../../styles/mixins';
 
 .myWaresWrapper {
-    padding: 16px;
+    // padding: 16px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -9,13 +9,70 @@
     justify-content: center;
 }
 
-.partWrapper{
+.partPhotoWrapper {
+    // width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+    @include mixins.mq(tablet){
+        flex-direction: row;
+        gap: 12px;
+        // flex-grow: 2;
+    }
+}
+
+.descriptionWrapper{
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    
+    @include mixins.mq(tablet) {
+        justify-content: flex-start;    
+        width: 200px;
+    }
+}
+
+.buttonWrapper {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 20px;
     align-items: center;
     justify-content: center;
+
+    @include mixins.mq(tablet) {
+        // flex-grow: 1;
+        width: 200px;
+    }
+}
+
+.additionalPhotoWrapper{
+    display: flex;
+    gap: 8px;
+    @include mixins.mq(tablet){
+        flex-direction: column;
+    }
+    
+}
+
+.additionalPhoto {
+    border-radius: 25px;
+    @include mixins.mq(tablet) {
+            width: 40px;
+        }
+}
+
+.additionalPhotoCard{
+    border-radius: 25px;
+    @include mixins.mq(tablet){
+        // width: 40px;
+        border-radius: 12px;
+    }
 }
 
 .waresList {
@@ -27,8 +84,11 @@
 .wareItem {
     border: 1px solid var(--border-color);
     border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     @include mixins.mq(tablet) {
-        display: flex;
+        flex-direction: row;
         gap: 12px;
     }
 }
