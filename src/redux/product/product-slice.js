@@ -6,6 +6,7 @@ import {
   getAllProducts,
   getUserProducts,
   searchProducts,
+  getVipProducts,
 } from './product-operations';
 
 const initialState = {
@@ -15,6 +16,8 @@ const initialState = {
   allProducts: [],
   userProducts: [],
   productsByQuery: [],
+  vipProducts: [],
+  vipPages: 1,
 };
 
 const products = createSlice({
@@ -90,6 +93,20 @@ const products = createSlice({
       store.userProducts = payload;
     },
     [getUserProducts.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
+    //get products page
+    [getVipProducts.pending]: store => {
+      store.loading = true;
+      store.error = null;
+    },
+    [getVipProducts.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.vipProducts = payload.products;
+      store.vipPages = payload.totalPages;
+    },
+    [getVipProducts.rejected]: (store, { payload }) => {
       store.loading = false;
       store.error = payload;
     },

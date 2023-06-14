@@ -34,3 +34,9 @@ export const axiosGetProductsByQuery = async searchQuery => {
   });
   return data;
 };
+
+//Get vipProducts page
+export const axiosGetVipProducts = async userData => {
+  const { data } = await instance.get(`/product/vip?page=${userData}`);
+  return data;
+};
