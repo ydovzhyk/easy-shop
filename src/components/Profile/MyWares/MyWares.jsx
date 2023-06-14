@@ -32,8 +32,6 @@ const MyWares = () => {
     setProducts(prevProducts => [...prevProducts, ...myProducts]);
   }, [myProducts]);
 
-  console.log('myProducts in MyWares', myProducts);
-
   return (
     <Container>
       <section className={s.myWaresWrapper}>
