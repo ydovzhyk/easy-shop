@@ -50,9 +50,20 @@ const CatalogList = ({ newCards }) => {
         )}
         <ul className={s.listCard}>
           {arrayVipProdacts.map(
-            ({ _id, mainPhotoUrl, price, nameProduct, description }) => (
+            ({
+              _id,
+              mainPhotoUrl,
+              price,
+              nameProduct,
+              description,
+              section,
+              category,
+            }) => (
               <li className={s.itemCard} key={_id}>
-                <Link to={`${_id}`} className={s.photoLink}>
+                <Link
+                  to={`/products/${section}/${category}/${_id}`}
+                  className={s.photoLink}
+                >
                   <div className={s.stylePhotoCardWrap}>
                     <img
                       className={s.photoCard}
@@ -73,7 +84,7 @@ const CatalogList = ({ newCards }) => {
                     </NavLink>
                   </div>
                 </div>
-                <Link to={`${_id}`}>
+                <Link to={`/products/${section}/${category}/${_id}`}>
                   <p className={s.nameProductCard}>{nameProduct}</p>
                 </Link>
                 <p className={s.sizeCard}>36</p>

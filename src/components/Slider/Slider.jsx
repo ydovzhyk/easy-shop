@@ -24,7 +24,8 @@ const array = [
 ];
 const sliderImages = array.map(item => ({
   original: `${item.src}`,
-  thumbnail: `${item.alt}`,
+  originalAlt: `${item.alt}`,
+  // thumbnail: `${item.alt}`,
   originalClass: [s.image],
   bulletClass: [s.bullet],
 }));
