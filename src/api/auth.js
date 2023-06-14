@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-// const REACT_APP_API_URL_LOCAL = 'http://localhost:4000';
+// const REACT_APP_API_URL = 'http://localhost:4000';
 const REACT_APP_API_URL = 'https://easy-shop-backend.herokuapp.com/';
 
 export const instance = axios.create({
@@ -41,9 +41,9 @@ export const axiosRefresh = async (sid, refreshToken) => {
   return data;
 };
 
-export const axiosUpdateUser = async accessToken => {
+export const axiosUpdateUser = async (accessToken, userData) => {
   token.set(accessToken);
-  const { data } = await instance.post('/auth/current');
+  const { data } = await instance.post('/auth/current', userData);
   return data;
 };
 

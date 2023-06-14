@@ -4,7 +4,9 @@ import {
   addProduct,
   deleteProduct,
   getAllProducts,
+  getUserProducts,
   searchProducts,
+  getVipProducts,
 } from './product-operations';
 
 const initialState = {
@@ -12,7 +14,10 @@ const initialState = {
   loading: false,
   error: null,
   allProducts: [],
+  userProducts: [],
   productsByQuery: [],
+  vipProducts: [],
+  vipPages: 1,
 };
 
 const products = createSlice({
@@ -75,6 +80,33 @@ const products = createSlice({
       store.productsByQuery = payload;
     },
     [searchProducts.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
+    //* get my product
+    [getUserProducts.pending]: store => {
+      store.loading = true;
+      store.error = null;
+    },
+    [getUserProducts.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.userProducts = payload;
+    },
+    [getUserProducts.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
+    //get products page
+    [getVipProducts.pending]: store => {
+      store.loading = true;
+      store.error = null;
+    },
+    [getVipProducts.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.vipProducts = payload.products;
+      store.vipPages = payload.totalPages;
+    },
+    [getVipProducts.rejected]: (store, { payload }) => {
       store.loading = false;
       store.error = payload;
     },

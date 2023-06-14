@@ -1,10 +1,5 @@
 import instance from './auth';
 
-// export const axiosAddProduct = async productData => {
-//   const { data } = await instance.post('/product/add', productData);
-//   return data;
-// };
-
 export const axiosAddProduct = async productData => {
   const { data } = await instance.post('/product/add', productData, {
     headers: {
@@ -26,7 +21,7 @@ export const axiosGetAllProducts = async () => {
 };
 
 export const axiosGetUserProducts = async () => {
-  const { data } = await instance.get(`/product/`);
+  const { data } = await instance.get(`/product/user-products`);
   return data;
 };
 
@@ -37,5 +32,11 @@ export const axiosGetProductsByQuery = async searchQuery => {
       search: `${searchQuery}`,
     },
   });
+  return data;
+};
+
+//Get vipProducts page
+export const axiosGetVipProducts = async userData => {
+  const { data } = await instance.get(`/product/vip?page=${userData}`);
   return data;
 };

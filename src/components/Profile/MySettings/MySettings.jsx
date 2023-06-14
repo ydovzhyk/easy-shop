@@ -12,7 +12,7 @@ import Text from 'components/Shared/Text/Text';
 import Button from 'components/Shared/Button';
 import TextField from 'components/Shared/TextField/TextField';
 import SelectField from 'components/Shared/SelectField/SelectField';
-import ProfileDetails from '../UserInfoDetails/ProfileDetails';
+import ProfileLink from '../ProfileLink/ProfileLink';
 import { CityNames } from './Options';
 
 import s from './MySettings.module.scss';
@@ -46,7 +46,6 @@ const MySettings = () => {
     control,
     register,
     handleSubmit,
-    // reset
   } = useForm({
     defaultValues: {
       secondName: secondName ? secondName : '',
@@ -179,9 +178,9 @@ const MySettings = () => {
                 )}
               />
               <div className={s.navButton}>
-                <ProfileDetails to={'/phone-verification'}>
+                <ProfileLink to={'/phone-verification'}>
                   Змінити
-                </ProfileDetails>
+                </ProfileLink>
               </div>
             </div>
             <div className={s.partFrame}>
@@ -260,12 +259,14 @@ const MySettings = () => {
                 control={control}
                 name="about"
                 render={({ field: { onChange, value } }) => (
-                  <TextField
-                    className="aboutChangeProfile"
+                  <textarea
+                    className={s.aboutChangeProfile}
                     value={value}
                     control={control}
-                    handleChange={onChange}
+                    onChange={onChange}
                     {...field.about}
+                    rows={1}
+                    cols={240}
                   />
                 )}
               />
