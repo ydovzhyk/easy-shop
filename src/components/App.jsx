@@ -24,7 +24,7 @@ export const App = () => {
 
   useEffect(() => {
     const authData = JSON.parse(localStorage.getItem('easy-shop.authData'));
-    if (authData.accessToken) {
+    if (authData && authData.accessToken) {
       const userData = {
         accessToken: authData.accessToken,
         refreshToken: authData.refreshToken,
