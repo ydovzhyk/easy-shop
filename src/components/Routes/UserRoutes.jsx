@@ -25,9 +25,8 @@ const MySettings = lazy(() =>
 const PhoneVerification = lazy(() =>
   import('components/Profile/PhoneVerification/PhoneVerification')
 );
-const ProductDetails = lazy(() =>
-  import('pages/ProductDetailsPage')
-);
+const ProductDetails = lazy(() => import('pages/ProductDetailsPage'));
+const Products = lazy(() => import('pages/Products'));
 
 const UserRoutes = () => {
   return (
@@ -38,6 +37,9 @@ const UserRoutes = () => {
           <Route path="/easy-shop-test" element={<HomePage />} />
           <Route path="/registration" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/products" element={<ProductsSearchPage />}>
+            <Route path=":category" element={<Products />} />
+          </Route>
           <Route
             path="/products/:category/:subcategory/:id"
             element={<ProductDetails />}
@@ -47,7 +49,6 @@ const UserRoutes = () => {
           <Route path="/add-product" element={<AddProductPage />} />
           <Route path="/basket" element={<BasketPage />} />
           <Route path="/favorites" element={<FavoritesPage />} />
-          <Route path="/products" element={<ProductsSearchPage />} />
           <Route path="/profile" element={<ProfilePage />}>
             <Route index element={<MyWares />} />
             <Route path="mywares" element={<MyWares />} />
