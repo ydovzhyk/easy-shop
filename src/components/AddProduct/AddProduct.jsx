@@ -121,13 +121,13 @@ const AddProduct = () => {
       dataForUpload.append('owner', userId);
       dataForUpload.append('date', today);
 
-      dispatch(addProduct(dataForUpload));
-      setMainFile('');
-      setAdditionalFiles([]);
-      setSelectedSizes([]);
-      setIsFormSubmitted(true);
-      setErrorMessage('');
-      setErrorFormFilling(false);
+      await dispatch(addProduct(dataForUpload));
+      await setIsFormSubmitted(true);
+      await setMainFile('');
+      await setAdditionalFiles([]);
+      await setSelectedSizes([]);
+      await setErrorMessage('');
+      await setErrorFormFilling(false);
       reset();
     }
   };
