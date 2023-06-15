@@ -1,0 +1,70 @@
+@use '../../../styles/mixins';
+
+.generalPhotoWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+
+    @include mixins.mq(tablet) {
+        flex-direction: row;
+        gap: 8px;
+        width: 355px;
+        height: 400px;
+    }
+    @include mixins.mq(desktop) {
+        width: 420px;
+    }
+}
+
+.thumb {
+    width: 100%;
+    height: 300px;
+    @include mixins.mq(tablet) {
+        width: 307px;
+        height: 400px;
+    }
+    @include mixins.mq(desktop) {
+        width: 370px;
+    }
+}
+
+.mainPhotoCard {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 25px;
+}
+
+.additionalPhotoList {
+    display: flex;
+    gap: 8px;
+
+    @include mixins.mq(tablet) {
+        flex-direction: column;
+        align-items: start;
+        justify-content: flex-start;
+        width: 40px;
+        height: 100%;
+    }
+}
+
+.additionalPhotoItem {
+    border-radius: 25px;
+
+    @include mixins.mq(tablet) {
+        width: 40px;
+    }
+}
+
+.additionalPhotoCard {
+    border-radius: 12px;
+    width: 60px;
+    
+    @include mixins.mq(tablet) {
+        width: 100%;
+        border-radius: 12px;
+    }
+}
