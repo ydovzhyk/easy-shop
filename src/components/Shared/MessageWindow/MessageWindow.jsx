@@ -22,11 +22,10 @@ export default function MessageWindow({ text, onDismiss }) {
 
   useEffect(() => {
     setIsDisplayed(true);
-
     const timeout = setTimeout(() => {
       setIsDisplayed(false);
       dispatch(clearMessage());
-    }, 3000);
+    }, 5000);
 
     return () => clearTimeout(timeout);
   }, [text, dispatch]);
@@ -34,24 +33,6 @@ export default function MessageWindow({ text, onDismiss }) {
   if (!isDisplayed) {
     return null;
   }
-  // const dispatch = useDispatch();
-  // const [isDisplayed, setIsDisplayed] = useState(true);
-
-  // const handleDismissClick = () => {
-  //   setIsDisplayed(false);
-  //   if (typeof onDismiss === 'function') {
-  //     onDismiss();
-  //   }
-  //   dispatch(clearMessage());
-  // };
-
-  // useEffect(() => {
-  //   setIsDisplayed(true);
-  // }, [text]);
-
-  // if (!isDisplayed) {
-  //   return null;
-  // }
 
   return (
     <div className={s.messageWindow}>

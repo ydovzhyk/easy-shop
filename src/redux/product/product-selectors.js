@@ -7,4 +7,4 @@ export const getMyProductsPages = ({ products }) =>
 export const getProductsByQuery = ({ products }) => products.productsByQuery;
 export const getVipProductCard = ({ products }) => products.vipProducts;
 export const getVipPages = ({ products }) => products.vipPages;
-export const getLoading = ({ products }) => products.loading;
+export const getLoadingProducts = ({ products }) => products.loading;

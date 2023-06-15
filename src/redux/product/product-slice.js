@@ -10,7 +10,7 @@ import {
 } from './product-operations';
 
 const initialState = {
-  message: null,
+  message: '',
   loading: false,
   error: null,
   allProducts: [],
@@ -23,11 +23,11 @@ const initialState = {
 };
 
 const products = createSlice({
-  name: 'proucts',
+  name: 'products',
   initialState,
   reducers: {
     clearMessage: store => {
-      store.message = null;
+      store.message = '';
     },
     clearError: store => {
       store.error = null;
