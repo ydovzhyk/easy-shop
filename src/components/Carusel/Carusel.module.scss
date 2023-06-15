@@ -1,0 +1,110 @@
+@use '../../styles/_mixins.scss';
+
+.container {
+  display: none;
+  @include mixins.mq(tablet) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 7px solid var(--accent-color);
+  }
+}
+
+.imageBox {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  @include mixins.mq(tablet) {
+    width: 688px;
+    height: 280px;
+  }
+  @include mixins.mq(desktop) {
+    width: 1234px;
+    height: 330px;
+  }
+}
+
+.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  object-fit: cover;
+  transition: opacity 1s ease-in-out;
+  @include mixins.mq(tablet) {
+    width: 688px;
+    height: 280px;
+  }
+  @include mixins.mq(desktop) {
+    width: 1234px;
+    height: 330px;
+  }
+}
+
+.currentImage {
+  opacity: 1;
+}
+
+.pagination {
+  margin-bottom: 10px;
+  position: absolute;
+  z-index: 100;
+}
+
+.paginationBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 90px;
+}
+
+.paginationDot {
+  @include mixins.mq(tablet) {
+    border-radius: 20%;
+    background-color: var(--accent-color);
+    width: 10px;
+    height: 20px;
+  }
+}
+
+.arrowButton {
+  @include mixins.mq(tablet) {
+    display: block;
+    color: var(--text-color);
+    transition: all 0.3s ease-in-out;
+    &:hover svg {
+      color: var(--accent-color);
+    }
+  }
+}
+
+.arrowButtonLeft {
+  @include mixins.mq(tablet) {
+    position: absolute;
+    margin-left: 10px;
+    top: 40%;
+    left: 0;
+    z-index: 10;
+  }
+  @include mixins.mq(desktop) {
+    margin-left: 20px;
+    top: 42%;
+  }
+}
+
+.arrowButtonRight {
+  @include mixins.mq(tablet) {
+    position: absolute;
+    margin-right: 10px;
+    top: 40%;
+    right: 0;
+    z-index: 10;
+  }
+  @include mixins.mq(desktop) {
+    margin-right: 20px;
+    top: 42%;
+  }
+}

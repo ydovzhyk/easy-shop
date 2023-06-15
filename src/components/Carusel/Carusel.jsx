@@ -1,32 +1,83 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { clearError } from 'redux/auth/auth-slice';
+import slideOne from '../../images/carusel/slide-1.jpg';
+import slideTwo from '../../images/carusel/slide-2.jpg';
+import slideThree from '../../images/carusel/slide-3.jpg';
+import slideFour from '../../images/carusel/slide-4.jpg';
+import { IoIosArrowDropleft, IoIosArrowDropright } from 'react-icons/io';
 
-import Text from 'components/Shared/Text/Text';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import s from './Carusel.module.scss';
 
-import s from './ErrorMessage.module.scss';
+const images = [slideOne, slideTwo, slideThree, slideFour];
 
-export default function Carusel({ text, onDismiss }) {
-  const dispatch = useDispatch();
-  const [isDisplayed, setIsDisplayed] = useState(true);
-
-  const handleDismissClick = () => {
-    setIsDisplayed(false);
-    if (typeof onDismiss === 'function') {
-      onDismiss();
-    }
-    dispatch(clearError());
-  };
+const Carousel = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    setIsDisplayed(true);
-  }, [text]);
+    const interval = setInterval(() => {
+      setCurrentIndex((currentIndex + 1) % images.length);
+    }, 10000);
 
-  if (!isDisplayed) {
-    return null;
-  }
+    return () => {
+      clearInterval(interval);
+    };
+  }, [currentIndex]);
 
-  return <div className={s.errorMessage}></div>;
-}
+  const goToPreviousSlide = () => {
+    setCurrentIndex((currentIndex - 1 + images.length) % images.length);
+  };
+
+  const goToNextSlide = () => {
+    setCurrentIndex((currentIndex + 1) % images.length);
+  };
+
+  const renderPagination = () => {
+    return (
+      <div className={s.pagination}>
+        <div className={s.paginationBox}>
+          {images.map((_, index) => (
+            <div
+              key={index}
+              style={{
+                opacity: index === currentIndex ? 1 : 0.3,
+              }}
+              className={s.paginationDot}
+            />
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <div className={s.container}>
+      <div className={s.imageBox}>
+        <div
+          className={`${s.arrowButton} ${s.arrowButtonLeft}`}
+          onClick={goToPreviousSlide}
+        >
+          <IoIosArrowDropleft size={64} className={s.arrowlink} />
+        </div>
+        {images.map((image, index) => (
+          <img
+            key={index}
+            className={`${s.image} ${
+              index === currentIndex ? s.currentImage : ''
+            }`}
+            src={image}
+            alt="Carousel"
+            style={{ zIndex: index === currentIndex ? 1 : 0 }}
+          />
+        ))}
+        <div
+          className={`${s.arrowButton} ${s.arrowButtonRight}`}
+          onClick={goToNextSlide}
+        >
+          <IoIosArrowDropright size={64} className={s.arrowlink} />
+        </div>
+        {renderPagination()}
+      </div>
+    </div>
+  );
+};
+
+export default Carousel;
