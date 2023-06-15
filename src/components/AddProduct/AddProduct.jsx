@@ -1,10 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { getID } from 'redux/auth/auth-selectors';
 import { useForm, Controller } from 'react-hook-form';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { field } from 'components/Shared/TextField/fields';
 import { addProduct } from 'redux/product/product-operations';
+import { getMessage, getLoading } from 'redux/product/product-selectors';
 import Size from './Size/Size';
 import Photo from './Photo/Photo';
 import ErrorMessage from 'components/Shared/ErrorMessage/ErrorMessage';
@@ -14,6 +15,8 @@ import Text from 'components/Shared/Text/Text';
 import TextField from 'components/Shared/TextField';
 import SelectField from 'components/Shared/SelectField/SelectField';
 import Button from 'components/Shared/Button';
+import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
+import Loader from 'components/Loader/Loader';
 import categoryOptions from './category.json';
 
 import s from './AddProduct.module.scss';
@@ -21,13 +24,16 @@ import s from './AddProduct.module.scss';
 const AddProduct = () => {
   const dispatch = useDispatch();
   const userId = useSelector(getID);
+  const message = useSelector(getMessage);
+  const loading = useSelector(getLoading);
   const [sectionValue, setSectionValue] = useState('');
   const [selectedSizes, setSelectedSizes] = useState([]);
   const [mainFile, setMainFile] = useState(null);
   const [additionalFiles, setAdditionalFiles] = useState([]);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [errorFormFilling, setErrorFormFilling] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [isMessage, setIsMessage] = useState(null);
 
   const date = new Date();
   const today = `${date.getFullYear()}-${
@@ -65,9 +71,17 @@ const AddProduct = () => {
     return false;
   };
 
+  useEffect(() => {
+    setIsMessage(message);
+  }, [message]);
+
   const resetError = () => {
     setErrorFormFilling(false);
-    setErrorMessage('');
+    setErrorMessage(null);
+  };
+
+  const resetMessage = () => {
+    setIsMessage(null);
   };
 
   const { control, register, handleSubmit, reset } = useForm({
@@ -123,6 +137,7 @@ const AddProduct = () => {
   return (
     <Container>
       <section className={s.section}>
+        {loading && <Loader />}
         <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
           <Text text={'Опишіть вашу річ'} textClass="title" />
           <Text text={'Назва*'} textClass="after-title" />
@@ -382,6 +397,9 @@ const AddProduct = () => {
         </form>
         {errorFormFilling && (
           <ErrorMessage text={`${errorMessage}`} onDismiss={resetError} />
+        )}
+        {isMessage && (
+          <MessageWindow text={`${message}`} onDismiss={resetMessage} />
         )}
       </section>
     </Container>
