@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { clearMessage } from 'redux/product/product-slice';
+import { clearUserMessage } from 'redux/auth/auth-slice';
 
 import Text from 'components/Shared/Text/Text';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -18,6 +19,7 @@ export default function MessageWindow({ text, onDismiss }) {
       onDismiss();
     }
     dispatch(clearMessage());
+    dispatch(clearUserMessage());
   };
 
   useEffect(() => {
@@ -25,6 +27,7 @@ export default function MessageWindow({ text, onDismiss }) {
     const timeout = setTimeout(() => {
       setIsDisplayed(false);
       dispatch(clearMessage());
+      dispatch(clearUserMessage());
     }, 5000);
 
     return () => clearTimeout(timeout);

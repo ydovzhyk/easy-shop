@@ -14,6 +14,7 @@ export const getUserSex = ({ auth }) => auth.user.sex.value;
 export const getUserAbout = ({ auth }) => auth.user.about;
 export const getUserAvatar = ({ auth }) => auth.user.userAvatar;
 export const getUserDateCreate = ({ auth }) => auth.user.dateCreate;
+export const getUserMessage = ({ auth }) => auth.message;
 
 export const getSid = ({ auth }) => auth.sid;
 export const getAccessToken = ({ auth }) => auth.accessToken;
