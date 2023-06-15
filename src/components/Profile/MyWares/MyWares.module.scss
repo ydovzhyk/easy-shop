@@ -1,7 +1,6 @@
 @use '../../../styles/mixins';
 
 .myWaresWrapper {
-    // padding: 16px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -10,7 +9,6 @@
 }
 
 .partPhotoWrapper {
-    // width: 100%;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -19,7 +17,6 @@
     @include mixins.mq(tablet){
         flex-direction: row;
         gap: 12px;
-        // flex-grow: 2;
     }
 }
 
@@ -46,7 +43,6 @@
     justify-content: center;
 
     @include mixins.mq(tablet) {
-        // flex-grow: 1;
         width: 200px;
     }
 }
@@ -56,6 +52,7 @@
     gap: 8px;
     @include mixins.mq(tablet){
         flex-direction: column;
+        width: 40px;
     }
     
 }
@@ -68,14 +65,16 @@
 }
 
 .additionalPhotoCard{
-    border-radius: 25px;
+    border-radius: 12px;
+    width: 60px;
     @include mixins.mq(tablet){
-        // width: 40px;
+        
         border-radius: 12px;
     }
 }
 
 .waresList {
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -88,7 +87,9 @@
     flex-direction: column;
     gap: 8px;
     @include mixins.mq(tablet) {
+        width: 100%;
         flex-direction: row;
+        justify-content: space-between;
         gap: 12px;
     }
 }
@@ -97,7 +98,10 @@
     width: 100%;
     height: 300px;
     object-fit: cover;
-    border-radius: 25px;    
+    border-radius: 25px;  
+    @include mixins.mq(tablet){
+        width: 225px;
+    }
 }
 
 
