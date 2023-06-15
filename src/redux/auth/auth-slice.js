@@ -35,6 +35,7 @@ const initialState = {
   isRefreshing: false,
   error: null,
   newUser: {},
+  message: '',
 };
 
 const accessAuth = (store, payload) => {
@@ -56,6 +57,9 @@ const auth = createSlice({
     clearUser: () => ({ ...initialState }),
     clearError: store => {
       store.error = null;
+    },
+    clearUserMessage: store => {
+      store.message = null;
     },
   },
 
@@ -139,7 +143,7 @@ const auth = createSlice({
       store.loading = false;
       store.error = payload?.data?.message || null;
     },
-    // * UPDATE USER
+    // * UPDATE USER SETTINGS
     [updateUserSettings.pending]: store => {
       store.loading = true;
       store.error = null;
@@ -147,17 +151,18 @@ const auth = createSlice({
     [updateUserSettings.fulfilled]: (store, { payload }) => {
       store.isLogin = true;
       store.loading = false;
-      store.secondName = payload.secondName;
-      store.firstName = payload.firstName;
-      store.surName = payload.surName;
-      store.email = payload.email;
-      store.tel = payload.tel;
-      store.userAvatar = payload.userAvatar;
-      store.cityName = payload.cityName;
-      store.streetName = payload.streetName;
-      store.houseNamber = payload.houseNamber;
-      store.sex = payload.sex;
-      store.about = payload.about;
+      store.secondName = payload.user.secondName;
+      store.firstName = payload.user.firstName;
+      store.surName = payload.user.surName;
+      store.email = payload.user.email;
+      store.tel = payload.user.tel;
+      store.userAvatar = payload.user.userAvatar;
+      store.cityName = payload.user.cityName;
+      store.streetName = payload.user.streetName;
+      store.houseNamber = payload.user.houseNamber;
+      store.sex = payload.user.sex;
+      store.about = payload.user.about;
+      store.message = payload.message;
     },
     [updateUserSettings.rejected]: (store, { payload }) => {
       store.loading = false;
@@ -167,4 +172,5 @@ const auth = createSlice({
 });
 
 export default auth.reducer;
-export const { clearNewUser, clearUser, clearError } = auth.actions;
+export const { clearNewUser, clearUser, clearError, clearUserMessage } =
+  auth.actions;
