@@ -49,9 +49,9 @@ export const getAllProducts = createAsyncThunk(
 
 export const getUserProducts = createAsyncThunk(
   'product/user-products',
-  async (_, { rejectWithValue, dispatch }) => {
+  async (userData, { rejectWithValue, dispatch }) => {
     try {
-      const data = await axiosGetUserProducts();
+      const data = await axiosGetUserProducts(userData);
       return data;
     } catch (error) {
       const { data, status } = error.response;
@@ -64,7 +64,6 @@ export const searchProducts = createAsyncThunk(
   'products/search',
   async (searchQuery, { rejectWithValue, dispatch }) => {
     try {
-      console.log(searchQuery);
       const data = await axiosGetProductsByQuery(searchQuery);
       return data;
     } catch (error) {
@@ -77,7 +76,6 @@ export const searchProducts = createAsyncThunk(
 export const getVipProducts = createAsyncThunk(
   'product/vip',
   async (userData, { rejectWithValue, dispatch }) => {
-    console.log(userData);
     try {
       const data = await axiosGetVipProducts(userData);
       return data;

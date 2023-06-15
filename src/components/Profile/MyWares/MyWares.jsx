@@ -5,6 +5,7 @@ import {
   getMyProductsPages,
   getMyProducts,
 } from 'redux/product/product-selectors';
+import { clearUserProducts } from 'redux/product/product-slice';
 import Container from 'components/Shared/Container/Container';
 import NoPhoto from 'images/catalog_photo/no_photo.jpg';
 import Text from 'components/Shared/Text/Text';
@@ -16,27 +17,25 @@ const MyWares = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const myProducts = useSelector(getMyProducts);
   const myProductsTotalPages = useSelector(getMyProductsPages);
-  const [products, setProducts] = useState([]);
-  console.log('currentPage', currentPage);
 
   useEffect(() => {
-    console.log('відправляємо запрос');
+    dispatch(clearUserProducts());
+    setCurrentPage(1);
+  }, [dispatch]);
+
+  useEffect(() => {
     dispatch(getUserProducts(currentPage));
   }, [dispatch, currentPage]);
 
-  const handleLoadMore = () => {
-    setCurrentPage(prevPage => prevPage + 1);
+  const handleLoadMore = async () => {
+    setCurrentPage(currentPage + 1);
   };
-
-  useEffect(() => {
-    setProducts(prevProducts => [...prevProducts, ...myProducts]);
-  }, [myProducts]);
 
   return (
     <Container>
       <section className={s.myWaresWrapper}>
         <ul className={s.waresList}>
-          {products.map(({ _id, mainPhotoUrl, nameProduct, price }) => (
+          {myProducts.map(({ _id, mainPhotoUrl, nameProduct, price }) => (
             <li className={s.wareItem} key={_id}>
               <div className={s.partWrapper}>
                 <img
