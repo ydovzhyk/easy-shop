@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 
 import { field } from 'components/Shared/TextField/fields';
 import { addProduct } from 'redux/product/product-operations';
-import { getMessage, getLoading } from 'redux/product/product-selectors';
+import { getMessage } from 'redux/product/product-selectors';
 import Size from './Size/Size';
 import Photo from './Photo/Photo';
 import ErrorMessage from 'components/Shared/ErrorMessage/ErrorMessage';
@@ -16,7 +16,6 @@ import TextField from 'components/Shared/TextField';
 import SelectField from 'components/Shared/SelectField/SelectField';
 import Button from 'components/Shared/Button';
 import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
-import Loader from 'components/Loader/Loader';
 import categoryOptions from './category.json';
 
 import s from './AddProduct.module.scss';
@@ -25,7 +24,6 @@ const AddProduct = () => {
   const dispatch = useDispatch();
   const userId = useSelector(getID);
   const message = useSelector(getMessage);
-  const loading = useSelector(getLoading);
   const [sectionValue, setSectionValue] = useState('');
   const [selectedSizes, setSelectedSizes] = useState([]);
   const [mainFile, setMainFile] = useState(null);
@@ -33,7 +31,7 @@ const AddProduct = () => {
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [errorFormFilling, setErrorFormFilling] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
-  const [isMessage, setIsMessage] = useState(null);
+  const [isMessage, setIsMessage] = useState('');
 
   const date = new Date();
   const today = `${date.getFullYear()}-${
@@ -81,7 +79,7 @@ const AddProduct = () => {
   };
 
   const resetMessage = () => {
-    setIsMessage(null);
+    setIsMessage('');
   };
 
   const { control, register, handleSubmit, reset } = useForm({
@@ -137,7 +135,6 @@ const AddProduct = () => {
   return (
     <Container>
       <section className={s.section}>
-        {loading && <Loader />}
         <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
           <Text text={'Опишіть вашу річ'} textClass="title" />
           <Text text={'Назва*'} textClass="after-title" />

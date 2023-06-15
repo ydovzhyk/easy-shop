@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import { updateUser } from 'redux/auth/auth-opetations';
 import { getError } from 'redux/auth/auth-selectors';
+import { getLoadingProducts } from 'redux/product/product-selectors';
+import { getLoadingUser } from 'redux/auth/auth-selectors';
 import UserRoutes from './Routes/UserRoutes';
 import Header from './Header';
 import Footer from './Footer/Footer';
@@ -13,10 +15,12 @@ import { useLocation } from 'react-router-dom';
 
 export const App = () => {
   const error = useSelector(getError);
+  const loadingUser = useSelector(getLoadingUser);
+  const loadingProducts = useSelector(getLoadingProducts);
   const isDesctop = useMediaQuery({ minWidth: 1280 });
   const dispatch = useDispatch();
   const [errMessage, setErrMessage] = useState('');
-  const [isUserLoaded, setIsUserLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const location = useLocation();
   const headerFooterHidden =
@@ -32,7 +36,7 @@ export const App = () => {
       };
       dispatch(updateUser(userData));
     } else {
-      setIsUserLoaded(true);
+      return;
     }
   }, [dispatch]);
 
@@ -42,12 +46,15 @@ export const App = () => {
     } else {
       setErrMessage('');
     }
-    setIsUserLoaded(true);
   }, [error]);
 
-  if (!isUserLoaded) {
-    return <Loader />;
-  }
+  useEffect(() => {
+    if (loadingUser || loadingProducts) {
+      setIsLoaded(true);
+    } else {
+      setIsLoaded(false);
+    }
+  }, [loadingUser, loadingProducts]);
 
   return (
     <div
@@ -61,6 +68,7 @@ export const App = () => {
       {errMessage !== '' && <ErrorMessage text={`${errMessage}`} />}
       {!headerFooterHidden && <Header />}
       <main style={{ flexGrow: 1 }}>
+        {isLoaded && <Loader />}
         <UserRoutes />
       </main>
       {!headerFooterHidden && !isDesctop && <BottomNavigation />}
