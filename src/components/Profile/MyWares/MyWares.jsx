@@ -7,9 +7,9 @@ import {
   getMyProductsPages,
 } from 'redux/product/product-selectors';
 import { clearUserProducts } from 'redux/product/product-slice';
-import NoPhoto from 'images/catalog_photo/no_photo.jpg';
 import Text from 'components/Shared/Text/Text';
 import Button from 'components/Shared/Button/Button';
+import PhotoCollection from 'components/Shared/PhotoCollection/PhotoCollection';
 import s from './MyWares.module.scss';
 
 const MyWares = () => {
@@ -44,35 +44,24 @@ const MyWares = () => {
         <ul className={s.waresList}>
           {myProducts.map(({ _id, mainPhotoUrl, additionalPhotoUrl, nameProduct, description, price }) => (
             <li className={s.wareItem} key={_id}>
-              <div className={s.partPhotoWrapper}>
-                <img
-                  className={s.photoCard}
-                  src={mainPhotoUrl}
-                  onError={e => (e.target.src = NoPhoto)}
-                  alt={nameProduct}
-                />
-                <ul className={s.additionalPhotoWrapper}>
-                  {additionalPhotoUrl.map((photo, index) => (
-                    <li className={s.additionalPhoto} key={index}>
-                      <img
-                        className={s.additionalPhotoCard}
-                        src={photo}
-                        onError={e => (e.target.src = NoPhoto)}
-                        alt={nameProduct}
-                      />
-                    </li>
-                  ))}
-                </ul>
+              <PhotoCollection
+                mainPhotoUrl={mainPhotoUrl}
+                additionalPhotoUrl={additionalPhotoUrl}
+                nameProduct={nameProduct}
+              />
+              <div className={s.box}>
+                <div className={s.descriptionWrapper}>
+                  <Text textClass="verifyAttention" text={nameProduct} />
+                  <div className={s.descriptionThumb}>{ description}</div>
+                  <Text textClass="verifyAttention" text={`${price}грн.`} />
+                </div>
+                <div className={s.buttonWrapper}>
+                  <Button btnClass="myWareButton" text="Відгуки" />
+                  <Button btnClass="myWareButton" text="Змінити" />
+                  <Button btnClass="myWareButton" text="Видалити" />
+                </div>
               </div>
-              <div className={s.partWrapper}>
-                <Text textClass="after-title" text={nameProduct} />
-                <Text textClass="after-title" text={`${price}грн.`} />
-              </div>
-              <div className={s.buttonWrapper}>
-                <Button btnClass="myWareButton" text="Відгуки" />
-                <Button btnClass="myWareButton" text="Змінити" />
-                <Button btnClass="myWareButton" text="Видалити" />
-              </div>
+              
             </li>
           ))}
         </ul>

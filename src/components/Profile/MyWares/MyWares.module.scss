@@ -1,6 +1,7 @@
 @use '../../../styles/mixins';
 
 .myWaresWrapper {
+    padding: 16px 0 32px 0;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -8,19 +9,46 @@
     justify-content: center;
 }
 
-.partPhotoWrapper {
+.waresList {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    align-items: center;
-    justify-content: space-between;
-    @include mixins.mq(tablet){
+    gap: 16px;
+}
+
+.wareItem {
+    padding-bottom: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    @include mixins.mq(tablet) {
+        padding-bottom: 0;
+        width: 100%;
+        height: 400px;
         flex-direction: row;
+        justify-content: space-between;
         gap: 12px;
     }
 }
 
-.descriptionWrapper{
+.box {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    @include mixins.mq(desktop) {
+        flex-direction: row;
+        gap: 30px;
+        justify-content: space-around;
+    }
+
+}
+
+.descriptionWrapper {
     padding: 16px;
     display: flex;
     flex-direction: column;
@@ -30,8 +58,16 @@
     
     @include mixins.mq(tablet) {
         justify-content: flex-start;    
-        width: 200px;
     }
+    @include mixins.mq(desktop) {
+        width: 600px;
+    }
+}
+
+.descriptionThumb {
+    height: 200px;
+    overflow: scroll;
+    font-size: 12px;
 }
 
 .buttonWrapper {
@@ -43,65 +79,16 @@
     justify-content: center;
 
     @include mixins.mq(tablet) {
-        width: 200px;
-    }
-}
-
-.additionalPhotoWrapper{
-    display: flex;
-    gap: 8px;
-    @include mixins.mq(tablet){
-        flex-direction: column;
-        width: 40px;
-    }
-    
-}
-
-.additionalPhoto {
-    border-radius: 25px;
-    @include mixins.mq(tablet) {
-            width: 40px;
-        }
-}
-
-.additionalPhotoCard{
-    border-radius: 12px;
-    width: 60px;
-    @include mixins.mq(tablet){
-        
-        border-radius: 12px;
-    }
-}
-
-.waresList {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.wareItem {
-    border: 1px solid var(--border-color);
-    border-radius: 25px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    @include mixins.mq(tablet) {
         width: 100%;
         flex-direction: row;
-        justify-content: space-between;
         gap: 12px;
     }
-}
 
-.photoCard {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 25px;  
-    @include mixins.mq(tablet){
-        width: 225px;
+    @include mixins.mq(desktop) {
+        width: 150px;
+        flex-direction: column;
+        padding: 0 8px;
+        gap: 20px;
     }
 }
-
 
