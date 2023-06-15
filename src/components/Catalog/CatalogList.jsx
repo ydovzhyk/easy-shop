@@ -22,7 +22,6 @@ const CatalogList = ({ newCards }) => {
   useEffect(() => {
     dispatch(getVipProducts(currentPage));
   }, [dispatch, currentPage]);
-  console.log(arrayVipProdacts);
 
   const handlePrevPage = () => {
     if (currentPage > 1) {

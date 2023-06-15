@@ -32,6 +32,9 @@ const products = createSlice({
     clearError: store => {
       store.error = null;
     },
+    clearUserProducts: store => {
+      store.userProducts = [];
+    },
   },
   extraReducers: {
     //* addProduct
@@ -119,4 +122,4 @@ const products = createSlice({
 
 export default products.reducer;
 
-export const { clearMessage, clearError } = products.actions;
+export const { clearMessage, clearError, clearUserProducts } = products.actions;

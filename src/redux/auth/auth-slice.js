@@ -137,7 +137,7 @@ const auth = createSlice({
     [updateUser.fulfilled]: (store, { payload }) => accessAuth(store, payload),
     [updateUser.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload;
+      store.error = payload.data.message;
     },
     // * UPDATE USER
     [updateUserSettings.pending]: store => {
