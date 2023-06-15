@@ -31,6 +31,7 @@ const MyWares = () => {
     setCurrentPage(currentPage + 1);
   };
 
+  console.log(myProducts);
   return (
     <Container>
       <section className={s.myWaresWrapper}>
