@@ -1,6 +1,6 @@
 export const getLogin = ({ auth }) => auth.isLogin;
 export const getIsRefreshing = ({ auth }) => auth.isRefreshing;
-export const getLoading = ({ auth }) => auth.isLoading;
+export const getLoadingUser = ({ auth }) => auth.isLoading;
 export const getUserName = ({ auth }) => auth.user.username;
 export const getUserSecondName = ({ auth }) => auth.user.secondName;
 export const getUserFirstName = ({ auth }) => auth.user.firstName;
