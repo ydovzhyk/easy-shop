@@ -7,7 +7,8 @@ import CatalogList from '../Catalog/CatalogList';
 // import vipCards from '../../data/vipCards.json';
 import newCards from '../../data/newCards.json';
 import s from './Default.module.scss';
-import Slider from 'components/Slider/Slider';
+// import Slider from 'components/Slider/Slider';
+import Carousel from 'components/Carusel/Carusel';
 import Text from 'components/Shared/Text/Text';
 
 const Default = () => {
@@ -23,7 +24,8 @@ const Default = () => {
           {/* <CatalogList cards={cards} /> */}
         </div>
       )}
-      <Slider />
+      <Carousel />
+      {/* <Slider /> */}
       <CatalogList
         // vipCards={vipCards}
         newCards={newCards}
