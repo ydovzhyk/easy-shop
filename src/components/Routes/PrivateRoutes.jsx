@@ -19,7 +19,7 @@ const PrivateRoute = () => {
     return null; // або показати лоадер
   }
   if (!isLogin) {
-    return <Navigate to="/" />;
+    return <Navigate to="/login" />;
   }
   return <Outlet />;
 };
