@@ -9,7 +9,6 @@
     background-color: var(--background-btn-main-color);
     border-radius: 50%;
     border: 1px solid var(--btn-border-color);
-    // color: var(--text-color);
     transition: background-color var(--transition-duration) var(--timing-function),
     color var(--transition-duration) var(--timing-function),
     box-shadow var(--transition-duration) var(--timing-function);
@@ -31,11 +30,6 @@
     position: fixed;
     bottom: 120px;
     right: 20px;
-    // background-color: #fff;
-    // border: 1px solid var(--accent-color);
-    // padding: 10px;
-    // border-radius: 5px;
-    
     transition: opacity 0.3s ease;
 }
 
