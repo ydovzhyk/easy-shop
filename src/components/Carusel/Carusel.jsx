@@ -3,7 +3,7 @@ import slideOne from '../../images/carusel/slide-1.jpg';
 import slideTwo from '../../images/carusel/slide-2.jpg';
 import slideThree from '../../images/carusel/slide-3.jpg';
 import slideFour from '../../images/carusel/slide-4.jpg';
-import { IoIosArrowDropleft, IoIosArrowDropright } from 'react-icons/io';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 import s from './Carusel.module.scss';
 
@@ -55,7 +55,11 @@ const Carousel = () => {
           className={`${s.arrowButton} ${s.arrowButtonLeft}`}
           onClick={goToPreviousSlide}
         >
-          <IoIosArrowDropleft size={64} className={s.arrowlink} />
+          <FiChevronLeft
+            size={60}
+            strokeWidth={1}
+            className={s.arrowlinkLeft}
+          />
         </div>
         {images.map((image, index) => (
           <img
@@ -72,7 +76,11 @@ const Carousel = () => {
           className={`${s.arrowButton} ${s.arrowButtonRight}`}
           onClick={goToNextSlide}
         >
-          <IoIosArrowDropright size={64} className={s.arrowlink} />
+          <FiChevronRight
+            size={60}
+            strokeWidth={1}
+            className={s.arrowlinkRigth}
+          />
         </div>
         {renderPagination()}
       </div>
