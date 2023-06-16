@@ -1,7 +1,7 @@
 @use '../../styles/_mixins.scss';
 .container {
   padding: 20px 0px;
-  // margin: 0 auto;
+  flex-grow: 1;
 }
 
 .listCard {
@@ -13,5 +13,8 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 15px;
+  }
+  @include mixins.mq(desktop) {
+    grid-template-columns: repeat(3, 1fr);
   }
 }

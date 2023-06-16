@@ -13,7 +13,7 @@ const ProductItem = ({
   nameProduct,
 }) => {
   return (
-    <li className={s.itemCard} key={_id}>
+    <li className={s.itemCard}>
       <Link
         to={`/products/${section}/${category}/${_id}`}
         className={s.photoLink}

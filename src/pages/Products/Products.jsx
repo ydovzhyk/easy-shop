@@ -5,9 +5,7 @@ import { searchProducts } from 'redux/product/product-operations';
 import { useSelector } from 'react-redux';
 import { getProductsByQuery } from 'redux/product/product-selectors';
 import { useParams } from 'react-router-dom';
-import { Link, NavLink } from 'react-router-dom';
-import NoPhoto from '../../images/catalog_photo/no_photo.jpg';
-import { FiHeart } from 'react-icons/fi';
+import TopNavProducts from 'components/Shared/TopNavProducts/TopNavProducts';
 import ProductItem from 'components/Shared/ProductItem/ProductItem';
 import s from './Products.module.scss';
 
@@ -29,18 +27,17 @@ const Products = () => {
     if (!category) {
       return;
     }
-    console.log('category');
   }, [category]);
 
   useEffect(() => {
     if (!subcategory) {
       return;
     }
-    console.log('subcategory');
   }, [subcategory]);
 
   return (
-    <section className={s.container}>
+    <div className={s.container}>
+      <TopNavProducts category={category} subcategory={subcategory} />
       {products.length > 0 && (
         <ul className={s.listCard}>
           {products.map(
@@ -54,6 +51,7 @@ const Products = () => {
               category,
             }) => (
               <ProductItem
+                key={_id}
                 _id={_id}
                 mainPhotoUrl={mainPhotoUrl}
                 section={section}
@@ -67,7 +65,7 @@ const Products = () => {
         </ul>
       )}
       {products.length < 1 && <h1>За вашим запитом товарів не знайдено</h1>}
-    </section>
+    </div>
   );
 };
 
