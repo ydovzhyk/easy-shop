@@ -38,6 +38,7 @@ const UserRoutes = () => {
           <Route path="/registration" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/products" element={<ProductsSearchPage />}>
+            <Route index element={<Products />} />
             <Route path=":category" element={<Products />} />
             <Route path=":category/:subcategory" element={<Products />} />
           </Route>

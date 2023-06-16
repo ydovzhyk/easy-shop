@@ -15,7 +15,6 @@ const ProductsSearchPage = () => {
     if (searchQuery === '') {
       return;
     }
-
     dispatch(searchProducts(searchQuery));
   }, [searchQuery, dispatch]);
 
