@@ -102,10 +102,9 @@
   text-shadow: 0.5 -0.5px var(--accent-color);
   animation: pulsate 2s linear infinite;
 }
-
-.myWareButton {
-  composes: btnLight;
-  @include mixins.mq(tablet) {
+.myWareButton{
+  @extend .btnLight;
+  @include mixins.mq(tablet){
     width: 100px;
     height: 40px;
     font-size: 14px;
