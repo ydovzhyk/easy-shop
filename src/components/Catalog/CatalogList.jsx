@@ -10,7 +10,8 @@ import {
 
 import NoPhoto from '../../images/catalog_photo/no_photo.jpg';
 import { FiHeart } from 'react-icons/fi';
-import { IoIosArrowDropleft, IoIosArrowDropright } from 'react-icons/io';
+// import { IoIosArrowDropleft, IoIosArrowDropright } from 'react-icons/io';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import s from './CatalogList.module.scss';
 
 const CatalogList = ({ newCards }) => {
@@ -44,8 +45,18 @@ const CatalogList = ({ newCards }) => {
             className={`${s.arrowButton} ${s.arrowButtonLeft}`}
             onClick={handlePrevPage}
           >
-            <IoIosArrowDropleft size={64} className={s.arrowlink} />
+            <FiChevronLeft
+              size={60}
+              strokeWidth={1}
+              className={s.arrowlinkLeft}
+            />
           </div>
+          // <div
+          //   className={`${s.arrowButton} ${s.arrowButtonLeft}`}
+          //   onClick={handlePrevPage}
+          // >
+          //   <IoIosArrowDropleft size={64} className={s.arrowlink} />
+          // </div>
         )}
         <ul className={s.listCard}>
           {arrayVipProdacts.map(
@@ -96,8 +107,18 @@ const CatalogList = ({ newCards }) => {
             className={`${s.arrowButton} ${s.arrowButtonRight}`}
             onClick={handleNextPage}
           >
-            <IoIosArrowDropright size={64} className={s.arrowlink} />
+            <FiChevronRight
+              size={60}
+              strokeWidth={1}
+              className={s.arrowlinkRigth}
+            />
           </div>
+          // <div
+          //   className={`${s.arrowButton} ${s.arrowButtonRight}`}
+          //   onClick={handleNextPage}
+          // >
+          //   <IoIosArrowDropright size={64} className={s.arrowlink} />
+          // </div>
         )}
       </div>
 
