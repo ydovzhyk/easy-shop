@@ -103,11 +103,6 @@ const MyWares = () => {
             btnClass='scrollButton'
             icon={BsChevronUp}
           handleClick={scrollToTop}/>
-          // <button
-          //   className={s.scrollButton} 
-          //   onClick={scrollToTop}>
-          //   Вгору
-          //   </button>
         )}
       </section>
     </div>
