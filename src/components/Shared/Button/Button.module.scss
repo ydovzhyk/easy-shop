@@ -100,7 +100,7 @@
   animation: pulsate 2s linear infinite;
 }
 .myWareButton{
-  composes: btnLight;
+  @extend .btnLight;
   @include mixins.mq(tablet){
     width: 100px;
     height: 40px;
