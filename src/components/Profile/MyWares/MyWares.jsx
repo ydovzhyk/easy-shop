@@ -1,23 +1,42 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { BsTrash, BsPencil, BsChatSquareText, BsChevronUp  } from "react-icons/bs";
 import { getUserProducts } from 'redux/product/product-operations';
 import {
   getMyProducts,
-  getMyProductsTotal,
+  // getMyProductsTotal,
   getMyProductsPages,
 } from 'redux/product/product-selectors';
 import { clearUserProducts } from 'redux/product/product-slice';
 import Text from 'components/Shared/Text/Text';
 import Button from 'components/Shared/Button/Button';
+import RoundButton from 'components/Shared/RoundButton/RoundButton';
 import PhotoCollection from 'components/Shared/PhotoCollection/PhotoCollection';
 import s from './MyWares.module.scss';
 
 const MyWares = () => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
+   // console.log('currentPage', currentPage);
+  const [showScrollButton, setShowScrollButton] = useState(false);
   const myProducts = useSelector(getMyProducts);
-  console.log('myProducts:', myProducts);
+  // console.log('myProducts:', myProducts);
   const myProductsTotalPages = useSelector(getMyProductsPages);
+  // console.log('myProductsTotalPages:', myProductsTotalPages);
+  // const myProductsTotal = useSelector(getMyProductsTotal);
+  // console.log('myProductsTotal:', myProductsTotal);
+  
+
+  const handleLoadMore = async () => {
+    setCurrentPage(currentPage + 1);
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
 
   useEffect(() => {
     dispatch(clearUserProducts());
@@ -27,17 +46,24 @@ const MyWares = () => {
   useEffect(() => {
     dispatch(getUserProducts(currentPage));
   }, [dispatch, currentPage]);
-  console.log('myProductsTotalPages:', myProductsTotalPages);
-  const myProductsTotal = useSelector(getMyProductsTotal);
-  console.log('myProductsTotal:', myProductsTotal);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentPosition = window.pageYOffset;
+      if (currentPosition > 500) {
+        setShowScrollButton(true);
+      } else {
+        setShowScrollButton(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   
-  console.log('currentPage', currentPage);
+  
 
-  const handleLoadMore = async () => {
-    setCurrentPage(currentPage + 1);
-  };
-
-  console.log(myProducts);
   return (
     <div>
       <section className={s.myWaresWrapper}>
@@ -56,9 +82,9 @@ const MyWares = () => {
                   <Text textClass="verifyAttention" text={`${price}грн.`} />
                 </div>
                 <div className={s.buttonWrapper}>
-                  <Button btnClass="myWareButton" text="Відгуки" />
-                  <Button btnClass="myWareButton" text="Змінити" />
-                  <Button btnClass="myWareButton" text="Видалити" />
+                  <RoundButton icon={BsChatSquareText} />
+                  <RoundButton icon={BsPencil} />
+                  <RoundButton icon={BsTrash} />
                 </div>
               </div>
               
@@ -66,14 +92,22 @@ const MyWares = () => {
           ))}
         </ul>
         {currentPage < myProductsTotalPages && (
-          <>
             <Button
             btnClass="btnLight"
             text="Завантажити ще"
             handleClick={handleLoadMore}
             />
-            <Button btnClass="btnLight" text="На початок"/>
-          </>
+        )}
+        {showScrollButton && (
+          <RoundButton
+            btnClass='scrollButton'
+            icon={BsChevronUp}
+          handleClick={scrollToTop}/>
+          // <button
+          //   className={s.scrollButton} 
+          //   onClick={scrollToTop}>
+          //   Вгору
+          //   </button>
         )}
       </section>
     </div>
