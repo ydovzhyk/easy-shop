@@ -6,7 +6,6 @@ const RoundButton = ({
     handleClick }) => {
     return (
         <div
-            // className={s.roundButton}
             className={s[btnClass]}
             onClick={handleClick}
         >
