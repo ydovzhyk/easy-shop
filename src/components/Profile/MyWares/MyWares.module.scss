@@ -65,23 +65,23 @@
 }
 
 .descriptionThumb {
-    height: 200px;
-    overflow: scroll;
+    
+    overflow: auto;
     font-size: 12px;
+    @include mixins.mq(tablet) {
+        height: 200px;
+    }
 }
 
 .buttonWrapper {
     width: 100%;
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
 
     @include mixins.mq(tablet) {
-        width: 100%;
-        flex-direction: row;
-        gap: 12px;
+    gap: 12px;
     }
 
     @include mixins.mq(desktop) {
