@@ -39,6 +39,7 @@ const UserRoutes = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/products" element={<ProductsSearchPage />}>
             <Route path=":category" element={<Products />} />
+            <Route path=":category/:subcategory" element={<Products />} />
           </Route>
           <Route
             path="/products/:category/:subcategory/:id"
