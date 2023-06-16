@@ -30,6 +30,14 @@ const Carousel = () => {
     setCurrentIndex((currentIndex + 1) % images.length);
   };
 
+  const goToSlide = index => {
+    setCurrentIndex(index);
+  };
+
+  const handleIndicatorClick = index => {
+    goToSlide(index);
+  };
+
   const renderPagination = () => {
     return (
       <div className={s.pagination}>
@@ -37,6 +45,7 @@ const Carousel = () => {
           {images.map((_, index) => (
             <div
               key={index}
+              onClick={() => handleIndicatorClick(index)}
               style={{
                 opacity: index === currentIndex ? 1 : 0.3,
               }}
