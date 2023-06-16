@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { updateUser } from 'redux/auth/auth-opetations';
@@ -6,7 +6,6 @@ import { updateUser } from 'redux/auth/auth-opetations';
 //   Suspense,
 //   useEffect,
 // } from 'react';
-import Loader from '../Loader/Loader';
 import UserProfileInfo from 'components/Profile/UserProfileInfo/UserProfileInfo';
 import UserInfoDetails from './UserInfoDetails/UserInfoDetails';
 
@@ -14,7 +13,6 @@ import s from './Profile.module.scss';
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const [isUserLoaded, setIsUserLoaded] = useState(false);
 
   useEffect(() => {
     const authData = JSON.parse(localStorage.getItem('easy-shop.authData'));
@@ -26,7 +24,7 @@ const Profile = () => {
       };
       dispatch(updateUser(userData));
     } else {
-      setIsUserLoaded(true);
+      return;
     }
   }, [dispatch]);
 
@@ -35,7 +33,6 @@ const Profile = () => {
 
   return (
     <>
-      {isUserLoaded && <Loader />}
       <section className={s.profileavatar}>
         <UserProfileInfo />
       </section>
