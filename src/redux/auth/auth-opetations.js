@@ -3,7 +3,6 @@ import {
   axiosLogin,
   axiosLogout,
   axiosRegister,
-  axiosRefresh,
   axiosUpdateUser,
 } from 'api/auth';
 
