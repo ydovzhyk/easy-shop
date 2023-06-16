@@ -1,0 +1,66 @@
+// @use '../../styles/_mixins.scss';
+
+.roundButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 64px;
+    height: 64px;
+    background-color: var(--background-btn-main-color);
+    border-radius: 50%;
+    border: 1px solid var(--btn-border-color);
+    // color: var(--text-color);
+    transition: background-color var(--transition-duration) var(--timing-function),
+    color var(--transition-duration) var(--timing-function),
+    box-shadow var(--transition-duration) var(--timing-function);
+    cursor: pointer;
+    
+    &:hover {
+        background-color: var(--background-btn-second-color);
+        border-color: var(--btn-border-color);
+        box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
+    }
+    
+    &:hover svg {
+        color: var(--icon-color);
+    }
+}
+
+.scrollButton {
+    @extend .roundButton;
+    position: fixed;
+    bottom: 120px;
+    right: 20px;
+    // background-color: #fff;
+    // border: 1px solid var(--accent-color);
+    // padding: 10px;
+    // border-radius: 5px;
+    
+    transition: opacity 0.3s ease;
+}
+
+.scrollButton:hover {
+    opacity: 0.8;
+}
+.icon {
+    width: 24px;
+    height: 24px;
+}
+        
+
+// .arrowButtonLeft {
+//     position: absolute;
+//     top: 27%;
+//     left: 0;
+
+//     z-index: 10;
+// }
+
+// .arrowButtonRight {
+//     position: absolute;
+//     top: 27%;
+//     right: 0;
+
+//     z-index: 10;
+// }
+
