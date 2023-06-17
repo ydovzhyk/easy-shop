@@ -43,94 +43,37 @@
 .styleButtonList {
   position: relative;
 }
-// My style
+
 .arrowButton {
+  display: none;
+
   @include mixins.mq(tablet) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 64px;
-    height: 64px;
-    background-color: rgba(245, 245, 245, 0.5);
-    border-radius: 50%;
+    display: block;
     color: var(--text-color);
+
     transition: all 0.3s ease-in-out;
-    &:hover {
-      background-color: var(--accent-color);
-    }
+
     &:hover svg {
-      color: var(--icon-color);
+      color: var(--accent-color);
     }
   }
-}
-
-.arrowlinkRigth {
-  margin-left: 6px;
-}
-
-.arrowlinkLeft {
-  margin-right: 6px;
 }
 
 .arrowButtonLeft {
-  @include mixins.mq(tablet) {
-    position: absolute;
-    margin-left: 10px;
-    top: 30%;
-    left: 0;
-    z-index: 10;
-  }
-  @include mixins.mq(desktop) {
-    margin-left: 20px;
-    top: 30%;
-  }
+  position: absolute;
+  top: 27%;
+  left: 0;
+
+  z-index: 10;
 }
 
 .arrowButtonRight {
-  @include mixins.mq(tablet) {
-    position: absolute;
-    margin-right: 10px;
-    top: 30%;
-    right: 0;
-    z-index: 10;
-  }
-  @include mixins.mq(desktop) {
-    margin-right: 20px;
-    top: 30%;
-  }
+  position: absolute;
+  top: 27%;
+  right: 0;
+
+  z-index: 10;
 }
-
-// Maryna style
-// .arrowButton {
-//   display: none;
-
-//   @include mixins.mq(tablet) {
-//     display: block;
-//     color: var(--text-color);
-
-//     transition: all 0.3s ease-in-out;
-
-//     &:hover svg {
-//       color: var(--accent-color);
-//     }
-//   }
-// }
-
-// .arrowButtonLeft {
-//   position: absolute;
-//   top: 27%;
-//   left: 0;
-
-//   z-index: 10;
-// }
-
-// .arrowButtonRight {
-//   position: absolute;
-//   top: 27%;
-//   right: 0;
-
-//   z-index: 10;
-// }
 
 .listCard {
   @include mixins.mq(tablet) {

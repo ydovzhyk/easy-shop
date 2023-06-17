@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { getLogin } from 'redux/auth/auth-selectors';
 // import { getProducts } from 'redux/product/product-selectors';
 
-import CatalogList from '../Catalog/CatalogList';
+import Catalog from '../Catalog/Catalog';
 // import vipCards from '../../data/vipCards.json';
 import newCards from '../../data/newCards.json';
 import s from './Default.module.scss';
@@ -26,7 +26,7 @@ const Default = () => {
       )}
       <Carousel />
       {/* <Slider /> */}
-      <CatalogList
+      <Catalog
         // vipCards={vipCards}
         newCards={newCards}
 
