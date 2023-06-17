@@ -1,0 +1,33 @@
+@use '../../../styles/_mixins.scss';
+
+.titleText {
+  display: flex;
+  align-items: center;
+
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 0.9;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--title-text-color);
+  text-align: center;
+
+  padding-top: 1em;
+  padding-bottom: 1em;
+  margin-bottom: 5px;
+
+  color: var(--second-text-color);
+
+  border-top: 3px solid var(--accent-color);
+  border-bottom: 3px solid var(--accent-color);
+
+  @include mixins.mq(tablet) {
+    font-size: 24px;
+    margin-bottom: 2px;
+  }
+
+  @include mixins.mq(desktop) {
+    grid-template-columns: repeat(3, 1fr);
+    margin-bottom: 5px;
+  }
+}
