@@ -4,9 +4,9 @@ import { Link, NavLink } from 'react-router-dom';
 import NoPhoto from '../../images/catalog_photo/no_photo.jpg';
 import { FiHeart } from 'react-icons/fi';
 
-import s from './CatalogItem.module.scss';
+import s from './ProductItem.module.scss';
 
-const CatalogItem = ({
+const ProductItem = ({
   mainPhotoUrl,
   description,
   price,
@@ -16,9 +16,9 @@ const CatalogItem = ({
   nameProduct,
 }) => {
   return (
-    <div>
+    <div className={s.itemCard}>
       <Link
-        //   to={`/products/${section}/${category}/${_id}`}
+        to={`/products/${section}/${category}/${_id}`}
         className={s.photoLink}
       >
         <div className={s.stylePhotoCardWrap}>
@@ -41,12 +41,14 @@ const CatalogItem = ({
           </NavLink>
         </div>
       </div>
-      <Link to={`/products/${section}/${category}/${_id}`}>
-        <p className={s.nameProductCard}>{nameProduct}</p>
-      </Link>
-      <p className={s.sizeCard}>36</p>
+      <div className={s.styleNameSize}>
+        <Link to={`/products/${section}/${category}/${_id}`}>
+          <p className={s.nameProductCard}>{nameProduct}</p>
+        </Link>
+        <p className={s.sizeCard}>36</p>
+      </div>
     </div>
   );
 };
 
-export default CatalogItem;
+export default ProductItem;

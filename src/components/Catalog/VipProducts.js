@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import CatalogItem from './CatalogItem';
+import ProductItem from './ProductItem';
 
 import { getVipProducts } from 'redux/product/product-operations';
 import {
@@ -42,13 +42,13 @@ const VipProducts = () => {
           className={`${s.arrowButton} ${s.arrowButtonLeft}`}
           onClick={handlePrevPage}
         >
-          <IoIosArrowDropleft size={64} className={s.arrowlink} />
+          <IoIosArrowDropleft size={64} />
         </div>
       )}
       <ul className={s.listCard}>
         {arrayVipProducts.map(item => (
-          <CatalogItem
-            className={s.itemCard}
+          <ProductItem
+            
             key={item._id}
             mainPhotoUrl={item.mainPhotoUrl}
             price={item.price}
@@ -64,7 +64,7 @@ const VipProducts = () => {
           className={`${s.arrowButton} ${s.arrowButtonRight}`}
           onClick={handleNextPage}
         >
-          <IoIosArrowDropright size={64} className={s.arrowlink} />
+          <IoIosArrowDropright size={64} />
         </div>
       )}
     </>

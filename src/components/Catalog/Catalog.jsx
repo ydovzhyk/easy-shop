@@ -16,6 +16,7 @@ const Catalog = () => {
         <h3 className={s.styleTitleText}>Знижки</h3>
         <h3 className={s.styleTitleText}>Топ-продавці</h3>
       </div>
+      <VipProducts />
       {/* <SelectorProducts />       */}
     </section>
   );

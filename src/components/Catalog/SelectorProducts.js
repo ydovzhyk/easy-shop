@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 
-import SelectorProducts from '../Catalog/SelectorProducts';
 import newCards from '../../data/newCards.json';
-import CatalogItem from './CatalogItem';
+import ProductItem from './ProductItem';
 
 import { getVipProducts } from 'redux/product/product-operations';
 import {
