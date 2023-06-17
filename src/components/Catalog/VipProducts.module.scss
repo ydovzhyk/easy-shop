@@ -1,0 +1,63 @@
+@use '../../styles/_mixins.scss';
+
+.arrowButton {
+  display: none;
+
+  @include mixins.mq(tablet) {
+    display: block;
+    color: var(--text-color);
+
+    transition: all 0.3s ease-in-out;
+
+    &:hover svg {
+      color: var(--accent-color);
+    }
+  }
+}
+
+.arrowButtonLeft {
+  position: absolute;
+  top: 27%;
+  left: 0;
+
+  z-index: 10;
+}
+
+.arrowButtonRight {
+  position: absolute;
+  top: 27%;
+  right: 0;
+
+  z-index: 10;
+}
+
+.listCard {
+  @include mixins.mq(tablet) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 15px;
+  }
+
+  @include mixins.mq(desktop) {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 15px;
+    // width: calc(100% / 5 - 30px);
+  }
+}
+
+// .itemCard {
+//   // position: relative;
+
+//   display: flex;
+//   flex-direction: column;
+
+//   padding: 4px;
+//   margin-bottom: 25px;
+
+//   row-gap: 15px;
+
+//   @include mixins.mq(tablet) {
+//     margin-bottom: 0;
+//   }
+// }
