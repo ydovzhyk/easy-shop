@@ -8,3 +8,5 @@ export const getProductsByQuery = ({ products }) => products.productsByQuery;
 export const getVipProductCard = ({ products }) => products.vipProducts;
 export const getVipPages = ({ products }) => products.vipPages;
 export const getLoadingProducts = ({ products }) => products.loading;
+// export const getNewProductCard = ({ products }) => products.newProducts;
+// export const getNewPages = ({ products }) => products.newPages;

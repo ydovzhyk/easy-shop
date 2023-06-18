@@ -7,6 +7,7 @@ import {
   getUserProducts,
   searchProducts,
   getVipProducts,
+  // getNewProducts,
 } from './product-operations';
 
 const initialState = {
@@ -20,6 +21,8 @@ const initialState = {
   productsByQuery: [],
   vipProducts: [],
   vipPages: 1,
+  // newProducts: [],
+  // newPages: 1,
 };
 
 const products = createSlice({
@@ -117,6 +120,20 @@ const products = createSlice({
       store.loading = false;
       store.error = payload;
     },
+     //get NewProducts page
+    //  [getNewProducts.pending]: store => {
+    //   store.loading = true;
+    //   store.error = null;
+    // },
+    // [getNewProducts.fulfilled]: (store, { payload }) => {
+    //   store.loading = false;
+    //   store.newProducts = payload.products;
+    //   store.newPages = payload.totalPages;
+    // },
+    // [getNewProducts.rejected]: (store, { payload }) => {
+    //   store.loading = false;
+    //   store.error = payload;
+    // },
   },
 });
 

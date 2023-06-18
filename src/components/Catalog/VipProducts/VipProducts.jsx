@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import ProductItem from './ProductItem';
+import ProductItem from '../../Shared/ProductItem/ProductItem';
 
 import { getVipProducts } from 'redux/product/product-operations';
 import {
@@ -9,7 +9,7 @@ import {
   getVipPages,
 } from 'redux/product/product-selectors';
 
-import { IoIosArrowDropleft, IoIosArrowDropright } from 'react-icons/io';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import s from './VipProducts.module.scss';
 
 const VipProducts = () => {
@@ -36,19 +36,22 @@ const VipProducts = () => {
   };
 
   return (
-    <>
+    <div className={s.styleButtonList}>
       {currentPage > 1 && (
         <div
           className={`${s.arrowButton} ${s.arrowButtonLeft}`}
           onClick={handlePrevPage}
         >
-          <IoIosArrowDropleft size={64} />
+          <FiChevronLeft
+            size={60}
+            strokeWidth={1}
+            className={s.arrowlinkLeft}
+          />
         </div>
       )}
       <ul className={s.listCard}>
         {arrayVipProducts.map(item => (
           <ProductItem
-            
             key={item._id}
             mainPhotoUrl={item.mainPhotoUrl}
             price={item.price}
@@ -64,10 +67,14 @@ const VipProducts = () => {
           className={`${s.arrowButton} ${s.arrowButtonRight}`}
           onClick={handleNextPage}
         >
-          <IoIosArrowDropright size={64} />
+          <FiChevronRight
+            size={60}
+            strokeWidth={1}
+            className={s.arrowlinkRigth}
+          />
         </div>
       )}
-    </>
+    </div>
   );
 };
 

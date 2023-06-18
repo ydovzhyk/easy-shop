@@ -1,24 +1,40 @@
-@use '../../styles/_mixins.scss';
+@use '../../../styles/mixins';
 
 .arrowButton {
   display: none;
 
   @include mixins.mq(tablet) {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 64px;
+    height: 64px;
+
+    background-color: rgba(245, 245, 245, 0.5);
+    border-radius: 50%;
     color: var(--text-color);
 
     transition: all 0.3s ease-in-out;
-
+    &:hover {
+      background-color: var(--accent-color);
+    }
     &:hover svg {
-      color: var(--accent-color);
+      color: var(--icon-color);
     }
   }
+}
+
+.styleButtonList {
+  position: relative;
 }
 
 .arrowButtonLeft {
   position: absolute;
   top: 27%;
   left: 0;
+
+  margin-left: 10px;
 
   z-index: 10;
 }
@@ -28,7 +44,17 @@
   top: 27%;
   right: 0;
 
+  margin-right: 10px;
+
   z-index: 10;
+}
+
+.arrowlinkRigth {
+  margin-left: 6px;
+}
+
+.arrowlinkLeft {
+  margin-right: 6px;
 }
 
 .listCard {
@@ -42,22 +68,5 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-gap: 15px;
-    // width: calc(100% / 5 - 30px);
   }
 }
-
-// .itemCard {
-//   // position: relative;
-
-//   display: flex;
-//   flex-direction: column;
-
-//   padding: 4px;
-//   margin-bottom: 25px;
-
-//   row-gap: 15px;
-
-//   @include mixins.mq(tablet) {
-//     margin-bottom: 0;
-//   }
-// }
