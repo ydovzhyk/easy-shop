@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-
-import s from './Catalog.module.scss';
+import s from './ModalCatalog.module.scss';
 import menuItems from './menuItems';
-import MenuItem from './MenuItem';
+import Button from 'components/Shared/Button/Button';
+import { HiOutlineBars4, HiArrowLongLeft } from 'react-icons/hi2';
+import MenuItemModal from './MenuItemModal';
 
 const modalRoot = document.querySelector('#modal-root');
 export const ModalCatalog = ({ closeModal }) => {
-//   const [activeMenu, setActiveMenu] = useState(false);
+  //   const [activeMenu, setActiveMenu] = useState(false);
   const [activeItem, setActiveItem] = useState('');
+  const [subMenu, setSubMenu] = useState({ submenu: [], itemName: '' });
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
     return () => {
@@ -30,15 +32,67 @@ export const ModalCatalog = ({ closeModal }) => {
   return createPortal(
     <div onClick={handleBackdropClick} className={s.ModalBackdrop}>
       <div className={s.ModalCatalog}>
+        <header>
+          <div className={s.modalTopContainer}>
+            {!subMenu.submenu.length && (
+              <>
+                <Button
+                  type="button"
+                  btnClass="burgerButton"
+                  handleClick={() => {
+                    closeModal(false);
+                  }}
+                  text={<HiOutlineBars4 size={30} />}
+                />
+                <p className={s.logo}>EasyShop</p>
+              </>
+            )}
+            {subMenu.submenu.length ? (
+              <>
+                <Button
+                  type="button"
+                  btnClass="burgerButton"
+                  handleClick={() => {
+                    setSubMenu({ submenu: [], itemName: '' });
+                  }}
+                  text={<HiArrowLongLeft size={30} />}
+                />
+                <p className={s.logo}>{subMenu.itemName}</p>
+              </>
+            ) : (
+              ''
+            )}
+          </div>
+        </header>
         <div className={s.dropdownMenu}>
-          {menuItems.map(menuItem => (
-            <MenuItem
-              key={menuItem.id}
-              menuItem={menuItem}
-              activeItem={activeItem}
-              setActiveItem={setActiveItem}
-            />
-          ))}
+          {!subMenu.submenu.length &&
+            menuItems.map(menuItem => (
+              <MenuItemModal
+                key={menuItem.id}
+                menuItem={menuItem}
+                activeItem={activeItem}
+                setActiveItem={setActiveItem}
+                isSubMenuOpen={subMenu}
+                setIsSubMenuOpen={setSubMenu}
+              />
+            ))}
+          {subMenu.submenu.length ? (
+            <div className={s.containerSubMenu}>
+              {subMenu.submenu.map(subMenuItem => (
+                <a href={subMenuItem.link} key={subMenuItem.id}>
+                  <div
+                    className={`submenu-item ${
+                      activeItem === subMenuItem.name ? 'active' : ''
+                    } ${s.item}`}
+                  >
+                    {subMenuItem.name}
+                  </div>
+                </a>
+              ))}
+            </div>
+          ) : (
+            ''
+          )}
         </div>
       </div>
     </div>,

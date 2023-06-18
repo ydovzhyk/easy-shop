@@ -1,12 +1,27 @@
 @use '../../styles/_mixins.scss';
+.button {
+  display: flex;
+  background-color: transparent;
+  align-items: center;
+
+  // .active {
+  //   // color: var(--accent-color);
+  //   text-shadow: var(--hover-text-shadow);
+  //   fill: var(--hover-active-color);
+  //   // fill: var(--accent-color);
+  // }
+}
 .dropdownMenu {
-  padding-top: 10px;
+  padding: 10px 0 10px 0;
   position: absolute;
-  margin-top: 20px;
+  margin-top: 50px;
   // border: red solid 2px;
-  height: 250px;
+  // height: 250px;
   width: 250px;
   background-color: var(--main-color);
+  :hover {
+    color: var(--icons-color);
+  }
 }
 
 .dropdownSubmenu {
@@ -24,14 +39,18 @@
   min-height: 100%;
   width: 205px;
   background-color: var(--main-color);
+  :hover {
+    color: var(--icons-color);
+  }
 }
 .menuContainer {
-  width: 255px;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding-bottom: 15px;
   :hover {
-    fill: var(--accent-color);
+    fill: var(--icons-color);
   }
 }
 
@@ -42,9 +61,9 @@
   display: flex;
 
   margin-right: 15px;
-  :hover {
-    color: var(--accent-color);
-  }
+  // :hover {
+  //   color: var(--icons-color);
+  // }
   position: relative;
 }
 .activeMenu {
@@ -54,7 +73,7 @@
   width: 205px;
   background-color: var(--main-color);
 }
-.line {
+.svg {
   margin-right: 15px;
   width: 20px;
   height: 20px;
@@ -62,29 +81,23 @@
 .catalog {
   cursor: pointer;
   display: flex;
+  transition: 0.3s;
+
+  // :focus {
+  //   text-shadow: var(--hover-text-shadow);
+  //   fill: var(--hover-active-color);
+  //   color: var(--icons-color);
+  //   transition: 0.3s;
+  // }
+
   :hover {
     // color: var(--accent-color);
     text-shadow: var(--hover-text-shadow);
-    fill: var(--hover-active-color);
-    // fill: var(--accent-color);
-    transition: 0.3s;
+    // fill: var(--hover-active-color);
+    fill: var(--icons-color);
   }
-  :focus {
-    color: var(--accent-color);
-    transition: 0.3s;
-  }
-  // ::before {
-  //   content: '';
-  //   background: var(--accent-color);
-  //   display: block;
-  //   position: absolute;
-  //   bottom: -3px;
-  //   left: 0;
-  //   width: 0;
-  //   height: 2px;
-  //   transition: all 0.3s ease-in-out;
-  // }
 }
+// .catalog
 .item {
   //   border: gray solid 0.5px;
   padding-left: 15px;
@@ -95,20 +108,11 @@
   height: 15px;
   margin-right: 15px;
 }
-.ModalBackdrop {
-  width: 100%;
-  height: 100%;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  position: fixed;
-  background-color: rgba(0, 0, 0, 0.4);
-  z-index: 1000;
+
+.active {
+  :focus {
+    text-shadow: var(--hover-text-shadow);
+    fill: var(--icons-color);
+  }
 }
-.ModalCatalog {
-  position: absolute;
-  background-color: white;
-  width: 288px;
-  height: 100%;
-}
+
