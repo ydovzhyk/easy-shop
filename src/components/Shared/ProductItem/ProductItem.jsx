@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import NoPhoto from '../../../images/catalog_photo/no_photo.jpg';
 import { FiHeart } from 'react-icons/fi';
@@ -38,6 +39,7 @@ const ProductItem = ({
           </NavLink>
         </div>
       </div>
+
       <Link to={`/products/${section}/${category}/${_id}`}>
         <p className={s.nameProductCard}>{nameProduct}</p>
       </Link>
