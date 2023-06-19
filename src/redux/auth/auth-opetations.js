@@ -3,7 +3,6 @@ import {
   axiosLogin,
   axiosLogout,
   axiosRegister,
-  axiosRefresh,
   axiosUpdateUser,
 } from 'api/auth';
 
@@ -72,30 +71,6 @@ export const updateUserSettings = createAsyncThunk(
   async (userData, { rejectWithValue, getState, dispatch }) => {
     try {
       const data = await axiosUpdateUserSettings(userData);
-      return data;
-    } catch (error) {
-      const { data, status } = error.response;
-      return rejectWithValue({ data, status });
-    }
-  }
-);
-
-export const refresh = createAsyncThunk(
-  'auth/refresh',
-  async (userInfo, { rejectWithValue, getState, dispatch }) => {
-    try {
-      const { auth } = getState();
-      let sid = auth.sid;
-      let refreshToken = auth.refreshToken;
-
-      if (!sid || !refreshToken) {
-        sid = userInfo.sid;
-        refreshToken = userInfo.refreshToken;
-      }
-      const data = await axiosRefresh(sid, refreshToken);
-      if (auth.sid) {
-        dispatch(updateUser(data.newAccessToken));
-      }
       return data;
     } catch (error) {
       const { data, status } = error.response;

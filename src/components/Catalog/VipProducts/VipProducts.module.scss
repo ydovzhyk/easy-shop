@@ -1,0 +1,73 @@
+@use '../../../styles/mixins';
+
+.arrowButton {
+  display: none;
+  cursor: pointer;
+
+  @include mixins.mq(tablet) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 64px;
+    height: 64px;
+
+    background-color: rgba(245, 245, 245, 0.5);
+    border-radius: 50%;
+    color: var(--text-color);
+
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      background-color: var(--accent-color);
+    }
+    &:hover svg {
+      color: var(--icon-color);
+    }
+  }
+}
+
+.styleButtonList {
+  position: relative;
+}
+
+.arrowButtonLeft {
+  position: absolute;
+  top: 27%;
+  left: 0;
+
+  margin-left: 10px;
+
+  z-index: 10;
+}
+
+.arrowButtonRight {
+  position: absolute;
+  top: 27%;
+  right: 0;
+
+  margin-right: 10px;
+
+  z-index: 10;
+}
+
+.arrowlinkRigth {
+  margin-left: 6px;
+}
+
+.arrowlinkLeft {
+  margin-right: 6px;
+}
+
+.listCard {
+  @include mixins.mq(tablet) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 15px;
+  }
+
+  @include mixins.mq(desktop) {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 15px;
+  }
+}

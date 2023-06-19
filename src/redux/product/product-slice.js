@@ -7,28 +7,36 @@ import {
   getUserProducts,
   searchProducts,
   getVipProducts,
+  getProductsBySelector,
 } from './product-operations';
 
 const initialState = {
-  message: null,
+  message: '',
   loading: false,
   error: null,
   allProducts: [],
   userProducts: [],
+  userTotalProducts: null,
+  userProductsTotalPages: null,
   productsByQuery: [],
   vipProducts: [],
   vipPages: 1,
+  selectorProducts: [],
+  selectorPages: 1,
 };
 
 const products = createSlice({
-  name: 'proucts',
+  name: 'products',
   initialState,
   reducers: {
     clearMessage: store => {
-      store.message = null;
+      store.message = '';
     },
     clearError: store => {
       store.error = null;
+    },
+    clearUserProducts: store => {
+      store.userProducts = [];
     },
   },
   extraReducers: {
@@ -90,7 +98,9 @@ const products = createSlice({
     },
     [getUserProducts.fulfilled]: (store, { payload }) => {
       store.loading = false;
-      store.userProducts = payload;
+      store.userProducts = [...store.userProducts, ...payload.products];
+      store.userTotalProducts = payload.totalUserPoducts;
+      store.userProductsTotalPages = payload.totalPages;
     },
     [getUserProducts.rejected]: (store, { payload }) => {
       store.loading = false;
@@ -110,9 +120,23 @@ const products = createSlice({
       store.loading = false;
       store.error = payload;
     },
+    //  get SelectorProducts page
+     [getProductsBySelector.pending]: store => {
+      store.loading = true;
+      store.error = null;
+    },
+    [getProductsBySelector.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.selectorProducts = payload.products;
+      store.selectorPages = payload.totalPages;
+    },
+    [getProductsBySelector.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
   },
 });
 
 export default products.reducer;
 
-export const { clearMessage, clearError } = products.actions;
+export const { clearMessage, clearError, clearUserProducts } = products.actions;

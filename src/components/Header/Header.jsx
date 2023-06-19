@@ -8,19 +8,19 @@ import { BiSearchAlt } from 'react-icons/bi';
 import { HiOutlineBars4 } from 'react-icons/hi2';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { VscAdd } from 'react-icons/vsc';
-
 import s from './Header.module.scss';
 import HeaderForm from 'components/HeaderForm/HeaderForm';
 import SwitchBtn from 'components/Shared/SwitchBtn/SwitchBtn';
 import Logo from 'components/Shared/Logo';
 import Button from 'components/Shared/Button';
-
 import { Catalog } from 'components/DropDownMenu/Catalog';
 import menuItems from 'components/DropDownMenu/menuItems';
 import navItems from './navItems';
+import { ModalCatalog } from 'components/DropDownMenu/ModalCatalog';
 
 const Header = () => {
   const [showForm, setShowForm] = useState(false);
+  const [isModalCatalogOpen, setIsModalCatalogOpen] = useState(false);
   const isDesktop = useMediaQuery({ minWidth: 1280 });
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const location = useLocation();
@@ -29,7 +29,9 @@ const Header = () => {
     return isActive ? `${s.link} ${s.active}` : s.link;
   };
   const isLogin = useSelector(getLogin);
-
+  const handleModalCatalogOpen = () => {
+    setIsModalCatalogOpen(true);
+  };
   const handleSearchBtnClick = () => {
     setShowForm(!showForm);
   };
@@ -46,7 +48,7 @@ const Header = () => {
                   btnClass="burgerButton"
                   handleClick={handleSearchBtnClick}
                   text={<AiOutlineArrowLeft size={isMobile ? 15 : 20} />}
-                ></Button>
+                />
                 <HeaderForm />
               </div>
             )}
@@ -56,8 +58,12 @@ const Header = () => {
                   <Button
                     type="button"
                     btnClass="burgerButton"
-                    text={<HiOutlineBars4 size={isMobile ? 25 : 30} />}
-                  ></Button>
+                    handleClick={handleModalCatalogOpen}
+                    text={<HiOutlineBars4 size={30} />}
+                  />
+                  {isModalCatalogOpen && (
+                    <ModalCatalog closeModal={setIsModalCatalogOpen} />
+                  )}
                   <Logo />
                 </div>
                 <div className={s.btnWrapper}>

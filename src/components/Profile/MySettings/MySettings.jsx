@@ -1,29 +1,34 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { updateUserSettings } from 'redux/auth/auth-opetations';
 import { field } from 'components/Shared/TextField/fields';
-import { getUser } from 'redux/auth/auth-selectors';
+import { getUser, getUserMessage} from 'redux/auth/auth-selectors';
 import { getUserAvatar } from 'redux/auth/auth-selectors';
 import { updateUser } from 'redux/auth/auth-opetations';
 import Container from 'components/Shared/Container';
-import ChangePhoto from '../ChangePhoto/ChangePhoto';
+import ChangePhoto from 'components/Profile/ChangePhoto/ChangePhoto';
 import Text from 'components/Shared/Text/Text';
 import Button from 'components/Shared/Button';
 import TextField from 'components/Shared/TextField/TextField';
 import SelectField from 'components/Shared/SelectField/SelectField';
-import ProfileLink from '../ProfileLink/ProfileLink';
+import ProfileLink from 'components/Profile/ProfileLink/ProfileLink';
+import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
 import { CityNames } from './Options';
 
+
 import s from './MySettings.module.scss';
-// import { axiosUpdateUserSettings } from 'api/auth';
 
 const MySettings = () => {
   const dispatch = useDispatch();
   const user = useSelector(getUser);
   const userAvatar = useSelector(getUserAvatar);
+  const message = useSelector(getUserMessage);
+  console.log(message);
   const [avatarFileURL, setAvatarFileURL] = useState(userAvatar);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+  const [isMessage, setIsMessage] = useState("");
+  console.log(isMessage);
 
   const {
     secondName,
@@ -80,6 +85,15 @@ const MySettings = () => {
     await dispatch(updateUser());
     setIsFormSubmitted(true);
   };
+
+  useEffect(() => {
+    setIsMessage(message);
+  }, [message]);
+
+  const resetMessage = () => {
+    setIsMessage("");
+  }; 
+  
 
   return (
     <Container>
@@ -161,6 +175,11 @@ const MySettings = () => {
                 }
                 textClass="second-text"
               />
+              <div className={s.navButton}>
+                <ProfileLink to={'/email-verification'}>
+                  Змінити
+                </ProfileLink>
+              </div>
             </div>
             <div className={s.partFrame}>
               <Text text={'Телефон'} textClass="lable-form" />
@@ -177,11 +196,6 @@ const MySettings = () => {
                   />
                 )}
               />
-              <div className={s.navButton}>
-                <ProfileLink to={'/phone-verification'}>
-                  Змінити
-                </ProfileLink>
-              </div>
             </div>
             <div className={s.partFrame}>
               <Text text={'Місто'} textClass="lable-form" />
@@ -276,6 +290,9 @@ const MySettings = () => {
             <Button text="Зберегти" btnClass="btnLight" />
           </div>
         </form>
+        {isMessage && (
+          <MessageWindow text={`${message}`} onDismiss={resetMessage} />
+        )}
       </section>
     </Container>
   );

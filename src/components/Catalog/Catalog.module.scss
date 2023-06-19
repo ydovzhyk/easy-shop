@@ -1,0 +1,62 @@
+@use '../../styles/_mixins.scss';
+
+.container {
+  // padding: 20px 0;
+  margin: 0 auto;
+}
+
+.styleWrapButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--bg-footer-header);
+
+  margin-bottom: 20px;
+}
+
+.button {
+  padding-top: 25px;
+  padding-bottom: 25px;
+  margin-right: 36px;
+
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: center;
+
+  color: var(--title-text-color);
+  background-color: transparent;
+
+  // &:hover,
+  // &:focus {
+  //   color: var(--accent-color);
+  // }
+
+  @include mixins.mq(tablet) {
+    font-size: 24px;
+  }
+}
+
+.button:last-child {
+  margin-right: 0px;
+}
+
+.active {
+  position: relative;
+  &::before {
+    position: absolute;
+    bottom: 0;
+    display: block;
+
+    content: '';
+    width: 100%;
+    height: 4px;
+
+    background-color: var(--accent-color);
+
+    transition: all var(--transition-duration) var(--timing-function);
+  }
+}

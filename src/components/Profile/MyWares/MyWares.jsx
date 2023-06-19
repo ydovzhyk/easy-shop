@@ -1,59 +1,155 @@
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
-    useSelector,
-    // useDispatch
-} from 'react-redux';
-// import { useEffect } from 'react';
-// import { getUserProducts } from 'redux/product/product-operations';
+  BsTrash,
+  BsPencil,
+  BsChatSquareText,
+  BsChevronUp,
+} from 'react-icons/bs';
 import {
-  // getProducts,
+  getUserProducts,
+  deleteProduct,
+} from 'redux/product/product-operations';
+import {
   getMyProducts,
+  // getMyProductsTotal,
+  getMyProductsPages,
 } from 'redux/product/product-selectors';
-import Container from 'components/Shared/Container';
-import NoPhoto from 'images/catalog_photo/no_photo.jpg';
+import { clearUserProducts } from 'redux/product/product-slice';
 import Text from 'components/Shared/Text/Text';
 import Button from 'components/Shared/Button/Button';
+import RoundButton from 'components/Shared/RoundButton/RoundButton';
+import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
+import PhotoCollection from 'components/Shared/PhotoCollection/PhotoCollection';
 import s from './MyWares.module.scss';
 
 const MyWares = () => {
-//   const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productId, setProductId] = useState(null);
+  // console.log('currentPage', currentPage);
+  const [showScrollButton, setShowScrollButton] = useState(false);
+  const [questionWindow, setQuestionWindow] = useState(false);
+  const myProducts = useSelector(getMyProducts);
+  // console.log('myProducts:', myProducts);
+  const myProductsTotalPages = useSelector(getMyProductsPages);
+  // console.log('myProductsTotalPages:', myProductsTotalPages);
+  // const myProductsTotal = useSelector(getMyProductsTotal);
+  // console.log('myProductsTotal:', myProductsTotal);
 
-//   useEffect(() => {
-//     dispatch(getUserProducts());
-//   }, [dispatch]);
+  const handleLoadMore = async () => {
+    setCurrentPage(currentPage + 1);
+  };
 
-const myProducts = useSelector(getMyProducts);
-console.log('myProducts in MyWares', myProducts);
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
 
-return (
-    <Container>
-        <section className={s.myWaresWrapper}>
-            <ul className={s.waresList}>
-                {myProducts.map(({ _id, mainPhotoUrl, nameProduct, price }) => (
-                    <li className={s.wareItem} key={_id}>
-                        <div className={s.partWrapper}>
-                            <img
-                                className={s.photoCard}
-                                src={mainPhotoUrl}
-                                onError={e => (e.target.src = NoPhoto)}
-                                alt={nameProduct}
-                            />
-                        </div>
-                        <div className={s.partWrapper}>
-                            <Text textClass="titleGroupItems" text={nameProduct} />
-                            <Text textClass="after-title" text={`${price}грн.`} />
-                        </div>
-                        <div className={s.partWrapper}>
-                            <Button btnClass="btnLight" text="Відгуки" />
-                            <Button btnClass="btnLight" text="Змінити" />
-                            <Button btnClass="btnLight" text="Видалити" />
-                        </div>
-                    </li>
-                ))}
-            </ul>
-            <Button btnClass="btnLight" text="Завантажити ще"/>
-        </section>
-    </Container>
-);
+  useEffect(() => {
+    dispatch(clearUserProducts());
+    setCurrentPage(1);
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getUserProducts(currentPage));
+  }, [dispatch, currentPage]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentPosition = window.pageYOffset;
+      if (currentPosition > 500) {
+        setShowScrollButton(true);
+      } else {
+        setShowScrollButton(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const handleButtonTrashClick = id => {
+    setProductId(id);
+    setQuestionWindow(true);
+  };
+
+  const handleConfirm = choice => {
+    if (choice === 'yes') {
+      dispatch(deleteProduct(productId));
+      setQuestionWindow(false);
+    } else if (choice === 'no') {
+      setProductId(null);
+      setQuestionWindow(false);
+    }
+  };
+
+  return (
+    <div>
+      <section className={s.myWaresWrapper}>
+        <ul className={s.waresList}>
+          {myProducts.map(
+            ({
+              _id,
+              mainPhotoUrl,
+              additionalPhotoUrl,
+              nameProduct,
+              description,
+              price,
+            }) => (
+              <li className={s.wareItem} key={_id}>
+                <PhotoCollection
+                  mainPhotoUrl={mainPhotoUrl}
+                  additionalPhotoUrl={additionalPhotoUrl}
+                  nameProduct={nameProduct}
+                />
+                <div className={s.box}>
+                  <div className={s.descriptionWrapper}>
+                    <Text textClass="verifyAttention" text={nameProduct} />
+                    <div className={s.descriptionThumb}>{description}</div>
+                    <Text textClass="verifyAttention" text={`${price}грн.`} />
+                  </div>
+                  <div className={s.buttonWrapper}>
+                    <RoundButton icon={BsChatSquareText} />
+                    <RoundButton icon={BsPencil} />
+                    <RoundButton
+                      icon={BsTrash}
+                      handleClick={handleButtonTrashClick}
+                      id={_id}
+                    />
+                  </div>
+                </div>
+              </li>
+            )
+          )}
+        </ul>
+        {currentPage < myProductsTotalPages && (
+          <Button
+            btnClass="btnLight"
+            text="Завантажити ще"
+            handleClick={handleLoadMore}
+          />
+        )}
+        {showScrollButton && (
+          <RoundButton
+            btnClass="scrollButton"
+            icon={BsChevronUp}
+            handleClick={scrollToTop}
+          />
+        )}
+        {questionWindow && (
+          <MessageWindow
+            text="Ви впевнені, що хочете видалити продукт?"
+            confirmButtons={true}
+            onConfirm={handleConfirm}
+          />
+        )}
+      </section>
+    </div>
+  );
 };
 
 export default MyWares;

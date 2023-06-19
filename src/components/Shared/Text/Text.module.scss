@@ -6,6 +6,12 @@
   color: var(--text-color);
 }
 
+.textMessage {
+  text-align: center;
+  margin-top: 20px;
+  color: var(--text-color);
+}
+
 .title {
   font-weight: 400;
   font-size: 18px;
@@ -148,5 +154,39 @@
 .productText {
   font-weight: 200;
   font-size: 14px;
+  color: var(--text-color);
+}
+
+.catalogTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: center;
+
+  padding-left: 15px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  color: var(--title-text-color);
+  background-color: var(--bg-footer-header);
+
+  // border-top: 3px solid var(--accent-color);
+  // border-bottom: 3px solid var(--accent-color);
+
+  @include mixins.mq(tablet) {
+    font-size: 24px;
+  }
+}
+
+.textMessageBtn {
+  text-align: center;
   color: var(--text-color);
 }

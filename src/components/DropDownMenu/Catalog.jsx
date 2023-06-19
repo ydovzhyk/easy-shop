@@ -9,8 +9,9 @@ export const Catalog = () => {
   const [activeItem, setActiveItem] = useState('');
 
   return (
+
     <div className={s.nav}>
-      <nav>
+      {/* <nav> */}
         <div className={s.catalog}>
           <button
             onClick={() => setActiveMenu(!activeMenu)}
@@ -25,19 +26,20 @@ export const Catalog = () => {
           </button>
         </div>
 
-        {activeMenu && (
-          <div className={s.dropdownMenu}>
-            {menuItems.map(menuItem => (
-              <MenuItem
-                key={menuItem.id}
-                menuItem={menuItem}
-                activeItem={activeItem}
-                setActiveItem={setActiveItem}
-              />
-            ))}
-          </div>
-        )}
-      </nav>
+
+      {activeMenu && (
+        <div className={s.dropdownMenu}>
+          {menuItems.map(menuItem => (
+            <MenuItem
+              key={menuItem.id}
+              menuItem={menuItem}
+              activeItem={activeItem}
+              setActiveItem={setActiveItem}
+            />
+          ))}
+        </div>
+      )}
+      {/* </nav> */}
     </div>
   );
 };

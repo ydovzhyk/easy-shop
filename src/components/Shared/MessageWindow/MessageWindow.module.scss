@@ -1,0 +1,207 @@
+@use 'sass:math';
+
+.messageWindow {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: calc(100vh / 2 - 160px);
+  left: calc(100vw / 2 - 150px);
+  width: 300px;
+  height: 330px;
+  padding: 40px;
+  background: var(--bg-footer-header);
+  box-shadow: 10px 10px 30px rgba(82, 85, 95, 0.4);
+  border-radius: 30px;
+  z-index: 1200;
+}
+
+.dismissButton {
+  background-color: transparent;
+  border-color: transparent;
+  position: absolute;
+  top: 25px;
+  right: 25px;
+}
+
+@-webkit-keyframes floating {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  45% {
+    transform: translate3d(0, -10%, 0);
+  }
+  55% {
+    transform: translate3d(0, -10%, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes floating {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  45% {
+    transform: translate3d(0, -10%, 0);
+  }
+  55% {
+    transform: translate3d(0, -10%, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@-webkit-keyframes floatingShadow {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(0.85);
+  }
+  55% {
+    transform: scale(0.85);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes floatingShadow {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(0.85);
+  }
+  55% {
+    transform: scale(0.85);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.boo {
+  width: 80px;
+  height: 92px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 4px solid var(--text-color);
+  border-bottom: 0;
+  overflow: hidden;
+  border-radius: 80px 80px 0 0;
+  box-shadow: -16px 0 0 2px rgb(226 228 232 / 50%) inset;
+  -webkit-animation: floating 3s ease-in-out infinite;
+  animation: floating 3s ease-in-out infinite;
+
+  .face {
+    width: 7px;
+    height: 7px;
+    border-radius: 6px;
+    background-color: var(--text-color);
+    position: absolute;
+    left: 50%;
+    bottom: 28px;
+    transform: translateX(-50%);
+
+    &::before,
+    &::after {
+      content: '';
+      display: block;
+      width: round(math.div(math.div(16px, 1.3333), 4));
+      height: round(math.div(math.div(16px, 1.3333), 4));
+      background-color: var(--text-color);
+      border-radius: 50%;
+      position: absolute;
+      bottom: 16px + round(math.div(math.div(16px, 1.3333), 3));
+    }
+
+    &::before {
+      left: round(math.div(16px, 1.3333));
+    }
+
+    &::after {
+      right: round(math.div(16px, 1.3333));
+    }
+  }
+}
+
+.boo:after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: math.div(-16px, 1.7);
+  bottom: math.div(-16px, 3.85);
+  width: calc(100% + 16px);
+  height: 16px;
+  background-repeat: repeat-x;
+  background-size: 16px 16px;
+  background-position: left bottom;
+  background-image: linear-gradient(
+      -45deg,
+      var(--main-color),
+      math.div(16px, 2),
+      transparent 0
+    ),
+    linear-gradient(45deg, var(--main-color), math.div(16px, 2), transparent 0),
+    linear-gradient(
+      -45deg,
+      var(--icons-color),
+      math.div(16px, 1.7),
+      transparent 0
+    ),
+    linear-gradient(
+      45deg,
+      var(--icons-color),
+      math.div(16px, 1.7),
+      transparent 0
+    );
+}
+
+.shadow {
+  width: 70px;
+  height: 10px;
+  // background-color: rgba(226, 228, 232, 0.75);
+  background-color: var(--text-color);
+  margin-top: 20px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 50px;
+  border-radius: 50%;
+  -webkit-animation: floatingShadow 3s ease-in-out infinite;
+  animation: floatingShadow 3s ease-in-out infinite;
+}
+
+.confirmButtons {
+  display: flex;
+  flex-direction: column;
+}
+
+.ButtonsBlock {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 300px;
+}
+
+.btnYes {
+  margin-left: 80px;
+  cursor: pointer;
+  &:hover {
+    color: red;
+  }
+}
+
+.btnNo {
+  margin-right: 80px;
+  cursor: pointer;
+  &:hover {
+    color: green;
+  }
+}

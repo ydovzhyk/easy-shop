@@ -2,22 +2,22 @@ const navItems = [
   {
     id: 1,
     name: 'Жінкам',
-    link: '/women',
+    link: 'products/Жінкам',
   },
   {
     id: 2,
     name: 'Чоловікам',
-    link: '/men',
+    link: 'products/Чоловікам',
   },
   {
     id: 3,
     name: 'Дитячі товари',
-    link: '/children',
+    link: 'products/Дитячі товари',
   },
   {
     id: 4,
     name: 'Краса та здоров`я',
-    link: '/beauty_and_health',
+    link: 'products/Краса та здоров`я',
   },
 ];
 

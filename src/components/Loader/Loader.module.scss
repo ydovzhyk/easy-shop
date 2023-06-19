@@ -1,3 +1,5 @@
+@use '../../styles/_mixins.scss';
+
 .loader {
   display: flex;
   justify-content: center;
@@ -7,5 +9,5 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: var(--main-color);
+  background-color: rgba(59, 59, 59, 0.09);
 }

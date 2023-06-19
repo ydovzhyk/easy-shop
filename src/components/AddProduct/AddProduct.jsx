@@ -1,10 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { getID } from 'redux/auth/auth-selectors';
 import { useForm, Controller } from 'react-hook-form';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { field } from 'components/Shared/TextField/fields';
 import { addProduct } from 'redux/product/product-operations';
+import { getMessage } from 'redux/product/product-selectors';
 import Size from './Size/Size';
 import Photo from './Photo/Photo';
 import ErrorMessage from 'components/Shared/ErrorMessage/ErrorMessage';
@@ -14,6 +15,7 @@ import Text from 'components/Shared/Text/Text';
 import TextField from 'components/Shared/TextField';
 import SelectField from 'components/Shared/SelectField/SelectField';
 import Button from 'components/Shared/Button';
+import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
 import categoryOptions from './category.json';
 
 import s from './AddProduct.module.scss';
@@ -21,13 +23,15 @@ import s from './AddProduct.module.scss';
 const AddProduct = () => {
   const dispatch = useDispatch();
   const userId = useSelector(getID);
+  const message = useSelector(getMessage);
   const [sectionValue, setSectionValue] = useState('');
   const [selectedSizes, setSelectedSizes] = useState([]);
   const [mainFile, setMainFile] = useState(null);
   const [additionalFiles, setAdditionalFiles] = useState([]);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [errorFormFilling, setErrorFormFilling] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [isMessage, setIsMessage] = useState('');
 
   const date = new Date();
   const today = `${date.getFullYear()}-${
@@ -65,9 +69,17 @@ const AddProduct = () => {
     return false;
   };
 
+  useEffect(() => {
+    setIsMessage(message);
+  }, [message]);
+
   const resetError = () => {
     setErrorFormFilling(false);
-    setErrorMessage('');
+    setErrorMessage(null);
+  };
+
+  const resetMessage = () => {
+    setIsMessage('');
   };
 
   const { control, register, handleSubmit, reset } = useForm({
@@ -109,13 +121,13 @@ const AddProduct = () => {
       dataForUpload.append('owner', userId);
       dataForUpload.append('date', today);
 
-      dispatch(addProduct(dataForUpload));
-      setMainFile('');
-      setAdditionalFiles([]);
-      setSelectedSizes([]);
-      setIsFormSubmitted(true);
-      setErrorMessage('');
-      setErrorFormFilling(false);
+      await dispatch(addProduct(dataForUpload));
+      await setIsFormSubmitted(true);
+      await setMainFile('');
+      await setAdditionalFiles([]);
+      await setSelectedSizes([]);
+      await setErrorMessage('');
+      await setErrorFormFilling(false);
       reset();
     }
   };
@@ -382,6 +394,9 @@ const AddProduct = () => {
         </form>
         {errorFormFilling && (
           <ErrorMessage text={`${errorMessage}`} onDismiss={resetError} />
+        )}
+        {isMessage && (
+          <MessageWindow text={`${message}`} onDismiss={resetMessage} />
         )}
       </section>
     </Container>

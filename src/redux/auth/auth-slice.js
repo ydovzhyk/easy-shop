@@ -3,7 +3,6 @@ import {
   register,
   login,
   logout,
-  refresh,
   updateUser,
   updateUserSettings,
 } from './auth-opetations';
@@ -33,8 +32,9 @@ const initialState = {
   isLogin: false,
   loading: false,
   isRefreshing: false,
-  error: null,
+  error: '',
   newUser: {},
+  message: '',
 };
 
 const accessAuth = (store, payload) => {
@@ -55,7 +55,10 @@ const auth = createSlice({
     },
     clearUser: () => ({ ...initialState }),
     clearError: store => {
-      store.error = null;
+      store.error = '';
+    },
+    clearUserMessage: store => {
+      store.message = null;
     },
   },
 
@@ -63,7 +66,7 @@ const auth = createSlice({
     // * REGISTER
     [register.pending]: store => {
       store.loading = true;
-      store.error = null;
+      store.error = '';
     },
     [register.fulfilled]: (store, { payload }) => {
       store.loading = false;
@@ -81,17 +84,21 @@ const auth = createSlice({
     // * LOGIN
     [login.pending]: store => {
       store.loading = true;
-      store.error = null;
+      store.error = '';
     },
     [login.fulfilled]: (store, { payload }) => accessAuth(store, payload),
     [login.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload.data.message;
+      if (payload && payload.data) {
+        store.error = payload.data.message;
+      } else {
+        store.error = payload.message;
+      }
     },
     // * LOGOUT
     [logout.pending]: store => {
       store.loading = true;
-      store.error = null;
+      store.error = '';
       store.isRefreshing = true;
     },
     [logout.fulfilled]: store => {
@@ -103,61 +110,48 @@ const auth = createSlice({
       store.isLogin = false;
       store.loading = false;
       store.isRefreshing = true;
-      store.error = null;
+      store.error = '';
       store.newUser = {};
     },
     [logout.rejected]: (store, { payload }) => {
       store.loading = false;
       store.error = payload;
     },
-    // * REFRESH
-    [refresh.pending]: store => {
-      store.loading = true;
-      store.error = null;
-      store.isRefreshing = true;
-    },
-    [refresh.fulfilled]: (store, { payload }) => {
-      store.loading = false;
-      store.sid = payload.sid;
-      store.accessToken = payload.newAccessToken;
-      store.refreshToken = payload.newRefreshToken;
-      store.isRefreshing = false;
-    },
-    [refresh.rejected]: (store, { payload }) => {
-      store.loading = false;
-      store.isLogin = false;
-      store.error = payload;
-      store.isRefreshing = true;
-    },
     // * GET USER
     [updateUser.pending]: store => {
       store.loading = true;
-      store.error = null;
+      store.isRefreshing = true;
+      store.error = '';
     },
-    [updateUser.fulfilled]: (store, { payload }) => accessAuth(store, payload),
+    [updateUser.fulfilled]: (store, { payload }) => {
+      accessAuth(store, payload);
+      store.isRefreshing = false;
+    },
     [updateUser.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload.message;
+      store.isRefreshing = false;
+      store.error = payload?.data?.message || '';
     },
-    // * UPDATE USER
+    // * UPDATE USER SETTINGS
     [updateUserSettings.pending]: store => {
       store.loading = true;
-      store.error = null;
+      store.error = '';
     },
     [updateUserSettings.fulfilled]: (store, { payload }) => {
       store.isLogin = true;
       store.loading = false;
-      store.secondName = payload.secondName;
-      store.firstName = payload.firstName;
-      store.surName = payload.surName;
-      store.email = payload.email;
-      store.tel = payload.tel;
-      store.userAvatar = payload.userAvatar;
-      store.cityName = payload.cityName;
-      store.streetName = payload.streetName;
-      store.houseNamber = payload.houseNamber;
-      store.sex = payload.sex;
-      store.about = payload.about;
+      store.secondName = payload.user.secondName;
+      store.firstName = payload.user.firstName;
+      store.surName = payload.user.surName;
+      store.email = payload.user.email;
+      store.tel = payload.user.tel;
+      store.userAvatar = payload.user.userAvatar;
+      store.cityName = payload.user.cityName;
+      store.streetName = payload.user.streetName;
+      store.houseNamber = payload.user.houseNamber;
+      store.sex = payload.user.sex;
+      store.about = payload.user.about;
+      store.message = payload.message;
     },
     [updateUserSettings.rejected]: (store, { payload }) => {
       store.loading = false;
@@ -167,4 +161,5 @@ const auth = createSlice({
 });
 
 export default auth.reducer;
-export const { clearNewUser, clearUser, clearError } = auth.actions;
+export const { clearNewUser, clearUser, clearError, clearUserMessage } =
+  auth.actions;

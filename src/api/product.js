@@ -20,8 +20,10 @@ export const axiosGetAllProducts = async () => {
   return data;
 };
 
-export const axiosGetUserProducts = async () => {
-  const { data } = await instance.get(`/product/user-products`);
+export const axiosGetUserProducts = async userData => {
+  const { data } = await instance.get(
+    `/product/user-products?page=${userData}`
+  );
   return data;
 };
 
@@ -38,5 +40,13 @@ export const axiosGetProductsByQuery = async searchQuery => {
 //Get vipProducts page
 export const axiosGetVipProducts = async userData => {
   const { data } = await instance.get(`/product/vip?page=${userData}`);
+  return data;
+};
+
+export const axiosProductsBySelector = async userData => {
+  console.log(userData);
+  const { data } = await instance.get(
+    `/product/selector?page=${userData.page}&selectorName=${userData.selectorName}`
+  );
   return data;
 };
