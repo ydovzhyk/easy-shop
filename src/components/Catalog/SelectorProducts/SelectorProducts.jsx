@@ -3,23 +3,23 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import ProductItem from 'components/Shared/ProductItem/ProductItem';
 
+import Pagination from 'components/Shared/Pagination/Pagination';
+
 import { getProductsBySelector } from 'redux/product/product-operations';
 import {
   getProductsBySelectorCard,
-  // getSelectorPages,
+  getSelectorPages,
 } from 'redux/product/product-selectors';
 
 import s from './SelectorProducts.module.scss';
 
-const SelectorProducts = ({
-  activeButton,
-}) => {
-  console.log(activeButton);
+const SelectorProducts = ({ activeButton }) => {
+  // console.log(activeButton);
   const dispatch = useDispatch();
-  const [currentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const [currentSelector, setcurrentSelector] = useState('new');
   const arraySelectorProducts = useSelector(getProductsBySelectorCard);
-  // const selectorPages = useSelector(getSelectorPages);
+  const selectorPages = useSelector(getSelectorPages);
 
   useEffect(() => {
     dispatch(
@@ -31,12 +31,23 @@ const SelectorProducts = ({
   }, [dispatch, currentPage, currentSelector]);
 
   useEffect(() => {
-    if (activeButton === 'new') {
-      return;
+    // if (activeButton === 'new') {
+    //   return;
+    // }
+    if (activeButton !== currentSelector) {
+      setCurrentPage(1);
+      setcurrentSelector(activeButton);
     }
-    setcurrentSelector(activeButton);
-  }, [activeButton]);
-  // console.log(arrayVipProducts);
+  }, [activeButton, currentPage, currentSelector]);
+
+  // useEffect(() => {
+  //   setcurrentSelector(activeButton);
+  // }, [activeButton]);
+
+  // для pagination
+  const handlePageChange = page => {
+    setCurrentPage(page);
+  };
 
   return (
     <>
@@ -53,6 +64,11 @@ const SelectorProducts = ({
           />
         ))}
       </ul>
+      <Pagination
+        totalPages={selectorPages}
+        currentPage={currentPage}
+        onPageChange={handlePageChange}
+      />
       {/* <div className={s.pagination}>
         <button className={s.paginationButton} onClick={handlePrevPage}>
           &lt;
