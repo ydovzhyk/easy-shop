@@ -19,10 +19,13 @@
 .wareItem {
     padding-bottom: 8px;
     border: 1px solid var(--border-color);
-    border-radius: 25px;
+    // border-radius: 25px;
     display: flex;
     flex-direction: column;
     gap: 8px;
+    &:hover{
+        border: 1px solid var(--accent-color);
+    }
 
     @include mixins.mq(tablet) {
         padding-bottom: 0;
