@@ -50,3 +50,8 @@ export const axiosProductsBySelector = async userData => {
   );
   return data;
 };
+
+export const axiosGetProductById = async id => {
+  const { data } = await instance.get(`/product/${id}`);
+  return data;
+};

@@ -8,6 +8,7 @@ import {
   searchProducts,
   getVipProducts,
   getProductsBySelector,
+  getProductById,
 } from './product-operations';
 
 const initialState = {
@@ -23,6 +24,7 @@ const initialState = {
   vipPages: 1,
   selectorProducts: [],
   selectorPages: 1,
+  productById: {},
 };
 
 const products = createSlice({
@@ -121,7 +123,7 @@ const products = createSlice({
       store.error = payload;
     },
     //  get SelectorProducts page
-     [getProductsBySelector.pending]: store => {
+    [getProductsBySelector.pending]: store => {
       store.loading = true;
       store.error = null;
     },
@@ -131,6 +133,19 @@ const products = createSlice({
       store.selectorPages = payload.totalPages;
     },
     [getProductsBySelector.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
+    // getProductById
+    [getProductById.pending]: store => {
+      store.loading = true;
+      store.error = null;
+    },
+    [getProductById.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.productById = payload;
+    },
+    [getProductById.rejected]: (store, { payload }) => {
       store.loading = false;
       store.error = payload;
     },
