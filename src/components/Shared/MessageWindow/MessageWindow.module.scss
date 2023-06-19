@@ -175,3 +175,33 @@
   -webkit-animation: floatingShadow 3s ease-in-out infinite;
   animation: floatingShadow 3s ease-in-out infinite;
 }
+
+.confirmButtons {
+  display: flex;
+  flex-direction: column;
+}
+
+.ButtonsBlock {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 300px;
+}
+
+.btnYes {
+  margin-left: 80px;
+  cursor: pointer;
+  &:hover {
+    color: red;
+  }
+}
+
+.btnNo {
+  margin-right: 80px;
+  cursor: pointer;
+  &:hover {
+    color: green;
+  }
+}

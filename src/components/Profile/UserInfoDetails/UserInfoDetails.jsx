@@ -67,12 +67,17 @@ const UserInfoDetails = () => {
           </ProfileLink>
         </li>
         <li className={s.item}>
-          <ProfileLink to="myreviews" addValue isBackgroundChange={isMyReviews}>
+          <ProfileLink
+            to="myreviews"
+            addValue
+            isBackgroundChange={isMyReviews}>
             Мої відгуки
           </ProfileLink>
         </li>
         <li className={s.item}>
-          <ProfileLink to="mysettings" isBackgroundChange={isMySettings}>
+          <ProfileLink
+            to="mysettings"
+            isBackgroundChange={isMySettings}>
             Мої налаштування
           </ProfileLink>
         </li>

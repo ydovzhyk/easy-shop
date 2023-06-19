@@ -12,6 +12,10 @@
   width: 100%;
   transition: background-color var(--transition-duration) var(--timing-function);
 
+  // @include mixins.mq(tablet) {
+  //   width: 400px;
+  //   max-width: 600px;
+  // }
   @include mixins.mq(desktop) {
     width: 440px;
   }

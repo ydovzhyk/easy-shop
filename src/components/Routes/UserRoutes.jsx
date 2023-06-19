@@ -22,12 +22,11 @@ const AddProductPage = lazy(() => import('pages/AddProductPage'));
 const MySettings = lazy(() =>
   import('components/Profile/MySettings/MySettings')
 );
-const PhoneVerification = lazy(() =>
-  import('components/Profile/PhoneVerification/PhoneVerification')
+const EmailVerification = lazy(() =>
+  import('components/Profile/EmailVerification/EmailVerification')
 );
-const ProductDetails = lazy(() =>
-  import('pages/ProductDetailsPage')
-);
+const ProductDetails = lazy(() => import('pages/ProductDetailsPage'));
+const Products = lazy(() => import('pages/Products'));
 
 const UserRoutes = () => {
   return (
@@ -38,6 +37,11 @@ const UserRoutes = () => {
           <Route path="/easy-shop-test" element={<HomePage />} />
           <Route path="/registration" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/products" element={<ProductsSearchPage />}>
+            <Route index element={<Products />} />
+            <Route path=":category" element={<Products />} />
+            <Route path=":category/:subcategory" element={<Products />} />
+          </Route>
           <Route
             path="/products/:category/:subcategory/:id"
             element={<ProductDetails />}
@@ -47,7 +51,6 @@ const UserRoutes = () => {
           <Route path="/add-product" element={<AddProductPage />} />
           <Route path="/basket" element={<BasketPage />} />
           <Route path="/favorites" element={<FavoritesPage />} />
-          <Route path="/products" element={<ProductsSearchPage />} />
           <Route path="/profile" element={<ProfilePage />}>
             <Route index element={<MyWares />} />
             <Route path="mywares" element={<MyWares />} />
@@ -56,7 +59,7 @@ const UserRoutes = () => {
             <Route path="mysettings" element={<MySettings />} />
           </Route>
 
-          <Route path="/phone-verification" element={<PhoneVerification />} />
+          <Route path="/email-verification" element={<EmailVerification />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

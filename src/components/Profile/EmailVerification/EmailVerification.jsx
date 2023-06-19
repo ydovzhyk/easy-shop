@@ -7,9 +7,9 @@ import { updateUser } from 'redux/auth/auth-opetations';
 import Container from 'components/Shared/Container';
 import Text from 'components/Shared/Text/Text';
 import Button from 'components/Shared/Button';
-import s from './PhoneVerification.module.scss';
+import s from 'components/Profile/EmailVerification/EmailVerification.module.scss';
 
-const PhoneVerification = () => {
+const EmailVerification = () => {
     const dispatch = useDispatch();
     const userId = useSelector(getID);
     
@@ -32,47 +32,47 @@ const PhoneVerification = () => {
     return (
         <Container>
             <div className={s.verifyWrapper}>
-                <Text text={'Підтвердіть свій телефон'} textClass="verifyTextTitle" />
+                <Text text={'Підтвердіть свою електронну адресу'} textClass="verifyTextTitle" />
                 <Text text={'Навіщо це потрібно?'} textClass="verifyTextmiddle" />
                 <Text
-                    text={'Підтвердіть свій номер телефону, щоб отримати доступ до додавання оголошень. Це обов\'язкова умова для продажу на EASYshop '}
+                    text={'Підтвердіть свою електронну адресу, щоб отримати доступ до додавання оголошень. Це обов\'язкова умова для продажу на EASYshop '}
                     textClass="verifyTextSmall"
                 />
                 <Text
-                    text={'Ваш номер телефону не буде доступний іншим користувачам на EASYshop'}
+                    text={'Ваша електронна адреса не буде доступна іншим користувачам на EASYshop'}
                     textClass="verifyTextmiddle"
                 />
                 <Text text={'Як це зробити:'} textClass="verifyTextmiddle" />
                 <div className={s.textWrapper}>
                     <Text
-                    text={'1.Натисніть на кнопку "Підтвердити номер телефону". На ваш телефон буде відправлено код підтвердження'}
+                    text={'1.Натисніть на кнопку "Підтвердити". На вашу електронну адресу буде відправлено посилання'}
                     textClass="verifyTextSmall"
                 />
                 <Text
-                    text={'2.Введіть отриманий код в рядок нижче'}
+                    text={'2.Перейдіть за посиланням, яке отримали в електронному листі'}
                     textClass="verifyTextSmall"
                 />
                 </div>
                 <Text
-                    text={'Важливо! Код дійсний протягом 10 хвилин з моменту його формування.'}
+                    text={'Важливо! Посилання дійсне протягом 10 хвилин з моменту його формування.'}
                     textClass="verifyAttention"
                 />
                 <div className={s.formWrapper}>
                     <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
                         <div className={s.partFrame}>
-                            <Text text={'Введіть номер телефону'} textClass="verifyAttention" />
+                            <Text text={'Введіть електронну адресу'} textClass="verifyAttention" />
                             <div className={s.phoneWrapper}>
                                 <Controller
                                     control={control}
-                                    name="phoneNumber"
+                                    name="email"
                                     render={({ field: { onChange, value } }) => (
                                         <input
-                                            className={s.changeInput}                                        type="text"
-                                            placeholder='+380XXXXXXXXX'
+                                            className={s.changeInput}
+                                            type="text"
                                             value={value}
                                             control={control}
                                             handleSubmit={onChange}
-                                            {...field.phoneNumber}
+                                            {...field.email}
                                         />
                                     )}
                                 />
@@ -89,4 +89,4 @@ const PhoneVerification = () => {
     )
 }
 
-export default PhoneVerification;
+export default EmailVerification;

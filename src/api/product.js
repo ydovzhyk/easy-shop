@@ -42,3 +42,11 @@ export const axiosGetVipProducts = async userData => {
   const { data } = await instance.get(`/product/vip?page=${userData}`);
   return data;
 };
+
+export const axiosProductsBySelector = async userData => {
+  console.log(userData);
+  const { data } = await instance.get(
+    `/product/selector?page=${userData.page}&selectorName=${userData.selectorName}`
+  );
+  return data;
+};

@@ -35,7 +35,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 25px;
+    // border-radius: 25px;
 }
 
 .additionalPhotoList {
@@ -52,19 +52,20 @@
 }
 
 .additionalPhotoItem {
-    border-radius: 25px;
+    // border-radius: 25px;
 
     @include mixins.mq(tablet) {
         width: 40px;
+        min-height: 55px;
     }
 }
 
 .additionalPhotoCard {
-    border-radius: 12px;
+    // border-radius: 12px;
     width: 60px;
     
     @include mixins.mq(tablet) {
         width: 100%;
-        border-radius: 12px;
+        // border-radius: 12px;
     }
 }

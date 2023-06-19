@@ -1,23 +1,52 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getUserProducts } from 'redux/product/product-operations';
+import {
+  BsTrash,
+  BsPencil,
+  BsChatSquareText,
+  BsChevronUp,
+} from 'react-icons/bs';
+import {
+  getUserProducts,
+  deleteProduct,
+} from 'redux/product/product-operations';
 import {
   getMyProducts,
-  getMyProductsTotal,
+  // getMyProductsTotal,
   getMyProductsPages,
 } from 'redux/product/product-selectors';
 import { clearUserProducts } from 'redux/product/product-slice';
 import Text from 'components/Shared/Text/Text';
 import Button from 'components/Shared/Button/Button';
+import RoundButton from 'components/Shared/RoundButton/RoundButton';
+import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
 import PhotoCollection from 'components/Shared/PhotoCollection/PhotoCollection';
 import s from './MyWares.module.scss';
 
 const MyWares = () => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
+  const [productId, setProductId] = useState(null);
+  // console.log('currentPage', currentPage);
+  const [showScrollButton, setShowScrollButton] = useState(false);
+  const [questionWindow, setQuestionWindow] = useState(false);
   const myProducts = useSelector(getMyProducts);
-  console.log('myProducts:', myProducts);
+  // console.log('myProducts:', myProducts);
   const myProductsTotalPages = useSelector(getMyProductsPages);
+  // console.log('myProductsTotalPages:', myProductsTotalPages);
+  // const myProductsTotal = useSelector(getMyProductsTotal);
+  // console.log('myProductsTotal:', myProductsTotal);
+
+  const handleLoadMore = async () => {
+    setCurrentPage(currentPage + 1);
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
 
   useEffect(() => {
     dispatch(clearUserProducts());
@@ -27,53 +56,96 @@ const MyWares = () => {
   useEffect(() => {
     dispatch(getUserProducts(currentPage));
   }, [dispatch, currentPage]);
-  console.log('myProductsTotalPages:', myProductsTotalPages);
-  const myProductsTotal = useSelector(getMyProductsTotal);
-  console.log('myProductsTotal:', myProductsTotal);
-  
-  console.log('currentPage', currentPage);
 
-  const handleLoadMore = async () => {
-    setCurrentPage(currentPage + 1);
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentPosition = window.pageYOffset;
+      if (currentPosition > 500) {
+        setShowScrollButton(true);
+      } else {
+        setShowScrollButton(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const handleButtonTrashClick = id => {
+    setProductId(id);
+    setQuestionWindow(true);
   };
 
-  console.log(myProducts);
+  const handleConfirm = choice => {
+    if (choice === 'yes') {
+      dispatch(deleteProduct(productId));
+      setQuestionWindow(false);
+    } else if (choice === 'no') {
+      setProductId(null);
+      setQuestionWindow(false);
+    }
+  };
+
   return (
     <div>
       <section className={s.myWaresWrapper}>
         <ul className={s.waresList}>
-          {myProducts.map(({ _id, mainPhotoUrl, additionalPhotoUrl, nameProduct, description, price }) => (
-            <li className={s.wareItem} key={_id}>
-              <PhotoCollection
-                mainPhotoUrl={mainPhotoUrl}
-                additionalPhotoUrl={additionalPhotoUrl}
-                nameProduct={nameProduct}
-              />
-              <div className={s.box}>
-                <div className={s.descriptionWrapper}>
-                  <Text textClass="verifyAttention" text={nameProduct} />
-                  <div className={s.descriptionThumb}>{ description}</div>
-                  <Text textClass="verifyAttention" text={`${price}грн.`} />
+          {myProducts.map(
+            ({
+              _id,
+              mainPhotoUrl,
+              additionalPhotoUrl,
+              nameProduct,
+              description,
+              price,
+            }) => (
+              <li className={s.wareItem} key={_id}>
+                <PhotoCollection
+                  mainPhotoUrl={mainPhotoUrl}
+                  additionalPhotoUrl={additionalPhotoUrl}
+                  nameProduct={nameProduct}
+                />
+                <div className={s.box}>
+                  <div className={s.descriptionWrapper}>
+                    <Text textClass="verifyAttention" text={nameProduct} />
+                    <div className={s.descriptionThumb}>{description}</div>
+                    <Text textClass="verifyAttention" text={`${price}грн.`} />
+                  </div>
+                  <div className={s.buttonWrapper}>
+                    <RoundButton icon={BsChatSquareText} />
+                    <RoundButton icon={BsPencil} />
+                    <RoundButton
+                      icon={BsTrash}
+                      handleClick={handleButtonTrashClick}
+                      id={_id}
+                    />
+                  </div>
                 </div>
-                <div className={s.buttonWrapper}>
-                  <Button btnClass="myWareButton" text="Відгуки" />
-                  <Button btnClass="myWareButton" text="Змінити" />
-                  <Button btnClass="myWareButton" text="Видалити" />
-                </div>
-              </div>
-              
-            </li>
-          ))}
+              </li>
+            )
+          )}
         </ul>
         {currentPage < myProductsTotalPages && (
-          <>
-            <Button
+          <Button
             btnClass="btnLight"
             text="Завантажити ще"
             handleClick={handleLoadMore}
-            />
-            <Button btnClass="btnLight" text="На початок"/>
-          </>
+          />
+        )}
+        {showScrollButton && (
+          <RoundButton
+            btnClass="scrollButton"
+            icon={BsChevronUp}
+            handleClick={scrollToTop}
+          />
+        )}
+        {questionWindow && (
+          <MessageWindow
+            text="Ви впевнені, що хочете видалити продукт?"
+            confirmButtons={true}
+            onConfirm={handleConfirm}
+          />
         )}
       </section>
     </div>

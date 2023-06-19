@@ -33,8 +33,10 @@
 }
 
 .optionsWrapper {
-  width: 30%;
+  width: 40%;
   padding: 20px 0;
+  margin-right: 20px;
+  flex-shrink: 0;
   @include mixins.mq(tablet) {
     width: 25%;
     padding: 30px 0;
@@ -67,6 +69,14 @@
   border-radius: 8px;
   padding: 10px;
   width: 100%;
+  font-size: 12px;
+  line-height: 1.5;
+  @include mixins.mq(mobile) {
+    font-size: 14px;
+  }
+  @include mixins.mq(tablet) {
+    font-size: 16px;
+  }
   &:focus,
   &:hover {
     background-color: var(--background-btn-second-color);
@@ -79,15 +89,18 @@
   flex-basis: 100%;
   transition: background-color var(--transition-duration) var(--timing-function),
     border-color var(--transition-duration) var(--timing-function);
-
+  &:not(:last-of-type) {
+    margin-bottom: 10px;
+  }
   &:focus,
   &:hover {
     background-color: var(--background-btn-second-color);
     border-color: var(--accent-color);
   }
 
-  @include mixins.mq(desktop) {
+  @include mixins.mq(tablet) {
     flex-basis: calc(50% - 5px);
+    margin-bottom: 0;
   }
 }
 
@@ -99,6 +112,17 @@
   position: relative;
   &:not(:last-of-type) {
     margin-bottom: 10px;
+  }
+}
+
+.radioContent {
+  font-size: 12px;
+  line-height: 1.5;
+  @include mixins.mq(mobile) {
+    font-size: 14px;
+  }
+  @include mixins.mq(tablet) {
+    font-size: 16px;
   }
 }
 

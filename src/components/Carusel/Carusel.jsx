@@ -3,7 +3,7 @@ import slideOne from '../../images/carusel/slide-1.jpg';
 import slideTwo from '../../images/carusel/slide-2.jpg';
 import slideThree from '../../images/carusel/slide-3.jpg';
 import slideFour from '../../images/carusel/slide-4.jpg';
-import { IoIosArrowDropleft, IoIosArrowDropright } from 'react-icons/io';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 import s from './Carusel.module.scss';
 
@@ -30,6 +30,14 @@ const Carousel = () => {
     setCurrentIndex((currentIndex + 1) % images.length);
   };
 
+  const goToSlide = index => {
+    setCurrentIndex(index);
+  };
+
+  const handleIndicatorClick = index => {
+    goToSlide(index);
+  };
+
   const renderPagination = () => {
     return (
       <div className={s.pagination}>
@@ -37,6 +45,7 @@ const Carousel = () => {
           {images.map((_, index) => (
             <div
               key={index}
+              onClick={() => handleIndicatorClick(index)}
               style={{
                 opacity: index === currentIndex ? 1 : 0.3,
               }}
@@ -55,7 +64,11 @@ const Carousel = () => {
           className={`${s.arrowButton} ${s.arrowButtonLeft}`}
           onClick={goToPreviousSlide}
         >
-          <IoIosArrowDropleft size={64} className={s.arrowlink} />
+          <FiChevronLeft
+            size={60}
+            strokeWidth={1}
+            className={s.arrowlinkLeft}
+          />
         </div>
         {images.map((image, index) => (
           <img
@@ -72,7 +85,11 @@ const Carousel = () => {
           className={`${s.arrowButton} ${s.arrowButtonRight}`}
           onClick={goToNextSlide}
         >
-          <IoIosArrowDropright size={64} className={s.arrowlink} />
+          <FiChevronRight
+            size={60}
+            strokeWidth={1}
+            className={s.arrowlinkRigth}
+          />
         </div>
         {renderPagination()}
       </div>

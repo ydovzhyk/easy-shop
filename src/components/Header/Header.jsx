@@ -59,7 +59,7 @@ const Header = () => {
                     type="button"
                     btnClass="burgerButton"
                     handleClick={handleModalCatalogOpen}
-                    text={<HiOutlineBars4 size={isMobile ? 25 : 30} />}
+                    text={<HiOutlineBars4 size={30} />}
                   />
                   {isModalCatalogOpen && (
                     <ModalCatalog closeModal={setIsModalCatalogOpen} />

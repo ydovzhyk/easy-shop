@@ -175,6 +175,11 @@ const MySettings = () => {
                 }
                 textClass="second-text"
               />
+              <div className={s.navButton}>
+                <ProfileLink to={'/email-verification'}>
+                  Змінити
+                </ProfileLink>
+              </div>
             </div>
             <div className={s.partFrame}>
               <Text text={'Телефон'} textClass="lable-form" />
@@ -191,11 +196,6 @@ const MySettings = () => {
                   />
                 )}
               />
-              <div className={s.navButton}>
-                <ProfileLink to={'/phone-verification'}>
-                  Змінити
-                </ProfileLink>
-              </div>
             </div>
             <div className={s.partFrame}>
               <Text text={'Місто'} textClass="lable-form" />
