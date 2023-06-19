@@ -1,0 +1,18 @@
+.paginationSection {
+  display: flex;
+  flex-direction: row;
+}
+
+.pagesSet {
+  width: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pageBox {
+  width: 15px;
+  height: 15px;
+  border: 1px solid red;
+}
