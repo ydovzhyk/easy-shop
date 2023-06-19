@@ -212,3 +212,27 @@
     stroke: var(--icons-color);
   }
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 25px;
+}
+
+.paginationButton {
+  margin-right: 25px;
+  padding: 8px;
+
+  border-radius: 25%;
+  background-color: var(--accent-color);
+  width: 25px;
+  height: 40px;
+}
+
+.paginationButton:last-child {
+  margin-right: 0;
+
+ 
+}

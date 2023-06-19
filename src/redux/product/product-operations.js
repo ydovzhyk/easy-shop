@@ -6,6 +6,7 @@ import {
   axiosGetUserProducts,
   axiosGetProductsByQuery,
   axiosGetVipProducts,
+  axiosProductsBySelector,
 } from 'api/product';
 
 export const addProduct = createAsyncThunk(
@@ -86,15 +87,15 @@ export const getVipProducts = createAsyncThunk(
   }
 );
 
-// export const getNewProducts = createAsyncThunk(
-//   'product/new',
-//   async (userData, { rejectWithValue, dispatch }) => {
-//     try {
-//       const data = await axiosGetNewProducts(userData);
-//       return data;
-//     } catch (error) {
-//       const { data, status } = error.response;
-//       return rejectWithValue({ data, status });
-//     }
-//   }
-// );
+export const getProductsBySelector = createAsyncThunk(
+  'product/selector',
+  async (userData, { rejectWithValue, dispatch }) => {
+    try {
+      const data = await axiosProductsBySelector(userData);
+      return data;
+    } catch (error) {
+      const { data, status } = error.response;
+      return rejectWithValue({ data, status });
+    }
+  }
+);
