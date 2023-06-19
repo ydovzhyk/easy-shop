@@ -1,31 +1,47 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import ProductItem from 'components/Shared/ProductItem/ProductItem';
 
-// import { getVipProducts } from 'redux/product/product-operations';
+import { getProductsBySelector } from 'redux/product/product-operations';
 import {
-  getVipProductCard,
-  // getVipPages,
+  getProductsBySelectorCard,
+  // getSelectorPages,
 } from 'redux/product/product-selectors';
 
 import s from './SelectorProducts.module.scss';
 
-const SelectorProducts = () => {
-  // const dispatch = useDispatch();
-  // const [currentPage, setCurrentPage] = useState(1);
-  const arrayVipProducts = useSelector(getVipProductCard);
-  // const vipPages = useSelector(getVipPages);
+const SelectorProducts = ({
+  activeButton,
+}) => {
+  console.log(activeButton);
+  const dispatch = useDispatch();
+  const [currentPage] = useState(1);
+  const [currentSelector, setcurrentSelector] = useState('new');
+  const arraySelectorProducts = useSelector(getProductsBySelectorCard);
+  // const selectorPages = useSelector(getSelectorPages);
 
-  // useEffect(() => {
-  //   dispatch(getVipProducts(currentPage));
-  // }, [dispatch, currentPage]);
+  useEffect(() => {
+    dispatch(
+      getProductsBySelector({
+        page: currentPage,
+        selectorName: currentSelector,
+      })
+    );
+  }, [dispatch, currentPage, currentSelector]);
+
+  useEffect(() => {
+    if (activeButton === 'new') {
+      return;
+    }
+    setcurrentSelector(activeButton);
+  }, [activeButton]);
   // console.log(arrayVipProducts);
 
   return (
     <>
       <ul className={s.listCard}>
-        {arrayVipProducts.map(item => (
+        {arraySelectorProducts.map(item => (
           <ProductItem
             key={item._id}
             mainPhotoUrl={item.mainPhotoUrl}
@@ -37,6 +53,17 @@ const SelectorProducts = () => {
           />
         ))}
       </ul>
+      {/* <div className={s.pagination}>
+        <button className={s.paginationButton} onClick={handlePrevPage}>
+          &lt;
+        </button>
+        <button className={s.paginationButton}>{currentPage - 1}</button>
+        <button className={s.paginationButton}>{currentPage}</button>
+        <button className={s.paginationButton}>{currentPage + 1}</button>
+        <button className={s.paginationButton} onClick={handleNextPage}>
+          &gt;
+        </button>
+      </div> */}
     </>
   );
 };
