@@ -22,7 +22,7 @@ const ProductCard = () => {
   }, [dispatch, id]);
   const location = useLocation();
   const product = useSelector(selectProductById);
-  // console.log(location, id, product);
+  console.log(location, id);
 
   const { nameProduct, brendName, condition, description, mainPhotoUrl, price, category: subSection } =
     product;
