@@ -2,6 +2,7 @@
 
 .arrowButton {
   display: none;
+  cursor: pointer;
 
   @include mixins.mq(tablet) {
     display: flex;
