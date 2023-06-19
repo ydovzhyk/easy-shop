@@ -6,16 +6,18 @@
     align-items: center;
     width: 64px;
     height: 64px;
-    background-color: var(--background-btn-main-color);
+    // background-color: var(--background-btn-main-color);
+    background-color: var(--bg-footer-header);
     border-radius: 50%;
     border: 1px solid var(--btn-border-color);
     transition: background-color var(--transition-duration) var(--timing-function),
-    color var(--transition-duration) var(--timing-function),
-    box-shadow var(--transition-duration) var(--timing-function);
+        color var(--transition-duration) var(--timing-function),
+        box-shadow var(--transition-duration) var(--timing-function);
     cursor: pointer;
     
     &:hover {
-        background-color: var(--background-btn-second-color);
+        // background-color: var(--background-btn-second-color);
+        background-color: var(--background-btn-main-color);
         border-color: var(--btn-border-color);
         box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
     }
