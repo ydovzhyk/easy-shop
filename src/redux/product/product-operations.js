@@ -6,7 +6,6 @@ import {
   axiosGetUserProducts,
   axiosGetProductsByQuery,
   axiosGetVipProducts,
-  // axiosGetNewProducts,
 } from 'api/product';
 
 export const addProduct = createAsyncThunk(
@@ -86,7 +85,6 @@ export const getVipProducts = createAsyncThunk(
     }
   }
 );
-
 
 // export const getNewProducts = createAsyncThunk(
 //   'product/new',
