@@ -89,7 +89,11 @@ const auth = createSlice({
     [login.fulfilled]: (store, { payload }) => accessAuth(store, payload),
     [login.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload.data.message;
+      if (payload && payload.data) {
+        store.error = payload.data.message;
+      } else {
+        store.error = payload.message;
+      }
     },
     // * LOGOUT
     [logout.pending]: store => {
