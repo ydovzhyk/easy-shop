@@ -68,6 +68,7 @@ export const ModalCatalog = ({ closeModal }) => {
           {!subMenu.submenu.length &&
             menuItems.map(menuItem => (
               <MenuItemModal
+             
                 key={menuItem.id}
                 menuItem={menuItem}
                 activeItem={activeItem}

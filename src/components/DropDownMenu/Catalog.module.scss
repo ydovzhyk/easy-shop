@@ -12,45 +12,69 @@
   // }
 }
 .dropdownMenu {
-  padding: 10px 0 10px 0;
+
+  // padding: 10px 0 10px 0;
   position: absolute;
+  // margin-left: 0;
+  // right: 0;
   margin-top: 50px;
   // border: red solid 2px;
   // height: 250px;
-  width: 250px;
+  min-width: 280px;
   background-color: var(--main-color);
-  :hover {
-    color: var(--icons-color);
-  }
+  // &:hover {
+  //   // color: red;
+  //   // background: grey;
+  //   // :not(:last-child) {
+  //   //   background: grey;
+  //   // }
+  // }
+  
 }
 
 .dropdownSubmenu {
+  border-bottom: 1px solid var(--second-text-color);
   height: 450px;
   position: absolute;
   left: 100%;
+  &:hover {
+    // color: red;
+    background: grey;
+    // :not(:last-child) {
+    //   background: grey;
+    // }
+  }
+
 }
 .containerSubMenu {
-  padding-top: 20px;
+  border-bottom: 1px solid var(--second-text-color);
+  top:0;
+  // margin-top: 20px;
   // border: red solid 0.5px;
 
-  margin-left: 245px;
+  margin-left: 265px;
   position: absolute;
   top: 0;
   min-height: 100%;
-  width: 205px;
+  width: 280px;
   background-color: var(--main-color);
   :hover {
-    color: var(--icons-color);
+    background: var(--bg-footer-header);
   }
 }
+
 .menuContainer {
+  border-bottom: 1px solid var(--second-text-color);
+  border-left: 1px solid var(--second-text-color);
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 15px;
-  :hover {
+  padding: 15px 0 15px 15px;
+  &:hover {
     fill: var(--icons-color);
+    background: var(--bg-footer-header);
+   
   }
 }
 
@@ -59,11 +83,7 @@
 }
 .nav {
   display: flex;
-
   margin-right: 15px;
-  // :hover {
-  //   color: var(--icons-color);
-  // }
   position: relative;
 }
 .activeMenu {
@@ -83,25 +103,16 @@
   display: flex;
   transition: 0.3s;
 
-  // :focus {
-  //   text-shadow: var(--hover-text-shadow);
-  //   fill: var(--hover-active-color);
-  //   color: var(--icons-color);
-  //   transition: 0.3s;
-  // }
-
   :hover {
-    // color: var(--accent-color);
     text-shadow: var(--hover-text-shadow);
-    // fill: var(--hover-active-color);
     fill: var(--icons-color);
   }
 }
-// .catalog
+
 .item {
-  //   border: gray solid 0.5px;
-  padding-left: 15px;
-  padding-bottom: 16px;
+  border-bottom: 1px solid var(--second-text-color); 
+  display: flex;
+  padding: 23px 0 23px 15px;
 }
 .flech {
   width: 15px;
@@ -115,4 +126,3 @@
     fill: var(--icons-color);
   }
 }
-
