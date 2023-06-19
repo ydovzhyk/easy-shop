@@ -50,6 +50,7 @@ const ProductCard = () => {
                   <div className={s.additionalOpts}>
                     <BiMessageDetail className={s.favoriteIcon} />
                     <Text text="Поставити запитання" textClass="productText" />
+                    <textarea></textarea>
                   </div>
                 </div>
               </div>
