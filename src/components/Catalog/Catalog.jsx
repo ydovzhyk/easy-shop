@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
 
 import VipProducts from '../Catalog/VipProducts/VipProducts';
 import SelectorProducts from '../Catalog/SelectorProducts/SelectorProducts';
 
-import { getNewProducts } from 'redux/product/product-operations';
-import {
-  getNewProductCard,
-  getNewPages,
-} from 'redux/product/product-selectors';
+// import { getNewProducts } from 'redux/product/product-operations';
+// import {
+//   getNewProductCard,
+//   getNewPages,
+// } from 'redux/product/product-selectors';
 
 import Text from 'components/Shared/Text/Text';
 import s from './Catalog.module.scss';

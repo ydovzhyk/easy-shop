@@ -6,7 +6,7 @@ import {
   axiosGetUserProducts,
   axiosGetProductsByQuery,
   axiosGetVipProducts,
-  axiosGetNewProducts,
+  // axiosGetNewProducts,
 } from 'api/product';
 
 export const addProduct = createAsyncThunk(
