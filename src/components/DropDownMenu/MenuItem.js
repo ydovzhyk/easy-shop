@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 
 import { ReactComponent as Flech } from '../../images/dropDownMenu/flech.svg';
 
-const MenuItem = ({ menuItem, activeItem, setActiveItem, isModal }) => {
+const MenuItem = ({ menuItem, activeItem, setActiveItem }) => {
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
 
   const handleMouseEnter = () => {
@@ -44,9 +44,8 @@ const MenuItem = ({ menuItem, activeItem, setActiveItem, isModal }) => {
       {isSubMenuOpen && (
         <div className={s.containerSubMenu}>
           {menuItem.submenu.map(subMenuItem => (
-            <a href={subMenuItem.link}>
+            <a href={subMenuItem.link} key={subMenuItem.id}>
               <div
-                key={subMenuItem.id}
                 className={`submenu-item ${
                   activeItem === subMenuItem.name ? 'active' : ''
                 } ${s.item}`}
