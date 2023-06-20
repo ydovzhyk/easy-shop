@@ -89,6 +89,8 @@ const MyWares = () => {
     if (choice === 'yes') {
       dispatch(deleteProduct(productId));
       setQuestionWindow(false);
+      dispatch(clearUserProducts());
+      setCurrentPage(1);
     } else if (choice === 'no') {
       setProductId(null);
       setQuestionWindow(false);
