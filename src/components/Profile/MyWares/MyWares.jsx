@@ -142,7 +142,7 @@ const MyWares = () => {
         )}
         {questionWindow && (
           <MessageWindow
-            text="Ви впевнені, що хочете видалити продукт?"
+            text="Ви впевнені, що хочете видалити оголошення?"
             confirmButtons={true}
             onConfirm={handleConfirm}
           />
