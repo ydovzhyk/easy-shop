@@ -1,3 +1,4 @@
+import { useParams, useLocation, Link } from 'react-router-dom';
 import Container from 'components/Shared/Container/Container';
 import s from './ProductCard.module.scss';
 import Text from 'components/Shared/Text/Text';
@@ -7,26 +8,53 @@ import { BiMessageDetail } from 'react-icons/bi';
 
 import SellerInfo from './SellerInfo/SellerInfo';
 import DeliveryList from './DeliveryList';
+import { useDispatch, useSelector } from 'react-redux';
+import {  selectProductById } from 'redux/product/product-selectors';
+import { getProductById } from 'redux/product/product-operations';
+import { useEffect } from 'react';
 import Dialogue from 'components/Dialogue/Dialogue';
 
-
 const ProductCard = () => {
+  const { category, subcategory, id } = useParams();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProductById(id));
+  }, [dispatch, id]);
+  const location = useLocation();
+  const product = useSelector(selectProductById);
+  console.log(location, id);
+
+  const { nameProduct, brendName, condition, description, mainPhotoUrl, price, category: subSection } =
+    product;
+  // const backLinkHref = location.state?.from ?? '/products';
+
   return (
     <section className={s.productCard}>
       <Container>
+        <p className={s.navigation}>
+          <Link to={`/`}>Easy shop </Link> &#8250;
+          <Link to={`/products/${category}`}> {category} </Link>&#8250;
+          <Link to={`/products/${category}/${subcategory}`}> {subcategory}</Link>
+        </p>
         <div className={s.productCardWrapper}>
           <div>
             <div className={s.productMainInfo}>
               <div className={s.fotoContainer}>
-                <div className={s.fotoGalery}>foto</div>
+                <img
+                  src={mainPhotoUrl}
+                  alt={nameProduct}
+                  className={s.fotoGalery}
+                />
+                {/* <div className={s.fotoGalery}>foto</div> */}
               </div>
               <div>
                 <p className={s.availability}>В наявності</p>
-                <Text text="Футболка з принтом" textClass="productName" />
+                <Text text={nameProduct} textClass="productName" />
                 <div className={s.productPrice}>
                   <span className={s.productOldPrice}>379 грн</span>
                   <span className={s.productPriceDiscount}>-8%</span>
-                  <Text text="349 грн" textClass="title" />
+                  <Text text={price} textClass="title" />
                 </div>
                 <Text text="Розміри:" textClass="productLabels" />
                 <div className={s.size}>
@@ -62,24 +90,21 @@ const ProductCard = () => {
             <ul className={s.productInfo}>
               <li className={s.productDescription}>
                 <Text text="Стан:" textClass="productLabels" />
-                <Text text="Новий" textClass="productText" />
+                <Text text={condition} textClass="productText" />
               </li>
               <li className={s.productDescription}>
                 <Text text="Бренд:" textClass="productLabels" />
-                <Text text="Goldi" textClass="productText" />
+                <Text text={brendName} textClass="productText" />
               </li>
               <li className={s.productDescription}>
                 <Text text="Категорії:" textClass="productLabels" />
-                <Text text="Майки й футболки" textClass="productText" />
+                <Text text={subSection} textClass="productText" />
               </li>
             </ul>
             <div className={s.productDetails}>
               <div className={s.productDescription}>
                 <Text text="Опис товару:" textClass="productLabels" />
-                <Text
-                  text="100% оплата на карту і я висилаю вам річ! Є обмін та повернення! Працюємо по накладеному з передплатою в 150 грн!"
-                  textClass="productText"
-                />
+                <Text text={description} textClass="productText" />
               </div>
               <DeliveryList />
             </div>

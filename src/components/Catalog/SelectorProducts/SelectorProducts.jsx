@@ -61,6 +61,7 @@ const SelectorProducts = ({ activeButton }) => {
             description={item.description}
             section={item.section}
             category={item.category}
+            _id={item._id}
           />
         ))}
       </ul>

@@ -13,6 +13,15 @@
   }
 }
 
+.navigation {
+    margin-bottom: 24px;
+    & > a {
+        color: var(--title-text-color);
+        font-size: 16px;
+    }
+    
+}
+
 .productCardWrapper{
     @include mixins.mq(desktop) {
     display: flex;
@@ -39,6 +48,7 @@
     background-color: grey;
     width: 100%;
     height: 100%;
+    background-size: cover;
 }
 
 .productMainInfo {
