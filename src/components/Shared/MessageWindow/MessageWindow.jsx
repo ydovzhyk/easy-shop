@@ -65,10 +65,7 @@ export default function MessageWindow({
       <div className={s.shadow}></div>
       {confirmButtons ? (
         <div className={s.confirmButtons}>
-          <Text
-            text="Ви впевнені, що хочете видалити об'яву?"
-            textClass="textMessageBtn"
-          />
+          <Text text={text} textClass="textMessageBtn" />
           <div className={s.ButtonsBlock}>
             <button
               className={s.btnYes}
