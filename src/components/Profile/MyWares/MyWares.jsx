@@ -12,30 +12,30 @@ import {
 } from 'redux/product/product-operations';
 import {
   getMyProducts,
-  // getMyProductsTotal,
   getMyProductsPages,
 } from 'redux/product/product-selectors';
 import { clearUserProducts } from 'redux/product/product-slice';
+import { getMessage } from 'redux/product/product-selectors';
 import Text from 'components/Shared/Text/Text';
 import Button from 'components/Shared/Button/Button';
 import RoundButton from 'components/Shared/RoundButton/RoundButton';
 import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
 import PhotoCollection from 'components/Shared/PhotoCollection/PhotoCollection';
+import UserUpdateComponent from 'components/Shared/helper/UserUpdateComponent';
+
 import s from './MyWares.module.scss';
 
 const MyWares = () => {
   const dispatch = useDispatch();
+
   const [currentPage, setCurrentPage] = useState(1);
   const [productId, setProductId] = useState(null);
-  // console.log('currentPage', currentPage);
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [questionWindow, setQuestionWindow] = useState(false);
+
   const myProducts = useSelector(getMyProducts);
-  // console.log('myProducts:', myProducts);
+  const isMessage = useSelector(getMessage);
   const myProductsTotalPages = useSelector(getMyProductsPages);
-  // console.log('myProductsTotalPages:', myProductsTotalPages);
-  // const myProductsTotal = useSelector(getMyProductsTotal);
-  // console.log('myProductsTotal:', myProductsTotal);
 
   const handleLoadMore = async () => {
     setCurrentPage(currentPage + 1);
@@ -56,6 +56,14 @@ const MyWares = () => {
   useEffect(() => {
     dispatch(getUserProducts(currentPage));
   }, [dispatch, currentPage]);
+
+  useEffect(() => {
+    if (isMessage) {
+      dispatch(clearUserProducts());
+      setCurrentPage(1);
+      dispatch(getUserProducts(currentPage));
+    }
+  }, [dispatch, currentPage, isMessage]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -90,6 +98,7 @@ const MyWares = () => {
   return (
     <div>
       <section className={s.myWaresWrapper}>
+        {isMessage === '' && <UserUpdateComponent />}
         <ul className={s.waresList}>
           {myProducts.map(
             ({
@@ -147,6 +156,7 @@ const MyWares = () => {
             onConfirm={handleConfirm}
           />
         )}
+        {isMessage && <MessageWindow text={isMessage} />}
       </section>
     </div>
   );
