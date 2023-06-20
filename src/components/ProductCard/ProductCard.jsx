@@ -48,7 +48,7 @@ const ProductCard = () => {
                 />
                 {/* <div className={s.fotoGalery}>foto</div> */}
               </div>
-              <div>
+              <div className={s.productInfoWrapper}>
                 <p className={s.availability}>В наявності</p>
                 <Text text={nameProduct} textClass="productName" />
                 <div className={s.productPrice}>
@@ -80,8 +80,6 @@ const ProductCard = () => {
                   <div className={s.additionalOpts}>
                     <BiMessageDetail className={s.favoriteIcon} />
                     <Text text="Поставити запитання" textClass="productText" />
-                    <Dialogue />
-                    <textarea></textarea>
                   </div>
                 </div>
               </div>
@@ -116,6 +114,8 @@ const ProductCard = () => {
             </div>
           </div>
         </div>
+        <Dialogue />
+        <textarea></textarea>
       </Container>
     </section>
   );
