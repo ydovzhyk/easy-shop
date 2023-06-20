@@ -20,7 +20,6 @@ const ProductCard = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("dispatch goooo");
     dispatch(getProductById(id));
   }, [dispatch, id]);
 
