@@ -106,7 +106,7 @@ export const getProductById = createAsyncThunk(
   async (userData, { rejectWithValue, dispatch }) => {
     try {
       const data = await axiosGetProductById(userData);
-      console.log(data)
+      // console.log(data)
       return data;
     } catch (error) {
       const { data, status } = error.response;
