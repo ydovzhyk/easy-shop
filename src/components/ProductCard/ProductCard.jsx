@@ -4,7 +4,7 @@ import s from './ProductCard.module.scss';
 import Text from 'components/Shared/Text/Text';
 import Button from 'components/Shared/Button/Button';
 import { BsSuitHeart } from 'react-icons/bs';
-import { BiMessageDetail } from 'react-icons/bi';
+// import { BiMessageDetail } from 'react-icons/bi'; //! moved below into component Dialogue and no longer needed
 
 import SellerInfo from './SellerInfo/SellerInfo';
 import DeliveryList from './DeliveryList';
@@ -77,10 +77,11 @@ const ProductCard = () => {
                     <BsSuitHeart className={s.favoriteIcon} />
                     <Text text="Додати в обрані" textClass="productText" />
                   </div>
-                  <div className={s.additionalOpts}>
+                  {/* //! moved below into component Dialogue and no longer needed */}
+                  {/* <div className={s.additionalOpts}>
                     <BiMessageDetail className={s.favoriteIcon} />
                     <Text text="Поставити запитання" textClass="productText" />
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -115,7 +116,6 @@ const ProductCard = () => {
           </div>
         </div>
         <Dialogue />
-        <textarea></textarea>
       </Container>
     </section>
   );
