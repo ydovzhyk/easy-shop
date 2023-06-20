@@ -13,20 +13,31 @@ import {  selectProductById } from 'redux/product/product-selectors';
 import { getProductById } from 'redux/product/product-operations';
 import { useEffect } from 'react';
 import Dialogue from 'components/Dialogue/Dialogue';
+import PhotoCollection from 'components/Shared/PhotoCollection/PhotoCollection';
 
 const ProductCard = () => {
   const { category, subcategory, id } = useParams();
   const dispatch = useDispatch();
-
+console.log(category, subcategory, id);
   useEffect(() => {
+    console.log("dispatch goooo");
     dispatch(getProductById(id));
   }, [dispatch, id]);
+
   const location = useLocation();
   const product = useSelector(selectProductById);
-  console.log(location, id);
+  console.log(location, id, product);
 
-  const { nameProduct, brendName, condition, description, mainPhotoUrl, price, category: subSection } =
-    product;
+  const {
+    nameProduct,
+    brendName,
+    condition,
+    description,
+    mainPhotoUrl,
+    additionalPhotoUrl,
+    price,
+    category: subSection,
+  } = product;
   // const backLinkHref = location.state?.from ?? '/products';
 
   return (
@@ -35,18 +46,25 @@ const ProductCard = () => {
         <p className={s.navigation}>
           <Link to={`/`}>Easy shop </Link> &#8250;
           <Link to={`/products/${category}`}> {category} </Link>&#8250;
-          <Link to={`/products/${category}/${subcategory}`}> {subcategory}</Link>
+          <Link to={`/products/${category}/${subcategory}`}>
+            {' '}
+            {subcategory}
+          </Link>
         </p>
         <div className={s.productCardWrapper}>
           <div>
             <div className={s.productMainInfo}>
               <div className={s.fotoContainer}>
-                <img
+                <PhotoCollection
+                  mainPhotoUrl={mainPhotoUrl}
+                  nameProduct={nameProduct}
+                  additionalPhotoUrl={additionalPhotoUrl}
+                />
+                {/* <img
                   src={mainPhotoUrl}
                   alt={nameProduct}
                   className={s.fotoGalery}
-                />
-                {/* <div className={s.fotoGalery}>foto</div> */}
+                /> */}
               </div>
               <div className={s.productInfoWrapper}>
                 <p className={s.availability}>В наявності</p>
