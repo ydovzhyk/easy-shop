@@ -57,7 +57,7 @@ const ProductCard = () => {
                     <PhotoCollection
                       mainPhotoUrl={mainPhotoUrl}
                       nameProduct={nameProduct}
-                      additionalPhotoUrl={additionalPhotoUrl}
+                      additionalPhotoUrl={additionalPhotoUrl ? additionalPhotoUrl : []}
                     />
                   )}
                 </div>
