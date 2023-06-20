@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {  selectProductById } from 'redux/product/product-selectors';
 import { getProductById } from 'redux/product/product-operations';
 import { useEffect } from 'react';
+import Dialogue from 'components/Dialogue/Dialogue';
 
 const ProductCard = () => {
   const { category, subcategory, id } = useParams();
@@ -79,6 +80,8 @@ const ProductCard = () => {
                   <div className={s.additionalOpts}>
                     <BiMessageDetail className={s.favoriteIcon} />
                     <Text text="Поставити запитання" textClass="productText" />
+                    <Dialogue />
+                    <textarea></textarea>
                   </div>
                 </div>
               </div>
