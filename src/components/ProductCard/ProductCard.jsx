@@ -25,7 +25,7 @@ const ProductCard = () => {
   }, [dispatch, id]);
 
   const product = useSelector(selectProductById);
-  console.log( id, product);
+  // console.log( id, product);
 
   const {
     nameProduct,
