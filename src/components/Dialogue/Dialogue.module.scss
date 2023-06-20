@@ -1,0 +1,18 @@
+@use '../../styles/mixins';
+
+.dialogueContainer {
+  width: 200px;
+  height: 100px;
+  outline: 1px solid red;
+  // padding-top: 30px;
+  // padding-top: 150px;
+
+  @include mixins.mq(tablet) {
+    // height: 100vh;
+  }
+
+  @include mixins.mq(desktop) {
+    // height: auto;
+  }
+}
+

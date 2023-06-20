@@ -7,6 +7,8 @@ import { BiMessageDetail } from 'react-icons/bi';
 
 import SellerInfo from './SellerInfo/SellerInfo';
 import DeliveryList from './DeliveryList';
+import Dialogue from 'components/Dialogue/Dialogue';
+
 
 const ProductCard = () => {
   return (
@@ -50,6 +52,8 @@ const ProductCard = () => {
                   <div className={s.additionalOpts}>
                     <BiMessageDetail className={s.favoriteIcon} />
                     <Text text="Поставити запитання" textClass="productText" />
+                    <Dialogue />
+                    <textarea></textarea>
                   </div>
                 </div>
               </div>
