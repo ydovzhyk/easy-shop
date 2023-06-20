@@ -13,6 +13,7 @@ import storage from 'redux-persist/lib/storage';
 
 import auth from 'redux/auth/auth-slice';
 import productsSlice from 'redux/product/product-slice';
+import otherUserSlice from './otherUser/otherUser.slice';
 
 const persistConfig = {
   key: 'auth-sid',
@@ -26,6 +27,7 @@ export const store = configureStore({
   reducer: {
     auth: persistedReducer,
     products: productsSlice,
+    otherUser: otherUserSlice,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

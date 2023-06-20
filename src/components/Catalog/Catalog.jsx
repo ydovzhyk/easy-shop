@@ -72,9 +72,9 @@ const Catalog = () => {
       <SelectorProducts
         activeButton={activeButton}
         // currentPage={currentPage}
-      //   handlePrevPage={handlePrevPage}
-      //   handleNextPage={handleNextPage}
-       />
+        //   handlePrevPage={handlePrevPage}
+        //   handleNextPage={handleNextPage}
+      />
     </section>
   );
 };
