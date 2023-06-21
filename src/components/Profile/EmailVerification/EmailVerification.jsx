@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
-// import { useState } from 'react';
-import { getID } from 'redux/auth/auth-selectors';
 import { useForm, Controller } from 'react-hook-form';
+import { getID } from 'redux/auth/auth-selectors';
+import { getVerifiEmail } from 'redux/verifiEmail/verifiEmail-selectors';
 import { field } from 'components/Shared/TextField/fields';
 import { updateUser } from 'redux/auth/auth-opetations';
 import Container from 'components/Shared/Container';
@@ -12,17 +12,18 @@ import s from 'components/Profile/EmailVerification/EmailVerification.module.scs
 const EmailVerification = () => {
     const dispatch = useDispatch();
     const userId = useSelector(getID);
+    const verifiEmail = useSelector(getVerifiEmail);
     
     const { control, handleSubmit, reset } = useForm({
         defaultValues: {
-            phoneNumber: ''
+            email: verifiEmail 
         }
     });
 
     const onSubmit = async (data, e) => {
         e.preventDefault();
         const dataForUpload = {
-            phoneNumber: data.phoneNumber,
+            email: data.eamail,
             owner: userId,
         };
         dispatch(updateUser(dataForUpload));
