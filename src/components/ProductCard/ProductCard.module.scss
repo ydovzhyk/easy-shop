@@ -105,6 +105,9 @@
     border-radius: 5px;
     padding: 8px;
     margin-bottom: 20px;
+    @include mixins.mq(desktop) {
+    margin-right: 20px;
+  }
 }
 
 .buyBtns {

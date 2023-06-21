@@ -19,6 +19,9 @@
   align-items: center;
   border-radius: 50%;
   border: 1px solid var(--icons-color);
+  @include mixins.mq(desktop) {
+    min-width: 120px;
+  }
 }
 
 .userframe {

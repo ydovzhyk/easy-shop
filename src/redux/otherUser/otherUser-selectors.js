@@ -1,1 +1,1 @@
-export const getOtherUser = ({ otherUser }) => otherUser.otherUserInfo;
+export const selectOtherUser = ({ otherUser }) => otherUser.otherUserInfo;
