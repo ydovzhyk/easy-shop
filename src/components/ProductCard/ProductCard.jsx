@@ -36,11 +36,10 @@ const ProductCard = () => {
     price,
     category: subSection,
     owner,
+    size,
   } = product;
 
-  const { size } = product;
   const sizeValuesArray = size ? size.map(item => item[0].value) : [];
-  // console.log(sizeValuesArray[0]);
 
     return (
       <section className={s.productCard}>
@@ -77,27 +76,25 @@ const ProductCard = () => {
                   </div>
                   <Text text="Розміри:" textClass="productLabels" />
 
-                  {sizeValuesArray.length > 1
-                    ? sizeValuesArray.map(item => {
-                        return (
-                          <div className={s.size}>
-                            <Text
-                              text={`EU: ${item[0].EU} / UA: ${item[1].UA} / IN: ${item[2].IN} `}
-                              textClass="after-title-bigger"
-                            />
-                          </div>
-                        );
-                      })
-                    : sizeValuesArray.map(item => {
-                        return (
-                          <div className={s.size}>
-                            <Text
-                              text={` ${Object.values(item[0])} `}
-                              textClass="after-title-bigger"
-                            />
-                          </div>
-                        );
-                      })}
+                  {sizeValuesArray.length > 1 ? (
+                    sizeValuesArray.map(item => {
+                      return (
+                        <div className={s.size}>
+                          <Text
+                            text={`EU: ${item[0].EU} / UA: ${item[1].UA} / IN: ${item[2].IN} `}
+                            textClass="after-title-bigger"
+                          />
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <div className={s.size}>
+                      <Text
+                        text={` ${size.map(item => item[0].name)} `}
+                        textClass="after-title-bigger"
+                      />
+                    </div>
+                  )}
 
                   <div className={s.buyBtns}>
                     <Button
