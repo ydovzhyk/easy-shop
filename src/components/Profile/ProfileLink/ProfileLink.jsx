@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom';
 import Value from 'components/Profile/Value';
 import s from 'components/Profile/ProfileLink/ProfileLink.module.scss';
 
-const ProfileLink = ({ children, to, value, addValue, isBackgroundChange}) => {
+const ProfileLink = ({ children, to, value, addValue, isBackgroundChange }) => {
     return (
         <NavLink
             className={s.navlink}
