@@ -16,7 +16,7 @@ const TopNavProducts = ({ category, subcategory }) => {
           <SlArrowRight />
         </>
       )}
-      {!category && !subcategory && <p>Пошук у всіх категорія</p>}
+      {!category && !subcategory && <p>Пошук у всіх категоріях</p>}
     </h2>
   );
 };
