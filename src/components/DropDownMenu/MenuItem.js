@@ -24,8 +24,8 @@ const MenuItem = ({ menuItem, activeItem, setActiveItem }) => {
       } ${s.menuContainer}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-    >
-      <a href={menuItem.link}>
+    > 
+      <a href={`/products?search=${menuItem.name.split('`')[0]}`}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <span className={s.span}>{menuItem.icon}</span>
           <span className={s.span}>{menuItem.name}</span>
@@ -44,7 +44,10 @@ const MenuItem = ({ menuItem, activeItem, setActiveItem }) => {
       {isSubMenuOpen && (
         <div className={s.containerSubMenu}>
           {menuItem.submenu.map(subMenuItem => (
-            <a href={subMenuItem.link} key={subMenuItem.id}>
+            <a
+              href={`/products?search=${subMenuItem.name}`}
+              key={subMenuItem.id}
+            >
               <div
                 className={`submenu-item ${
                   activeItem === subMenuItem.name ? 'active' : ''
