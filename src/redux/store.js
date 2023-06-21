@@ -14,6 +14,7 @@ import storage from 'redux-persist/lib/storage';
 import auth from 'redux/auth/auth-slice';
 import productsSlice from 'redux/product/product-slice';
 import otherUserSlice from './otherUser/otherUser.slice';
+import verifiEmailSlice from './verifiEmail/verifiEmail-slice';
 
 const persistConfig = {
   key: 'auth-sid',
@@ -28,6 +29,7 @@ export const store = configureStore({
     auth: persistedReducer,
     products: productsSlice,
     otherUser: otherUserSlice,
+    verifiEmail: verifiEmailSlice,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
