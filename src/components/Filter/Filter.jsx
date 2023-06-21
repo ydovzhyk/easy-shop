@@ -47,7 +47,7 @@ const Filter = () => {
   });
 
   return (
-    <div className={s.optionsWrapper}>
+    <section className={s.optionsWrapper}>
       <h2 className={s.title}>Фільтри</h2>
       <form>
         <OptionsHeader title="Розмір" onChange={handleOptionsChange} />
@@ -226,7 +226,7 @@ const Filter = () => {
           </>
         )}
       </form>
-    </div>
+    </section>
   );
 };
 

@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
@@ -23,11 +23,12 @@ const Header = () => {
   const [isModalCatalogOpen, setIsModalCatalogOpen] = useState(false);
   const isDesktop = useMediaQuery({ minWidth: 1280 });
   const isMobile = useMediaQuery({ maxWidth: 767 });
-  const location = useLocation();
+  // const location = useLocation();
 
-  const getClassName = ({ isActive }) => {
-    return isActive ? `${s.link} ${s.active}` : s.link;
-  };
+  // const getClassName = ({ isActive }) => {
+  //   console.log(isActive);
+  //   return isActive ? `${s.link} ${s.active}` : s.link;
+  // };
   const isLogin = useSelector(getLogin);
   const handleModalCatalogOpen = () => {
     setIsModalCatalogOpen(true);
@@ -104,9 +105,9 @@ const Header = () => {
               {navItems.map(({ id, name, link }) => (
                 <NavLink
                   key={id}
-                  className={getClassName({
-                    isActive: location.pathname === { link },
-                  })}
+                  className={({ isActive }) =>
+                    `${isActive ? s.active : s.link}`
+                  }
                   to={link}
                 >
                   {name}
