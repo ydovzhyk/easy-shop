@@ -35,6 +35,7 @@ const ProductCard = () => {
     additionalPhotoUrl,
     price,
     category: subSection,
+    owner,
   } = product;
 
   const { size } = product;
@@ -153,7 +154,7 @@ const ProductCard = () => {
             <div>
               <Text text="Продавець:" textClass="productLabels" />
               <div className={s.sellerInfo}>
-                <SellerInfo />
+                <SellerInfo owner={owner} />
               </div>
             </div>
           </div>
