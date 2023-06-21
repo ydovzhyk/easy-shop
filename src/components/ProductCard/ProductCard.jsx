@@ -40,6 +40,7 @@ const ProductCard = () => {
   } = product;
 
   const sizeValuesArray = size ? size.map(item => item[0].value) : [];
+  const oneSize = size ? size.map(item => item[0].name) : '';
 
     return (
       <section className={s.productCard}>
@@ -89,10 +90,7 @@ const ProductCard = () => {
                     })
                   ) : (
                     <div className={s.size}>
-                      <Text
-                        text={` ${size.map(item => item[0].name)} `}
-                        textClass="after-title-bigger"
-                      />
+                      <Text text={oneSize} textClass="after-title-bigger" />
                     </div>
                   )}
 
