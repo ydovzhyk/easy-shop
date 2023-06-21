@@ -6,13 +6,13 @@ import { HiPlus } from 'react-icons/hi';
 import { SlBasket } from 'react-icons/sl';
 import { HiOutlineUser } from 'react-icons/hi';
 import { BiMessageDetail } from 'react-icons/bi';
-import { getLogin } from 'redux/auth/auth-selectors';
-import userPhoto from '../../images/Avatar/avatar.svg';
+import { getLogin, getUserAvatar } from 'redux/auth/auth-selectors';
 import s from './BottomNavigation.module.scss';
 
 const BottomNavigation = () => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const isLogin = useSelector(getLogin);
+  const userAvatar = useSelector(getUserAvatar);
 
   return (
     <nav className={s.navigationBottom}>
@@ -52,7 +52,7 @@ const BottomNavigation = () => {
           )}
           {isLogin && (
             <img
-              src={userPhoto}
+              src={userAvatar}
               alt="Userphoto"
               className={s.userPhoto}
               width={isMobile ? 30 : 40}
