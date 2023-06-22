@@ -6,7 +6,7 @@ import { field } from 'components/Shared/TextField/fields';
 import { getUser, getUserMessage} from 'redux/auth/auth-selectors';
 import { getUserAvatar } from 'redux/auth/auth-selectors';
 import { updateUser } from 'redux/auth/auth-opetations';
-import { setVerifiEmail } from 'redux/verifiEmail/verifiEmail-slice';
+import { setVerifyEmail } from 'redux/verifyEmail/verifyEmail-slice';
 import Container from 'components/Shared/Container';
 import ChangePhoto from 'components/Profile/ChangePhoto/ChangePhoto';
 import Text from 'components/Shared/Text/Text';
@@ -99,7 +99,7 @@ const MySettings = () => {
   }, [message]);
 
   useEffect(() => {
-    dispatch(setVerifiEmail(inputValue));
+    dispatch(setVerifyEmail(inputValue));
   }, [dispatch, inputValue])
 
   return (
