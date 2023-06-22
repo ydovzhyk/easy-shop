@@ -5,6 +5,7 @@ import { updateUser } from 'redux/auth/auth-opetations';
 import { getError } from 'redux/auth/auth-selectors';
 import { getLoadingProducts } from 'redux/product/product-selectors';
 import { getLoadingUser } from 'redux/auth/auth-selectors';
+import { getLoadingVerifyEmail } from 'redux/verifiEmail/verifiEmail-selectors';
 import UserRoutes from './Routes/UserRoutes';
 import Header from './Header';
 import Footer from './Footer/Footer';
@@ -17,6 +18,7 @@ export const App = () => {
   const error = useSelector(getError);
   const loadingUser = useSelector(getLoadingUser);
   const loadingProducts = useSelector(getLoadingProducts);
+  const loadingVerify = useSelector(getLoadingVerifyEmail);
   const isDesctop = useMediaQuery({ minWidth: 1280 });
   const dispatch = useDispatch();
   const [errMessage, setErrMessage] = useState('');
@@ -49,12 +51,12 @@ export const App = () => {
   }, [error]);
 
   useEffect(() => {
-    if (loadingUser || loadingProducts) {
+    if (loadingUser || loadingProducts || loadingVerify) {
       setIsLoaded(true);
     } else {
       setIsLoaded(false);
     }
-  }, [loadingUser, loadingProducts]);
+  }, [loadingUser, loadingProducts, loadingVerify]);
 
   return (
     <div

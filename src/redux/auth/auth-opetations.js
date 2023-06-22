@@ -5,7 +5,7 @@ import {
   axiosRegister,
   axiosUpdateUser,
 } from 'api/auth';
-import { axiosVerifyEmail } from 'api/verify';
+
 import { axiosUpdateUserSettings } from 'api/updateUser';
 
 export const register = createAsyncThunk(
@@ -83,16 +83,3 @@ export const googleUpdate = (accessToken, refreshToken, sid) => ({
   type: 'auth/googleUpdate',
   payload: { accessToken, refreshToken, sid },
 });
-
-export const verifyEmail = createAsyncThunk(
-  'verify/',
-  async (userData, { rejectWithValue, getState, dispatch }) => {
-    try {
-      const data = await axiosVerifyEmail(userData);
-      return data;
-    } catch (error) {
-      const { data, status } = error.response;
-      return rejectWithValue({ data, status });
-    }
-  }
-);

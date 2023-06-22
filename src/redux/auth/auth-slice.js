@@ -5,7 +5,6 @@ import {
   logout,
   updateUser,
   updateUserSettings,
-  verifyEmail,
 } from './auth-opetations';
 
 const initialState = {
@@ -55,7 +54,7 @@ const auth = createSlice({
       store.newUser = {};
     },
     clearUser: () => ({ ...initialState }),
-    clearError: store => {
+    clearUserError: store => {
       store.error = '';
     },
     clearUserMessage: store => {
@@ -158,23 +157,9 @@ const auth = createSlice({
       store.loading = false;
       store.error = payload;
     },
-    // * GET VERIFICATION EMAIL
-    [verifyEmail.pending]: store => {
-      store.loading = true;
-      store.error = '';
-      store.message = '';
-    },
-    [verifyEmail.fulfilled]: (store, { payload }) => {
-      store.loading = false;
-      store.message = payload.message;
-    },
-    [verifyEmail.rejected]: (store, { payload }) => {
-      store.loading = false;
-      store.error = payload?.data?.message || '';
-    },
   },
 });
 
 export default auth.reducer;
-export const { clearNewUser, clearUser, clearError, clearUserMessage } =
+export const { clearNewUser, clearUser, clearUserError, clearUserMessage } =
   auth.actions;
