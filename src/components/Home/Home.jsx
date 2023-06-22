@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from 'redux/auth/auth-opetations';
+import { verifyConfirmation } from 'redux/verifiEmail/verifiEmail-slice';
+import { getVerifyMessage } from 'redux/verifiEmail/verifiEmail-selectors';
+import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
 import Container from 'components/Shared/Container';
 import Default from 'components/Default/Default';
 
@@ -8,10 +11,13 @@ import s from './Home.module.scss';
 
 const Home = () => {
   const dispatch = useDispatch();
+  const isMessage = useSelector(getVerifyMessage);
 
   //google auth
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
+    const message = urlParams.get('message');
+    console.log(message);
     const accessToken = urlParams.get('accessToken');
     const refreshToken = urlParams.get('refreshToken');
     const sid = urlParams.get('sid');
@@ -23,6 +29,9 @@ const Home = () => {
       };
       dispatch(updateUser(userData));
       localStorage.setItem('easy-shop.authData', JSON.stringify(userData));
+    }
+    if (message) {
+      dispatch(verifyConfirmation(message));
     } else {
       return;
     }
@@ -32,6 +41,7 @@ const Home = () => {
     <section className={s.home}>
       <Container>
         <Default />
+        {isMessage && <MessageWindow text={isMessage} />}
       </Container>
     </section>
   );
