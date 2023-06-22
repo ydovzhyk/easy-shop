@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { clearProductMessage } from 'redux/product/product-slice';
 import { clearUserMessage } from 'redux/auth/auth-slice';
-import { clearVerifyMessage } from 'redux/verifiEmail/verifiEmail-slice';
+import { clearVerifyMessage } from 'redux/verifyEmail/verifyEmail-slice';
 
 import Text from 'components/Shared/Text/Text';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';

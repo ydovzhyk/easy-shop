@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { verifyEmail } from './verifiEmail-operations';
+import { verifyEmail } from './verifyEmail-operations';
 
 const initialState = {
   loading: false,
@@ -9,11 +9,11 @@ const initialState = {
   email: null,
 };
 
-const verifiEmailSlice = createSlice({
-  name: 'verifiEmail',
+const verifyEmailSlice = createSlice({
+  name: 'verifyEmail',
   initialState,
   reducers: {
-    setVerifiEmail: (store, action) => {
+    setVerifyEmail: (store, action) => {
       store.email = action.payload;
     },
     verifyConfirmation: (store, action) => {
@@ -45,10 +45,10 @@ const verifiEmailSlice = createSlice({
   },
 });
 
-export default verifiEmailSlice.reducer;
+export default verifyEmailSlice.reducer;
 export const {
-  setVerifiEmail,
+  setVerifyEmail,
   verifyConfirmation,
   clearVerifyMessage,
   clearVerifyError,
-} = verifiEmailSlice.actions;
+} = verifyEmailSlice.actions;
