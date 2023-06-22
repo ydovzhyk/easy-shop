@@ -45,15 +45,6 @@ export const Catalog = () => {
               setActiveItem={setActiveItem}
             />
           ))}
-
-          {menuItems.map(menuItem => (
-            <MenuItem
-              key={menuItem.id}
-              menuItem={menuItem}
-              activeItem={activeItem}
-              setActiveItem={setActiveItem}
-            />
-          ))}
         </div>
       )}
     </div>

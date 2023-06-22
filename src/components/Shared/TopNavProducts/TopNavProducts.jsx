@@ -19,7 +19,7 @@ const TopNavProducts = ({ category, subcategory }) => {
       categoryName = "Краса та здоров'я";
       break;
     default:
-      categoryName = `Категорія <b>${category}</b> відсутня`;
+      categoryName = `Категорія ${category} відсутня`;
       break;
   }
 
