@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { updateUser } from 'redux/auth/auth-opetations';
 import { verifyConfirmation } from 'redux/verifiEmail/verifiEmail-slice';
 import { getVerifyMessage } from 'redux/verifiEmail/verifiEmail-selectors';
@@ -12,6 +13,7 @@ import s from './Home.module.scss';
 const Home = () => {
   const dispatch = useDispatch();
   const isMessage = useSelector(getVerifyMessage);
+  const navigate = useNavigate();
 
   //google auth
   useEffect(() => {
@@ -29,13 +31,15 @@ const Home = () => {
       };
       dispatch(updateUser(userData));
       localStorage.setItem('easy-shop.authData', JSON.stringify(userData));
+      navigate('/');
     }
     if (message) {
       dispatch(verifyConfirmation(message));
+      navigate('/');
     } else {
       return;
     }
-  }, [dispatch]);
+  }, [dispatch, navigate]);
 
   return (
     <section className={s.home}>
