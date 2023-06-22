@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
-import { getVerifiEmail } from 'redux/verifiEmail/verifiEmail-selectors';
+import { getVerifyEmail } from 'redux/verifyEmail/verifyEmail-selectors';
+import { setVerifyEmail } from 'redux/verifyEmail/verifyEmail-slice';
 import { field } from 'components/Shared/TextField/fields';
-import { verifyEmail } from 'redux/verifiEmail/verifiEmail-operations';
-import { getVerifyMessage } from 'redux/verifiEmail/verifiEmail-selectors';
+import { verifyEmail } from 'redux/verifyEmail/verifyEmail-operations';
+import { getVerifyMessage } from 'redux/verifyEmail/verifyEmail-selectors';
 import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
 import Container from 'components/Shared/Container';
 import Text from 'components/Shared/Text/Text';
@@ -12,19 +14,28 @@ import s from 'components/Profile/EmailVerification/EmailVerification.module.scs
 
 const EmailVerification = () => {
   const dispatch = useDispatch();
-  const verifiEmail = useSelector(getVerifiEmail);
+  const receivedEmail = useSelector(getVerifyEmail);
   const isMessage = useSelector(getVerifyMessage);
+  const [currentEmail, setCurrentEmail] = useState(receivedEmail);
 
-  const { control, handleSubmit, reset } = useForm({
+  const { control, handleSubmit,
+    // reset
+  } = useForm({
     defaultValues: {
-      email: verifiEmail,
+      email: receivedEmail,
     },
   });
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
-    dispatch(verifyEmail(data.email));
-    reset();
+    const emailToSend = data.email !== currentEmail ? data.email : currentEmail;
+    dispatch(setVerifyEmail(emailToSend));
+    dispatch(verifyEmail(emailToSend));
+    // reset();
+  };
+
+  const handleEmailChange = (e) => {
+    setCurrentEmail(e.target.value);
   };
 
   return (
@@ -85,7 +96,10 @@ const EmailVerification = () => {
                       type="text"
                       value={value}
                       control={control}
-                      handleSubmit={onChange}
+                      onChange={(e) => {
+                        onChange(e);
+                        handleEmailChange(e);
+                      }}
                       {...field.email}
                     />
                   )}
