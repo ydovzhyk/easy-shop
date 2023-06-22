@@ -19,10 +19,11 @@ const TopNavProducts = ({ category, subcategory }) => {
       categoryName = "Краса та здоров'я";
       break;
     default:
+      categoryName = `Категорія <b>${category}</b> відсутня`;
       break;
   }
 
-  if (categoryName === 'Жінкам') {
+  if (categoryName === 'Чоловікам') {
     switch (subcategory) {
       case 'outerwear':
         subCategoryName = 'Верхній одяг';
@@ -64,10 +65,11 @@ const TopNavProducts = ({ category, subcategory }) => {
         subCategoryName = 'Штани та шорти';
         break;
       default:
+        subCategoryName = `Підкатегорія ${subcategory} відсутня`;
         break;
     }
   }
-  if (categoryName === 'Чоловікам') {
+  if (categoryName === 'Жінкам') {
     switch (subcategory) {
       case 'outerwear':
         subCategoryName = 'Верхній одяг';
@@ -121,6 +123,7 @@ const TopNavProducts = ({ category, subcategory }) => {
         subCategoryName = 'Штани та шорти';
         break;
       default:
+        subCategoryName = `Підкатегорія ${subcategory} відсутня`;
         break;
     }
   }
@@ -155,6 +158,7 @@ const TopNavProducts = ({ category, subcategory }) => {
         subCategoryName = 'Активний відпочинок';
         break;
       default:
+        subCategoryName = `Підкатегорія ${subcategory} відсутня`;
         break;
     }
   }
@@ -207,6 +211,7 @@ const TopNavProducts = ({ category, subcategory }) => {
         subCategoryName = 'Оптика';
         break;
       default:
+        subCategoryName = `Підкатегорія ${subcategory} відсутня`;
         break;
     }
   }
@@ -225,7 +230,7 @@ const TopNavProducts = ({ category, subcategory }) => {
           <SlArrowRight />
         </>
       )}
-      {!category && !subcategory && <p>Пошук у всіх категоріях</p>}
+      {!category && !subcategory && <p>tdПошук у всіх категоріях</p>}
     </div>
   );
 };
