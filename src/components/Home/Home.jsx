@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from 'redux/auth/auth-opetations';
-import { verifyConfirmation } from 'redux/verifiEmail/verifiEmail-slice';
-import { getVerifyMessage } from 'redux/verifiEmail/verifiEmail-selectors';
+import { verifyConfirmation } from 'redux/verifyEmail/verifyEmail-slice';
+import { getVerifyMessage } from 'redux/verifyEmail/verifyEmail-selectors';
 import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
 import Container from 'components/Shared/Container';
 import Default from 'components/Default/Default';
