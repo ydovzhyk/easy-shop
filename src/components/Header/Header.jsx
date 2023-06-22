@@ -15,19 +15,19 @@ import Logo from 'components/Shared/Logo';
 import Button from 'components/Shared/Button';
 import { Catalog } from 'components/DropDownMenu/Catalog';
 import menuItems from 'components/DropDownMenu/menuItems';
-import navItems from './navItems';
 import { ModalCatalog } from 'components/DropDownMenu/ModalCatalog';
+import categoryOptions from '../AddProduct/category.json';
 
 const Header = () => {
   const [showForm, setShowForm] = useState(false);
   const [isModalCatalogOpen, setIsModalCatalogOpen] = useState(false);
   const isDesktop = useMediaQuery({ minWidth: 1280 });
   const isMobile = useMediaQuery({ maxWidth: 767 });
-  // const location = useLocation();
+  const categories = Object.keys(categoryOptions);
 
   // const getClassName = ({ isActive }) => {
   //   console.log(isActive);
-  //   return isActive ? `${s.link} ${s.active}` : s.link;
+  //   return isActive ? `${s.active}` : s.link;
   // };
   const isLogin = useSelector(getLogin);
   const handleModalCatalogOpen = () => {
@@ -102,15 +102,27 @@ const Header = () => {
           <>
             <div className={s.navigationMenuWrapper}>
               <Catalog data={menuItems} />
-              {navItems.map(({ id, name, link }) => (
+              {categories.map((category, index) => (
                 <NavLink
-                  key={id}
+                  key={index}
                   className={({ isActive }) =>
                     `${isActive ? s.active : s.link}`
                   }
-                  to={link}
+                  // className={getClassName({
+                  //   isActive: location.pathname === linkPath,
+                  // })}
+
+                  to={
+                    category === 'Жінкам'
+                      ? 'products/women'
+                      : category === 'Чоловікам'
+                      ? 'products/men'
+                      : category === 'Дитячі товари'
+                      ? 'products/children'
+                      : 'products/beauty&health'
+                  }
                 >
-                  {name}
+                  {category}
                 </NavLink>
               ))}
             </div>
