@@ -5,7 +5,7 @@ import { updateUser } from 'redux/auth/auth-opetations';
 import { getError } from 'redux/auth/auth-selectors';
 import { getLoadingProducts } from 'redux/product/product-selectors';
 import { getLoadingUser } from 'redux/auth/auth-selectors';
-import { getLoadingVerifyEmail } from 'redux/verifiEmail/verifiEmail-selectors';
+import { getLoadingVerifyEmail } from 'redux/verifyEmail/verifyEmail-selectors';
 import UserRoutes from './Routes/UserRoutes';
 import Header from './Header';
 import Footer from './Footer/Footer';
