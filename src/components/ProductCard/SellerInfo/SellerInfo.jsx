@@ -1,4 +1,10 @@
-import { BsCheck2, BsGeoAlt, BsHandbag, BsPeople } from 'react-icons/bs';
+import {
+  BsCheck2,
+  BsGeoAlt,
+  BsHandbag,
+  BsPeople,
+  BsClock,
+} from 'react-icons/bs';
 import Avatar from 'components/Profile/Avatar/Avatar';
 import UserRating from 'components/Profile/UserProfileInfo/UserRating';
 import Value from 'components/Profile/Value';
@@ -17,6 +23,29 @@ const getDaysPassedFromDate = dateString => {
   return daysPassed;
 };
 
+const getTimePassedFromDate = dateString => {
+  const previousDate = new Date(dateString);
+  const currentDate = new Date();
+  const difference = currentDate - previousDate;
+  const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((difference / (1000 * 60)) % 60);
+  console.log(`Пройшло ${days} днів, ${hours} годин і ${minutes} хвилин.`);
+  if (days === 0 && hours === 0 && minutes === 0) {
+    return 'Зараз на сайті';
+  }
+    if (!dateString) {
+      return 'Давно не бачили';
+    }
+    if (days === 0 && hours !== 0) {
+      return `Заходив ${hours} год. ${minutes} хв. тому`;
+    }
+  if (days === 0 && hours === 0) {
+    return `Заходив ${minutes} хв. тому`;
+  }
+  return `Заходив ${days} дн. ${hours} год. ${minutes} хв. тому`;
+}
+
 const SellerInfo = ({ owner }) => {
   const dispatch = useDispatch();
 
@@ -25,14 +54,15 @@ const SellerInfo = ({ owner }) => {
   }, [dispatch, owner]);
 
   const userInfo = useSelector(selectOtherUser);
-  const { userAvatar, username, cityName, dateCreate } = userInfo;
-
+  const { userAvatar, username, cityName, dateCreate, lastVisit } = userInfo;
+  
+  const lastVisitDate = getTimePassedFromDate(lastVisit);
   const rating = 3.2;
   const gradesAmount = 12;
   const daysAmount = getDaysPassedFromDate(dateCreate);
   const followersAmount = 36;
   const salesAmount = 16;
-  
+
   return (
     <>
       <div className={s.profilewrapper}>
@@ -55,6 +85,10 @@ const SellerInfo = ({ owner }) => {
             />
           </div>
           <div className={s.profileinfo}>
+            <div className={s.infowrapper}>
+              <BsClock className={s.iconBefore} />
+              <p className={s.text}>{lastVisitDate}</p>
+            </div>
             <div className={s.infowrapper}>
               <BsGeoAlt className={s.iconBefore} />
               <p className={s.text}>{cityName}</p>
