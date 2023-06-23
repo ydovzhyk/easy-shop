@@ -35,7 +35,7 @@ const Home = () => {
     }
     if (message) {
       dispatch(verifyConfirmation(message));
-      navigate('./');
+      navigate('/easy-shop/#/');
     } else {
       return;
     }
