@@ -1,17 +1,19 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import NoPhoto from '../../../images/catalog_photo/no_photo.jpg';
+import Text from 'components/Shared/Text/Text';
 import { FiHeart } from 'react-icons/fi';
 import s from './ProductItem.module.scss';
 
 const ProductItem = ({
   _id,
   mainPhotoUrl,
-  section,
-  category,
-  description,
   price,
   nameProduct,
+  description,
+  size,
+  section,
+  category,
 }) => {
   return (
     <li className={s.itemCard}>
@@ -43,7 +45,14 @@ const ProductItem = ({
       <Link to={`/products/${section}/${category}/${_id}`}>
         <p className={s.nameProductCard}>{nameProduct}</p>
       </Link>
-      <p className={s.sizeCard}>36</p>
+      <div className={s.styleSizeCard}>
+        {size.map((item, index) => (
+          <React.Fragment key={index}>
+            {index > 0 && <span className={s.separator}> / </span>}
+            <Text text={item[0].name} textClass="after-title-bigger" />
+          </React.Fragment>
+        ))}
+      </div>
     </li>
   );
 };

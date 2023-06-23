@@ -121,7 +121,7 @@ const products = createSlice({
       store.error = payload;
     },
     //  get SelectorProducts page
-     [getProductsBySelector.pending]: store => {
+    [getProductsBySelector.pending]: store => {
       store.loading = true;
       store.error = null;
     },

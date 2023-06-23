@@ -1,9 +1,4 @@
 import React, { useState } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import {
-//   getProductsBySelectorCard,
-//   getSelectorPages,
-// } from 'redux/product/product-selectors';
 
 import VipProducts from '../Catalog/VipProducts/VipProducts';
 import SelectorProducts from '../Catalog/SelectorProducts/SelectorProducts';
@@ -12,29 +7,12 @@ import Text from 'components/Shared/Text/Text';
 import s from './Catalog.module.scss';
 
 const Catalog = () => {
-  // const dispatch = useDispatch();
 
   const [activeButton, setActiveButton] = useState('new');
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const selectorPages = useSelector(getSelectorPages);
 
   const handleButtonClick = buttonName => {
     setActiveButton(buttonName);
-    // Додати код для обробки кліку на кнопку
   };
-
-  // const handlePrevPage = () => {
-  //   if (currentPage > 1) {
-  //     setCurrentPage(currentPage - 1);
-  //   }
-  // };
-
-  // const handleNextPage = () => {
-  //   // const selectorPages =
-  //   if (currentPage < selectorPages) {
-  //     setCurrentPage(currentPage + 1);
-  //   }
-  // };
 
   return (
     <section className={s.container}>
@@ -70,10 +48,7 @@ const Catalog = () => {
       </div>
 
       <SelectorProducts
-        activeButton={activeButton}
-        // currentPage={currentPage}
-      //   handlePrevPage={handlePrevPage}
-      //   handleNextPage={handleNextPage}
+        activeButton={activeButton} 
        />
     </section>
   );
