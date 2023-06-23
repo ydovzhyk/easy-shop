@@ -38,7 +38,10 @@ const ProductCard = () => {
     category: subSection,
     owner,
     size,
+    vip,
   } = product;
+
+  console.log(product);
 
   const sizeValuesArray = size ? size.map(item => item[0].value) : [];
 
@@ -57,6 +60,12 @@ const ProductCard = () => {
             <div>
               <div className={s.productMainInfo}>
                 <div className={s.fotoContainer}>
+                  {vip === 'Так' && (
+                    <div className={s.vipLabel}>
+                      <span>Vip</span>
+                    </div>
+                  )}
+
                   {product !== {} && (
                     <PhotoCollection
                       mainPhotoUrl={mainPhotoUrl}
@@ -77,8 +86,8 @@ const ProductCard = () => {
                   </div>
                   <Text text="Розміри:" textClass="productLabels" />
 
-                  {sizeValuesArray.length > 1 ? (
-                    sizeValuesArray.map(item => {
+                  {sizeValuesArray.length > 1
+                    ? sizeValuesArray.map(item => {
                         return (
                           <div className={s.size} key={nanoid()}>
                             <Text
@@ -87,8 +96,8 @@ const ProductCard = () => {
                             />
                           </div>
                         );
-                      }))
-                    : (sizeValuesArray.map(item => {
+                      })
+                    : sizeValuesArray.map(item => {
                         return (
                           <div className={s.size} key={nanoid()}>
                             <Text
@@ -101,7 +110,7 @@ const ProductCard = () => {
                             />
                           </div>
                         );
-                      }))}
+                      })}
 
                   <div className={s.buyBtns}>
                     <Button
