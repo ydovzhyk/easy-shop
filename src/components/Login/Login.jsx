@@ -21,8 +21,8 @@ const Login = () => {
   const isLogin = useSelector(getLogin);
   const location = useLocation();
   const dispatch = useDispatch();
-  // const REACT_APP_API_URL = 'http://localhost:4000';
-  const REACT_APP_API_URL = 'https://easy-shop-backend.herokuapp.com';
+  const REACT_APP_API_URL = 'http://localhost:4000';
+  // const REACT_APP_API_URL = 'https://easy-shop-backend.herokuapp.com';
 
   const { control, handleSubmit, reset } = useForm({
     defaultValues: {
