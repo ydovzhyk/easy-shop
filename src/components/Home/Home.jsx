@@ -35,7 +35,7 @@ const Home = () => {
     }
     if (message) {
       dispatch(verifyConfirmation(message));
-      navigate('/easy-shop/#/');
+      window.location.assign('https://ydovzhyk.github.io/easy-shop/');
     } else {
       return;
     }
