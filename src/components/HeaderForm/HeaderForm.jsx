@@ -12,6 +12,8 @@ const HeaderForm = ({ onChange }) => {
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const isUserAt404Page =
+    !pathname.includes('/products') || !pathname.includes('/products/');
 
   const {
     control,
@@ -51,7 +53,15 @@ const HeaderForm = ({ onChange }) => {
         type="submit"
         btnClass="searchBtn"
         text={<CiSearch size={30} />}
-        handleClick={() => navigate(pathname === '/' ? '/products' : pathname)}
+        handleClick={() =>
+          navigate(
+            pathname === '/'
+              ? '/products'
+              : isUserAt404Page
+              ? '/products'
+              : pathname
+          )
+        }
       ></Button>
     </form>
   );
