@@ -24,8 +24,8 @@ const Register = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const [userAvatar, setUserAvatar] = useState('');
-  const REACT_APP_API_URL = 'http://localhost:4000';
-  // const REACT_APP_API_URL = 'https://easy-shop-backend.herokuapp.com';
+  // const REACT_APP_API_URL = 'http://localhost:4000';
+  const REACT_APP_API_URL = 'https://easy-shop-backend.herokuapp.com';
 
   useEffect(() => {
     const loadImage = async () => {
