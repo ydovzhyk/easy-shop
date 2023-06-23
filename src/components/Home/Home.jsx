@@ -15,6 +15,13 @@ const Home = () => {
   const isMessage = useSelector(getVerifyMessage);
   const navigate = useNavigate();
 
+  let siteUrl;
+  if (process.env.NODE_ENV === 'production') {
+    siteUrl = 'https://ydovzhyk.github.io/easy-shop/';
+  } else {
+    siteUrl = 'http://localhost:3000';
+  }
+
   //google auth
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -31,15 +38,15 @@ const Home = () => {
       };
       dispatch(updateUser(userData));
       localStorage.setItem('easy-shop.authData', JSON.stringify(userData));
-      navigate('/');
+      window.location.assign(siteUrl);
     }
     if (message) {
       dispatch(verifyConfirmation(message));
-      window.location.assign('https://ydovzhyk.github.io/easy-shop/');
+      window.location.assign(siteUrl);
     } else {
       return;
     }
-  }, [dispatch, navigate]);
+  }, [dispatch, navigate, siteUrl]);
 
   return (
     <section className={s.home}>
