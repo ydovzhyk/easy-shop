@@ -1,6 +1,8 @@
+import { forwardRef } from 'react';
+
 import s from './TextField.module.scss';
 
-const TextField = ({
+const TextField = forwardRef(({
   type,
   name,
   value,
@@ -10,7 +12,7 @@ const TextField = ({
   pattern,
   title,
   className,
-}) => {
+}, ref) => {
   const spanClass = className ? `${s.span} ${s[className]}` : `${s.span}`;
   const labelClass = className ? `${s.label} ${s[className]}` : `${s.label}`;
   const inputClass = className ? `${s.input} ${s[className]}` : `${s.input}`;
@@ -18,6 +20,7 @@ const TextField = ({
   return (
     <label className={labelClass}>
       <input
+        ref={ref}
         className={inputClass}
         type={type}
         name={name}
@@ -30,7 +33,7 @@ const TextField = ({
       <span className={spanClass}>{placeholder}</span>
     </label>
   );
-};
+});
 export default TextField;
 
 TextField.defaultProps = {

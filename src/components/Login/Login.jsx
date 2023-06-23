@@ -3,7 +3,7 @@ import { NavLink, Navigate, useLocation, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { FcGoogle } from 'react-icons/fc';
 
-import { clearNewUser, clearError } from 'redux/auth/auth-slice';
+import { clearNewUser, clearUserError } from 'redux/auth/auth-slice';
 import { login } from 'redux/auth/auth-opetations';
 import { getLogin, getError } from 'redux/auth/auth-selectors';
 
@@ -52,7 +52,7 @@ const Login = () => {
   }
 
   const resetError = () => {
-    dispatch(clearError());
+    dispatch(clearUserError());
   };
 
   return (

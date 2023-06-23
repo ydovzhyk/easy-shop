@@ -1,5 +1,6 @@
 import instance from './auth';
 
+// Create new product
 export const axiosAddProduct = async productData => {
   const { data } = await instance.post('/product/add', productData, {
     headers: {
@@ -20,6 +21,7 @@ export const axiosGetAllProducts = async () => {
   return data;
 };
 
+// Get User products
 export const axiosGetUserProducts = async userData => {
   const { data } = await instance.get(
     `/product/user-products?page=${userData}`
@@ -37,16 +39,22 @@ export const axiosGetProductsByQuery = async searchQuery => {
   return data;
 };
 
-//Get vipProducts page
+// Get vipProducts page
 export const axiosGetVipProducts = async userData => {
   const { data } = await instance.get(`/product/vip?page=${userData}`);
   return data;
 };
 
+// Get products by Selector
 export const axiosProductsBySelector = async userData => {
-  console.log(userData);
   const { data } = await instance.get(
     `/product/selector?page=${userData.page}&selectorName=${userData.selectorName}`
   );
+  return data;
+};
+
+// Get product by Id
+export const axiosGetProductById = async id => {
+  const { data } = await instance.get(`/product/${id}`);
   return data;
 };

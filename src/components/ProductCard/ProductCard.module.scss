@@ -13,6 +13,15 @@
   }
 }
 
+.navigation {
+    margin-bottom: 24px;
+    & > a {
+        color: var(--title-text-color);
+        font-size: 16px;
+    }
+    
+}
+
 .productCardWrapper{
     @include mixins.mq(desktop) {
     display: flex;
@@ -20,18 +29,18 @@
 }
 
 .fotoContainer {
-  width: 100%;
-  height: 400px;
+  // width: 100%;
+  // height: 400px;
   
   margin-bottom: 20px;
 
   @include mixins.mq(tablet) {
-    width: 380px;
+    // width: 380px;
     margin-bottom: 0;
   }
 
   @include mixins.mq(desktop) {
-    width: 420px;
+    // width: 420px;
   }
 }
 
@@ -39,6 +48,7 @@
     background-color: grey;
     width: 100%;
     height: 100%;
+    background-size: cover;
 }
 
 .productMainInfo {
@@ -46,6 +56,12 @@
     display: flex;
     gap: 24px;
     margin-bottom: 20px;
+  }
+}
+
+.productInfoWrapper {
+  @include mixins.mq(tablet) {
+    width: 50%;
   }
 }
 
@@ -89,6 +105,9 @@
     border-radius: 5px;
     padding: 8px;
     margin-bottom: 20px;
+    @include mixins.mq(desktop) {
+    margin-right: 20px;
+  }
 }
 
 .buyBtns {
@@ -143,7 +162,11 @@
 }
 
 .deliveryListContainer{
-    min-width: 220px;
+  min-width: 220px;
+  @include mixins.mq(desktop) {
+    margin-left: 24px;
+  }
+    
 }
 
 .deliveryList {

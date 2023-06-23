@@ -48,7 +48,10 @@ const Catalog = () => {
       </div>
 
       <SelectorProducts
-        activeButton={activeButton} 
+        activeButton={activeButton}
+        // currentPage={currentPage}
+        //   handlePrevPage={handlePrevPage}
+        //   handleNextPage={handleNextPage}
        />
     </section>
   );

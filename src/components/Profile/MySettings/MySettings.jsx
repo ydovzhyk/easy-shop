@@ -6,6 +6,7 @@ import { field } from 'components/Shared/TextField/fields';
 import { getUser, getUserMessage} from 'redux/auth/auth-selectors';
 import { getUserAvatar } from 'redux/auth/auth-selectors';
 import { updateUser } from 'redux/auth/auth-opetations';
+import { setVerifyEmail } from 'redux/verifyEmail/verifyEmail-slice';
 import Container from 'components/Shared/Container';
 import ChangePhoto from 'components/Profile/ChangePhoto/ChangePhoto';
 import Text from 'components/Shared/Text/Text';
@@ -51,6 +52,7 @@ const MySettings = () => {
     control,
     register,
     handleSubmit,
+    watch
   } = useForm({
     defaultValues: {
       secondName: secondName ? secondName : '',
@@ -86,14 +88,19 @@ const MySettings = () => {
     setIsFormSubmitted(true);
   };
 
-  useEffect(() => {
-    setIsMessage(message);
-  }, [message]);
-
   const resetMessage = () => {
     setIsMessage("");
   }; 
   
+  const inputValue = watch('email');
+
+  useEffect(() => {
+    setIsMessage(message);
+  }, [message]);
+
+  useEffect(() => {
+    dispatch(setVerifyEmail(inputValue));
+  }, [dispatch, inputValue])
 
   return (
     <Container>
@@ -162,6 +169,7 @@ const MySettings = () => {
                 render={({ field: { onChange, value } }) => (
                   <TextField
                     className="changeProfile"
+                    {...register('email')}
                     value={value}
                     control={control}
                     handleChange={onChange}
@@ -175,6 +183,11 @@ const MySettings = () => {
                 }
                 textClass="second-text"
               />
+              <div className={s.navButton}>
+                <ProfileLink to={'/email-verification'} email={email}> 
+                  Підтвердити
+                </ProfileLink>
+              </div>
             </div>
             <div className={s.partFrame}>
               <Text text={'Телефон'} textClass="lable-form" />
@@ -191,11 +204,6 @@ const MySettings = () => {
                   />
                 )}
               />
-              <div className={s.navButton}>
-                <ProfileLink to={'/phone-verification'}>
-                  Змінити
-                </ProfileLink>
-              </div>
             </div>
             <div className={s.partFrame}>
               <Text text={'Місто'} textClass="lable-form" />

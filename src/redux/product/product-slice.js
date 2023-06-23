@@ -8,6 +8,7 @@ import {
   searchProducts,
   getVipProducts,
   getProductsBySelector,
+  getProductById,
 } from './product-operations';
 
 const initialState = {
@@ -23,16 +24,17 @@ const initialState = {
   vipPages: 1,
   selectorProducts: [],
   selectorPages: 1,
+  productById: {},
 };
 
 const products = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    clearMessage: store => {
+    clearProductMessage: store => {
       store.message = '';
     },
-    clearError: store => {
+    clearProductError: store => {
       store.error = null;
     },
     clearUserProducts: store => {
@@ -134,9 +136,23 @@ const products = createSlice({
       store.loading = false;
       store.error = payload;
     },
+    // getProductById
+    [getProductById.pending]: store => {
+      store.loading = true;
+      store.error = null;
+    },
+    [getProductById.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.productById = payload;
+    },
+    [getProductById.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
   },
 });
 
 export default products.reducer;
 
-export const { clearMessage, clearError, clearUserProducts } = products.actions;
+export const { clearProductMessage, clearProductError, clearUserProducts } =
+  products.actions;

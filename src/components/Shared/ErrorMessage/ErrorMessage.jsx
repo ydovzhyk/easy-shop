@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { clearError } from 'redux/auth/auth-slice';
+import { clearUserError } from 'redux/auth/auth-slice';
+import { clearProductError } from 'redux/product/product-slice';
+import { clearVerifyError } from 'redux/verifyEmail/verifyEmail-slice';
 
 import Text from 'components/Shared/Text/Text';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -17,7 +19,9 @@ export default function ErrorMessage({ text, onDismiss }) {
     if (typeof onDismiss === 'function') {
       onDismiss();
     }
-    dispatch(clearError());
+    dispatch(clearUserError());
+    dispatch(clearProductError());
+    dispatch(clearVerifyError());
   };
 
   useEffect(() => {
