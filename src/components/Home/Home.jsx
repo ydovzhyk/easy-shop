@@ -38,11 +38,15 @@ const Home = () => {
       };
       dispatch(updateUser(userData));
       localStorage.setItem('easy-shop.authData', JSON.stringify(userData));
-      window.location.assign(siteUrl);
+      setTimeout(() => {
+        window.location.assign(siteUrl);
+      }, 5000);
     }
     if (message) {
       dispatch(verifyConfirmation(message));
-      window.location.assign(siteUrl);
+      setTimeout(() => {
+        window.location.assign(siteUrl);
+      }, 5000);
     } else {
       return;
     }
