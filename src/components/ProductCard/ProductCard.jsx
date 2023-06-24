@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, NavLink } from 'react-router-dom';
 import Container from 'components/Shared/Container/Container';
 import s from './ProductCard.module.scss';
 import Text from 'components/Shared/Text/Text';
@@ -15,6 +15,7 @@ import { useEffect } from 'react';
 import Dialogue from 'components/Dialogue/Dialogue';
 import PhotoCollection from 'components/Shared/PhotoCollection/PhotoCollection';
 import { nanoid } from '@reduxjs/toolkit';
+import { getLogin } from 'redux/auth/auth-selectors';
 
 const ProductCard = () => {
   const { category, subcategory, id } = useParams();
@@ -25,6 +26,7 @@ const ProductCard = () => {
   }, [dispatch, id]);
 
   const product = useSelector(selectProductById);
+  const isLogin = useSelector(getLogin);
   // console.log( id, product);
   let categoryName = '';
   let subCategoryName = '';
@@ -249,9 +251,12 @@ const ProductCard = () => {
     vip,
   } = product;
 
-  // console.log(product);
+  console.log(product);
 
   const sizeValuesArray = size ? size.map(item => item[0].value) : [];
+  const addProductToBasket = () => {
+    console.log("add product to basket");
+  }
 
     return (
       <section className={s.productCard}>
@@ -294,7 +299,7 @@ const ProductCard = () => {
                   </div>
                   <Text text="Розміри:" textClass="productLabels" />
 
-                 {sizeValuesArray.length > 1
+                  {sizeValuesArray.length > 1
                     ? sizeValuesArray.map(item => {
                         return (
                           <div className={s.size} key={nanoid()}>
@@ -321,12 +326,19 @@ const ProductCard = () => {
                       })}
 
                   <div className={s.buyBtns}>
+                    <NavLink to={isLogin ? '/checkout' : '/login'}>
+                      <Button
+                        type="button"
+                        btnClass="btnLight"
+                        text="Купити зараз"
+                      />
+                    </NavLink>
+
                     <Button
                       type="button"
-                      btnClass="btnLight"
-                      text="Купити зараз"
+                      text="Додати до кошика"
+                      handleClick={addProductToBasket}
                     />
-                    <Button type="button" text="Додати до кошика" />
                   </div>
                   <div className={s.additionalOptsContainer}>
                     <div className={s.additionalOpts}>

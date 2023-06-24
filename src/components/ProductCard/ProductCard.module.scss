@@ -146,7 +146,14 @@
   }
 }
 
-.buyBtns > button {
+.buyBtns a {
+    width: 100%;
+    @include mixins.mq(desktop) {
+      width: 200px;
+  }
+}
+
+.buyBtns button {
     width: 100%;
     @include mixins.mq(desktop) {
       width: 200px;
