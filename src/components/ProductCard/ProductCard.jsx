@@ -294,7 +294,7 @@ const ProductCard = () => {
                   </div>
                   <Text text="Розміри:" textClass="productLabels" />
 
-                  {sizeValuesArray.length > 1
+                 {sizeValuesArray.length > 1
                     ? sizeValuesArray.map(item => {
                         return (
                           <div className={s.size} key={nanoid()}>
@@ -328,7 +328,6 @@ const ProductCard = () => {
                     />
                     <Button type="button" text="Додати до кошика" />
                   </div>
-
                   <div className={s.additionalOptsContainer}>
                     <div className={s.additionalOpts}>
                       <BsSuitHeart className={s.favoriteIcon} />
@@ -349,7 +348,6 @@ const ProductCard = () => {
                   </div> */}
                 </div>
               </div>
-
               <ul className={s.productInfo}>
                 <li className={s.productDescription}>
                   <Text text="Стан:" textClass="productLabels" />
