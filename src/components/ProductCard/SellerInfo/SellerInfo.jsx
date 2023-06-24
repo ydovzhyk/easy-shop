@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getOtherUser } from 'redux/otherUser/otherUser-operations';
 import { selectOtherUser } from 'redux/otherUser/otherUser-selectors';
+import verifyIcon from 'images/product-card/verified.svg'
 
 const getDaysPassedFromDate = dateString => {
   const date = new Date(dateString);
@@ -67,7 +68,7 @@ const SellerInfo = ({ owner }) => {
   }, [dispatch, owner]);
 
   const userInfo = useSelector(selectOtherUser);
-  const { userAvatar, username, cityName, dateCreate, lastVisit, sex } =
+  const { userAvatar, username, cityName, dateCreate, lastVisit, sex, verify } =
     userInfo;
 
   const lastVisitDate = getPhrase(sex, lastVisit);
@@ -99,6 +100,17 @@ const SellerInfo = ({ owner }) => {
             />
           </div>
           <div className={s.profileinfo}>
+            {verify && (
+              <div className={s.infowrapper}>
+                <img
+                  src={verifyIcon}
+                  alt="verify Icon"
+                  className={s.iconBefore}
+                />
+                <p className={s.text}>Верифікований користувач</p>
+              </div>
+            )}
+
             <div className={s.infowrapper}>
               <BsClock className={s.iconBefore} />
               <p className={s.text}>{lastVisitDate}</p>
