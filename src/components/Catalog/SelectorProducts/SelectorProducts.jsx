@@ -57,7 +57,6 @@ const SelectorProducts = ({ activeButton }) => {
             size={item.size}
             section={item.section}
             category={item.category}
-            _id={item._id}
           />
         ))}
       </ul>
