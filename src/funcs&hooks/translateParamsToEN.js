@@ -1,4 +1,4 @@
-export function translateParamsToEn(category, subcategory) {
+export function translateParamsToEN(category, subcategory) {
   let categoryName = '';
   let subCategoryName = '';
 
@@ -14,7 +14,9 @@ export function translateParamsToEn(category, subcategory) {
       break;
     case "Краса та здоров'я":
       categoryName = 'beauty&health';
+      break;
     default:
+      categoryName = category;
       break;
   }
 
@@ -60,6 +62,7 @@ export function translateParamsToEn(category, subcategory) {
         subCategoryName = 'pants and shorts';
         break;
       default:
+        subCategoryName = subcategory;
         break;
     }
   }
@@ -117,6 +120,7 @@ export function translateParamsToEn(category, subcategory) {
         subCategoryName = 'pants and shorts';
         break;
       default:
+        subCategoryName = subcategory;
         break;
     }
   }
@@ -151,6 +155,7 @@ export function translateParamsToEn(category, subcategory) {
         subCategoryName = 'active recreation';
         break;
       default:
+        subCategoryName = subcategory;
         break;
     }
   }
@@ -203,6 +208,7 @@ export function translateParamsToEn(category, subcategory) {
         subCategoryName = 'optics';
         break;
       default:
+        subCategoryName = subcategory;
         break;
     }
   }
