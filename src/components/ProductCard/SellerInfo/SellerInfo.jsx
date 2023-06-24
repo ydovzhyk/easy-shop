@@ -1,4 +1,10 @@
-import { BsCheck2, BsGeoAlt, BsHandbag, BsPeople } from 'react-icons/bs';
+import {
+  BsCheck2,
+  BsGeoAlt,
+  BsHandbag,
+  BsPeople,
+  BsClock,
+} from 'react-icons/bs';
 import Avatar from 'components/Profile/Avatar/Avatar';
 import UserRating from 'components/Profile/UserProfileInfo/UserRating';
 import Value from 'components/Profile/Value';
@@ -17,6 +23,42 @@ const getDaysPassedFromDate = dateString => {
   return daysPassed;
 };
 
+const getTimePassedFromDate = dateString => {
+  const previousDate = new Date(dateString);
+  const currentDate = new Date();
+  const difference = currentDate - previousDate;
+  const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((difference / (1000 * 60)) % 60);
+  if (!dateString) {
+      return null;
+    }
+  return [days, hours, minutes]
+}
+
+const getPhrase = (sex, lastVisit) => {
+  const lastVisitArray = getTimePassedFromDate(lastVisit);
+  const sexName = sex === 'Чоловік' ? 'Був' : 'Була';
+  if (!lastVisitArray) {
+    return 'Давно не бачили';
+  }
+  if (
+    lastVisitArray[0] === 0 &&
+    lastVisitArray[1] === 0 &&
+    lastVisitArray[2] === 0
+  ) {
+    return 'Зараз на сайті';
+  }
+  
+  if (lastVisitArray[0] === 0 && lastVisitArray[1] !== 0) {
+    return `${sexName}  ${lastVisitArray[1]} год. ${lastVisitArray[2]} хв. тому`;
+  }
+  if (lastVisitArray[0] === 0 && lastVisitArray[1] === 0) {
+    return `${sexName}  ${lastVisitArray[2]} хв. тому`;
+  }
+  return `${sexName}  ${lastVisitArray[0]} дн. ${lastVisitArray[1]} год. ${lastVisitArray[2]} хв. тому`;
+};
+
 const SellerInfo = ({ owner }) => {
   const dispatch = useDispatch();
 
@@ -25,14 +67,16 @@ const SellerInfo = ({ owner }) => {
   }, [dispatch, owner]);
 
   const userInfo = useSelector(selectOtherUser);
-  const { userAvatar, username, cityName, dateCreate } = userInfo;
+  const { userAvatar, username, cityName, dateCreate, lastVisit, sex } =
+    userInfo;
 
+  const lastVisitDate = getPhrase(sex, lastVisit);
   const rating = 3.2;
   const gradesAmount = 12;
   const daysAmount = getDaysPassedFromDate(dateCreate);
   const followersAmount = 36;
   const salesAmount = 16;
-  
+
   return (
     <>
       <div className={s.profilewrapper}>
@@ -56,8 +100,12 @@ const SellerInfo = ({ owner }) => {
           </div>
           <div className={s.profileinfo}>
             <div className={s.infowrapper}>
+              <BsClock className={s.iconBefore} />
+              <p className={s.text}>{lastVisitDate}</p>
+            </div>
+            <div className={s.infowrapper}>
               <BsGeoAlt className={s.iconBefore} />
-              <p className={s.text}>{cityName}</p>
+              <p className={s.text}>{cityName || 'Kyiv'}</p>
             </div>
             <div className={s.infowrapper}>
               <BsPeople className={s.iconBefore} />
