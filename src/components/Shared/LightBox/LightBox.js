@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { FiChevronLeft, FiChevronRight, FiX } from 'react-icons/fi';
 import s from 'components/Shared/LightBox/LightBox.module.scss';
 
 const LightBox = ({
@@ -50,7 +50,7 @@ const LightBox = ({
       {isOpen ? (
         <div className={s.photoBackdrop} onClick={hideLightBox}>
           <button className={s.closeButton} onClick={hideLightBox}>
-            x
+            <FiX />
           </button>
           <div
             className={`${s.arrowButton} ${s.arrowButtonLeft}`}
