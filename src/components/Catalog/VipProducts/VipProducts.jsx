@@ -8,7 +8,7 @@ import {
   getVipProductCard,
   getVipPages,
 } from 'redux/product/product-selectors';
-// import Pagination from 'components/Shared/Pagination/Pagination';
+
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import s from './VipProducts.module.scss';
 
@@ -35,11 +35,6 @@ const VipProducts = () => {
     }
   };
 
-  // // для pagination
-  // const handlePageChange = page => {
-  //   setCurrentPage(page);
-  // };
-
   return (
     <div className={s.styleButtonList}>
       {currentPage > 1 && (
@@ -58,10 +53,12 @@ const VipProducts = () => {
         {arrayVipProducts.map(item => (
           <ProductItem
             key={item._id}
+            _id={item._id}
             mainPhotoUrl={item.mainPhotoUrl}
             price={item.price}
             nameProduct={item.nameProduct}
             description={item.description}
+            size={item.size}
             section={item.section}
             category={item.category}
             _id={item._id}
@@ -80,11 +77,6 @@ const VipProducts = () => {
           />
         </div>
       )}
-      {/* <Pagination
-        totalPages={vipPages}
-        currentPage={currentPage}
-        onPageChange={handlePageChange}
-      /> */}
     </div>
   );
 };
