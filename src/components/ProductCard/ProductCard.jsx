@@ -23,6 +23,10 @@ const ProductCard = () => {
 
   useEffect(() => {
     dispatch(getProductById(id));
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   }, [dispatch, id]);
 
   const product = useSelector(selectProductById);
