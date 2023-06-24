@@ -173,6 +173,15 @@
     margin-bottom: 12px;
 }
 
+.additionalOpts button {
+  background-color: transparent;
+  text-align: start;
+}
+
+.additionalOpts button:hover {
+  text-shadow: 5px 5px 10px #dadada;
+}
+
 .productInfo {
     padding: 8px 0;
     @include mixins.mq(tablet) {

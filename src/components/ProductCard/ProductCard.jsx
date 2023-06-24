@@ -11,13 +11,14 @@ import DeliveryList from './DeliveryList';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectProductById } from 'redux/product/product-selectors';
 import { getProductById } from 'redux/product/product-operations';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import Dialogue from 'components/Dialogue/Dialogue';
 import PhotoCollection from 'components/Shared/PhotoCollection/PhotoCollection';
 import { nanoid } from '@reduxjs/toolkit';
 import { getLogin } from 'redux/auth/auth-selectors';
 
 const ProductCard = () => {
+  const chattingRef = useRef();
   const { category, subcategory, id } = useParams();
   const dispatch = useDispatch();
 
@@ -262,6 +263,10 @@ const ProductCard = () => {
     console.log("add product to basket");
   }
 
+  const scrollToChating = () => {
+    chattingRef.current.scrollIntoView({ behavior: 'smooth' });
+  };
+
     return (
       <section className={s.productCard}>
         <Container>
@@ -351,10 +356,12 @@ const ProductCard = () => {
                     </div>
                     <div className={s.additionalOpts}>
                       <BiMessageDetail className={s.favoriteIcon} />
-                      <Text
-                        text="Поставити запитання"
-                        textClass="productText"
-                      />
+                      <button onClick={scrollToChating}>
+                        <Text
+                          text="Поставити запитання"
+                          textClass="productText"
+                        />
+                      </button>
                     </div>
                   </div>
                   {/* //! moved below into component Dialogue and no longer needed */}
@@ -386,7 +393,7 @@ const ProductCard = () => {
                 <DeliveryList />
               </div>
             </div>
-            <div>
+            <div ref={chattingRef}>
               <Text text="Продавець:" textClass="productLabels" />
               <div className={s.sellerInfo}>
                 <SellerInfo owner={owner} />
