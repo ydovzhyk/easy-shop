@@ -31,10 +31,10 @@ const products = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    clearMessage: store => {
+    clearProductMessage: store => {
       store.message = '';
     },
-    clearError: store => {
+    clearProductError: store => {
       store.error = null;
     },
     clearUserProducts: store => {
@@ -154,4 +154,5 @@ const products = createSlice({
 
 export default products.reducer;
 
-export const { clearMessage, clearError, clearUserProducts } = products.actions;
+export const { clearProductMessage, clearProductError, clearUserProducts } =
+  products.actions;

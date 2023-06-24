@@ -12,7 +12,6 @@
   // }
 }
 .dropdownMenu {
-
   // padding: 10px 0 10px 0;
   position: absolute;
   // margin-left: 0;
@@ -29,7 +28,6 @@
   //   //   background: grey;
   //   // }
   // }
-  
 }
 
 .dropdownSubmenu {
@@ -44,11 +42,10 @@
     //   background: grey;
     // }
   }
-
 }
 .containerSubMenu {
   border-bottom: 1px solid var(--second-text-color);
-  top:0;
+  top: 0;
   // margin-top: 20px;
   // border: red solid 0.5px;
 
@@ -74,7 +71,6 @@
   &:hover {
     fill: var(--icons-color);
     background: var(--bg-footer-header);
-   
   }
 }
 
@@ -110,7 +106,7 @@
 }
 
 .item {
-  border-bottom: 1px solid var(--second-text-color); 
+  border-bottom: 1px solid var(--second-text-color);
   display: flex;
   padding: 23px 0 23px 15px;
 }

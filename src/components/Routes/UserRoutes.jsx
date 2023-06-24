@@ -58,7 +58,6 @@ const UserRoutes = () => {
             <Route path="myreviews" element={<MyReviews />} />
             <Route path="mysettings" element={<MySettings />} />
           </Route>
-
           <Route path="/email-verification" element={<EmailVerification />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />

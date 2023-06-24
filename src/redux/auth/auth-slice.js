@@ -54,7 +54,7 @@ const auth = createSlice({
       store.newUser = {};
     },
     clearUser: () => ({ ...initialState }),
-    clearError: store => {
+    clearUserError: store => {
       store.error = '';
     },
     clearUserMessage: store => {
@@ -161,5 +161,5 @@ const auth = createSlice({
 });
 
 export default auth.reducer;
-export const { clearNewUser, clearUser, clearError, clearUserMessage } =
+export const { clearNewUser, clearUser, clearUserError, clearUserMessage } =
   auth.actions;

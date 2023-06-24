@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useLocation } from 'react-router-dom';
 import { CiSearch } from 'react-icons/ci';
 import Button from 'components/Shared/Button';
 import { field } from 'components/Shared/TextField/fields';
@@ -11,6 +11,9 @@ const HeaderForm = ({ onChange }) => {
   const [, setSearchParams] = useSearchParams();
 
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const isUserAt404Page =
+    !pathname.includes('/products') || !pathname.includes('/products/');
 
   const {
     control,
@@ -50,7 +53,15 @@ const HeaderForm = ({ onChange }) => {
         type="submit"
         btnClass="searchBtn"
         text={<CiSearch size={30} />}
-        handleClick={() => navigate(`/products`)}
+        handleClick={() =>
+          navigate(
+            pathname === '/'
+              ? '/products'
+              : isUserAt404Page
+              ? '/products'
+              : pathname
+          )
+        }
       ></Button>
     </form>
   );
