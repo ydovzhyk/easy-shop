@@ -30,21 +30,34 @@ const getTimePassedFromDate = dateString => {
   const days = Math.floor(difference / (1000 * 60 * 60 * 24));
   const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
   const minutes = Math.floor((difference / (1000 * 60)) % 60);
-  console.log(`Пройшло ${days} днів, ${hours} годин і ${minutes} хвилин.`);
-  if (days === 0 && hours === 0 && minutes === 0) {
+  if (!dateString) {
+      return null;
+    }
+  return [days, hours, minutes]
+}
+
+const getPhrase = (sex, lastVisit) => {
+  const lastVisitArray = getTimePassedFromDate(lastVisit);
+  const sexName = sex === 'Чоловік' ? 'Був' : 'Була';
+  if (!lastVisitArray) {
+    return 'Давно не бачили';
+  }
+  if (
+    lastVisitArray[0] === 0 &&
+    lastVisitArray[1] === 0 &&
+    lastVisitArray[2] === 0
+  ) {
     return 'Зараз на сайті';
   }
-    if (!dateString) {
-      return 'Давно не бачили';
-    }
-    if (days === 0 && hours !== 0) {
-      return `Заходив ${hours} год. ${minutes} хв. тому`;
-    }
-  if (days === 0 && hours === 0) {
-    return `Заходив ${minutes} хв. тому`;
+  
+  if (lastVisitArray[0] === 0 && lastVisitArray[1] !== 0) {
+    return `${sexName}  ${lastVisitArray[1]} год. ${lastVisitArray[2]} хв. тому`;
   }
-  return `Заходив ${days} дн. ${hours} год. ${minutes} хв. тому`;
-}
+  if (lastVisitArray[0] === 0 && lastVisitArray[1] === 0) {
+    return `${sexName}  ${lastVisitArray[2]} хв. тому`;
+  }
+  return `${sexName}  ${lastVisitArray[0]} дн. ${lastVisitArray[1]} год. ${lastVisitArray[2]} хв. тому`;
+};
 
 const SellerInfo = ({ owner }) => {
   const dispatch = useDispatch();
@@ -54,9 +67,10 @@ const SellerInfo = ({ owner }) => {
   }, [dispatch, owner]);
 
   const userInfo = useSelector(selectOtherUser);
-  const { userAvatar, username, cityName, dateCreate, lastVisit } = userInfo;
-  
-  const lastVisitDate = getTimePassedFromDate(lastVisit);
+  const { userAvatar, username, cityName, dateCreate, lastVisit, sex } =
+    userInfo;
+
+  const lastVisitDate = getPhrase(sex, lastVisit);
   const rating = 3.2;
   const gradesAmount = 12;
   const daysAmount = getDaysPassedFromDate(dateCreate);
@@ -91,7 +105,7 @@ const SellerInfo = ({ owner }) => {
             </div>
             <div className={s.infowrapper}>
               <BsGeoAlt className={s.iconBefore} />
-              <p className={s.text}>{cityName}</p>
+              <p className={s.text}>{cityName || 'Kyiv'}</p>
             </div>
             <div className={s.infowrapper}>
               <BsPeople className={s.iconBefore} />
