@@ -5,7 +5,6 @@ import Text from 'components/Shared/Text/Text';
 import Button from 'components/Shared/Button/Button';
 import { BsSuitHeart } from 'react-icons/bs';
 import { BiMessageDetail } from 'react-icons/bi';
-
 import SellerInfo from './SellerInfo/SellerInfo';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectProductById } from 'redux/product/product-selectors';
@@ -13,13 +12,12 @@ import { getProductById } from 'redux/product/product-operations';
 import { useEffect, useRef } from 'react';
 import Dialogue from 'components/Dialogue/Dialogue';
 import PhotoCollection from 'components/Shared/PhotoCollection/PhotoCollection';
-
 import { getLogin } from 'redux/auth/auth-selectors';
 import ProductSizes from './Productsizes';
+
 import ProductInfo from './ProductInfo';
 
 const ProductCard = () => {
-  const chattingRef = useRef();
   const { category, subcategory, id } = useParams();
   const dispatch = useDispatch();
 
@@ -259,6 +257,8 @@ const ProductCard = () => {
   const addProductToBasket = () => {
     console.log("add product to basket");
   }
+
+  const chattingRef = useRef();
 
   const scrollToChating = () => {
     chattingRef.current.scrollIntoView({ behavior: 'smooth' });
