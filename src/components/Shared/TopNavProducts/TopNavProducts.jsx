@@ -19,7 +19,7 @@ const TopNavProducts = ({ category, subcategory }) => {
       categoryName = "Краса та здоров'я";
       break;
     default:
-      categoryName = `Категорія ${category} відсутня`;
+      categoryName = category;
       break;
   }
 
@@ -65,7 +65,7 @@ const TopNavProducts = ({ category, subcategory }) => {
         subCategoryName = 'Штани та шорти';
         break;
       default:
-        subCategoryName = `Підкатегорія ${subcategory} відсутня`;
+        subCategoryName = subcategory;
         break;
     }
   }
@@ -123,7 +123,7 @@ const TopNavProducts = ({ category, subcategory }) => {
         subCategoryName = 'Штани та шорти';
         break;
       default:
-        subCategoryName = `Підкатегорія ${subcategory} відсутня`;
+        subCategoryName = subcategory;
         break;
     }
   }
@@ -158,7 +158,7 @@ const TopNavProducts = ({ category, subcategory }) => {
         subCategoryName = 'Активний відпочинок';
         break;
       default:
-        subCategoryName = `Підкатегорія ${subcategory} відсутня`;
+        subCategoryName = category;
         break;
     }
   }
@@ -211,20 +211,28 @@ const TopNavProducts = ({ category, subcategory }) => {
         subCategoryName = 'Оптика';
         break;
       default:
-        subCategoryName = `Підкатегорія ${subcategory} відсутня`;
+        subCategoryName = subcategory;
         break;
     }
   }
+  console.log(category);
+  console.log(subcategory);
 
   return (
     <div className={s.catalogTitle}>
-      {category && (
+      {categoryName !== category && (
         <>
           <h2 style={{ marginRight: '10px' }}>{categoryName}</h2>
           <SlArrowRight style={{ marginRight: '10px' }} />
         </>
       )}
-      {subcategory && (
+      {categoryName === category && (
+        <>
+          <h2 style={{ marginRight: '10px' }}>Товар відсутній</h2>
+          <SlArrowRight style={{ marginRight: '10px' }} />
+        </>
+      )}
+      {subCategoryName !== subcategory && (
         <>
           <h2 style={{ marginRight: '10px' }}>{subCategoryName}</h2>
           <SlArrowRight />
