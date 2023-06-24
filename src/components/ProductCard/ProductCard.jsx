@@ -23,12 +23,9 @@ const ProductCard = () => {
 
   useEffect(() => {
     dispatch(getProductById(id));
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [dispatch, id]);
-
+  
   const product = useSelector(selectProductById);
   const isLogin = useSelector(getLogin);
   // console.log( id, product);
