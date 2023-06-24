@@ -261,7 +261,7 @@ const ProductCard = () => {
             <Link to={`/products/${category}`}> {categoryName} </Link>&#8250;
             <Link to={`/products/${category}/${subcategory}`}>
               {' '}
-              {subcategory}
+              {subCategoryName}
             </Link>
           </p>
           <div className={s.productCardWrapper}>
@@ -283,16 +283,16 @@ const ProductCard = () => {
                       }
                     />
                   )}
-              </div>
-              <div className={s.productInfoWrapper}>
-                <p className={s.availability}>В наявності</p>
-                <Text text={nameProduct} textClass="productName" />
-                <div className={s.productPrice}>
-                  <span className={s.productOldPrice}>379 грн</span>
-                  <span className={s.productPriceDiscount}>-8%</span>
-                  <Text text={price} textClass="title" />
                 </div>
-                <Text text="Розміри:" textClass="productLabels" />
+                <div className={s.productInfoWrapper}>
+                  <p className={s.availability}>В наявності</p>
+                  <Text text={nameProduct} textClass="productName" />
+                  <div className={s.productPrice}>
+                    <span className={s.productOldPrice}>379 грн</span>
+                    <span className={s.productPriceDiscount}>-8%</span>
+                    <Text text={price} textClass="title" />
+                  </div>
+                  <Text text="Розміри:" textClass="productLabels" />
 
                   {sizeValuesArray.length > 1
                     ? sizeValuesArray.map(item => {
@@ -327,59 +327,62 @@ const ProductCard = () => {
                       text="Купити зараз"
                     />
                     <Button type="button" text="Додати до кошика" />
-                </div>
+                  </div>
 
-                <div className={s.additionalOptsContainer}>
-                  <div className={s.additionalOpts}>
-                    <BsSuitHeart className={s.favoriteIcon} />
-                    <Text text="Додати в обрані" textClass="productText" />
+                  <div className={s.additionalOptsContainer}>
+                    <div className={s.additionalOpts}>
+                      <BsSuitHeart className={s.favoriteIcon} />
+                      <Text text="Додати в обрані" textClass="productText" />
+                    </div>
+                    <div className={s.additionalOpts}>
+                      <BiMessageDetail className={s.favoriteIcon} />
+                      <Text
+                        text="Поставити запитання"
+                        textClass="productText"
+                      />
+                    </div>
                   </div>
-                  <div className={s.additionalOpts}>
-                    <BiMessageDetail className={s.favoriteIcon} />
-                    <Text text="Поставити запитання" textClass="productText" />
-                  </div>
-                </div>
-                {/* //! moved below into component Dialogue and no longer needed */}
-                {/* <div className={s.additionalOpts}>
+                  {/* //! moved below into component Dialogue and no longer needed */}
+                  {/* <div className={s.additionalOpts}>
                     <BiMessageDetail className={s.favoriteIcon} />
                     <Text text="Поставити запитання" textClass="productText" />
                   </div> */}
+                </div>
               </div>
-            </div>
 
-            <ul className={s.productInfo}>
-              <li className={s.productDescription}>
-                <Text text="Стан:" textClass="productLabels" />
-                <Text text={condition} textClass="productText" />
-              </li>
-              <li className={s.productDescription}>
-                <Text text="Бренд:" textClass="productLabels" />
-                <Text text={brendName} textClass="productText" />
-              </li>
-              <li className={s.productDescription}>
-                <Text text="Категорії:" textClass="productLabels" />
-                <Text text={subSection} textClass="productText" />
-              </li>
-            </ul>
-            <div className={s.productDetails}>
-              <div className={s.productDescription}>
-                <Text text="Опис товару:" textClass="productLabels" />
-                <Text text={description} textClass="productText" />
+              <ul className={s.productInfo}>
+                <li className={s.productDescription}>
+                  <Text text="Стан:" textClass="productLabels" />
+                  <Text text={condition} textClass="productText" />
+                </li>
+                <li className={s.productDescription}>
+                  <Text text="Бренд:" textClass="productLabels" />
+                  <Text text={brendName} textClass="productText" />
+                </li>
+                <li className={s.productDescription}>
+                  <Text text="Категорії:" textClass="productLabels" />
+                  <Text text={subSection} textClass="productText" />
+                </li>
+              </ul>
+              <div className={s.productDetails}>
+                <div className={s.productDescription}>
+                  <Text text="Опис товару:" textClass="productLabels" />
+                  <Text text={description} textClass="productText" />
+                </div>
+                <DeliveryList />
               </div>
-              <DeliveryList />
+            </div>
+            <div>
+              <Text text="Продавець:" textClass="productLabels" />
+              <div className={s.sellerInfo}>
+                <SellerInfo owner={owner} />
+              </div>
             </div>
           </div>
-          <div>
-            <Text text="Продавець:" textClass="productLabels" />
-            <div className={s.sellerInfo}>
-              <SellerInfo owner={owner} />
-            </div>
-          </div>
-        </div>
-        <Dialogue />
-      </Container>
-    </section>
-  );
+          <Dialogue />
+        </Container>
+      </section>
+    );
 };
 
 export default ProductCard;
