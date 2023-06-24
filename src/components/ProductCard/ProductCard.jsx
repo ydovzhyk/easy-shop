@@ -41,7 +41,7 @@ const ProductCard = () => {
     vip,
   } = product;
 
-  console.log(product);
+  // console.log(product);
 
   const sizeValuesArray = size ? size.map(item => item[0].value) : [];
 
