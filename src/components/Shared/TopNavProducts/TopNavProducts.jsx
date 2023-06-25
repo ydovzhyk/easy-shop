@@ -8,6 +8,12 @@ const TopNavProducts = ({ category, subcategory }) => {
 
   return (
     <div className={s.catalogTitle}>
+      {!category && !subcategory && (
+        <>
+          <h2 style={{ marginRight: '10px' }}>Пошук у всіх категоріях</h2>
+          <SlArrowRight />
+        </>
+      )}
       {categoryName !== category && (
         <>
           <h2 style={{ marginRight: '10px' }}>{categoryName}</h2>
@@ -26,7 +32,6 @@ const TopNavProducts = ({ category, subcategory }) => {
           <SlArrowRight />
         </>
       )}
-      {!category && !subcategory && <p>Пошук у всіх категоріях</p>}
     </div>
   );
 };

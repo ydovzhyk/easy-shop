@@ -1,4 +1,10 @@
-import { NavLink, useSearchParams, useLocation } from 'react-router-dom';
+import {
+  NavLink,
+  useSearchParams,
+  useLocation,
+  useNavigate,
+  createSearchParams,
+} from 'react-router-dom';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
@@ -26,6 +32,7 @@ const Header = () => {
   const categories = Object.keys(categoryOptions);
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = searchParams.get('search') ?? '';
+  const navigate = useNavigate();
   // const getClassName = ({ isActive }) => {
   //   console.log(isActive);
   //   return isActive ? `${s.active}` : s.link;
@@ -55,10 +62,17 @@ const Header = () => {
       default:
         break;
     }
-    console.log(searchQuery);
+
     return `${firstPartPath}`;
   };
 
+  const getSearchQuery = async () => {
+    await setSearchParams({ search: searchQuery });
+    navigate({
+      search: createSearchParams(searchQuery).toString(),
+    });
+    return;
+  };
   return (
     <header className={s.header}>
       <div className={s.containerTop}>
@@ -135,6 +149,7 @@ const Header = () => {
                   // })}
 
                   to={getPath(category)}
+                  onClick={getSearchQuery}
                 >
                   {category}
                 </NavLink>
