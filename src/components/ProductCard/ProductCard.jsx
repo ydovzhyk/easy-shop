@@ -7,16 +7,16 @@ import { BsSuitHeart } from 'react-icons/bs';
 import { BiMessageDetail } from 'react-icons/bi';
 import SellerInfo from './SellerInfo/SellerInfo';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectProductById } from 'redux/product/product-selectors';
+import { getLoadingProducts, selectProductById } from 'redux/product/product-selectors';
 import { getProductById } from 'redux/product/product-operations';
 import { useEffect, useRef } from 'react';
 import Dialogue from 'components/Dialogue/Dialogue';
 import PhotoCollection from 'components/Shared/PhotoCollection/PhotoCollection';
 import { translateParamsToUA } from '../../funcs&hooks/translateParamsToUA.js';
-// import { nanoid } from '@reduxjs/toolkit';
 import { getLogin } from 'redux/auth/auth-selectors';
 import ProductSizes from './Productsizes';
 import ProductInfo from './ProductInfo';
+import Loader from 'components/Loader/Loader';
 
 
 const ProductCard = () => {
@@ -32,6 +32,7 @@ const ProductCard = () => {
   
   const product = useSelector(selectProductById);
   const isLogin = useSelector(getLogin);
+  const isLoading = useSelector(getLoadingProducts)
   // console.log( id, product);
 
   const {
@@ -43,8 +44,6 @@ const ProductCard = () => {
     size,
     vip,
   } = product;
-
-  // console.log(product);
 
   const sizeValuesArray = size ? size.map(item => item[0].value) : [];
   const addProductToBasket = () => {
@@ -68,78 +67,87 @@ const ProductCard = () => {
               {subCategoryName}
             </Link>
           </p>
-          <div className={s.productCardWrapper}>
-            <div>
-              <div className={s.productMainInfo}>
-                <div className={s.fotoContainer}>
-                  {vip === 'Так' && (
-                    <div className={s.vipLabel}>
-                      <span>Vip</span>
-                    </div>
-                  )}
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <>
+              <div className={s.productCardWrapper}>
+                <div>
+                  <div className={s.productMainInfo}>
+                    <div className={s.fotoContainer}>
+                      {vip === 'Так' && (
+                        <div className={s.vipLabel}>
+                          <span>Vip</span>
+                        </div>
+                      )}
 
-                  {product !== {} && (
-                    <PhotoCollection
-                      mainPhotoUrl={mainPhotoUrl}
-                      nameProduct={nameProduct}
-                      additionalPhotoUrl={
-                        additionalPhotoUrl ? additionalPhotoUrl : []
-                      }
-                    />
-                  )}
-                </div>
-                <div className={s.productInfoWrapper}>
-                  <p className={s.availability}>В наявності</p>
-                  <Text text={nameProduct} textClass="productName" />
-                  <div className={s.productPrice}>
-                    <span className={s.productOldPrice}>379 грн</span>
-                    <span className={s.productPriceDiscount}>-8%</span>
-                    <Text text={price} textClass="title" />
-                  </div>
-                  <ProductSizes sizeValuesArray={sizeValuesArray} />
-
-                  <div className={s.buyBtns}>
-                    <NavLink to={isLogin ? '/checkout' : '/login'}>
-                      <Button
-                        type="button"
-                        btnClass="btnLight"
-                        text="Купити зараз"
-                      />
-                    </NavLink>
-
-                    <Button
-                      type="button"
-                      text="Додати до кошика"
-                      handleClick={addProductToBasket}
-                    />
-                  </div>
-                  <div className={s.additionalOptsContainer}>
-                    <div className={s.additionalOpts}>
-                      <BsSuitHeart className={s.favoriteIcon} />
-                      <Text text="Додати в обрані" textClass="productText" />
-                    </div>
-                    <div className={s.additionalOpts}>
-                      <BiMessageDetail className={s.favoriteIcon} />
-                      <button onClick={scrollToChating}>
-                        <Text
-                          text="Поставити запитання"
-                          textClass="productText"
+                      {product !== {} && (
+                        <PhotoCollection
+                          mainPhotoUrl={mainPhotoUrl}
+                          nameProduct={nameProduct}
+                          additionalPhotoUrl={
+                            additionalPhotoUrl ? additionalPhotoUrl : []
+                          }
                         />
-                      </button>
+                      )}
                     </div>
+                    <div className={s.productInfoWrapper}>
+                      <p className={s.availability}>В наявності</p>
+                      <Text text={nameProduct} textClass="productName" />
+                      <div className={s.productPrice}>
+                        <span className={s.productOldPrice}>379 грн</span>
+                        <span className={s.productPriceDiscount}>-8%</span>
+                        <Text text={price} textClass="title" />
+                      </div>
+                      <ProductSizes sizeValuesArray={sizeValuesArray} />
+
+                      <div className={s.buyBtns}>
+                        <NavLink to={isLogin ? '/checkout' : '/login'}>
+                          <Button
+                            type="button"
+                            btnClass="btnLight"
+                            text="Купити зараз"
+                          />
+                        </NavLink>
+
+                        <Button
+                          type="button"
+                          text="Додати до кошика"
+                          handleClick={addProductToBasket}
+                        />
+                      </div>
+                      <div className={s.additionalOptsContainer}>
+                        <div className={s.additionalOpts}>
+                          <BsSuitHeart className={s.favoriteIcon} />
+                          <Text
+                            text="Додати в обрані"
+                            textClass="productText"
+                          />
+                        </div>
+                        <div className={s.additionalOpts}>
+                          <BiMessageDetail className={s.favoriteIcon} />
+                          <button onClick={scrollToChating}>
+                            <Text
+                              text="Поставити запитання"
+                              textClass="productText"
+                            />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <ProductInfo product={product} />
+                </div>
+                <div ref={chattingRef}>
+                  <Text text="Продавець:" textClass="productLabels" />
+                  <div className={s.sellerInfo}>
+                    <SellerInfo owner={owner} />
                   </div>
                 </div>
               </div>
-              <ProductInfo product={product} />
-            </div>
-            <div ref={chattingRef}>
-              <Text text="Продавець:" textClass="productLabels" />
-              <div className={s.sellerInfo}>
-                <SellerInfo owner={owner} />
-              </div>
-            </div>
-          </div>
-          <Dialogue />
+              <Dialogue />
+            </>
+          )}
         </Container>
       </section>
     );
