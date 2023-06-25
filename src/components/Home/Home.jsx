@@ -26,7 +26,6 @@ const Home = () => {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const message = urlParams.get('message');
-    console.log(message);
     const accessToken = urlParams.get('accessToken');
     const refreshToken = urlParams.get('refreshToken');
     const sid = urlParams.get('sid');
@@ -38,9 +37,7 @@ const Home = () => {
       };
       dispatch(updateUser(userData));
       localStorage.setItem('easy-shop.authData', JSON.stringify(userData));
-      setTimeout(() => {
-        window.location.assign(siteUrl);
-      }, 5000);
+      window.location.assign(siteUrl);
     }
     if (message) {
       dispatch(verifyConfirmation(message));
