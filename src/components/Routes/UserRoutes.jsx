@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import Loader from 'components/Loader';
 import PublicRoute from './PublicRoutes';
 import PrivateRoute from './PrivateRoutes';
+import CheckoutPage from 'pages/CheckoutPage/CheckoutPage';
 
 const HomePage = lazy(() => import('pages/HomePage'));
 const NotFoundPage = lazy(() => import('pages/NotFoundPage'));
@@ -59,6 +60,7 @@ const UserRoutes = () => {
             <Route path="mysettings" element={<MySettings />} />
           </Route>
           <Route path="/email-verification" element={<EmailVerification />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
