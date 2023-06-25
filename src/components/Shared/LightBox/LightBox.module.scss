@@ -29,8 +29,8 @@
     width: 32px;
     height: 32px;
     position: absolute;
-    right: 8px;
-    top: 16vh;
+    right: -8px;
+    top: -8px;
     background-color: rgba(245, 245, 245, 0.455);
     border-radius: 50%;
     display: flex;
@@ -38,36 +38,23 @@
     font-size: 32px;
     align-items: center;
 
-    @include mixins.mq(mobile) {
-      right: 24px;
-    }
-    
     @include mixins.mq(tablet) {
       width: 40px;
       height: 40px;
-      right: 8vw;
-      top: 12vh;
+      right: -12px;
+      top: -12px;
     }
     @include mixins.mq(desktop) {
       width: 44px;
       height: 44px;
-      right: 12vw;
-      top: 4vh;
+      right: -12px;
+      top: -12px;
     }
 }
 
 .photoContainer {
-    width: 100%;
-    @include mixins.mq(mobile) {
-        width: 72vw;
-    }
-    @include mixins.mq(tablet) {
-        // width: 58vw;
-    }
-    @include mixins.mq(desktop) {
-        width: 48vw;
-    }
-
+  position: relative;
+  max-height: 96vh;
 }
 
 .photoContainer > img {
@@ -120,7 +107,7 @@
     margin-left: 10px;
   }
   @include mixins.mq(desktop) {
-    margin-left: 20px;
+    margin-left: 140px;
   }
 }
 
@@ -134,6 +121,6 @@
     margin-right: 10px;
   }
   @include mixins.mq(desktop) {
-    margin-right: 20px;
+    margin-right: 140px;
   }
 }
