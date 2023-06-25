@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useSearchParams, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
@@ -24,7 +24,8 @@ const Header = () => {
   const isDesktop = useMediaQuery({ minWidth: 1280 });
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const categories = Object.keys(categoryOptions);
-
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchQuery = searchParams.get('search') ?? '';
   // const getClassName = ({ isActive }) => {
   //   console.log(isActive);
   //   return isActive ? `${s.active}` : s.link;
@@ -35,6 +36,27 @@ const Header = () => {
   };
   const handleSearchBtnClick = () => {
     setShowForm(!showForm);
+  };
+  const getPath = category => {
+    let firstPartPath = '';
+    switch (category) {
+      case 'Жінкам':
+        firstPartPath = 'products/women';
+        break;
+      case 'Чоловікам':
+        firstPartPath = 'products/men';
+        break;
+      case 'Дитячі товари':
+        firstPartPath = 'products/children';
+        break;
+      case "Краса та здоров'я":
+        firstPartPath = 'products/beauty&health';
+        break;
+      default:
+        break;
+    }
+    console.log(searchQuery);
+    return `${firstPartPath}`;
   };
 
   return (
@@ -112,15 +134,7 @@ const Header = () => {
                   //   isActive: location.pathname === linkPath,
                   // })}
 
-                  to={
-                    category === 'Жінкам'
-                      ? 'products/women'
-                      : category === 'Чоловікам'
-                      ? 'products/men'
-                      : category === 'Дитячі товари'
-                      ? 'products/children'
-                      : 'products/beauty&health'
-                  }
+                  to={getPath(category)}
                 >
                   {category}
                 </NavLink>
