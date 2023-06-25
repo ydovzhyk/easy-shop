@@ -15,8 +15,8 @@ import PhotoCollection from 'components/Shared/PhotoCollection/PhotoCollection';
 import { translateParamsToUA } from '../../funcs&hooks/translateParamsToUA.js';
 import { nanoid } from '@reduxjs/toolkit';
 import { getLogin } from 'redux/auth/auth-selectors';
-// import ProductSizes from './Productsizes';
-// import ProductInfo from './ProductInfo';
+import ProductSizes from './Productsizes';
+import ProductInfo from './ProductInfo';
 
 
 const ProductCard = () => {
