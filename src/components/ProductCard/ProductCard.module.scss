@@ -127,7 +127,7 @@
     border: 1px solid var(--border-color);
     border-radius: 5px;
     padding: 8px;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
     @include mixins.mq(desktop) {
     margin-right: 20px;
   }
@@ -146,7 +146,14 @@
   }
 }
 
-.buyBtns > button {
+.buyBtns a {
+    width: 100%;
+    @include mixins.mq(desktop) {
+      width: 200px;
+  }
+}
+
+.buyBtns button {
     width: 100%;
     @include mixins.mq(desktop) {
       width: 200px;
@@ -164,6 +171,15 @@
     display: flex;
     gap: 8px;
     margin-bottom: 12px;
+}
+
+.additionalOpts button {
+  background-color: transparent;
+  text-align: start;
+}
+
+.additionalOpts button:hover {
+  text-shadow: 5px 5px 10px #dadada;
 }
 
 .productInfo {

@@ -26,39 +26,43 @@
     outline: 0;
     padding: 5px;
     z-index: 1046;
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     position: absolute;
-    right: 20px;
-    top: 28px;
-    background-color: rgba(245, 245, 245, 0.586);
+    right: 8px;
+    top: 16vh;
+    background-color: rgba(245, 245, 245, 0.455);
     border-radius: 50%;
     display: flex;
     justify-content: center;
     font-size: 32px;
     align-items: center;
+
+    @include mixins.mq(mobile) {
+      right: 24px;
+    }
     
     @include mixins.mq(tablet) {
-        width: 44px;
-        height: 44px;
-        right: 32px;
-        top: 32px;
+      width: 40px;
+      height: 40px;
+      right: 8vw;
+      top: 12vh;
     }
     @include mixins.mq(desktop) {
-        width: 52px;
-        height: 52px;
-        right: 40px;
-        top: 40px;
+      width: 44px;
+      height: 44px;
+      right: 12vw;
+      top: 4vh;
     }
 }
 
 .photoContainer {
     width: 100%;
     @include mixins.mq(mobile) {
-        width: 70vw;
+        width: 72vw;
     }
     @include mixins.mq(tablet) {
-        width: 58vw;
+        // width: 58vw;
     }
     @include mixins.mq(desktop) {
         width: 48vw;
