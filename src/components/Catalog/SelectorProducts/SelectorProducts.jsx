@@ -20,8 +20,6 @@ const SelectorProducts = ({ activeButton }) => {
 
   const selectorPages = useSelector(getSelectorPages);
 
-
-
   useEffect(() => {
     dispatch(
       getProductsBySelector({
