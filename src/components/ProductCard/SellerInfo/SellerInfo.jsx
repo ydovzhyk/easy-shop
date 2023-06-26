@@ -8,7 +8,7 @@ import {
 import Avatar from 'components/Profile/Avatar/Avatar';
 import UserRating from 'components/Profile/UserProfileInfo/UserRating';
 import Value from 'components/Profile/Value';
-import DaysValue from 'components/Profile/UserProfileInfo/DaysValue';
+import DaysValue from 'components/Shared/helper/DaysValue';
 import s from './SellerInfo.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
