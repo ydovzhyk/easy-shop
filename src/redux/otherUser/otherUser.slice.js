@@ -20,7 +20,7 @@ const otherUser = createSlice({
       store.error = null;
     },
     clearOtherUser: store => {
-      store.otherUser = {};
+      store.otherUserInfo = {};
     },
   },
   extraReducers: {
