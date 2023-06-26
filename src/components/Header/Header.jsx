@@ -1,20 +1,15 @@
-import {
-  NavLink,
-  useSearchParams,
-  useLocation,
-  useNavigate,
-  createSearchParams,
-} from 'react-router-dom';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import UserInfo from 'components/UserInfo/UserInfo';
-import { getLogin } from 'redux/auth/auth-selectors';
+import { NavLink, useSearchParams, createSearchParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { BiSearchAlt } from 'react-icons/bi';
 import { HiOutlineBars4 } from 'react-icons/hi2';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { VscAdd } from 'react-icons/vsc';
-import s from './Header.module.scss';
+
+import { getLogin } from 'redux/auth/auth-selectors';
+
+import UserInfo from 'components/UserInfo/UserInfo';
 import HeaderForm from 'components/HeaderForm/HeaderForm';
 import SwitchBtn from 'components/Shared/SwitchBtn/SwitchBtn';
 import Logo from 'components/Shared/Logo';
@@ -24,19 +19,27 @@ import menuItems from 'components/DropDownMenu/menuItems';
 import { ModalCatalog } from 'components/DropDownMenu/ModalCatalog';
 import categoryOptions from '../AddProduct/category.json';
 
+import s from './Header.module.scss';
+
 const Header = () => {
   const [showForm, setShowForm] = useState(false);
+  const [query, setQuery] = useState('');
   const [isModalCatalogOpen, setIsModalCatalogOpen] = useState(false);
   const isDesktop = useMediaQuery({ minWidth: 1280 });
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const categories = Object.keys(categoryOptions);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get('search') ?? '';
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    setQuery(searchQuery);
+  }, [searchQuery]);
+
   // const getClassName = ({ isActive }) => {
   //   console.log(isActive);
   //   return isActive ? `${s.active}` : s.link;
   // };
+
   const isLogin = useSelector(getLogin);
   const handleModalCatalogOpen = () => {
     setIsModalCatalogOpen(true);
@@ -62,17 +65,13 @@ const Header = () => {
       default:
         break;
     }
-
-    return `${firstPartPath}`;
+    return query !== ''
+      ? `${firstPartPath}?${createSearchParams({
+          search: query,
+        })}`
+      : `${firstPartPath}`;
   };
 
-  const getSearchQuery = async () => {
-    await setSearchParams({ search: searchQuery });
-    navigate({
-      search: createSearchParams(searchQuery).toString(),
-    });
-    return;
-  };
   return (
     <header className={s.header}>
       <div className={s.containerTop}>
@@ -149,7 +148,7 @@ const Header = () => {
                   // })}
 
                   to={getPath(category)}
-                  onClick={getSearchQuery}
+                  // onClick={e => setSearchParams({ search: query })}
                 >
                   {category}
                 </NavLink>
