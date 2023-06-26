@@ -18,12 +18,10 @@ const LightBox = ({
   const showImage = () => {
     setImageToShow(src);
     toggleIsOpen();
-    document.body.style.overflow = 'hidden';
   };
 
   const hideLightBox = () => {
     toggleIsOpen();
-    document.body.style.overflow = 'unset';
   };
 
   useEffect(() => {
@@ -49,9 +47,6 @@ const LightBox = ({
       {children}
       {isOpen ? (
         <div className={s.photoBackdrop} onClick={hideLightBox}>
-          <button className={s.closeButton} onClick={hideLightBox}>
-            <FiX />
-          </button>
           <div
             className={`${s.arrowButton} ${s.arrowButtonLeft}`}
             onClick={showPrev}
@@ -64,6 +59,11 @@ const LightBox = ({
           </div>
 
           <div className={s.photoContainer}>
+            {imageToShow && (
+              <button className={s.closeButton} onClick={hideLightBox}>
+                <FiX />
+              </button>
+            )}
             <img src={imageToShow} alt={alt} />
           </div>
 
