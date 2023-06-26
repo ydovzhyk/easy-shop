@@ -19,12 +19,16 @@ import navItems from './navItems';
 import { ModalCatalog } from 'components/DropDownMenu/ModalCatalog';
 
 const Header = () => {
+  const [darkTheme, setDarkTheme] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [isModalCatalogOpen, setIsModalCatalogOpen] = useState(false);
   const isDesktop = useMediaQuery({ minWidth: 1280 });
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const location = useLocation();
 
+  const handleThemeChange = () => {
+    setDarkTheme(!darkTheme);
+  };
   const getClassName = ({ isActive }) => {
     return isActive ? `${s.link} ${s.active}` : s.link;
   };
@@ -122,7 +126,7 @@ const Header = () => {
         {!isDesktop && (
           <div className={s.switchMainBox}>
             <SwitchBtn type="language" />
-            <SwitchBtn type="theme" />
+            <SwitchBtn type="theme" darkTheme={darkTheme} onChange={handleThemeChange} />
           </div>
         )}
       </div>
