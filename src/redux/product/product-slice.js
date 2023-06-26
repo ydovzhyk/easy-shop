@@ -40,6 +40,9 @@ const products = createSlice({
     clearUserProducts: store => {
       store.userProducts = [];
     },
+    clearProductById: store => {
+      store.productById = {};
+    },
   },
   extraReducers: {
     //* addProduct
@@ -154,5 +157,9 @@ const products = createSlice({
 
 export default products.reducer;
 
-export const { clearProductMessage, clearProductError, clearUserProducts } =
-  products.actions;
+export const {
+  clearProductMessage,
+  clearProductError,
+  clearUserProducts,
+  clearProductById,
+} = products.actions;

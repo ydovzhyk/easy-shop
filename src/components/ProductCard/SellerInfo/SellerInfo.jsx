@@ -1,3 +1,14 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { getOtherUser } from 'redux/otherUser/otherUser-operations';
+import { selectOtherUser } from 'redux/otherUser/otherUser-selectors';
+
+import Avatar from 'components/Profile/Avatar/Avatar';
+import UserRating from 'components/Profile/UserProfileInfo/UserRating';
+import Value from 'components/Profile/Value';
+import DaysValue from 'components/Profile/UserProfileInfo/DaysValue';
+import { getDaysPassedFromDate, getPhrase } from './culculatingTimeFunc';
 import {
   BsCheck2,
   BsGeoAlt,
@@ -5,17 +16,9 @@ import {
   BsPeople,
   BsClock,
 } from 'react-icons/bs';
-import Avatar from 'components/Profile/Avatar/Avatar';
-import UserRating from 'components/Profile/UserProfileInfo/UserRating';
-import Value from 'components/Profile/Value';
-import DaysValue from 'components/Profile/UserProfileInfo/DaysValue';
+import verifyIcon from 'images/product-card/verified.svg';
+
 import s from './SellerInfo.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { getOtherUser } from 'redux/otherUser/otherUser-operations';
-import { selectOtherUser } from 'redux/otherUser/otherUser-selectors';
-import verifyIcon from 'images/product-card/verified.svg'
-import { getDaysPassedFromDate, getPhrase } from './culculatingTimeFunc';
 
 const SellerInfo = ({ owner }) => {
   const dispatch = useDispatch();
