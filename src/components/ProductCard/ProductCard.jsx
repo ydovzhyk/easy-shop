@@ -1,39 +1,49 @@
+import { useEffect, useRef, useState } from 'react';
 import { useParams, Link, NavLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import {
+  getLoadingProducts,
+  selectProductById,
+} from 'redux/product/product-selectors';
+import { getProductById } from 'redux/product/product-operations';
+import { getLogin } from 'redux/auth/auth-selectors';
+import { clearOtherUser } from 'redux/otherUser/otherUser.slice';
+import { clearProductById } from 'redux/product/product-slice';
+
+import SellerInfo from './SellerInfo/SellerInfo';
+import PhotoCollection from 'components/Shared/PhotoCollection/PhotoCollection';
+import Dialogue from 'components/Dialogue/Dialogue';
 import Container from 'components/Shared/Container/Container';
-import s from './ProductCard.module.scss';
 import Text from 'components/Shared/Text/Text';
 import Button from 'components/Shared/Button/Button';
-import { BsSuitHeart } from 'react-icons/bs';
-import { BiMessageDetail } from 'react-icons/bi';
-import SellerInfo from './SellerInfo/SellerInfo';
-import { useDispatch, useSelector } from 'react-redux';
-import { getLoadingProducts, selectProductById } from 'redux/product/product-selectors';
-import { getProductById } from 'redux/product/product-operations';
-import { useEffect, useRef } from 'react';
-import Dialogue from 'components/Dialogue/Dialogue';
-import PhotoCollection from 'components/Shared/PhotoCollection/PhotoCollection';
-import { translateParamsToUA } from '../../funcs&hooks/translateParamsToUA.js';
-import { getLogin } from 'redux/auth/auth-selectors';
 import ProductSizes from './Productsizes';
 import ProductInfo from './ProductInfo';
 import Loader from 'components/Loader/Loader';
+import { translateParamsToUA } from '../../funcs&hooks/translateParamsToUA.js';
+import { BsSuitHeart } from 'react-icons/bs';
+import { BiMessageDetail } from 'react-icons/bi';
 
+import s from './ProductCard.module.scss';
 
 const ProductCard = () => {
   const { category, subcategory, id } = useParams();
   const translatedParamsObj = translateParamsToUA(category, subcategory);
   const [categoryName, subCategoryName] = Object.values(translatedParamsObj);
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
+
   const dispatch = useDispatch();
+  const product = useSelector(selectProductById);
 
   useEffect(() => {
-    dispatch(getProductById(id));
+    dispatch(clearOtherUser());
+    dispatch(clearProductById());
+    dispatch(getProductById(id)).then(() => setIsDataLoaded(true));
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [dispatch, id]);
-  
-  const product = useSelector(selectProductById);
+
   const isLogin = useSelector(getLogin);
-  const isLoading = useSelector(getLoadingProducts)
-  // console.log( id, product);
+  const isLoading = useSelector(getLoadingProducts);
 
   const {
     nameProduct,
@@ -47,8 +57,8 @@ const ProductCard = () => {
 
   const sizeValuesArray = size ? size.map(item => item[0].value) : [];
   const addProductToBasket = () => {
-    console.log("add product to basket");
-  }
+    console.log('add product to basket');
+  };
 
   const chattingRef = useRef();
 
@@ -56,101 +66,96 @@ const ProductCard = () => {
     chattingRef.current.scrollIntoView({ behavior: 'smooth' });
   };
 
-    return (
-      <section className={s.productCard}>
-        <Container>
-          <p className={s.navigation}>
-            <Link to={`/`}>Easy shop </Link> &#8250;
-            <Link to={`/products/${category}`}> {categoryName} </Link>&#8250;
-            <Link to={`/products/${category}/${subcategory}`}>
-              {' '}
-              {subCategoryName}
-            </Link>
-          </p>
-          {isLoading ? (
-            <Loader />
-          ) : (
-            <>
-              <div className={s.productCardWrapper}>
-                <div>
-                  <div className={s.productMainInfo}>
-                    <div className={s.fotoContainer}>
-                      {vip === 'Так' && (
-                        <div className={s.vipLabel}>
-                          <span>Vip</span>
-                        </div>
-                      )}
-
-                      {product !== {} && (
-                        <PhotoCollection
-                          mainPhotoUrl={mainPhotoUrl}
-                          nameProduct={nameProduct}
-                          additionalPhotoUrl={
-                            additionalPhotoUrl ? additionalPhotoUrl : []
-                          }
-                        />
-                      )}
-                    </div>
-                    <div className={s.productInfoWrapper}>
-                      <p className={s.availability}>В наявності</p>
-                      <Text text={nameProduct} textClass="productName" />
-                      <div className={s.productPrice}>
-                        <span className={s.productOldPrice}>379 грн</span>
-                        <span className={s.productPriceDiscount}>-8%</span>
-                        <Text text={price} textClass="title" />
+  return (
+    <section className={s.productCard}>
+      <Container>
+        <p className={s.navigation}>
+          <Link to={`/`}>Easy shop </Link> &#8250;
+          <Link to={`/products/${category}`}> {categoryName} </Link>&#8250;
+          <Link to={`/products/${category}/${subcategory}`}>
+            {' '}
+            {subCategoryName}
+          </Link>
+        </p>
+        {isLoading && !isDataLoaded ? (
+          <Loader />
+        ) : (
+          <>
+            <div className={s.productCardWrapper}>
+              <div>
+                <div className={s.productMainInfo}>
+                  <div className={s.fotoContainer}>
+                    {vip === 'Так' && (
+                      <div className={s.vipLabel}>
+                        <span>Vip</span>
                       </div>
-                      <ProductSizes sizeValuesArray={sizeValuesArray} />
+                    )}
 
-                      <div className={s.buyBtns}>
-                        <NavLink to={isLogin ? '/checkout' : '/login'}>
-                          <Button
-                            type="button"
-                            btnClass="btnLight"
-                            text="Купити зараз"
-                          />
-                        </NavLink>
+                    <PhotoCollection
+                      mainPhotoUrl={mainPhotoUrl}
+                      nameProduct={nameProduct}
+                      additionalPhotoUrl={
+                        additionalPhotoUrl ? additionalPhotoUrl : []
+                      }
+                    />
+                  </div>
+                  <div className={s.productInfoWrapper}>
+                    <p className={s.availability}>В наявності</p>
+                    <Text text={nameProduct} textClass="productName" />
+                    <div className={s.productPrice}>
+                      <span className={s.productOldPrice}>379 грн</span>
+                      <span className={s.productPriceDiscount}>-8%</span>
+                      <Text text={price} textClass="title" />
+                    </div>
+                    <ProductSizes sizeValuesArray={sizeValuesArray} />
 
+                    <div className={s.buyBtns}>
+                      <NavLink to={isLogin ? '/checkout' : '/login'}>
                         <Button
                           type="button"
-                          text="Додати до кошика"
-                          handleClick={addProductToBasket}
+                          btnClass="btnLight"
+                          text="Купити зараз"
                         />
+                      </NavLink>
+
+                      <Button
+                        type="button"
+                        text="Додати до кошика"
+                        handleClick={addProductToBasket}
+                      />
+                    </div>
+                    <div className={s.additionalOptsContainer}>
+                      <div className={s.additionalOpts}>
+                        <BsSuitHeart className={s.favoriteIcon} />
+                        <Text text="Додати в обрані" textClass="productText" />
                       </div>
-                      <div className={s.additionalOptsContainer}>
-                        <div className={s.additionalOpts}>
-                          <BsSuitHeart className={s.favoriteIcon} />
+                      <div className={s.additionalOpts}>
+                        <BiMessageDetail className={s.favoriteIcon} />
+                        <button onClick={scrollToChating}>
                           <Text
-                            text="Додати в обрані"
+                            text="Поставити запитання"
                             textClass="productText"
                           />
-                        </div>
-                        <div className={s.additionalOpts}>
-                          <BiMessageDetail className={s.favoriteIcon} />
-                          <button onClick={scrollToChating}>
-                            <Text
-                              text="Поставити запитання"
-                              textClass="productText"
-                            />
-                          </button>
-                        </div>
+                        </button>
                       </div>
                     </div>
                   </div>
-                  <ProductInfo product={product} />
                 </div>
-                <div ref={chattingRef}>
-                  <Text text="Продавець:" textClass="productLabels" />
-                  <div className={s.sellerInfo}>
-                    <SellerInfo owner={owner} />
-                  </div>
+                <ProductInfo product={product} />
+              </div>
+              <div ref={chattingRef}>
+                <Text text="Продавець:" textClass="productLabels" />
+                <div className={s.sellerInfo}>
+                  {isDataLoaded && owner && <SellerInfo owner={owner} />}
                 </div>
               </div>
-              <Dialogue />
-            </>
-          )}
-        </Container>
-      </section>
-    );
+            </div>
+            <Dialogue />
+          </>
+        )}
+      </Container>
+    </section>
+  );
 };
 
 export default ProductCard;
