@@ -17,6 +17,7 @@ const EmailVerification = () => {
   const receivedEmail = useSelector(getVerifyEmail);
   const isMessage = useSelector(getVerifyMessage);
   const [currentEmail, setCurrentEmail] = useState(receivedEmail);
+  const [btnText, setBtnText] = useState('Підтвердити');
 
   const { control, handleSubmit,
     // reset
@@ -31,6 +32,7 @@ const EmailVerification = () => {
     const emailToSend = data.email !== currentEmail ? data.email : currentEmail;
     dispatch(setVerifyEmail(emailToSend));
     dispatch(verifyEmail(emailToSend));
+    setBtnText('Надіслати ще раз');
     // reset();
   };
 
@@ -83,7 +85,7 @@ const EmailVerification = () => {
           <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
             <div className={s.partFrame}>
               <Text
-                text={'Введіть електронну адресу'}
+                text={'Ви можете змінити електронну адресу, яку хочете підтвердити'}
                 textClass="verifyAttention"
               />
               <div className={s.phoneWrapper}>
@@ -104,7 +106,10 @@ const EmailVerification = () => {
                     />
                   )}
                 />
-                <Button text="Підтвердити" btnClass="btnLight" />
+                <div className={s.buttonFrame}>
+                  <Button text={btnText} btnClass="btnLight" />
+                </div>
+                
               </div>
             </div>
           </form>
