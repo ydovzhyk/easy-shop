@@ -25,11 +25,11 @@ const Header = () => {
   const [showForm, setShowForm] = useState(false);
   const [query, setQuery] = useState('');
   const [isModalCatalogOpen, setIsModalCatalogOpen] = useState(false);
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get('search') ?? '';
   const isDesktop = useMediaQuery({ minWidth: 1280 });
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const categories = Object.keys(categoryOptions);
-  const [searchParams] = useSearchParams();
-  const searchQuery = searchParams.get('search') ?? '';
 
   useEffect(() => {
     setQuery(searchQuery);
