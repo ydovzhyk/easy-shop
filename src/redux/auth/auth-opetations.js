@@ -4,6 +4,7 @@ import {
   axiosLogout,
   axiosRegister,
   axiosUpdateUser,
+  axiosUpdateUserBasket,
 } from 'api/auth';
 
 import { axiosUpdateUserSettings } from 'api/updateUser';
@@ -83,3 +84,18 @@ export const googleUpdate = (accessToken, refreshToken, sid) => ({
   type: 'auth/googleUpdate',
   payload: { accessToken, refreshToken, sid },
 });
+
+export const updateUserBasket = createAsyncThunk(
+  'auth/basket',
+  async (userData, { rejectWithValue, getState, dispatch }) => {
+    // console.log(userData);
+    try {
+      const data = await axiosUpdateUserBasket(userData);
+      console.log(data);
+      return data;
+    } catch (error) {
+      const { data, status } = error.response;
+      return rejectWithValue({ data, status });
+    }
+  }
+);
