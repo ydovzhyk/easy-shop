@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
+import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { getVerifyEmail } from 'redux/verifyEmail/verifyEmail-selectors';
 import { setVerifyEmail } from 'redux/verifyEmail/verifyEmail-slice';
 import { field } from 'components/Shared/TextField/fields';
@@ -18,6 +20,8 @@ const EmailVerification = () => {
   const isMessage = useSelector(getVerifyMessage);
   const [currentEmail, setCurrentEmail] = useState(receivedEmail);
   const [btnText, setBtnText] = useState('Підтвердити');
+  const location = useLocation();
+  const backLinkHref = location?.state?.from ?? '/profile/mysettings';
 
   const { control, handleSubmit,
     // reset
@@ -113,6 +117,11 @@ const EmailVerification = () => {
               </div>
             </div>
           </form>
+        </div>
+        <div className={s.buttonFrame}>
+          <Link to={backLinkHref} className={s.btnLight}>
+            <AiOutlineArrowLeft/>
+            Назад</Link> 
         </div>
       </div>
       {isMessage && <MessageWindow text={isMessage} />}

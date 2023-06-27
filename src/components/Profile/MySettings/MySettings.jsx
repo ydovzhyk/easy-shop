@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { updateUserSettings } from 'redux/auth/auth-opetations';
 import { field } from 'components/Shared/TextField/fields';
 import { getUser, getUserMessage} from 'redux/auth/auth-selectors';
@@ -15,7 +15,7 @@ import Button from 'components/Shared/Button';
 import TextField from 'components/Shared/TextField/TextField';
 import SelectField from 'components/Shared/SelectField/SelectField';
 import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
-import { CityNames } from './Options';
+import { CityNames } from 'components/Profile/MySettings/Options';
 
 
 import s from './MySettings.module.scss';
@@ -184,12 +184,12 @@ const MySettings = () => {
                 textClass="second-text"
               />
               <div className={s.buttonFrame}>
-                <NavLink
+                <Link
                   className={s.btnLight}
                   to={'/email-verification'}
                   email={email}> 
                   Підтвердити
-                </NavLink>
+                </Link>
               </div>
             </div>
             <div className={s.partFrame}>
