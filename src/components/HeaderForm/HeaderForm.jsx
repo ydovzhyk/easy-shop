@@ -7,9 +7,8 @@ import { field } from 'components/Shared/TextField/fields';
 import TextField from 'components/Shared/TextField';
 import s from './HeaderForm.module.scss';
 
-const HeaderForm = ({ onChange }) => {
+const HeaderForm = () => {
   const [, setSearchParams] = useSearchParams();
-
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const isUserAt404Page =
@@ -21,13 +20,16 @@ const HeaderForm = ({ onChange }) => {
     //     formState: { errors },
   } = useForm({
     defaultValues: {
-      productName: '',
+      productName: JSON.parse(window.localStorage.getItem('searchQuery')) ?? '',
     },
   });
-
   const onSubmit = async (data, e) => {
     e.preventDefault();
-
+    // setQuery(data.productName);
+    window.localStorage.setItem(
+      'searchQuery',
+      JSON.stringify(data.productName)
+    );
     await setSearchParams(
       data.productName.trim() !== '' ? { search: data.productName } : {}
     );
