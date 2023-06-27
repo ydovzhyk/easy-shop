@@ -26,3 +26,4 @@ export const getUser = ({ auth }) => auth.user;
 export const getNewUserId = ({ auth }) => auth.newUser?.id;
 export const getUserIsRefreshing = ({ auth }) => auth.isRefreshing;
 export const getIsTotalLogin = ({ auth }) => auth.isTotalLogin;
+export const selectUserBasket = ({ auth }) => auth.user.userBasket;

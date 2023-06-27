@@ -91,4 +91,9 @@ export const axiosUpdateUser = async (accessToken, userData) => {
   return data;
 };
 
+export const axiosUpdateUserBasket = async userData => {
+  const { data } = await instance.post('/auth/basket', userData);
+  return data;
+};
+
 export default instance;
