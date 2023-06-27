@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useParams, Link, NavLink } from 'react-router-dom';
+import { useParams, Link, NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -34,6 +34,7 @@ const ProductCard = () => {
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const product = useSelector(selectProductById);
 
   useEffect(() => {
@@ -61,6 +62,10 @@ const ProductCard = () => {
   const userProductBasket = useSelector(selectUserBasket);
   const isProductInBasket = userProductBasket.find(item => item === id);
   const setProductToBasket = () => {
+    if (!isLogin) {
+      navigate('/login');
+      return
+    }
     const newBasket = isProductInBasket
       ? userProductBasket.filter(item => item !== id)
       : [...userProductBasket, id];
