@@ -50,6 +50,7 @@ const Products = () => {
                 description,
                 section,
                 category,
+                size,
               }) => (
                 <ProductItem
                   key={_id}
@@ -60,6 +61,7 @@ const Products = () => {
                   description={description}
                   price={price}
                   nameProduct={nameProduct}
+                  size={size}
                 />
               )
             )}

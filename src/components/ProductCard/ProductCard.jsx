@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useParams, Link, NavLink } from 'react-router-dom';
+import { useParams, Link, NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -7,7 +7,8 @@ import {
   selectProductById,
 } from 'redux/product/product-selectors';
 import { getProductById } from 'redux/product/product-operations';
-import { getLogin } from 'redux/auth/auth-selectors';
+import { updateUserBasket } from 'redux/auth/auth-opetations';
+import { getLogin, selectUserBasket } from 'redux/auth/auth-selectors';
 import { clearOtherUser } from 'redux/otherUser/otherUser.slice';
 import { clearProductById } from 'redux/product/product-slice';
 
@@ -33,6 +34,7 @@ const ProductCard = () => {
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const product = useSelector(selectProductById);
 
   useEffect(() => {
@@ -56,8 +58,19 @@ const ProductCard = () => {
   } = product;
 
   const sizeValuesArray = size ? size.map(item => item[0].value) : [];
-  const addProductToBasket = () => {
-    console.log('add product to basket');
+
+  const userProductBasket = useSelector(selectUserBasket);
+  const isProductInBasket = userProductBasket.find(item => item === id);
+  const setProductToBasket = () => {
+    if (!isLogin) {
+      navigate('/login');
+      return
+    }
+    const newBasket = isProductInBasket
+      ? userProductBasket.filter(item => item !== id)
+      : [...userProductBasket, id];
+    dispatch(updateUserBasket({ userBasket: newBasket }));
+    // console.log('change basket');
   };
 
   const chattingRef = useRef();
@@ -120,8 +133,12 @@ const ProductCard = () => {
 
                       <Button
                         type="button"
-                        text="Додати до кошика"
-                        handleClick={addProductToBasket}
+                        text={
+                          isProductInBasket
+                            ? 'Товар у кошику'
+                            : 'Додати до кошика'
+                        }
+                        handleClick={setProductToBasket}
                       />
                     </div>
                     <div className={s.additionalOptsContainer}>

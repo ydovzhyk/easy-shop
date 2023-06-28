@@ -5,6 +5,7 @@ import {
   logout,
   updateUser,
   updateUserSettings,
+  updateUserBasket,
 } from './auth-opetations';
 
 const initialState = {
@@ -154,6 +155,19 @@ const auth = createSlice({
       store.message = payload.message;
     },
     [updateUserSettings.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
+    // * UPDATE USER BASKET
+    [updateUserBasket.pending]: store => {
+      store.loading = true;
+      store.error = '';
+    },
+    [updateUserBasket.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.user.userBasket = payload.userBasket;
+    },
+    [updateUserBasket.rejected]: (store, { payload }) => {
       store.loading = false;
       store.error = payload;
     },

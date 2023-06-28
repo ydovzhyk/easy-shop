@@ -7,7 +7,7 @@ import { selectOtherUser } from 'redux/otherUser/otherUser-selectors';
 import Avatar from 'components/Profile/Avatar/Avatar';
 import UserRating from 'components/Profile/UserProfileInfo/UserRating';
 import Value from 'components/Profile/Value';
-import DaysValue from 'components/Profile/UserProfileInfo/DaysValue';
+import DaysValue from 'components/Shared/helper/DaysValue';
 import { getDaysPassedFromDate, getPhrase } from './culculatingTimeFunc';
 import {
   BsCheck2,
@@ -17,7 +17,6 @@ import {
   BsClock,
 } from 'react-icons/bs';
 import verifyIcon from 'images/product-card/verified.svg';
-
 import s from './SellerInfo.module.scss';
 
 const SellerInfo = ({ owner }) => {

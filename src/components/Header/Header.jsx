@@ -1,14 +1,15 @@
-import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import UserInfo from 'components/UserInfo/UserInfo';
-import { getLogin } from 'redux/auth/auth-selectors';
+import { NavLink, useSearchParams, createSearchParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { BiSearchAlt } from 'react-icons/bi';
 import { HiOutlineBars4 } from 'react-icons/hi2';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { VscAdd } from 'react-icons/vsc';
-import s from './Header.module.scss';
+
+import { getLogin } from 'redux/auth/auth-selectors';
+
+import UserInfo from 'components/UserInfo/UserInfo';
 import HeaderForm from 'components/HeaderForm/HeaderForm';
 import SwitchBtn from 'components/Shared/SwitchBtn/SwitchBtn';
 import Logo from 'components/Shared/Logo';
@@ -18,12 +19,26 @@ import menuItems from 'components/DropDownMenu/menuItems';
 import { ModalCatalog } from 'components/DropDownMenu/ModalCatalog';
 import categoryOptions from '../AddProduct/category.json';
 
+import s from './Header.module.scss';
+
 const Header = () => {
   const [showForm, setShowForm] = useState(false);
+  const [query, setQuery] = useState('');
   const [isModalCatalogOpen, setIsModalCatalogOpen] = useState(false);
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get('search') ?? '';
   const isDesktop = useMediaQuery({ minWidth: 1280 });
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const categories = Object.keys(categoryOptions);
+
+  useEffect(() => {
+    setQuery(searchQuery);
+  }, [searchQuery]);
+
+  // const getClassName = ({ isActive }) => {
+  //   console.log(isActive);
+  //   return isActive ? `${s.active}` : s.link;
+  // };
 
   const isLogin = useSelector(getLogin);
   const handleModalCatalogOpen = () => {
@@ -31,6 +46,30 @@ const Header = () => {
   };
   const handleSearchBtnClick = () => {
     setShowForm(!showForm);
+  };
+  const getPath = category => {
+    let firstPartPath = '';
+    switch (category) {
+      case 'Жінкам':
+        firstPartPath = 'products/women';
+        break;
+      case 'Чоловікам':
+        firstPartPath = 'products/men';
+        break;
+      case 'Дитячі товари':
+        firstPartPath = 'products/children';
+        break;
+      case "Краса та здоров'я":
+        firstPartPath = 'products/beauty&health';
+        break;
+      default:
+        break;
+    }
+    return query !== ''
+      ? `${firstPartPath}?${createSearchParams({
+          search: query,
+        })}`
+      : `${firstPartPath}`;
   };
 
   return (
@@ -108,15 +147,8 @@ const Header = () => {
                   //   isActive: location.pathname === linkPath,
                   // })}
 
-                  to={
-                    category === 'Жінкам'
-                      ? 'products/women'
-                      : category === 'Чоловікам'
-                      ? 'products/men'
-                      : category === 'Дитячі товари'
-                      ? 'products/children'
-                      : 'products/beauty&health'
-                  }
+                  to={getPath(category)}
+                  // onClick={e => setSearchParams({ search: query })}
                 >
                   {category}
                 </NavLink>
