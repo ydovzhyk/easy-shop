@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+// import SizeHovered from '../../Catalog/SizeHovered/SizeHovered';
+
 import NoPhoto from '../../../images/catalog_photo/no_photo.jpg';
 import Text from 'components/Shared/Text/Text';
 import { FiHeart } from 'react-icons/fi';
@@ -57,6 +59,9 @@ const ProductItem = ({
           </React.Fragment>
         ))}
       </div>
+      {/* <div className={s.styleSizeCard}>
+        <SizeHovered size={size} />
+      </div> */}
     </li>
   );
 };
