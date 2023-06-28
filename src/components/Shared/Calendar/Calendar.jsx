@@ -26,9 +26,9 @@ export default function Calendar({
   const handleDateChange = date => {
     console.log('Date after', date);
     // Форматуємо вибрану дату у потрібний формат 'MM.dd.yyyy'
-    // const formattedDate = moment(date).format('MM.dd.yyyy');
+    const formattedDate = moment(date).format('MM.dd.yyyy');
     setSelectedDate(date);
-    // handleChange(formattedDate);
+    handleChange(formattedDate);
   };
 
   const CustomInput = forwardRef(({ value, onClick }, ref) => (
