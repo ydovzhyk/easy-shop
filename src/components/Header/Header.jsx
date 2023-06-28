@@ -25,10 +25,6 @@ const Header = () => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const categories = Object.keys(categoryOptions);
 
-  // const getClassName = ({ isActive }) => {
-  //   console.log(isActive);
-  //   return isActive ? `${s.active}` : s.link;
-  // };
   const isLogin = useSelector(getLogin);
   const handleModalCatalogOpen = () => {
     setIsModalCatalogOpen(true);

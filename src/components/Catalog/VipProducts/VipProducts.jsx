@@ -21,7 +21,6 @@ const VipProducts = () => {
   useEffect(() => {
     dispatch(getVipProducts(currentPage));
   }, [dispatch, currentPage]);
-  console.log(arrayVipProducts);
 
   const handlePrevPage = () => {
     if (currentPage > 1) {
