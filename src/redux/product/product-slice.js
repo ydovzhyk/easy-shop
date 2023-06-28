@@ -9,6 +9,7 @@ import {
   getVipProducts,
   getProductsBySelector,
   getProductById,
+  getProductsFromBasket,
 } from './product-operations';
 
 const initialState = {
@@ -25,6 +26,7 @@ const initialState = {
   selectorProducts: [],
   selectorPages: 1,
   productById: {},
+  productsFromBasket: [],
 };
 
 const products = createSlice({
@@ -42,6 +44,9 @@ const products = createSlice({
     },
     clearProductById: store => {
       store.productById = {};
+    },
+    clearProductsFromBasket: store => {
+      store.productsFromBasket = [];
     },
   },
   extraReducers: {
@@ -149,6 +154,19 @@ const products = createSlice({
       store.productById = payload;
     },
     [getProductById.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
+    // get products from user's basket
+    [getProductsFromBasket.pending]: store => {
+      store.loading = true;
+      store.error = null;
+    },
+    [getProductsFromBasket.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.productsFromBasket = payload;
+    },
+    [getProductsFromBasket.rejected]: (store, { payload }) => {
       store.loading = false;
       store.error = payload;
     },
