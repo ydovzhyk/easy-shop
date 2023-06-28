@@ -20,18 +20,18 @@ const TopNavProducts = ({ category, subcategory }) => {
           <SlArrowRight style={{ marginRight: '10px' }} />
         </>
       )}
-      {categoryName === category && (
+      {/* {categoryName === category && (
         <>
           <h2 style={{ marginRight: '10px' }}>Товар відсутній</h2>
           <SlArrowRight style={{ marginRight: '10px' }} />
         </>
-      )}
-      {subCategoryName !== subcategory && (
+      )} */}
+      {/* {subCategoryName !== subcategory && (
         <>
           <h2 style={{ marginRight: '10px' }}>{subCategoryName}</h2>
           <SlArrowRight />
         </>
-      )}
+      )} */}
     </div>
   );
 };
