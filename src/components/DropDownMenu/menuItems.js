@@ -7,7 +7,7 @@ const menuItems = [
     id: 1,
     name: 'Жінкам',
     link: 'жінкам',
-    icon: <Women style={{ width: '30px', height: '30px' }} />,
+    icon: <Women style={{ width: '30px', height: '30px', fill: 'var(--text-color)' }} />,
     alt: 'alt',
     submenu: [
       { id: 1, name: 'Верхній одяг', link: 'жінкам/верхній одяг' },
@@ -55,7 +55,7 @@ const menuItems = [
     id: 2,
     name: 'Чоловікам',
     link: 'чоловікам',
-    icon: <Men style={{ width: '30px', height: '30px' }} />,
+    icon: <Men style={{ width: '30px', height: '30px' , fill: 'var(--text-color)'}} />,
     submenu: [
       { id: 1, name: 'Верхній одяг', link: '/products/men/верхній одяг' },
       { id: 2, name: 'Піджаки і костюми', link: '/products/men/труси' },
@@ -80,7 +80,7 @@ const menuItems = [
     id: 3,
     name: 'Дитячі товари',
     link: 'дитячі+товари',
-    icon: <Kids style={{ width: '30px', height: '30px' }} />,
+    icon: <Kids style={{ width: '30px', height: '30px' , fill: 'var(--text-color)'}} />,
     submenu: [
       {
         id: 1,
@@ -117,7 +117,7 @@ const menuItems = [
     id: 4,
     name: 'Краса та здоров`я',
     link: 'краса+та+здоров',
-    icon: <Sport style={{ width: '30px', height: '30px' }} />,
+    icon: <Sport style={{ width: '30px', height: '30px' , fill: 'var(--text-color)'}} />,
     submenu: [
       {
         id: 1,

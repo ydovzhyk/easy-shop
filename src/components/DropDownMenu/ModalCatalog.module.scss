@@ -42,7 +42,7 @@
 }
 .ModalCatalog {
   position: absolute;
-  background-color: white;
+  background-color: var(--main-color);
   width: 288px;
   height: 100%;
 }
@@ -70,7 +70,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     // color: var(--icons-color);
-    background: var(--bg-footer-header) !important;
+    background: var(--bg-footer-header);
   }
 }
 
@@ -81,6 +81,7 @@
 }
 .span {
   padding-left: 10px;
+  color:var(--second-text-color);
 }
 .menuContainer {
   padding: 10px;

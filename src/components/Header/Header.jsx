@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import UserInfo from 'components/UserInfo/UserInfo';
@@ -26,6 +26,13 @@ const Header = () => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const location = useLocation();
 
+  useEffect(() => {
+    if (darkTheme) {
+      document.body.classList.add('dark-theme');
+    } else {
+      document.body.classList.remove('dark-theme');
+    }
+  }, [darkTheme]);
   const handleThemeChange = () => {
     setDarkTheme(!darkTheme);
   };
@@ -41,7 +48,7 @@ const Header = () => {
   };
 
   return (
-    <header className={s.header}>
+    <header className={`${s.header} ${darkTheme ? s.darkTheme : ''}`}>
       <div className={s.containerTop}>
         {!isDesktop && (
           <>
@@ -119,14 +126,14 @@ const Header = () => {
             </div>
             <div className={s.switchMainBox}>
               <SwitchBtn type="language" />
-              <SwitchBtn type="theme" />
+              <SwitchBtn type="theme" onChange={handleThemeChange}/>
             </div>
           </>
         )}
         {!isDesktop && (
           <div className={s.switchMainBox}>
             <SwitchBtn type="language" />
-            <SwitchBtn type="theme" darkTheme={darkTheme} onChange={handleThemeChange} />
+            <SwitchBtn type="theme" onChange={handleThemeChange} />
           </div>
         )}
       </div>
