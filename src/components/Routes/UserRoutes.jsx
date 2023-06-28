@@ -20,6 +20,7 @@ const MyPurchases = lazy(() =>
 );
 const MyReviews = lazy(() => import('components/Profile/MyReviews/MyReviews'));
 const AddProductPage = lazy(() => import('pages/AddProductPage'));
+const EditProductPage = lazy(() => import('pages/EditProductPage'));
 const MySettings = lazy(() =>
   import('components/Profile/MySettings/MySettings')
 );
@@ -50,6 +51,7 @@ const UserRoutes = () => {
         </Route>
         <Route element={<PrivateRoute />}>
           <Route path="/add-product" element={<AddProductPage />} />
+          <Route path="/edit-product/:id" element={<EditProductPage />} />
           <Route path="/basket" element={<BasketPage />} />
           <Route path="/favorites" element={<FavoritesPage />} />
           <Route path="/profile" element={<ProfilePage />}>

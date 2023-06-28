@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { updateUserSettings } from 'redux/auth/auth-opetations';
 import { field } from 'components/Shared/TextField/fields';
-import { getUser, getUserMessage} from 'redux/auth/auth-selectors';
+import { getUser, getUserMessage } from 'redux/auth/auth-selectors';
 import { getUserAvatar } from 'redux/auth/auth-selectors';
 import { updateUser } from 'redux/auth/auth-opetations';
 import { setVerifyEmail } from 'redux/verifyEmail/verifyEmail-slice';
@@ -17,7 +17,6 @@ import SelectField from 'components/Shared/SelectField/SelectField';
 import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
 import { CityNames } from 'components/Profile/MySettings/Options';
 
-
 import s from './MySettings.module.scss';
 
 const MySettings = () => {
@@ -25,11 +24,9 @@ const MySettings = () => {
   const user = useSelector(getUser);
   const userAvatar = useSelector(getUserAvatar);
   const message = useSelector(getUserMessage);
-  console.log(message);
   const [avatarFileURL, setAvatarFileURL] = useState(userAvatar);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
-  const [isMessage, setIsMessage] = useState("");
-  console.log(isMessage);
+  const [isMessage, setIsMessage] = useState('');
 
   const {
     secondName,
@@ -48,12 +45,7 @@ const MySettings = () => {
     setAvatarFileURL(url);
   };
 
-  const {
-    control,
-    register,
-    handleSubmit,
-    watch
-  } = useForm({
+  const { control, register, handleSubmit, watch } = useForm({
     defaultValues: {
       secondName: secondName ? secondName : '',
       firstName: firstName ? firstName : '',
@@ -89,9 +81,9 @@ const MySettings = () => {
   };
 
   const resetMessage = () => {
-    setIsMessage("");
-  }; 
-  
+    setIsMessage('');
+  };
+
   const inputValue = watch('email');
 
   useEffect(() => {
@@ -100,7 +92,7 @@ const MySettings = () => {
 
   useEffect(() => {
     dispatch(setVerifyEmail(inputValue));
-  }, [dispatch, inputValue])
+  }, [dispatch, inputValue]);
 
   return (
     <Container>

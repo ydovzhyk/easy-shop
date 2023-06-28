@@ -17,7 +17,6 @@ const UserProfileInfo = () => {
   const userName = useSelector(getUserName);
   const user = useSelector(getUser);
   const userAvatar = useSelector(getUserAvatar);
-  console.log('user:', user);
   const dateCreate = useSelector(getUserDateCreate);
 
   const getDaysPassedFromDate = dateString => {
@@ -29,7 +28,6 @@ const UserProfileInfo = () => {
   };
 
   const userAddress = user.userAddress || 'Kyiv';
-  console.log(userAddress);
   const rating = 3.2;
   const gradesAmount = 12;
   const daysAmount = getDaysPassedFromDate(dateCreate);
