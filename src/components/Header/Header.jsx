@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { NavLink, useSearchParams, createSearchParams } from 'react-router-dom';
+import { NavLink, useSearchParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { BiSearchAlt } from 'react-icons/bi';
 import { HiOutlineBars4 } from 'react-icons/hi2';
@@ -18,6 +18,7 @@ import { Catalog } from 'components/DropDownMenu/Catalog';
 import menuItems from 'components/DropDownMenu/menuItems';
 import { ModalCatalog } from 'components/DropDownMenu/ModalCatalog';
 import categoryOptions from '../AddProduct/category.json';
+import { getPath } from '../../funcs&hooks/getPath.js';
 
 import s from './Header.module.scss';
 
@@ -46,30 +47,6 @@ const Header = () => {
   };
   const handleSearchBtnClick = () => {
     setShowForm(!showForm);
-  };
-  const getPath = category => {
-    let firstPartPath = '';
-    switch (category) {
-      case 'Жінкам':
-        firstPartPath = 'products/women';
-        break;
-      case 'Чоловікам':
-        firstPartPath = 'products/men';
-        break;
-      case 'Дитячі товари':
-        firstPartPath = 'products/children';
-        break;
-      case "Краса та здоров'я":
-        firstPartPath = 'products/beauty&health';
-        break;
-      default:
-        break;
-    }
-    return query !== ''
-      ? `${firstPartPath}?${createSearchParams({
-          search: query,
-        })}`
-      : `${firstPartPath}`;
   };
 
   return (
@@ -147,7 +124,7 @@ const Header = () => {
                   //   isActive: location.pathname === linkPath,
                   // })}
 
-                  to={getPath(category)}
+                  to={getPath(query, category)}
                   // onClick={e => setSearchParams({ search: query })}
                 >
                   {category}
