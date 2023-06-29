@@ -12,7 +12,7 @@ const TopNavProducts = ({ category, subcategory }) => {
       {!category && !subcategory && (
         <>
           <h2 style={{ marginRight: '10px' }}>Каталог - EASY Shop</h2>
-          <SlArrowRight style={{ marginRight: '10px' }} />
+          <SlArrowRight size={16} style={{ marginRight: '10px' }} />
           <span className={s.amountBox}>{getDeclension(11)}</span>
         </>
       )}

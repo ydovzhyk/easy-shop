@@ -21,6 +21,14 @@
 
 .linkBox {
   margin-bottom: 15px;
+  font-size: 14px;
+  @include mixins.mq(tablet) {
+    column-count: 2;
+    font-size: 16px;
+  }
+  @include mixins.mq(desktop) {
+    column-count: 3;
+  }
 }
 
 .amountBox {

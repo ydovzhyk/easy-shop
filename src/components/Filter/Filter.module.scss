@@ -47,10 +47,10 @@
   @include mixins.mq(tablet) {
     width: 25%;
     padding: 30px 0;
-    margin-right: 15px;
+    margin-right: 25px;
   }
   @include mixins.mq(desktop) {
-    margin-right: 20px;
+    margin-right: 30px;
   }
 }
 
