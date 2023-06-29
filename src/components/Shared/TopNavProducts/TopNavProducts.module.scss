@@ -63,13 +63,13 @@
 .amountBox {
   border: 1px solid var(--border-color);
   padding: 2px;
-  font-size: 11px;
+  font-size: 10px;
   color: var(--btn-border-color);
   @include mixins.mq(tablet) {
-    font-size: 16px;
+    font-size: 14px;
     padding: 4px;
   }
   @include mixins.mq(desktop) {
-    font-size: 18px;
+    font-size: 16px;
   }
 }
