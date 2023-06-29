@@ -11,6 +11,7 @@ import ProductItem from 'components/Shared/ProductItem/ProductItem';
 import Text from 'components/Shared/Text/Text';
 import categoryOptions from 'components/AddProduct/category.json';
 import { getPath } from '../../funcs&hooks/getPath.js';
+import { getSubcategoryPath } from '../../funcs&hooks/getSubCategoryPath.js';
 import { getDeclension } from '../../funcs&hooks/getDeclansion.js';
 
 import s from './Products.module.scss';
@@ -98,15 +99,15 @@ const Products = () => {
               (el, index) => {
                 return (
                   <li key={index}>
-                    {/* <NavLink
+                    <NavLink
                       className={({ isActive }) =>
                         `${isActive ? s.active : s.link}`
                       }
-                      to={getPath(query, categoryName, el, true)}
+                      to={getSubcategoryPath(query, categoryName, el)}
                     >
                       {el} -{' '}
                       <span className={s.amountBox}>{getDeclension(11)}</span>
-                    </NavLink> */}
+                    </NavLink>
                   </li>
                 );
               }
