@@ -26,7 +26,7 @@
   padding: 0 20px 0 20px;
   max-width: 1280px;
   margin: 0 auto;
-  @include mixins.mq(desktop) {
+  @include mixins.mq(tablet) {
     justify-content: space-between;
   }
 }

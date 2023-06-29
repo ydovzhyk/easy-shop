@@ -158,7 +158,28 @@ const Header = () => {
               </div>
             </>
           )}
-          {!isDesktop && (
+          {!isDesktop && !isMobile && (
+            <>
+              <div className={s.navigationMenuWrapper}>
+                {categories.map((category, index) => (
+                  <NavLink
+                    key={index}
+                    className={({ isActive }) =>
+                      `${isActive ? s.active : s.link}`
+                    }
+                    to={getPath(query, category)}
+                  >
+                    {category}
+                  </NavLink>
+                ))}
+              </div>
+              <div className={s.switchMainBox}>
+                <SwitchBtn type="language" />
+                <SwitchBtn type="theme" />
+              </div>
+            </>
+          )}
+          {!isDesktop && isMobile && (
             <div className={s.switchMainBox}>
               <SwitchBtn type="language" />
               <SwitchBtn type="theme" />

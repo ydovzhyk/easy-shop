@@ -28,12 +28,12 @@ const TopNavProducts = ({ category, subcategory }) => {
           <SlArrowRight style={{ marginRight: '10px' }} />
         </>
       )} */}
-      {/* {subCategoryName !== subcategory && (
+      {subCategoryName !== subcategory && (
         <>
           <h2 style={{ marginRight: '10px' }}>{subCategoryName}</h2>
           <SlArrowRight />
         </>
-      )} */}
+      )}
     </div>
   );
 };
