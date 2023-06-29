@@ -6,10 +6,7 @@ import s from './TopNavProducts.module.scss';
 const TopNavProducts = ({ category, subcategory }) => {
   const translatedParamsObj = translateParamsToUA(category, subcategory);
   const [categoryName, subCategoryName] = Object.values(translatedParamsObj);
-  console.log(categoryName);
-  console.log(category);
-  console.log(subCategoryName);
-  console.log(subcategory);
+
   return (
     <div className={s.catalogTitle}>
       {!category && !subcategory && (
