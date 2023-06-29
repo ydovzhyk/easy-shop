@@ -9,6 +9,7 @@ import TopNavProducts from 'components/Shared/TopNavProducts/TopNavProducts';
 import ProductItem from 'components/Shared/ProductItem/ProductItem';
 import categoryOptions from 'components/AddProduct/category.json';
 import { getPath } from '../../funcs&hooks/getPath.js';
+import { getDeclension } from '../../funcs&hooks/getDeclansion.js';
 
 import s from './Products.module.scss';
 
@@ -27,23 +28,6 @@ const Products = () => {
     setQuery(searchQuery);
     dispatch(searchProducts(searchQuery));
   }, [searchQuery, dispatch]);
-
-  const getDeclension = amount => {
-    if (
-      amount === 1 &&
-      amount % 10 === 1 &&
-      !amount.toString().endsWith('11')
-    ) {
-      return `${amount.toString()} ${'річ'}`;
-    }
-    if (
-      amount.toString().endsWith('2' || '3' || '4') &&
-      !amount.toString().endsWith('12' || '13' || '14')
-    ) {
-      return `${amount.toString()} ${'речі'}`;
-    }
-    return `${amount.toString()} ${'речей'}`;
-  };
 
   // useEffect(() => {
   //   if (!category) {
@@ -73,7 +57,7 @@ const Products = () => {
                     to={getPath(query, el, true)}
                   >
                     {el} -{' '}
-                    <span className={s.container}>{getDeclension(11)}</span>
+                    <span className={s.amountBox}>{getDeclension(11)}</span>
                   </NavLink>
                 </li>
               );

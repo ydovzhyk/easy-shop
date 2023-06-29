@@ -38,26 +38,38 @@
   justify-content: center;
   align-items: center;
   font-weight: 700;
-  font-size: 7px;
+  font-size: 10px;
   line-height: 1.14;
   letter-spacing: 0.04em;
-  text-transform: uppercase;
   text-align: center;
   padding: 8px;
   color: var(--title-text-color);
   background-color: var(--bg-footer-header);
   margin-bottom: 10px;
   @include mixins.mq(mobile) {
-    font-size: 12px;
+    font-size: 18px;
     padding: 8px 20px;
   }
   @include mixins.mq(tablet) {
     margin-bottom: 20px;
-    font-size: 16px;
-    padding: 15px 15px;
+    font-size: 20px;
+    padding: 20px;
   }
   @include mixins.mq(desktop) {
-    font-size: 20px;
-    padding: 25px 20px;
+    font-size: 22px;
+  }
+}
+
+.amountBox {
+  border: 1px solid var(--border-color);
+  padding: 2px;
+  font-size: 11px;
+  color: var(--btn-border-color);
+  @include mixins.mq(tablet) {
+    font-size: 16px;
+    padding: 4px;
+  }
+  @include mixins.mq(desktop) {
+    font-size: 18px;
   }
 }

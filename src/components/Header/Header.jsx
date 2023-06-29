@@ -29,6 +29,7 @@ const Header = () => {
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get('search') ?? '';
   const isDesktop = useMediaQuery({ minWidth: 1280 });
+  const isTablet = useMediaQuery({ minWidth: 768 });
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const categories = Object.keys(categoryOptions);
 
@@ -51,98 +52,119 @@ const Header = () => {
 
   return (
     <header className={s.header}>
-      <div className={s.containerTop}>
-        {!isDesktop && (
-          <>
-            {showForm && (
-              <div style={{ display: 'flex', width: '100%' }}>
-                <Button
-                  type="button"
-                  btnClass="burgerButton"
-                  handleClick={handleSearchBtnClick}
-                  text={<AiOutlineArrowLeft size={isMobile ? 15 : 20} />}
-                />
-                <HeaderForm />
-              </div>
-            )}
-            {!showForm && (
-              <>
-                <div className={s.navTopContainer}>
+      <div className="container">
+        <div className={s.containerTop}>
+          {!isDesktop && !isTablet && (
+            <>
+              {showForm && (
+                <div style={{ display: 'flex', width: '100%' }}>
                   <Button
                     type="button"
                     btnClass="burgerButton"
-                    handleClick={handleModalCatalogOpen}
-                    text={<HiOutlineBars4 size={30} />}
-                  />
-                  {isModalCatalogOpen && (
-                    <ModalCatalog closeModal={setIsModalCatalogOpen} />
-                  )}
-                  <Logo />
-                </div>
-                <div className={s.btnWrapper}>
-                  <Button
-                    type="button"
-                    btnClass="searchBtn"
                     handleClick={handleSearchBtnClick}
-                    text={<BiSearchAlt size={isMobile ? 25 : 30} />}
-                  ></Button>
+                    text={<AiOutlineArrowLeft size={isMobile ? 15 : 20} />}
+                  />
+                  <HeaderForm />
                 </div>
-              </>
-            )}
-          </>
-        )}
+              )}
+              {!showForm && (
+                <>
+                  <div className={s.navTopContainer}>
+                    <Button
+                      type="button"
+                      btnClass="burgerButton"
+                      handleClick={handleModalCatalogOpen}
+                      text={<HiOutlineBars4 size={30} />}
+                    />
+                    {isModalCatalogOpen && (
+                      <ModalCatalog closeModal={setIsModalCatalogOpen} />
+                    )}
+                    <Logo />
+                  </div>
+                  <div className={s.btnWrapper}>
+                    <Button
+                      type="button"
+                      btnClass="searchBtn"
+                      handleClick={handleSearchBtnClick}
+                      text={<BiSearchAlt size={isMobile ? 25 : 30} />}
+                    ></Button>
+                  </div>
+                </>
+              )}
+            </>
+          )}
+          {!isDesktop && isTablet && (
+            <>
+              <div className={s.navTopContainer}>
+                <Button
+                  type="button"
+                  btnClass="burgerButton"
+                  handleClick={handleModalCatalogOpen}
+                  text={<HiOutlineBars4 size={30} />}
+                />
+                {isModalCatalogOpen && (
+                  <ModalCatalog closeModal={setIsModalCatalogOpen} />
+                )}
+                <Logo />
+              </div>
+              <div style={{ marginLeft: '20px', width: '100%' }}>
+                <HeaderForm />
+              </div>
+            </>
+          )}
+          {isDesktop && (
+            <>
+              <Logo />
+              <HeaderForm />
+              <NavLink
+                className={({ isActive }) =>
+                  `${isActive ? s.activeBtn : s.btnLight}`
+                }
+                to={isLogin ? '/add-product' : '/login'}
+              >
+                <VscAdd size={18} style={{ marginRight: '10px' }} /> Додати
+                товар
+              </NavLink>
+              <UserInfo />
+            </>
+          )}
+        </div>
 
-        {isDesktop && (
-          <>
-            <Logo />
-            <HeaderForm />
-            <NavLink
-              className={({ isActive }) =>
-                `${isActive ? s.activeBtn : s.btnLight}`
-              }
-              to={isLogin ? '/add-product' : '/login'}
-            >
-              <VscAdd size={18} style={{ marginRight: '10px' }} /> Додати товар
-            </NavLink>
-            <UserInfo />
-          </>
-        )}
-      </div>
+        <div className={s.containerBottom}>
+          {isDesktop && (
+            <>
+              <div className={s.navigationMenuWrapper}>
+                <Catalog data={menuItems} />
+                {categories.map((category, index) => (
+                  <NavLink
+                    key={index}
+                    className={({ isActive }) =>
+                      `${isActive ? s.active : s.link}`
+                    }
+                    // className={getClassName({
+                    //   isActive: location.pathname === linkPath,
+                    // })}
 
-      <div className={s.containerBottom}>
-        {isDesktop && (
-          <>
-            <div className={s.navigationMenuWrapper}>
-              <Catalog data={menuItems} />
-              {categories.map((category, index) => (
-                <NavLink
-                  key={index}
-                  className={({ isActive }) =>
-                    `${isActive ? s.active : s.link}`
-                  }
-                  // className={getClassName({
-                  //   isActive: location.pathname === linkPath,
-                  // })}
-
-                  to={getPath(query, category)}
-                  // onClick={e => setSearchParams({ search: query })}
-                >
-                  {category}
-                </NavLink>
-              ))}
-            </div>
+                    to={getPath(query, category)}
+                    // onClick={e => setSearchParams({ search: query })}
+                  >
+                    {category}
+                  </NavLink>
+                ))}
+              </div>
+              <div className={s.switchMainBox}>
+                <SwitchBtn type="language" />
+                <SwitchBtn type="theme" />
+              </div>
+            </>
+          )}
+          {!isDesktop && (
             <div className={s.switchMainBox}>
               <SwitchBtn type="language" />
               <SwitchBtn type="theme" />
             </div>
-          </>
-        )}
-        {!isDesktop && (
-          <div className={s.switchMainBox}>
-            <SwitchBtn type="language" />
-            <SwitchBtn type="theme" />
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </header>
   );
