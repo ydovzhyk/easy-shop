@@ -1,13 +1,17 @@
 import { useState } from 'react';
-import { nanoid } from '@reduxjs/toolkit';
-import { useForm, Controller } from 'react-hook-form';
 import { BiCheck } from 'react-icons/bi';
-import sizeOption from '../AddProduct/Size/sizeTable.json';
+import { useForm, Controller } from 'react-hook-form';
+
+import { nanoid } from '@reduxjs/toolkit';
+
 import OptionsHeader from 'components/Shared/OptionsHeader/OptionsHeader';
 import Text from 'components/Shared/Text/Text';
-import s from './Filter.module.scss';
+import Button from 'components/Shared/Button';
+import sizeOption from '../AddProduct/Size/sizeTable.json';
 import { filterPrices } from './filterPrice';
 import { filterConditions } from './filterСonditions';
+
+import s from './Filter.module.scss';
 
 const Filter = () => {
   const [showSizes, setShowSizes] = useState(true);
@@ -225,6 +229,7 @@ const Filter = () => {
             />
           </>
         )}
+        <Button text="Застосувати" btnClass="btnLight" />
       </form>
     </section>
   );
