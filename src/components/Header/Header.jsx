@@ -43,6 +43,9 @@ const Header = () => {
   //   return isActive ? `${s.active}` : s.link;
   // };
 
+  // const getClassName = ({ isActive }) => {
+  //   return isActive ? `${s.link} ${s.active}` : s.link;
+  // };
 
 useEffect(() => {
     if (darkTheme) {
@@ -51,11 +54,9 @@ useEffect(() => {
       document.body.classList.remove('dark-theme');
     }
   }, [darkTheme]);
+
   const handleThemeChange = () => {
     setDarkTheme(!darkTheme);
-  };
-  const getClassName = ({ isActive }) => {
-    return isActive ? `${s.link} ${s.active}` : s.link;
   };
 
   const isLogin = useSelector(getLogin);
@@ -170,7 +171,7 @@ useEffect(() => {
               </div>
               <div className={s.switchMainBox}>
                 <SwitchBtn type="language" />
-                <SwitchBtn type="theme" />
+                <SwitchBtn type="theme" onChange={handleThemeChange}/>
               </div>
             </>
           )}
