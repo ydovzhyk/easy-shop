@@ -1,6 +1,5 @@
 @use '../../styles/_mixins.scss';
 .container {
-  padding: 20px 0px;
   flex-grow: 1;
 }
 
@@ -34,7 +33,7 @@
 .amountBox {
   border: 1px solid var(--border-color);
   padding: 2px;
-  color: var(--btn-border-color);
+  color: gray;
 }
 
 .link {
@@ -68,7 +67,7 @@
   background-color: var(--border-color);
   border-radius: 8px;
   border: 1px solid transparent;
-  font-size: 16px;
+  font-size: 12px;
   line-height: 16px;
   letter-spacing: 0.02em;
   color: var(--text-color);
@@ -84,6 +83,10 @@
     background-color: var(--main-color);
     color: var(--text-color);
     border: solid 1px var(--btn-border-color);
+  }
+  @include mixins.mq(mobile) {
+    padding: 8px 14px;
+    font-size: 14px;
   }
   @include mixins.mq(tablet) {
     padding: 8px 14px;

@@ -47,7 +47,7 @@ const Filter = () => {
   });
 
   return (
-    <div className={s.optionsWrapper}>
+    <section className={s.optionsWrapper}>
       <h2 className={s.title}>Фільтри</h2>
       <form>
         <OptionsHeader title="Розмір" onChange={handleOptionsChange} />
@@ -217,7 +217,7 @@ const Filter = () => {
                     // value={value}
                     type="text"
                     name="filterBrand"
-                    placeholder="Enter brand name"
+                    placeholder="Введіть назву"
                     minLength={2}
                   />
                 </label>
@@ -226,7 +226,7 @@ const Filter = () => {
           </>
         )}
       </form>
-    </div>
+    </section>
   );
 };
 
