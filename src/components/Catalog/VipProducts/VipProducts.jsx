@@ -40,6 +40,12 @@ const VipProducts = () => {
   // for pagination
   const handlePageChange = page => {
     setCurrentPage(page);
+    scrollToTop();
+  };
+
+    // for scroling
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
