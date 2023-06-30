@@ -23,6 +23,7 @@ import { getPath } from '../../funcs&hooks/getPath.js';
 import s from './Header.module.scss';
 
 const Header = () => {
+  const [darkTheme, setDarkTheme] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [query, setQuery] = useState('');
   const [isModalCatalogOpen, setIsModalCatalogOpen] = useState(false);
