@@ -49,12 +49,6 @@ const MenuItem = ({ menuItem, activeItem, setActiveItem }) => {
       </a>
       <Flech
         className={s.flech}
-        style={{
-          width: '15px',
-          height: '15px',
-          marginRight: '15px',
-          fill: '#010101',
-        }}
       />
 
       {isSubMenuOpen && (

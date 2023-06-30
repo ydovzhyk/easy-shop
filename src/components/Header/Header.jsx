@@ -42,6 +42,21 @@ const Header = () => {
   //   return isActive ? `${s.active}` : s.link;
   // };
 
+
+useEffect(() => {
+    if (darkTheme) {
+      document.body.classList.add('dark-theme');
+    } else {
+      document.body.classList.remove('dark-theme');
+    }
+  }, [darkTheme]);
+  const handleThemeChange = () => {
+    setDarkTheme(!darkTheme);
+  };
+  const getClassName = ({ isActive }) => {
+    return isActive ? `${s.link} ${s.active}` : s.link;
+  };
+
   const isLogin = useSelector(getLogin);
   const handleModalCatalogOpen = () => {
     setIsModalCatalogOpen(true);
@@ -51,7 +66,7 @@ const Header = () => {
   };
 
   return (
-    <header className={s.header}>
+    <header className={`${s.header} ${darkTheme ? s.darkTheme : ''}`}>
       <div className="container">
         <div className={s.containerTop}>
           {!isDesktop && !isTablet && (
