@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 import VipProducts from '../Catalog/VipProducts/VipProducts';
 import SelectorProducts from '../Catalog/SelectorProducts/SelectorProducts';
@@ -7,7 +7,7 @@ import Text from 'components/Shared/Text/Text';
 import s from './Catalog.module.scss';
 
 const Catalog = () => {
-
+  const activeNewRef = useRef();
   const [activeButton, setActiveButton] = useState('new');
 
   const handleButtonClick = buttonName => {
@@ -20,7 +20,7 @@ const Catalog = () => {
 
       <VipProducts />
 
-      <div className={s.styleWrapButton}>
+      <div className={s.styleWrapButton} ref={activeNewRef}>
         <button
           className={
             activeButton === 'new' ? `${s.button} ${s.active}` : s.button
@@ -49,9 +49,7 @@ const Catalog = () => {
 
       <SelectorProducts
         activeButton={activeButton}
-        // currentPage={currentPage}
-        //   handlePrevPage={handlePrevPage}
-        //   handleNextPage={handleNextPage}
+        activeNewRef={activeNewRef}
        />
     </section>
   );
