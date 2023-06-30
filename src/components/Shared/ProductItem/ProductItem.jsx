@@ -1,22 +1,30 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+// import SizeHovered from '../../Catalog/SizeHovered/SizeHovered';
+
 import NoPhoto from '../../../images/catalog_photo/no_photo.jpg';
+import Text from 'components/Shared/Text/Text';
 import { FiHeart } from 'react-icons/fi';
 import s from './ProductItem.module.scss';
+import { translateParamsToEN } from 'funcs&hooks/translateParamsToEN';
 
 const ProductItem = ({
   _id,
   mainPhotoUrl,
-  section,
-  category,
-  description,
   price,
   nameProduct,
+  description,
+  size,
+  section,
+  category,
 }) => {
+  const translatedParamsObj = translateParamsToEN(section, category);
+  const [categoryName, subCategoryName] = Object.values(translatedParamsObj);
+
   return (
     <li className={s.itemCard}>
       <Link
-        to={`/products/${section}/${category}/${_id}`}
+        to={`/products/${categoryName}/${subCategoryName}/${_id}`}
         className={s.photoLink}
       >
         <div className={s.stylePhotoCardWrap}>
@@ -40,10 +48,20 @@ const ProductItem = ({
         </div>
       </div>
 
-      <Link to={`/products/${section}/${category}/${_id}`}>
+      <Link to={`/products/${categoryName}/${subCategoryName}/${_id}`}>
         <p className={s.nameProductCard}>{nameProduct}</p>
       </Link>
-      <p className={s.sizeCard}>36</p>
+      <div className={s.styleSizeCard}>
+        {size.map((item, index) => (
+          <React.Fragment key={index}>
+            {index > 0 && <span className={s.separator}> / </span>}
+            <Text text={item[0].name} textClass="after-title-bigger" />
+          </React.Fragment>
+        ))}
+      </div>
+      {/* <div className={s.styleSizeCard}>
+        <SizeHovered size={size} />
+      </div> */}
     </li>
   );
 };

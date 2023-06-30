@@ -12,14 +12,15 @@
   color: var(--title-text-color);
   text-align: center;
 
-  padding-top: 1em;
-  padding-bottom: 1em;
+  // padding-top: 1em;
+  // padding-bottom: 1em;
   margin-bottom: 5px;
 
   color: var(--second-text-color);
 
   border-top: 3px solid var(--accent-color);
   border-bottom: 3px solid var(--accent-color);
+  padding: 5px;
 
   @include mixins.mq(tablet) {
     font-size: 24px;
@@ -29,5 +30,46 @@
   @include mixins.mq(desktop) {
     grid-template-columns: repeat(3, 1fr);
     margin-bottom: 5px;
+  }
+}
+
+.catalogTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 1.14;
+  letter-spacing: 0.04em;
+  text-align: center;
+  padding: 8px;
+  color: var(--title-text-color);
+  background-color: var(--bg-footer-header);
+  margin-bottom: 10px;
+  @include mixins.mq(mobile) {
+    font-size: 18px;
+    padding: 16px 20px;
+  }
+  @include mixins.mq(tablet) {
+    margin-bottom: 20px;
+    font-size: 20px;
+    padding: 20px;
+  }
+  @include mixins.mq(desktop) {
+    font-size: 22px;
+  }
+}
+
+.amountBox {
+  border: 1px solid var(--border-color);
+  padding: 2px;
+  font-size: 10px;
+  color: var(--btn-border-color);
+  @include mixins.mq(tablet) {
+    font-size: 14px;
+    padding: 4px;
+  }
+  @include mixins.mq(desktop) {
+    font-size: 16px;
   }
 }

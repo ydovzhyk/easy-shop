@@ -4,6 +4,8 @@
   width: 100%;
   background-color: var(--bg-footer-header);
   z-index: 999;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .containerTop {
@@ -11,9 +13,9 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 20px;
+  padding: 0 20px 0 20px;
   max-width: 1280px;
-  margin: 0 auto;
+  margin: 0 auto 20px auto;
 }
 
 .containerBottom {
@@ -21,10 +23,10 @@
   justify-content: right;
   align-items: center;
   width: 100%;
-  padding: 0 20px 20px 20px;
+  padding: 0 20px 0 20px;
   max-width: 1280px;
   margin: 0 auto;
-  @include mixins.mq(desktop) {
+  @include mixins.mq(tablet) {
     justify-content: space-between;
   }
 }
@@ -41,27 +43,30 @@
   }
 }
 
+// .link {
+//   color: var(--second-text-color);
+//   display: inline-block;
+//   position: relative;
+//   transition: all var(--transition-duration) var(--timing-function);
+//   &:not(:last-of-type) {
+//     margin-right: 15px;
+//   }
+// }
+
+// .active,
+// .link:hover {
+//   text-shadow: var(--hover-text-shadow);
+//   color: var(--hover-active-color);
+// }
+
 .link {
-  color: var(--second-text-color);
   display: inline-block;
   position: relative;
+  color: var(--second-text-color);
   transition: all var(--transition-duration) var(--timing-function);
   &:not(:last-of-type) {
     margin-right: 15px;
   }
-}
-
-.active,
-.link:hover,
-.link:focus {
-  text-shadow: var(--hover-text-shadow);
-  color: var(--hover-active-color);
-}
-
-.link {
-  display: inline-block;
-  position: relative;
-  transition: all 0.3s ease-in-out;
   &::before {
     content: '';
     background: var(--title-text-color);
@@ -73,17 +78,31 @@
     height: 1px;
     transition: all 0.3s ease-in-out;
   }
-}
-
-.link:hover::before {
-  width: 100%;
-}
-
-.active {
-  &::before {
-    width: 100%;
+  &:hover {
+    text-shadow: var(--hover-text-shadow);
+    color: var(--hover-active-color);
+    &::before {
+      width: 100%;
+    }
   }
 }
+
+// .link:hover::before {
+//   width: 100%;
+// }
+
+.active {
+  @extend .link;
+  text-shadow: var(--hover-text-shadow);
+  color: var(--hover-active-color);
+  // &.link::before {
+  //   width: 100%;
+  // }
+}
+
+// .active::before {
+//   width: 100%;
+// }
 
 .navTopContainer {
   display: flex;

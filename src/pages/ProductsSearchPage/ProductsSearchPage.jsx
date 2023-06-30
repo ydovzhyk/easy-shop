@@ -19,14 +19,18 @@ const ProductsSearchPage = () => {
   // }, [searchQuery, dispatch]);
 
   return (
-    <section>
+    <div>
       <Container>
-        <div style={{ display: 'flex' }}>
+        <div
+          style={{
+            display: 'flex',
+          }}
+        >
           <Filter />
           <Outlet />
         </div>
       </Container>
-    </section>
+    </div>
   );
 };
 

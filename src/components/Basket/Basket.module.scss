@@ -6,23 +6,23 @@
   height: 510px;
 }
 
-.defaultBox {
-  @include mixins.mq(tablet) {
-    margin-left: 30px;
-  }
-}
+// .defaultBox {
+//   @include mixins.mq(tablet) {
+//     margin-left: 30px;
+//   }
+// }
 
-.title {
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 13px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--accent-color);
-  text-align: center;
-  margin-bottom: 60px;
+// .title {
+//   font-weight: 700;
+//   font-size: 14px;
+//   line-height: 13px;
+//   letter-spacing: 0.04em;
+//   text-transform: uppercase;
+//   color: var(--accent-color);
+//   text-align: center;
+//   margin-bottom: 60px;
 
-  @include mixins.mq(tablet) {
-    text-align: left;
-  }
-}
+//   @include mixins.mq(tablet) {
+//     text-align: left;
+//   }
+// }

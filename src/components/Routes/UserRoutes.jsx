@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import Loader from 'components/Loader';
 import PublicRoute from './PublicRoutes';
 import PrivateRoute from './PrivateRoutes';
+import CheckoutPage from 'pages/CheckoutPage/CheckoutPage';
 
 const HomePage = lazy(() => import('pages/HomePage'));
 const NotFoundPage = lazy(() => import('pages/NotFoundPage'));
@@ -19,6 +20,7 @@ const MyPurchases = lazy(() =>
 );
 const MyReviews = lazy(() => import('components/Profile/MyReviews/MyReviews'));
 const AddProductPage = lazy(() => import('pages/AddProductPage'));
+const EditProductPage = lazy(() => import('pages/EditProductPage'));
 const MySettings = lazy(() =>
   import('components/Profile/MySettings/MySettings')
 );
@@ -49,6 +51,7 @@ const UserRoutes = () => {
         </Route>
         <Route element={<PrivateRoute />}>
           <Route path="/add-product" element={<AddProductPage />} />
+          <Route path="/edit-product/:id" element={<EditProductPage />} />
           <Route path="/basket" element={<BasketPage />} />
           <Route path="/favorites" element={<FavoritesPage />} />
           <Route path="/profile" element={<ProfilePage />}>
@@ -59,6 +62,7 @@ const UserRoutes = () => {
             <Route path="mysettings" element={<MySettings />} />
           </Route>
           <Route path="/email-verification" element={<EmailVerification />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

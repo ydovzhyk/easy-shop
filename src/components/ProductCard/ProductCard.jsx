@@ -1,143 +1,178 @@
-import { useParams, Link } from 'react-router-dom';
-import Container from 'components/Shared/Container/Container';
-import s from './ProductCard.module.scss';
-import Text from 'components/Shared/Text/Text';
-import Button from 'components/Shared/Button/Button';
-import { BsSuitHeart } from 'react-icons/bs';
-import { BiMessageDetail } from 'react-icons/bi'; //! moved below into component Dialogue and no longer needed
+import { useEffect, useRef, useState } from 'react';
+import { useParams, Link, NavLink, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import {
+  getLoadingProducts,
+  selectProductById,
+} from 'redux/product/product-selectors';
+import { getProductById } from 'redux/product/product-operations';
+import { updateUserBasket } from 'redux/auth/auth-opetations';
+import { getLogin, selectUserBasket } from 'redux/auth/auth-selectors';
+import { clearOtherUser } from 'redux/otherUser/otherUser.slice';
+import { clearProductById } from 'redux/product/product-slice';
 
 import SellerInfo from './SellerInfo/SellerInfo';
-import DeliveryList from './DeliveryList';
-import { useDispatch, useSelector } from 'react-redux';
-import {  selectProductById } from 'redux/product/product-selectors';
-import { getProductById } from 'redux/product/product-operations';
-import { useEffect } from 'react';
-import Dialogue from 'components/Dialogue/Dialogue';
 import PhotoCollection from 'components/Shared/PhotoCollection/PhotoCollection';
+import Dialogue from 'components/Dialogue/Dialogue';
+import Container from 'components/Shared/Container/Container';
+import Text from 'components/Shared/Text/Text';
+import Button from 'components/Shared/Button/Button';
+import ProductSizes from './Productsizes';
+import ProductInfo from './ProductInfo';
+import Loader from 'components/Loader/Loader';
+import { translateParamsToUA } from '../../funcs&hooks/translateParamsToUA.js';
+import { BsSuitHeart } from 'react-icons/bs';
+import { BiMessageDetail } from 'react-icons/bi';
+
+import s from './ProductCard.module.scss';
 
 const ProductCard = () => {
   const { category, subcategory, id } = useParams();
+  const translatedParamsObj = translateParamsToUA(category, subcategory);
+  const [categoryName, subCategoryName] = Object.values(translatedParamsObj);
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const product = useSelector(selectProductById);
 
   useEffect(() => {
-    dispatch(getProductById(id));
+    dispatch(clearOtherUser());
+    dispatch(clearProductById());
+    dispatch(getProductById(id)).then(() => setIsDataLoaded(true));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [dispatch, id]);
 
-  const product = useSelector(selectProductById);
-  // console.log( id, product);
+  const isLogin = useSelector(getLogin);
+  const isLoading = useSelector(getLoadingProducts);
 
   const {
     nameProduct,
-    brendName,
-    condition,
-    description,
     mainPhotoUrl,
     additionalPhotoUrl,
     price,
-    category: subSection,
+    owner,
+    size,
+    vip,
   } = product;
 
-    return (
-      <section className={s.productCard}>
-        <Container>
-          <p className={s.navigation}>
-            <Link to={`/`}>Easy shop </Link> &#8250;
-            <Link to={`/products/${category}`}> {category} </Link>&#8250;
-            <Link to={`/products/${category}/${subcategory}`}>
-              {' '}
-              {subcategory}
-            </Link>
-          </p>
-          <div className={s.productCardWrapper}>
-            <div>
-              <div className={s.productMainInfo}>
-                <div className={s.fotoContainer}>
-                  {product !== {} && (
+  const sizeValuesArray = size ? size.map(item => item[0].value) : [];
+
+  const userProductBasket = useSelector(selectUserBasket);
+  const isProductInBasket = userProductBasket.find(item => item === id);
+  const setProductToBasket = () => {
+    if (!isLogin) {
+      navigate('/login');
+      return
+    }
+    const newBasket = isProductInBasket
+      ? userProductBasket.filter(item => item !== id)
+      : [...userProductBasket, id];
+    dispatch(updateUserBasket({ userBasket: newBasket }));
+    // console.log('change basket');
+  };
+
+  const chattingRef = useRef();
+
+  const scrollToChating = () => {
+    chattingRef.current.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  return (
+    <section className={s.productCard}>
+      <Container>
+        <p className={s.navigation}>
+          <Link to={`/`}>Easy shop </Link> &#8250;
+          <Link to={`/products/${category}`}> {categoryName} </Link>&#8250;
+          <Link to={`/products/${category}/${subcategory}`}>
+            {' '}
+            {subCategoryName}
+          </Link>
+        </p>
+        {isLoading && !isDataLoaded ? (
+          <Loader />
+        ) : (
+          <>
+            <div className={s.productCardWrapper}>
+              <div>
+                <div className={s.productMainInfo}>
+                  <div className={s.fotoContainer}>
+                    {vip === 'Так' && (
+                      <div className={s.vipLabel}>
+                        <span>Vip</span>
+                      </div>
+                    )}
+
                     <PhotoCollection
                       mainPhotoUrl={mainPhotoUrl}
                       nameProduct={nameProduct}
-                      additionalPhotoUrl={additionalPhotoUrl ? additionalPhotoUrl : []}
-                    />
-                  )}
-                </div>
-                <div className={s.productInfoWrapper}>
-                  <p className={s.availability}>В наявності</p>
-                  <Text text={nameProduct} textClass="productName" />
-                  <div className={s.productPrice}>
-                    <span className={s.productOldPrice}>379 грн</span>
-                    <span className={s.productPriceDiscount}>-8%</span>
-                    <Text text={price} textClass="title" />
-                  </div>
-                  <Text text="Розміри:" textClass="productLabels" />
-                  <div className={s.size}>
-                    <Text
-                      text={`EU: 40 / UA: 48 / IN: L `}
-                      textClass="after-title-bigger"
+                      additionalPhotoUrl={
+                        additionalPhotoUrl ? additionalPhotoUrl : []
+                      }
                     />
                   </div>
-                  <div className={s.buyBtns}>
-                    <Button
-                      type="button"
-                      btnClass="btnLight"
-                      text="Купити зараз"
-                    />
-                    <Button type="button" text="Додати до кошика" />
-                  </div>
-
-                  <div className={s.additionalOptsContainer}>
-                    <div className={s.additionalOpts}>
-                      <BsSuitHeart className={s.favoriteIcon} />
-                      <Text text="Додати в обрані" textClass="productText" />
+                  <div className={s.productInfoWrapper}>
+                    <p className={s.availability}>В наявності</p>
+                    <Text text={nameProduct} textClass="productName" />
+                    <div className={s.productPrice}>
+                      <span className={s.productOldPrice}>379 грн</span>
+                      <span className={s.productPriceDiscount}>-8%</span>
+                      <Text text={price} textClass="title" />
                     </div>
-                    <div className={s.additionalOpts}>
-                      <BiMessageDetail className={s.favoriteIcon} />
-                      <Text
-                        text="Поставити запитання"
-                        textClass="productText"
+                    <ProductSizes sizeValuesArray={sizeValuesArray} />
+
+                    <div className={s.buyBtns}>
+                      <NavLink to={isLogin ? '/checkout' : '/login'}>
+                        <Button
+                          type="button"
+                          btnClass="btnLight"
+                          text="Купити зараз"
+                        />
+                      </NavLink>
+
+                      <Button
+                        type="button"
+                        text={
+                          isProductInBasket
+                            ? 'Товар у кошику'
+                            : 'Додати до кошика'
+                        }
+                        handleClick={setProductToBasket}
                       />
                     </div>
+                    <div className={s.additionalOptsContainer}>
+                      <div className={s.additionalOpts}>
+                        <BsSuitHeart className={s.favoriteIcon} />
+                        <Text text="Додати в обрані" textClass="productText" />
+                      </div>
+                      <div className={s.additionalOpts}>
+                        <BiMessageDetail className={s.favoriteIcon} />
+                        <button onClick={scrollToChating}>
+                          <Text
+                            text="Поставити запитання"
+                            textClass="productText"
+                          />
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                  {/* //! moved below into component Dialogue and no longer needed */}
-                  {/* <div className={s.additionalOpts}>
-                    <BiMessageDetail className={s.favoriteIcon} />
-                    <Text text="Поставити запитання" textClass="productText" />
-                  </div> */}
+                </div>
+                <ProductInfo product={product} />
+              </div>
+              <div ref={chattingRef}>
+                <Text text="Продавець:" textClass="productLabels" />
+                <div className={s.sellerInfo}>
+                  {isDataLoaded && owner && <SellerInfo owner={owner} />}
                 </div>
               </div>
-
-              <ul className={s.productInfo}>
-                <li className={s.productDescription}>
-                  <Text text="Стан:" textClass="productLabels" />
-                  <Text text={condition} textClass="productText" />
-                </li>
-                <li className={s.productDescription}>
-                  <Text text="Бренд:" textClass="productLabels" />
-                  <Text text={brendName} textClass="productText" />
-                </li>
-                <li className={s.productDescription}>
-                  <Text text="Категорії:" textClass="productLabels" />
-                  <Text text={subSection} textClass="productText" />
-                </li>
-              </ul>
-              <div className={s.productDetails}>
-                <div className={s.productDescription}>
-                  <Text text="Опис товару:" textClass="productLabels" />
-                  <Text text={description} textClass="productText" />
-                </div>
-                <DeliveryList />
-              </div>
             </div>
-            <div>
-              <Text text="Продавець:" textClass="productLabels" />
-              <div className={s.sellerInfo}>
-                <SellerInfo />
-              </div>
-            </div>
-          </div>
-          <Dialogue />
-        </Container>
-      </section>
-    );
+            <Dialogue />
+          </>
+        )}
+      </Container>
+    </section>
+  );
 };
 
 export default ProductCard;

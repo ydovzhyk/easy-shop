@@ -105,14 +105,19 @@
   color: var(--second-text-color);
 }
 
-.sizeCard {
+.styleSizeCard {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+
   margin-top: auto;
+  // margin-right: 5px;
+  margin-bottom: 0px;
+}
 
-  font-weight: 700;
-  font-size: 13px;
-  line-height: 16px;
-
-  color: var(--text-color);
+.separator {
+margin-left: 2px;
+margin-right: 2px;
 }
 
 .link {

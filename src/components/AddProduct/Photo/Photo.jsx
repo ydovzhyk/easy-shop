@@ -8,6 +8,8 @@ const Photo = ({
   isFormSubmitted,
   onChangeMainFile,
   onChangeAdditionalFiles,
+  mainPhotoUrl,
+  additionalPhotoUrl,
 }) => {
   const [backgroundImage, setBackgroundImage] = useState('');
   const [mainFile, setMainFile] = useState('');
@@ -68,6 +70,16 @@ const Photo = ({
       setAdditionalImages([]);
     }
   }, [isFormSubmitted]);
+
+  useEffect(() => {
+    if (mainPhotoUrl) {
+      setBackgroundImage(`url(${mainPhotoUrl})`);
+    }
+    if (additionalPhotoUrl && additionalPhotoUrl.length > 0) {
+      const images = additionalPhotoUrl.slice(0, 5);
+      setAdditionalImages(images);
+    }
+  }, [mainPhotoUrl, additionalPhotoUrl]);
 
   return (
     <div className={s.photoPart}>

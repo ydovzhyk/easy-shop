@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { useState } from 'react';
 
 // const REACT_APP_API_URL = 'http://localhost:4000';
 const REACT_APP_API_URL = 'https://easy-shop-backend.herokuapp.com/';
@@ -17,15 +16,13 @@ const token = {
   },
 };
 
+let reqUrl = '';
+let newData = {};
 instance.interceptors.response.use(
   response => response,
   async error => {
     if (error.response.status === 401) {
-      const [reqUrl, setReqUrl] = useState('');
-      const [newData, setNewData] = useState({});
-      const authData = await JSON.parse(
-        localStorage.getItem('easy-shop.authData')
-      );
+      const authData = JSON.parse(localStorage.getItem('easy-shop.authData'));
       const { refreshToken, sid } = authData;
       try {
         if (reqUrl !== '/auth/current') {
@@ -43,11 +40,11 @@ instance.interceptors.response.use(
             'easy-shop.authData',
             JSON.stringify(authNewData)
           );
-          setNewData(authNewData);
+          newData = authNewData;
         }
 
         if (error.config.url === '/auth/current') {
-          setReqUrl('/auth/current');
+          reqUrl = '/auth/current';
           const originalRequest = error.config;
           originalRequest.data = {
             accessToken: newData.accessToken,
@@ -56,7 +53,11 @@ instance.interceptors.response.use(
           };
           return instance(error.config);
         } else {
-          return instance(error.config);
+          const originalRequest = error.config;
+          originalRequest.headers[
+            'Authorization'
+          ] = `Bearer ${newData.accessToken}`;
+          return instance(originalRequest);
         }
       } catch (error) {
         return Promise.reject(error);
@@ -87,6 +88,11 @@ export const axiosLogout = async accessToken => {
 export const axiosUpdateUser = async (accessToken, userData) => {
   token.set(accessToken);
   const { data } = await instance.post('/auth/current', userData);
+  return data;
+};
+
+export const axiosUpdateUserBasket = async userData => {
+  const { data } = await instance.post('/auth/basket', userData);
   return data;
 };
 

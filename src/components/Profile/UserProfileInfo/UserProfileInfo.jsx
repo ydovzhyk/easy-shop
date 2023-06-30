@@ -10,14 +10,13 @@ import Container from 'components/Shared/Container';
 import Avatar from 'components/Profile/Avatar/Avatar';
 import UserRating from 'components/Profile/UserProfileInfo/UserRating';
 import Value from 'components/Profile/Value';
-import DaysValue from 'components/Profile/UserProfileInfo/DaysValue';
+import DaysValue from 'components/Shared/helper/DaysValue';
 import s from 'components/Profile/UserProfileInfo/UserProfileInfo.module.scss';
 
 const UserProfileInfo = () => {
   const userName = useSelector(getUserName);
   const user = useSelector(getUser);
   const userAvatar = useSelector(getUserAvatar);
-  console.log('user:', user);
   const dateCreate = useSelector(getUserDateCreate);
 
   const getDaysPassedFromDate = dateString => {
@@ -29,7 +28,6 @@ const UserProfileInfo = () => {
   };
 
   const userAddress = user.userAddress || 'Kyiv';
-  console.log(userAddress);
   const rating = 3.2;
   const gradesAmount = 12;
   const daysAmount = getDaysPassedFromDate(dateCreate);

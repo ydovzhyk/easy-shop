@@ -5,7 +5,7 @@ import { register } from 'redux/auth/auth-opetations';
 import { NavLink, Navigate, useLocation, Link } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import { getError, getNewUserId } from 'redux/auth/auth-selectors';
-import { clearError } from 'redux/auth/auth-slice';
+import { clearUserError } from 'redux/auth/auth-slice';
 
 import { field } from 'components/Shared/TextField/fields';
 import TextField from 'components/Shared/TextField';
@@ -74,7 +74,7 @@ const Register = () => {
   }
 
   const resetError = () => {
-    dispatch(clearError());
+    dispatch(clearUserError());
   };
 
   return (

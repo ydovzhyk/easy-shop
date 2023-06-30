@@ -58,3 +58,10 @@ export const axiosGetProductById = async id => {
   const { data } = await instance.get(`/product/${id}`);
   return data;
 };
+
+// Get products from user's basket
+export const axiosGetProductsFromBasket = async id => {
+  console.log('axiosUserId:', id);
+  const { data } = await instance.get(`/product/basket/${id}`);
+  return data;
+};

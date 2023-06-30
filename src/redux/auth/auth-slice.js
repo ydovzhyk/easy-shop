@@ -5,6 +5,7 @@ import {
   logout,
   updateUser,
   updateUserSettings,
+  updateUserBasket,
 } from './auth-opetations';
 
 const initialState = {
@@ -54,7 +55,7 @@ const auth = createSlice({
       store.newUser = {};
     },
     clearUser: () => ({ ...initialState }),
-    clearError: store => {
+    clearUserError: store => {
       store.error = '';
     },
     clearUserMessage: store => {
@@ -157,9 +158,22 @@ const auth = createSlice({
       store.loading = false;
       store.error = payload;
     },
+    // * UPDATE USER BASKET
+    [updateUserBasket.pending]: store => {
+      store.loading = true;
+      store.error = '';
+    },
+    [updateUserBasket.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.user.userBasket = payload.userBasket;
+    },
+    [updateUserBasket.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
   },
 });
 
 export default auth.reducer;
-export const { clearNewUser, clearUser, clearError, clearUserMessage } =
+export const { clearNewUser, clearUser, clearUserError, clearUserMessage } =
   auth.actions;

@@ -9,6 +9,7 @@ import {
   getVipProducts,
   getProductsBySelector,
   getProductById,
+  getProductsFromBasket,
 } from './product-operations';
 
 const initialState = {
@@ -25,20 +26,27 @@ const initialState = {
   selectorProducts: [],
   selectorPages: 1,
   productById: {},
+  productsFromBasket: [],
 };
 
 const products = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    clearMessage: store => {
+    clearProductMessage: store => {
       store.message = '';
     },
-    clearError: store => {
+    clearProductError: store => {
       store.error = null;
     },
     clearUserProducts: store => {
       store.userProducts = [];
+    },
+    clearProductById: store => {
+      store.productById = {};
+    },
+    clearProductsFromBasket: store => {
+      store.productsFromBasket = [];
     },
   },
   extraReducers: {
@@ -149,9 +157,27 @@ const products = createSlice({
       store.loading = false;
       store.error = payload;
     },
+    // get products from user's basket
+    [getProductsFromBasket.pending]: store => {
+      store.loading = true;
+      store.error = null;
+    },
+    [getProductsFromBasket.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.productsFromBasket = payload;
+    },
+    [getProductsFromBasket.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
   },
 });
 
 export default products.reducer;
 
-export const { clearMessage, clearError, clearUserProducts } = products.actions;
+export const {
+  clearProductMessage,
+  clearProductError,
+  clearUserProducts,
+  clearProductById,
+} = products.actions;

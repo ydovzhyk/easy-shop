@@ -36,6 +36,11 @@ export const field = {
     type: 'text',
     required: true,
   },
+  sale: {
+    name: 'sale',
+    type: 'text',
+    required: true,
+  },
   category: {
     name: 'category',
     type: 'text',

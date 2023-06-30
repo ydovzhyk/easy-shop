@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
   BsTrash,
   BsPencil,
@@ -85,6 +86,8 @@ const MyWares = () => {
     setQuestionWindow(true);
   };
 
+  const handleClick = id => {};
+
   const handleConfirm = choice => {
     if (choice === 'yes') {
       dispatch(deleteProduct(productId));
@@ -125,7 +128,13 @@ const MyWares = () => {
                   </div>
                   <div className={s.buttonWrapper}>
                     <RoundButton icon={BsChatSquareText} />
-                    <RoundButton icon={BsPencil} />
+                    <Link to={`/edit-product/${_id}`}>
+                      <RoundButton
+                        icon={BsPencil}
+                        handleClick={handleClick}
+                        id={_id}
+                      />
+                    </Link>
                     <RoundButton
                       icon={BsTrash}
                       handleClick={handleButtonTrashClick}

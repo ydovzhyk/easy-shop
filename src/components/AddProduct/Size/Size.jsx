@@ -4,7 +4,7 @@ import sizeOption from './sizeTable.json';
 import Text from 'components/Shared/Text/Text';
 import s from './Size.module.scss';
 
-const Size = ({ onSelectedSizesChange, isFormSubmitted }) => {
+const Size = ({ onSelectedSizesChange, isFormSubmitted, historySize }) => {
   const [selectedSizes, setSelectedSizes] = useState([]);
 
   const handleSizeClick = size => {
@@ -35,6 +35,12 @@ const Size = ({ onSelectedSizesChange, isFormSubmitted }) => {
       setSelectedSizes([]);
     }
   }, [isFormSubmitted]);
+
+  useEffect(() => {
+    if (historySize) {
+      setSelectedSizes(historySize);
+    }
+  }, [historySize]);
 
   return (
     <div className={s.sizeBox}>
