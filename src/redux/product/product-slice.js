@@ -27,6 +27,7 @@ const initialState = {
   selectorPages: 1,
   productById: {},
   productsFromBasket: [],
+  sellersFromBasket: [],
 };
 
 const products = createSlice({
@@ -164,7 +165,8 @@ const products = createSlice({
     },
     [getProductsFromBasket.fulfilled]: (store, { payload }) => {
       store.loading = false;
-      store.productsFromBasket = payload;
+      store.productsFromBasket = payload.productsFromBasket;
+      store.sellersFromBasket = payload.sellersFromBasket;
     },
     [getProductsFromBasket.rejected]: (store, { payload }) => {
       store.loading = false;
