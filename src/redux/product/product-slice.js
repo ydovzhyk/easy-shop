@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import {
   addProduct,
+  updateProduct,
   deleteProduct,
   getAllProducts,
   getUserProducts,
@@ -60,6 +61,19 @@ const products = createSlice({
       store.message = payload.message;
     },
     [addProduct.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
+    //* updateProduct
+    [updateProduct.pending]: store => {
+      store.loading = true;
+      store.error = null;
+    },
+    [updateProduct.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.message = payload.message;
+    },
+    [updateProduct.rejected]: (store, { payload }) => {
       store.loading = false;
       store.error = payload;
     },

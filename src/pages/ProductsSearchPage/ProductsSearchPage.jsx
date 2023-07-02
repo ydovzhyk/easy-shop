@@ -24,6 +24,7 @@ const ProductsSearchPage = () => {
         <div
           style={{
             display: 'flex',
+            padding: '20px 0',
           }}
         >
           <Filter />
