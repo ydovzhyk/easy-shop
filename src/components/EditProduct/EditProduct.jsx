@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import moment from 'moment';
 
 import { getProductById } from 'redux/product/product-operations';
 import { clearProductById } from 'redux/product/product-slice';
-import { addProduct } from 'redux/product/product-operations';
+import { updateProduct } from 'redux/product/product-operations';
 import { getMessage } from 'redux/product/product-selectors';
-import { getID } from 'redux/auth/auth-selectors';
 import { selectProductById } from 'redux/product/product-selectors';
 
 import { field } from 'components/Shared/TextField/fields';
@@ -28,7 +28,6 @@ import s from '../AddProduct/AddProduct.module.scss';
 const EditProduct = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const userId = useSelector(getID);
   const message = useSelector(getMessage);
   const product = useSelector(selectProductById);
   const [sectionValue, setSectionValue] = useState('');
@@ -40,12 +39,26 @@ const EditProduct = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [isMessage, setIsMessage] = useState('');
 
+  const goBack = () => {
+    window.history.back();
+  };
+
   const date = new Date();
   const today = `${date.getFullYear()}-${
     date.getMonth() + 1
   }-${date.getDate()}`;
 
-  const [formData, setFormData] = useState({
+  // const dateString = toString(new Date());
+  // const parts = dateString.split('.');
+  // const year = parseInt(parts[2], 10);
+  // const month = parseInt(parts[1], 10) - 1;
+  // const day = parseInt(parts[0], 10);
+
+  // const today = new Date(year, month, day);
+
+  console.log('today', today);
+
+  const defaultValue = {
     nameProduct: '',
     brendName: '',
     category: '',
@@ -58,14 +71,13 @@ const EditProduct = () => {
     vip: 'Ні',
     sale: 0,
     saleDate: today,
-  });
+  };
+  const [formData, setFormData] = useState(defaultValue);
 
   useEffect(() => {
     dispatch(clearProductById());
     dispatch(getProductById(id));
   }, [dispatch, id]);
-
-  //   console.log('Це оновлені дефолтні значення', product);
 
   useEffect(() => {
     setIsMessage(message);
@@ -83,8 +95,19 @@ const EditProduct = () => {
     setAdditionalFiles(files);
   };
 
-  const error = (mainFile, additionalFiles, selectedSizes) => {
-    if (!mainFile && additionalFiles.length === 0) {
+  const error = (
+    mainFile,
+    additionalFiles,
+    selectedSizes,
+    productMainPhotoUrl,
+    productAdditionalPhotoUrl
+  ) => {
+    if (
+      !mainFile &&
+      additionalFiles.length === 0 &&
+      !productMainPhotoUrl &&
+      productAdditionalPhotoUrl.length === 0
+    ) {
       setErrorFormFilling(true);
       setErrorMessage(
         prevErrorMessage =>
@@ -117,6 +140,7 @@ const EditProduct = () => {
 
   useEffect(() => {
     if (product && Object.keys(product).length !== 0) {
+      console.log(product.saleDate);
       const updatedFormData = {
         nameProduct: product.nameProduct,
         brendName: product.brendName,
@@ -139,42 +163,90 @@ const EditProduct = () => {
         saleDate: product.saleDate ? product.saleDate : today,
       };
       setFormData(updatedFormData);
+      setSelectedSizes(product.size);
       reset(updatedFormData);
     }
   }, [product, reset, today]);
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
-    const errorFilling = await error(mainFile, additionalFiles, selectedSizes);
+    const productAdditionalPhotoUrl = formData.additionalPhotoUrl;
+    const productMainPhotoUrl = formData.mainPhotoUrl;
+
+    const errorFilling = await error(
+      mainFile,
+      additionalFiles,
+      selectedSizes,
+      productMainPhotoUrl,
+      productAdditionalPhotoUrl
+    );
     if (!errorFilling) {
       const dataForUpload = new FormData();
       dataForUpload.append('nameProduct', data.nameProduct);
       dataForUpload.append('brendName', data.brendName);
-      dataForUpload.append('condition', data.condition.value);
-      dataForUpload.append('section', data.section.value);
-      dataForUpload.append('category', data.category.value);
-      dataForUpload.append('vip', data.vip.value);
+      dataForUpload.append(
+        'condition',
+        data.condition.value ? data.condition.value : data.condition
+      );
+      dataForUpload.append(
+        'section',
+        data.section.value ? data.section.value : data.section
+      );
+      dataForUpload.append(
+        'category',
+        data.category.value ? data.category.value : data.category
+      );
+      dataForUpload.append('vip', data.vip.value ? data.vip.value : data.vip);
       dataForUpload.append('quantity', data.quantity);
       dataForUpload.append('description', data.description);
       dataForUpload.append('keyWords', data.keyWords);
       dataForUpload.append('price', data.price);
-      dataForUpload.append('size', JSON.stringify(selectedSizes));
-      dataForUpload.append('mainFileName', mainFile.name);
-      const allFiles = [...additionalFiles, mainFile];
-      allFiles.forEach(file => {
-        dataForUpload.append('files', file);
-      });
-      dataForUpload.append('owner', userId);
-      dataForUpload.append('date', today);
+      dataForUpload.append('id', formData._id);
+      dataForUpload.append('sale', data.sale);
+      dataForUpload.append(
+        'saleDate',
+        moment(data.saleDate, 'YYYY-MM-DD').format('DD.MM.YYYY')
+      );
 
-      await dispatch(addProduct(dataForUpload));
-      await setIsFormSubmitted(true);
-      await setMainFile('');
-      await setAdditionalFiles([]);
-      await setSelectedSizes([]);
-      await setErrorMessage('');
-      await setErrorFormFilling(false);
-      reset();
+      dataForUpload.append('size', JSON.stringify(selectedSizes));
+
+      if (mainFile && additionalFiles.length > 0) {
+        dataForUpload.append('mainFileName', mainFile.name);
+        const allFiles = [...additionalFiles, mainFile];
+        allFiles.forEach(file => {
+          dataForUpload.append('files', file);
+        });
+      } else if (additionalFiles.length > 0) {
+        dataForUpload.append('mainPhotoUrl', productMainPhotoUrl);
+        const allFiles = [...additionalFiles];
+        allFiles.forEach(file => {
+          dataForUpload.append('files', file);
+        });
+      } else if (mainFile && additionalFiles.length === 0) {
+        dataForUpload.append('mainFileName', mainFile.name);
+        const allFiles = [mainFile];
+        allFiles.forEach(file => {
+          dataForUpload.append('files', file);
+        });
+      } else {
+        dataForUpload.append('mainPhotoUrl', productMainPhotoUrl);
+        dataForUpload.append(
+          'additionalPhotoUrl',
+          JSON.stringify(productAdditionalPhotoUrl)
+        );
+      }
+
+      await dispatch(updateProduct(dataForUpload)).then(() => {
+        setTimeout(() => {
+          setIsFormSubmitted(true);
+          setMainFile('');
+          setAdditionalFiles([]);
+          setSelectedSizes([]);
+          setErrorMessage('');
+          setErrorFormFilling(false);
+          goBack();
+        }, 6000);
+      });
     }
   };
 
@@ -224,19 +296,12 @@ const EditProduct = () => {
               <Controller
                 control={control}
                 name="condition"
-                rules={{
-                  required: true,
-                }}
                 render={({ field: { onChange, value } }) => (
                   <SelectField
                     value={value}
                     handleChange={onChange}
                     className="addProduct"
                     name="condition"
-                    {...field.condition}
-                    defaultValue={formData.condition}
-                    placeholder={formData.condition}
-                    required={true}
                     options={[
                       'Новий',
                       'Ідеальний',
@@ -244,6 +309,11 @@ const EditProduct = () => {
                       'Хороший',
                       'Задовільний',
                     ]}
+                    defaultValue={{
+                      value: formData.condition,
+                      label: formData.condition,
+                    }}
+                    placeholder={formData.condition}
                   />
                 )}
               />
@@ -275,9 +345,6 @@ const EditProduct = () => {
               <Controller
                 control={control}
                 name="section"
-                rules={{
-                  required: true,
-                }}
                 render={({ field: { onChange, value } }) => (
                   <SelectField
                     value={value}
@@ -287,16 +354,17 @@ const EditProduct = () => {
                     }}
                     className="addProduct"
                     name="section"
-                    {...field.section}
-                    defaultValue={formData.section}
-                    placeholder={formData.section}
-                    required={true}
                     options={[
                       'Жінкам',
                       'Чоловікам',
                       'Дитячі товари',
                       "Краса та здоров'я",
                     ]}
+                    defaultValue={{
+                      value: formData.section,
+                      label: formData.section,
+                    }}
+                    placeholder={formData.section}
                   />
                 )}
               />
@@ -306,9 +374,6 @@ const EditProduct = () => {
               <Controller
                 control={control}
                 name="category"
-                rules={{
-                  required: true,
-                }}
                 render={({ field: { onChange, value } }) => {
                   const options =
                     typeof sectionValue === 'object' && sectionValue?.value
@@ -320,11 +385,12 @@ const EditProduct = () => {
                       handleChange={onChange}
                       className="addProduct"
                       name="category"
-                      {...field.category}
-                      defaultValue={formData.category}
-                      placeholder={formData.category}
-                      required={true}
                       options={options}
+                      defaultValue={{
+                        value: formData.category,
+                        label: formData.category,
+                      }}
+                      placeholder={formData.category}
                     />
                   );
                 }}
@@ -480,25 +546,23 @@ const EditProduct = () => {
           <Controller
             control={control}
             name="vip"
-            rules={{
-              required: true,
-            }}
             render={({ field: { onChange, value } }) => (
               <SelectField
                 value={value}
                 handleChange={onChange}
                 className="vip"
                 name="vip"
-                {...field.condition}
-                defaultValue={formData.vip}
-                placeholder={formData.vip}
-                required={true}
                 options={['Так', 'Ні']}
+                defaultValue={{
+                  value: formData.vip,
+                  label: formData.vip,
+                }}
+                placeholder={formData.vip}
               />
             )}
           />
           <div className={s.wrap}>
-            <Button text="Додати" btnClass="btnLight" />
+            <Button text="Оновити" btnClass="btnLight" />
           </div>
         </form>
         {errorFormFilling && (

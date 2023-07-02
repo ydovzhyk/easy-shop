@@ -10,6 +10,16 @@ export const axiosAddProduct = async productData => {
   return data;
 };
 
+// Update product
+export const axiosUpdateProduct = async productData => {
+  const { data } = await instance.post('/product/update', productData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return data;
+};
+
 // Delete product by Id
 export const axiosDeleteProduct = async userData => {
   const { data } = await instance.delete(`/product/delete/${userData}`);
