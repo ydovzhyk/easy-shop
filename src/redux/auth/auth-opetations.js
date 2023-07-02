@@ -5,6 +5,7 @@ import {
   axiosRegister,
   axiosUpdateUser,
   axiosUpdateUserBasket,
+  axiosUpdateUserLikes,
 } from 'api/auth';
 
 import { axiosUpdateUserSettings } from 'api/updateUser';
@@ -92,6 +93,20 @@ export const updateUserBasket = createAsyncThunk(
     try {
       const data = await axiosUpdateUserBasket(userData);
       console.log(data);
+      return data;
+    } catch (error) {
+      const { data, status } = error.response;
+      return rejectWithValue({ data, status });
+    }
+  }
+);
+
+export const updateUserLikes = createAsyncThunk(
+  'auth/likes',
+  async (userData, { rejectWithValue, getState, dispatch }) => {
+    try {
+      const data = await axiosUpdateUserLikes(userData);
+      console.log("1", data)
       return data;
     } catch (error) {
       const { data, status } = error.response;

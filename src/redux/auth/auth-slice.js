@@ -6,6 +6,7 @@ import {
   updateUser,
   updateUserSettings,
   updateUserBasket,
+  updateUserLikes,
 } from './auth-opetations';
 
 const initialState = {
@@ -171,6 +172,19 @@ const auth = createSlice({
       store.loading = false;
       store.error = payload;
     },
+      // * UPDATE USER LIKES
+      [updateUserLikes.pending]: store => {
+        store.loading = true;
+        store.error = '';
+      },
+      [updateUserLikes.fulfilled]: (store, { payload }) => {
+        store.loading = false;
+        store.user = payload;
+      },
+      [updateUserLikes.rejected]: (store, { payload }) => {
+        store.loading = false;
+        store.error = payload;
+      },
   },
 });
 

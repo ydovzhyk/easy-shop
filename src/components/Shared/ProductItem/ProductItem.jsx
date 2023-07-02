@@ -1,17 +1,22 @@
-import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 // import SizeHovered from '../../Catalog/SizeHovered/SizeHovered';
+import { updateUserLikes } from 'redux/auth/auth-opetations';
+import { selectUserLikes } from 'redux/auth/auth-selectors';
 
 import NoPhoto from '../../../images/catalog_photo/no_photo.jpg';
 import Text from 'components/Shared/Text/Text';
 import { FiHeart } from 'react-icons/fi';
-import s from './ProductItem.module.scss';
 import { translateParamsToEN } from 'funcs&hooks/translateParamsToEN';
+import s from './ProductItem.module.scss';
 
 const ProductItem = ({
   _id,
   mainPhotoUrl,
   price,
+  likes,
   nameProduct,
   description,
   size,
@@ -20,6 +25,17 @@ const ProductItem = ({
 }) => {
   const translatedParamsObj = translateParamsToEN(section, category);
   const [categoryName, subCategoryName] = Object.values(translatedParamsObj);
+
+  const dispatch = useDispatch();
+  const arrayUserLikes = useSelector(selectUserLikes);
+  const [isLiked, setIsLiked] = useState(false);
+
+  console.log('3', arrayUserLikes);
+  
+  const handleClick = () => {
+    dispatch(updateUserLikes({ productId: _id }));
+    setIsLiked(!isLiked);
+  };
 
   return (
     <li className={s.itemCard}>
@@ -40,11 +56,15 @@ const ProductItem = ({
 
       <div className={s.stylePriceLike}>
         <p className={s.priceCard}>{price}грн</p>
-        <div className={s.styleLike}>
-          <p className={s.likeCard}>7</p>
-          <NavLink to="/favorites" className={s.link}>
+        <div className={s.styleLike} onClick={handleClick}>
+          <p className={s.likeCard}>{likes}</p>
+          <FiHeart
+            size={24}
+            className={`${s.liked} ${isLiked ? s.isLiked : ''}`}
+          />
+          {/* <NavLink to="/favorites" className={s.link}>
             <FiHeart size={24} />
-          </NavLink>
+          </NavLink> */}
         </div>
       </div>
 
