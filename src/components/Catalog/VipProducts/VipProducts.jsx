@@ -20,6 +20,7 @@ const VipProducts = () => {
   const arrayVipProducts = useSelector(getVipProductCard);
   const vipPages = useSelector(getVipPages);
   const isDesktop = useMediaQuery({ minWidth: 1280 });
+  console.log(arrayVipProducts);
 
   useEffect(() => {
     dispatch(getVipProducts(currentPage));
@@ -43,7 +44,7 @@ const VipProducts = () => {
     scrollToTop();
   };
 
-    // for scroling
+  // for scroling
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -74,6 +75,7 @@ const VipProducts = () => {
               _id={item._id}
               mainPhotoUrl={item.mainPhotoUrl}
               price={item.price}
+              likes={item.userLikes}
               nameProduct={item.nameProduct}
               description={item.description}
               size={item.size}
