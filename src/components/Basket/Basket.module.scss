@@ -1,28 +1,125 @@
-@use '../../styles/mixins';
+@use 'styles/mixins';
 
-.default {
-  padding-top: 10px;
-  width: 100%;
-  height: 510px;
+.myWaresWrapper {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
 }
 
-// .defaultBox {
-//   @include mixins.mq(tablet) {
-//     margin-left: 30px;
-//   }
-// }
+.orderList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
 
-// .title {
-//   font-weight: 700;
-//   font-size: 14px;
-//   line-height: 13px;
-//   letter-spacing: 0.04em;
-//   text-transform: uppercase;
-//   color: var(--accent-color);
-//   text-align: center;
-//   margin-bottom: 60px;
+.orderItem{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
 
-//   @include mixins.mq(tablet) {
-//     text-align: left;
-//   }
-// }
+.wareItem {
+  padding: 8px;
+  border: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  // flex-direction: column;
+  gap: 8px;
+
+  &:hover {
+    border: 1px solid var(--accent-color);
+  }
+
+  @include mixins.mq(tablet) {
+    // padding-bottom: 0;
+    width: 100%;
+    // height: 400px;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 12px;
+  }
+}
+
+.thumb {
+  width: 80px;
+  height: 115px;
+  
+  // @include mixins.mq(tablet) {
+  //   width: 307px;
+  //   height: 400px;
+  // }
+
+  // @include mixins.mq(desktop) {
+  //   width: 370px;
+  // }
+}
+
+.mainPhotoCard {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  // vertical-align: bottom;
+}
+
+.photoAndNameAndPrice {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.photoAndNameAndBtn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.photoAndName {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.descriptionWrapper {
+  // padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  // max-width: 300px;
+  width: 200px;
+  align-items: flex-start;
+  justify-content: center;
+
+  @include mixins.mq(tablet) {
+    justify-content: flex-start;
+  }
+
+  @include mixins.mq(desktop) {
+    width: 600px;
+  }
+}
+
+.linkWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  @include mixins.mq(tablet) {
+    flex-direction: row;
+    justify-content:space-around;
+}
+}
+
+.btnWrapper {
+  width: 300px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+}
