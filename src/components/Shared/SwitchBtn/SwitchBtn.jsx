@@ -3,10 +3,12 @@ import Changer from 'components/Shared/Changer/Changer';
 
 import s from './SwitchBtn.module.scss';
 
-const SwitchBtn = ({ type }) => {
+const SwitchBtn = ({ type, onChange }) => {
   const [stateSwitch, setStateSwitch] = useState(false);
   const handleClick = () => {
-    setStateSwitch(!stateSwitch);
+    const newState = !stateSwitch;
+    setStateSwitch(newState);
+    onChange(newState);
   };
   const getClassName = () => {
     return stateSwitch ? `${s.switchBtn} ${s.switchOn}` : s.switchBtn;

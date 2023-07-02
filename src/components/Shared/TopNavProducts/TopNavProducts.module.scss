@@ -1,63 +1,97 @@
 @use '../../../styles/_mixins.scss';
 
-.titleText {
-  display: flex;
-  align-items: center;
-
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 0.9;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--title-text-color);
-  text-align: center;
-
-  // padding-top: 1em;
-  // padding-bottom: 1em;
-  margin-bottom: 5px;
-
-  color: var(--second-text-color);
-
-  border-top: 3px solid var(--accent-color);
-  border-bottom: 3px solid var(--accent-color);
-  padding: 5px;
-
-  @include mixins.mq(tablet) {
-    font-size: 24px;
-    margin-bottom: 2px;
-  }
-
-  @include mixins.mq(desktop) {
-    grid-template-columns: repeat(3, 1fr);
-    margin-bottom: 5px;
-  }
-}
-
 .catalogTitle {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   font-weight: 700;
-  font-size: 7px;
+  font-size: 12px;
   line-height: 1.14;
   letter-spacing: 0.04em;
-  text-transform: uppercase;
   text-align: center;
-  padding: 8px;
   color: var(--title-text-color);
-  background-color: var(--bg-footer-header);
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   @include mixins.mq(mobile) {
-    font-size: 12px;
-    padding: 8px 20px;
+    font-size: 20px;
   }
   @include mixins.mq(tablet) {
     margin-bottom: 20px;
-    font-size: 16px;
-    padding: 15px 15px;
+    font-size: 26px;
+  }
+  // @include mixins.mq(desktop) {
+  //   font-size: 22px;
+  // }
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.mainTitleBox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  @include mixins.mq(mobile) {
+    margin-bottom: 10px;
+  }
+  @include mixins.mq(tablet) {
+    margin-bottom: 15px;
+  }
+}
+
+.secondaryTitleBox {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 10px;
+  @include mixins.mq(tablet) {
+    margin-bottom: 15px;
+  }
+}
+
+.title {
+  margin-right: 15px;
+  text-align: left;
+}
+
+.secondaryTitle {
+  margin-right: 10px;
+  margin-bottom: 10px;
+  font-size: 10px;
+  @include mixins.mq(mobile) {
+    font-size: 18px;
+  }
+  @include mixins.mq(tablet) {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+}
+
+.titleWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-right: 10px;
+  @include mixins.mq(mobile) {
+    flex-basis: 120px;
+  }
+  @include mixins.mq(tablet) {
+    flex-basis: 300px;
+  }
+}
+
+.amountBox {
+  border: 1px solid var(--border-color);
+  padding: 2px;
+  font-size: 10px;
+  color: grey;
+
+  @include mixins.mq(mobile) {
+    font-size: 14px;
+    padding: 4px;
   }
   @include mixins.mq(desktop) {
-    font-size: 20px;
-    padding: 25px 20px;
+    font-size: 16px;
   }
 }

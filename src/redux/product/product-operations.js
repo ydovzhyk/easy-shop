@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   axiosAddProduct,
+  axiosUpdateProduct,
   axiosDeleteProduct,
   axiosGetAllProducts,
   axiosGetUserProducts,
@@ -16,6 +17,19 @@ export const addProduct = createAsyncThunk(
   async (userData, { rejectWithValue, dispatch }) => {
     try {
       const data = await axiosAddProduct(userData);
+      return data;
+    } catch (error) {
+      const { data, status } = error.response;
+      return rejectWithValue({ data, status });
+    }
+  }
+);
+
+export const updateProduct = createAsyncThunk(
+  'product/update',
+  async (userData, { rejectWithValue, dispatch }) => {
+    try {
+      const data = await axiosUpdateProduct(userData);
       return data;
     } catch (error) {
       const { data, status } = error.response;

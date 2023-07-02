@@ -19,10 +19,11 @@ const SelectField = ({
   required,
   options,
   className,
+  defaultValue,
 }) => {
   const labelClass = className ? `${s.label} ${s[className]}` : `${s.label}`;
   const selectClass = className ? `${s.select} ${s[className]}` : `${s.select}`;
-  
+
   return (
     <label className={labelClass}>
       <Select
@@ -31,6 +32,7 @@ const SelectField = ({
         name={name}
         value={value}
         onChange={handleChange}
+        defaultValue={defaultValue}
         placeholder={placeholder}
         required={required}
         options={options.map(option => ({ value: option, label: option }))}

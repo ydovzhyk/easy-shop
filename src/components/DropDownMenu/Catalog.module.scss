@@ -3,7 +3,7 @@
   display: flex;
   background-color: transparent;
   align-items: center;
-
+  color: var(--second-text-color);
   // .active {
   //   // color: var(--accent-color);
   //   text-shadow: var(--hover-text-shadow);
@@ -12,6 +12,7 @@
   // }
 }
 .dropdownMenu {
+  
   // padding: 10px 0 10px 0;
   position: absolute;
   // margin-left: 0;
@@ -31,19 +32,21 @@
 }
 
 .dropdownSubmenu {
+
   border-bottom: 1px solid var(--second-text-color);
   height: 450px;
   position: absolute;
   left: 100%;
   &:hover {
     // color: red;
-    background: grey;
+    background: var(--background-color);
     // :not(:last-child) {
     //   background: grey;
     // }
   }
 }
 .containerSubMenu {
+  
   border-bottom: 1px solid var(--second-text-color);
   top: 0;
   // margin-top: 20px;
@@ -114,6 +117,7 @@
   width: 15px;
   height: 15px;
   margin-right: 15px;
+  fill: 'var(--second-text-color)',
 }
 
 .active {

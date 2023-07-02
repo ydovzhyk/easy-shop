@@ -80,6 +80,20 @@
   align-items: center;
 }
 
+.liked {
+  stroke: var(--icons-color);
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    fill: var(--accent-color);
+    stroke: var(--icons-color);
+  }
+}
+
+.isLiked {
+  fill: var(--accent-color);
+}
+
 .likeCard {
   margin-right: 5px;
 
@@ -116,8 +130,10 @@
 }
 
 .separator {
-margin-left: 2px;
-margin-right: 2px;
+  margin-left: 2px;
+  margin-right: 2px;
+
+  color: var(--second-text-color);
 }
 
 .link {

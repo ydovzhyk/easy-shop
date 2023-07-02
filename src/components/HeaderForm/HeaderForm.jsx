@@ -20,13 +20,13 @@ const HeaderForm = () => {
     //     formState: { errors },
   } = useForm({
     defaultValues: {
-      productName: JSON.parse(window.localStorage.getItem('searchQuery')) ?? '',
+      productName:
+        JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '',
     },
   });
   const onSubmit = async (data, e) => {
     e.preventDefault();
-    // setQuery(data.productName);
-    window.localStorage.setItem(
+    window.sessionStorage.setItem(
       'searchQuery',
       JSON.stringify(data.productName)
     );

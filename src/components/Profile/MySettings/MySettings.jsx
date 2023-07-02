@@ -179,7 +179,8 @@ const MySettings = () => {
                 <Link
                   className={s.btnLight}
                   to={'/email-verification'}
-                  email={email}> 
+                  email={email}
+                >
                   Підтвердити
                 </Link>
               </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ProductItem from 'components/Shared/ProductItem/ProductItem';
@@ -12,7 +12,7 @@ import {
 
 import s from './SelectorProducts.module.scss';
 
-const SelectorProducts = ({ activeButton }) => {
+const SelectorProducts = ({ activeButton, activeNewRef }) => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const [currentSelector, setcurrentSelector] = useState('new');
@@ -39,11 +39,17 @@ const SelectorProducts = ({ activeButton }) => {
   // for pagination
   const handlePageChange = page => {
     setCurrentPage(page);
+    scrollToNew();
+  };
+
+  // for scroling
+  const scrollToNew = () => {
+    activeNewRef.current.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <>
-      <ul className={s.listCard}>
+      <ul className={s.listCard} >
         {arraySelectorProducts.map(item => (
           <ProductItem
             key={item._id}

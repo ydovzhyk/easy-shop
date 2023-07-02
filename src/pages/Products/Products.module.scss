@@ -1,6 +1,5 @@
 @use '../../styles/_mixins.scss';
 .container {
-  padding: 20px 0px;
   flex-grow: 1;
 }
 
@@ -16,5 +15,88 @@
   }
   @include mixins.mq(desktop) {
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.linkBox {
+  margin-bottom: 15px;
+  font-size: 14px;
+  @include mixins.mq(tablet) {
+    column-count: 2;
+    font-size: 16px;
+  }
+  @include mixins.mq(desktop) {
+    column-count: 3;
+  }
+}
+
+.amountBox {
+  border: 1px solid var(--border-color);
+  padding: 2px;
+  color: gray;
+}
+
+.link {
+  display: inline-block;
+  position: relative;
+  color: var(--second-text-color);
+  line-height: 1.8;
+  transition: all var(--transition-duration) var(--timing-function);
+  &:not(:last-of-type) {
+    margin-right: 15px;
+  }
+
+  &:hover {
+    text-shadow: var(--hover-text-shadow);
+    color: var(--hover-active-color);
+  }
+}
+
+.active {
+  @extend .link;
+  text-shadow: var(--hover-text-shadow);
+  color: var(--hover-active-color);
+}
+
+.searchContent {
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 8px;
+  cursor: pointer;
+  background-color: var(--border-color);
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.02em;
+  color: var(--text-color);
+  transition: border var(--transition-duration) var(--timing-function),
+    color var(--transition-duration) var(--timing-function),
+    background-color var(--transition-duration) var(--timing-function);
+
+  &:not(:last-of-type) {
+    margin-bottom: 10px;
+  }
+  &:hover,
+  &:focus {
+    background-color: var(--main-color);
+    color: var(--text-color);
+    border: solid 1px var(--btn-border-color);
+  }
+  @include mixins.mq(mobile) {
+    padding: 8px 14px;
+    font-size: 14px;
+  }
+  @include mixins.mq(tablet) {
+    padding: 8px 14px;
+    &:not(:last-of-type) {
+      margin-right: 15px;
+      margin-bottom: 0;
+    }
+  }
+  @include mixins.mq(desktop) {
+    padding: 10px 16px;
+    font-size: 16px;
   }
 }

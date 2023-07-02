@@ -4,6 +4,8 @@
   width: 100%;
   background-color: var(--bg-footer-header);
   z-index: 999;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .containerTop {
@@ -11,9 +13,9 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 20px;
+  // padding: 0 20px 0 20px;
   max-width: 1280px;
-  margin: 0 auto;
+  margin: 0 auto 20px auto;
 }
 
 .containerBottom {
@@ -21,10 +23,10 @@
   justify-content: right;
   align-items: center;
   width: 100%;
-  padding: 0 20px 20px 20px;
+  // padding: 0 20px 0 20px;
   max-width: 1280px;
   margin: 0 auto;
-  @include mixins.mq(desktop) {
+  @include mixins.mq(tablet) {
     justify-content: space-between;
   }
 }
@@ -64,6 +66,10 @@
   transition: all var(--transition-duration) var(--timing-function);
   &:not(:last-of-type) {
     margin-right: 15px;
+  }
+  font-size: 14px;
+  @include mixins.mq(tablet) {
+    font-size: 16px;
   }
   &::before {
     content: '';

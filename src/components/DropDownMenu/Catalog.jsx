@@ -31,7 +31,7 @@ export const Catalog = () => {
           className={s.button}
         >
           <SVG className={s.svg} />
-          Catalog
+          Каталог
         </button>
       </div>
 

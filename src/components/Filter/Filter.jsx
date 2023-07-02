@@ -1,13 +1,17 @@
 import { useState } from 'react';
-import { nanoid } from '@reduxjs/toolkit';
-import { useForm, Controller } from 'react-hook-form';
 import { BiCheck } from 'react-icons/bi';
-import sizeOption from '../AddProduct/Size/sizeTable.json';
+import { useForm, Controller } from 'react-hook-form';
+
+import { nanoid } from '@reduxjs/toolkit';
+
 import OptionsHeader from 'components/Shared/OptionsHeader/OptionsHeader';
 import Text from 'components/Shared/Text/Text';
-import s from './Filter.module.scss';
+import Button from 'components/Shared/Button';
+import sizeOption from '../AddProduct/Size/sizeTable.json';
 import { filterPrices } from './filterPrice';
 import { filterConditions } from './filterСonditions';
+
+import s from './Filter.module.scss';
 
 const Filter = () => {
   const [showSizes, setShowSizes] = useState(true);
@@ -47,7 +51,7 @@ const Filter = () => {
   });
 
   return (
-    <div className={s.optionsWrapper}>
+    <section className={s.optionsWrapper}>
       <h2 className={s.title}>Фільтри</h2>
       <form>
         <OptionsHeader title="Розмір" onChange={handleOptionsChange} />
@@ -217,7 +221,7 @@ const Filter = () => {
                     // value={value}
                     type="text"
                     name="filterBrand"
-                    placeholder="Enter brand name"
+                    placeholder="Введіть назву"
                     minLength={2}
                   />
                 </label>
@@ -225,8 +229,9 @@ const Filter = () => {
             />
           </>
         )}
+        <Button text="Застосувати" btnClass="btnLight" />
       </form>
-    </div>
+    </section>
   );
 };
 
