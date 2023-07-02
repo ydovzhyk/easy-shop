@@ -97,7 +97,7 @@ export const axiosUpdateUserBasket = async userData => {
 };
 
 export const axiosUpdateUserLikes = async userData => {
-  console.log('2', userData);
+  console.log('userData', userData);
   const { data } = await instance.post('/auth/likes', userData);
   return data;
 };
