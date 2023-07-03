@@ -23,7 +23,6 @@ const VipProducts = () => {
   const isDesktop = useMediaQuery({ minWidth: 1280 });
   const userId = useSelector(getID);
   const [isLiked, setIsLiked] = useState(false);
-  console.log(arrayVipProducts);
 
   useEffect(() => {
     dispatch(getVipProducts(currentPage));
