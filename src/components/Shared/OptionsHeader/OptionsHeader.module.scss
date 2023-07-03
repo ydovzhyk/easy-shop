@@ -3,6 +3,9 @@
 .optionsTitle {
   font-size: 10px;
   font-weight: 600;
+  line-height: 1.14;
+  letter-spacing: 0.04em;
+  color: var(--title-text-color);
   @include mixins.mq(mobile) {
     font-size: 16px;
   }
