@@ -2,7 +2,7 @@
 
 .title {
   font-size: 10px;
-  text-align: center;
+  // text-align: center;
   margin-bottom: 5px;
   font-weight: 700;
   @include mixins.mq(mobile) {
@@ -11,6 +11,9 @@
   }
   @include mixins.mq(tablet) {
     font-size: 20px;
+  }
+  @include mixins.mq(desktop) {
+    font-size: 26px;
   }
 }
 
@@ -60,15 +63,15 @@
 
 .optionsWrapper {
   width: 40%;
-  padding: 20px 0;
+  // padding: 20px 0;
   margin-right: 5px;
   flex-shrink: 0;
   @include mixins.mq(mobile) {
-    padding: 20px;
+    // padding: 20px;
   }
   @include mixins.mq(tablet) {
     width: 25%;
-    padding: 30px 0;
+    // padding: 30px 0;
     margin-right: 25px;
   }
   @include mixins.mq(desktop) {
