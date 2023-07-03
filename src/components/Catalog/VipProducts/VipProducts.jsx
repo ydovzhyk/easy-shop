@@ -10,6 +10,7 @@ import {
   getVipProductCard,
   getVipPages,
 } from 'redux/product/product-selectors';
+import { getID } from 'redux/auth/auth-selectors';
 
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import s from './VipProducts.module.scss';
@@ -20,11 +21,13 @@ const VipProducts = () => {
   const arrayVipProducts = useSelector(getVipProductCard);
   const vipPages = useSelector(getVipPages);
   const isDesktop = useMediaQuery({ minWidth: 1280 });
+  const userId = useSelector(getID);
+  const [isLiked, setIsLiked] = useState(false);
   console.log(arrayVipProducts);
 
   useEffect(() => {
     dispatch(getVipProducts(currentPage));
-  }, [dispatch, currentPage]);
+  }, [dispatch, currentPage, isLiked]);
 
   const handlePrevPage = () => {
     if (currentPage > 1) {
@@ -42,6 +45,20 @@ const VipProducts = () => {
   const handlePageChange = page => {
     setCurrentPage(page);
     scrollToTop();
+  };
+
+  const checkUserLike = productId => {
+    const product = arrayVipProducts.find(item => item._id === productId);
+
+    if (product) {
+      return product.userLikes.includes(userId);
+    }
+
+    return false;
+  };
+
+  const handleLike = isLiked => {
+    setIsLiked(isLiked);
   };
 
   // for scroling
@@ -76,6 +93,9 @@ const VipProducts = () => {
               mainPhotoUrl={item.mainPhotoUrl}
               price={item.price}
               likes={item.userLikes.length ? item.userLikes.length : 0}
+              userLike={checkUserLike(item._id)}
+              isLiked={isLiked}
+              handleLike={handleLike}
               nameProduct={item.nameProduct}
               description={item.description}
               size={item.size}

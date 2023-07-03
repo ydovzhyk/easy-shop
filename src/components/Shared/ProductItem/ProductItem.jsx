@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 // import SizeHovered from '../../Catalog/SizeHovered/SizeHovered';
+
 import { updateUserLikes } from 'redux/auth/auth-opetations';
-import { getUser, getUserLikes } from 'redux/auth/auth-selectors';
+
 
 import NoPhoto from '../../../images/catalog_photo/no_photo.jpg';
 import Text from 'components/Shared/Text/Text';
@@ -17,6 +18,9 @@ const ProductItem = ({
   mainPhotoUrl,
   price,
   likes,
+  userLike,
+  isLiked,
+  handleLike,
   nameProduct,
   description,
   size,
@@ -26,50 +30,15 @@ const ProductItem = ({
   const translatedParamsObj = translateParamsToEN(section, category);
   const [categoryName, subCategoryName] = Object.values(translatedParamsObj);
 
+  console.log('userLike', userLike);
   const dispatch = useDispatch();
-  const user = useSelector(getUser);
-  const userLikes = useSelector(getUserLikes);
-  const [likesCount, setLikesCount] = useState(() => {
-    const likesData = localStorage.getItem('userLikes');
-    return likesData ? parseInt(likesData) : 0;
-  });
-
-  console.log('userLikes', userLikes);
-  // console.log('user', user);
-  useEffect(() => {
-    if (user && user.userLikes) {
-      setLikesCount(user.userLikes.length);
-    } else {
-      setLikesCount(0);
-    }
-  }, [user]);
-
-  // Отримання лайків з локального сховища
-  useEffect(() => {
-    const likesData = localStorage.getItem('userLikes');
-    if (likesData) {
-      setLikesCount(parseInt(likesData));
-    }
-  }, []);
-
-  // Зберігання лайків у локальному сховищі при зміні кількості лайків
-  useEffect(() => {
-    localStorage.setItem('userLikes', likesCount.toString());
-  }, [likesCount]);
 
   const handleClick = () => {
-    if (likesCount > 0) {
-      dispatch(updateUserLikes({ productId: _id }));
-      setLikesCount(likesCount - 1);
-    } else {
-      dispatch(updateUserLikes({ productId: _id }));
-      setLikesCount(likesCount + 1);
-    }
+    dispatch(updateUserLikes({ productId: _id }));
+    const newIsLiked = !isLiked; 
+    handleLike(newIsLiked); 
   };
 
-  // const handleClick = () => {
-  //   dispatch(updateUserLikes({ productId: _id }));
-  // };
 
   return (
     <li className={s.itemCard}>
@@ -91,11 +60,10 @@ const ProductItem = ({
       <div className={s.stylePriceLike}>
         <p className={s.priceCard}>{price}грн</p>
         <div className={s.styleLike} onClick={handleClick}>
-          {/* <p className={s.likeCard}>{likes}</p> */}
           <p className={s.likeCard}>{likes}</p>
           <FiHeart
             size={24}
-            className={`${s.liked} ${likesCount > 0 ? s.isLiked : ''}`}
+            className={`${s.liked} ${userLike ? s.active : ''}`}
           />
           {/* <NavLink to="/favorites" className={s.link}>
             <FiHeart size={24} />
