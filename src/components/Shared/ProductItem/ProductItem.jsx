@@ -59,10 +59,10 @@ const ProductItem = ({
 
   const handleClick = () => {
     if (likesCount > 0) {
-      dispatch(updateUserLikes({ productId: _id}));
+      dispatch(updateUserLikes({ productId: _id }));
       setLikesCount(likesCount - 1);
     } else {
-      dispatch(updateUserLikes({ productId: _id}));
+      dispatch(updateUserLikes({ productId: _id }));
       setLikesCount(likesCount + 1);
     }
   };

@@ -212,6 +212,10 @@ const EditProduct = () => {
         allFiles.forEach(file => {
           dataForUpload.append('files', file);
         });
+        dataForUpload.append(
+          'additionalPhotoUrl',
+          JSON.stringify(productAdditionalPhotoUrl)
+        );
       } else {
         dataForUpload.append('mainPhotoUrl', productMainPhotoUrl);
         dataForUpload.append(
