@@ -120,7 +120,9 @@ const ProductCard = () => {
                       <span className={s.productPriceDiscount}>-8%</span>
                       <Text text={price} textClass="title" />
                     </div>
-                    <ProductSizes sizeValuesArray={sizeValuesArray} />
+                      <ProductSizes sizeValuesArray={sizeValuesArray}
+                        // text="Розміри:"
+                      />
 
                     <div className={s.buyBtns}>
                       <NavLink to={isLogin ? '/checkout' : '/login'}>

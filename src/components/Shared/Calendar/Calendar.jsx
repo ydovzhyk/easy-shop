@@ -17,25 +17,17 @@ export default function Calendar({
   const maxDate = new Date();
   maxDate.setMonth(currentDate.getMonth() + 2);
 
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  console.log(value);
-  console.log('selectedDate', selectedDate);
+  const [selectedDate, setSelectedDate] = useState(
+    moment(value, 'DD.MM.YYYY').toDate()
+  );
 
   useEffect(() => {
-    // const dateString = value;
-    // const parts = dateString.split('.');
-    // const year = parseInt(parts[2], 10);
-    // const month = parseInt(parts[1], 10) - 1;
-    // const day = parseInt(parts[0], 10);
-
-    // const date = new Date(year, month, day);
-    // console.log('formatDate', date);
-    setSelectedDate(new Date(value));
+    setSelectedDate(moment(value, 'DD.MM.YYYY').toDate());
   }, [value]);
 
   const handleDateChange = date => {
     setSelectedDate(date);
-    handleChange(moment(date).format('YYYY-MM-DD'));
+    handleChange(moment(date).format('DD.MM.YYYY'));
   };
 
   const CustomInput = forwardRef(({ onClick }, ref) => {

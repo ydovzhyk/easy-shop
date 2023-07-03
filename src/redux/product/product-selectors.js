@@ -15,3 +15,6 @@ export const selectProductById = ({ products }) => products.productById;
 
 export const selectProductsFromBasket = ({ products }) =>
   products.productsFromBasket;
+
+export const selectSellersFromBasket = ({ products }) =>
+  products.sellersFromBasket;

@@ -44,19 +44,7 @@ const EditProduct = () => {
   };
 
   const date = new Date();
-  const today = `${date.getFullYear()}-${
-    date.getMonth() + 1
-  }-${date.getDate()}`;
-
-  // const dateString = toString(new Date());
-  // const parts = dateString.split('.');
-  // const year = parseInt(parts[2], 10);
-  // const month = parseInt(parts[1], 10) - 1;
-  // const day = parseInt(parts[0], 10);
-
-  // const today = new Date(year, month, day);
-
-  console.log('today', today);
+  const today = moment(date, 'YYYY-MM-DD').format('DD.MM.YYYY');
 
   const defaultValue = {
     nameProduct: '',
@@ -140,7 +128,6 @@ const EditProduct = () => {
 
   useEffect(() => {
     if (product && Object.keys(product).length !== 0) {
-      console.log(product.saleDate);
       const updatedFormData = {
         nameProduct: product.nameProduct,
         brendName: product.brendName,
@@ -203,10 +190,7 @@ const EditProduct = () => {
       dataForUpload.append('price', data.price);
       dataForUpload.append('id', formData._id);
       dataForUpload.append('sale', data.sale);
-      dataForUpload.append(
-        'saleDate',
-        moment(data.saleDate, 'YYYY-MM-DD').format('DD.MM.YYYY')
-      );
+      dataForUpload.append('saleDate', data.saleDate);
 
       dataForUpload.append('size', JSON.stringify(selectedSizes));
 
@@ -228,6 +212,10 @@ const EditProduct = () => {
         allFiles.forEach(file => {
           dataForUpload.append('files', file);
         });
+        dataForUpload.append(
+          'additionalPhotoUrl',
+          JSON.stringify(productAdditionalPhotoUrl)
+        );
       } else {
         dataForUpload.append('mainPhotoUrl', productMainPhotoUrl);
         dataForUpload.append(

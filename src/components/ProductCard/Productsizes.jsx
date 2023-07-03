@@ -1,11 +1,11 @@
 import Text from 'components/Shared/Text/Text';
-import s from './ProductCard.module.scss';
+import s from 'components/ProductCard/ProductCard.module.scss';
 import { nanoid } from '@reduxjs/toolkit';
 
-const ProductSizes = ({ sizeValuesArray }) => {
+const ProductSizes = ({ sizeValuesArray, text }) => {
   return (
     <div>
-      <Text text="Розміри:" textClass="productLabels" />
+      <Text text={text} textClass="productLabels" />
       {sizeValuesArray.length > 1
         ? sizeValuesArray.map(item => {
             return (
