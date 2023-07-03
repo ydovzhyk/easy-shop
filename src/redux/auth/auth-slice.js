@@ -7,7 +7,6 @@ import {
   updateUserSettings,
   updateUserBasket,
   updateUserLikes,
-  removeUserLikes,
 } from './auth-opetations';
 
 const initialState = {
