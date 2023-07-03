@@ -47,6 +47,7 @@ const HeaderForm = () => {
             className="headerForm"
             value={value}
             handleChange={onChange}
+            // aria={!errors.productName ? 'true' : 'false'}
             {...field.productName}
           />
         )}
@@ -58,11 +59,6 @@ const HeaderForm = () => {
         />
       )}
 
-      {/* <input 
-        {...register("firstName", { required: true })} 
-        aria-invalid={errors.firstName ? "true" : "false"} 
-      />
-      {errors.firstName?.type === 'required' && <p role="alert">First name is required</p>} */}
       <Button
         type="submit"
         btnClass="searchBtn"

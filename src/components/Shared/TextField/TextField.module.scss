@@ -83,10 +83,10 @@
   background: transparent;
 }
 
-// .input:focus + span,
-// .input:valid + span {
-//   transform: translateY(-32px);
-// }
+.input:focus + span,
+.input:valid + span {
+  transform: translateY(-32px);
+}
 
 .input.headerForm:focus {
   outline: none;
@@ -94,7 +94,8 @@
   background: transparent;
 }
 
-.input.headerForm:focus + span.headerForm {
+.input:focus + span.headerForm,
+.input:valid + span.headerForm {
   transform: translateY(-44px);
 }
 
