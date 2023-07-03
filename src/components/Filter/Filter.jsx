@@ -9,7 +9,7 @@ import OptionsHeader from 'components/Shared/OptionsHeader/OptionsHeader';
 import Text from 'components/Shared/Text/Text';
 import Button from 'components/Shared/Button';
 import { Checkbox } from './Checkbox';
-import { RadioInput } from './RadioInput';
+// import { RadioInput } from './RadioInput';
 import { filterPrices } from './filterPrice';
 import { filterConditions } from './filterСonditions';
 
@@ -60,7 +60,7 @@ const Filter = () => {
     return selectedSizes.some(s => s[0].name === size);
   };
 
-  const { control, handleSubmit, reset, setValue } = useForm({
+  const { control, handleSubmit, reset } = useForm({
     defaultValues: {
       filterPriceMain: 0,
       filterPriceSecondary: 0,
