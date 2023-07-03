@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 
 import { updateUserLikes } from 'redux/auth/auth-opetations';
 
-
 import NoPhoto from '../../../images/catalog_photo/no_photo.jpg';
 import Text from 'components/Shared/Text/Text';
 import { FiHeart } from 'react-icons/fi';
@@ -30,15 +29,13 @@ const ProductItem = ({
   const translatedParamsObj = translateParamsToEN(section, category);
   const [categoryName, subCategoryName] = Object.values(translatedParamsObj);
 
-  console.log('userLike', userLike);
   const dispatch = useDispatch();
 
-  const handleClick = () => {
-    dispatch(updateUserLikes({ productId: _id }));
-    const newIsLiked = !isLiked; 
-    handleLike(newIsLiked); 
+  const handleClick = async () => {
+    await dispatch(updateUserLikes({ productId: _id }));
+    const newIsLiked = !isLiked;
+    handleLike(newIsLiked);
   };
-
 
   return (
     <li className={s.itemCard}>
@@ -61,10 +58,7 @@ const ProductItem = ({
         <p className={s.priceCard}>{price}грн</p>
         <div className={s.styleLike} onClick={handleClick}>
           <p className={s.likeCard}>{likes}</p>
-          <FiHeart
-            size={24}
-            className={`${s.liked} ${userLike ? s.active : ''}`}
-          />
+          <FiHeart size={24} className={`${userLike ? s.active : s.liked}`} />
           {/* <NavLink to="/favorites" className={s.link}>
             <FiHeart size={24} />
           </NavLink> */}
