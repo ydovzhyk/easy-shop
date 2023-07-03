@@ -8,6 +8,7 @@ import {
   axiosUpdateUserLikes,
 } from 'api/auth';
 
+// import axios from 'axios';
 import { axiosUpdateUserSettings } from 'api/updateUser';
 
 export const register = createAsyncThunk(
@@ -114,3 +115,4 @@ export const updateUserLikes = createAsyncThunk(
     }
   }
 );
+
