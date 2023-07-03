@@ -1,5 +1,5 @@
-import { useState, useEffect, forwardRef } from 'react';
-import { BiCheck } from 'react-icons/bi';
+import { useState, forwardRef } from 'react';
+// import { BiCheck } from 'react-icons/bi';
 import s from './Filter.module.scss';
 
 export const RadioInput = forwardRef(
@@ -15,7 +15,7 @@ export const RadioInput = forwardRef(
     //   }
     // }, [checked, onChange]);
 
-    const [radio, setRadio] = useState('');
+    // const [radio, setRadio] = useState('');
 
     return (
       <>
