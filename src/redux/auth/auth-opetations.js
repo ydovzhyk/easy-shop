@@ -116,16 +116,3 @@ export const updateUserLikes = createAsyncThunk(
   }
 );
 
-// export const removeUserLikes = async (productId) => {
-//   try {
-//     // Виконуємо запит до бекенду для видалення лайка
-//     const response = await axios.delete(`/api/likes/${productId}`);
-
-//     // Повертаємо дані з відповіді, якщо потрібно
-//     return response.data;
-//   } catch (error) {
-//     // Обробка помилок при видаленні лайка
-//     console.log('Помилка при видаленні лайка:', error);
-//     throw error;
-//   }
-// };

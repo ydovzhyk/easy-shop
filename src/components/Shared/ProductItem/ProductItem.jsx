@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 // import SizeHovered from '../../Catalog/SizeHovered/SizeHovered';
 import { updateUserLikes } from 'redux/auth/auth-opetations';
-import { selectUserLikes } from 'redux/auth/auth-selectors';
+import { getUser, getUserLikes } from 'redux/auth/auth-selectors';
 
 import NoPhoto from '../../../images/catalog_photo/no_photo.jpg';
 import Text from 'components/Shared/Text/Text';
@@ -26,45 +26,50 @@ const ProductItem = ({
   const translatedParamsObj = translateParamsToEN(section, category);
   const [categoryName, subCategoryName] = Object.values(translatedParamsObj);
 
-  const arrayLikes = [
-    {
-      _id: '648ae4cdfeafabed7c1883e7',
-    },
-    {
-      _id: '648ae4cdfeafabed7c1883e5',
-    },
-    {
-      _id: '648ae4cdfeafabed7c1883e6',
-    },
-    {
-      _id: '648ae4cdfeafabed7c1883e8',
-    },
-  ];
-  console.log('arrayLikes.length', arrayLikes.length);
-
   const dispatch = useDispatch();
-  // const myLikes = useSelector(selectUserLikes);
-  // const [isLiked, setIsLiked] = useState(false);
+  const user = useSelector(getUser);
+  const userLikes = useSelector(getUserLikes);
+  const [likesCount, setLikesCount] = useState(() => {
+    const likesData = localStorage.getItem('userLikes');
+    return likesData ? parseInt(likesData) : 0;
+  });
 
-  // console.log('myLikes', myLikes);
-  const [isLiked, setIsLiked] = useState(false);
-
+  console.log('userLikes', userLikes);
+  // console.log('user', user);
   useEffect(() => {
-    setIsLiked(arrayLikes.some(item => item._id === _id));
-  }, [arrayLikes, _id]);
+    if (user && user.userLikes) {
+      setLikesCount(user.userLikes.length);
+    } else {
+      setLikesCount(0);
+    }
+  }, [user]);
+
+  // Отримання лайків з локального сховища
+  useEffect(() => {
+    const likesData = localStorage.getItem('userLikes');
+    if (likesData) {
+      setLikesCount(parseInt(likesData));
+    }
+  }, []);
+
+  // Зберігання лайків у локальному сховищі при зміні кількості лайків
+  useEffect(() => {
+    localStorage.setItem('userLikes', likesCount.toString());
+  }, [likesCount]);
 
   const handleClick = () => {
-    // if (isLiked) {
-    //   dispatch(removeUserLikes({ productId: _id }));
-    // } else {
-    //   dispatch(updateUserLikes({ productId: _id }));
-    // }
-    dispatch(updateUserLikes({ productId: _id }));
+    if (likesCount > 0) {
+      dispatch(updateUserLikes({ productId: _id}));
+      setLikesCount(likesCount - 1);
+    } else {
+      dispatch(updateUserLikes({ productId: _id}));
+      setLikesCount(likesCount + 1);
+    }
   };
-  
-  // useEffect(() => {
-  //   setIsLiked(arrayUserLikes.includes(_id));
-  // }, [arrayUserLikes, _id]);
+
+  // const handleClick = () => {
+  //   dispatch(updateUserLikes({ productId: _id }));
+  // };
 
   return (
     <li className={s.itemCard}>
@@ -86,11 +91,11 @@ const ProductItem = ({
       <div className={s.stylePriceLike}>
         <p className={s.priceCard}>{price}грн</p>
         <div className={s.styleLike} onClick={handleClick}>
-          <p className={s.likeCard}>{arrayLikes.length}</p>
+          {/* <p className={s.likeCard}>{likes}</p> */}
           <p className={s.likeCard}>{likes}</p>
           <FiHeart
             size={24}
-            className={`${s.liked} ${isLiked ? s.isLiked : ''}`}
+            className={`${s.liked} ${likesCount > 0 ? s.isLiked : ''}`}
           />
           {/* <NavLink to="/favorites" className={s.link}>
             <FiHeart size={24} />

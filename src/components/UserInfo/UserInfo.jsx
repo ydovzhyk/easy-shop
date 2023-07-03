@@ -25,7 +25,7 @@ const UserInfo = () => {
   const userAvatar = useSelector(getUserAvatar);
   const user = useSelector(getUser);
   const dispatch = useDispatch();
-
+ 
   const [userBasketLength, setUserBasketLength] = useState(0);
   const [userLikesLength, setUserLikesLength] = useState(0);
 
