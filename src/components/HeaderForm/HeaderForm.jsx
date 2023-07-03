@@ -5,6 +5,7 @@ import { CiSearch } from 'react-icons/ci';
 import Button from 'components/Shared/Button';
 import { field } from 'components/Shared/TextField/fields';
 import TextField from 'components/Shared/TextField';
+import Text from 'components/Shared/Text/Text';
 import s from './HeaderForm.module.scss';
 
 const HeaderForm = () => {
@@ -17,7 +18,7 @@ const HeaderForm = () => {
   const {
     control,
     handleSubmit,
-    //     formState: { errors },
+    formState: { errors },
   } = useForm({
     defaultValues: {
       productName:
@@ -50,7 +51,18 @@ const HeaderForm = () => {
           />
         )}
       />
+      {errors.productName && (
+        <Text
+          text={'* Введіть значення для пошуку'}
+          textClass="errorMessageHeaderForm"
+        />
+      )}
 
+      {/* <input 
+        {...register("firstName", { required: true })} 
+        aria-invalid={errors.firstName ? "true" : "false"} 
+      />
+      {errors.firstName?.type === 'required' && <p role="alert">First name is required</p>} */}
       <Button
         type="submit"
         btnClass="searchBtn"

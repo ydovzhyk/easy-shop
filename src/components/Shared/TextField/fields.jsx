@@ -29,7 +29,6 @@ export const field = {
     type: 'text',
     autoComplete: 'off',
     placeholder: 'Я хочу купити...*',
-    required: true,
   },
   price: {
     name: 'price',

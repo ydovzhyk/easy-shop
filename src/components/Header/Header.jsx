@@ -47,7 +47,7 @@ const Header = () => {
   //   return isActive ? `${s.link} ${s.active}` : s.link;
   // };
 
-useEffect(() => {
+  useEffect(() => {
     if (darkTheme) {
       document.body.classList.add('dark-theme');
     } else {
@@ -171,7 +171,7 @@ useEffect(() => {
               </div>
               <div className={s.switchMainBox}>
                 <SwitchBtn type="language" />
-                <SwitchBtn type="theme" onChange={handleThemeChange}/>
+                <SwitchBtn type="theme" onChange={handleThemeChange} />
               </div>
             </>
           )}
@@ -192,14 +192,14 @@ useEffect(() => {
               </div>
               <div className={s.switchMainBox}>
                 <SwitchBtn type="language" />
-                <SwitchBtn type="theme" />
+                <SwitchBtn type="theme" onChange={handleThemeChange} />
               </div>
             </>
           )}
           {!isDesktop && isMobile && (
             <div className={s.switchMainBox}>
               <SwitchBtn type="language" />
-              <SwitchBtn type="theme" />
+              <SwitchBtn type="theme" onChange={handleThemeChange} />
             </div>
           )}
         </div>

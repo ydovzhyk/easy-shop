@@ -194,3 +194,48 @@
 .searchQueryContent {
   margin-right: 8px;
 }
+
+.errorMessageHeaderForm {
+  position: absolute;
+  bottom: -15px;
+  left: 5px;
+  color: red;
+  font-size: 11px;
+  @include mixins.mq(mobile) {
+    font-size: 14px;
+    bottom: -20px;
+  }
+}
+
+.titleGroupItems-filter {
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--text-color);
+  margin-bottom: 5px;
+  text-align: center;
+  @include mixins.mq(tablet) {
+    font-size: 18px;
+  }
+}
+
+.after-title-filter {
+  font-weight: 200;
+  color: var(--text-color);
+  margin-bottom: 5px;
+}
+
+.after-title-before-filter {
+  margin-left: 10px;
+  margin-bottom: 15px;
+  font-weight: 200;
+  color: var(--text-color);
+}
+
+.after-title-bigger-filter {
+  font-weight: 200;
+  color: var(--text-color);
+  text-align: center;
+  &:not(:last-of-type) {
+    margin-bottom: 5px;
+  }
+}
