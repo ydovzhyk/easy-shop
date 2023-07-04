@@ -13,7 +13,6 @@ const UserInfoDetails = () => {
   const [myProducts, setMyProducts] = useState(0);
 
   const location = useLocation().pathname;
-  // console.log(location);
 
   const [isMyWares, setIsMyWares] = useState(false);
   const [isMyPurchases, setIsMyPurchases] = useState(false);
@@ -67,22 +66,17 @@ const UserInfoDetails = () => {
           </ProfileLink>
         </li>
         <li className={s.item}>
-          <ProfileLink
-            to="myreviews"
-            addValue
-            isBackgroundChange={isMyReviews}>
+          <ProfileLink to="myreviews" addValue isBackgroundChange={isMyReviews}>
             Мої відгуки
           </ProfileLink>
         </li>
         <li className={s.item}>
-          <ProfileLink
-            to="mysettings"
-            isBackgroundChange={isMySettings}>
+          <ProfileLink to="mysettings" isBackgroundChange={isMySettings}>
             Мої налаштування
           </ProfileLink>
         </li>
       </ul>
-      <Suspense fallback={<Loader/>}>
+      <Suspense fallback={<Loader />}>
         <Outlet />
       </Suspense>
     </Container>

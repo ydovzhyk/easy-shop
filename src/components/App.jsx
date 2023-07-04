@@ -58,6 +58,31 @@ export const App = () => {
     }
   }, [loadingUser, loadingProducts, loadingVerify]);
 
+  // render last visited page
+  useEffect(() => {
+    const pageInfo = JSON.parse(localStorage.getItem('easy-shop-page-info'));
+    const currentPath = location.pathname;
+
+    if (pageInfo && pageInfo.lastVisitedPage && pageInfo.lastVisitedTime) {
+      const currentTime = new Date().getTime();
+      const timeDifference =
+        (currentTime - parseInt(pageInfo.lastVisitedTime, 10)) / (1000 * 60);
+      if (timeDifference > 120) {
+        localStorage.removeItem('easy-shop-page-info');
+        window.location.href = '/';
+      }
+    }
+
+    const pageInfoToUpdate = {
+      lastVisitedPage: currentPath,
+      lastVisitedTime: new Date().getTime().toString(),
+    };
+    localStorage.setItem(
+      'easy-shop-page-info',
+      JSON.stringify(pageInfoToUpdate)
+    );
+  }, [location.pathname]);
+
   return (
     <div
       style={{
