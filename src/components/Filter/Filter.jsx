@@ -32,7 +32,8 @@ const Filter = () => {
     handleSubmit,
     register,
     resetField,
-    formState: { dirtyFields },
+    getValues,
+    formState: { dirtyFields, touchedFields },
   } = useForm({
     defaultValues: {
       filterPriceRadio: '',
@@ -41,6 +42,8 @@ const Filter = () => {
       filterBrand: '',
     },
   });
+
+  const values = getValues();
 
   useEffect(() => {
     if (shouldFilterProductReset) {
@@ -54,6 +57,19 @@ const Filter = () => {
       resetField('filterPriceRadio', { defaultValue: '' });
     }
   }, [dirtyFields.filterPriceFrom, dirtyFields.filterPriceTo, resetField]);
+
+  useEffect(() => {
+    if (touchedFields.filterPriceFrom && dirtyFields.filterPriceFrom) {
+      resetField('filterPriceTo', {
+        defaultValue: getValues().filterPriceFrom,
+      });
+    }
+  }, [
+    dirtyFields.filterPriceFrom,
+    touchedFields.filterPriceFrom,
+    resetField,
+    getValues,
+  ]);
 
   const handleOptionsChange = type => {
     switch (type) {
@@ -204,7 +220,11 @@ const Filter = () => {
                     className={s.inputFilter}
                     type="number"
                     placeholder="До"
-                    min="0"
+                    min={
+                      values.filterPriceFrom !== ''
+                        ? values.filterPriceFrom
+                        : '0'
+                    }
                     step="1"
                   />
                 </label>
