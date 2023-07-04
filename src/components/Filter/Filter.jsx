@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 import { BiCheck } from 'react-icons/bi';
 
@@ -11,8 +11,6 @@ import { showFilterProduct } from 'redux/product/product-slice';
 import sizeOption from '../AddProduct/Size/sizeTable.json';
 import OptionsHeader from 'components/Shared/OptionsHeader/OptionsHeader';
 import Text from 'components/Shared/Text/Text';
-import Button from 'components/Shared/Button';
-import { Checkbox } from './Checkbox';
 import { filterPrices } from './filterPrice';
 import { filterConditions } from './filterСonditions';
 
@@ -28,14 +26,15 @@ const Filter = () => {
   const dispatch = useDispatch();
 
   const {
-    control,
     handleSubmit,
     register,
     resetField,
+    reset,
     getValues,
-    formState: { dirtyFields, touchedFields },
+    formState: { dirtyFields, touchedFields, isSubmitting },
   } = useForm({
     defaultValues: {
+      filterCondition: [],
       filterPriceRadio: '',
       filterPriceFrom: '',
       filterPriceTo: '',
@@ -49,8 +48,9 @@ const Filter = () => {
     if (shouldFilterProductReset) {
       setSelectedSizes([]);
       dispatch(showFilterProduct());
+      reset();
     }
-  }, [shouldFilterProductReset, dispatch]);
+  }, [shouldFilterProductReset, dispatch, reset]);
 
   useEffect(() => {
     if (dirtyFields.filterPriceFrom || dirtyFields.filterPriceTo) {
@@ -69,6 +69,21 @@ const Filter = () => {
     touchedFields.filterPriceFrom,
     resetField,
     getValues,
+  ]);
+
+  useEffect(() => {
+    if (
+      dirtyFields.filterPriceRadio &&
+      (dirtyFields.filterPriceFrom || dirtyFields.filterPriceTo)
+    ) {
+      resetField('filterPriceFrom', { defaultValue: '' });
+      resetField('filterPriceTo', { defaultValue: '' });
+    }
+  }, [
+    dirtyFields.filterPriceFrom,
+    dirtyFields.filterPriceTo,
+    dirtyFields.filterPriceRadio,
+    resetField,
   ]);
 
   const handleOptionsChange = type => {
@@ -112,21 +127,13 @@ const Filter = () => {
   const onSubmit = async (data, e) => {
     e.preventDefault();
     const dataForUpload = new FormData();
-    // dataForUpload.append('nameProduct', data.nameProduct);
-    // dataForUpload.append('brendName', data.brendName);
-    // dataForUpload.append('condition', data.condition.value);
-    // dataForUpload.append('section', data.section.value);
-    // dataForUpload.append('category', data.category.value);
-    // dataForUpload.append('price', data.price);
     dataForUpload.append('size', JSON.stringify(selectedSizes));
-    // dataForUpload.append('owner', userId);
-    // dataForUpload.append('date', today);
-    // dataForUpload.forEach((value, name) => {
-    //   console.log(name, value);
-    // });
-
-    // await dispatch(addProduct(dataForUpload));
-    // setSelectedSizes([]);
+    dataForUpload.append('filterPriceRadio', data.nameProduct);
+    dataForUpload.append('filterPriceFrom', data.nameProduct);
+    dataForUpload.append('filterPriceTo', data.nameProduct);
+    dataForUpload.append('filterCondition', data.nameProduct);
+    dataForUpload.append('filterBrand', data.nameProduct);
+    // await dispatch(searchProduct(dataForUpload));
   };
 
   return (
@@ -208,6 +215,9 @@ const Filter = () => {
                     type="number"
                     placeholder="Від"
                     min="0"
+                    max={
+                      values.filterPriceTo !== '' ? values.filterPriceTo : '0'
+                    }
                     step="1"
                   />
                 </label>
@@ -236,17 +246,25 @@ const Filter = () => {
         {showCondition && (
           <>
             <ul className={s.optionMainBox}>
-              {filterConditions.map(el => {
+              {filterConditions.map((el, index) => {
                 return (
                   <li key={nanoid()} className={s.radioItem}>
                     <div className={s.radioContent}>
-                      <Controller
-                        name={el}
-                        control={control}
-                        render={({ field }) => (
-                          <Checkbox {...field} value={el} label={el} />
-                        )}
-                      />
+                      <div>
+                        <input
+                          className={s.input_check}
+                          id={el}
+                          type="checkbox"
+                          {...register('filterCondition')}
+                          value={el}
+                        />
+                        <label htmlFor={el} className={s.labelCheckBox}>
+                          <div className={s.iconWrapper}>
+                            <BiCheck size={22} className={s.radioIcon} />
+                          </div>
+                          <span>{el}</span>
+                        </label>
+                      </div>
                     </div>
                   </li>
                 );
@@ -268,7 +286,13 @@ const Filter = () => {
             </label>
           </div>
         )}
-        <Button text="Застосувати" btnClass="btnLightFilter" />
+        <button
+          className={s.btnLightFilter}
+          type="submit"
+          disabled={isSubmitting}
+        >
+          Застосувати
+        </button>
       </form>
     </section>
   );

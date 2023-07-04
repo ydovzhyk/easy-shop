@@ -108,8 +108,9 @@ const Products = () => {
             )}
           </ul>
         )}
-        {searchQuery && (
-          <div style={{ marginBottom: '15px' }}>
+
+        <div style={{ marginBottom: '15px' }}>
+          {searchQuery && (
             <button
               type="button"
               className={s.searchContent}
@@ -118,16 +119,17 @@ const Products = () => {
               <Text textClass="searchQueryContent" text={searchQuery} />
               <MdClose size={22} />
             </button>
-            <button
-              type="button"
-              className={s.searchContent}
-              onClick={handleClearFiltersClick}
-            >
-              <Text textClass="searchQueryContent" text="Скинути фільтри" />
-              <MdClose size={22} />
-            </button>
-          </div>
-        )}
+          )}
+          <button
+            type="button"
+            className={s.searchContent}
+            onClick={handleClearFiltersClick}
+          >
+            <Text textClass="searchQueryContent" text="Скинути фільтри" />
+            <MdClose size={22} />
+          </button>
+        </div>
+
         {products.length > 0 && (
           <ul className={s.listCard}>
             {products.map(
