@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import { CiSearch } from 'react-icons/ci';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import { getHeaderFormReset } from 'redux/product/product-selectors';
+import { submitHeaderForm } from 'redux/product/product-slice';
+
 import Button from 'components/Shared/Button';
 import { field } from 'components/Shared/TextField/fields';
 import TextField from 'components/Shared/TextField';
@@ -15,6 +17,7 @@ const HeaderForm = () => {
   const [, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
   const isUserAt404Page =
     !pathname.includes('/products') || !pathname.includes('/products/');
 
@@ -31,19 +34,21 @@ const HeaderForm = () => {
   });
   useEffect(() => {
     if (shouldHeaderFormReset) {
+      console.log(shouldHeaderFormReset);
       reset();
     }
   }, [shouldHeaderFormReset, reset]);
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
-    window.sessionStorage.setItem(
-      'searchQuery',
-      JSON.stringify(data.productName)
-    );
+    // window.sessionStorage.setItem(
+    //   'searchQuery',
+    //   JSON.stringify(data.productName)
+    // );
     await setSearchParams(
       data.productName.trim() !== '' ? { search: data.productName } : {}
     );
+    dispatch(submitHeaderForm());
   };
 
   return (
