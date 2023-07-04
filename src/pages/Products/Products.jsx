@@ -5,6 +5,7 @@ import { MdClose } from 'react-icons/md';
 import { useSelector, useDispatch } from 'react-redux';
 import { getProductsByQuery } from 'redux/product/product-selectors';
 import { searchProducts } from 'redux/product/product-operations';
+import { resetHeaderForm } from 'redux/product/product-slice';
 
 import TopNavProducts from 'components/Shared/TopNavProducts/TopNavProducts';
 import ProductItem from 'components/Shared/ProductItem/ProductItem';
@@ -44,10 +45,11 @@ const Products = () => {
   //   }
   // }, [subcategory]);
   const handleReload = () => {
-    window.sessionStorage.clear();
+    // window.sessionStorage.clear();
     searchParams.delete('search');
     setSearchParams(searchParams);
-    window.location.reload();
+    // window.location.reload();
+    dispatch(resetHeaderForm());
   };
 
   let categoryName = '';

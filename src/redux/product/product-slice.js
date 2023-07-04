@@ -29,6 +29,7 @@ const initialState = {
   productById: {},
   productsFromBasket: [],
   sellersFromBasket: [],
+  headerForm: false,
 };
 
 const products = createSlice({
@@ -49,6 +50,9 @@ const products = createSlice({
     },
     clearProductsFromBasket: store => {
       store.productsFromBasket = [];
+    },
+    resetHeaderForm: store => {
+      store.headerForm = true;
     },
   },
   extraReducers: {
@@ -196,4 +200,5 @@ export const {
   clearProductError,
   clearUserProducts,
   clearProductById,
+  resetHeaderForm,
 } = products.actions;

@@ -1,7 +1,9 @@
-import { useNavigate } from 'react-router-dom';
-import { useForm, Controller } from 'react-hook-form';
-import { useSearchParams, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import { CiSearch } from 'react-icons/ci';
+import { useSelector } from 'react-redux';
+import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
+import { useForm, Controller } from 'react-hook-form';
+import { getHeaderFormReset } from 'redux/product/product-selectors';
 import Button from 'components/Shared/Button';
 import { field } from 'components/Shared/TextField/fields';
 import TextField from 'components/Shared/TextField';
@@ -9,6 +11,7 @@ import Text from 'components/Shared/Text/Text';
 import s from './HeaderForm.module.scss';
 
 const HeaderForm = () => {
+  const shouldHeaderFormReset = useSelector(getHeaderFormReset);
   const [, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -18,13 +21,20 @@ const HeaderForm = () => {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      productName:
-        JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '',
+      productName: '',
+      // JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '',
     },
   });
+  useEffect(() => {
+    if (shouldHeaderFormReset) {
+      reset();
+    }
+  }, [shouldHeaderFormReset, reset]);
+
   const onSubmit = async (data, e) => {
     e.preventDefault();
     window.sessionStorage.setItem(
@@ -47,7 +57,6 @@ const HeaderForm = () => {
             className="headerForm"
             value={value}
             handleChange={onChange}
-            // aria={!errors.productName ? 'true' : 'false'}
             {...field.productName}
           />
         )}
