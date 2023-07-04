@@ -27,9 +27,15 @@ const Filter = () => {
   const shouldFilterProductReset = useSelector(getFilterProduct);
   const dispatch = useDispatch();
 
-  const { control, handleSubmit, reset, register } = useForm({
+  const {
+    control,
+    handleSubmit,
+    register,
+    resetField,
+    formState: { dirtyFields },
+  } = useForm({
     defaultValues: {
-      priceFilter: '',
+      filterPriceRadio: '',
       filterPriceFrom: '',
       filterPriceTo: '',
       filterBrand: '',
@@ -39,10 +45,15 @@ const Filter = () => {
   useEffect(() => {
     if (shouldFilterProductReset) {
       setSelectedSizes([]);
-      reset();
       dispatch(showFilterProduct());
     }
-  }, [shouldFilterProductReset, reset, dispatch]);
+  }, [shouldFilterProductReset, dispatch]);
+
+  useEffect(() => {
+    if (dirtyFields.filterPriceFrom || dirtyFields.filterPriceTo) {
+      resetField('filterPriceRadio', { defaultValue: '' });
+    }
+  }, [dirtyFields.filterPriceFrom, dirtyFields.filterPriceTo, resetField]);
 
   const handleOptionsChange = type => {
     switch (type) {
@@ -84,7 +95,6 @@ const Filter = () => {
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
-    console.log(data);
     const dataForUpload = new FormData();
     // dataForUpload.append('nameProduct', data.nameProduct);
     // dataForUpload.append('brendName', data.brendName);
@@ -101,7 +111,6 @@ const Filter = () => {
 
     // await dispatch(addProduct(dataForUpload));
     // setSelectedSizes([]);
-    // reset()
   };
 
   return (
@@ -156,7 +165,7 @@ const Filter = () => {
                     <div className={s.radioContent}>
                       <div style={{ cursor: 'pointer' }}>
                         <input
-                          {...register('priceFilter')}
+                          {...register('filterPriceRadio')}
                           className={s.input_check}
                           type="radio"
                           value={el}
