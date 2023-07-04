@@ -31,6 +31,7 @@ const HeaderForm = () => {
       productName: '',
     },
   });
+
   useEffect(() => {
     if (shouldHeaderFormReset) {
       reset();

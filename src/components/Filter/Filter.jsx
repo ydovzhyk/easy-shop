@@ -1,15 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
+import { useSelector, useDispatch } from 'react-redux';
 import { BiCheck } from 'react-icons/bi';
 
 import { nanoid } from '@reduxjs/toolkit';
+
+import { getFilterProduct } from 'redux/product/product-selectors';
+import { showFilterProduct } from 'redux/product/product-slice';
 
 import sizeOption from '../AddProduct/Size/sizeTable.json';
 import OptionsHeader from 'components/Shared/OptionsHeader/OptionsHeader';
 import Text from 'components/Shared/Text/Text';
 import Button from 'components/Shared/Button';
 import { Checkbox } from './Checkbox';
-// import { RadioInput } from './RadioInput';
 import { filterPrices } from './filterPrice';
 import { filterConditions } from './filterСonditions';
 
@@ -21,6 +24,25 @@ const Filter = () => {
   const [showCondition, setShowCondition] = useState(true);
   const [showBrand, setShowBrand] = useState(true);
   const [selectedSizes, setSelectedSizes] = useState([]);
+  const shouldFilterProductReset = useSelector(getFilterProduct);
+  const dispatch = useDispatch();
+
+  const { control, handleSubmit, reset, register } = useForm({
+    defaultValues: {
+      priceFilter: '',
+      filterPriceFrom: '',
+      filterPriceTo: '',
+      filterBrand: '',
+    },
+  });
+
+  useEffect(() => {
+    if (shouldFilterProductReset) {
+      setSelectedSizes([]);
+      reset();
+      dispatch(showFilterProduct());
+    }
+  }, [shouldFilterProductReset, reset, dispatch]);
 
   const handleOptionsChange = type => {
     switch (type) {
@@ -60,15 +82,6 @@ const Filter = () => {
     return selectedSizes.some(s => s[0].name === size);
   };
 
-  const { control, handleSubmit, reset, register } = useForm({
-    defaultValues: {
-      priceFilter: '',
-      filterPriceFrom: '',
-      filterPriceTo: '',
-      filterBrand: '',
-    },
-  });
-
   const onSubmit = async (data, e) => {
     e.preventDefault();
     console.log(data);
@@ -87,8 +100,8 @@ const Filter = () => {
     // });
 
     // await dispatch(addProduct(dataForUpload));
-    await setSelectedSizes([]);
-    reset();
+    // setSelectedSizes([]);
+    // reset()
   };
 
   return (

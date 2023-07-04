@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getProductsByQuery } from 'redux/product/product-selectors';
 import { searchProducts } from 'redux/product/product-operations';
 import { resetHeaderForm } from 'redux/product/product-slice';
+import { resetFilterProduct } from 'redux/product/product-slice';
 
 import TopNavProducts from 'components/Shared/TopNavProducts/TopNavProducts';
 import ProductItem from 'components/Shared/ProductItem/ProductItem';
@@ -33,10 +34,14 @@ const Products = () => {
     dispatch(searchProducts(searchQuery));
   }, [searchQuery, dispatch]);
 
-  const handleReload = () => {
+  const handleClearSearchQueryClick = () => {
     searchParams.delete('search');
     setSearchParams(searchParams);
     dispatch(resetHeaderForm());
+  };
+
+  const handleClearFiltersClick = async () => {
+    await dispatch(resetFilterProduct());
   };
 
   let categoryName = '';
@@ -108,12 +113,16 @@ const Products = () => {
             <button
               type="button"
               className={s.searchContent}
-              onClick={handleReload}
+              onClick={handleClearSearchQueryClick}
             >
               <Text textClass="searchQueryContent" text={searchQuery} />
               <MdClose size={22} />
             </button>
-            <button type="button" className={s.searchContent}>
+            <button
+              type="button"
+              className={s.searchContent}
+              onClick={handleClearFiltersClick}
+            >
               <Text textClass="searchQueryContent" text="Скинути фільтри" />
               <MdClose size={22} />
             </button>
