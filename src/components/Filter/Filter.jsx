@@ -69,6 +69,7 @@ const Filter = () => {
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
+    console.log(data);
     const dataForUpload = new FormData();
     // dataForUpload.append('nameProduct', data.nameProduct);
     // dataForUpload.append('brendName', data.brendName);
@@ -132,7 +133,7 @@ const Filter = () => {
         )}
         <OptionsHeader title="Ціна" onChange={handleOptionsChange} />
         {showPrices && (
-          <div style={{ display: 'none' }} className={s.optionMainBox}>
+          <div className={s.optionMainBox}>
             <ul className={s.optionMainBox}>
               {filterPrices.map(el => {
                 return (
@@ -142,25 +143,26 @@ const Filter = () => {
                       name="priceFilter"
                       render={({ field: { onChange, value } }) => (
                         <div className={s.radioContent}>
-                          <input
-                            className={s.radioInput}
-                            type="radio"
-                            name="priceFilter"
-                            onChange={onChange}
-                            control={control}
-                            value={value}
-                            id="input-radio"
-                          />
-                          <label htmlFor="input-radio" className={s.labelRadio}>
-                            <BiCheck
-                              size={22}
-                              style={{
-                                border: '1px solid var(--btn-border-color)',
-                              }}
-                              className={s.radioIcon}
+                          <div style={{ cursor: 'pointer' }}>
+                            <input
+                              className={s.input_check}
+                              type="radio"
+                              name="priceFilter"
+                              onChange={onChange}
+                              control={control}
+                              value={value}
+                              id="input-radio"
                             />
-                            <span>{el}</span>
-                          </label>
+                            <label
+                              htmlFor="input-radio"
+                              className={s.labelCheckBox}
+                            >
+                              <div className={s.iconWrapper}>
+                                <BiCheck size={22} className={s.radioIcon} />
+                              </div>
+                              <span>{el}</span>
+                            </label>
+                          </div>
                         </div>
                       )}
                     />
@@ -172,14 +174,13 @@ const Filter = () => {
               <Controller
                 control={control}
                 name="filterPriceMain"
-                render={({ field: { onChange, value } }) => (
+                render={({ field: { onChange } }) => (
                   <div className={s.inputWprap}>
                     <label className={s.filterLabel}>
                       <input
                         onChange={onChange}
                         className={s.inputFilter}
                         control={control}
-                        // value={value}
                         type="number"
                         name="filterPriceMain"
                         placeholder="Від"
@@ -193,14 +194,13 @@ const Filter = () => {
               <Controller
                 control={control}
                 name="filterPriceSecondary"
-                render={({ field: { onChange, value } }) => (
+                render={({ field: { onChange } }) => (
                   <div className={s.inputWprap}>
                     <label className={s.filterLabel}>
                       <input
                         onChange={onChange}
                         className={s.inputFilter}
                         control={control}
-                        // value={value}
                         type="number"
                         name="filterPriceSecondary"
                         placeholder="До"
@@ -226,12 +226,7 @@ const Filter = () => {
                         name={el}
                         control={control}
                         render={({ field }) => (
-                          <Checkbox
-                            {...field}
-                            value={el}
-                            label={el}
-                            // name="conditionFilter"
-                          />
+                          <Checkbox {...field} value={el} label={el} />
                         )}
                       />
                     </div>
@@ -248,17 +243,15 @@ const Filter = () => {
             <Controller
               control={control}
               name="filterBrand"
-              render={({ field: { onChange, value } }) => (
+              render={({ field: { onChange } }) => (
                 <label className={s.filterLabel}>
                   <input
                     onChange={onChange}
                     className={s.inputFilter}
                     control={control}
-                    // value={value}
                     type="text"
                     name="filterBrand"
                     placeholder="Введіть назву"
-                    minLength={2}
                   />
                 </label>
               )}
