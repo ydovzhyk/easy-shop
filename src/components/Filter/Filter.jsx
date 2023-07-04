@@ -63,8 +63,8 @@ const Filter = () => {
   const { control, handleSubmit, reset, register } = useForm({
     defaultValues: {
       priceFilter: '',
-      filterPriceMain: 0,
-      filterPriceSecondary: 0,
+      filterPriceFrom: '',
+      filterPriceTo: '',
       filterBrand: '',
     },
   });
@@ -162,46 +162,31 @@ const Filter = () => {
               })}
             </ul>
             <div className={s.filterInputBox}>
-              <Controller
-                control={control}
-                name="filterPriceMain"
-                render={({ field: { onChange } }) => (
-                  <div className={s.inputWprap}>
-                    <label className={s.filterLabel}>
-                      <input
-                        onChange={onChange}
-                        className={s.inputFilter}
-                        control={control}
-                        type="number"
-                        name="filterPriceMain"
-                        placeholder="Від"
-                        min="0"
-                        step="1"
-                      />
-                    </label>
-                  </div>
-                )}
-              />
-              <Controller
-                control={control}
-                name="filterPriceSecondary"
-                render={({ field: { onChange } }) => (
-                  <div className={s.inputWprap}>
-                    <label className={s.filterLabel}>
-                      <input
-                        onChange={onChange}
-                        className={s.inputFilter}
-                        control={control}
-                        type="number"
-                        name="filterPriceSecondary"
-                        placeholder="До"
-                        min="0"
-                        step="1"
-                      />
-                    </label>
-                  </div>
-                )}
-              />
+              <div className={s.inputWrap}>
+                <label className={s.filterLabel}>
+                  <input
+                    {...register('filterPriceFrom')}
+                    className={s.inputFilter}
+                    type="number"
+                    placeholder="Від"
+                    min="0"
+                    step="1"
+                  />
+                </label>
+              </div>
+
+              <div className={s.inputWrap}>
+                <label className={s.filterLabel}>
+                  <input
+                    {...register('filterPriceTo')}
+                    className={s.inputFilter}
+                    type="number"
+                    placeholder="До"
+                    min="0"
+                    step="1"
+                  />
+                </label>
+              </div>
             </div>
           </div>
         )}
