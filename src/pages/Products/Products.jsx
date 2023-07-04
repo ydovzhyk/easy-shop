@@ -33,22 +33,9 @@ const Products = () => {
     dispatch(searchProducts(searchQuery));
   }, [searchQuery, dispatch]);
 
-  // useEffect(() => {
-  //   if (!category) {
-  //     return;
-  //   }
-  // }, [category]);
-
-  // useEffect(() => {
-  //   if (!subcategory) {
-  //     return;
-  //   }
-  // }, [subcategory]);
   const handleReload = () => {
-    // window.sessionStorage.clear();
     searchParams.delete('search');
     setSearchParams(searchParams);
-    // window.location.reload();
     dispatch(resetHeaderForm());
   };
 

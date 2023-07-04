@@ -29,22 +29,16 @@ const HeaderForm = () => {
   } = useForm({
     defaultValues: {
       productName: '',
-      // JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '',
     },
   });
   useEffect(() => {
     if (shouldHeaderFormReset) {
-      console.log(shouldHeaderFormReset);
       reset();
     }
   }, [shouldHeaderFormReset, reset]);
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
-    // window.sessionStorage.setItem(
-    //   'searchQuery',
-    //   JSON.stringify(data.productName)
-    // );
     await setSearchParams(
       data.productName.trim() !== '' ? { search: data.productName } : {}
     );
