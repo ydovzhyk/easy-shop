@@ -60,10 +60,12 @@ const Filter = () => {
     return selectedSizes.some(s => s[0].name === size);
   };
 
-  const { control, handleSubmit, reset } = useForm({
+  const { control, handleSubmit, reset, register } = useForm({
     defaultValues: {
+      priceFilter: '',
       filterPriceMain: 0,
       filterPriceSecondary: 0,
+      filterBrand: '',
     },
   });
 
@@ -138,34 +140,23 @@ const Filter = () => {
               {filterPrices.map(el => {
                 return (
                   <li key={nanoid()} className={s.radioItem}>
-                    <Controller
-                      control={control}
-                      name="priceFilter"
-                      render={({ field: { onChange, value } }) => (
-                        <div className={s.radioContent}>
-                          <div style={{ cursor: 'pointer' }}>
-                            <input
-                              className={s.input_check}
-                              type="radio"
-                              name="priceFilter"
-                              onChange={onChange}
-                              control={control}
-                              value={value}
-                              id="input-radio"
-                            />
-                            <label
-                              htmlFor="input-radio"
-                              className={s.labelCheckBox}
-                            >
-                              <div className={s.iconWrapper}>
-                                <BiCheck size={22} className={s.radioIcon} />
-                              </div>
-                              <span>{el}</span>
-                            </label>
+                    <div className={s.radioContent}>
+                      <div style={{ cursor: 'pointer' }}>
+                        <input
+                          {...register('priceFilter')}
+                          className={s.input_check}
+                          type="radio"
+                          value={el}
+                          id={el}
+                        />
+                        <label htmlFor={el} className={s.labelCheckBox}>
+                          <div className={s.iconWrapper}>
+                            <BiCheck size={22} className={s.radioIcon} />
                           </div>
-                        </div>
-                      )}
-                    />
+                          <span>{el}</span>
+                        </label>
+                      </div>
+                    </div>
                   </li>
                 );
               })}
@@ -240,22 +231,14 @@ const Filter = () => {
         <OptionsHeader title="Бренд" onChange={handleOptionsChange} />
         {showBrand && (
           <div className={s.optionMainBox}>
-            <Controller
-              control={control}
-              name="filterBrand"
-              render={({ field: { onChange } }) => (
-                <label className={s.filterLabel}>
-                  <input
-                    onChange={onChange}
-                    className={s.inputFilter}
-                    control={control}
-                    type="text"
-                    name="filterBrand"
-                    placeholder="Введіть назву"
-                  />
-                </label>
-              )}
-            />
+            <label className={s.filterLabel}>
+              <input
+                {...register('filterBrand')}
+                className={s.inputFilter}
+                type="text"
+                placeholder="Введіть назву"
+              />
+            </label>
           </div>
         )}
         <Button text="Застосувати" btnClass="btnLightFilter" />

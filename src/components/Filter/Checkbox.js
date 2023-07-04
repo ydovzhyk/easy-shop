@@ -3,7 +3,7 @@ import { BiCheck } from 'react-icons/bi';
 import s from './Filter.module.scss';
 
 export const Checkbox = forwardRef(
-  ({ label, name, value, onChange, defaultChecked, ...rest }, forwardedRef) => {
+  ({ label, name, value, onChange, ...rest }, forwardedRef) => {
     const [checked, setChecked] = useState(false);
 
     useEffect(() => {
