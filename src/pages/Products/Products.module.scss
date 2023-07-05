@@ -71,18 +71,19 @@
   line-height: 16px;
   letter-spacing: 0.02em;
   color: var(--text-color);
-  transition: border var(--transition-duration) var(--timing-function),
+  transition: box-shadow var(--transition-duration) var(--timing-function),
+    border var(--transition-duration) var(--timing-function),
     color var(--transition-duration) var(--timing-function),
     background-color var(--transition-duration) var(--timing-function);
 
   &:not(:last-of-type) {
     margin-bottom: 10px;
   }
-  &:hover,
-  &:focus {
+  &:hover {
     background-color: var(--main-color);
     color: var(--text-color);
     border: solid 1px var(--btn-border-color);
+    box-shadow: var(--hover-box-shadow);
   }
   @include mixins.mq(mobile) {
     padding: 8px 14px;
