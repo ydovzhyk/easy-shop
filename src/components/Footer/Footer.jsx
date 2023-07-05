@@ -19,7 +19,7 @@ const Footer = () => {
           <p className={s.footerMainText}>
             Модні товари для усієї сім'ї за доступною ціною.
           </p>
-          <div>
+          <div className={s.footerBtnWrapper}>
             <a
               href="https://www.apple.com/ua/app-store/"
               className={s.footerBtn}

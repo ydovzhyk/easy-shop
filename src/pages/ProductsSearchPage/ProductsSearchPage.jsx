@@ -1,4 +1,3 @@
-// import { useEffect } from 'react';
 // import { useDispatch } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 // import { searchProducts } from 'redux/product/product-operations';

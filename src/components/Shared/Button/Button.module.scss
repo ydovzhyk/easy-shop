@@ -102,10 +102,29 @@
   text-shadow: 0.5 -0.5px var(--accent-color);
   animation: pulsate 2s linear infinite;
 }
-.basketButton{
+.basketButton {
   @extend .btnLight;
   padding: 8px;
   width: 300px;
 }
 
-// textClass="catalogTitle"
+.btnLightFilter {
+  @extend .btnLight;
+  width: 85%;
+  height: 30px;
+  font-size: 12px;
+
+  @include mixins.mq(mobile) {
+    height: 35px;
+    font-size: 14px;
+  }
+  @include mixins.mq(tablet) {
+    height: 40px;
+    font-size: 15px;
+  }
+  @include mixins.mq(desktop) {
+    height: 45px;
+    width: 60%;
+    font-size: 16px;
+  }
+}

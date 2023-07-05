@@ -56,6 +56,7 @@ const SelectorProducts = ({ activeButton, activeNewRef }) => {
             _id={item._id}
             mainPhotoUrl={item.mainPhotoUrl}
             price={item.price}
+            likes={item.userLikes.length ? item.userLikes.length : 0}
             nameProduct={item.nameProduct}
             description={item.description}
             size={item.size}

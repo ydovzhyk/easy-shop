@@ -107,7 +107,6 @@ export const updateUserLikes = createAsyncThunk(
   async (userData, { rejectWithValue, getState, dispatch }) => {
     try {
       const data = await axiosUpdateUserLikes(userData);
-      console.log('1', data);
       return data;
     } catch (error) {
       const { data, status } = error.response;

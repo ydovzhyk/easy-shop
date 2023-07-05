@@ -1,38 +1,49 @@
-import { useNavigate } from 'react-router-dom';
-import { useForm, Controller } from 'react-hook-form';
-import { useSearchParams, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import { CiSearch } from 'react-icons/ci';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
+import { useForm, Controller } from 'react-hook-form';
+import { getHeaderFormReset } from 'redux/product/product-selectors';
+import { submitHeaderForm } from 'redux/product/product-slice';
+
 import Button from 'components/Shared/Button';
 import { field } from 'components/Shared/TextField/fields';
 import TextField from 'components/Shared/TextField';
+import Text from 'components/Shared/Text/Text';
 import s from './HeaderForm.module.scss';
 
 const HeaderForm = () => {
+  const shouldHeaderFormReset = useSelector(getHeaderFormReset);
   const [, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
   const isUserAt404Page =
     !pathname.includes('/products') || !pathname.includes('/products/');
 
   const {
     control,
     handleSubmit,
-    //     formState: { errors },
+    reset,
+    formState: { errors },
   } = useForm({
     defaultValues: {
-      productName:
-        JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '',
+      productName: '',
     },
   });
+
+  useEffect(() => {
+    if (shouldHeaderFormReset) {
+      reset();
+    }
+  }, [shouldHeaderFormReset, reset]);
+
   const onSubmit = async (data, e) => {
     e.preventDefault();
-    window.sessionStorage.setItem(
-      'searchQuery',
-      JSON.stringify(data.productName)
-    );
     await setSearchParams(
       data.productName.trim() !== '' ? { search: data.productName } : {}
     );
+    dispatch(submitHeaderForm());
   };
 
   return (
@@ -50,6 +61,12 @@ const HeaderForm = () => {
           />
         )}
       />
+      {errors.productName && (
+        <Text
+          text={'* Введіть значення для пошуку'}
+          textClass="errorMessageHeaderForm"
+        />
+      )}
 
       <Button
         type="submit"

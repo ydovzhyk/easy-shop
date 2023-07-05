@@ -29,6 +29,8 @@ const initialState = {
   productById: {},
   productsFromBasket: [],
   sellersFromBasket: [],
+  headerForm: false,
+  filterProduct: false,
 };
 
 const products = createSlice({
@@ -49,6 +51,18 @@ const products = createSlice({
     },
     clearProductsFromBasket: store => {
       store.productsFromBasket = [];
+    },
+    resetHeaderForm: store => {
+      store.headerForm = true;
+    },
+    submitHeaderForm: store => {
+      store.headerForm = false;
+    },
+    resetFilterProduct: store => {
+      store.filterProduct = true;
+    },
+    showFilterProduct: store => {
+      store.filterProduct = false;
     },
   },
   extraReducers: {
@@ -197,4 +211,8 @@ export const {
   clearUserProducts,
   clearProductById,
   clearProductsFromBasket,
+  resetHeaderForm,
+  submitHeaderForm,
+  resetFilterProduct,
+  showFilterProduct,
 } = products.actions;

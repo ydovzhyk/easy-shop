@@ -5,6 +5,7 @@ import s from './OptionsHeader.module.scss';
 
 const OptionsHeader = ({ title, onChange }) => {
   const isDesctop = useMediaQuery({ minWidth: 1280 });
+  const isTablet = useMediaQuery({ minWidth: 768 });
   const [showOptions, setShowOptions] = useState(false);
 
   const handleClick = () => {
@@ -19,7 +20,10 @@ const OptionsHeader = ({ title, onChange }) => {
   return (
     <div className={s.optionsBox} onClick={handleClick}>
       <h3 className={s.optionsTitle}>{title}</h3>
-      <RiArrowUpSLine size={isDesctop ? 24 : 20} className={getClassName()} />
+      <RiArrowUpSLine
+        size={isDesctop ? 24 : isTablet ? 20 : 18}
+        className={getClassName()}
+      />
     </div>
   );
 };
