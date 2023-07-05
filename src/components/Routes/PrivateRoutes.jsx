@@ -27,6 +27,9 @@ const PrivateRoute = () => {
   }, [dispatch, isLogin]);
 
   const authData = JSON.parse(localStorage.getItem('easy-shop.authData'));
+  if (!authData?.accessToken) {
+    return <Navigate to="/login" />;
+  }
   if (!isLogin && !authData?.accessToken) {
     return <Navigate to="/login" />;
   }
