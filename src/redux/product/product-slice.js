@@ -210,6 +210,7 @@ export const {
   clearProductError,
   clearUserProducts,
   clearProductById,
+  clearProductsFromBasket,
   resetHeaderForm,
   submitHeaderForm,
   resetFilterProduct,

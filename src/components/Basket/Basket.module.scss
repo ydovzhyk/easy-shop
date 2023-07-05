@@ -1,12 +1,13 @@
 @use 'styles/mixins';
 
-.myWaresWrapper {
-  padding: 16px;
+.basketsSection {
+  // padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 20px;
   align-items: center;
   justify-content: center;
+  background-color: var(--main-color);
 }
 
 .orderList {
@@ -20,106 +21,4 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-}
-
-.wareItem {
-  padding: 8px;
-  border: 1px solid var(--border-color);
-  display: flex;
-  justify-content: space-between;
-  // flex-direction: column;
-  gap: 8px;
-
-  &:hover {
-    border: 1px solid var(--accent-color);
-  }
-
-  @include mixins.mq(tablet) {
-    // padding-bottom: 0;
-    width: 100%;
-    // height: 400px;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 12px;
-  }
-}
-
-.thumb {
-  width: 80px;
-  height: 115px;
-  
-  // @include mixins.mq(tablet) {
-  //   width: 307px;
-  //   height: 400px;
-  // }
-
-  // @include mixins.mq(desktop) {
-  //   width: 370px;
-  // }
-}
-
-.mainPhotoCard {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  // vertical-align: bottom;
-}
-
-.photoAndNameAndPrice {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.photoAndNameAndBtn {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.photoAndName {
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 8px;
-}
-
-.descriptionWrapper {
-  // padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  // max-width: 300px;
-  width: 200px;
-  align-items: flex-start;
-  justify-content: center;
-
-  @include mixins.mq(tablet) {
-    justify-content: flex-start;
-  }
-
-  @include mixins.mq(desktop) {
-    width: 600px;
-  }
-}
-
-.linkWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: center;
-  @include mixins.mq(tablet) {
-    flex-direction: row;
-    justify-content:space-around;
-}
-}
-
-.btnWrapper {
-  width: 300px;
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  justify-content: space-between;
 }

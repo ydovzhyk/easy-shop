@@ -90,7 +90,7 @@ export const googleUpdate = (accessToken, refreshToken, sid) => ({
 export const updateUserBasket = createAsyncThunk(
   'auth/basket',
   async (userData, { rejectWithValue, getState, dispatch }) => {
-    // console.log(userData);
+    console.log('userData in auth-opetation', userData);
     try {
       const data = await axiosUpdateUserBasket(userData);
       console.log(data);
