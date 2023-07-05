@@ -16,7 +16,7 @@ import { filterConditions } from './filterСonditions';
 
 import s from './Filter.module.scss';
 
-const Filter = () => {
+const Filter = ({ onChange }) => {
   const [showSizes, setShowSizes] = useState(true);
   const [showPrices, setShowPrices] = useState(true);
   const [showCondition, setShowCondition] = useState(true);
@@ -133,7 +133,7 @@ const Filter = () => {
     dataForUpload.append('filterPriceTo', data.nameProduct);
     dataForUpload.append('filterCondition', data.nameProduct);
     dataForUpload.append('filterBrand', data.nameProduct);
-    // await dispatch(searchProduct(dataForUpload));
+    await onChange(dataForUpload);
   };
 
   return (

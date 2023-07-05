@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink, useSearchParams, useParams } from 'react-router-dom';
 import { MdClose } from 'react-icons/md';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { getProductsByQuery } from 'redux/product/product-selectors';
-import { searchProducts } from 'redux/product/product-operations';
 import { resetHeaderForm } from 'redux/product/product-slice';
 import { resetFilterProduct } from 'redux/product/product-slice';
 
@@ -31,14 +30,12 @@ const Products = () => {
       return;
     }
     setQuery(searchQuery);
-    dispatch(searchProducts(searchQuery));
-  }, [searchQuery, dispatch]);
+  }, [searchQuery]);
 
-  const handleClearSearchQueryClick = async () => {
-    await window.sessionStorage.clear();
-    await searchParams.delete('search');
-    await setSearchParams(searchParams);
-    await dispatch(resetHeaderForm());
+  const handleClearSearchQueryClick = () => {
+    searchParams.delete('search');
+    setSearchParams(searchParams);
+    dispatch(resetHeaderForm());
   };
 
   const handleClearFiltersClick = async () => {
