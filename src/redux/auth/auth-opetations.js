@@ -90,7 +90,7 @@ export const googleUpdate = (accessToken, refreshToken, sid) => ({
 export const updateUserBasket = createAsyncThunk(
   'auth/basket',
   async (userData, { rejectWithValue, getState, dispatch }) => {
-    // console.log(userData);
+    console.log('userData in auth-opetation', userData);
     try {
       const data = await axiosUpdateUserBasket(userData);
       console.log(data);
@@ -107,7 +107,7 @@ export const updateUserLikes = createAsyncThunk(
   async (userData, { rejectWithValue, getState, dispatch }) => {
     try {
       const data = await axiosUpdateUserLikes(userData);
-      console.log("1", data)
+      console.log('1', data);
       return data;
     } catch (error) {
       const { data, status } = error.response;
@@ -115,4 +115,3 @@ export const updateUserLikes = createAsyncThunk(
     }
   }
 );
-
