@@ -34,10 +34,11 @@ const Products = () => {
     dispatch(searchProducts(searchQuery));
   }, [searchQuery, dispatch]);
 
-  const handleClearSearchQueryClick = () => {
-    searchParams.delete('search');
-    setSearchParams(searchParams);
-    dispatch(resetHeaderForm());
+  const handleClearSearchQueryClick = async () => {
+    await window.sessionStorage.clear();
+    await searchParams.delete('search');
+    await setSearchParams(searchParams);
+    await dispatch(resetHeaderForm());
   };
 
   const handleClearFiltersClick = async () => {

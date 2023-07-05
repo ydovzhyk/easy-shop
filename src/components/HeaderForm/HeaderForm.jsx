@@ -28,7 +28,8 @@ const HeaderForm = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      productName: '',
+      productName:
+        JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '',
     },
   });
 
@@ -40,6 +41,10 @@ const HeaderForm = () => {
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
+    await window.sessionStorage.setItem(
+      'searchQuery',
+      JSON.stringify(data.productName)
+    );
     await setSearchParams({ search: data.productName });
     await dispatch(submitHeaderForm());
   };
