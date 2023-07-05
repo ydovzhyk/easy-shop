@@ -25,7 +25,7 @@ const HeaderForm = () => {
     control,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
     defaultValues: {
       productName: '',
@@ -44,6 +44,18 @@ const HeaderForm = () => {
       data.productName.trim() !== '' ? { search: data.productName } : {}
     );
     dispatch(submitHeaderForm());
+  };
+
+  const handleClick = () => {
+    if (isValid) {
+      navigate(
+        pathname === '/'
+          ? '/products'
+          : isUserAt404Page
+          ? '/products'
+          : pathname
+      );
+    }
   };
 
   return (
@@ -72,15 +84,7 @@ const HeaderForm = () => {
         type="submit"
         btnClass="searchBtn"
         text={<CiSearch size={30} />}
-        handleClick={() =>
-          navigate(
-            pathname === '/'
-              ? '/products'
-              : isUserAt404Page
-              ? '/products'
-              : pathname
-          )
-        }
+        handleClick={handleClick}
       ></Button>
     </form>
   );
