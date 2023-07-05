@@ -185,7 +185,6 @@ const auth = createSlice({
       store.loading = false;
       store.error = payload;
     },
- 
   },
 });
 
