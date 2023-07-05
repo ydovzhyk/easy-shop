@@ -196,4 +196,5 @@ export const {
   clearProductError,
   clearUserProducts,
   clearProductById,
+  clearProductsFromBasket,
 } = products.actions;
