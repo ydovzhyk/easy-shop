@@ -31,7 +31,7 @@ const Filter = () => {
     resetField,
     reset,
     getValues,
-    formState: { dirtyFields, touchedFields, isSubmitting },
+    formState: { dirtyFields, isDirty, touchedFields, isSubmitting },
   } = useForm({
     defaultValues: {
       filterCondition: [],
@@ -289,7 +289,7 @@ const Filter = () => {
         <button
           className={s.btnLightFilter}
           type="submit"
-          disabled={isSubmitting}
+          disabled={(!isDirty && selectedSizes.length < 1) || isSubmitting}
         >
           Застосувати
         </button>
