@@ -18,16 +18,20 @@ import s from './VipProducts.module.scss';
 const VipProducts = () => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLiked, setIsLiked] = useState(false);
+
   const arrayVipProducts = useSelector(getVipProductCard);
   const vipPages = useSelector(getVipPages);
-  const isDesktop = useMediaQuery({ minWidth: 1280 });
   const userId = useSelector(getID);
-  const [isLiked, setIsLiked] = useState(false);
+
+  const isDesktop = useMediaQuery({ minWidth: 1280 });
+  console.log('arrayVipProducts', arrayVipProducts);
 
   useEffect(() => {
     dispatch(getVipProducts(currentPage));
   }, [dispatch, currentPage, isLiked]);
 
+  // for page
   const handlePrevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
@@ -46,6 +50,7 @@ const VipProducts = () => {
     scrollToTop();
   };
 
+  // for likes
   const checkUserLike = productId => {
     const product = arrayVipProducts.find(item => item._id === productId);
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ProductItem from 'components/Shared/ProductItem/ProductItem';
@@ -9,6 +9,7 @@ import {
   getProductsBySelectorCard,
   getSelectorPages,
 } from 'redux/product/product-selectors';
+import { getID } from 'redux/auth/auth-selectors';
 
 import s from './SelectorProducts.module.scss';
 
@@ -16,9 +17,11 @@ const SelectorProducts = ({ activeButton, activeNewRef }) => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const [currentSelector, setcurrentSelector] = useState('new');
-  const arraySelectorProducts = useSelector(getProductsBySelectorCard);
+  const [isLiked, setIsLiked] = useState(false);
 
+  const arraySelectorProducts = useSelector(getProductsBySelectorCard);
   const selectorPages = useSelector(getSelectorPages);
+  const userId = useSelector(getID);
 
   useEffect(() => {
     dispatch(
@@ -27,7 +30,7 @@ const SelectorProducts = ({ activeButton, activeNewRef }) => {
         selectorName: currentSelector,
       })
     );
-  }, [dispatch, currentPage, currentSelector]);
+  }, [dispatch, currentPage, currentSelector, isLiked]);
 
   useEffect(() => {
     if (activeButton !== currentSelector) {
@@ -42,6 +45,21 @@ const SelectorProducts = ({ activeButton, activeNewRef }) => {
     scrollToNew();
   };
 
+  // for likes
+  const checkUserLike = productId => {
+    const product = arraySelectorProducts.find(item => item._id === productId);
+
+    if (product) {
+      return product.userLikes.includes(userId);
+    }
+
+    return false;
+  };
+
+  const handleLike = isLiked => {
+    setIsLiked(isLiked);
+  };
+
   // for scroling
   const scrollToNew = () => {
     activeNewRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -49,7 +67,7 @@ const SelectorProducts = ({ activeButton, activeNewRef }) => {
 
   return (
     <>
-      <ul className={s.listCard} >
+      <ul className={s.listCard}>
         {arraySelectorProducts.map(item => (
           <ProductItem
             key={item._id}
@@ -57,6 +75,8 @@ const SelectorProducts = ({ activeButton, activeNewRef }) => {
             mainPhotoUrl={item.mainPhotoUrl}
             price={item.price}
             likes={item.userLikes.length ? item.userLikes.length : 0}
+            userLike={checkUserLike(item._id)}
+            handleLike={handleLike}
             nameProduct={item.nameProduct}
             description={item.description}
             size={item.size}

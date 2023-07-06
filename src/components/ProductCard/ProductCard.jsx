@@ -22,8 +22,13 @@ import ProductSizes from './Productsizes';
 import ProductInfo from './ProductInfo';
 import Loader from 'components/Loader/Loader';
 import { translateParamsToUA } from '../../funcs&hooks/translateParamsToUA.js';
-import { BsSuitHeart } from 'react-icons/bs';
+// import { BsSuitHeart } from 'react-icons/bs';
+import { FiHeart } from 'react-icons/fi';
 import { BiMessageDetail } from 'react-icons/bi';
+
+// import { updateUserLikes } from 'redux/auth/auth-opetations';
+import { getID } from 'redux/auth/auth-selectors';
+import { updateUserLikes } from 'redux/auth/auth-opetations';
 
 import s from './ProductCard.module.scss';
 
@@ -31,11 +36,18 @@ const ProductCard = () => {
   const { category, subcategory, id } = useParams();
   const translatedParamsObj = translateParamsToUA(category, subcategory);
   const [categoryName, subCategoryName] = Object.values(translatedParamsObj);
+
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const product = useSelector(selectProductById);
+  const userId = useSelector(getID);
+  // const arrayUserLikes = useSelector(getUserLikes);
+  const [isLiked, setIsLiked] = useState(false);
+
+  console.log('userId', userId);
 
   useEffect(() => {
     dispatch(clearOtherUser());
@@ -53,24 +65,45 @@ const ProductCard = () => {
     additionalPhotoUrl,
     price,
     owner,
+    userLikes,
     size,
     vip,
   } = product;
+  console.log('userLikes', userLikes);
 
   const sizeValuesArray = size ? size.map(item => item[0].value) : [];
 
   const userProductBasket = useSelector(selectUserBasket);
   const isProductInBasket = userProductBasket.find(item => item === id);
+  const isProductInLike = userLikes && userLikes.includes(userId);
+
   const setProductToBasket = () => {
     if (!isLogin) {
       navigate('/login');
-      return
+      return;
     }
     const newBasket = isProductInBasket
       ? userProductBasket.filter(item => item !== id)
       : [...userProductBasket, id];
     dispatch(updateUserBasket({ userBasket: newBasket }));
     // console.log('change basket');
+  };
+
+  // for likes
+  const handleUserLike = isLiked => {
+    setIsLiked(isLiked);
+  };
+
+  const handleClick = async () => {
+    if (!isLogin) {
+      navigate('/login');
+      return;
+    }
+
+    await dispatch(updateUserLikes({ productId: id }));
+
+    const newIsLiked = !isProductInLike;
+    handleUserLike(newIsLiked);
   };
 
   const chattingRef = useRef();
@@ -120,10 +153,10 @@ const ProductCard = () => {
                       <span className={s.productPriceDiscount}>-8%</span>
                       <Text text={price} textClass="title" />
                     </div>
-                      <ProductSizes
-                        sizeValuesArray={sizeValuesArray}
-                        text="Розміри:"
-                      />
+                    <ProductSizes
+                      sizeValuesArray={sizeValuesArray}
+                      text="Розміри:"
+                    />
 
                     <div className={s.buyBtns}>
                       <NavLink to={isLogin ? '/checkout' : '/login'}>
@@ -145,9 +178,20 @@ const ProductCard = () => {
                       />
                     </div>
                     <div className={s.additionalOptsContainer}>
-                      <div className={s.additionalOpts}>
-                        <BsSuitHeart className={s.favoriteIcon} />
-                        <Text text="Додати в обрані" textClass="productText" />
+                      <div className={s.additionalOpts} onClick={handleClick}>
+                        {/* <BsSuitHeart className={s.favoriteIcon} /> */}
+
+                        <FiHeart
+                          className={`${isProductInLike ? s.active : s.liked}`}
+                        />
+                        <Text
+                          text={
+                            isProductInLike
+                              ? 'Товар обраний'
+                              : 'Додати в обрані'
+                          }
+                          textClass="productText"
+                        />
                       </div>
                       <div className={s.additionalOpts}>
                         <BiMessageDetail className={s.favoriteIcon} />
