@@ -18,46 +18,6 @@
   }
 }
 
-// .linkBox {
-//   margin-bottom: 15px;
-//   font-size: 14px;
-//   @include mixins.mq(tablet) {
-//     column-count: 2;
-//     font-size: 16px;
-//   }
-//   @include mixins.mq(desktop) {
-//     column-count: 3;
-//   }
-// }
-
-// .amountBox {
-//   border: 1px solid var(--border-color);
-//   padding: 2px;
-//   color: gray;
-// }
-
-// .link {
-//   display: inline-block;
-//   position: relative;
-//   color: var(--second-text-color);
-//   line-height: 1.8;
-//   transition: all var(--transition-duration) var(--timing-function);
-//   &:not(:last-of-type) {
-//     margin-right: 15px;
-//   }
-
-//   &:hover {
-//     text-shadow: var(--hover-text-shadow);
-//     color: var(--hover-active-color);
-//   }
-// }
-
-// .active {
-//   @extend .link;
-//   text-shadow: var(--hover-text-shadow);
-//   color: var(--hover-active-color);
-// }
-
 .searchContent {
   display: inline-flex;
   justify-content: space-between;
