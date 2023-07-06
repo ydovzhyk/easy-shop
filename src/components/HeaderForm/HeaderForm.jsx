@@ -25,10 +25,11 @@ const HeaderForm = () => {
     control,
     handleSubmit,
     reset,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm({
     defaultValues: {
-      productName: '',
+      productName:
+        JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '',
     },
   });
 
@@ -40,22 +41,18 @@ const HeaderForm = () => {
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
-    await setSearchParams(
-      data.productName.trim() !== '' ? { search: data.productName } : {}
+    await window.sessionStorage.setItem(
+      'searchQuery',
+      JSON.stringify(data.productName)
     );
-    dispatch(submitHeaderForm());
+    await setSearchParams({ search: data.productName });
+    await dispatch(submitHeaderForm());
   };
 
   const handleClick = () => {
-    if (isValid) {
-      navigate(
-        pathname === '/'
-          ? '/products'
-          : isUserAt404Page
-          ? '/products'
-          : pathname
-      );
-    }
+    navigate(
+      pathname === '/' ? '/products' : isUserAt404Page ? '/products' : pathname
+    );
   };
 
   return (
