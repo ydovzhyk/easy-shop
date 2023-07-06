@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { BsTrash } from 'react-icons/bs';
 import { TfiPlus, TfiCheck } from 'react-icons/tfi';
 
 import { updateUserBasket } from 'redux/auth/auth-opetations';
-import { selectUserBasket } from 'redux/auth/auth-selectors';
+
 
 import Text from 'components/Shared/Text/Text';
 import CountBlock from 'components/Basket/CountBlock/CountBlock';
@@ -21,32 +21,35 @@ const BasketForm = ({ ownerName, products, isTablet }) => {
     const [selectedSizes, setSelectedSizes] = useState([]);
     const [productId, setProductId] = useState(null);
     const [questionWindow, setQuestionWindow] = useState(false);
-    const userProductBasket = useSelector(selectUserBasket);
+    
 
     console.log('selectedSizes:', selectedSizes);
 
     const handleButtonTrashClick = id => {
     setProductId(id);
     setQuestionWindow(true);
-  };
+    };
 
     const deleteProductFrombasket = choice => {
-        const newBasket = userProductBasket.filter(product => product !== productId);
-        console.log('newBasket', newBasket)
-    if (choice === 'yes') {
-      dispatch(updateUserBasket(newBasket));
-      setQuestionWindow(false);
+        if (choice === 'yes') {
+            dispatch(updateUserBasket(productId));
+            setQuestionWindow(false);
     
-    } else if (choice === 'no') {
-      setProductId(null);
-      setQuestionWindow(false);
-    }
-  };
+        } else if (choice === 'no') {
+            setProductId(null);
+            setQuestionWindow(false);
+        }
+    };
 
 
     const handleSelectedSizesChange = sizes => {
     setSelectedSizes(sizes);
-  };
+    };
+
+    const onSubmit = async (data, e) => {
+        e.preventDefault();
+        
+    }
     return (
         <form>
             <Text textClass="title" text={`Продавець: ${ownerName}`} />
