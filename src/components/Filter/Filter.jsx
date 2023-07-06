@@ -126,13 +126,14 @@ const Filter = ({ onChange }) => {
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
-    const dataForUpload = new FormData();
-    dataForUpload.append('size', JSON.stringify(selectedSizes));
-    dataForUpload.append('filterPriceRadio', data.nameProduct);
-    dataForUpload.append('filterPriceFrom', data.nameProduct);
-    dataForUpload.append('filterPriceTo', data.nameProduct);
-    dataForUpload.append('filterCondition', data.nameProduct);
-    dataForUpload.append('filterBrand', data.nameProduct);
+    const dataForUpload = {
+      size: JSON.stringify(selectedSizes),
+      brandName: data.filterBrand,
+      condition: data.filterCondition,
+      filterPrice: data.filterPriceRadio,
+      filterPriceFrom: data.filterPriceFrom,
+      filterPriceTo: data.filterPriceTo,
+    };
     await onChange(dataForUpload);
   };
 
