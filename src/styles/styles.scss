@@ -25,6 +25,7 @@
   --hover-active-color: #212121;
   --hover-text-shadow: 0 5px 10px var(--text-color),
     0 30px 50px var(--btn-border-color);
+  --hover-box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
   --empty-color: #cdc6c6;
 }
 
@@ -38,7 +39,6 @@
   // --icons-color: #fff;
   // --second-text-color: #fff;
   // --background-btn-second-color: #414141;
-  
 
   --main-color: #212121;
   // --accent-color: #fbef35;
@@ -60,7 +60,6 @@
   --hover-text-shadow: 0 5px 10px var(--text-color),
     0 30px 50px var(--accent-color);
   --empty-color: #3b3b3b;
-  
 }
 body {
   // background-color: var(--background-color);

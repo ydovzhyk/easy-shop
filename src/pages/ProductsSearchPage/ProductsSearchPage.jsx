@@ -1,21 +1,38 @@
-// import { useDispatch } from 'react-redux';
-import { Outlet } from 'react-router-dom';
-// import { searchProducts } from 'redux/product/product-operations';
-// import { getProductsByQuery } from 'redux/product/product-selectors';
+import { useEffect, useState, useMemo } from 'react';
+import { Outlet, useSearchParams, useParams } from 'react-router-dom';
+
+import { useDispatch } from 'react-redux';
+import { searchProducts } from 'redux/product/product-operations';
+
 import Filter from 'components/Filter/Filter';
 import Container from 'components/Shared/Container/Container';
+import { translateParamsToUA } from '../../funcs&hooks/translateParamsToUA.js';
 
 const ProductsSearchPage = () => {
-  // const [searchParams] = useSearchParams();
-  // const searchQuery = searchParams.get('search') ?? '';
-  // const dispatch = useDispatch();
+  const [filterData, setFilterData] = useState({});
+  const { category, subcategory } = useParams();
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get('search') ?? '';
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   if (searchQuery === '') {
-  //     return;
-  //   }
-  //   dispatch(searchProducts(searchQuery));
-  // }, [searchQuery, dispatch]);
+  const payload = useMemo(() => {
+    return {
+      searchQuery,
+      section: !category ? '' : translateParamsToUA(category).categoryName,
+      category: !subcategory
+        ? ''
+        : translateParamsToUA(category, subcategory).subCategoryName,
+      filterData,
+    };
+  }, [category, subcategory, searchQuery, filterData]);
+
+  useEffect(() => {
+    dispatch(searchProducts(payload));
+  }, [payload, dispatch]);
+
+  const dataFilterHandler = dataFilter => {
+    setFilterData(dataFilter);
+  };
 
   return (
     <div>
@@ -26,7 +43,7 @@ const ProductsSearchPage = () => {
             padding: '20px 0',
           }}
         >
-          <Filter />
+          <Filter onChange={dataFilterHandler} />
           <Outlet />
         </div>
       </Container>

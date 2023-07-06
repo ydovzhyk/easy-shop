@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink, useSearchParams, useParams } from 'react-router-dom';
 import { MdClose } from 'react-icons/md';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { getProductsByQuery } from 'redux/product/product-selectors';
-import { searchProducts } from 'redux/product/product-operations';
 import { resetHeaderForm } from 'redux/product/product-slice';
 import { resetFilterProduct } from 'redux/product/product-slice';
 
@@ -31,8 +30,7 @@ const Products = () => {
       return;
     }
     setQuery(searchQuery);
-    dispatch(searchProducts(searchQuery));
-  }, [searchQuery, dispatch]);
+  }, [searchQuery]);
 
   const handleClearSearchQueryClick = () => {
     searchParams.delete('search');
@@ -108,8 +106,9 @@ const Products = () => {
             )}
           </ul>
         )}
-        {searchQuery && (
-          <div style={{ marginBottom: '15px' }}>
+
+        <div style={{ marginBottom: '15px' }}>
+          {searchQuery && (
             <button
               type="button"
               className={s.searchContent}
@@ -118,16 +117,17 @@ const Products = () => {
               <Text textClass="searchQueryContent" text={searchQuery} />
               <MdClose size={22} />
             </button>
-            <button
-              type="button"
-              className={s.searchContent}
-              onClick={handleClearFiltersClick}
-            >
-              <Text textClass="searchQueryContent" text="Скинути фільтри" />
-              <MdClose size={22} />
-            </button>
-          </div>
-        )}
+          )}
+          <button
+            type="button"
+            className={s.searchContent}
+            onClick={handleClearFiltersClick}
+          >
+            <Text textClass="searchQueryContent" text="Скинути фільтри" />
+            <MdClose size={22} />
+          </button>
+        </div>
+
         {products.length > 0 && (
           <ul className={s.listCard}>
             {products.map(

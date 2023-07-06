@@ -64,13 +64,9 @@ const ProductCard = () => {
   const setProductToBasket = () => {
     if (!isLogin) {
       navigate('/login');
-      return
+      return;
     }
-    const newBasket = isProductInBasket
-      ? userProductBasket.filter(item => item !== id)
-      : [...userProductBasket, id];
-    dispatch(updateUserBasket({ userBasket: newBasket }));
-    // console.log('change basket');
+    dispatch(updateUserBasket({ productId: id }));
   };
 
   const chattingRef = useRef();
@@ -120,10 +116,10 @@ const ProductCard = () => {
                       <span className={s.productPriceDiscount}>-8%</span>
                       <Text text={price} textClass="title" />
                     </div>
-                      <ProductSizes
-                        sizeValuesArray={sizeValuesArray}
-                        text="Розміри:"
-                      />
+                    <ProductSizes
+                      sizeValuesArray={sizeValuesArray}
+                      text="Розміри:"
+                    />
 
                     <div className={s.buyBtns}>
                       <NavLink to={isLogin ? '/checkout' : '/login'}>
@@ -136,6 +132,7 @@ const ProductCard = () => {
 
                       <Button
                         type="button"
+                        btnClass={!isProductInBasket ? 'btnLight' : 'btnDark'}
                         text={
                           isProductInBasket
                             ? 'Товар у кошику'

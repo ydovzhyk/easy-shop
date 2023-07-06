@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { BsEscape } from 'react-icons/bs';
@@ -25,7 +25,8 @@ const UserInfo = () => {
   const userAvatar = useSelector(getUserAvatar);
   const user = useSelector(getUser);
   const dispatch = useDispatch();
- 
+  const navigate = useNavigate();
+
   const [userBasketLength, setUserBasketLength] = useState(0);
   const [userLikesLength, setUserLikesLength] = useState(0);
 
@@ -43,14 +44,15 @@ const UserInfo = () => {
     }
   }, [user]);
 
-  const onLogout = () => {
+  const onLogout = async () => {
+    navigate('/');
+    await dispatch(logout());
     const authData = {
       accessToken: null,
       refreshToken: null,
       sid: null,
     };
-    localStorage.setItem('easy-shop.authData', JSON.stringify(authData));
-    dispatch(logout());
+    await localStorage.setItem('easy-shop.authData', JSON.stringify(authData));
   };
 
   const getClassName = ({ isActive }) => {

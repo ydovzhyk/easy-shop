@@ -28,7 +28,8 @@ const HeaderForm = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      productName: '',
+      productName:
+        JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '',
     },
   });
 
@@ -40,10 +41,18 @@ const HeaderForm = () => {
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
-    await setSearchParams(
-      data.productName.trim() !== '' ? { search: data.productName } : {}
+    await window.sessionStorage.setItem(
+      'searchQuery',
+      JSON.stringify(data.productName)
     );
-    dispatch(submitHeaderForm());
+    await setSearchParams({ search: data.productName });
+    await dispatch(submitHeaderForm());
+  };
+
+  const handleClick = () => {
+    navigate(
+      pathname === '/' ? '/products' : isUserAt404Page ? '/products' : pathname
+    );
   };
 
   return (
@@ -72,15 +81,7 @@ const HeaderForm = () => {
         type="submit"
         btnClass="searchBtn"
         text={<CiSearch size={30} />}
-        handleClick={() =>
-          navigate(
-            pathname === '/'
-              ? '/products'
-              : isUserAt404Page
-              ? '/products'
-              : pathname
-          )
-        }
+        handleClick={handleClick}
       ></Button>
     </form>
   );
