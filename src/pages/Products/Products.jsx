@@ -33,6 +33,7 @@ const Products = () => {
   }, [searchQuery]);
 
   const handleClearSearchQueryClick = () => {
+    window.sessionStorage.clear();
     searchParams.delete('search');
     setSearchParams(searchParams);
     dispatch(resetHeaderForm());
