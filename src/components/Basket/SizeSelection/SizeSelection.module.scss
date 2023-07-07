@@ -1,21 +1,22 @@
 @use '../../../styles/mixins';
 
 .menuGroupList {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 10px;
-    justify-content: center;
-    justify-items: center;
-
-    @include mixins.mq(tablet) {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    }
-
-    @include mixins.mq(desktop) {}
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
 }
 
 .menuGroupList li:nth-child(4n) {
     margin-right: 0;
+}
+
+.size {
+    display: inline-block;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 8px;
 }
 
 .menuGroupItems {
@@ -23,17 +24,7 @@
     flex-direction: column;
     justify-content: center;
     justify-items: center;
-    width: 115px;
-    border: 1px solid #dedddd;
-    border-radius: 5px;
-
-    @include mixins.mq(tablet) {
-        width: 130px;
-    }
-
-    @include mixins.mq(desktop) {
-        width: 135px;
-    }
+    width: 210px;
 }
 
 .menuGroupItems:hover {
