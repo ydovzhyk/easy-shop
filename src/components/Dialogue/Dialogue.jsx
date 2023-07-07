@@ -1,4 +1,6 @@
 // import Container from 'components/Shared/Container/Container';
+import { getLogin } from 'redux/auth/auth-selectors';
+
 import { getUserAvatar } from 'redux/auth/auth-selectors';
 import { BiMessageDetail } from 'react-icons/bi';
 import Text from 'components/Shared/Text/Text';
@@ -19,15 +21,11 @@ const Dialogue = () => {
   const userId = useSelector(getID);
   const productById = useSelector(selectProductById);
   const userAvatar = useSelector(getUserAvatar);
+  const isUserLogin = useSelector(getLogin);
+
+  console.log(userId, productById);
 
   console.log('User avatar');
-
-  const questionRequest = () => {
-    console.log('userId:', userId);
-    console.log('productById:', productById);
-    console.log('productOner:', productById.owner);
-    console.log('productId:', productById._id);
-  };
 
   return (
     <div className={s.dialogueContainer}>
@@ -38,13 +36,23 @@ const Dialogue = () => {
       <div className={s.avatar}>
         <Avatar avatarClass="photoDialog" src={userAvatar} />
       </div>
-      <textarea></textarea>
+      <ul>
+        <li></li>
+      </ul>
+      <textarea className={s.textarea} rows={5} cols={40} />
       <div className={s.questionButton}>
         <Button
           type="button"
-          text="Увійти, щоб запитати продавця"
-          handleClick={questionRequest}
+          text={isUserLogin ? 'Надіслати' : 'Авторизуйтеся'}
+          btnClass="btnLight"
+          // handleClick={questionRequest}
         />
+        {!isUserLogin && (
+          <Text
+            text="*Щоб написати продавцю, увійдіть в обліковий запис або зареєструйтеся"
+            textClass="messageTextBtn"
+          />
+        )}
       </div>
     </div>
   );
