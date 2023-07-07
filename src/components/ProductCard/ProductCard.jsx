@@ -18,7 +18,8 @@ import Dialogue from 'components/Dialogue/Dialogue';
 import Container from 'components/Shared/Container/Container';
 import Text from 'components/Shared/Text/Text';
 import Button from 'components/Shared/Button/Button';
-import ProductSizes from './Productsizes';
+// import ProductSizes from 'components/ProductCard/ProductSizes';
+import SizeSelection from 'components/Basket/SizeSelection/SizeSelection'
 import ProductInfo from './ProductInfo';
 import Loader from 'components/Loader/Loader';
 import { translateParamsToUA } from '../../funcs&hooks/translateParamsToUA.js';
@@ -32,6 +33,7 @@ const ProductCard = () => {
   const translatedParamsObj = translateParamsToUA(category, subcategory);
   const [categoryName, subCategoryName] = Object.values(translatedParamsObj);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
+  const [selectedSizes, setSelectedSizes] = useState([]);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -57,7 +59,7 @@ const ProductCard = () => {
     vip,
   } = product;
 
-  const sizeValuesArray = size ? size.map(item => item[0].value) : [];
+  // const sizeValuesArray = size ? size.map(item => item[0].value) : [];
 
   const userProductBasket = useSelector(selectUserBasket);
   const isProductInBasket = userProductBasket
@@ -69,7 +71,10 @@ const ProductCard = () => {
       navigate('/login');
       return;
     }
-    dispatch(updateUserBasket({ productId: id }));
+    dispatch(updateUserBasket({
+      productId: id,
+      selectedSizes: selectedSizes
+    }));
   };
 
   const chattingRef = useRef();
@@ -77,6 +82,11 @@ const ProductCard = () => {
   const scrollToChating = () => {
     chattingRef.current.scrollIntoView({ behavior: 'smooth' });
   };
+
+  const handleSelectedSizesChange = sizes => {
+    setSelectedSizes(sizes);
+    console.log('selectedSizes:', selectedSizes);
+    };
 
   return (
     <section className={s.productCard}>
@@ -119,11 +129,14 @@ const ProductCard = () => {
                       <span className={s.productPriceDiscount}>-8%</span>
                       <Text text={price} textClass="title" />
                     </div>
-                    <ProductSizes
+                    {/* <ProductSizes
                       sizeValuesArray={sizeValuesArray}
                       text="Розміри:"
+                    /> */}
+                    <SizeSelection
+                      sizeOption={size}
+                      onSelectedSizesChange={handleSelectedSizesChange}
                     />
-
                     <div className={s.buyBtns}>
                       <NavLink to={isLogin ? '/checkout' : '/login'}>
                         <Button
