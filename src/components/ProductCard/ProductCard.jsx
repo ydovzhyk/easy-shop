@@ -135,7 +135,7 @@ const ProductCard = () => {
 
                       <Button
                         type="button"
-                        // btnClass={!isProductInBasket ? 'btnLight' : 'btnDark'}
+                        btnClass={!isProductInBasket ? 'btnLight' : 'btnDark'}
                         text={
                           isProductInBasket
                             ? 'Товар у кошику'
