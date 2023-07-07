@@ -7,28 +7,24 @@ import {
   selectProductById,
 } from 'redux/product/product-selectors';
 import { getProductById } from 'redux/product/product-operations';
-import { updateUserBasket } from 'redux/auth/auth-opetations';
-import { getLogin, selectUserBasket } from 'redux/auth/auth-selectors';
 import { clearOtherUser } from 'redux/otherUser/otherUser.slice';
 import { clearProductById } from 'redux/product/product-slice';
+import { updateUserBasket, updateUserLikes } from 'redux/auth/auth-opetations';
+import { getID, getLogin, selectUserBasket } from 'redux/auth/auth-selectors';
 
 import SellerInfo from './SellerInfo/SellerInfo';
-import PhotoCollection from 'components/Shared/PhotoCollection/PhotoCollection';
 import Dialogue from 'components/Dialogue/Dialogue';
-import Container from 'components/Shared/Container/Container';
-import Text from 'components/Shared/Text/Text';
-import Button from 'components/Shared/Button/Button';
 import ProductSizes from './Productsizes';
 import ProductInfo from './ProductInfo';
+import PhotoCollection from 'components/Shared/PhotoCollection/PhotoCollection';
+import Container from 'components/Shared/Container/Container';
+import Button from 'components/Shared/Button/Button';
+import Text from 'components/Shared/Text/Text';
 import Loader from 'components/Loader/Loader';
 import { translateParamsToUA } from '../../funcs&hooks/translateParamsToUA.js';
 // import { BsSuitHeart } from 'react-icons/bs';
 import { FiHeart } from 'react-icons/fi';
 import { BiMessageDetail } from 'react-icons/bi';
-
-// import { updateUserLikes } from 'redux/auth/auth-opetations';
-import { getID } from 'redux/auth/auth-selectors';
-import { updateUserLikes } from 'redux/auth/auth-opetations';
 
 import s from './ProductCard.module.scss';
 
@@ -44,17 +40,15 @@ const ProductCard = () => {
 
   const product = useSelector(selectProductById);
   const userId = useSelector(getID);
-  // const arrayUserLikes = useSelector(getUserLikes);
   const [isLiked, setIsLiked] = useState(false);
-
-  console.log('userId', userId);
 
   useEffect(() => {
     dispatch(clearOtherUser());
     dispatch(clearProductById());
     dispatch(getProductById(id)).then(() => setIsDataLoaded(true));
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [dispatch, id]);
+    setIsLiked(false);
+  }, [dispatch, id, isLiked]);
 
   const isLogin = useSelector(getLogin);
   const isLoading = useSelector(getLoadingProducts);
@@ -68,8 +62,8 @@ const ProductCard = () => {
     userLikes,
     size,
     vip,
+    _id,
   } = product;
-  console.log('userLikes', userLikes);
 
   const sizeValuesArray = size ? size.map(item => item[0].value) : [];
 
@@ -90,20 +84,15 @@ const ProductCard = () => {
   };
 
   // for likes
-  const handleUserLike = isLiked => {
-    setIsLiked(isLiked);
-  };
-
   const handleClick = async () => {
     if (!isLogin) {
       navigate('/login');
       return;
     }
 
-    await dispatch(updateUserLikes({ productId: id }));
+    await dispatch(updateUserLikes({ productId: _id }));
 
-    const newIsLiked = !isProductInLike;
-    handleUserLike(newIsLiked);
+    setIsLiked(true);
   };
 
   const chattingRef = useRef();

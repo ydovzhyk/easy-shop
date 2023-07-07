@@ -25,7 +25,6 @@ const VipProducts = () => {
   const userId = useSelector(getID);
 
   const isDesktop = useMediaQuery({ minWidth: 1280 });
-  console.log('arrayVipProducts', arrayVipProducts);
 
   useEffect(() => {
     dispatch(getVipProducts(currentPage));
