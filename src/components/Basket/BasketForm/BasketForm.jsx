@@ -50,10 +50,10 @@ const BasketForm = ({ ownerName, products, isTablet }) => {
       console.log('selectedSizes:', selectedSizes);
     };
 
-    const onSubmit = async (data, e) => {
-        e.preventDefault();
+    // const onSubmit = async (data, e) => {
+    //     e.preventDefault();
         
-    }
+    // }
     return (
         <form>
             <Text textClass="title" text={`Продавець: ${ownerName}`} />
