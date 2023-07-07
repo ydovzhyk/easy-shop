@@ -1,12 +1,13 @@
-import React from 'react';
-
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 // import SizeHovered from '../../Catalog/SizeHovered/SizeHovered';
 
 import { updateUserLikes } from 'redux/auth/auth-opetations';
+import { getLogin } from 'redux/auth/auth-selectors.js';
 
 import NoPhoto from '../../../images/catalog_photo/no_photo.jpg';
+import ErrorMessage from 'components/Shared/ErrorMessage/ErrorMessage';
 import Text from 'components/Shared/Text/Text';
 import { FiHeart } from 'react-icons/fi';
 import { translateParamsToEN } from 'funcs&hooks/translateParamsToEN';
@@ -30,11 +31,28 @@ const ProductItem = ({
   const [categoryName, subCategoryName] = Object.values(translatedParamsObj);
 
   const dispatch = useDispatch();
+  const isUserLogin = useSelector(getLogin);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [isErrorDisplayed, setIsErrorDisplayed] = useState(false);
 
+  // for likes
   const handleClick = async () => {
+    if (!isUserLogin) {
+      setIsErrorDisplayed(true);
+      setErrorMessage('Спочатку зареєструйтеся!');
+      return;
+    }
+
     await dispatch(updateUserLikes({ productId: _id }));
+
     const newIsLiked = !isLiked;
     handleLike(newIsLiked);
+  };
+
+  // for errorMessage
+  const resetError = () => {
+    setIsErrorDisplayed(false);
+    setErrorMessage(null);
   };
 
   return (
@@ -79,6 +97,9 @@ const ProductItem = ({
       {/* <div className={s.styleSizeCard}>
         <SizeHovered size={size} />
       </div> */}
+      {isErrorDisplayed && (
+        <ErrorMessage text={errorMessage} onDismiss={resetError} />
+      )}
     </li>
   );
 };

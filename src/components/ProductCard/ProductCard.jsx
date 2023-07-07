@@ -7,23 +7,28 @@ import {
   selectProductById,
 } from 'redux/product/product-selectors';
 import { getProductById } from 'redux/product/product-operations';
-import { updateUserBasket } from 'redux/auth/auth-opetations';
-import { getLogin, selectUserBasket } from 'redux/auth/auth-selectors';
 import { clearOtherUser } from 'redux/otherUser/otherUser.slice';
 import { clearProductById } from 'redux/product/product-slice';
+import { updateUserBasket, updateUserLikes } from 'redux/auth/auth-opetations';
+import { getID, getLogin, selectUserBasket } from 'redux/auth/auth-selectors';
 
 import SellerInfo from './SellerInfo/SellerInfo';
-import PhotoCollection from 'components/Shared/PhotoCollection/PhotoCollection';
 import Dialogue from 'components/Dialogue/Dialogue';
+
 import Container from 'components/Shared/Container/Container';
 import Text from 'components/Shared/Text/Text';
 import Button from 'components/Shared/Button/Button';
 // import ProductSizes from 'components/ProductCard/ProductSizes';
 import SizeSelection from 'components/Basket/SizeSelection/SizeSelection'
 import ProductInfo from './ProductInfo';
+import PhotoCollection from 'components/Shared/PhotoCollection/PhotoCollection';
+import Container from 'components/Shared/Container/Container';
+import Button from 'components/Shared/Button/Button';
+import Text from 'components/Shared/Text/Text';
 import Loader from 'components/Loader/Loader';
 import { translateParamsToUA } from '../../funcs&hooks/translateParamsToUA.js';
-import { BsSuitHeart } from 'react-icons/bs';
+// import { BsSuitHeart } from 'react-icons/bs';
+import { FiHeart } from 'react-icons/fi';
 import { BiMessageDetail } from 'react-icons/bi';
 
 import s from './ProductCard.module.scss';
@@ -32,19 +37,24 @@ const ProductCard = () => {
   const { category, subcategory, id } = useParams();
   const translatedParamsObj = translateParamsToUA(category, subcategory);
   const [categoryName, subCategoryName] = Object.values(translatedParamsObj);
+
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [selectedSizes, setSelectedSizes] = useState([]);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const product = useSelector(selectProductById);
+  const userId = useSelector(getID);
+  const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
     dispatch(clearOtherUser());
     dispatch(clearProductById());
     dispatch(getProductById(id)).then(() => setIsDataLoaded(true));
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [dispatch, id]);
+    setIsLiked(false);
+  }, [dispatch, id, isLiked]);
 
   const isLogin = useSelector(getLogin);
   const isLoading = useSelector(getLoadingProducts);
@@ -55,13 +65,17 @@ const ProductCard = () => {
     additionalPhotoUrl,
     price,
     owner,
+    userLikes,
     size,
     vip,
+    _id,
   } = product;
 
   // const sizeValuesArray = size ? size.map(item => item[0].value) : [];
 
   const userProductBasket = useSelector(selectUserBasket);
+
+  const isProductInLike = userLikes && userLikes.includes(userId);
   const isProductInBasket = userProductBasket
     ? userProductBasket.find(item => item === id)
     : [];
@@ -75,6 +89,18 @@ const ProductCard = () => {
       productId: id,
       selectedSizes: selectedSizes
     }));
+  };
+
+  // for likes
+  const handleClick = async () => {
+    if (!isLogin) {
+      navigate('/login');
+      return;
+    }
+
+    await dispatch(updateUserLikes({ productId: _id }));
+
+    setIsLiked(true);
   };
 
   const chattingRef = useRef();
@@ -158,9 +184,20 @@ const ProductCard = () => {
                       />
                     </div>
                     <div className={s.additionalOptsContainer}>
-                      <div className={s.additionalOpts}>
-                        <BsSuitHeart className={s.favoriteIcon} />
-                        <Text text="Додати в обрані" textClass="productText" />
+                      <div className={s.additionalOpts} onClick={handleClick}>
+                        {/* <BsSuitHeart className={s.favoriteIcon} /> */}
+
+                        <FiHeart
+                          className={`${isProductInLike ? s.active : s.liked}`}
+                        />
+                        <Text
+                          text={
+                            isProductInLike
+                              ? 'Товар обраний'
+                              : 'Додати в обрані'
+                          }
+                          textClass="productText"
+                        />
                       </div>
                       <div className={s.additionalOpts}>
                         <BiMessageDetail className={s.favoriteIcon} />
