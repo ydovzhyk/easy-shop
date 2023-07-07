@@ -94,26 +94,25 @@ const TopNavProducts = ({ category, subcategory, products, query }) => {
           })}
         </ul>
       )}
-      {category && !subcategory && (
+      {category && !subcategory && products.length > 0 && (
         <ul className={s.linkBox}>
-          {products.length > 0 &&
-            Object.entries(subCategoriesFilter).map(([key, val], index) => {
-              return (
-                <li key={index}>
-                  <NavLink
-                    className={({ isActive }) =>
-                      `${isActive ? s.active : s.link}`
-                    }
-                    to={getSubcategoryPath(query, categoryName, key)}
-                  >
-                    {key} -{' '}
-                    <span className={s.amountBoxSecondary}>
-                      {getDeclension(val)}
-                    </span>
-                  </NavLink>
-                </li>
-              );
-            })}
+          {Object.entries(subCategoriesFilter).map(([key, val], index) => {
+            return (
+              <li key={index}>
+                <NavLink
+                  className={({ isActive }) =>
+                    `${isActive ? s.active : s.link}`
+                  }
+                  to={getSubcategoryPath(query, categoryName, key)}
+                >
+                  {key} -{' '}
+                  <span className={s.amountBoxSecondary}>
+                    {getDeclension(val)}
+                  </span>
+                </NavLink>
+              </li>
+            );
+          })}
         </ul>
       )}
     </>
