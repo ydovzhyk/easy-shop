@@ -20,6 +20,8 @@ const HeaderForm = () => {
   const dispatch = useDispatch();
   const isUserAt404Page =
     !pathname.includes('/products') || !pathname.includes('/products/');
+  // const isUserAtProductsSearchPage =
+  //   pathname.includes('/products') || pathname.includes('/products/');
 
   const {
     control,
@@ -38,6 +40,15 @@ const HeaderForm = () => {
       reset();
     }
   }, [shouldHeaderFormReset, reset]);
+
+  // useEffect(() => {
+  //   if (isUserAtProductsSearchPage) {
+  //     console.log('так');
+  //     return;
+  //   }
+  //   console.log('ні');
+  //   reset();
+  // }, [isUserAtProductsSearchPage, reset]);
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
