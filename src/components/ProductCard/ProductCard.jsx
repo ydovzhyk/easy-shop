@@ -60,7 +60,10 @@ const ProductCard = () => {
   const sizeValuesArray = size ? size.map(item => item[0].value) : [];
 
   const userProductBasket = useSelector(selectUserBasket);
-  const isProductInBasket = userProductBasket.find(item => item === id);
+  const isProductInBasket = userProductBasket
+    ? userProductBasket.find(item => item === id)
+    : [];
+
   const setProductToBasket = () => {
     if (!isLogin) {
       navigate('/login');
@@ -132,7 +135,7 @@ const ProductCard = () => {
 
                       <Button
                         type="button"
-                        btnClass={!isProductInBasket ? 'btnLight' : 'btnDark'}
+                        // btnClass={!isProductInBasket ? 'btnLight' : 'btnDark'}
                         text={
                           isProductInBasket
                             ? 'Товар у кошику'
