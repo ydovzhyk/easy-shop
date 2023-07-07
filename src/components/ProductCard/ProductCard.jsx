@@ -14,7 +14,12 @@ import { getID, getLogin, selectUserBasket } from 'redux/auth/auth-selectors';
 
 import SellerInfo from './SellerInfo/SellerInfo';
 import Dialogue from 'components/Dialogue/Dialogue';
-import ProductSizes from './Productsizes';
+
+import Container from 'components/Shared/Container/Container';
+import Text from 'components/Shared/Text/Text';
+import Button from 'components/Shared/Button/Button';
+// import ProductSizes from 'components/ProductCard/ProductSizes';
+import SizeSelection from 'components/Basket/SizeSelection/SizeSelection'
 import ProductInfo from './ProductInfo';
 import PhotoCollection from 'components/Shared/PhotoCollection/PhotoCollection';
 import Container from 'components/Shared/Container/Container';
@@ -34,6 +39,7 @@ const ProductCard = () => {
   const [categoryName, subCategoryName] = Object.values(translatedParamsObj);
 
   const [isDataLoaded, setIsDataLoaded] = useState(false);
+  const [selectedSizes, setSelectedSizes] = useState([]);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -65,22 +71,24 @@ const ProductCard = () => {
     _id,
   } = product;
 
-  const sizeValuesArray = size ? size.map(item => item[0].value) : [];
+  // const sizeValuesArray = size ? size.map(item => item[0].value) : [];
 
   const userProductBasket = useSelector(selectUserBasket);
-  const isProductInBasket = userProductBasket.find(item => item === id);
+
   const isProductInLike = userLikes && userLikes.includes(userId);
+  const isProductInBasket = userProductBasket
+    ? userProductBasket.find(item => item === id)
+    : [];
 
   const setProductToBasket = () => {
     if (!isLogin) {
       navigate('/login');
       return;
     }
-    const newBasket = isProductInBasket
-      ? userProductBasket.filter(item => item !== id)
-      : [...userProductBasket, id];
-    dispatch(updateUserBasket({ userBasket: newBasket }));
-    // console.log('change basket');
+    dispatch(updateUserBasket({
+      productId: id,
+      selectedSizes: selectedSizes
+    }));
   };
 
   // for likes
@@ -100,6 +108,11 @@ const ProductCard = () => {
   const scrollToChating = () => {
     chattingRef.current.scrollIntoView({ behavior: 'smooth' });
   };
+
+  const handleSelectedSizesChange = sizes => {
+    setSelectedSizes(sizes);
+    console.log('selectedSizes:', selectedSizes);
+    };
 
   return (
     <section className={s.productCard}>
@@ -142,11 +155,14 @@ const ProductCard = () => {
                       <span className={s.productPriceDiscount}>-8%</span>
                       <Text text={price} textClass="title" />
                     </div>
-                    <ProductSizes
+                    {/* <ProductSizes
                       sizeValuesArray={sizeValuesArray}
                       text="Розміри:"
+                    /> */}
+                    <SizeSelection
+                      sizeOption={size}
+                      onSelectedSizesChange={handleSelectedSizesChange}
                     />
-
                     <div className={s.buyBtns}>
                       <NavLink to={isLogin ? '/checkout' : '/login'}>
                         <Button
@@ -158,6 +174,7 @@ const ProductCard = () => {
 
                       <Button
                         type="button"
+                        btnClass={!isProductInBasket ? 'btnLight' : 'btnDark'}
                         text={
                           isProductInBasket
                             ? 'Товар у кошику'

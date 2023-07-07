@@ -5,7 +5,7 @@ import { useMediaQuery } from 'react-responsive';
 // import { BsTrash } from 'react-icons/bs';
 // import { TfiPlus, TfiCheck } from 'react-icons/tfi';
 import { getMessage, selectProductsFromBasket, selectSellersFromBasket } from 'redux/product/product-selectors';
-import { getID } from 'redux/auth/auth-selectors';
+import { getUser} from 'redux/auth/auth-selectors';
 import { getProductsFromBasket } from 'redux/product/product-operations';
 
 import Container from 'components/Shared/Container/Container';
@@ -25,7 +25,7 @@ const Basket = () => {
   const dispatch = useDispatch();
  
   const isMessage = useSelector(getMessage);
-  const userId = useSelector(getID);
+  const user = useSelector(getUser);
   const productsFrombasket = useSelector(selectProductsFromBasket);
   const sellersFrombasket = useSelector(selectSellersFromBasket);
   
@@ -62,8 +62,8 @@ const Basket = () => {
   
 
   useEffect(() => {
-    dispatch(getProductsFromBasket(userId));
-  }, [dispatch, userId]); 
+    dispatch(getProductsFromBasket(user._id));
+  }, [dispatch, user]); 
 
 
   return (

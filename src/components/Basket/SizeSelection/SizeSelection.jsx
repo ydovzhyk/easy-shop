@@ -48,13 +48,17 @@ const SizeSelection = ({ sizeOption, onSelectedSizesChange, isFormSubmitted, his
 
     return (
         <div className={s.sizeBox}>
-            {sizeValuesArray.length > 1 ? (
-                <Text text="Оберіть розмір:" textClass="productLabels"/>
-            ) : (
-                <Text text="Розмір:" textClass="productLabels"/>
-            )}
+            <Text
+                text={
+                    sizeValuesArray.length > 1
+                        ? "Оберіть розмір:"
+                        : "Розмір:"
+                }
+                textClass="productLabels"
+            />
             <ul className={s.menuGroupList}>
                 {Object.entries(sizeValuesArray).map(([size, values]) => {
+                    console.log('values', values);
                     const isSelected = selectedSizes.some(s => s[0].name === size);
                     return (
                         <li
@@ -65,32 +69,27 @@ const SizeSelection = ({ sizeOption, onSelectedSizesChange, isFormSubmitted, his
                             onClick={() => handleSizeClick(size)}
                         >
                             {values.length > 1 ? (
-                                <div>
+                                <div className={s.size}>
+                                    <Text
+                                        text={
+                                            `EU: ${values[0].EU} / UA: ${values[1].UA} / IN: ${values[2].IN}`
+                                        }
+                                        textClass="after-title-bigger"
+                                    />
                                     
-                                    <Text
-                                    text={`EU: ${values[0].EU}`}
-                                    textClass="titleGroupItems"
-                                    />
-                                    <Text
-                                    text={`UA: ${values[1].UA}`}
-                                    textClass="after-title-bigger"
-                                    />
-                                    <Text
-                                    text={`IN: ${values[2].IN}`}
-                                    textClass="after-title-bigger"
-                                />
                                 </div>
                                 
                             ) : (
                                     sizeValuesArray.map(s => { 
                                         return (
-                                            <Text
+                                            <div className={s.size}>
+                                                <Text
                                                 text={`${Object.keys(s[0])}`}
-                                                textClass="titleGroupItems"
-                                    />
+                                                textClass="after-title-bigger"
+                                                />
+                                            </div>
                                         )
                                     })
-                                    
                             )}
                         </li>
                     );

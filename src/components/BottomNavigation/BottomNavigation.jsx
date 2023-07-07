@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector } from 'react-redux';
@@ -6,13 +7,31 @@ import { HiPlus } from 'react-icons/hi';
 import { SlBasket } from 'react-icons/sl';
 import { HiOutlineUser } from 'react-icons/hi';
 import { BiMessageDetail } from 'react-icons/bi';
-import { getLogin, getUserAvatar } from 'redux/auth/auth-selectors';
+import { getLogin, getUser, getUserAvatar } from 'redux/auth/auth-selectors';
 import s from './BottomNavigation.module.scss';
 
 const BottomNavigation = () => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const isLogin = useSelector(getLogin);
   const userAvatar = useSelector(getUserAvatar);
+  const user = useSelector(getUser);
+  const [userBasketLength, setUserBasketLength] = useState(0);
+  const [userLikesLength, setUserLikesLength] = useState(0);
+
+  useEffect(() => {
+    if (user && user.userBasket) {
+      setUserBasketLength(user.userBasket.length);
+    } else {
+      setUserBasketLength(0);
+    }
+
+    if (user && user.userLikes) {
+      setUserLikesLength(user.userLikes.length);
+    } else {
+      setUserLikesLength(0);
+    }
+  }, [user]);
+
 
   return (
     <nav className={s.navigationBottom}>
@@ -22,12 +41,14 @@ const BottomNavigation = () => {
           className={({ isActive }) => `${isActive ? s.active : ''}`}
         >
           <SlBasket className={s.navIcon} size={isMobile ? 25 : 30} />
+          <span>{userBasketLength}</span>
         </NavLink>
         <NavLink
           to={isLogin ? '/favorites' : '/login'}
           className={({ isActive }) => `${isActive ? s.active : ''}`}
         >
           <BsSuitHeart className={s.navIcon} size={isMobile ? 25 : 30} />
+          <span>{userLikesLength}</span>
         </NavLink>
         <NavLink
           to={isLogin ? '/add-product' : '/login'}

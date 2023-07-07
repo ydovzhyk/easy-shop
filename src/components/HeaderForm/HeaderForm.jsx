@@ -18,44 +18,44 @@ const HeaderForm = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const dispatch = useDispatch();
-  const isUserAt404Page =
-    !pathname.includes('/products') || !pathname.includes('/products/');
+  const isUserAtProductsSearchPage = pathname.includes('/products');
 
   const {
     control,
     handleSubmit,
     reset,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm({
     defaultValues: {
-      productName: '',
+      productName:
+        JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '',
     },
   });
 
   useEffect(() => {
     if (shouldHeaderFormReset) {
       reset();
+      window.sessionStorage.clear();
     }
-  }, [shouldHeaderFormReset, reset]);
+
+    if (!isUserAtProductsSearchPage) {
+      reset();
+      window.sessionStorage.clear();
+    }
+  }, [shouldHeaderFormReset, isUserAtProductsSearchPage, reset]);
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
-    await setSearchParams(
-      data.productName.trim() !== '' ? { search: data.productName } : {}
+    await window.sessionStorage.setItem(
+      'searchQuery',
+      JSON.stringify(data.productName)
     );
-    dispatch(submitHeaderForm());
+    await setSearchParams({ search: data.productName });
+    await dispatch(submitHeaderForm());
   };
 
   const handleClick = () => {
-    if (isValid) {
-      navigate(
-        pathname === '/'
-          ? '/products'
-          : isUserAt404Page
-          ? '/products'
-          : pathname
-      );
-    }
+    navigate(!isUserAtProductsSearchPage ? '/products' : pathname);
   };
 
   return (
