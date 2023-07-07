@@ -47,6 +47,10 @@
 
 a {
   transition: transform var(--transition-duration) var(--timing-function);
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
   &.active {
     position: relative;
     &::before {
