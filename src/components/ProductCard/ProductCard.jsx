@@ -22,7 +22,6 @@ import Button from 'components/Shared/Button/Button';
 import SizeSelection from 'components/Basket/SizeSelection/SizeSelection'
 import ProductInfo from './ProductInfo';
 import PhotoCollection from 'components/Shared/PhotoCollection/PhotoCollection';
-import Container from 'components/Shared/Container/Container';
 import Button from 'components/Shared/Button/Button';
 import Text from 'components/Shared/Text/Text';
 import Loader from 'components/Loader/Loader';
