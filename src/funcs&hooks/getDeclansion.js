@@ -3,10 +3,15 @@ export const getDeclension = amount => {
     return `${amount.toString()} ${'річ'}`;
   }
   if (
-    amount.toString().endsWith('2' || '3' || '4') &&
-    !amount.toString().endsWith('12' || '13' || '14')
+    (amount.toString().endsWith('2') ||
+      amount.toString().endsWith('3') ||
+      amount.toString().endsWith('4')) &&
+    (!amount.toString().endsWith('12') ||
+      !amount.toString().endsWith('13') ||
+      !amount.toString().endsWith('14'))
   ) {
     return `${amount.toString()} ${'речі'}`;
   }
+
   return `${amount.toString()} ${'речей'}`;
 };

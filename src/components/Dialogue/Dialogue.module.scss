@@ -2,7 +2,7 @@
 
 .dialogueContainer {
   width: 50vw;
-    height: 300px;
+  // height: 300px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -33,12 +33,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 8px;
   border-radius: 50%;
-  border: 1px solid var(--icons-color);
 }
 
 .questionButton {
+  margin-top: 20px;
+  margin-bottom: 20px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
