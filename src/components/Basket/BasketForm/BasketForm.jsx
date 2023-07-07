@@ -23,7 +23,7 @@ const BasketForm = ({ ownerName, products, isTablet }) => {
     const [questionWindow, setQuestionWindow] = useState(false);
     
 
-    console.log('selectedSizes:', selectedSizes);
+    // console.log('selectedSizes:', selectedSizes);
 
     const handleButtonTrashClick = id => {
     setProductId(id);
@@ -31,19 +31,23 @@ const BasketForm = ({ ownerName, products, isTablet }) => {
     };
 
     const deleteProductFrombasket = choice => {
-        if (choice === 'yes') {
-            dispatch(updateUserBasket(productId));
-            setQuestionWindow(false);
-    
-        } else if (choice === 'no') {
-            setProductId(null);
-            setQuestionWindow(false);
+      if (choice === 'yes') {
+        console.log('yes', productId);
+        
+          dispatch(updateUserBasket({productId: productId}));
+          setQuestionWindow(false);
+       
+      } else if (choice === 'no') {
+        console.log('no');
+        setProductId(null)
+        setQuestionWindow(false);
         }
     };
 
 
     const handleSelectedSizesChange = sizes => {
-    setSelectedSizes(sizes);
+      setSelectedSizes(sizes);
+      console.log('selectedSizes:', selectedSizes);
     };
 
     const onSubmit = async (data, e) => {
