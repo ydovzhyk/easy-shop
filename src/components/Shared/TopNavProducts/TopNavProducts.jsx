@@ -16,18 +16,15 @@ const TopNavProducts = ({ category, subcategory, products, query }) => {
     subcategory
   );
 
-  const mainCategory = products
-    .map(product => product.section)
-    .filter((el, index, array) => array.indexOf(el) === index);
+  const mainCategoryFilter = products.reduce((acc, el) => {
+    acc[el.section] = (acc[el.section] || 0) + 1;
+    return acc;
+  }, {});
 
-  const secondaryCategory = products
-    .map(product => product.category)
-    .filter((el, index, array) => array.indexOf(el) === index);
-
-  // const count = products.reduce((acc, el) => {
-  //   acc[el.section] = (acc[el.section] || 0) + 1;
-  //   return acc;
-  // }, {});
+  const subCategoriesFilter = products.reduce((acc, el) => {
+    acc[el.category] = (acc[el.category] || 0) + 1;
+    return acc;
+  }, {});
 
   return (
     <>
@@ -78,18 +75,18 @@ const TopNavProducts = ({ category, subcategory, products, query }) => {
 
       {!category && (
         <ul className={s.linkBox}>
-          {mainCategory.map((el, index) => {
+          {Object.entries(mainCategoryFilter).map(([key, value], index) => {
             return (
               <li key={index}>
                 <NavLink
                   className={({ isActive }) =>
                     `${isActive ? s.active : s.link}`
                   }
-                  to={getPath(query, el, true)}
+                  to={getPath(query, key, true)}
                 >
-                  {el} -{' '}
+                  {key} -{' '}
                   <span className={s.amountBoxSecondary}>
-                    {getDeclension(11)}
+                    {getDeclension(value)}
                   </span>
                 </NavLink>
               </li>
@@ -97,20 +94,20 @@ const TopNavProducts = ({ category, subcategory, products, query }) => {
           })}
         </ul>
       )}
-      {category && !subcategory && (
+      {category && !subcategory && products.length > 0 && (
         <ul className={s.linkBox}>
-          {secondaryCategory.map((el, index) => {
+          {Object.entries(subCategoriesFilter).map(([key, val], index) => {
             return (
               <li key={index}>
                 <NavLink
                   className={({ isActive }) =>
                     `${isActive ? s.active : s.link}`
                   }
-                  to={getSubcategoryPath(query, categoryName, el)}
+                  to={getSubcategoryPath(query, categoryName, key)}
                 >
-                  {el} -{' '}
+                  {key} -{' '}
                   <span className={s.amountBoxSecondary}>
-                    {getDeclension(11)}
+                    {getDeclension(val)}
                   </span>
                 </NavLink>
               </li>

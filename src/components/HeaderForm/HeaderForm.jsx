@@ -34,13 +34,13 @@ const HeaderForm = () => {
 
   useEffect(() => {
     if (shouldHeaderFormReset) {
-      window.sessionStorage.clear();
       reset();
+      window.sessionStorage.clear();
     }
 
     if (!isUserAtProductsSearchPage) {
-      window.sessionStorage.clear();
       reset();
+      window.sessionStorage.clear();
     }
   }, [shouldHeaderFormReset, isUserAtProductsSearchPage, reset]);
 
