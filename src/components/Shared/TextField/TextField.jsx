@@ -33,7 +33,7 @@ const TextField = forwardRef(
           required={required}
           pattern={pattern}
           title={title}
-          placeholder={name === 'productName' && placeholder}
+          placeholder={name === 'productName' ? placeholder : null}
         />
         {name !== 'productName' && (
           <span className={spanClass}>{placeholder}</span>

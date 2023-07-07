@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { NavLink, useSearchParams, useParams } from 'react-router-dom';
+import { useSearchParams, useParams } from 'react-router-dom';
 import { MdClose } from 'react-icons/md';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -10,10 +10,6 @@ import { resetFilterProduct } from 'redux/product/product-slice';
 import TopNavProducts from 'components/Shared/TopNavProducts/TopNavProducts';
 import ProductItem from 'components/Shared/ProductItem/ProductItem';
 import Text from 'components/Shared/Text/Text';
-import categoryOptions from 'components/AddProduct/category.json';
-import { getPath } from '../../funcs&hooks/getPath.js';
-import { getSubcategoryPath } from '../../funcs&hooks/getSubCategoryPath.js';
-import { getDeclension } from '../../funcs&hooks/getDeclansion.js';
 
 import s from './Products.module.scss';
 
@@ -32,7 +28,14 @@ const Products = () => {
     setQuery(searchQuery);
   }, [searchQuery]);
 
+  useEffect(() => {
+    if (products.length < 1) {
+      return;
+    }
+  }, [products.length]);
+
   const handleClearSearchQueryClick = () => {
+    window.sessionStorage.clear();
     searchParams.delete('search');
     setSearchParams(searchParams);
     dispatch(resetHeaderForm());
@@ -42,70 +45,15 @@ const Products = () => {
     await dispatch(resetFilterProduct());
   };
 
-  let categoryName = '';
-  switch (category) {
-    case 'women':
-      categoryName = 'Жінкам';
-      break;
-    case 'men':
-      categoryName = 'Чоловікам';
-      break;
-    case 'children':
-      categoryName = 'Дитячі товари';
-      break;
-    case 'beauty&health':
-      categoryName = "Краса та здоров'я";
-      break;
-    default:
-      categoryName = category;
-      break;
-  }
-  const categoryIndex = Object.keys(categoryOptions).indexOf(categoryName);
-
   return (
     <section style={{ flexGrow: 1 }}>
       <div className={s.container}>
-        <TopNavProducts category={category} subcategory={subcategory} />
-        {!category && (
-          <ul className={s.linkBox}>
-            {Object.keys(categoryOptions).map((el, index) => {
-              return (
-                <li key={index}>
-                  <NavLink
-                    className={({ isActive }) =>
-                      `${isActive ? s.active : s.link}`
-                    }
-                    to={getPath(query, el, true)}
-                  >
-                    {el} -{' '}
-                    <span className={s.amountBox}>{getDeclension(11)}</span>
-                  </NavLink>
-                </li>
-              );
-            })}
-          </ul>
-        )}
-        {category && !subcategory && (
-          <ul className={s.linkBox}>
-            {Object.entries(categoryOptions)[categoryIndex][1].map(
-              (el, index) => {
-                return (
-                  <li key={index}>
-                    <NavLink
-                      className={({ isActive }) =>
-                        `${isActive ? s.active : s.link}`
-                      }
-                      to={getSubcategoryPath(query, categoryName, el)}
-                    >
-                      {el} -{' '}
-                      <span className={s.amountBox}>{getDeclension(11)}</span>
-                    </NavLink>
-                  </li>
-                );
-              }
-            )}
-          </ul>
-        )}
+        <TopNavProducts
+          products={products}
+          category={category}
+          subcategory={subcategory}
+          query={query}
+        />
 
         <div style={{ marginBottom: '15px' }}>
           {searchQuery && (

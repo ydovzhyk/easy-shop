@@ -18,8 +18,7 @@ const HeaderForm = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const dispatch = useDispatch();
-  const isUserAt404Page =
-    !pathname.includes('/products') || !pathname.includes('/products/');
+  const isUserAtProductsSearchPage = pathname.includes('/products');
 
   const {
     control,
@@ -35,9 +34,15 @@ const HeaderForm = () => {
 
   useEffect(() => {
     if (shouldHeaderFormReset) {
+      window.sessionStorage.clear();
       reset();
     }
-  }, [shouldHeaderFormReset, reset]);
+
+    if (!isUserAtProductsSearchPage) {
+      window.sessionStorage.clear();
+      reset();
+    }
+  }, [shouldHeaderFormReset, isUserAtProductsSearchPage, reset]);
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
@@ -50,9 +55,7 @@ const HeaderForm = () => {
   };
 
   const handleClick = () => {
-    navigate(
-      pathname === '/' ? '/products' : isUserAt404Page ? '/products' : pathname
-    );
+    navigate(!isUserAtProductsSearchPage ? '/products' : pathname);
   };
 
   return (
