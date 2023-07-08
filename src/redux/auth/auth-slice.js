@@ -7,6 +7,7 @@ import {
   updateUserSettings,
   updateUserBasket,
   updateUserLikes,
+  getUserLikesBasket,
 } from './auth-opetations';
 
 const initialState = {
@@ -25,7 +26,9 @@ const initialState = {
     about: null,
     orders: [],
     userBasket: [],
+    basketProducts: [],
     userLikes: [],
+    likedProducts: [],
     username: null,
   },
   sid: null,
@@ -166,11 +169,12 @@ const auth = createSlice({
     },
     [updateUserBasket.fulfilled]: (store, { payload }) => {
       store.loading = false;
-      store.user.userBasket = payload.userBasket;
+      store.user.userBasket = payload.updatedUser.userBasket;
+      store.basketProducts = payload.basketProducts;
     },
     [updateUserBasket.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload;
+      store.error = payload.message;
     },
     // * UPDATE USER LIKES
     [updateUserLikes.pending]: store => {
@@ -179,11 +183,26 @@ const auth = createSlice({
     },
     [updateUserLikes.fulfilled]: (store, { payload }) => {
       store.loading = false;
-      store.user = payload;
+      store.user = payload.updatedUser;
+      store.likedProducts = payload.likedProducts;
     },
     [updateUserLikes.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload;
+      store.error = payload.message;
+    },
+    // * GET INFO BASKET & LIKES
+    [getUserLikesBasket.pending]: store => {
+      store.loading = true;
+      store.error = '';
+    },
+    [getUserLikesBasket.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.likedProducts = payload.likedProducts;
+      store.basketProducts = payload.basketProducts;
+    },
+    [getUserLikesBasket.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload.message;
     },
   },
 });
