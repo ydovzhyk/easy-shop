@@ -12,20 +12,16 @@ import {
   useSelector,
 } from 'react-redux';
 
-import { getID } from 'redux/auth/auth-selectors';
-import { selectProductById } from 'redux/product/product-selectors';
+// import { getID } from 'redux/auth/auth-selectors';
+// import { selectProductById } from 'redux/product/product-selectors';
 
 import s from './Dialogue.module.scss';
 
 const Dialogue = () => {
-  const userId = useSelector(getID);
-  const productById = useSelector(selectProductById);
+  // const userId = useSelector(getID);
+  // const productById = useSelector(selectProductById);
   const userAvatar = useSelector(getUserAvatar);
   const isUserLogin = useSelector(getLogin);
-
-  console.log(userId, productById);
-
-  console.log('User avatar');
 
   return (
     <div className={s.dialogueContainer}>

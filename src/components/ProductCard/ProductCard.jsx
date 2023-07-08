@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { useParams, Link, NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -19,7 +19,7 @@ import Container from 'components/Shared/Container/Container';
 import Text from 'components/Shared/Text/Text';
 import Button from 'components/Shared/Button/Button';
 // import ProductSizes from 'components/ProductCard/ProductSizes';
-import SizeSelection from 'components/Basket/SizeSelection/SizeSelection'
+import SizeSelection from 'components/Basket/SizeSelection/SizeSelection';
 import ProductInfo from './ProductInfo';
 import Loader from 'components/Loader/Loader';
 import { translateParamsToUA } from '../../funcs&hooks/translateParamsToUA.js';
@@ -71,10 +71,12 @@ const ProductCard = () => {
       navigate('/login');
       return;
     }
-    dispatch(updateUserBasket({
-      productId: id,
-      selectedSizes: selectedSizes
-    }));
+    dispatch(
+      updateUserBasket({
+        productId: id,
+        selectedSizes: selectedSizes,
+      })
+    );
   };
 
   const chattingRef = useRef();
@@ -83,10 +85,13 @@ const ProductCard = () => {
     chattingRef.current.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleSelectedSizesChange = sizes => {
-    setSelectedSizes(sizes);
-    console.log('selectedSizes:', selectedSizes);
-    };
+  const handleSelectedSizesChange = useCallback(sizes => {
+    const transformedSizes = sizes.map(sizeGroup => {
+      const sizeName = sizeGroup[0].value[0].EU;
+      return [{ name: sizeName, value: sizeGroup[0].value }];
+    });
+    setSelectedSizes(transformedSizes);
+  }, []);
 
   return (
     <section className={s.productCard}>
