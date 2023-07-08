@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { CiSearch } from 'react-icons/ci';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
@@ -13,6 +13,7 @@ import Text from 'components/Shared/Text/Text';
 import s from './HeaderForm.module.scss';
 
 const HeaderForm = () => {
+  const [query, setQuery] = useState('');
   const shouldHeaderFormReset = useSelector(getHeaderFormReset);
   const [, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -35,17 +36,20 @@ const HeaderForm = () => {
   useEffect(() => {
     if (shouldHeaderFormReset) {
       reset();
+      setQuery('');
       window.sessionStorage.clear();
     }
 
-    if (!isUserAtProductsSearchPage) {
+    if (!isUserAtProductsSearchPage && !shouldHeaderFormReset) {
       reset();
+      setQuery('');
       window.sessionStorage.clear();
     }
   }, [shouldHeaderFormReset, isUserAtProductsSearchPage, reset]);
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
+    await setQuery(data.productName);
     await window.sessionStorage.setItem(
       'searchQuery',
       JSON.stringify(data.productName)

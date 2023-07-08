@@ -17,6 +17,7 @@ import { filterConditions } from './filterСonditions';
 import s from './Filter.module.scss';
 
 const Filter = ({ onChange }) => {
+  const [filterData, setFilterData] = useState({});
   const [showSizes, setShowSizes] = useState(true);
   const [showPrices, setShowPrices] = useState(true);
   const [showCondition, setShowCondition] = useState(true);
@@ -43,6 +44,31 @@ const Filter = ({ onChange }) => {
   });
 
   const values = getValues();
+
+  useEffect(() => {
+    if (!shouldFilterProductReset) {
+      return;
+    }
+    setSelectedSizes([]);
+    setFilterData({
+      size: '[]',
+      brandName: '',
+      condition: [],
+      filterPrice: '',
+      filterPriceFrom: '',
+      filterPriceTo: '',
+    });
+    reset();
+    dispatch(showFilterProduct());
+    onChange(filterData);
+  }, [
+    shouldFilterProductReset,
+    onChange,
+    dispatch,
+    filterData,
+    selectedSizes,
+    reset,
+  ]);
 
   useEffect(() => {
     if (shouldFilterProductReset) {
