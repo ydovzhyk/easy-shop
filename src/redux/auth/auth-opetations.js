@@ -6,6 +6,7 @@ import {
   axiosUpdateUser,
   axiosUpdateUserBasket,
   axiosUpdateUserLikes,
+  axiosUserLikesBasket,
 } from 'api/auth';
 
 // import axios from 'axios';
@@ -107,6 +108,19 @@ export const updateUserLikes = createAsyncThunk(
   async (userData, { rejectWithValue, getState, dispatch }) => {
     try {
       const data = await axiosUpdateUserLikes(userData);
+      return data;
+    } catch (error) {
+      const { data, status } = error.response;
+      return rejectWithValue({ data, status });
+    }
+  }
+);
+
+export const getUserLikesBasket = createAsyncThunk(
+  'auth/info',
+  async (_, { rejectWithValue, getState, dispatch }) => {
+    try {
+      const data = await axiosUserLikesBasket();
       return data;
     } catch (error) {
       const { data, status } = error.response;
