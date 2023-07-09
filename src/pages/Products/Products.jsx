@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { useSearchParams, useParams } from 'react-router-dom';
 import { MdClose } from 'react-icons/md';
 
@@ -14,21 +13,12 @@ import Text from 'components/Shared/Text/Text';
 import s from './Products.module.scss';
 
 const Products = () => {
-  // const [query, setQuery] = useState('');
   const { category, subcategory } = useParams();
   const products = useSelector(getProductsByQuery);
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery =
     JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '';
-  // searchParams.get('search') ?? '';
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   if (searchQuery === '') {
-  //     return;
-  //   }
-  //   setQuery(searchQuery);
-  // }, [searchQuery]);
 
   console.log(products);
 

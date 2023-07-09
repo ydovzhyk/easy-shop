@@ -27,6 +27,7 @@ const ProductsSearchPage = () => {
   }, [category, subcategory, searchQuery, filterData]);
 
   useEffect(() => {
+    console.log(searchQuery);
     dispatch(searchProducts(payload));
   }, [payload, dispatch]);
 
