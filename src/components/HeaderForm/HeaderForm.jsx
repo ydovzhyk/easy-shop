@@ -40,6 +40,7 @@ const HeaderForm = () => {
     if (!shouldHeaderFormReset) {
       return;
     }
+    console.log('reset 1');
     const resetForm = async () => {
       await reset();
       await window.sessionStorage.removeItem('searchQuery');
@@ -52,13 +53,8 @@ const HeaderForm = () => {
     if (isUserAtProductsSearchPage) {
       return;
     }
-    const resetForm = async () => {
-      await reset();
-      await window.sessionStorage.removeItem('searchQuery');
-      console.log(shouldHeaderFormReset);
-    };
-    resetForm();
-  }, [isUserAtProductsSearchPage, shouldHeaderFormReset, reset, dispatch]);
+    dispatch(resetHeaderForm());
+  }, [isUserAtProductsSearchPage, reset, dispatch]);
 
   const onSubmit = async (data, e) => {
     e.preventDefault();

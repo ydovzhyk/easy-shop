@@ -12,8 +12,6 @@ const ProductsSearchPage = () => {
   const [filterData, setFilterData] = useState({});
   const { category, subcategory } = useParams();
   const [searchParams] = useSearchParams();
-  // const searchQuery = () =>
-  // JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '';
   const searchQuery = searchParams.get('search') ?? '';
   const dispatch = useDispatch();
 
