@@ -6,6 +6,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { getHeaderFormReset } from 'redux/product/product-selectors';
 import { submitHeaderForm } from 'redux/product/product-slice';
 import { getProductsByQuery } from 'redux/product/product-selectors';
+import { resetHeaderForm } from 'redux/product/product-slice';
 
 import Button from 'components/Shared/Button';
 import { field } from 'components/Shared/TextField/fields';
@@ -15,7 +16,7 @@ import s from './HeaderForm.module.scss';
 
 const HeaderForm = () => {
   const shouldHeaderFormReset = useSelector(getHeaderFormReset);
-  const [, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const dispatch = useDispatch();
@@ -39,17 +40,25 @@ const HeaderForm = () => {
     if (!shouldHeaderFormReset) {
       return;
     }
-    window.sessionStorage.clear();
-    reset();
+    const resetForm = async () => {
+      await reset();
+      await window.sessionStorage.removeItem('searchQuery');
+      await dispatch(submitHeaderForm());
+    };
+    resetForm();
   }, [shouldHeaderFormReset, reset, dispatch]);
 
   useEffect(() => {
     if (isUserAtProductsSearchPage) {
       return;
     }
-    window.sessionStorage.clear();
-    reset();
-  }, [isUserAtProductsSearchPage, reset, dispatch]);
+    const resetForm = async () => {
+      await reset();
+      await window.sessionStorage.removeItem('searchQuery');
+      console.log(shouldHeaderFormReset);
+    };
+    resetForm();
+  }, [isUserAtProductsSearchPage, shouldHeaderFormReset, reset, dispatch]);
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
@@ -58,7 +67,7 @@ const HeaderForm = () => {
       JSON.stringify(data.productName)
     );
     await setSearchParams({ search: data.productName });
-    await dispatch(submitHeaderForm());
+    // await dispatch(submitHeaderForm());
   };
 
   const handleClick = () => {

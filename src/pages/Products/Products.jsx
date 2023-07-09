@@ -25,7 +25,7 @@ const Products = () => {
   const handleClearSearchQueryClick = () => {
     searchParams.delete('search');
     setSearchParams(searchParams);
-    window.sessionStorage.clear();
+    // window.sessionStorage.removeItem('searchQuery');
     dispatch(resetHeaderForm());
   };
 

@@ -12,10 +12,13 @@ const ProductsSearchPage = () => {
   const [filterData, setFilterData] = useState({});
   const { category, subcategory } = useParams();
   const [searchParams] = useSearchParams();
+  // const searchQuery = () =>
+  // JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '';
   const searchQuery = searchParams.get('search') ?? '';
   const dispatch = useDispatch();
 
   const payload = useMemo(() => {
+    console.log('зміна');
     return {
       searchQuery,
       section: !category ? '' : translateParamsToUA(category).categoryName,
@@ -29,7 +32,7 @@ const ProductsSearchPage = () => {
   useEffect(() => {
     console.log(searchQuery);
     dispatch(searchProducts(payload));
-  }, [payload, dispatch]);
+  }, [payload, searchQuery, dispatch]);
 
   const dataFilterHandler = dataFilter => {
     setFilterData(dataFilter);
