@@ -14,30 +14,28 @@ import Text from 'components/Shared/Text/Text';
 import s from './Products.module.scss';
 
 const Products = () => {
-  const [query, setQuery] = useState('');
+  // const [query, setQuery] = useState('');
   const { category, subcategory } = useParams();
   const products = useSelector(getProductsByQuery);
   const [searchParams, setSearchParams] = useSearchParams();
-  const searchQuery = searchParams.get('search') ?? '';
+  const searchQuery =
+    JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '';
+  // searchParams.get('search') ?? '';
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (searchQuery === '') {
-      return;
-    }
-    setQuery(searchQuery);
-  }, [searchQuery]);
+  // useEffect(() => {
+  //   if (searchQuery === '') {
+  //     return;
+  //   }
+  //   setQuery(searchQuery);
+  // }, [searchQuery]);
 
-  useEffect(() => {
-    if (products.length < 1) {
-      return;
-    }
-  }, [products.length]);
+  console.log(products);
 
   const handleClearSearchQueryClick = () => {
-    window.sessionStorage.clear();
     searchParams.delete('search');
     setSearchParams(searchParams);
+    window.sessionStorage.clear();
     dispatch(resetHeaderForm());
   };
 
@@ -52,7 +50,7 @@ const Products = () => {
           products={products}
           category={category}
           subcategory={subcategory}
-          query={query}
+          query={searchQuery}
         />
 
         <div style={{ marginBottom: '15px' }}>
