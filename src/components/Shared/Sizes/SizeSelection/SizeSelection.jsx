@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
 import Text from 'components/Shared/Text/Text';
 
-import s from 'components/Basket/SizeSelection/SizeSelection.module.scss';
+import s from 'components/Shared/Sizes/SizeSelection/SizeSelection.module.scss';
 
 const SizeSelection = ({
   sizeOption,

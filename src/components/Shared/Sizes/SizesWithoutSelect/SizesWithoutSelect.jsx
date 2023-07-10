@@ -1,25 +1,32 @@
 import Text from 'components/Shared/Text/Text';
-import s from 'components/ProductCard/ProductCard.module.scss';
+import s from 'components/Shared/Sizes/SizesWithoutSelect/SizesWithoutSelect.module.scss';
 import { nanoid } from '@reduxjs/toolkit';
 
-const ProductSizes = ({ sizeValuesArray, text }) => {
+const SizesWithoutSelect = ({ sizes, text }) => {
+  console.log('sizes:', sizes);
+  
+const transformedSizes= sizes
+    ? sizes.map(item => item[0].value)
+    : [];
+  // console.log('transformedSizes', transformedSizes);
   return (
     <div>
       <Text text={text} textClass="productLabels" />
-      {sizeValuesArray.length > 1
-        ? sizeValuesArray.map(item => {
+      <ul className={s.menuGroupList}>
+        {transformedSizes.length > 1
+        ? transformedSizes.map(item => {
             return (
-              <div className={s.size} key={nanoid()}>
+              <li className={s.size} key={nanoid()}>
                 <Text
                   text={`EU: ${item[0].EU} / UA: ${item[1].UA} / IN: ${item[2].IN}`}
                   textClass="after-title-bigger"
                 />
-              </div>
+              </li>
             );
           })
-        : sizeValuesArray.map(item => {
+        : transformedSizes.map(item => {
             return (
-              <div className={s.size} key={nanoid()}>
+              <li className={s.size} key={nanoid()}>
                 <Text
                   text={
                     item[0].EU
@@ -28,11 +35,13 @@ const ProductSizes = ({ sizeValuesArray, text }) => {
                   }
                   textClass="after-title-bigger"
                 />
-              </div>
+              </li>
             );
           })}
+      </ul>
+      
     </div>
   );
 };
 
-export default ProductSizes;
+export default SizesWithoutSelect;
