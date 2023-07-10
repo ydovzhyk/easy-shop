@@ -14,11 +14,13 @@ import s from './Products.module.scss';
 
 const Products = () => {
   const { category, subcategory } = useParams();
-  const products = useSelector(getProductsByQuery);
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const products = useSelector(getProductsByQuery);
+  const dispatch = useDispatch();
+
   const searchQuery =
     JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '';
-  const dispatch = useDispatch();
 
   const handleClearSearchQueryClick = async () => {
     await searchParams.delete('search');

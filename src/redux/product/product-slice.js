@@ -72,7 +72,7 @@ const products = createSlice({
       store.headerFormErrors = false;
     },
     clearSearchProducts: store => {
-      store.searchProducts = [];
+      store.productsByQuery = [];
     },
   },
   extraReducers: {
