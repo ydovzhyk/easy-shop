@@ -18,13 +18,11 @@ import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
 import Container from 'components/Shared/Container/Container';
 import Text from 'components/Shared/Text/Text';
 import Button from 'components/Shared/Button/Button';
-// import ProductSizes from 'components/ProductCard/ProductSizes';
-import SizeSelection from 'components/Basket/SizeSelection/SizeSelection';
+import SizeSelection from 'components/Shared/Sizes/SizeSelection/SizeSelection';
 import ProductInfo from './ProductInfo';
 import PhotoCollection from 'components/Shared/PhotoCollection/PhotoCollection';
 import Loader from 'components/Loader/Loader';
 import { translateParamsToUA } from '../../funcs&hooks/translateParamsToUA.js';
-// import { BsSuitHeart } from 'react-icons/bs';
 import { FiHeart } from 'react-icons/fi';
 import { BiMessageDetail } from 'react-icons/bi';
 
@@ -70,13 +68,14 @@ const ProductCard = () => {
     _id,
   } = product;
 
-// size && console.log('size:', size);
+
 
   const userProductBasket = useSelector(selectUserBasket);
+  console.log('userProductBasket:', userProductBasket.flatMap((arr) => arr));
 
   const isProductInLike = userLikes && userLikes.includes(userId);
   const isProductInBasket = userProductBasket
-    ? userProductBasket.find(item => item === id)
+    ? userProductBasket.flatMap((arr) => arr).find(product => product.productId === id)
     : [];
   
   const resetMessage = () => {
@@ -93,7 +92,6 @@ const ProductCard = () => {
       dispatch(
         updateUserBasket({
           productId: id,
-          // selectedSizes: selectedSizes,
           selectedSizes: size,
         })
       );
@@ -191,10 +189,7 @@ const ProductCard = () => {
                       <span className={s.productPriceDiscount}>-8%</span>
                       <Text text={price} textClass="title" />
                     </div>
-                    {/* <ProductSizes
-                      sizeValuesArray={sizeValuesArray}
-                      text="Розміри:"
-                    /> */}
+                    
                     <SizeSelection
                       sizeOption={size}
                       onSelectedSizesChange={handleSelectedSizesChange}
@@ -204,7 +199,8 @@ const ProductCard = () => {
                         <Button
                           type="button"
                           btnClass="btnLight"
-                          text="Купити зараз"
+                            text="Купити зараз"
+                            handleClick={setProductToBasket}
                         />
                       </NavLink>
 
