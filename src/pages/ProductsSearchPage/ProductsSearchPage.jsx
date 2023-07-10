@@ -29,18 +29,23 @@ const ProductsSearchPage = () => {
   }, [category, subcategory, searchQuery, filterData]);
 
   useEffect(() => {
-    if (hasHeaderFormErrors && searchQuery === '') {
-      dispatch(searchProducts(payload));
-      return;
-    }
-    if (!hasHeaderFormErrors && searchQuery === '') {
-      console.log('2');
-      return;
-    }
-    if (searchQuery !== '') {
-      dispatch(searchProducts(payload));
-      return;
-    }
+    // if (hasHeaderFormErrors && searchQuery === '') {
+    //   dispatch(searchProducts(payload));
+    //   return;
+    // }
+    // if (!hasHeaderFormErrors && searchQuery === '') {
+    //   console.log('2');
+    //   return;
+    // }
+    // if (searchQuery !== '') {
+    //   dispatch(searchProducts(payload));
+    //   return;
+    // }
+    const fn = async () => {
+      await dispatch(searchProducts(payload));
+    };
+    fn();
+    // dispatch(searchProducts(payload));
   }, [payload, hasHeaderFormErrors, searchQuery, dispatch]);
 
   const dataFilterHandler = dataFilter => {
