@@ -6,12 +6,10 @@ import { TfiPlus, TfiCheck } from 'react-icons/tfi';
 
 import { updateUserBasket } from 'redux/auth/auth-opetations';
 
-
 import Text from 'components/Shared/Text/Text';
 import CountBlock from 'components/Basket/CountBlock/CountBlock';
 import RoundButton from 'components/Shared/RoundButton/RoundButton';
-// import SizeSelection from 'components/Basket/SizeSelection/SizeSelection';
-import ProductSizes from 'components/Shared/Sizes/Productsizes';
+import SizesWithoutSelect from 'components/Shared/Sizes/SizesWithoutSelect/SizesWithoutSelect';
 import NoPhoto from 'images/catalog_photo/no_photo.jpg';
 import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
 
@@ -19,12 +17,8 @@ import s from 'components/Basket/BasketForm/BasketForm.module.scss';
 
 const BasketForm = ({ ownerName, products, isTablet }) => {
     const dispatch = useDispatch();
-    // const [selectedSizes, setSelectedSizes] = useState([]);
     const [productId, setProductId] = useState(null);
     const [questionWindow, setQuestionWindow] = useState(false);
-    
-
-    // console.log('selectedSizes:', selectedSizes);
 
     const handleButtonTrashClick = id => {
     setProductId(id);
@@ -33,28 +27,18 @@ const BasketForm = ({ ownerName, products, isTablet }) => {
 
     const deleteProductFrombasket = choice => {
       if (choice === 'yes') {
-        console.log('yes', productId);
+        // console.log('yes', productId);
         
           dispatch(updateUserBasket({productId: productId}));
           setQuestionWindow(false);
        
       } else if (choice === 'no') {
-        console.log('no');
+        // console.log('no');
         setProductId(null)
         setQuestionWindow(false);
         }
     };
 
-
-    // const handleSelectedSizesChange = sizes => {
-    //   setSelectedSizes(sizes);
-    //   console.log('selectedSizes:', selectedSizes);
-    // };
-
-    // const onSubmit = async (data, e) => {
-    //     e.preventDefault();
-        
-    // }
     return (
         <form>
             <Text textClass="title" text={`Продавець: ${ownerName}`} />
@@ -89,15 +73,11 @@ const BasketForm = ({ ownerName, products, isTablet }) => {
                             id={_id}
                           />
                       </div>
-                       {size && (
+                        {size.length > 0 && (
                         
-                        <ProductSizes
+                        <SizesWithoutSelect
                           sizes={size}
                           text="Обраний розмір:"/>
-                          // <SizeSelection
-                          // sizeOption={size}
-                          // onSelectedSizesChange={handleSelectedSizesChange}
-                          // />
                         )} 
                       {!isTablet && (
                         <CountBlock
