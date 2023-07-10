@@ -1,0 +1,21 @@
+@use 'styles/mixins';
+
+.menuGroupList {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.size {
+    display: inline-block;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 8px;
+    margin-bottom: 16px;
+
+    @include mixins.mq(desktop) {
+        margin-right: 20px;
+    }
+}
