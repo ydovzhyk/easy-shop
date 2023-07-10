@@ -189,7 +189,6 @@ const ProductCard = () => {
                       <span className={s.productPriceDiscount}>-8%</span>
                       <Text text={price} textClass="title" />
                     </div>
-                    
                     <SizeSelection
                       sizeOption={size}
                       onSelectedSizesChange={handleSelectedSizesChange}
@@ -252,7 +251,7 @@ const ProductCard = () => {
                 </div>
               </div>
             </div>
-            <Dialogue />
+            <Dialogue productInfo={{ _id, owner }} />
           </>
         )}
       </Container>
