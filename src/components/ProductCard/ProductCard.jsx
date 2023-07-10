@@ -44,6 +44,7 @@ const ProductCard = () => {
   const product = useSelector(selectProductById);
   const userId = useSelector(getID);
   const [isLiked, setIsLiked] = useState(false);
+   
 
   useEffect(() => {
     dispatch(clearOtherUser());
@@ -68,7 +69,7 @@ const ProductCard = () => {
     _id,
   } = product;
 
-  // const sizeValuesArray = size ? size.map(item => item[0].value) : [];
+size && console.log('size:', size);
 
   const userProductBasket = useSelector(selectUserBasket);
 
@@ -82,13 +83,28 @@ const ProductCard = () => {
       navigate('/login');
       return;
     }
-    dispatch(
-      updateUserBasket({
-        productId: id,
-        selectedSizes: selectedSizes,
-      })
-    );
-  };
+
+    if (size && size.length === 1) {
+      dispatch(
+        updateUserBasket({
+          productId: id,
+          selectedSizes: selectedSizes,
+        })
+      );
+    } else if (size && size.length > 1) {
+      if (selectedSizes.length === 0) {
+        console.log('Оберіть розмір');
+        return;
+      }
+      
+      dispatch(
+        updateUserBasket({
+          productId: id,
+          selectedSizes: selectedSizes,
+        })
+      );
+      }
+    };
 
   // for likes
   const handleClick = async () => {
