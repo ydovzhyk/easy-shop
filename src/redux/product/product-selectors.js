@@ -7,6 +7,7 @@ export const getMyProductsPages = ({ products }) =>
 export const getProductsByQuery = ({ products }) => products.productsByQuery;
 export const getHeaderFormReset = ({ products }) => products.headerForm;
 export const getFilterProduct = ({ products }) => products.filterProduct;
+export const getHeaderFormErrors = ({ products }) => products.headerFormErrors;
 export const getVipProductCard = ({ products }) => products.vipProducts;
 export const getVipPages = ({ products }) => products.vipPages;
 export const getLoadingProducts = ({ products }) => products.loading;

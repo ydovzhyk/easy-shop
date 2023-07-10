@@ -127,8 +127,21 @@ size && console.log('size:', size);
   const handleSelectedSizesChange = useCallback(sizes => {
     const transformedSizes = sizes.map(sizeGroup => {
       const sizeName = sizeGroup[0].value[0].EU;
-      return [{ name: sizeName, value: sizeGroup[0].value }];
+      if (sizeName) {
+        return [{ name: sizeName, value: sizeGroup[0].value }];
+      }
+      if (!sizeName && Object.keys(sizeGroup[0].value[0])[0] === 'One size') {
+        const key = Object.keys(sizeGroup[0].value[0])[0];
+        return [{ name: key, value: sizeGroup[0].value }];
+      }
+      if (!sizeName && Object.keys(sizeGroup[0].value[0])[0] === 'Інший') {
+        console.log('Зайшли в інший');
+        const key = Object.keys(sizeGroup[0].value[0])[0];
+        return [{ name: key, value: sizeGroup[0].value }];
+      }
+      return [];
     });
+    console.log('transformedSizes', transformedSizes);
     setSelectedSizes(transformedSizes);
   }, []);
 
