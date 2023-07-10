@@ -55,7 +55,7 @@ const products = createSlice({
     resetHeaderForm: store => {
       store.headerForm = true;
     },
-    submitHeaderForm: store => {
+    notResetHeaderForm: store => {
       store.headerForm = false;
     },
     resetFilterProduct: store => {
@@ -212,7 +212,7 @@ export const {
   clearProductById,
   clearProductsFromBasket,
   resetHeaderForm,
-  submitHeaderForm,
+  notResetHeaderForm,
   resetFilterProduct,
   showFilterProduct,
 } = products.actions;

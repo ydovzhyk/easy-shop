@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import { getHeaderFormReset } from 'redux/product/product-selectors';
-import { submitHeaderForm } from 'redux/product/product-slice';
+import { notResetHeaderForm } from 'redux/product/product-slice';
 import { getProductsByQuery } from 'redux/product/product-selectors';
 import { resetHeaderForm } from 'redux/product/product-slice';
 
@@ -16,7 +16,7 @@ import s from './HeaderForm.module.scss';
 
 const HeaderForm = () => {
   const shouldHeaderFormReset = useSelector(getHeaderFormReset);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const dispatch = useDispatch();
@@ -44,7 +44,7 @@ const HeaderForm = () => {
     const resetForm = async () => {
       await reset();
       await window.sessionStorage.removeItem('searchQuery');
-      await dispatch(submitHeaderForm());
+      await dispatch(notResetHeaderForm());
     };
     resetForm();
   }, [shouldHeaderFormReset, reset, dispatch]);
@@ -63,7 +63,6 @@ const HeaderForm = () => {
       JSON.stringify(data.productName)
     );
     await setSearchParams({ search: data.productName });
-    // await dispatch(submitHeaderForm());
   };
 
   const handleClick = () => {
