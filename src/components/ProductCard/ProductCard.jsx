@@ -142,13 +142,11 @@ const ProductCard = () => {
         return [{ name: key, value: sizeGroup[0].value }];
       }
       if (!sizeName && Object.keys(sizeGroup[0].value[0])[0] === 'Інший') {
-        console.log('Зайшли в інший');
         const key = Object.keys(sizeGroup[0].value[0])[0];
         return [{ name: key, value: sizeGroup[0].value }];
       }
       return [];
     });
-    console.log('transformedSizes', transformedSizes);
     setSelectedSizes(transformedSizes);
   }, []);
 
