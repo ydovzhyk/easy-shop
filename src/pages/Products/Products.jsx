@@ -3,6 +3,7 @@ import { MdClose } from 'react-icons/md';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { getProductsByQuery } from 'redux/product/product-selectors';
+import { getFilterForm } from 'redux/product/product-selectors';
 import { resetHeaderForm } from 'redux/product/product-slice';
 import { resetFilterProduct } from 'redux/product/product-slice';
 
@@ -17,6 +18,7 @@ const Products = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const products = useSelector(getProductsByQuery);
+  const isFilterFormSubmited = useSelector(getFilterForm);
   const dispatch = useDispatch();
 
   const searchQuery =
@@ -54,6 +56,7 @@ const Products = () => {
             </button>
           )}
           <button
+            disabled={!isFilterFormSubmited}
             type="button"
             className={s.searchContent}
             onClick={handleClearFiltersClick}
