@@ -1,0 +1,37 @@
+@use 'styles/mixins';
+
+.menuGroupList {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.menuGroupList li:nth-child(4n) {
+    margin-right: 0;
+}
+
+.size {
+    display: inline-block;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 8px;
+}
+
+.menuGroupItems {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    width: 210px;
+}
+
+.menuGroupItems:hover {
+    background-color: var(--background-color);
+    cursor: pointer;
+}
+
+.menuGroupItemsSelected {
+    background-color: var(--background-btn-main-color);
+}
