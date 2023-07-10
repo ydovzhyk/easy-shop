@@ -30,9 +30,17 @@ const ProductsSearchPage = () => {
 
   useEffect(() => {
     if (hasHeaderFormErrors && searchQuery === '') {
+      dispatch(searchProducts(payload));
       return;
     }
-    dispatch(searchProducts(payload));
+    if (!hasHeaderFormErrors && searchQuery === '') {
+      console.log('2');
+      return;
+    }
+    if (searchQuery !== '') {
+      dispatch(searchProducts(payload));
+      return;
+    }
   }, [payload, hasHeaderFormErrors, searchQuery, dispatch]);
 
   const dataFilterHandler = dataFilter => {

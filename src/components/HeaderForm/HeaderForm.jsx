@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { CiSearch } from 'react-icons/ci';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
@@ -16,6 +16,7 @@ import Text from 'components/Shared/Text/Text';
 import s from './HeaderForm.module.scss';
 
 const HeaderForm = () => {
+  const [click, setClick] = useState(false);
   const shouldHeaderFormReset = useSelector(getHeaderFormReset);
   const [, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const HeaderForm = () => {
     control,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitSuccessful },
   } = useForm({
     defaultValues: {
       productName:
@@ -52,14 +53,15 @@ const HeaderForm = () => {
       return;
     }
     dispatch(resetHeaderForm());
+    setClick(false);
   }, [isUserAtProductsSearchPage, reset, dispatch]);
 
   useEffect(() => {
-    if (!errors) {
-      return;
+    if (isSubmitSuccessful && click) {
+      dispatch(setHeaderFormErrors());
     }
-    dispatch(setHeaderFormErrors());
-  }, [errors, dispatch]);
+    return;
+  }, [isSubmitSuccessful, click, dispatch]);
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
@@ -74,6 +76,7 @@ const HeaderForm = () => {
 
   const handleClick = () => {
     console.log('навігація');
+    setClick(true);
     navigate(!isUserAtProductsSearchPage ? '/products' : pathname);
   };
 
