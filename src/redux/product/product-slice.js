@@ -71,6 +71,9 @@ const products = createSlice({
     clearHeaderFormErrors: store => {
       store.headerFormErrors = false;
     },
+    clearSearchProducts: store => {
+      store.searchProducts = [];
+    },
   },
   extraReducers: {
     //* addProduct
@@ -224,4 +227,5 @@ export const {
   notResetHeaderForm,
   resetFilterProduct,
   showFilterProduct,
+  clearSearchProducts,
 } = products.actions;

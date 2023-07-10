@@ -8,6 +8,7 @@ import { notResetHeaderForm } from 'redux/product/product-slice';
 import { resetHeaderForm } from 'redux/product/product-slice';
 import { clearHeaderFormErrors } from 'redux/product/product-slice';
 import { setHeaderFormErrors } from 'redux/product/product-slice';
+import { clearSearchProducts } from 'redux/product/product-slice';
 
 import Button from 'components/Shared/Button';
 import { field } from 'components/Shared/TextField/fields';
@@ -41,6 +42,7 @@ const HeaderForm = () => {
       return;
     }
     const resetForm = async () => {
+      await dispatch(clearSearchProducts());
       await reset();
       await window.sessionStorage.removeItem('searchQuery');
       await dispatch(notResetHeaderForm());
