@@ -35,7 +35,7 @@ const otherUser = createSlice({
     },
     [getOtherUser.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload;
+      store.error = payload.message;
     },
   },
 });

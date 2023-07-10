@@ -1,5 +1,6 @@
 export const selectAllProducts = ({ products }) => products.allProducts;
 export const getMessage = ({ products }) => products.message;
+export const getProductError = ({ products }) => products.error;
 export const getMyProducts = ({ products }) => products.userProducts;
 export const getMyProductsTotal = ({ products }) => products.userTotalProducts;
 export const getMyProductsPages = ({ products }) =>
