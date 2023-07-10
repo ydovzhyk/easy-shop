@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { useSearchParams, useParams } from 'react-router-dom';
 import { MdClose } from 'react-icons/md';
 
@@ -14,31 +13,17 @@ import Text from 'components/Shared/Text/Text';
 import s from './Products.module.scss';
 
 const Products = () => {
-  const [query, setQuery] = useState('');
   const { category, subcategory } = useParams();
   const products = useSelector(getProductsByQuery);
   const [searchParams, setSearchParams] = useSearchParams();
-  const searchQuery = searchParams.get('search') ?? '';
+  const searchQuery =
+    JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '';
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (searchQuery === '') {
-      return;
-    }
-    setQuery(searchQuery);
-  }, [searchQuery]);
-
-  useEffect(() => {
-    if (products.length < 1) {
-      return;
-    }
-  }, [products.length]);
-
-  const handleClearSearchQueryClick = () => {
-    window.sessionStorage.clear();
-    searchParams.delete('search');
-    setSearchParams(searchParams);
-    dispatch(resetHeaderForm());
+  const handleClearSearchQueryClick = async () => {
+    await searchParams.delete('search');
+    await setSearchParams(searchParams);
+    await dispatch(resetHeaderForm());
   };
 
   const handleClearFiltersClick = async () => {
@@ -52,7 +37,7 @@ const Products = () => {
           products={products}
           category={category}
           subcategory={subcategory}
-          query={query}
+          query={searchQuery}
         />
 
         <div style={{ marginBottom: '15px' }}>
