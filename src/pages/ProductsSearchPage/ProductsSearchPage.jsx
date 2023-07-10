@@ -16,7 +16,6 @@ const ProductsSearchPage = () => {
   const dispatch = useDispatch();
 
   const payload = useMemo(() => {
-    console.log('зміна');
     return {
       searchQuery,
       section: !category ? '' : translateParamsToUA(category).categoryName,

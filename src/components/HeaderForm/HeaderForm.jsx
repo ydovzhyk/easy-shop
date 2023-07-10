@@ -16,14 +16,14 @@ import s from './HeaderForm.module.scss';
 
 const HeaderForm = () => {
   const shouldHeaderFormReset = useSelector(getHeaderFormReset);
-  const [setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const dispatch = useDispatch();
   const isUserAtProductsSearchPage = pathname.includes('/products');
   const products = useSelector(getProductsByQuery);
 
-  console.log(products);
+  console.log(shouldHeaderFormReset);
   const {
     control,
     handleSubmit,
@@ -63,6 +63,7 @@ const HeaderForm = () => {
       JSON.stringify(data.productName)
     );
     await setSearchParams({ search: data.productName });
+    // await dispatch(notResetHeaderForm());
   };
 
   const handleClick = () => {
