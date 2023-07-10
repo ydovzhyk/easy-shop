@@ -14,7 +14,7 @@ import { getID, getLogin, selectUserBasket } from 'redux/auth/auth-selectors';
 
 import SellerInfo from './SellerInfo/SellerInfo';
 import Dialogue from 'components/Dialogue/Dialogue';
-
+import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
 import Container from 'components/Shared/Container/Container';
 import Text from 'components/Shared/Text/Text';
 import Button from 'components/Shared/Button/Button';
@@ -37,6 +37,7 @@ const ProductCard = () => {
 
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [selectedSizes, setSelectedSizes] = useState([]);
+  const [isMessage, setIsMessage] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -69,7 +70,7 @@ const ProductCard = () => {
     _id,
   } = product;
 
-size && console.log('size:', size);
+// size && console.log('size:', size);
 
   const userProductBasket = useSelector(selectUserBasket);
 
@@ -77,6 +78,10 @@ size && console.log('size:', size);
   const isProductInBasket = userProductBasket
     ? userProductBasket.find(item => item === id)
     : [];
+  
+  const resetMessage = () => {
+    setIsMessage(false);
+  };
 
   const setProductToBasket = () => {
     if (!isLogin) {
@@ -88,11 +93,13 @@ size && console.log('size:', size);
       dispatch(
         updateUserBasket({
           productId: id,
-          selectedSizes: selectedSizes,
+          // selectedSizes: selectedSizes,
+          selectedSizes: size,
         })
       );
     } else if (size && size.length > 1) {
       if (selectedSizes.length === 0) {
+        setIsMessage(true);
         console.log('Оберіть розмір');
         return;
       }
@@ -255,6 +262,9 @@ size && console.log('size:', size);
           </>
         )}
       </Container>
+      {isMessage && (
+          <MessageWindow text={"Оберіть розмір"} onDismiss={resetMessage} />
+        )}
     </section>
   );
 };
