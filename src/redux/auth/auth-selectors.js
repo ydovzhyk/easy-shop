@@ -15,6 +15,8 @@ export const getUserAbout = ({ auth }) => auth.user.about;
 export const getUserAvatar = ({ auth }) => auth.user.userAvatar;
 export const getUserDateCreate = ({ auth }) => auth.user.dateCreate;
 export const getUserMessage = ({ auth }) => auth.message;
+export const getBasketProducts = ({ auth }) => auth.user.basketProducts;
+export const getLikedProducts = ({ auth }) => auth.likedProducts;
 
 export const getSid = ({ auth }) => auth.sid;
 export const getAccessToken = ({ auth }) => auth.accessToken;

@@ -59,7 +59,7 @@ const ProductItem = ({
     <li className={s.itemCard}>
       <Link
         to={`/products/${categoryName}/${subCategoryName}/${_id}`}
-        className={s.photoLink}
+        // className={s.photoLink}
       >
         <div className={s.stylePhotoCardWrap}>
           <img
