@@ -122,17 +122,6 @@
     text-transform: lowercase;
 }
 
-.size {
-    display: inline-block;
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
-    padding: 8px;
-    margin-bottom: 16px;
-    @include mixins.mq(desktop) {
-    margin-right: 20px;
-  }
-}
-
 .buyBtns {
     display: flex;
     flex-direction: column;
