@@ -20,8 +20,6 @@ const Products = () => {
     JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '';
   const dispatch = useDispatch();
 
-  console.log(products);
-
   const handleClearSearchQueryClick = async () => {
     await searchParams.delete('search');
     await setSearchParams(searchParams);

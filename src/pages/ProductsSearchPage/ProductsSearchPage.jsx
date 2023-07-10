@@ -1,8 +1,9 @@
 import { useEffect, useState, useMemo } from 'react';
 import { Outlet, useSearchParams, useParams } from 'react-router-dom';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { searchProducts } from 'redux/product/product-operations';
+import { getHeaderFormErrors } from 'redux/product/product-selectors';
 
 import Filter from 'components/Filter/Filter';
 import Container from 'components/Shared/Container/Container';
@@ -14,6 +15,7 @@ const ProductsSearchPage = () => {
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get('search') ?? '';
   const dispatch = useDispatch();
+  const hasHeaderFormErrors = useSelector(getHeaderFormErrors);
 
   const payload = useMemo(() => {
     return {
@@ -27,9 +29,11 @@ const ProductsSearchPage = () => {
   }, [category, subcategory, searchQuery, filterData]);
 
   useEffect(() => {
-    console.log(searchQuery);
+    if (hasHeaderFormErrors && searchQuery === '') {
+      return;
+    }
     dispatch(searchProducts(payload));
-  }, [payload, searchQuery, dispatch]);
+  }, [payload, hasHeaderFormErrors, searchQuery, dispatch]);
 
   const dataFilterHandler = dataFilter => {
     setFilterData(dataFilter);

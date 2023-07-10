@@ -31,6 +31,7 @@ const initialState = {
   sellersFromBasket: [],
   headerForm: false,
   filterProduct: false,
+  headerFormErrors: false,
 };
 
 const products = createSlice({
@@ -63,6 +64,12 @@ const products = createSlice({
     },
     showFilterProduct: store => {
       store.filterProduct = false;
+    },
+    setHeaderFormErrors: store => {
+      store.headerFormErrors = true;
+    },
+    clearHeaderFormErrors: store => {
+      store.headerFormErrors = false;
     },
   },
   extraReducers: {
@@ -211,6 +218,8 @@ export const {
   clearUserProducts,
   clearProductById,
   clearProductsFromBasket,
+  setHeaderFormErrors,
+  clearHeaderFormErrors,
   resetHeaderForm,
   notResetHeaderForm,
   resetFilterProduct,
