@@ -5,7 +5,6 @@ import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import { getHeaderFormReset } from 'redux/product/product-selectors';
 import { notResetHeaderForm } from 'redux/product/product-slice';
-import { getProductsByQuery } from 'redux/product/product-selectors';
 import { resetHeaderForm } from 'redux/product/product-slice';
 
 import Button from 'components/Shared/Button';
@@ -21,7 +20,6 @@ const HeaderForm = () => {
   const { pathname } = useLocation();
   const dispatch = useDispatch();
   const isUserAtProductsSearchPage = pathname.includes('/products');
-  const products = useSelector(getProductsByQuery);
 
   console.log(shouldHeaderFormReset);
   const {
