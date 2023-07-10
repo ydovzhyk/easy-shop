@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { searchProducts } from 'redux/product/product-operations';
 import { getHeaderFormErrors } from 'redux/product/product-selectors';
 import { getHeaderFormReset } from 'redux/product/product-selectors';
+import { getHeaderFormClick } from 'redux/product/product-selectors';
 
 import Filter from 'components/Filter/Filter';
 import Container from 'components/Shared/Container/Container';
@@ -19,6 +20,7 @@ const ProductsSearchPage = () => {
   const searchQuery = searchParams.get('search') ?? '';
 
   const dispatch = useDispatch();
+  const isHeaderFormClicked = useSelector(getHeaderFormClick);
   const hasHeaderFormErrors = useSelector(getHeaderFormErrors);
   const shouldHeaderFormReset = useSelector(getHeaderFormReset);
 
@@ -34,7 +36,12 @@ const ProductsSearchPage = () => {
   }, [category, subcategory, searchQuery, filterData]);
 
   useEffect(() => {
-    if (!hasHeaderFormErrors && searchQuery === '' && !shouldHeaderFormReset) {
+    if (
+      !hasHeaderFormErrors &&
+      searchQuery === '' &&
+      !shouldHeaderFormReset &&
+      isHeaderFormClicked
+    ) {
       return;
     }
     dispatch(searchProducts(payload));
@@ -43,6 +50,7 @@ const ProductsSearchPage = () => {
     hasHeaderFormErrors,
     shouldHeaderFormReset,
     searchQuery,
+    isHeaderFormClicked,
     dispatch,
   ]);
 

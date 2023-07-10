@@ -11,6 +11,8 @@ import { resetHeaderForm } from 'redux/product/product-slice';
 import { clearHeaderFormErrors } from 'redux/product/product-slice';
 import { setHeaderFormErrors } from 'redux/product/product-slice';
 import { clearSearchProducts } from 'redux/product/product-slice';
+import { setHeaderFormClick } from 'redux/product/product-slice';
+import { resetHeaderFormClick } from 'redux/product/product-slice';
 import { getHeaderFormReset } from 'redux/product/product-selectors';
 
 import Button from 'components/Shared/Button';
@@ -50,6 +52,7 @@ const HeaderForm = () => {
       await reset();
       await window.sessionStorage.removeItem('searchQuery');
       await dispatch(notResetHeaderForm());
+      await dispatch(resetHeaderFormClick());
       await dispatch(clearSearchProducts());
     };
     resetForm();
@@ -72,14 +75,15 @@ const HeaderForm = () => {
     await dispatch(clearHeaderFormErrors());
   };
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (!isDirty) {
-      dispatch(setHeaderFormErrors());
+      await dispatch(setHeaderFormErrors());
     }
     if (isDirty) {
-      dispatch(clearHeaderFormErrors());
+      await dispatch(clearHeaderFormErrors());
     }
-    navigate(!isUserAtProductsSearchPage ? '/products' : pathname);
+    await dispatch(setHeaderFormClick());
+    await navigate(!isUserAtProductsSearchPage ? '/products' : pathname);
   };
 
   return (

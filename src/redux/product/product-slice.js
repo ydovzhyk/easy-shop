@@ -30,6 +30,7 @@ const initialState = {
   productsFromBasket: [],
   sellersFromBasket: [],
   headerForm: false,
+  headerFormClick: false,
   headerFormErrors: false,
   filterProduct: false,
   filterForm: false,
@@ -59,6 +60,12 @@ const products = createSlice({
     },
     notResetHeaderForm: store => {
       store.headerForm = false;
+    },
+    setHeaderFormClick: store => {
+      store.headerFormClick = true;
+    },
+    resetHeaderFormClick: store => {
+      store.headerFormClick = false;
     },
     resetFilterProduct: store => {
       store.filterProduct = true;
@@ -237,4 +244,6 @@ export const {
   clearSearchProducts,
   submitFilterForm,
   unSubmitFilterForm,
+  setHeaderFormClick,
+  resetHeaderFormClick,
 } = products.actions;
