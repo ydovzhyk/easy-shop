@@ -62,7 +62,13 @@ const Filter = ({ onChange }) => {
       filterPriceFrom: '',
       filterPriceTo: '',
     });
+    resetField('filterPriceTo', {
+      defaultValue: '',
+    });
     reset();
+    // resetField('filterPriceTo', {
+    // defaultValue: ''
+    // });
     dispatch(showFilterProduct());
     onChange(filterData);
     dispatch(unSubmitFilterForm());
@@ -72,6 +78,7 @@ const Filter = ({ onChange }) => {
     dispatch,
     filterData,
     selectedSizes,
+    resetField,
     reset,
   ]);
 
