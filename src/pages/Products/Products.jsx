@@ -55,15 +55,16 @@ const Products = () => {
               <MdClose size={22} />
             </button>
           )}
-          <button
-            disabled={!isFilterFormSubmited}
-            type="button"
-            className={s.searchContent}
-            onClick={handleClearFiltersClick}
-          >
-            <Text textClass="searchQueryContent" text="Скинути фільтри" />
-            <MdClose size={22} />
-          </button>
+          {isFilterFormSubmited && (
+            <button
+              type="button"
+              className={s.searchContent}
+              onClick={handleClearFiltersClick}
+            >
+              <Text textClass="searchQueryContent" text="Скинути фільтри" />
+              <MdClose size={22} />
+            </button>
+          )}
         </div>
 
         {products.length > 0 && (
