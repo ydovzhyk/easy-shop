@@ -3,6 +3,7 @@ import { MdClose } from 'react-icons/md';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { getProductsByQuery } from 'redux/product/product-selectors';
+import { getFilterForm } from 'redux/product/product-selectors';
 import { resetHeaderForm } from 'redux/product/product-slice';
 import { resetFilterProduct } from 'redux/product/product-slice';
 
@@ -14,11 +15,14 @@ import s from './Products.module.scss';
 
 const Products = () => {
   const { category, subcategory } = useParams();
-  const products = useSelector(getProductsByQuery);
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const products = useSelector(getProductsByQuery);
+  const isFilterFormSubmited = useSelector(getFilterForm);
+  const dispatch = useDispatch();
+
   const searchQuery =
     JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '';
-  const dispatch = useDispatch();
 
   const handleClearSearchQueryClick = async () => {
     await searchParams.delete('search');
@@ -51,14 +55,16 @@ const Products = () => {
               <MdClose size={22} />
             </button>
           )}
-          <button
-            type="button"
-            className={s.searchContent}
-            onClick={handleClearFiltersClick}
-          >
-            <Text textClass="searchQueryContent" text="Скинути фільтри" />
-            <MdClose size={22} />
-          </button>
+          {isFilterFormSubmited && (
+            <button
+              type="button"
+              className={s.searchContent}
+              onClick={handleClearFiltersClick}
+            >
+              <Text textClass="searchQueryContent" text="Скинути фільтри" />
+              <MdClose size={22} />
+            </button>
+          )}
         </div>
 
         {products.length > 0 && (
