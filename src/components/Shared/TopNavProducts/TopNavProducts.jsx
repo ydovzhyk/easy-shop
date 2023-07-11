@@ -30,7 +30,10 @@ const TopNavProducts = ({ category, subcategory, products, query }) => {
 
   return (
     <>
-      <div className={s.catalogTitle}>
+      <div
+        style={{ marginBottom: products.length === 0 ? '0' : '15px' }}
+        className={s.catalogTitle}
+      >
         {!category && !subcategory && (
           <>
             <h2 className={s.title}>Каталог - EASY Shop</h2>
@@ -108,7 +111,10 @@ const TopNavProducts = ({ category, subcategory, products, query }) => {
                   to={getSubcategoryPath(query, categoryName, key)}
                 >
                   {key} -{' '}
-                  <span className={s.amountBoxSecondary}>
+                  <span
+                    style={{ marginTop: '10px' }}
+                    className={s.amountBoxSecondary}
+                  >
                     {getDeclension(val)}
                   </span>
                 </NavLink>

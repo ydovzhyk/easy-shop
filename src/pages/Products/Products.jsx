@@ -1,5 +1,8 @@
+import { useState, useEffect } from 'react';
 import { useSearchParams, useParams } from 'react-router-dom';
 import { MdClose } from 'react-icons/md';
+
+import { useForm, Controller } from 'react-hook-form';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { getProductsByQuery } from 'redux/product/product-selectors';
@@ -10,17 +13,53 @@ import { resetFilterProduct } from 'redux/product/product-slice';
 import TopNavProducts from 'components/Shared/TopNavProducts/TopNavProducts';
 import ProductItem from 'components/Shared/ProductItem/ProductItem';
 import Text from 'components/Shared/Text/Text';
+import SelectField from 'components/Shared/SelectField/SelectField';
 
 import s from './Products.module.scss';
 
 const Products = () => {
+  const [filterSelected, setFilterSelected] = useState('');
+  const [sortedProducts, setSortedProducts] = useState([]);
+
   const { category, subcategory } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const products = useSelector(getProductsByQuery);
-  const isFilterFormSubmited = useSelector(getFilterForm);
+  const isFilterFormSubmitted = useSelector(getFilterForm);
   const dispatch = useDispatch();
-  console.log(isFilterFormSubmited);
+
+  const { control } = useForm();
+
+  useEffect(() => {
+    if (
+      products.length === 0 ||
+      sortedProducts.length < 1 ||
+      filterSelected === ''
+    ) {
+      return;
+    }
+  }, [filterSelected, products.length, sortedProducts.length]);
+  console.log(filterSelected);
+  const handleChangeFilter = async filterSelected => {
+    await setFilterSelected(filterSelected.value);
+    switch (filterSelected) {
+      case 'Від найдешевших':
+        setSortedProducts(products.slice(0).sort((a, b) => a.price - b.price));
+        console.log(sortedProducts);
+        break;
+      case 'Від найдорожчих':
+        setSortedProducts(products.slice(0).sort((a, b) => b.price - a.price));
+        break;
+      case 'За датою':
+        setSortedProducts(
+          products.slice(0).sort((a, b) => -a.date.localeCompare(b.date))
+        );
+        break;
+      default:
+        setSortedProducts(products);
+        break;
+    }
+  };
 
   const searchQuery =
     JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '';
@@ -45,7 +84,7 @@ const Products = () => {
           query={searchQuery}
         />
 
-        <div style={{ marginBottom: '15px' }}>
+        <div>
           {searchQuery && (
             <button
               type="button"
@@ -56,7 +95,7 @@ const Products = () => {
               <MdClose size={22} />
             </button>
           )}
-          {isFilterFormSubmited && (
+          {isFilterFormSubmitted && (
             <button
               type="button"
               className={s.searchContent}
@@ -67,10 +106,31 @@ const Products = () => {
             </button>
           )}
         </div>
+        <div style={{ textAlign: 'right' }}>
+          <Controller
+            control={control}
+            name="filterSection"
+            render={({ field: { onChange, value } }) => (
+              <SelectField
+                value={value}
+                className={'filterSection'}
+                handleChange={value => handleChangeFilter(value)}
+                options={[
+                  'Популярні',
+                  'Від найдешевших',
+                  'Від найдорожчих',
+                  'За датою',
+                ]}
+                defaultValue={{ value: 'популярні', label: 'Популярні' }}
+                name="filterSection"
+              />
+            )}
+          />
+        </div>
 
         {products.length > 0 && (
           <ul className={s.listCard}>
-            {products.map(
+            {sortedProducts.map(
               ({
                 _id,
                 mainPhotoUrl,
