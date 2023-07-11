@@ -32,7 +32,6 @@ const BottomNavigation = () => {
     }
   }, [user]);
 
-
   return (
     <nav className={s.navigationBottom}>
       <div className={s.containerBottom}>

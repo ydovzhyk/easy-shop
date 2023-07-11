@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
 import { useSearchParams, useParams } from 'react-router-dom';
 import { MdClose } from 'react-icons/md';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { getProductsByQuery } from 'redux/product/product-selectors';
+import { getFilterForm } from 'redux/product/product-selectors';
 import { resetHeaderForm } from 'redux/product/product-slice';
 import { resetFilterProduct } from 'redux/product/product-slice';
 
@@ -14,31 +14,20 @@ import Text from 'components/Shared/Text/Text';
 import s from './Products.module.scss';
 
 const Products = () => {
-  const [query, setQuery] = useState('');
   const { category, subcategory } = useParams();
-  const products = useSelector(getProductsByQuery);
   const [searchParams, setSearchParams] = useSearchParams();
-  const searchQuery = searchParams.get('search') ?? '';
+
+  const products = useSelector(getProductsByQuery);
+  const isFilterFormSubmited = useSelector(getFilterForm);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (searchQuery === '') {
-      return;
-    }
-    setQuery(searchQuery);
-  }, [searchQuery]);
+  const searchQuery =
+    JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '';
 
-  useEffect(() => {
-    if (products.length < 1) {
-      return;
-    }
-  }, [products.length]);
-
-  const handleClearSearchQueryClick = () => {
-    window.sessionStorage.clear();
-    searchParams.delete('search');
-    setSearchParams(searchParams);
-    dispatch(resetHeaderForm());
+  const handleClearSearchQueryClick = async () => {
+    await searchParams.delete('search');
+    await setSearchParams(searchParams);
+    await dispatch(resetHeaderForm());
   };
 
   const handleClearFiltersClick = async () => {
@@ -52,7 +41,7 @@ const Products = () => {
           products={products}
           category={category}
           subcategory={subcategory}
-          query={query}
+          query={searchQuery}
         />
 
         <div style={{ marginBottom: '15px' }}>
@@ -66,14 +55,16 @@ const Products = () => {
               <MdClose size={22} />
             </button>
           )}
-          <button
-            type="button"
-            className={s.searchContent}
-            onClick={handleClearFiltersClick}
-          >
-            <Text textClass="searchQueryContent" text="Скинути фільтри" />
-            <MdClose size={22} />
-          </button>
+          {isFilterFormSubmited && (
+            <button
+              type="button"
+              className={s.searchContent}
+              onClick={handleClearFiltersClick}
+            >
+              <Text textClass="searchQueryContent" text="Скинути фільтри" />
+              <MdClose size={22} />
+            </button>
+          )}
         </div>
 
         {products.length > 0 && (

@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
-import { useMediaQuery } from 'react-responsive';
-import { NavLink, useSearchParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { BiSearchAlt } from 'react-icons/bi';
 import { HiOutlineBars4 } from 'react-icons/hi2';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { VscAdd } from 'react-icons/vsc';
 
+import { useMediaQuery } from 'react-responsive';
+
+import { NavLink, useSearchParams } from 'react-router-dom';
+
+import { useSelector } from 'react-redux';
 import { getLogin } from 'redux/auth/auth-selectors';
 
 import UserInfo from 'components/UserInfo/UserInfo';
@@ -27,25 +29,21 @@ const Header = () => {
   const [showForm, setShowForm] = useState(false);
   const [query, setQuery] = useState('');
   const [isModalCatalogOpen, setIsModalCatalogOpen] = useState(false);
+
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get('search') ?? '';
+
+  const isLogin = useSelector(getLogin);
+
   const isDesktop = useMediaQuery({ minWidth: 1280 });
   const isTablet = useMediaQuery({ minWidth: 768 });
   const isMobile = useMediaQuery({ maxWidth: 767 });
+
   const categories = Object.keys(categoryOptions);
 
   useEffect(() => {
     setQuery(searchQuery);
   }, [searchQuery]);
-
-  // const getClassName = ({ isActive }) => {
-  //   console.log(isActive);
-  //   return isActive ? `${s.active}` : s.link;
-  // };
-
-  // const getClassName = ({ isActive }) => {
-  //   return isActive ? `${s.link} ${s.active}` : s.link;
-  // };
 
   useEffect(() => {
     if (darkTheme) {
@@ -59,10 +57,10 @@ const Header = () => {
     setDarkTheme(!darkTheme);
   };
 
-  const isLogin = useSelector(getLogin);
   const handleModalCatalogOpen = () => {
     setIsModalCatalogOpen(true);
   };
+
   const handleSearchBtnClick = () => {
     setShowForm(!showForm);
   };
@@ -158,12 +156,7 @@ const Header = () => {
                     className={({ isActive }) =>
                       `${isActive ? s.active : s.link}`
                     }
-                    // className={getClassName({
-                    //   isActive: location.pathname === linkPath,
-                    // })}
-
                     to={getPath(query, category)}
-                    // onClick={e => setSearchParams({ search: query })}
                   >
                     {category}
                   </NavLink>

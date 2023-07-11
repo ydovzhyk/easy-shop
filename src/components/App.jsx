@@ -2,10 +2,23 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import { updateUser } from 'redux/auth/auth-opetations';
-import { getError } from 'redux/auth/auth-selectors';
-import { getLoadingProducts } from 'redux/product/product-selectors';
-import { getLoadingUser } from 'redux/auth/auth-selectors';
-import { getLoadingVerifyEmail } from 'redux/verifyEmail/verifyEmail-selectors';
+import { getError, getLoadingUser } from 'redux/auth/auth-selectors';
+import {
+  getLoadingProducts,
+  getProductError,
+} from 'redux/product/product-selectors';
+import {
+  getLoadingVerifyEmail,
+  getErrorVerifyEmail,
+} from 'redux/verifyEmail/verifyEmail-selectors';
+import {
+  getLoadingDialogue,
+  getDialogueError,
+} from 'redux/dialogue/dialogue-selectors';
+import {
+  getLoadingOtherUser,
+  getOtherUserError,
+} from 'redux/otherUser/otherUser-selectors';
 import UserRoutes from './Routes/UserRoutes';
 import Header from './Header';
 import Footer from './Footer/Footer';
@@ -15,10 +28,16 @@ import ErrorMessage from './Shared/ErrorMessage/ErrorMessage';
 import { useLocation } from 'react-router-dom';
 
 export const App = () => {
-  const error = useSelector(getError);
+  const authError = useSelector(getError);
+  const productError = useSelector(getProductError);
+  const verifyEmailError = useSelector(getErrorVerifyEmail);
+  const dialogueError = useSelector(getDialogueError);
+  const otherUserError = useSelector(getOtherUserError);
   const loadingUser = useSelector(getLoadingUser);
   const loadingProducts = useSelector(getLoadingProducts);
   const loadingVerify = useSelector(getLoadingVerifyEmail);
+  const loadingDialogue = useSelector(getLoadingDialogue);
+  const loadingOtherUser = useSelector(getLoadingOtherUser);
   const isDesctop = useMediaQuery({ minWidth: 1280 });
   const dispatch = useDispatch();
   const [errMessage, setErrMessage] = useState('');
@@ -43,20 +62,46 @@ export const App = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (error) {
-      setErrMessage(error);
+    if (authError) {
+      setErrMessage(authError);
+    } else if (productError) {
+      setErrMessage(productError);
+    } else if (verifyEmailError) {
+      setErrMessage(verifyEmailError);
+    } else if (dialogueError) {
+      setErrMessage(dialogueError);
+    } else if (otherUserError) {
+      setErrMessage(otherUserError);
     } else {
       setErrMessage('');
     }
-  }, [error]);
+  }, [
+    authError,
+    productError,
+    verifyEmailError,
+    dialogueError,
+    otherUserError,
+  ]);
 
   useEffect(() => {
-    if (loadingUser || loadingProducts || loadingVerify) {
+    if (
+      loadingUser ||
+      loadingProducts ||
+      loadingVerify ||
+      loadingDialogue ||
+      loadingOtherUser
+    ) {
       setIsLoaded(true);
     } else {
       setIsLoaded(false);
     }
-  }, [loadingUser, loadingProducts, loadingVerify]);
+  }, [
+    loadingUser,
+    loadingProducts,
+    loadingVerify,
+    loadingDialogue,
+    loadingOtherUser,
+  ]);
 
   // render last visited page
   useEffect(() => {

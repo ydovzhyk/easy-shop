@@ -1,30 +1,42 @@
 import { useEffect } from 'react';
 import { CiSearch } from 'react-icons/ci';
-import { useSelector, useDispatch } from 'react-redux';
+
 import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
+
+import { useSelector, useDispatch } from 'react-redux';
+
+import { notResetHeaderForm } from 'redux/product/product-slice';
+import { resetHeaderForm } from 'redux/product/product-slice';
+import { clearHeaderFormErrors } from 'redux/product/product-slice';
+import { setHeaderFormErrors } from 'redux/product/product-slice';
+import { clearSearchProducts } from 'redux/product/product-slice';
+import { setHeaderFormClick } from 'redux/product/product-slice';
+import { resetHeaderFormClick } from 'redux/product/product-slice';
 import { getHeaderFormReset } from 'redux/product/product-selectors';
-import { submitHeaderForm } from 'redux/product/product-slice';
 
 import Button from 'components/Shared/Button';
 import { field } from 'components/Shared/TextField/fields';
 import TextField from 'components/Shared/TextField';
 import Text from 'components/Shared/Text/Text';
+
 import s from './HeaderForm.module.scss';
 
 const HeaderForm = () => {
-  const shouldHeaderFormReset = useSelector(getHeaderFormReset);
   const [, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const { pathname } = useLocation();
+
+  const shouldHeaderFormReset = useSelector(getHeaderFormReset);
   const dispatch = useDispatch();
+
   const isUserAtProductsSearchPage = pathname.includes('/products');
 
   const {
     control,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm({
     defaultValues: {
       productName:
@@ -33,16 +45,25 @@ const HeaderForm = () => {
   });
 
   useEffect(() => {
-    if (shouldHeaderFormReset) {
-      reset();
-      window.sessionStorage.clear();
+    if (!shouldHeaderFormReset) {
+      return;
     }
+    const resetForm = async () => {
+      await reset();
+      await window.sessionStorage.removeItem('searchQuery');
+      await dispatch(notResetHeaderForm());
+      await dispatch(resetHeaderFormClick());
+      await dispatch(clearSearchProducts());
+    };
+    resetForm();
+  }, [shouldHeaderFormReset, reset, dispatch]);
 
-    if (!isUserAtProductsSearchPage) {
-      reset();
-      window.sessionStorage.clear();
+  useEffect(() => {
+    if (isUserAtProductsSearchPage) {
+      return;
     }
-  }, [shouldHeaderFormReset, isUserAtProductsSearchPage, reset]);
+    dispatch(resetHeaderForm());
+  }, [isUserAtProductsSearchPage, reset, dispatch]);
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
@@ -51,11 +72,18 @@ const HeaderForm = () => {
       JSON.stringify(data.productName)
     );
     await setSearchParams({ search: data.productName });
-    await dispatch(submitHeaderForm());
+    await dispatch(clearHeaderFormErrors());
   };
 
-  const handleClick = () => {
-    navigate(!isUserAtProductsSearchPage ? '/products' : pathname);
+  const handleClick = async () => {
+    if (!isDirty) {
+      await dispatch(setHeaderFormErrors());
+    }
+    if (isDirty) {
+      await dispatch(clearHeaderFormErrors());
+    }
+    await dispatch(setHeaderFormClick());
+    await navigate(!isUserAtProductsSearchPage ? '/products' : pathname);
   };
 
   return (

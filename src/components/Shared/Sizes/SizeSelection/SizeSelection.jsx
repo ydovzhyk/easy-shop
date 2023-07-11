@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
 import Text from 'components/Shared/Text/Text';
 
-import s from 'components/Basket/SizeSelection/SizeSelection.module.scss';
+import s from 'components/Shared/Sizes/SizeSelection/SizeSelection.module.scss';
 
 const SizeSelection = ({
   sizeOption,
@@ -59,7 +59,9 @@ const SizeSelection = ({
       />
       <ul className={s.menuGroupList}>
         {Object.entries(sizeValuesArray).map(([size, values]) => {
-          const isSelected = selectedSizes.some(s => s[0].name === size);
+          const isSelected = selectedSizes.some(s => {
+            return s[0].name === size;
+          });
           return (
             <li
               key={nanoid()}
@@ -76,16 +78,12 @@ const SizeSelection = ({
                   />
                 </div>
               ) : (
-                sizeValuesArray.map(s => {
-                  return (
-                    <div className={s.size}>
-                      <Text
-                        text={`${Object.keys(s[0])}`}
-                        textClass="after-title-bigger"
-                      />
-                    </div>
-                  );
-                })
+                <div className={s.size}>
+                  <Text
+                    text={`${Object.keys(sizeValuesArray[0][0])[0]}`}
+                    textClass="after-title-bigger"
+                  />
+                </div>
               )}
             </li>
           );

@@ -1,6 +1,8 @@
 import { useMediaQuery } from 'react-responsive';
 import { BiChevronRight } from 'react-icons/bi';
+
 import { NavLink } from 'react-router-dom';
+
 import { translateParamsToUA } from '../../../funcs&hooks/translateParamsToUA.js';
 import { getDeclension } from '../../../funcs&hooks/getDeclansion.js';
 import { getPath } from '../../../funcs&hooks/getPath.js';

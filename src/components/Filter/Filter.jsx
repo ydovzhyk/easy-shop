@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { useSelector, useDispatch } from 'react-redux';
 import { BiCheck } from 'react-icons/bi';
 
+import { useForm } from 'react-hook-form';
+
+import { useSelector, useDispatch } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
 
 import { getFilterProduct } from 'redux/product/product-selectors';
 import { showFilterProduct } from 'redux/product/product-slice';
+import { unSubmitFilterForm } from 'redux/product/product-slice';
+import { submitFilterForm } from 'redux/product/product-slice';
 
 import sizeOption from '../AddProduct/Size/sizeTable.json';
 import OptionsHeader from 'components/Shared/OptionsHeader/OptionsHeader';
@@ -17,11 +20,13 @@ import { filterConditions } from './filterСonditions';
 import s from './Filter.module.scss';
 
 const Filter = ({ onChange }) => {
+  const [filterData, setFilterData] = useState({});
   const [showSizes, setShowSizes] = useState(true);
   const [showPrices, setShowPrices] = useState(true);
   const [showCondition, setShowCondition] = useState(true);
   const [showBrand, setShowBrand] = useState(true);
   const [selectedSizes, setSelectedSizes] = useState([]);
+
   const shouldFilterProductReset = useSelector(getFilterProduct);
   const dispatch = useDispatch();
 
@@ -45,17 +50,43 @@ const Filter = ({ onChange }) => {
   const values = getValues();
 
   useEffect(() => {
-    if (shouldFilterProductReset) {
-      setSelectedSizes([]);
-      dispatch(showFilterProduct());
-      reset();
+    if (!shouldFilterProductReset) {
+      return;
     }
-  }, [shouldFilterProductReset, dispatch, reset]);
+    setSelectedSizes([]);
+    setFilterData({
+      size: '[]',
+      brandName: '',
+      condition: [],
+      filterPrice: '',
+      filterPriceFrom: '',
+      filterPriceTo: '',
+    });
+    resetField('filterPriceTo', {
+      defaultValue: '',
+    });
+    reset();
+    // resetField('filterPriceTo', {
+    // defaultValue: ''
+    // });
+    dispatch(showFilterProduct());
+    onChange(filterData);
+    dispatch(unSubmitFilterForm());
+  }, [
+    shouldFilterProductReset,
+    onChange,
+    dispatch,
+    filterData,
+    selectedSizes,
+    resetField,
+    reset,
+  ]);
 
   useEffect(() => {
     if (dirtyFields.filterPriceFrom || dirtyFields.filterPriceTo) {
       resetField('filterPriceRadio', { defaultValue: '' });
     }
+    return;
   }, [dirtyFields.filterPriceFrom, dirtyFields.filterPriceTo, resetField]);
 
   useEffect(() => {
@@ -64,12 +95,27 @@ const Filter = ({ onChange }) => {
         defaultValue: getValues().filterPriceFrom,
       });
     }
+    return;
   }, [
     dirtyFields.filterPriceFrom,
     touchedFields.filterPriceFrom,
     resetField,
     getValues,
   ]);
+
+  // useEffect(() => {
+  //   if (touchedFields.filterPriceFrom && dirtyFields.filterPriceTo) {
+  //     resetField('filterPriceFrom', {
+  //       defaultValue: getValues().filterPriceTo,
+  //     });
+  //   }
+  //   return;
+  // }, [
+  //   dirtyFields.filterPriceTo,
+  //   touchedFields.filterPriceTo,
+  //   resetField,
+  //   getValues,
+  // ]);
 
   useEffect(() => {
     if (
@@ -135,6 +181,7 @@ const Filter = ({ onChange }) => {
       filterPriceTo: data.filterPriceTo,
     };
     await onChange(dataForUpload);
+    await dispatch(submitFilterForm());
   };
 
   return (
