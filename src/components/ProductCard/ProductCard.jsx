@@ -68,6 +68,7 @@ const ProductCard = () => {
     _id,
   } = product;
 
+  
   // const sizeValuesArray = size ? size.map(item => item[0].value) : [];
 
   const userProductBasket = useSelector(selectUserBasket);
