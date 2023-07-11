@@ -20,6 +20,7 @@ const Products = () => {
   const products = useSelector(getProductsByQuery);
   const isFilterFormSubmited = useSelector(getFilterForm);
   const dispatch = useDispatch();
+  console.log(isFilterFormSubmited);
 
   const searchQuery =
     JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '';
