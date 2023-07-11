@@ -96,19 +96,19 @@ const Filter = ({ onChange }) => {
     getValues,
   ]);
 
-  useEffect(() => {
-    if (touchedFields.filterPriceTo && dirtyFields.filterPriceTo) {
-      resetField('filterPriceFrom', {
-        defaultValue: getValues().filterPriceTo,
-      });
-    }
-    return;
-  }, [
-    dirtyFields.filterPriceTo,
-    touchedFields.filterPriceTo,
-    resetField,
-    getValues,
-  ]);
+  // useEffect(() => {
+  //   if (touchedFields.filterPriceFrom && dirtyFields.filterPriceTo) {
+  //     resetField('filterPriceFrom', {
+  //       defaultValue: getValues().filterPriceTo,
+  //     });
+  //   }
+  //   return;
+  // }, [
+  //   dirtyFields.filterPriceTo,
+  //   touchedFields.filterPriceTo,
+  //   resetField,
+  //   getValues,
+  // ]);
 
   useEffect(() => {
     if (
