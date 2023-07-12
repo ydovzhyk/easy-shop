@@ -73,15 +73,11 @@ const Products = () => {
     }
   };
 
-  useEffect(() => {
-    if (filterSelected !== '') {
-      return;
-    }
-    handleChangeFilter('');
-  }, [filterSelected, handleChangeFilter]);
-
   const productsToRender = useMemo(() => {
-    return sortedProducts.length > 1 ? sortedProducts : products;
+    return sortedProducts.length > 1 &&
+      sortedProducts.length === products.length
+      ? sortedProducts
+      : products;
   }, [sortedProducts, products]);
   console.log(products);
   console.log(productsToRender);
