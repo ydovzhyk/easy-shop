@@ -82,7 +82,7 @@ const Dialogue = ({ productInfo }) => {
       </div>
       {dialogueArray.length === 0 && (
         <div className={s.avatar}>
-          <Avatar avatarClass="photoDialog" src={userAvatar} />
+          <Avatar avatarClass="photoDialogueLeft" src={userAvatar} />
         </div>
       )}
       {dialogueArray.length > 0 && (
