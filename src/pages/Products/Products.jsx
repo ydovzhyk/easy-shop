@@ -18,6 +18,7 @@ import SelectField from 'components/Shared/SelectField/SelectField';
 import s from './Products.module.scss';
 
 const Products = () => {
+  const [productsState, setProductsState] = useState([]);
   const [filterSelected, setFilterSelected] = useState('');
   const [sortedProducts, setSortedProducts] = useState([]);
 
@@ -30,16 +31,6 @@ const Products = () => {
 
   const { control } = useForm();
 
-  useEffect(() => {
-    if (
-      products.length === 0 &&
-      sortedProducts.length === 0 &&
-      filterSelected === ''
-    ) {
-      // console.log('123');
-      return;
-    }
-  }, [filterSelected, products.length, sortedProducts.length]);
   const handleChangeFilter = async filterSelected => {
     await setFilterSelected(filterSelected);
 
@@ -69,11 +60,12 @@ const Products = () => {
   };
 
   const productsToRender = useMemo(() => {
-    return sortedProducts.length > 1 &&
+    return sortedProducts.length > 0 &&
       sortedProducts.length === products.length
       ? sortedProducts
       : products;
   }, [sortedProducts, products]);
+  console.log(filterSelected);
   console.log(products);
   console.log(productsToRender);
 
@@ -126,7 +118,7 @@ const Products = () => {
           <Controller
             control={control}
             name="filterSection"
-            render={({ field: { onChange, value } }) => (
+            render={({ field: { value } }) => (
               <SelectField
                 value={value}
                 className={'filterSection'}
@@ -144,7 +136,7 @@ const Products = () => {
           />
         </div>
 
-        {products.length > 0 && (
+        {productsToRender.length > 0 && (
           <ul className={s.listCard}>
             {productsToRender.map(
               ({
@@ -172,7 +164,10 @@ const Products = () => {
             )}
           </ul>
         )}
-        {/* {products.length === 0 && <h1>За вашим запитом товарів не знайдено</h1>} */}
+
+        {productsToRender.length === 0 && (
+          <h1>За вашим запитом товарів не знайдено</h1>
+        )}
       </div>
     </section>
   );
