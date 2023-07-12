@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { useSearchParams, useParams } from 'react-router-dom';
 import { MdClose } from 'react-icons/md';
 
@@ -18,9 +18,7 @@ import SelectField from 'components/Shared/SelectField/SelectField';
 import s from './Products.module.scss';
 
 const Products = () => {
-  const [productsState, setProductsState] = useState([]);
   const [filterSelected, setFilterSelected] = useState('');
-  const [sortedProducts, setSortedProducts] = useState([]);
 
   const { category, subcategory } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -33,41 +31,27 @@ const Products = () => {
 
   const handleChangeFilter = async filterSelected => {
     await setFilterSelected(filterSelected);
-
-    switch (filterSelected) {
-      case 'Від найдешевших':
-        await setSortedProducts(
-          products.slice(0).sort((a, b) => a.price - b.price)
-        );
-        break;
-      case 'Від найдорожчих':
-        await setSortedProducts(
-          products.slice(0).sort((a, b) => b.price - a.price)
-        );
-        break;
-      case 'За датою':
-        await setSortedProducts(
-          products.slice(0).sort((a, b) => -a.date.localeCompare(b.date))
-        );
-        break;
-      case '':
-        await setSortedProducts(products);
-        break;
-      default:
-        await setSortedProducts(products);
-        break;
-    }
   };
 
   const productsToRender = useMemo(() => {
-    return sortedProducts.length > 0 &&
-      sortedProducts.length === products.length
-      ? sortedProducts
-      : products;
-  }, [sortedProducts, products]);
-  console.log(filterSelected);
-  console.log(products);
-  console.log(productsToRender);
+    let productsState = [...products];
+
+    switch (filterSelected) {
+      case 'Від найдешевших':
+        return productsState.slice(0).sort((a, b) => a.price - b.price);
+
+      case 'Від найдорожчих':
+        return productsState.slice(0).sort((a, b) => b.price - a.price);
+
+      case 'За датою':
+        return productsState
+          .slice(0)
+          .sort((a, b) => -a.date.localeCompare(b.date));
+
+      default:
+        return productsState;
+    }
+  }, [products, filterSelected]);
 
   const searchQuery =
     JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '';
