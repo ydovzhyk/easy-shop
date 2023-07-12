@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { clearProductMessage } from 'redux/product/product-slice';
 import { clearUserMessage } from 'redux/auth/auth-slice';
 import { clearVerifyMessage } from 'redux/verifyEmail/verifyEmail-slice';
+import { clearDialogueMessage } from 'redux/dialogue/dialogue-slice';
 
 import Text from 'components/Shared/Text/Text';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -24,6 +25,7 @@ export default function MessageWindow({
     if (typeof onDismiss === 'function') {
       onDismiss();
     }
+    dispatch(clearDialogueMessage());
     dispatch(clearProductMessage());
     dispatch(clearUserMessage());
     dispatch(clearVerifyMessage());
@@ -35,6 +37,7 @@ export default function MessageWindow({
     if (!confirmButtons) {
       const timeout = setTimeout(() => {
         setIsDisplayed(false);
+        dispatch(clearDialogueMessage());
         dispatch(clearProductMessage());
         dispatch(clearUserMessage());
         dispatch(clearVerifyMessage());

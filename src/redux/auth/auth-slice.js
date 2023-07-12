@@ -65,6 +65,9 @@ const auth = createSlice({
     clearUserMessage: store => {
       store.message = null;
     },
+    getUserWithDialogue: (store, action) => {
+      store.user = action.payload;
+    },
   },
 
   extraReducers: {
@@ -208,5 +211,10 @@ const auth = createSlice({
 });
 
 export default auth.reducer;
-export const { clearNewUser, clearUser, clearUserError, clearUserMessage } =
-  auth.actions;
+export const {
+  clearNewUser,
+  clearUser,
+  clearUserError,
+  clearUserMessage,
+  getUserWithDialogue,
+} = auth.actions;
