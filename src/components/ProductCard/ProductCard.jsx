@@ -66,6 +66,7 @@ const ProductCard = () => {
     size,
     vip,
     _id,
+    userDialogue,
   } = product;
 
 
@@ -251,7 +252,7 @@ const ProductCard = () => {
                 </div>
               </div>
             </div>
-            <Dialogue productInfo={{ _id, owner }} />
+            <Dialogue productInfo={{ _id, owner, userDialogue }} />
           </>
         )}
       </Container>

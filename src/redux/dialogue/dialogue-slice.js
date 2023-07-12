@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { createDialogue } from './dialogue-operations';
+import { createDialogue, getDialogue } from './dialogue-operations';
 
 const initialState = {
   loading: false,
   error: '',
   message: '',
-  dialogue: [],
+  dialogueStore: [],
 };
 
 const dialogue = createSlice({
@@ -20,7 +20,7 @@ const dialogue = createSlice({
       store.message = '';
     },
     clearDialogue: store => {
-      store.message = null;
+      store.dialogueStore = [];
     },
   },
 
@@ -33,10 +33,22 @@ const dialogue = createSlice({
     },
     [createDialogue.fulfilled]: (store, { payload }) => {
       store.loading = false;
-      store.message = payload.message;
-      store.dialogue = payload.dialogue;
+      store.dialogueStore = payload.userDialogue;
     },
     [createDialogue.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload?.data?.message || '';
+    },
+    [getDialogue.pending]: store => {
+      store.loading = true;
+      store.error = '';
+      store.message = '';
+    },
+    [getDialogue.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.dialogueStore = payload.userDialogue;
+    },
+    [getDialogue.rejected]: (store, { payload }) => {
       store.loading = false;
       store.error = payload?.data?.message || '';
     },

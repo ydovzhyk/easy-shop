@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createDialogue } from 'redux/dialogue/dialogue-operations';
-import { getLogin } from 'redux/auth/auth-selectors';
-import { getID } from 'redux/auth/auth-selectors';
+import { getLogin, getUser, getUserAvatar } from 'redux/auth/auth-selectors';
+import { getDialogueStore } from 'redux/dialogue/dialogue-selectors';
+import { clearDialogue } from 'redux/dialogue/dialogue-slice';
+import { getDialogue } from 'redux/dialogue/dialogue-operations';
 
-import { getUserAvatar } from 'redux/auth/auth-selectors';
 import { BiMessageDetail } from 'react-icons/bi';
 import Text from 'components/Shared/Text/Text';
 import Avatar from 'components/Profile/Avatar/Avatar';
@@ -16,23 +17,58 @@ const Dialogue = ({ productInfo }) => {
   const dispatch = useDispatch();
   const productId = productInfo._id;
   const productOwner = productInfo.owner;
-  const [myQuestion, setMyQuestion] = useState('');
+
   const userAvatar = useSelector(getUserAvatar);
-  const owner = useSelector(getID);
+  const user = useSelector(getUser);
   const isUserLogin = useSelector(getLogin);
+  const [myQuestion, setMyQuestion] = useState('');
+  const dialogues = useSelector(getDialogueStore);
+
+  useEffect(() => {
+    if (!productId) {
+      return;
+    }
+    dispatch(clearDialogue());
+    dispatch(getDialogue({ productId: productId }));
+  }, [dispatch, productId]);
+
+  let dialogueArray = [];
+  if (dialogues.length === 0) {
+    dialogueArray = [];
+  } else {
+    dialogueArray = dialogues.messageArray.slice().reverse();
+  }
+
+  const findAvatar = id => {
+    let myAvatar = '';
+    let otherAvatar = '';
+    const firstAvatar = dialogues.userAvatar;
+    const secondAvatar = dialogues.productOwnerAvatar;
+    if (user.userAvatar === firstAvatar) {
+      myAvatar = firstAvatar;
+      otherAvatar = secondAvatar;
+    } else {
+      myAvatar = secondAvatar;
+      otherAvatar = firstAvatar;
+    }
+    if (id === user._id) {
+      return myAvatar;
+    } else {
+      return otherAvatar;
+    }
+  };
 
   const handleQuestionChange = e => {
     setMyQuestion(e.target.value);
   };
 
   const handleButtonClick = async () => {
-    console.log('Відправка питання', myQuestion);
     await dispatch(
       createDialogue({
         text: myQuestion,
-        owner: owner,
         productId: productId,
         productOwner: productOwner,
+        dialogueId: dialogues._id,
       })
     );
     setMyQuestion('');
@@ -44,13 +80,61 @@ const Dialogue = ({ productInfo }) => {
         <BiMessageDetail className={s.favoriteIcon} />
         <Text text="Поставити запитання" textClass="productText" />
       </div>
-      <div className={s.avatar}>
-        <Avatar avatarClass="photoDialog" src={userAvatar} />
-      </div>
-      <ul>
-        <li></li>
-      </ul>
-      <div>
+      {dialogueArray.length === 0 && (
+        <div className={s.avatar}>
+          <Avatar avatarClass="photoDialog" src={userAvatar} />
+        </div>
+      )}
+      {dialogueArray.length > 0 && (
+        <ul className={s.dialogueGroup}>
+          {dialogueArray.map((dialogue, index) => (
+            <li key={index}>
+              <div className={s.dialogueBox}>
+                {dialogue.textOwner === user._id ? (
+                  <>
+                    <Avatar
+                      avatarClass="photoDialogueLeft"
+                      src={findAvatar(dialogue.textOwner)}
+                    />
+                    <div className={s.dialogueMessage}>
+                      <Text
+                        text={dialogue.text}
+                        textClass="productTextDialogue"
+                      />
+                      <div className={s.textDate}>
+                        <Text
+                          text={dialogue.date}
+                          textClass="productTextDate"
+                        />
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className={s.dialogueMessageRight}>
+                      <Text
+                        text={dialogue.text}
+                        textClass="productTextDialogue"
+                      />
+                      <div className={s.textDate}>
+                        <Text
+                          text={dialogue.date}
+                          textClass="productTextDate"
+                        />
+                      </div>
+                    </div>
+                    <Avatar
+                      avatarClass="photoDialogueRight"
+                      src={findAvatar(dialogue.textOwner)}
+                    />
+                  </>
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+      <div className={s.textInputArea}>
         <textarea
           className={s.textarea}
           name="myQuestion"
