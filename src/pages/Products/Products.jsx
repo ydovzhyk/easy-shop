@@ -1,5 +1,5 @@
-import { useState, useMemo } from 'react';
-import { useSearchParams, useParams, useLocation } from 'react-router-dom';
+import { useState, useEffect, useMemo } from 'react';
+import { useSearchParams, useParams } from 'react-router-dom';
 import { MdClose } from 'react-icons/md';
 
 import { useForm, Controller } from 'react-hook-form';
@@ -30,16 +30,16 @@ const Products = () => {
 
   const { control } = useForm();
 
-  // useEffect(() => {
-  //   if (
-  //     products.length === 0 &&
-  //     sortedProducts.length === 0 &&
-  //     filterSelected === ''
-  //   ) {
-  //     console.log('123');
-  //     return;
-  //   }
-  // }, [filterSelected, products.length, sortedProducts.length]);
+  useEffect(() => {
+    if (
+      products.length === 0 &&
+      sortedProducts.length === 0 &&
+      filterSelected === ''
+    ) {
+      // console.log('123');
+      return;
+    }
+  }, [filterSelected, products.length, sortedProducts.length]);
   const handleChangeFilter = async filterSelected => {
     await setFilterSelected(filterSelected);
 
@@ -144,35 +144,35 @@ const Products = () => {
           />
         </div>
 
-        {/* {products.length > 0 && ( */}
-        <ul className={s.listCard}>
-          {productsToRender.map(
-            ({
-              _id,
-              mainPhotoUrl,
-              price,
-              nameProduct,
-              description,
-              section,
-              category,
-              size,
-            }) => (
-              <ProductItem
-                key={_id}
-                _id={_id}
-                mainPhotoUrl={mainPhotoUrl}
-                section={section}
-                category={category}
-                description={description}
-                price={price}
-                nameProduct={nameProduct}
-                size={size}
-              />
-            )
-          )}
-        </ul>
-        {/* )} */}
-        {products.length < 1 && <h1>За вашим запитом товарів не знайдено</h1>}
+        {products.length > 0 && (
+          <ul className={s.listCard}>
+            {productsToRender.map(
+              ({
+                _id,
+                mainPhotoUrl,
+                price,
+                nameProduct,
+                description,
+                section,
+                category,
+                size,
+              }) => (
+                <ProductItem
+                  key={_id}
+                  _id={_id}
+                  mainPhotoUrl={mainPhotoUrl}
+                  section={section}
+                  category={category}
+                  description={description}
+                  price={price}
+                  nameProduct={nameProduct}
+                  size={size}
+                />
+              )
+            )}
+          </ul>
+        )}
+        {/* {products.length === 0 && <h1>За вашим запитом товарів не знайдено</h1>} */}
       </div>
     </section>
   );

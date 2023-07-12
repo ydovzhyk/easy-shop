@@ -67,9 +67,8 @@ const Header = () => {
     setShowForm(!showForm);
   };
 
-  const handleNavigateClick = async (query, category) => {
-    await dispatch(clearSearchProducts());
-    await getPath(query, category);
+  const handleNavigateClick = () => {
+    dispatch(clearSearchProducts());
   };
 
   return (
@@ -164,6 +163,7 @@ const Header = () => {
                       `${isActive ? s.active : s.link}`
                     }
                     to={getPath(query, category)}
+                    onClick={handleNavigateClick}
                   >
                     {category}
                   </NavLink>
@@ -184,7 +184,8 @@ const Header = () => {
                     className={({ isActive }) =>
                       `${isActive ? s.active : s.link}`
                     }
-                    to={handleNavigateClick}
+                    to={getPath(query, category)}
+                    onClick={handleNavigateClick}
                   >
                     {category}
                   </NavLink>
