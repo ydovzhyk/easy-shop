@@ -69,8 +69,6 @@ const ProductCard = () => {
     userDialogue,
   } = product;
 
-
-
   const userProductBasket = useSelector(selectUserBasket);
   console.log('userProductBasket:', userProductBasket.flatMap((arr) => arr));
 

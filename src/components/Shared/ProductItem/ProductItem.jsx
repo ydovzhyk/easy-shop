@@ -26,6 +26,8 @@ const ProductItem = ({
   size,
   section,
   category,
+  vip,
+  sale,
 }) => {
   const translatedParamsObj = translateParamsToEN(section, category);
   const [categoryName, subCategoryName] = Object.values(translatedParamsObj);
@@ -34,6 +36,10 @@ const ProductItem = ({
   const isUserLogin = useSelector(getLogin);
   const [errorMessage, setErrorMessage] = useState(null);
   const [isErrorDisplayed, setIsErrorDisplayed] = useState(false);
+  console.log('vip', vip);
+
+  // for sale
+  const discountedPrice = (price * (100 - sale)) / 100;
 
   // for likes
   const handleClick = async () => {
@@ -59,9 +65,19 @@ const ProductItem = ({
     <li className={s.itemCard}>
       <Link
         to={`/products/${categoryName}/${subCategoryName}/${_id}`}
-        // className={s.photoLink}
+        className={s.photoLink}
       >
         <div className={s.stylePhotoCardWrap}>
+          {vip === 'Так' && (
+            <div className={s.vipLabel}>
+              <span>Vip</span>
+            </div>
+          )}
+          {sale && (
+            <div className={s.saleLabel}>
+              <span>{sale}%</span>
+            </div>
+          )}
           <img
             className={s.photoCard}
             src={mainPhotoUrl}
@@ -73,19 +89,30 @@ const ProductItem = ({
       </Link>
 
       <div className={s.stylePriceLike}>
-        <p className={s.priceCard}>{price}грн</p>
+        <div className={s.stylePrice}>
+          {sale ? (
+            <>
+              <p className={s.oldPriceCard}>{price}грн</p>
+              <p className={s.newPriceCard}>{discountedPrice}грн</p>
+            </>
+          ) : (
+            <p className={s.priceCard}>{price}грн</p>
+          )}
+        </div>
         <div className={s.styleLike} onClick={handleClick}>
           <p className={s.likeCard}>{likes}</p>
           <FiHeart size={24} className={`${userLike ? s.active : s.liked}`} />
-          {/* <NavLink to="/favorites" className={s.link}>
-            <FiHeart size={24} />
-          </NavLink> */}
         </div>
       </div>
 
-      <Link to={`/products/${categoryName}/${subCategoryName}/${_id}`}>
-        <p className={s.nameProductCard}>{nameProduct}</p>
-      </Link>
+      <div className={s.linkWrapper}>
+        <Link to={`/products/${categoryName}/${subCategoryName}/${_id}`}>
+          <div style={{ justifyContent: 'flex-start' }}>
+            <Text text={nameProduct} textClass="nameProductCard" />
+            {/* <p className={s.nameProductCard}>{nameProduct}</p> */}
+          </div>
+        </Link>
+      </div>
       <div className={s.styleSizeCard}>
         {size.map((item, index) => (
           <React.Fragment key={index}>
