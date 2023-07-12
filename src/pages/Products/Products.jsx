@@ -32,14 +32,15 @@ const Products = () => {
 
   useEffect(() => {
     if (
-      products.length === 0 ||
-      sortedProducts.length < 1 ||
+      products.length === 0 &&
+      sortedProducts.length === 0 &&
       filterSelected === ''
     ) {
+      console.log('123');
       return;
     }
   }, [filterSelected, products.length, sortedProducts.length]);
-  console.log(filterSelected);
+
   const handleChangeFilter = async filterSelected => {
     await setFilterSelected(filterSelected.value);
     switch (filterSelected) {
@@ -60,6 +61,10 @@ const Products = () => {
         break;
     }
   };
+  const productsToRender =
+    sortedProducts.length > 1 ? setSortedProducts : products;
+  console.log(products);
+  console.log(sortedProducts);
 
   const searchQuery =
     JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '';
@@ -130,7 +135,7 @@ const Products = () => {
 
         {products.length > 0 && (
           <ul className={s.listCard}>
-            {sortedProducts.map(
+            {products.map(
               ({
                 _id,
                 mainPhotoUrl,
