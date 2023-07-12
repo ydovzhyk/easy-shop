@@ -16,18 +16,13 @@ import Text from 'components/Shared/Text/Text';
 import SelectField from 'components/Shared/SelectField/SelectField';
 
 import s from './Products.module.scss';
-import { useEffect } from 'react';
 
 const Products = () => {
   const [filterSelected, setFilterSelected] = useState('');
-  // const [productsArray, setProductsArray] = useState('');
   const [sortedProducts, setSortedProducts] = useState([]);
-  // const [pathState, setPathState] = useState('');
-  // const [pathSearch, setPathSearch] = useState('');
 
   const { category, subcategory } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
-  // const { pathname } = useLocation();
 
   const products = useSelector(getProductsByQuery);
   const isFilterFormSubmitted = useSelector(getFilterForm);
