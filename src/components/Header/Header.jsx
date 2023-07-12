@@ -8,8 +8,9 @@ import { useMediaQuery } from 'react-responsive';
 
 import { NavLink, useSearchParams } from 'react-router-dom';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getLogin } from 'redux/auth/auth-selectors';
+import { clearSearchProducts } from 'redux/product/product-slice';
 
 import UserInfo from 'components/UserInfo/UserInfo';
 import HeaderForm from 'components/HeaderForm/HeaderForm';
@@ -34,6 +35,7 @@ const Header = () => {
   const searchQuery = searchParams.get('search') ?? '';
 
   const isLogin = useSelector(getLogin);
+  const dispatch = useDispatch();
 
   const isDesktop = useMediaQuery({ minWidth: 1280 });
   const isTablet = useMediaQuery({ minWidth: 768 });
@@ -63,6 +65,11 @@ const Header = () => {
 
   const handleSearchBtnClick = () => {
     setShowForm(!showForm);
+  };
+
+  const handleNavigateClick = async (query, category) => {
+    await dispatch(clearSearchProducts());
+    await getPath(query, category);
   };
 
   return (
@@ -177,7 +184,7 @@ const Header = () => {
                     className={({ isActive }) =>
                       `${isActive ? s.active : s.link}`
                     }
-                    to={getPath(query, category)}
+                    to={handleNavigateClick}
                   >
                     {category}
                   </NavLink>

@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useSearchParams, useParams } from 'react-router-dom';
+import { useState, useMemo } from 'react';
+import { useSearchParams, useParams, useLocation } from 'react-router-dom';
 import { MdClose } from 'react-icons/md';
 
 import { useForm, Controller } from 'react-hook-form';
@@ -16,13 +16,18 @@ import Text from 'components/Shared/Text/Text';
 import SelectField from 'components/Shared/SelectField/SelectField';
 
 import s from './Products.module.scss';
+import { useEffect } from 'react';
 
 const Products = () => {
   const [filterSelected, setFilterSelected] = useState('');
+  // const [productsArray, setProductsArray] = useState('');
   const [sortedProducts, setSortedProducts] = useState([]);
+  // const [pathState, setPathState] = useState('');
+  // const [pathSearch, setPathSearch] = useState('');
 
   const { category, subcategory } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
+  // const { pathname } = useLocation();
 
   const products = useSelector(getProductsByQuery);
   const isFilterFormSubmitted = useSelector(getFilterForm);
@@ -30,41 +35,56 @@ const Products = () => {
 
   const { control } = useForm();
 
-  useEffect(() => {
-    if (
-      products.length === 0 &&
-      sortedProducts.length === 0 &&
-      filterSelected === ''
-    ) {
-      console.log('123');
-      return;
-    }
-  }, [filterSelected, products.length, sortedProducts.length]);
-
+  // useEffect(() => {
+  //   if (
+  //     products.length === 0 &&
+  //     sortedProducts.length === 0 &&
+  //     filterSelected === ''
+  //   ) {
+  //     console.log('123');
+  //     return;
+  //   }
+  // }, [filterSelected, products.length, sortedProducts.length]);
   const handleChangeFilter = async filterSelected => {
-    await setFilterSelected(filterSelected.value);
+    await setFilterSelected(filterSelected);
+
     switch (filterSelected) {
       case 'Від найдешевших':
-        setSortedProducts(products.slice(0).sort((a, b) => a.price - b.price));
-        console.log(sortedProducts);
+        await setSortedProducts(
+          products.slice(0).sort((a, b) => a.price - b.price)
+        );
         break;
       case 'Від найдорожчих':
-        setSortedProducts(products.slice(0).sort((a, b) => b.price - a.price));
+        await setSortedProducts(
+          products.slice(0).sort((a, b) => b.price - a.price)
+        );
         break;
       case 'За датою':
-        setSortedProducts(
+        await setSortedProducts(
           products.slice(0).sort((a, b) => -a.date.localeCompare(b.date))
         );
         break;
+      case '':
+        await setSortedProducts(products);
+        break;
       default:
-        setSortedProducts(products);
+        await setSortedProducts(products);
         break;
     }
   };
-  const productsToRender =
-    sortedProducts.length > 1 ? setSortedProducts : products;
+
+  useEffect(() => {
+    if (filterSelected !== '') {
+      return;
+    }
+    handleChangeFilter('');
+  }, [filterSelected, handleChangeFilter]);
+
+  const productsToRender = useMemo(() => {
+    return sortedProducts.length > 1 ? sortedProducts : products;
+  }, [sortedProducts, products]);
   console.log(products);
-  console.log(sortedProducts);
+  console.log(productsToRender);
 
   const searchQuery =
     JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '';
@@ -119,7 +139,7 @@ const Products = () => {
               <SelectField
                 value={value}
                 className={'filterSection'}
-                handleChange={value => handleChangeFilter(value)}
+                handleChange={value => handleChangeFilter(value.value)}
                 options={[
                   'Популярні',
                   'Від найдешевших',
@@ -133,34 +153,34 @@ const Products = () => {
           />
         </div>
 
-        {products.length > 0 && (
-          <ul className={s.listCard}>
-            {products.map(
-              ({
-                _id,
-                mainPhotoUrl,
-                price,
-                nameProduct,
-                description,
-                section,
-                category,
-                size,
-              }) => (
-                <ProductItem
-                  key={_id}
-                  _id={_id}
-                  mainPhotoUrl={mainPhotoUrl}
-                  section={section}
-                  category={category}
-                  description={description}
-                  price={price}
-                  nameProduct={nameProduct}
-                  size={size}
-                />
-              )
-            )}
-          </ul>
-        )}
+        {/* {products.length > 0 && ( */}
+        <ul className={s.listCard}>
+          {productsToRender.map(
+            ({
+              _id,
+              mainPhotoUrl,
+              price,
+              nameProduct,
+              description,
+              section,
+              category,
+              size,
+            }) => (
+              <ProductItem
+                key={_id}
+                _id={_id}
+                mainPhotoUrl={mainPhotoUrl}
+                section={section}
+                category={category}
+                description={description}
+                price={price}
+                nameProduct={nameProduct}
+                size={size}
+              />
+            )
+          )}
+        </ul>
+        {/* )} */}
         {products.length < 1 && <h1>За вашим запитом товарів не знайдено</h1>}
       </div>
     </section>
