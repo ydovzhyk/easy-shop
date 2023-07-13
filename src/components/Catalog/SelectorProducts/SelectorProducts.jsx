@@ -82,6 +82,8 @@ const SelectorProducts = ({ activeButton, activeNewRef }) => {
             size={item.size}
             section={item.section}
             category={item.category}
+            vip={item.vip}
+            sale={item.sale}
           />
         ))}
       </ul>

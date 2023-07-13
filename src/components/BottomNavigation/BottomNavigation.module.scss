@@ -45,12 +45,12 @@
   }
 }
 
-a {
+.containerBottom a {
   transition: transform var(--transition-duration) var(--timing-function);
   display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
   &.active {
     position: relative;
     &::before {
@@ -77,7 +77,7 @@ a {
   transition: transform var(--transition-duration) var(--timing-function);
 }
 
-a:has(.userPhoto:hover),
-a:has(.userPhoto:focus) {
+.containerBottom a:has(.userPhoto:hover),
+.containerBottom a:has(.userPhoto:focus) {
   transform: scale(0.9);
 }

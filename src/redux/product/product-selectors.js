@@ -1,12 +1,15 @@
 export const selectAllProducts = ({ products }) => products.allProducts;
 export const getMessage = ({ products }) => products.message;
+export const getProductError = ({ products }) => products.error;
 export const getMyProducts = ({ products }) => products.userProducts;
 export const getMyProductsTotal = ({ products }) => products.userTotalProducts;
 export const getMyProductsPages = ({ products }) =>
   products.userProductsTotalPages;
 export const getProductsByQuery = ({ products }) => products.productsByQuery;
 export const getHeaderFormReset = ({ products }) => products.headerForm;
+export const getHeaderFormClick = ({ products }) => products.headerFormClick;
 export const getFilterProduct = ({ products }) => products.filterProduct;
+export const getFilterForm = ({ products }) => products.filterForm;
 export const getHeaderFormErrors = ({ products }) => products.headerFormErrors;
 export const getVipProductCard = ({ products }) => products.vipProducts;
 export const getVipPages = ({ products }) => products.vipPages;

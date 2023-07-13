@@ -1,10 +1,13 @@
-import { NavLink, useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { BsEscape } from 'react-icons/bs';
+import { SlEnvelopeOpen } from 'react-icons/sl';
 import { RxDividerVertical } from 'react-icons/rx';
 import { RxOpenInNewWindow } from 'react-icons/rx';
 import { AiOutlinePoweroff } from 'react-icons/ai';
+
+import { NavLink, useNavigate } from 'react-router-dom';
+
+import { useSelector, useDispatch } from 'react-redux';
 
 import s from './UserInfo.module.scss';
 
@@ -110,7 +113,7 @@ const UserInfo = () => {
         <div
           className={s.wrapper}
           style={{
-            marginRight: '15px',
+            marginRight: '25px',
           }}
         >
           <NavLink to="/basket" className={getClassName}>
@@ -125,7 +128,18 @@ const UserInfo = () => {
         <div
           className={s.wrapper}
           style={{
-            marginRight: '15px',
+            marginRight: '25px',
+          }}
+        >
+          <NavLink to="/basket" className={getClassName}>
+            <SlEnvelopeOpen style={{ marginRight: '10px' }} size={22} />
+            <span>0</span>
+          </NavLink>
+        </div>
+        <div
+          className={s.wrapper}
+          style={{
+            marginRight: '25px',
           }}
         >
           <NavLink to="/favorites" className={getClassName}>

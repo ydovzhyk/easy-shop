@@ -159,6 +159,18 @@
   color: var(--text-color);
 }
 
+.productTextDilogue {
+  font-weight: 200;
+  font-size: 14px;
+  color: var(--text-color);
+}
+
+.productTextDate {
+  // font-weight: bold;
+  font-size: 12px;
+  color: var(--text-color);
+}
+
 .catalogTitle {
   display: flex;
   justify-content: center;
@@ -249,4 +261,17 @@
   font-weight: 200;
   font-size: 14px;
   color: var(--text-color);
+}
+
+.nameProductCard {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 18px;
+  text-decoration: none;
+  text-align: left!important;
+
+
+
+
+  color: var(--second-text-color);
 }

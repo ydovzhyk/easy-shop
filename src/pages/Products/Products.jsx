@@ -1,24 +1,65 @@
+import { useState, useMemo } from 'react';
 import { useSearchParams, useParams } from 'react-router-dom';
 import { MdClose } from 'react-icons/md';
 
+import { useForm, Controller } from 'react-hook-form';
+
 import { useSelector, useDispatch } from 'react-redux';
-import { getProductsByQuery } from 'redux/product/product-selectors';
+import {
+  getLoadingProducts,
+  getProductsByQuery,
+} from 'redux/product/product-selectors';
+import { getFilterForm } from 'redux/product/product-selectors';
 import { resetHeaderForm } from 'redux/product/product-slice';
 import { resetFilterProduct } from 'redux/product/product-slice';
 
 import TopNavProducts from 'components/Shared/TopNavProducts/TopNavProducts';
 import ProductItem from 'components/Shared/ProductItem/ProductItem';
 import Text from 'components/Shared/Text/Text';
+import NotFound from 'components/NotFound/NotFound';
+import SelectField from 'components/Shared/SelectField/SelectField';
 
 import s from './Products.module.scss';
 
 const Products = () => {
+  const [filterSelected, setFilterSelected] = useState('');
+
   const { category, subcategory } = useParams();
-  const products = useSelector(getProductsByQuery);
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const products = useSelector(getProductsByQuery);
+  const isFilterFormSubmitted = useSelector(getFilterForm);
+  const isLoading = useSelector(getLoadingProducts);
+  const dispatch = useDispatch();
+
+  const { control } = useForm();
+
+  const handleChangeFilter = async filterSelected => {
+    await setFilterSelected(filterSelected);
+  };
+
+  const productsToRender = useMemo(() => {
+    let productsState = [...products];
+
+    switch (filterSelected) {
+      case 'Від найдешевших':
+        return productsState.slice(0).sort((a, b) => a.price - b.price);
+
+      case 'Від найдорожчих':
+        return productsState.slice(0).sort((a, b) => b.price - a.price);
+
+      case 'За датою':
+        return productsState
+          .slice(0)
+          .sort((a, b) => -a.date.localeCompare(b.date));
+
+      default:
+        return productsState;
+    }
+  }, [products, filterSelected]);
+
   const searchQuery =
     JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '';
-  const dispatch = useDispatch();
 
   const handleClearSearchQueryClick = async () => {
     await searchParams.delete('search');
@@ -31,7 +72,7 @@ const Products = () => {
   };
 
   return (
-    <section style={{ flexGrow: 1 }}>
+    <section style={{ flexGrow: 1, position: 'relative' }}>
       <div className={s.container}>
         <TopNavProducts
           products={products}
@@ -40,7 +81,7 @@ const Products = () => {
           query={searchQuery}
         />
 
-        <div style={{ marginBottom: '15px' }}>
+        <div>
           {searchQuery && (
             <button
               type="button"
@@ -51,45 +92,80 @@ const Products = () => {
               <MdClose size={22} />
             </button>
           )}
-          <button
-            type="button"
-            className={s.searchContent}
-            onClick={handleClearFiltersClick}
-          >
-            <Text textClass="searchQueryContent" text="Скинути фільтри" />
-            <MdClose size={22} />
-          </button>
+          {isFilterFormSubmitted && (
+            <button
+              type="button"
+              className={s.searchContent}
+              onClick={handleClearFiltersClick}
+            >
+              <Text textClass="searchQueryContent" text="Скинути фільтри" />
+              <MdClose size={22} />
+            </button>
+          )}
         </div>
+        {productsToRender.length > 0 && (
+          <>
+            <div style={{ textAlign: 'right' }}>
+              <Controller
+                control={control}
+                name="filterSection"
+                render={({ field: { value } }) => (
+                  <SelectField
+                    value={value}
+                    className={'filterSection'}
+                    handleChange={value => handleChangeFilter(value.value)}
+                    options={[
+                      'Популярні',
+                      'Від найдешевших',
+                      'Від найдорожчих',
+                      'За датою',
+                    ]}
+                    defaultValue={{ value: 'популярні', label: 'Популярні' }}
+                    name="filterSection"
+                  />
+                )}
+              />
+            </div>
 
-        {products.length > 0 && (
-          <ul className={s.listCard}>
-            {products.map(
-              ({
-                _id,
-                mainPhotoUrl,
-                price,
-                nameProduct,
-                description,
-                section,
-                category,
-                size,
-              }) => (
-                <ProductItem
-                  key={_id}
-                  _id={_id}
-                  mainPhotoUrl={mainPhotoUrl}
-                  section={section}
-                  category={category}
-                  description={description}
-                  price={price}
-                  nameProduct={nameProduct}
-                  size={size}
-                />
-              )
-            )}
-          </ul>
+            <ul className={s.listCard}>
+              {productsToRender.map(
+                ({
+                  _id,
+                  mainPhotoUrl,
+                  price,
+                  nameProduct,
+                  description,
+                  section,
+                  category,
+                  size,
+                }) => (
+                  <ProductItem
+                    key={_id}
+                    _id={_id}
+                    mainPhotoUrl={mainPhotoUrl}
+                    section={section}
+                    category={category}
+                    description={description}
+                    price={price}
+                    nameProduct={nameProduct}
+                    size={size}
+                  />
+                )
+              )}
+            </ul>
+          </>
         )}
-        {products.length < 1 && <h1>За вашим запитом товарів не знайдено</h1>}
+
+        {!isLoading &&
+          productsToRender.length === 0 &&
+          products.length === 0 && (
+            <NotFound
+              textTop={'За вашим запитом'}
+              textBottom={'товарів не знайдено.'}
+              backLink={'/products'}
+              classComp={'booWrapper-products'}
+            />
+          )}
       </div>
     </section>
   );

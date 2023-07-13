@@ -10,17 +10,13 @@
   letter-spacing: 0.04em;
   text-align: center;
   color: var(--title-text-color);
-  margin-bottom: 15px;
+  // margin-bottom: 15px;
   @include mixins.mq(mobile) {
     font-size: 20px;
   }
   @include mixins.mq(tablet) {
-    margin-bottom: 20px;
     font-size: 26px;
   }
-  // @include mixins.mq(desktop) {
-  //   font-size: 22px;
-  // }
 }
 
 .wrapper {
@@ -80,20 +76,17 @@
 
 .amountBox {
   display: inline-block;
-  margin-top: 10px;
   border: 1px solid var(--border-color);
   padding: 2px;
   font-size: 10px;
   color: grey;
 
   @include mixins.mq(mobile) {
-    margin-top: 15px;
     font-size: 14px;
     padding: 4px;
   }
   @include mixins.mq(desktop) {
     font-size: 16px;
-    margin-top: 0;
   }
 }
 

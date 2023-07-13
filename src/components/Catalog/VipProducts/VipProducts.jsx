@@ -23,7 +23,7 @@ const VipProducts = () => {
   const arrayVipProducts = useSelector(getVipProductCard);
   const vipPages = useSelector(getVipPages);
   const userId = useSelector(getID);
-
+  console.log('arrayVipProducts', arrayVipProducts);
   const isDesktop = useMediaQuery({ minWidth: 1280 });
 
   useEffect(() => {
@@ -104,6 +104,8 @@ const VipProducts = () => {
               size={item.size}
               section={item.section}
               category={item.category}
+              vip={item.vip}
+              sale={item.sale}
             />
           ))}
         </ul>

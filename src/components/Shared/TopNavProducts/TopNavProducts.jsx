@@ -1,6 +1,8 @@
 import { useMediaQuery } from 'react-responsive';
 import { BiChevronRight } from 'react-icons/bi';
+
 import { NavLink } from 'react-router-dom';
+
 import { translateParamsToUA } from '../../../funcs&hooks/translateParamsToUA.js';
 import { getDeclension } from '../../../funcs&hooks/getDeclansion.js';
 import { getPath } from '../../../funcs&hooks/getPath.js';
@@ -28,7 +30,7 @@ const TopNavProducts = ({ category, subcategory, products, query }) => {
 
   return (
     <>
-      <div className={s.catalogTitle}>
+      <div style={{ marginBottom: '15px' }} className={s.catalogTitle}>
         {!category && !subcategory && (
           <>
             <h2 className={s.title}>Каталог - EASY Shop</h2>
@@ -106,7 +108,10 @@ const TopNavProducts = ({ category, subcategory, products, query }) => {
                   to={getSubcategoryPath(query, categoryName, key)}
                 >
                   {key} -{' '}
-                  <span className={s.amountBoxSecondary}>
+                  <span
+                    style={{ marginTop: '10px' }}
+                    className={s.amountBoxSecondary}
+                  >
                     {getDeclension(val)}
                   </span>
                 </NavLink>

@@ -58,9 +58,12 @@ const ProductCard = () => {
     size,
     vip,
     _id,
+    userDialogue,
   } = product;
 
-  const isProductInLike = userLikes && userLikes.includes(userId); 
+  console.log('userProductBasket:', userProductBasket.flatMap((arr) => arr));
+
+  const isProductInLike = userLikes && userLikes.includes(userId);
   const isProductInBasket = userProductBasket
     ? userProductBasket.flatMap((arr) => arr).find(product => product.productId === id)
     : [];
@@ -184,7 +187,6 @@ const ProductCard = () => {
                       <span className={s.productPriceDiscount}>-8%</span>
                       <Text text={price} textClass="title" />
                     </div>
-                    
                     <SizeSelection
                       sizeOption={size}
                       onSelectedSizesChange={handleSelectedSizesChange}
@@ -247,7 +249,7 @@ const ProductCard = () => {
                 </div>
               </div>
             </div>
-            <Dialogue />
+            <Dialogue productInfo={{ _id, owner, userDialogue }} />
           </>
         )}
       </Container>
