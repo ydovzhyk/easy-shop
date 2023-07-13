@@ -66,9 +66,6 @@ const Filter = ({ onChange }) => {
       defaultValue: '',
     });
     reset();
-    // resetField('filterPriceTo', {
-    // defaultValue: ''
-    // });
     dispatch(showFilterProduct());
     onChange(filterData);
     dispatch(unSubmitFilterForm());
