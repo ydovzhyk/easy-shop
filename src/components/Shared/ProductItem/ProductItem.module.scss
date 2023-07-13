@@ -45,7 +45,7 @@
   border-radius: 18px;
   padding: 4px 12px;
 
-  background: var(--bg-footer-header);
+  background: #000000;
 
   @include mixins.mq(desktop) {
     top: 6px;
@@ -60,7 +60,7 @@
   text-transform: uppercase;
   line-height: 16px;
 
-  color: var(--label-text-color);
+  color: var(--accent-color);
 }
 
 .saleLabel {
@@ -77,10 +77,20 @@
   border-radius: 18px;
   padding: 4px 12px;
 
-  background: var(--bg-footer-header);
+  background: #000000;
 
   @include mixins.mq(desktop) {
     top: 32px;
+    left: 6px;
+  }
+}
+
+.saleLabelNoVip {
+  top: 16px;
+  left: 16px;
+
+  @include mixins.mq(desktop) {
+    top: 6px;
     left: 6px;
   }
 }
@@ -91,8 +101,8 @@
   font-size: 14px;
   text-transform: uppercase;
   line-height: 16px;
-  
-  color: var(--label-text-color);
+
+  color: var(--accent-color);
 }
 
 .photoCard {
@@ -151,7 +161,7 @@
   line-height: 11px;
   text-decoration: line-through;
 
-  color: var(--second-text-color);
+  color: #acadac;
 }
 
 .newPriceCard {
@@ -159,7 +169,7 @@
   font-size: 18px;
   line-height: 16px;
 
-  color: var(--sale-text);
+  color: var(--btn-text-color);
 }
 
 .priceCard {
@@ -224,4 +234,3 @@
     stroke: var(--icons-color);
   }
 }
-

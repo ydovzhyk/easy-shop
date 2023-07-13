@@ -73,8 +73,13 @@ const ProductItem = ({
               <span>Vip</span>
             </div>
           )}
-          {sale && (
+          {vip === 'Так' && sale && (
             <div className={s.saleLabel}>
+              <span>{sale}%</span>
+            </div>
+          )}
+          {vip !== 'Так' && sale && (
+            <div className={`${s.saleLabel} ${s.saleLabelNoVip}`}>
               <span>{sale}%</span>
             </div>
           )}
