@@ -29,6 +29,8 @@ import { BiMessageDetail } from 'react-icons/bi';
 import s from './ProductCard.module.scss';
 
 const ProductCard = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { category, subcategory, id } = useParams();
   const translatedParamsObj = translateParamsToUA(category, subcategory);
   const [categoryName, subCategoryName] = Object.values(translatedParamsObj);
@@ -36,25 +38,15 @@ const ProductCard = () => {
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [selectedSizes, setSelectedSizes] = useState([]);
   const [isMessage, setIsMessage] = useState(false);
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const product = useSelector(selectProductById);
-  const userId = useSelector(getID);
   const [isLiked, setIsLiked] = useState(false);
-   
-
-  useEffect(() => {
-    dispatch(clearOtherUser());
-    dispatch(clearProductById());
-    dispatch(getProductById(id)).then(() => setIsDataLoaded(true));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    setIsLiked(false);
-  }, [dispatch, id, isLiked]);
-
   const isLogin = useSelector(getLogin);
   const isLoading = useSelector(getLoadingProducts);
+
+  
+  const product = useSelector(selectProductById);
+  const userId = useSelector(getID);
+  const userProductBasket = useSelector(selectUserBasket);
+  const chattingRef = useRef();
 
   const {
     nameProduct,
@@ -68,12 +60,7 @@ const ProductCard = () => {
     _id,
   } = product;
 
-
-
-  const userProductBasket = useSelector(selectUserBasket);
-  console.log('userProductBasket:', userProductBasket.flatMap((arr) => arr));
-
-  const isProductInLike = userLikes && userLikes.includes(userId);
+  const isProductInLike = userLikes && userLikes.includes(userId); 
   const isProductInBasket = userProductBasket
     ? userProductBasket.flatMap((arr) => arr).find(product => product.productId === id)
     : [];
@@ -81,8 +68,8 @@ const ProductCard = () => {
   const resetMessage = () => {
     setIsMessage(false);
   };
-
-  const setProductToBasket = () => {
+  
+  const setProductToBasket = (event) => {
     if (!isLogin) {
       navigate('/login');
       return;
@@ -96,9 +83,10 @@ const ProductCard = () => {
         })
       );
     } else if (size && size.length > 1) {
-      if (selectedSizes.length === 0) {
+      if (selectedSizes.length === 0 && !isProductInBasket ) {
         setIsMessage(true);
-        console.log('Оберіть розмір');
+        // console.log('Оберіть розмір');
+        event.preventDefault();
         return;
       }
       
@@ -109,9 +97,9 @@ const ProductCard = () => {
         })
       );
       }
-    };
+  };
 
-  // for likes
+   // for likes
   const handleClick = async () => {
     if (!isLogin) {
       navigate('/login');
@@ -123,11 +111,9 @@ const ProductCard = () => {
     setIsLiked(true);
   };
 
-  const chattingRef = useRef();
-
   const scrollToChating = () => {
     chattingRef.current.scrollIntoView({ behavior: 'smooth' });
-  };
+  }; 
 
   const handleSelectedSizesChange = useCallback(sizes => {
     const transformedSizes = sizes.map(sizeGroup => {
@@ -147,6 +133,15 @@ const ProductCard = () => {
     });
     setSelectedSizes(transformedSizes);
   }, []);
+
+  
+  useEffect(() => {
+    dispatch(clearOtherUser());
+    dispatch(clearProductById());
+    dispatch(getProductById(id)).then(() => setIsDataLoaded(true));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setIsLiked(false);
+  }, [dispatch, id, isLiked]);
 
   return (
     <section className={s.productCard}>
