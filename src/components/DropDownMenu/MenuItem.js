@@ -2,7 +2,12 @@
 import s from './Catalog.module.scss';
 
 import React, { useState, useEffect } from 'react';
-import { useSearchParams, createSearchParams } from 'react-router-dom';
+import {
+  useSearchParams,
+  createSearchParams,
+  // useParams,
+  // useLocation,
+} from 'react-router-dom';
 
 import { ReactComponent as Flech } from '../../images/dropDownMenu/flech.svg';
 
@@ -10,8 +15,12 @@ const MenuItem = ({ menuItem, activeItem, setActiveItem }) => {
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [searchParams] = useSearchParams();
-  const searchQuery = searchParams.get('search') ?? '';
+  // const { pathname } = useLocation();
+  // const fff = useParams();
 
+  const searchQuery = searchParams.get('search') ?? '';
+  // console.log(pathname);
+  // console.log(fff);
   const handleMouseEnter = () => {
     setActiveItem(menuItem.name);
     setIsSubMenuOpen(true);
@@ -47,9 +56,7 @@ const MenuItem = ({ menuItem, activeItem, setActiveItem }) => {
           <span className={s.span}>{menuItem.name}</span>
         </div>
       </a>
-      <Flech
-        className={s.flech}
-      />
+      <Flech className={s.flech} />
 
       {isSubMenuOpen && (
         <div className={s.containerSubMenu}>
