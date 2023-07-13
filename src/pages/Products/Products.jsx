@@ -162,7 +162,6 @@ const Products = () => {
             <NotFound
               textTop={'За вашим запитом'}
               textBottom={'товарів не знайдено.'}
-              backLink={'/products'}
               classComp={'booWrapper-products'}
             />
           )}
