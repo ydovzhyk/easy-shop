@@ -29,7 +29,7 @@ const Basket = () => {
   const productsFrombasket = useSelector(selectProductsFromBasket);
   const sellersFrombasket = useSelector(selectSellersFromBasket);
   const selectedProductsWithSizes = useSelector(selectBasketProducts);
-  const isTablet = useMediaQuery({ minWidth: 840 });
+  const isTablet = useMediaQuery({ minWidth: 768 });
   
   // console.log('productsFrombasket:', productsFrombasket);
   // console.log('sellersfrombasket:', sellersFrombasket);
@@ -55,6 +55,8 @@ const Basket = () => {
         price: product.price,
         quantity: product.quantity,
         size: selectedSizes,
+        section: product.section,
+        category: product.category
       };
     });
 
