@@ -5,7 +5,10 @@ import { MdClose } from 'react-icons/md';
 import { useForm, Controller } from 'react-hook-form';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { getProductsByQuery } from 'redux/product/product-selectors';
+import {
+  getLoadingProducts,
+  getProductsByQuery,
+} from 'redux/product/product-selectors';
 import { getFilterForm } from 'redux/product/product-selectors';
 import { resetHeaderForm } from 'redux/product/product-slice';
 import { resetFilterProduct } from 'redux/product/product-slice';
@@ -25,6 +28,7 @@ const Products = () => {
 
   const products = useSelector(getProductsByQuery);
   const isFilterFormSubmitted = useSelector(getFilterForm);
+  const isLoading = useSelector(getLoadingProducts);
   const dispatch = useDispatch();
 
   const { control } = useForm();
@@ -149,9 +153,7 @@ const Products = () => {
           </ul>
         )}
 
-        {productsToRender.length === 0 && (
-          <h1>За вашим запитом товарів не знайдено</h1>
-        )}
+        {!isLoading && <h1>За вашим запитом товарів не знайдено</h1>}
       </div>
     </section>
   );
