@@ -16,6 +16,7 @@ import { resetFilterProduct } from 'redux/product/product-slice';
 import TopNavProducts from 'components/Shared/TopNavProducts/TopNavProducts';
 import ProductItem from 'components/Shared/ProductItem/ProductItem';
 import Text from 'components/Shared/Text/Text';
+import NotFound from 'components/NotFound/NotFound';
 import SelectField from 'components/Shared/SelectField/SelectField';
 
 import s from './Products.module.scss';
@@ -71,7 +72,7 @@ const Products = () => {
   };
 
   return (
-    <section style={{ flexGrow: 1 }}>
+    <section style={{ flexGrow: 1, position: 'relative' }}>
       <div className={s.container}>
         <TopNavProducts
           products={products}
@@ -102,58 +103,69 @@ const Products = () => {
             </button>
           )}
         </div>
-        <div style={{ textAlign: 'right' }}>
-          <Controller
-            control={control}
-            name="filterSection"
-            render={({ field: { value } }) => (
-              <SelectField
-                value={value}
-                className={'filterSection'}
-                handleChange={value => handleChangeFilter(value.value)}
-                options={[
-                  'Популярні',
-                  'Від найдешевших',
-                  'Від найдорожчих',
-                  'За датою',
-                ]}
-                defaultValue={{ value: 'популярні', label: 'Популярні' }}
-                name="filterSection"
-              />
-            )}
-          />
-        </div>
-
         {productsToRender.length > 0 && (
-          <ul className={s.listCard}>
-            {productsToRender.map(
-              ({
-                _id,
-                mainPhotoUrl,
-                price,
-                nameProduct,
-                description,
-                section,
-                category,
-                size,
-              }) => (
-                <ProductItem
-                  key={_id}
-                  _id={_id}
-                  mainPhotoUrl={mainPhotoUrl}
-                  section={section}
-                  category={category}
-                  description={description}
-                  price={price}
-                  nameProduct={nameProduct}
-                  size={size}
-                />
-              )
-            )}
-          </ul>
+          <>
+            <div style={{ textAlign: 'right' }}>
+              <Controller
+                control={control}
+                name="filterSection"
+                render={({ field: { value } }) => (
+                  <SelectField
+                    value={value}
+                    className={'filterSection'}
+                    handleChange={value => handleChangeFilter(value.value)}
+                    options={[
+                      'Популярні',
+                      'Від найдешевших',
+                      'Від найдорожчих',
+                      'За датою',
+                    ]}
+                    defaultValue={{ value: 'популярні', label: 'Популярні' }}
+                    name="filterSection"
+                  />
+                )}
+              />
+            </div>
+
+            <ul className={s.listCard}>
+              {productsToRender.map(
+                ({
+                  _id,
+                  mainPhotoUrl,
+                  price,
+                  nameProduct,
+                  description,
+                  section,
+                  category,
+                  size,
+                }) => (
+                  <ProductItem
+                    key={_id}
+                    _id={_id}
+                    mainPhotoUrl={mainPhotoUrl}
+                    section={section}
+                    category={category}
+                    description={description}
+                    price={price}
+                    nameProduct={nameProduct}
+                    size={size}
+                  />
+                )
+              )}
+            </ul>
+          </>
         )}
 
-        {!isLoading && <h1>За вашим запитом товарів не знайдено</h1>}
+        {!isLoading &&
+          productsToRender.length === 0 &&
+          products.length === 0 && (
+            <NotFound
+              textTop={'За вашим запитом'}
+              textBottom={'товарів не знайдено.'}
+              backLink={'/products'}
+              classComp={'booWrapper-products'}
+            />
+          )}
       </div>
     </section>
   );

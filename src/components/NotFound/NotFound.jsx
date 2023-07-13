@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom';
 import Button from 'components/Shared/Button';
 import s from './NotFound.module.scss';
 
-const NotFound = ({ textTop, textBottom, backLink }) => {
+const NotFound = ({ textTop, textBottom, backLink, classComp }) => {
   return (
-    <div className={s.booWrapper}>
+    <div className={s[classComp]}>
       <div className={s.boo}>
         <div className={s.face} id="face"></div>
       </div>

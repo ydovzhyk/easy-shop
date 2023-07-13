@@ -1,8 +1,8 @@
 import { useLocation } from 'react-router-dom';
 
-import s from '../../components/NotFound/NotFound.module.scss';
-
 import NotFound from 'components/NotFound/NotFound';
+
+import s from '../../components/NotFound/NotFound.module.scss';
 
 const NotFoundPage = () => {
   const location = useLocation();
@@ -14,6 +14,7 @@ const NotFoundPage = () => {
         textTop={'Нам не вдалося знайти сторінку,'}
         textBottom={'яку ви шукали.'}
         backLink={backLinkHref}
+        classComp={'booWrapper'}
       />
     </div>
   );
