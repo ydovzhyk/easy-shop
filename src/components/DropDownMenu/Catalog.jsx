@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import MenuItem from './MenuItem';
 import menuItems from './menuItems';
 import s from './Catalog.module.scss';
@@ -8,6 +9,7 @@ import { ReactComponent as SVG } from '../../images/dropDownMenu/line.svg';
 export const Catalog = () => {
   const [activeMenu, setActiveMenu] = useState(false);
   const [activeItem, setActiveItem] = useState('');
+
   const getClassName = ({ isActive }) => {
     return isActive ? `${s.catalog} ${s.active} ` : s.catalog;
   };
