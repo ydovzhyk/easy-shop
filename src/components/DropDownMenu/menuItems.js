@@ -2,6 +2,7 @@ import { ReactComponent as Women } from '../../images/dropDownMenu/women.svg';
 import { ReactComponent as Men } from '../../images/dropDownMenu/men.svg';
 import { ReactComponent as Sport } from '../../images/dropDownMenu/sport.svg';
 import { ReactComponent as Kids } from '../../images/dropDownMenu/kids.svg';
+
 import categoryOptions from '../AddProduct/category.json';
 
 let categoryName = '';

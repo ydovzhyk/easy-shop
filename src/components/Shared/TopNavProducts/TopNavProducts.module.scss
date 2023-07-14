@@ -10,7 +10,7 @@
   letter-spacing: 0.04em;
   text-align: center;
   color: var(--title-text-color);
-  // margin-bottom: 15px;
+  margin-bottom: 15px;
   @include mixins.mq(mobile) {
     font-size: 20px;
   }

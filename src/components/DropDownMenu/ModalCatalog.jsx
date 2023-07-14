@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
+import { HiOutlineBars4, HiArrowLongLeft } from 'react-icons/hi2';
+
 import { createPortal } from 'react-dom';
-import s from './ModalCatalog.module.scss';
+
 import menuItems from './menuItems';
 import Button from 'components/Shared/Button/Button';
-import { HiOutlineBars4, HiArrowLongLeft } from 'react-icons/hi2';
 import MenuItemModal from './MenuItemModal';
+
+import s from './ModalCatalog.module.scss';
 
 const modalRoot = document.querySelector('#modal-root');
 export const ModalCatalog = ({ closeModal }) => {

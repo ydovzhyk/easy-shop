@@ -17,9 +17,11 @@ const NotFound = ({ textTop, textBottom, backLink, classComp }) => {
         {textBottom}
       </p>
 
-      <Link to={backLink}>
-        <Button text="Повернутися" btnClass="btnLight" />
-      </Link>
+      {backLink && (
+        <Link to={backLink}>
+          <Button text="Повернутися" btnClass="btnLight" />
+        </Link>
+      )}
     </div>
   );
 };
