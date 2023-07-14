@@ -1,21 +1,66 @@
 import { useSelector } from 'react-redux';
 import { selectProductsFromBasket } from 'redux/product/product-selectors';
+import { getUser } from 'redux/auth/auth-selectors';
+import { useForm, Controller } from 'react-hook-form';
 import Container from 'components/Shared/Container';
 import Text from 'components/Shared/Text/Text';
 import NoPhoto from 'images/catalog_photo/no_photo.jpg';
 import TextField from 'components/Shared/TextField';
+import { field } from 'components/Shared/TextField/fields';
 import SelectField from 'components/Shared/SelectField/SelectField';
+import Button from 'components/Shared/Button/Button';
 import s from './Checkout.module.scss';
+
 
 const Checkout = () => {
   const productsInOrder = useSelector(selectProductsFromBasket);
+  const user = useSelector(getUser);
+  console.log('user', user);
+
+  const { secondName, firstName, surName, tel } = user || {};
+
   const sellerName = 'Katya';
   const orderSum = '750';
+  //control, register, handleSubmit, watch
+  const {
+    control,
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      sellerName: sellerName ? sellerName : '',
+      products: productsInOrder ? productsInOrder : [],
+      delivery: '',
+      orderSum: orderSum ? orderSum : null,
+      secondName: secondName ? secondName : '',
+      firstName: firstName ? firstName : '',
+      surName: surName ? surName : '',
+      tel: tel ? tel : '',
+    },
+  });
+console.log('errors', errors);
+  const onSubmit = (data, e) => {
+    
+    console.log('data', data);
+    e.preventDefault();
+    const orderData = {
+      sellerName: data.sellerName,
+      products: productsInOrder,
+      delivery: data.delivery,
+      totalSum: data.orderSum,
+      secondName: data.secondName,
+      firstName: data.firstName,
+      surName: data.surName,
+      tel: data.tel,
+    };
+    console.log('Відправка order', orderData);
+  };
   return (
     <Container>
       <section className={s.default}>
         <div className={s.defaultBox}>
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <h2 className={s.title}>Оформлення замовлення</h2>
             <Text
               textClass="productHeadings"
@@ -60,30 +105,164 @@ const Checkout = () => {
                 )
               )}
             </ul>
-            <div>
+            <div className={s.formField}>
               <Text textClass="title" text="Спосіб доставки" />
-              <SelectField
+              <Controller
+                control={control}
                 name="delivery"
-                className="addOrder"
-                placeholder="Виберіть службу доставки"
-                options={['Нова пошта', 'УкрПошта', 'Meest']}
+                rules={{
+                  required: true,
+                }}
+                render={({ field: { onChange, value } }) => (
+                  <SelectField
+                    value={value}
+                    handleChange={onChange}
+                    className="addOrder"
+                    {...field.delivery}
+                    options={['Нова пошта', 'УкрПошта', 'Meest']}
+                    {...register('delivery', {
+                      required: 'Виберіть службу доставки',
+                    })}
+                  />
+                )}
               />
+              {errors.delivery && (
+                <p className={s.inputError}>{errors.delivery.message}</p>
+              )}
             </div>
             <div>
               <Text textClass="title" text="Ваші контактні дані" />
-              <Text text={'Прізвище*'} textClass="productHeadings" />
-              <TextField name="lastName" className="addOrder" />
-              <Text text={"Ім'я*"} textClass="productHeadings" />
-              <TextField name="firstName" className="addOrder" />
-              <Text text={'По батькові*'} textClass="productHeadings" />
-              <TextField name="middlename" className="addOrder" />
-              <Text
-                text={'Телефон +380*'}
-                textClass="productHeadings"
-                type="tel"
-                placeholder="+380"
+              <div className={s.formField}>
+                <Text text={'Прізвище*'} textClass="productHeadings" />
+                <Controller
+                  control={control}
+                  name="secondName"
+                  rules={{
+                    required: true,
+                  }}
+                  render={({ field: { onChange, value } }) => (
+                    <TextField
+                      className="addOrder"
+                      value={value}
+                      control={control}
+                      handleChange={onChange}
+                      {...field.secondName}
+                      required={true}
+                      {...register('secondName', {
+                        required: "Обов'язково до заповнення",
+                      })}
+                    />
+                  )}
+                />
+                {errors.secondName && (
+                  <p className={s.inputError}>{errors.secondName.message}</p>
+                )}
+              </div>
+              <div className={s.formField}>
+                <Text text={"Ім'я*"} textClass="productHeadings" />
+                <Controller
+                  control={control}
+                  name="firstName"
+                  rules={{
+                    required: true,
+                  }}
+                  render={({ field: { onChange, value } }) => (
+                    <TextField
+                      className="addOrder"
+                      value={value}
+                      control={control}
+                      handleChange={onChange}
+                      {...field.firstName}
+                      required={true}
+                      {...register('firstName', {
+                        required: "Обов'язково до заповнення",
+                      })}
+                    />
+                  )}
+                />
+                {errors.firstName && (
+                  <p className={s.inputError}>{errors.firstName.message}</p>
+                )}
+              </div>
+
+              <div className={s.formField}>
+                <Text text={'По батькові*'} textClass="productHeadings" />
+                <Controller
+                  control={control}
+                  name="surName"
+                  rules={{
+                    required: true,
+                  }}
+                  render={({ field: { onChange, value } }) => (
+                    <TextField
+                      className="addOrder"
+                      value={value}
+                      control={control}
+                      handleChange={onChange}
+                      {...field.surName}
+                      required={true}
+                      {...register('surName', {
+                        required: "Обов'язково до заповнення",
+                      })}
+                    />
+                  )}
+                />
+                {errors.surName && (
+                  <p className={s.inputError}>{errors.surName.message}</p>
+                )}
+              </div>
+
+              <div className={s.formField}>
+                <Text
+                  text={'Телефон +380*'}
+                  textClass="productHeadings"
+                  type="tel"
+                />
+                <Controller
+                  control={control}
+                  name="tel"
+                  rules={{
+                    required: true,
+                  }}
+                  render={({ field: { onChange, value } }) => (
+                    <TextField
+                      className="addOrder"
+                      value={value}
+                      control={control}
+                      handleChange={onChange}
+                      {...field.tel}
+                      required={true}
+                      {...register('tel', {
+                        required: "Обов'язково до заповнення",
+                        pattern: {
+                          value: /^\+?3?8?[0-9]{10}/,
+                          message: 'Приклад номеру : +380993453451',
+                        },
+                      })}
+                    />
+                  )}
+                />
+                {errors.tel && (
+                  <p className={s.inputError}>{errors.tel.message}</p>
+                )}
+              </div>
+            </div>
+            <div>
+              <Text textClass="title" text="Разом" />
+              <div>
+                <span>Вартість товару</span>
+                <span>{orderSum}</span>
+              </div>
+              <div>
+                <span>До оплати</span>
+                <span>{orderSum}</span>
+              </div>
+              <Button
+                type="submit"
+                btnClass="btnLight"
+                text="Оформити замовлення"
+                handleClick={handleSubmit(onSubmit)}
               />
-              <TextField name="tel" className="addOrder" />
             </div>
           </form>
         </div>

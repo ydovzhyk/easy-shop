@@ -98,3 +98,13 @@
     justify-content: center;
   }
 }
+
+.formField {
+  position: relative;
+}
+
+.inputError {
+  color: red;
+  position: absolute;
+  top: 72px;
+}
