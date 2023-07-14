@@ -3,7 +3,6 @@
 .default {
   padding-top: 10px;
   width: 100%;
-  height: 510px;
 }
 
 .defaultBox {
@@ -12,17 +11,159 @@
   }
 }
 
+.formWrapper {
+  @include mixins.mq(desktop) {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+  }
+}
+
+.orderInfo {
+  @include mixins.mq(desktop) {
+    width: 60%;
+  }
+}
+
 .title {
   font-weight: 700;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 13px;
-  letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--accent-color);
+  color: var(--title-text-color);
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 28px;
+  margin-top: 20px;
 
   @include mixins.mq(tablet) {
     text-align: left;
+    font-size: 20px;
+    letter-spacing: 0.04em;
+    margin-bottom: 32px;
   }
+  @include mixins.mq(desktop) {
+    font-size: 24px;
+    margin-bottom: 36px;
+  }
+}
+
+.productItem {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 12px;
+  @include mixins.mq(tablet) {
+    padding: 12px 20px;
+  }
+}
+
+.infoWraper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  @include mixins.mq(tablet) {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 12px;
+  }
+}
+
+.mainInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.thumb {
+  width: 120px;
+  height: 180px;
+}
+
+.mainPhoto {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 140px;
+
+  @include mixins.mq(tablet) {
+    width: 200px;
+  }
+
+  @include mixins.mq(desktop) {
+    width: 360px;
+  }
+}
+
+.priceWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 12px;
+  @include mixins.mq(tablet) {
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+.formField {
+  position: relative;
+  @include mixins.mq(tablet) {
+    width: 70%;
+  }
+  
+}
+
+.inputError {
+  color: red;
+  position: absolute;
+  top: 72px;
+}
+
+.sumWrapper {
+  padding: 28px 20px;
+  border: 1px solid rgb(174, 174, 174);
+  border-radius: 4px;
+  @include mixins.mq(tablet) {
+    width: 70%;
+  }
+  @include mixins.mq(desktop) {
+    width: 30%;
+    height: auto;
+  }
+}
+
+.sumTitle {
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: uppercase;
+  color: var(--title-text-color);
+  margin-bottom: 16px;
+
+  @include mixins.mq(tablet) {
+    font-size: 20px;
+    margin-bottom: 24px;
+  }
+  @include mixins.mq(desktop) {
+    font-size: 24px;
+    margin-bottom: 32px;
+  }
+}
+
+.sumBox {
+  display: flex;
+  justify-content: space-between;
+    align-items: center;
+}
+
+.sumWrapper > button {
+  width: 100%;
 }

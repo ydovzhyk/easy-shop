@@ -140,4 +140,10 @@ export const field = {
     name: 'phone',
     type: 'text',
   },
+  delivery: {
+    name: 'delivery',
+    type: 'text',
+    placeholder: 'Виберіть службу доставки*',
+    required: true,
+  },
 };
