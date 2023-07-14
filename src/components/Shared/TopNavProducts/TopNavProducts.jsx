@@ -30,7 +30,7 @@ const TopNavProducts = ({ category, subcategory, products, query }) => {
 
   return (
     <>
-      <div style={{ marginBottom: '15px' }} className={s.catalogTitle}>
+      <div className={s.catalogTitle}>
         {!category && !subcategory && (
           <>
             <h2 className={s.title}>Каталог - EASY Shop</h2>
