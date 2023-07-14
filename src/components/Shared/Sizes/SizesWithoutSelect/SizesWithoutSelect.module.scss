@@ -1,21 +1,37 @@
 @use 'styles/mixins';
 
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+}
 .menuGroupList {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 24px;
+    align-items:center;
     justify-content: flex-start;
+    color: var(--text-color);
     // flex-wrap: wrap;
-    margin-bottom: 16px;
+    // margin-bottom: 16px;
 }
 
+.sizeAndCountWrapper {
+    // padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    // justify-content: center;
+}
 .size {
     width: 250px;
     display: inline-block;
     border: 1px solid var(--border-color);
     border-radius: 5px;
     padding: 8px;
-    margin-bottom: 16px;
+    // margin-bottom: 16px;
 
     @include mixins.mq(desktop) {
         margin-right: 20px;

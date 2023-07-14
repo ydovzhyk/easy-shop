@@ -1,44 +1,48 @@
-import Text from 'components/Shared/Text/Text';
-import s from 'components/Shared/Sizes/SizesWithoutSelect/SizesWithoutSelect.module.scss';
 import { nanoid } from '@reduxjs/toolkit';
+import Text from 'components/Shared/Text/Text';
+import CountBlock from 'components/Basket/CountBlock/CountBlock';
+import s from 'components/Shared/Sizes/SizesWithoutSelect/SizesWithoutSelect.module.scss';
 
-const SizesWithoutSelect = ({ sizes, text }) => {
-  // console.log('sizes:', sizes);
-  const transformedSizes= sizes
-    ? sizes.map(item => item[0].value)
-    : [];
-  // console.log('transformedSizes', transformedSizes);
+
+const SizesWithoutSelect = ({ sizes, text, price, onDecrement, onIncrement, id }) => {
+  console.log('sizes:', sizes);
+  const transformedSizes = sizes
+    ? sizes.map((item) => {
+      const sizeId = item.name;
+      const value = item.value;
+      const quantity = item.quantity;
+      return { sizeId, value, quantity };
+    })
+    : []
+  console.log('transformedSizes', transformedSizes);
+ 
   return (
-    <div>
+    <div className={s.wrapper}>
       <Text text={text} textClass="productLabels" />
       <ul className={s.menuGroupList}>
-        {transformedSizes.length > 1
-        ? transformedSizes.map(item => {
-            return (
-              <li className={s.size} key={nanoid()}>
+        {transformedSizes.map((item) => {
+            
+          return (
+            <li className={s.sizeAndCountWrapper} key={nanoid()}>
+              <div className={s.size}>
                 <Text
-                  text={`EU: ${item[0].EU} / UA: ${item[1].UA} / IN: ${item[2].IN}`}
+                  text={item.value[0].EU
+                    ? `EU: ${item.value[0].EU} / UA: ${item.value[1].UA} / IN: ${item.value[2].IN}`
+                    : `${item.sizeId}`}
                   textClass="after-title-bigger"
                 />
-              </li>
-            );
-          })
-        : transformedSizes.map(item => {
-            return (
-              <li className={s.size} key={nanoid()}>
-                <Text
-                  text={
-                    item[0].EU
-                      ? `EU: ${item[0].EU} / UA: ${item[1].UA} / IN: ${item[2].IN}`
-                      : `${Object.keys(item[0])} `
-                  }
-                  textClass="after-title-bigger"
-                />
-              </li>
-            );
-          })}
+              </div>
+              <CountBlock
+                number={item.quantity}
+                price={price}
+                onMinus={() => onDecrement(id, item.sizeId)}
+                onPlus={() => onIncrement(id, item.sizeId)}
+                id={item.sizeId}
+              />
+            </li>
+          );
+        })}
       </ul>
-      
     </div>
   );
 };
