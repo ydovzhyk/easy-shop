@@ -2,7 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import { updateUser } from 'redux/auth/auth-opetations';
-import { getError, getLoadingUser } from 'redux/auth/auth-selectors';
+import {
+  getError,
+  getLoadingUser,
+  getLogin,
+  getID,
+} from 'redux/auth/auth-selectors';
 import {
   getLoadingProducts,
   getProductError,
@@ -28,6 +33,8 @@ import ErrorMessage from './Shared/ErrorMessage/ErrorMessage';
 import { useLocation } from 'react-router-dom';
 
 export const App = () => {
+  const isLogin = useSelector(getLogin);
+  const userId = useSelector(getID);
   const authError = useSelector(getError);
   const productError = useSelector(getProductError);
   const verifyEmailError = useSelector(getErrorVerifyEmail);
@@ -127,6 +134,42 @@ export const App = () => {
       JSON.stringify(pageInfoToUpdate)
     );
   }, [location.pathname]);
+
+  // Web Socket
+  useEffect(() => {
+    if (isLogin) {
+      const socket = new WebSocket('ws://localhost:5000'); // Замініть на адресу вашого WebSocket сервера
+
+      // Обробник події відкриття з'єднання
+      socket.onopen = () => {
+        console.log("WebSocket з'єднання встановлено");
+
+        // Відправити запит на перевірку оновлень
+        const request = {
+          type: 'check_updates_dialogue', // тип запиту, можна обрати будь-яку назву
+          userId: userId, // ідентифікатор користувача, можна замінити на реальний ідентифікатор
+        };
+        socket.send(JSON.stringify(request));
+      };
+
+      // Обробник події отримання повідомлення з сервера
+      socket.onmessage = event => {
+        const message = event.data;
+        console.log('Отримано повідомлення:', message);
+        // Додайте обробку отриманого повідомлення
+      };
+
+      // Обробник події закриття з'єднання
+      socket.onclose = () => {
+        console.log("WebSocket з'єднання закрито");
+      };
+
+      // Закриття WebSocket з'єднання при видаленні компонента
+      return () => {
+        socket.close();
+      };
+    }
+  }, [isLogin, userId]);
 
   return (
     <div
