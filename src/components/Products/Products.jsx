@@ -13,6 +13,7 @@ import { getFilterForm } from 'redux/product/product-selectors';
 import { resetHeaderForm } from 'redux/product/product-slice';
 import { resetFilterProduct } from 'redux/product/product-slice';
 
+// import Pagination from 'components/Shared/Pagination/Pagination';
 import TopNavProducts from 'components/Shared/TopNavProducts/TopNavProducts';
 import ProductItem from 'components/Shared/ProductItem/ProductItem';
 import Text from 'components/Shared/Text/Text';
@@ -23,6 +24,7 @@ import s from './Products.module.scss';
 
 const Products = () => {
   const [filterSelected, setFilterSelected] = useState('');
+  // const [currentPage, setCurrentPage] = useState(1);
 
   const { category, subcategory } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -38,6 +40,13 @@ const Products = () => {
     await setFilterSelected(filterSelected);
   };
 
+  //   const handlePageChange = page => {
+  //     setCurrentPage(page);
+  //     scrollToNew();
+  //   };
+  // const scrollToNew = () => {
+  //   activeNewRef.current.scrollIntoView({ behavior: 'smooth' });
+  // };
   const productsToRender = useMemo(() => {
     let productsState = [...products];
 
@@ -58,7 +67,6 @@ const Products = () => {
         return productsState;
     }
   }, [products, filterSelected]);
-  console.log(filterSelected);
 
   const searchQuery =
     JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '';
@@ -164,6 +172,11 @@ const Products = () => {
                 )
               )}
             </ul>
+            {/* <Pagination
+              totalPages={selectorPages}
+              currentPage={currentPage}
+              onPageChange={handlePageChange}
+            /> */}
           </>
         )}
 
