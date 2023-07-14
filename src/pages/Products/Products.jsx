@@ -46,6 +46,7 @@ const Products = () => {
         return productsState.slice(0).sort((a, b) => a.price - b.price);
 
       case 'Від найдорожчих':
+        console.log(filterSelected);
         return productsState.slice(0).sort((a, b) => b.price - a.price);
 
       case 'За датою':
@@ -57,6 +58,7 @@ const Products = () => {
         return productsState;
     }
   }, [products, filterSelected]);
+  console.log(filterSelected);
 
   const searchQuery =
     JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '';
@@ -120,7 +122,16 @@ const Products = () => {
                       'Від найдорожчих',
                       'За датою',
                     ]}
-                    defaultValue={{ value: 'популярні', label: 'Популярні' }}
+                    defaultValue={
+                      filterSelected === ''
+                        ? { value: 'популярні', label: 'Популярні' }
+                        : {
+                            value: filterSelected,
+                            label:
+                              filterSelected[0].toUpperCase() +
+                              filterSelected.slice(1),
+                          }
+                    }
                     name="filterSection"
                   />
                 )}
