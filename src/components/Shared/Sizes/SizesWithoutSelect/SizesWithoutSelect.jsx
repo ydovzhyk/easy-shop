@@ -3,9 +3,8 @@ import s from 'components/Shared/Sizes/SizesWithoutSelect/SizesWithoutSelect.mod
 import { nanoid } from '@reduxjs/toolkit';
 
 const SizesWithoutSelect = ({ sizes, text }) => {
-  console.log('sizes:', sizes);
-  
-const transformedSizes= sizes
+  // console.log('sizes:', sizes);
+  const transformedSizes= sizes
     ? sizes.map(item => item[0].value)
     : [];
   // console.log('transformedSizes', transformedSizes);

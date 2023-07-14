@@ -66,6 +66,16 @@
   border-radius: 32px;
 }
 
+.booWrapper-products {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  background-color: var(--accent-color);
+  padding: 16px;
+  border-radius: 32px;
+}
+
 .boo {
   width: 160px;
   height: 184px;
