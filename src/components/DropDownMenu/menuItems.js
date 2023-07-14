@@ -34,7 +34,7 @@ const menuItems = Object.keys(categoryOptions).map((el, index) => {
   return {
     id: index,
     name: el,
-    link: `/products/${categoryName}`,
+    link: `products/${categoryName}`,
     icon: iconCategory,
     alt: 'alt',
     submenu: Object.values(categoryOptions)[index].map((elem, indx) => {
@@ -229,7 +229,7 @@ const menuItems = Object.keys(categoryOptions).map((el, index) => {
       return {
         id: indx,
         name: elem,
-        link: `/products/${categoryName}/${subCategoryName}`,
+        link: `products/${categoryName}/${subCategoryName}`,
       };
     }),
   };

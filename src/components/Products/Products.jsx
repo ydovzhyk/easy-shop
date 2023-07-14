@@ -13,6 +13,7 @@ import { getFilterForm } from 'redux/product/product-selectors';
 import { resetHeaderForm } from 'redux/product/product-slice';
 import { resetFilterProduct } from 'redux/product/product-slice';
 
+// import Pagination from 'components/Shared/Pagination/Pagination';
 import TopNavProducts from 'components/Shared/TopNavProducts/TopNavProducts';
 import ProductItem from 'components/Shared/ProductItem/ProductItem';
 import Text from 'components/Shared/Text/Text';
@@ -23,6 +24,7 @@ import s from './Products.module.scss';
 
 const Products = () => {
   const [filterSelected, setFilterSelected] = useState('');
+  // const [currentPage, setCurrentPage] = useState(1);
 
   const { category, subcategory } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -38,6 +40,13 @@ const Products = () => {
     await setFilterSelected(filterSelected);
   };
 
+  //   const handlePageChange = page => {
+  //     setCurrentPage(page);
+  //     scrollToNew();
+  //   };
+  // const scrollToNew = () => {
+  //   activeNewRef.current.scrollIntoView({ behavior: 'smooth' });
+  // };
   const productsToRender = useMemo(() => {
     let productsState = [...products];
 
@@ -46,6 +55,7 @@ const Products = () => {
         return productsState.slice(0).sort((a, b) => a.price - b.price);
 
       case 'Від найдорожчих':
+        console.log(filterSelected);
         return productsState.slice(0).sort((a, b) => b.price - a.price);
 
       case 'За датою':
@@ -120,7 +130,16 @@ const Products = () => {
                       'Від найдорожчих',
                       'За датою',
                     ]}
-                    defaultValue={{ value: 'популярні', label: 'Популярні' }}
+                    defaultValue={
+                      filterSelected === ''
+                        ? { value: 'популярні', label: 'Популярні' }
+                        : {
+                            value: filterSelected,
+                            label:
+                              filterSelected[0].toUpperCase() +
+                              filterSelected.slice(1),
+                          }
+                    }
                     name="filterSection"
                   />
                 )}
@@ -153,6 +172,11 @@ const Products = () => {
                 )
               )}
             </ul>
+            {/* <Pagination
+              totalPages={selectorPages}
+              currentPage={currentPage}
+              onPageChange={handlePageChange}
+            /> */}
           </>
         )}
 

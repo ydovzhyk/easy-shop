@@ -30,6 +30,7 @@ const MenuItem = ({ menuItem, activeItem, setActiveItem }) => {
 
   // const getPathCategory = link => {
   //   if (!isUserAtProductsSearchPage && query === '') {
+  //     console.log(`${link}`);
   //     return `${link}`;
   //   }
   //   if (!isUserAtProductsSearchPage && query !== '') {
@@ -38,48 +39,11 @@ const MenuItem = ({ menuItem, activeItem, setActiveItem }) => {
   //     })}`;
   //   }
   //   if (isUserAtProductsSearchPage && query === '') {
-  //     return `${link.split('/').slice(2)}`;
+  //     console.log(`${link.split('/').slice(1).join('')}`);
+  //     return `${'/'} ${link.split('/').slice(1).join('')}`;
   //   }
   //   if (isUserAtProductsSearchPage && query !== '') {
   //     return `${link.split('/').slice(2)}?${createSearchParams({
-  //       search: query,
-  //     })}`;
-  //   }
-  // };
-
-  // const getPathCategory = link => {
-  //   if (!isUserAtProductsSearchPage && query === '') {
-  //     console.log('1');
-  //     console.log(`${link}`);
-  //     return `${link}`;
-  //   }
-  //   if (!isUserAtProductsSearchPage && query !== '') {
-  //     console.log('2');
-  //     console.log(
-  //       `${link}?${createSearchParams({
-  //         search: query,
-  //       })}`
-  //     );
-  //     return `${link}?${createSearchParams({
-  //       search: query,
-  //     })}`;
-  //   }
-  //   if (isUserAtProductsSearchPage && query === '') {
-  //     console.log('3');
-  //     console.log(`${link.split('/').slice(2).join('')}`);
-  //     console.log(`${link}`);
-  //     console.log(link);
-  //     // return `${link.split('/').slice(2).join('')}`;
-  //     return `${link}`;
-  //   }
-  //   if (isUserAtProductsSearchPage && query !== '') {
-  //     console.log('4');
-  //     console.log(
-  //       `${link.split('/').slice(2).join('/')}?${createSearchParams({
-  //         search: query,
-  //       })}`
-  //     );
-  //     return `${link.split('/').slice(2).join('/')}?${createSearchParams({
   //       search: query,
   //     })}`;
   //   }
@@ -99,6 +63,7 @@ const MenuItem = ({ menuItem, activeItem, setActiveItem }) => {
     >
       <a
         href={
+          // '/products/men'
           // getPathCategory(menuItem.link)
           query === ''
             ? `${menuItem.link}`
