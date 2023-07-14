@@ -11,6 +11,21 @@
   }
 }
 
+.formWrapper {
+  @include mixins.mq(desktop) {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+  }
+}
+
+.orderInfo {
+  @include mixins.mq(desktop) {
+    width: 60%;
+  }
+}
+
 .title {
   font-weight: 700;
   font-size: 16px;
@@ -38,7 +53,7 @@
   border-bottom: 1px solid var(--border-color);
   margin-bottom: 12px;
   @include mixins.mq(tablet) {
-    padding: 12px;
+    padding: 12px 20px;
   }
 }
 
@@ -84,7 +99,7 @@
   }
 
   @include mixins.mq(desktop) {
-    width: 600px;
+    width: 360px;
   }
 }
 
@@ -101,10 +116,54 @@
 
 .formField {
   position: relative;
+  @include mixins.mq(tablet) {
+    width: 70%;
+  }
+  
 }
 
 .inputError {
   color: red;
   position: absolute;
   top: 72px;
+}
+
+.sumWrapper {
+  padding: 28px 20px;
+  border: 1px solid rgb(174, 174, 174);
+  border-radius: 4px;
+  @include mixins.mq(tablet) {
+    width: 70%;
+  }
+  @include mixins.mq(desktop) {
+    width: 30%;
+    height: auto;
+  }
+}
+
+.sumTitle {
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: uppercase;
+  color: var(--title-text-color);
+  margin-bottom: 16px;
+
+  @include mixins.mq(tablet) {
+    font-size: 20px;
+    margin-bottom: 24px;
+  }
+  @include mixins.mq(desktop) {
+    font-size: 24px;
+    margin-bottom: 32px;
+  }
+}
+
+.sumBox {
+  display: flex;
+  justify-content: space-between;
+    align-items: center;
+}
+
+.sumWrapper > button {
+  width: 100%;
 }

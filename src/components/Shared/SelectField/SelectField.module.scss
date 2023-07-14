@@ -119,4 +119,14 @@
 
 .label.addOrder {
   width: 100%;
+  @include mixins.mq(tablet) {
+    width: 80%;
+  }
+  @include mixins.mq(desktop) {
+    width: 70%;
+  }
+}
+
+.select.addOrder {
+  width: 100%;
 }
