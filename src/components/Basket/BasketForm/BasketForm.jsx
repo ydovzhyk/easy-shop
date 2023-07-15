@@ -25,13 +25,7 @@ const BasketForm = ({ ownerId, ownerName, products, isTablet }) => {
   const [questionWindow, setQuestionWindow] = useState(false);
 
   const preOrederedProducts = products.map(product => {
-    return {
-      _id: product._id,
-      quantity: product.size.length,
-      size: product.size,
-      price: product.price,
-      sum: product.size.length * product.price,
-    };
+    return { _id: product._id, quantity: product.size.length, size: product.size, price: product.price, sum: product.size.length * product.price}
   });
   console.log('preOrederedProducts:', preOrederedProducts);
 
@@ -49,38 +43,30 @@ const BasketForm = ({ ownerId, ownerName, products, isTablet }) => {
   const deleteProductFrombasket = choice => {
     if (choice === 'yes') {
       // console.log('yes', productId);
-      dispatch(updateUserBasket({ productId: productId }));
+      dispatch(updateUserBasket({productId: productId}));
       setQuestionWindow(false);
     } else if (choice === 'no') {
       // console.log('no');
-      setProductId(null);
+      setProductId(null)
       setQuestionWindow(false);
     }
   };
 
-  const handleDecrement = productId => {
-    setOrderedProducts(prevOrderedProducts =>
-      prevOrderedProducts.map(product => {
+  const handleDecrement = (productId) => {
+    setOrderedProducts((prevOrderedProducts) =>
+      prevOrderedProducts.map((product) => {
         if (product._id === productId) {
-          return {
-            ...product,
-            quantity: product.quantity - 1,
-            sum: product.sum - product.price,
-          };
+          return { ...product, quantity: product.quantity - 1, sum: product.sum - product.price };
         }
         return product;
       })
     );
   };
-  const handleIncrement = productId => {
-    setOrderedProducts(prevOrderedProducts =>
-      prevOrderedProducts.map(product => {
+  const handleIncrement = (productId) => {
+    setOrderedProducts((prevOrderedProducts) =>
+      prevOrderedProducts.map((product) => {
         if (product._id === productId) {
-          return {
-            ...product,
-            quantity: product.quantity + 1,
-            sum: product.sum + product.price,
-          };
+          return { ...product, quantity: product.quantity + 1, sum: product.sum + product.price };
         }
         return product;
       })
@@ -91,8 +77,8 @@ const BasketForm = ({ ownerId, ownerName, products, isTablet }) => {
     defaultValues: {
       ownerName: ownerName ? ownerName : '',
       products: orderedProducts ? orderedProducts : [],
-      totalSum: totalSum ? totalSum : null,
-    },
+      totalSum: totalSum ? totalSum: null,
+    }
   });
 
   const onSubmit = async (data, e) => {
