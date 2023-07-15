@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectProductsFromBasket } from 'redux/product/product-selectors';
 import { getUser } from 'redux/auth/auth-selectors';
 import { selectOrderInCheckout } from 'redux/order/order-selectors';
-import { getAllOrders, getOrderById, updateOrder } from 'redux/order/order-operations';
+// import { getAllOrders, getOrderById, updateOrder } from 'redux/order/order-operations';
+import { updateOrder } from 'redux/order/order-operations';
 
 import { useForm, Controller } from 'react-hook-form';
 import Container from 'components/Shared/Container';
