@@ -131,43 +131,45 @@ const handleIncrement = (productId) => {
                         {isTablet && (
                           <div className={s.priceAndQuantity}>
                             <div className={s.smallBox}>
-                              <div className={s.key}>Ціна</div>
-                              <div className={s.sumValue}>{`${price} грн.`}</div>
+                                <div className={s.key }>Ціна</div>
+                                <div className={s.sumValue}>{`${price} грн.` }</div>
                             </div>
                             <div className={s.smallBox}>
-                              <div className={s.key}>Кількість</div>
-                              <div className={s.buttonWrapper}>
+                                <div className={s.key}>Кількість</div>
+                                <div className={s.buttonWrapper}>
+                                  <button
+                                      type="button"
+                                      onClick={() => handleDecrement(_id)}
+                                  >
+                                      <AiOutlineMinus />
+                                  </button>
+                                  <span className={s.quantValue}>{
+                                    quantity
+                                  }</span>
                                 <button
-                                  type="button"
-                                  onClick={() => handleDecrement(_id)}
+                                    type="button"
+                                    onClick={() => handleIncrement(_id)}
                                 >
-                                  <AiOutlineMinus />
-                                </button>
-                                <span className={s.quantValue}>{quantity}</span>
-                                <button
-                                  type="button"
-                                  onClick={() => handleIncrement(_id)}
-                                >
-                                  <AiOutlinePlus />
+                                    <AiOutlinePlus />
                                 </button>
                               </div>
                             </div>
                             <div className={s.smallBox}>
-                              <div className={s.key}>Сума</div>
-                              <div className={s.sumValue}>{`${
-                                quantity * price
-                              } грн.`}</div>
+                                <div className={s.key}>Сума</div>
+                                <div className={s.sumValue}>{`${quantity * price} грн.` }</div>
                             </div>
                           </div>
                         )}
-                        <RoundButton
-                          icon={BsTrash}
-                          handleClick={handleButtonTrashClick}
-                          id={_id}
-                        />
-                        {/* </div> */}
+                          <RoundButton
+                            icon={BsTrash}
+                            handleClick={handleButtonTrashClick}
+                            id={_id}
+                          />
+                      {/* </div> */}
                         {size.length > 0 && (
-                          <SizesWithoutSelect sizes={size} text="Обраний розмір:" />
+                        <SizesWithoutSelect 
+                          sizes={size} 
+                          text="Обраний розмір:" />
                         )}
                       {!isTablet && (
                           // <div className={s.priceAndQuantity}>
@@ -200,36 +202,34 @@ const handleIncrement = (productId) => {
                           //       <div className={s.sumValue}>{`${quantity * price} грн.` }</div>
                           //   </div>
                           // </div>
-                      <CountBlock
-                        number={quantity}
-                        price={price}
-                        onMinus={handleDecrement}
-                        onPlus={handleIncrement}
-                        id={_id}
-                      />
+                    <CountBlock
+                      number={quantity}
+                      price={price}
+                      onMinus={handleDecrement}
+                      onPlus={handleIncrement}
+                      id={_id}
+                    />
                       )}
                     </div>
                   </li>
-              );
-            }
-          )}
-        </ul>
-        <div className={s.linkWrapper}>
-          <Link to="/seller/:id" className={s.btnWrapper}>
-            <Text
-              textClass="verifyAttention"
-              text={'Додати інші товари продавця'}
-            />
-            <RoundButton icon={TfiPlus} />
-          </Link>
-          <Link to="/checkout" className={s.btnWrapper}>
-            <Text
-              textClass="verifyAttention"
-              text={`Оформити замовлення ${totalSum}`}
-            />
-            <RoundButton icon={TfiCheck} onClick={handleSubmit(onSubmit)} />
-          </Link>
-        </div>
+                )})}
+              </ul>
+              <div className={s.linkWrapper}>
+                <Link to="/seller/:id" className={s.btnWrapper}>
+                  <Text
+                    textClass="verifyAttention"
+                    text={'Додати інші товари продавця'}
+                  />
+                  <RoundButton icon={TfiPlus} />
+                </Link>
+                <Link to="/checkout" className={s.btnWrapper}>
+                  <Text
+                    textClass="verifyAttention"
+                    text={`Оформити замовлення ${totalSum}`}
+                  />
+                  <RoundButton icon={TfiCheck} onClick={handleSubmit(onSubmit)} />
+                </Link>
+              </div>
         {questionWindow && (
           <MessageWindow
             text="Ви впевнені, що хочете видалити товар з кошика?"
@@ -238,7 +238,7 @@ const handleIncrement = (productId) => {
           />
         )}
       </form>
-    );
+);
 };
 
 export default BasketForm;
