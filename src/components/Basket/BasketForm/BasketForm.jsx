@@ -113,7 +113,7 @@ const handleIncrement = (productId) => {
                     <div className={s.photoAndNameAndPrice}>
                   {/* <div className={s.photoAndNameAndBtn}> */}
                   <div className={s.photoAndName}>
-                      <Link to={`/products/${categoryName}/${subCategoryName}/${_id}`} >
+                      <Link to={`/products/${categoryName}/${subCategoryName}/${_id}`}>
                           <div className={s.thumb}>
                               <img
                                 className={s.mainPhotoCard}
@@ -128,85 +128,85 @@ const handleIncrement = (productId) => {
                           </div>
                   </Link>
                   </div>
-                      {isTablet && (
-                        <div className={s.priceAndQuantity}>
-                          <div className={s.smallBox}>
-                            <div className={s.key}>Ціна</div>
-                            <div className={s.sumValue}>{`${price} грн.`}</div>
-                          </div>
-                          <div className={s.smallBox}>
-                            <div className={s.key}>Кількість</div>
-                            <div className={s.buttonWrapper}>
-                              <button
-                                type="button"
-                                onClick={() => handleDecrement(_id)}
-                              >
-                                <AiOutlineMinus />
-                              </button>
-                              <span className={s.quantValue}>{quantity}</span>
-                              <button
-                                type="button"
-                                onClick={() => handleIncrement(_id)}
-                              >
-                                <AiOutlinePlus />
-                              </button>
+                        {isTablet && (
+                          <div className={s.priceAndQuantity}>
+                            <div className={s.smallBox}>
+                              <div className={s.key}>Ціна</div>
+                              <div className={s.sumValue}>{`${price} грн.`}</div>
+                            </div>
+                            <div className={s.smallBox}>
+                              <div className={s.key}>Кількість</div>
+                              <div className={s.buttonWrapper}>
+                                <button
+                                  type="button"
+                                  onClick={() => handleDecrement(_id)}
+                                >
+                                  <AiOutlineMinus />
+                                </button>
+                                <span className={s.quantValue}>{quantity}</span>
+                                <button
+                                  type="button"
+                                  onClick={() => handleIncrement(_id)}
+                                >
+                                  <AiOutlinePlus />
+                                </button>
+                              </div>
+                            </div>
+                            <div className={s.smallBox}>
+                              <div className={s.key}>Сума</div>
+                              <div className={s.sumValue}>{`${
+                                quantity * price
+                              } грн.`}</div>
                             </div>
                           </div>
-                          <div className={s.smallBox}>
-                            <div className={s.key}>Сума</div>
-                            <div className={s.sumValue}>{`${
-                              quantity * price
-                            } грн.`}</div>
-                          </div>
-                        </div>
-                      )}
-                      <RoundButton
-                        icon={BsTrash}
-                        handleClick={handleButtonTrashClick}
-                        id={_id}
-                      />
-                      {/* </div> */}
-                      {size.length > 0 && (
-                        <SizesWithoutSelect sizes={size} text="Обраний розмір:" />
-                      )}
-                      {!isTablet && (
-                        // <div className={s.priceAndQuantity}>
-                        //   <div className={s.smallBox}>
-                        //       <div className={s.key }>Ціна</div>
-                        //       <div className={s.sumValue}>{`${price} грн.` }</div>
-                        //   </div>
-                        //   <div className={s.smallBox}>
-                        //       <div className={s.key }>Кількість</div>
-                        //       <div className={s.buttonWrapper}>
-                        //           <button
-                        //               type="button"
-                        //               onClick={() => handleDecrement(_id)}
-                        //           >
-                        //               <AiOutlineMinus />
-                        //           </button>
-                        //           <span className={s.quantValue}>{
-                        //               quantity
-                        //           }</span>
-                        //           <button
-                        //               type="button"
-                        //               onClick={() => handleIncrement(_id)}
-                        //           >
-                        //               <AiOutlinePlus />
-                        //           </button>
-                        //       </div>
-                        //   </div>
-                        //   <div className={s.smallBox}>
-                        //       <div className={s.key }>Сума</div>
-                        //       <div className={s.sumValue}>{`${quantity * price} грн.` }</div>
-                        //   </div>
-                        // </div>
-                        <CountBlock
-                          number={quantity}
-                          price={price}
-                          onMinus={handleDecrement}
-                          onPlus={handleIncrement}
+                        )}
+                        <RoundButton
+                          icon={BsTrash}
+                          handleClick={handleButtonTrashClick}
                           id={_id}
                         />
+                        {/* </div> */}
+                        {size.length > 0 && (
+                          <SizesWithoutSelect sizes={size} text="Обраний розмір:" />
+                        )}
+                      {!isTablet && (
+                          // <div className={s.priceAndQuantity}>
+                          //   <div className={s.smallBox}>
+                          //       <div className={s.key }>Ціна</div>
+                          //       <div className={s.sumValue}>{`${price} грн.` }</div>
+                          //   </div>
+                          //   <div className={s.smallBox}>
+                          //       <div className={s.key }>Кількість</div>
+                          //       <div className={s.buttonWrapper}>
+                          //           <button
+                          //               type="button"
+                          //               onClick={() => handleDecrement(_id)}
+                          //           >
+                          //               <AiOutlineMinus />
+                          //           </button>
+                          //           <span className={s.quantValue}>{
+                          //               quantity
+                          //           }</span>
+                          //           <button
+                          //               type="button"
+                          //               onClick={() => handleIncrement(_id)}
+                          //           >
+                          //               <AiOutlinePlus />
+                          //           </button>
+                          //       </div>
+                          //   </div>
+                          //   <div className={s.smallBox}>
+                          //       <div className={s.key }>Сума</div>
+                          //       <div className={s.sumValue}>{`${quantity * price} грн.` }</div>
+                          //   </div>
+                          // </div>
+                      <CountBlock
+                        number={quantity}
+                        price={price}
+                        onMinus={handleDecrement}
+                        onPlus={handleIncrement}
+                        id={_id}
+                      />
                       )}
                     </div>
                   </li>
