@@ -99,120 +99,122 @@ const handleIncrement = (productId) => {
   };
 
     return (
-      <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
-        <Text textClass="title" text={`Продавець: ${ownerName}`} />
-        <ul className={s.oneSellerBasket}>
+      <form className={s.form}
+        onSubmit={handleSubmit(onSubmit)}
+      >
+            <Text textClass="title" text={`Продавець: ${ownerName}`} />
+            <ul className={s.oneSellerBasket}>
           {products.map(({ _id, nameProduct, mainPhotoUrl, brendName, price, size, section, category }) => {
-              const quantity = orderedProducts.find(item => item._id === _id)?.quantity || 1;
-              const translatedParamsObj = translateParamsToEN(section, category);
-              const [categoryName, subCategoryName] = Object.values(translatedParamsObj);
-              return (
-                <li className={s.wareItem} key={_id}>
-                  <div className={s.photoAndNameAndPrice}>
-                    {/* <div className={s.photoAndNameAndBtn}> */}
-                    <div className={s.photoAndName}>
-                      <Link
-                        to={`/products/${categoryName}/${subCategoryName}/${_id}`}
-                      >
-                        <div className={s.thumb}>
-                          <img
-                            className={s.mainPhotoCard}
-                            src={mainPhotoUrl}
-                            onError={e => (e.target.src = NoPhoto)}
-                            alt={nameProduct}
-                          />
-                        </div>
-                        <div className={s.descriptionWrapper}>
-                          <Text textClass="verifyAttention" text={brendName} />
-                          <Text
-                            textClass="verifyAttention"
-                            text={nameProduct}
-                          />
-                        </div>
-                      </Link>
-                    </div>
-                    {isTablet && (
-                      <div className={s.priceAndQuantity}>
-                        <div className={s.smallBox}>
-                          <div className={s.key}>Ціна</div>
-                          <div className={s.sumValue}>{`${price} грн.`}</div>
-                        </div>
-                        <div className={s.smallBox}>
-                          <div className={s.key}>Кількість</div>
-                          <div className={s.buttonWrapper}>
-                            <button
-                              type="button"
-                              onClick={() => handleDecrement(_id)}
-                            >
-                              <AiOutlineMinus />
-                            </button>
-                            <span className={s.quantValue}>{quantity}</span>
-                            <button
-                              type="button"
-                              onClick={() => handleIncrement(_id)}
-                            >
-                              <AiOutlinePlus />
-                            </button>
+            const quantity = orderedProducts.find(item => item._id === _id)?.quantity || 1;
+            const translatedParamsObj = translateParamsToEN(section, category);
+            const [categoryName, subCategoryName] = Object.values(translatedParamsObj);
+            return (
+                  <li className={s.wareItem} key={_id}>
+                    <div className={s.photoAndNameAndPrice}>
+                      {/* <div className={s.photoAndNameAndBtn}> */}
+                      <div className={s.photoAndName}>
+                        <Link
+                          to={`/products/${categoryName}/${subCategoryName}/${_id}`}
+                        >
+                          <div className={s.thumb}>
+                            <img
+                              className={s.mainPhotoCard}
+                              src={mainPhotoUrl}
+                              onError={e => (e.target.src = NoPhoto)}
+                              alt={nameProduct}
+                            />
+                          </div>
+                          <div className={s.descriptionWrapper}>
+                            <Text textClass="verifyAttention" text={brendName} />
+                            <Text
+                              textClass="verifyAttention"
+                              text={nameProduct}
+                            />
+                          </div>
+                        </Link>
+                      </div>
+                      {isTablet && (
+                        <div className={s.priceAndQuantity}>
+                          <div className={s.smallBox}>
+                            <div className={s.key}>Ціна</div>
+                            <div className={s.sumValue}>{`${price} грн.`}</div>
+                          </div>
+                          <div className={s.smallBox}>
+                            <div className={s.key}>Кількість</div>
+                            <div className={s.buttonWrapper}>
+                              <button
+                                type="button"
+                                onClick={() => handleDecrement(_id)}
+                              >
+                                <AiOutlineMinus />
+                              </button>
+                              <span className={s.quantValue}>{quantity}</span>
+                              <button
+                                type="button"
+                                onClick={() => handleIncrement(_id)}
+                              >
+                                <AiOutlinePlus />
+                              </button>
+                            </div>
+                          </div>
+                          <div className={s.smallBox}>
+                            <div className={s.key}>Сума</div>
+                            <div className={s.sumValue}>{`${
+                              quantity * price
+                            } грн.`}</div>
                           </div>
                         </div>
-                        <div className={s.smallBox}>
-                          <div className={s.key}>Сума</div>
-                          <div className={s.sumValue}>{`${
-                            quantity * price
-                          } грн.`}</div>
-                        </div>
-                      </div>
-                    )}
-                    <RoundButton
-                      icon={BsTrash}
-                      handleClick={handleButtonTrashClick}
-                      id={_id}
-                    />
-                    {/* </div> */}
-                    {size.length > 0 && (
-                      <SizesWithoutSelect sizes={size} text="Обраний розмір:" />
-                    )}
-                    {!isTablet && (
-                      // <div className={s.priceAndQuantity}>
-                      //   <div className={s.smallBox}>
-                      //       <div className={s.key }>Ціна</div>
-                      //       <div className={s.sumValue}>{`${price} грн.` }</div>
-                      //   </div>
-                      //   <div className={s.smallBox}>
-                      //       <div className={s.key }>Кількість</div>
-                      //       <div className={s.buttonWrapper}>
-                      //           <button
-                      //               type="button"
-                      //               onClick={() => handleDecrement(_id)}
-                      //           >
-                      //               <AiOutlineMinus />
-                      //           </button>
-                      //           <span className={s.quantValue}>{
-                      //               quantity
-                      //           }</span>
-                      //           <button
-                      //               type="button"
-                      //               onClick={() => handleIncrement(_id)}
-                      //           >
-                      //               <AiOutlinePlus />
-                      //           </button>
-                      //       </div>
-                      //   </div>
-                      //   <div className={s.smallBox}>
-                      //       <div className={s.key }>Сума</div>
-                      //       <div className={s.sumValue}>{`${quantity * price} грн.` }</div>
-                      //   </div>
-                      // </div>
-                      <CountBlock
-                        number={quantity}
-                        price={price}
-                        onMinus={handleDecrement}
-                        onPlus={handleIncrement}
+                      )}
+                      <RoundButton
+                        icon={BsTrash}
+                        handleClick={handleButtonTrashClick}
                         id={_id}
                       />
-                    )}
-                  </div>
-                </li>
+                      {/* </div> */}
+                      {size.length > 0 && (
+                        <SizesWithoutSelect sizes={size} text="Обраний розмір:" />
+                      )}
+                      {!isTablet && (
+                        // <div className={s.priceAndQuantity}>
+                        //   <div className={s.smallBox}>
+                        //       <div className={s.key }>Ціна</div>
+                        //       <div className={s.sumValue}>{`${price} грн.` }</div>
+                        //   </div>
+                        //   <div className={s.smallBox}>
+                        //       <div className={s.key }>Кількість</div>
+                        //       <div className={s.buttonWrapper}>
+                        //           <button
+                        //               type="button"
+                        //               onClick={() => handleDecrement(_id)}
+                        //           >
+                        //               <AiOutlineMinus />
+                        //           </button>
+                        //           <span className={s.quantValue}>{
+                        //               quantity
+                        //           }</span>
+                        //           <button
+                        //               type="button"
+                        //               onClick={() => handleIncrement(_id)}
+                        //           >
+                        //               <AiOutlinePlus />
+                        //           </button>
+                        //       </div>
+                        //   </div>
+                        //   <div className={s.smallBox}>
+                        //       <div className={s.key }>Сума</div>
+                        //       <div className={s.sumValue}>{`${quantity * price} грн.` }</div>
+                        //   </div>
+                        // </div>
+                        <CountBlock
+                          number={quantity}
+                          price={price}
+                          onMinus={handleDecrement}
+                          onPlus={handleIncrement}
+                          id={_id}
+                        />
+                      )}
+                    </div>
+                  </li>
               );
             }
           )}
