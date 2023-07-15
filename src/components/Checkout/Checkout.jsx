@@ -20,13 +20,18 @@ import s from './Checkout.module.scss';
 const Checkout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const productsInOrder = useSelector(selectProductsFromBasket);
   const orderInCheckout = useSelector(selectOrderInCheckout);
-  console.log(orderInCheckout);
+  const productsFrombasket = useSelector(selectProductsFromBasket);
+
+  // console.log(orderInCheckout);
+
   const { client, orderSum, sellerId, sellerName, _id, products } =
     orderInCheckout;
   
-
+  const productsForOrder = productsFrombasket.filter(
+    product => product.owner === sellerId
+  );
+// console.log(productsForOrder);
   // useEffect(() => {
   //   dispatch(getOrderById(orderInChecout));
   // }, [dispatch, orderInChecout]);
@@ -35,9 +40,6 @@ const Checkout = () => {
   const user = useSelector(getUser);
 
   const { secondName, firstName, surName, tel } = user || {};
-
-  // const sellerName = 'Katya';
-  // const orderSum = '750';
 
   const {
     control,
@@ -56,7 +58,7 @@ const Checkout = () => {
       tel: tel ? tel : '',
     },
   });
-  console.log('errors', errors);
+  // console.log('errors', errors);
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
@@ -77,8 +79,8 @@ const Checkout = () => {
     
     const updatedOrder = await dispatch(updateOrder(orderData));
     // const allOrders = await dispatch(getAllOrders());
-    console.log('updatedOrder', updatedOrder);
-    console.log('updatedOrder', updatedOrder.payload.code === 200);
+    // console.log('updatedOrder', updatedOrder);
+    // console.log('updatedOrder', updatedOrder.payload.code === 200);
     if (updatedOrder.payload.code === 200) {
       navigate('/profile/mypurchases');
     };
@@ -99,7 +101,7 @@ const Checkout = () => {
                 text={`Сума замовлення: ${orderSum} грн.`}
               />
               <ul>
-                {productsInOrder.map(
+                {productsForOrder.map(
                   ({ _id, nameProduct, mainPhotoUrl, brendName, price }) => (
                     <li className={s.productItem} key={_id}>
                       <div className={s.infoWraper}>
