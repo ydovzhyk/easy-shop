@@ -1,31 +1,25 @@
-import React, { useState } from 'react';
-
-import Text from 'components/Shared/Text/Text';
-
+import React from 'react';
 import s from './SizeHovered.module.scss';
 
-const SizeHovered = ({ size }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  console.log('size', size);
 
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
+const SizeHovered = ({ sizes, activeSize }) => {
 
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
+  const transformedSizes =
+    activeSize !== null && sizes[activeSize] !== undefined
+      ? sizes[activeSize][0].value
+      : [];
+
+  console.log('transformedSizes', transformedSizes);
+  console.log('activeSize132', sizes[activeSize][0].value);
 
   return (
-    <div
-      //   className={`${s.styleSizeHovered} ${isHovered ? s.hovered : ''}`}
-      className={`size-hovered ${isHovered ? 'hovered' : ''}`}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      {size.map(item => (
-        <Text text={item[0].name} textClass="after-title-bigger" />
-      ))}
+    <div className={s.groupListHovering}>
+      {transformedSizes.length > 1
+        ? transformedSizes
+            .map(obj => Object.entries(obj)[0].join(': '))
+            .join(' / ')
+        : null}
+
     </div>
   );
 };

@@ -209,6 +209,9 @@
 }
 
 .styleSizeCard {
+  position: relative;
+  // overflow: hidden;
+
   display: flex;
   justify-content: left;
   align-items: center;
@@ -218,12 +221,60 @@
   margin-bottom: 0px;
 }
 
+.sizeItem {
+  // background-color: blue;
+}
+
 .separator {
   margin-left: 2px;
   margin-right: 2px;
 
   color: var(--second-text-color);
 }
+
+.sizeName {
+  font-weight: 200;
+  font-size: 16px;
+  color: var(--text-color);
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.hoveredSize {
+  // display: flex;
+
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  // padding: 8px;
+
+  background-color: #fff;
+
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+}
+
+.hoveredSize::before {
+  content: '';
+
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  // transform: translateX(-50%);
+
+  border: 8px solid transparent;
+  border-bottom-color: var(--btn-text-color);
+}
+
+// .hoveredSize p {
+//   margin: 0;
+//   padding: 5px 0;
+// }
+
+// .hoveredSize span {
+//   font-weight: bold;
+// }
 
 .link {
   color: var(--second-text-color);

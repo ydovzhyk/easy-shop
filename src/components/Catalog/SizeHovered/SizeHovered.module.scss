@@ -1,19 +1,25 @@
 @use '../../../styles/mixins';
 
-.styleSizeHovered {
-  display: none;
-
-  &.hovered {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-
-    margin-top: auto;
-    margin-bottom: 0px;
-  }
+.groupListHovering {
+  display: flex;
+  justify-content: center;
+  // flex-wrap: wrap;
+  //   margin-bottom: 16px;
+  
+  padding: 8px;
+  // background-color: pink;
 }
 
-.separator {
-  margin-left: 2px;
-  margin-right: 2px;
-}
+// .sizeHovering {
+//   //   display: inline-block;
+//   //   border: 1px solid var(--border-color);
+//   //   border-radius: 5px;
+//   padding-top: 15px;
+//   background-color: blue;
+
+//   //   margin-bottom: 16px;
+
+//   @include mixins.mq(desktop) {
+//     // margin-right: 20px;
+//   }
+// }
