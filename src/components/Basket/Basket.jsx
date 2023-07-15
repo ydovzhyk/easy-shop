@@ -80,17 +80,18 @@ const Basket = () => {
       {isMessage === '' && <UserUpdateComponent />}
       <Text textClass="title" text="Кошик" />
       <ul className={s.orderList}>
-        {groupedProducts.map(({ ownerId, ownerName, products }) => (
-          <li className={s.orderItem} key={ownerId}>
-            <BasketForm
-              ownerId={ownerId}
-              ownerName={ownerName}
-              products={products}
-              isTablet={isTablet}
-            />
+        {groupedProducts.map(
+          ({ ownerId, ownerName, products }) => (
+            <li className={s.orderItem} key={ownerId}>
+              <BasketForm
+                ownerId={ownerId}
+                ownerName={ownerName}
+                products={products}
+                isTablet={isTablet}
+              />
 
-          </li>
-          
+            </li>
+
         ))}
       </ul>
     </section>
