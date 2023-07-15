@@ -89,7 +89,6 @@ const Basket = () => {
                 products={products}
                 isTablet={isTablet}
               />
-
             </li>
 
         ))}
