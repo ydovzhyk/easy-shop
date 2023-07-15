@@ -16,6 +16,7 @@ import productsSlice from 'redux/product/product-slice';
 import otherUserSlice from './otherUser/otherUser.slice';
 import verifyEmailSlice from './verifyEmail/verifyEmail-slice';
 import dialogueSlice from './dialogue/dialogue-slice';
+import orderSlice from './order/order-slice'
 
 const persistConfig = {
   key: 'auth-sid',
@@ -32,6 +33,7 @@ export const store = configureStore({
     otherUser: otherUserSlice,
     verifyEmail: verifyEmailSlice,
     dialogue: dialogueSlice,
+    orders: orderSlice,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

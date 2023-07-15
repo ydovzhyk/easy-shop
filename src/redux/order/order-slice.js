@@ -45,7 +45,7 @@ const orders = createSlice({
     [addOrder.fulfilled]: (store, { payload }) => {
       store.loading = false;
       store.message = payload.message;
-      store.orderInCheckout = payload.orderId;
+      store.orderInCheckout = payload.newOrder;
     },
     [addOrder.rejected]: (store, { payload }) => {
       store.loading = false;

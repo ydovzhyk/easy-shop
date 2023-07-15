@@ -1,6 +1,11 @@
-import { useSelector } from 'react-redux';
+// import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectProductsFromBasket } from 'redux/product/product-selectors';
 import { getUser } from 'redux/auth/auth-selectors';
+import { selectOrderInCheckout } from 'redux/order/order-selectors';
+import { getAllOrders, getOrderById, updateOrder } from 'redux/order/order-operations';
+
 import { useForm, Controller } from 'react-hook-form';
 import Container from 'components/Shared/Container';
 import Text from 'components/Shared/Text/Text';
@@ -11,16 +16,28 @@ import SelectField from 'components/Shared/SelectField/SelectField';
 import Button from 'components/Shared/Button/Button';
 import s from './Checkout.module.scss';
 
-
 const Checkout = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const productsInOrder = useSelector(selectProductsFromBasket);
+  const orderInCheckout = useSelector(selectOrderInCheckout);
+  console.log(orderInCheckout);
+  const { client, orderSum, sellerId, sellerName, _id, products } =
+    orderInCheckout;
+  
+
+  // useEffect(() => {
+  //   dispatch(getOrderById(orderInChecout));
+  // }, [dispatch, orderInChecout]);
+  // const preOrder = dispatch(getOrderById(orderInChecout));
+  // console.log(preOrder);
   const user = useSelector(getUser);
 
   const { secondName, firstName, surName, tel } = user || {};
 
-  const sellerName = 'Katya';
-  const orderSum = '750';
-  
+  // const sellerName = 'Katya';
+  // const orderSum = '750';
+
   const {
     control,
     handleSubmit,
@@ -28,31 +45,42 @@ const Checkout = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      sellerName: sellerName ? sellerName : '',
-      products: productsInOrder ? productsInOrder : [],
+      // sellerName: sellerName ? sellerName : '',
+      // products: productsInOrder ? productsInOrder : [],
       delivery: '',
-      orderSum: orderSum ? orderSum : null,
+      // orderSum: orderSum ? orderSum : null,
       secondName: secondName ? secondName : '',
       firstName: firstName ? firstName : '',
       surName: surName ? surName : '',
       tel: tel ? tel : '',
     },
   });
-console.log('errors', errors);
-  const onSubmit = (data, e) => {
-    
+  console.log('errors', errors);
+
+  const onSubmit = async (data, e) => {
     e.preventDefault();
     const orderData = {
-      sellerName: data.sellerName,
-      products: productsInOrder,
-      delivery: data.delivery,
-      totalSum: data.orderSum,
-      secondName: data.secondName,
-      firstName: data.firstName,
-      surName: data.surName,
-      tel: data.tel,
+      orderId: _id,
+      sellerId: sellerId,
+      sellerName: sellerName,
+      products: products,
+      delivery: data.delivery.value,
+      totalSum: orderSum,
+      customerSecondName: data.secondName,
+      customerFirstName: data.firstName,
+      customerSurName: data.surName,
+      customerTel: data.tel,
+      customerId: client.customerId,
     };
     console.log('Відправка order', orderData);
+    
+    const updatedOrder = await dispatch(updateOrder(orderData));
+    // const allOrders = await dispatch(getAllOrders());
+    console.log('updatedOrder', updatedOrder);
+    console.log('updatedOrder', updatedOrder.payload.code === 200);
+    if (updatedOrder.payload.code === 200) {
+      navigate('/profile/mypurchases');
+    };
   };
   return (
     <Container>

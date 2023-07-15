@@ -76,24 +76,22 @@ const Basket = () => {
 
   return (
     <Container>
-    <section className={s.basketsSection}>
-      {isMessage === '' && <UserUpdateComponent />}
-      <Text textClass="title" text="Кошик" />
-      <ul className={s.orderList}>
-        {groupedProducts.map(
-          ({ ownerId, ownerName, products }) => (
+      <section className={s.basketsSection}>
+        {isMessage === '' && <UserUpdateComponent />}
+        <Text textClass="title" text="Кошик" />
+        <ul className={s.orderList}>
+          {groupedProducts.map(({ ownerId, ownerName, products }) => (
             <li className={s.orderItem} key={ownerId}>
               <BasketForm
+                ownerId={ownerId}
                 ownerName={ownerName}
                 products={products}
                 isTablet={isTablet}
               />
-              
             </li>
-            
           ))}
-      </ul>
-    </section>
+        </ul>
+      </section>
     </Container>
   );
 };

@@ -24,6 +24,10 @@ import {
   getLoadingOtherUser,
   getOtherUserError,
 } from 'redux/otherUser/otherUser-selectors';
+import {
+  getLoadingOrders,
+  getOrderError,
+} from 'redux/order/order-selectors';
 import UserRoutes from './Routes/UserRoutes';
 import Header from './Header';
 import Footer from './Footer/Footer';
@@ -40,11 +44,13 @@ export const App = () => {
   const verifyEmailError = useSelector(getErrorVerifyEmail);
   const dialogueError = useSelector(getDialogueError);
   const otherUserError = useSelector(getOtherUserError);
+  const orderError = useSelector(getOrderError);
   const loadingUser = useSelector(getLoadingUser);
   const loadingProducts = useSelector(getLoadingProducts);
   const loadingVerify = useSelector(getLoadingVerifyEmail);
   const loadingDialogue = useSelector(getLoadingDialogue);
   const loadingOtherUser = useSelector(getLoadingOtherUser);
+  const loadingOrder = useSelector(getLoadingOrders);
   const isDesctop = useMediaQuery({ minWidth: 1280 });
   const dispatch = useDispatch();
   const [errMessage, setErrMessage] = useState('');
@@ -79,6 +85,8 @@ export const App = () => {
       setErrMessage(dialogueError);
     } else if (otherUserError) {
       setErrMessage(otherUserError);
+    } else if (orderError) {
+      setErrMessage(orderError);
     } else {
       setErrMessage('');
     }
@@ -88,6 +96,7 @@ export const App = () => {
     verifyEmailError,
     dialogueError,
     otherUserError,
+    orderError,
   ]);
 
   useEffect(() => {
@@ -96,7 +105,8 @@ export const App = () => {
       loadingProducts ||
       loadingVerify ||
       loadingDialogue ||
-      loadingOtherUser
+      loadingOtherUser ||
+      loadingOrder
     ) {
       setIsLoaded(true);
     } else {
@@ -108,6 +118,7 @@ export const App = () => {
     loadingVerify,
     loadingDialogue,
     loadingOtherUser,
+    loadingOrder,
   ]);
 
   // render last visited page
