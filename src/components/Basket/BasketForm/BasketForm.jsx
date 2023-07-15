@@ -105,8 +105,8 @@ const BasketForm = ({ ownerId, ownerName, products, isTablet }) => {
     };
     console.log('Відправка форми', dataForUpload);
     const newOrder = await dispatch(addOrder(dataForUpload));
-    console.log('newOrder', newOrder);
-    console.log('!newOrder', !newOrder.payload.newOrderId);
+    // console.log('newOrder', newOrder);
+    // console.log('!newOrder', !newOrder.payload.newOrderId);
     if (newOrder.payload.newOrderId) {
       navigate('/checkout')
     };

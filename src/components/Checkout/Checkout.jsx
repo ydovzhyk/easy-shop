@@ -27,11 +27,13 @@ const Checkout = () => {
 
   const { client, orderSum, sellerId, sellerName, _id, products } =
     orderInCheckout;
+  // console.log(products);
   
   const productsForOrder = productsFrombasket.filter(
     product => product.owner === sellerId
   );
-// console.log(productsForOrder);
+  // console.log(productsForOrder);
+  
   // useEffect(() => {
   //   dispatch(getOrderById(orderInChecout));
   // }, [dispatch, orderInChecout]);
@@ -102,37 +104,54 @@ const Checkout = () => {
               />
               <ul>
                 {productsForOrder.map(
-                  ({ _id, nameProduct, mainPhotoUrl, brendName, price }) => (
-                    <li className={s.productItem} key={_id}>
-                      <div className={s.infoWraper}>
-                        <div className={s.mainInfo}>
-                          <div className={s.thumb}>
-                            <img
-                              className={s.mainPhoto}
-                              src={mainPhotoUrl}
-                              onError={e => (e.target.src = NoPhoto)}
-                              alt={nameProduct}
-                            />
+                  ({
+                    _id,
+                    nameProduct,
+                    mainPhotoUrl,
+                    brendName,
+                    price,
+                    size,
+                  }) => {
+                    const sizesForProduct =
+                      products.find(item => item._id === _id)?.size || size;
+                    const transformedSize = sizesForProduct.map(
+                      item => item[0].name
+                    );
+                    return (
+                      <li className={s.productItem} key={_id}>
+                        <div className={s.infoWraper}>
+                          <div className={s.mainInfo}>
+                            <div className={s.thumb}>
+                              <img
+                                className={s.mainPhoto}
+                                src={mainPhotoUrl}
+                                onError={e => (e.target.src = NoPhoto)}
+                                alt={nameProduct}
+                              />
+                            </div>
+                            <div className={s.description}>
+                              <Text textClass="productText" text={brendName} />
+                              <Text
+                                textClass="productHeadings"
+                                text={nameProduct}
+                              />
+                              <Text
+                                textClass="productText"
+                                text={`Size: ${transformedSize}`}
+                              />
+                            </div>
                           </div>
-                          <div className={s.description}>
-                            <Text textClass="productText" text={brendName} />
+                          <div className={s.priceWrapper}>
+                            <Text textClass="productText" text="Кількість: 1" />
                             <Text
                               textClass="productHeadings"
-                              text={nameProduct}
+                              text={`Сума: ${price}`}
                             />
-                            <Text textClass="productText" text="Size" />
                           </div>
                         </div>
-                        <div className={s.priceWrapper}>
-                          <Text textClass="productText" text="Кількість: 1" />
-                          <Text
-                            textClass="productHeadings"
-                            text={`Сума: ${price}`}
-                          />
-                        </div>
-                      </div>
-                    </li>
-                  )
+                      </li>
+                    );
+                  }
                 )}
               </ul>
               <div className={s.formField}>
