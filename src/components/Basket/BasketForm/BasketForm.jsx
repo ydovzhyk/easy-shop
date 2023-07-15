@@ -111,28 +111,23 @@ const handleIncrement = (productId) => {
             return (
                   <li className={s.wareItem} key={_id}>
                     <div className={s.photoAndNameAndPrice}>
-                      {/* <div className={s.photoAndNameAndBtn}> */}
-                      <div className={s.photoAndName}>
-                        <Link
-                          to={`/products/${categoryName}/${subCategoryName}/${_id}`}
-                        >
+                  {/* <div className={s.photoAndNameAndBtn}> */}
+                  <div className={s.photoAndName}>
+                      <Link to={`/products/${categoryName}/${subCategoryName}/${_id}`} >
                           <div className={s.thumb}>
-                            <img
-                              className={s.mainPhotoCard}
-                              src={mainPhotoUrl}
-                              onError={e => (e.target.src = NoPhoto)}
-                              alt={nameProduct}
-                            />
+                              <img
+                                className={s.mainPhotoCard}
+                                src={mainPhotoUrl}
+                                onError={e => (e.target.src = NoPhoto)}
+                                alt={nameProduct}
+                              />
                           </div>
                           <div className={s.descriptionWrapper}>
                             <Text textClass="verifyAttention" text={brendName} />
-                            <Text
-                              textClass="verifyAttention"
-                              text={nameProduct}
-                            />
+                            <Text textClass="verifyAttention" text={nameProduct} />
                           </div>
-                        </Link>
-                      </div>
+                  </Link>
+                  </div>
                       {isTablet && (
                         <div className={s.priceAndQuantity}>
                           <div className={s.smallBox}>
