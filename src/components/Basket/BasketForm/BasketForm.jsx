@@ -24,7 +24,7 @@ const BasketForm = ({ ownerId, ownerName, products, isTablet }) => {
   const [productId, setProductId] = useState(null);
   const [questionWindow, setQuestionWindow] = useState(false);
 
-  const preOrederedProducts = products.map(product => {
+  const preOrederedProducts = products.map((product) => {
     return { _id: product._id, quantity: product.size.length, size: product.size, price: product.price, sum: product.size.length * product.price}
   });
   console.log('preOrederedProducts:', preOrederedProducts);
@@ -42,11 +42,11 @@ const BasketForm = ({ ownerId, ownerName, products, isTablet }) => {
 
   const deleteProductFrombasket = choice => {
     if (choice === 'yes') {
-      // console.log('yes', productId);
+        // console.log('yes', productId);
       dispatch(updateUserBasket({productId: productId}));
       setQuestionWindow(false);
     } else if (choice === 'no') {
-      // console.log('no');
+        // console.log('no');
       setProductId(null)
       setQuestionWindow(false);
     }
@@ -62,7 +62,7 @@ const BasketForm = ({ ownerId, ownerName, products, isTablet }) => {
       })
     );
   };
-  const handleIncrement = (productId) => {
+const handleIncrement = (productId) => {
     setOrderedProducts((prevOrderedProducts) =>
       prevOrderedProducts.map((product) => {
         if (product._id === productId) {
@@ -98,159 +98,150 @@ const BasketForm = ({ ownerId, ownerName, products, isTablet }) => {
     };
   };
 
-  return (
-    <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
-      <Text textClass="title" text={`Продавець: ${ownerName}`} />
-      <ul className={s.oneSellerBasket}>
-        {products.map(
-          ({
-            _id,
-            nameProduct,
-            mainPhotoUrl,
-            brendName,
-            price,
-            size,
-            section,
-            category,
-          }) => {
-            const quantity =
-              orderedProducts.find(item => item._id === _id)?.quantity || 1;
-            const translatedParamsObj = translateParamsToEN(section, category);
-            const [categoryName, subCategoryName] =
-              Object.values(translatedParamsObj);
-            return (
-              <li className={s.wareItem} key={_id}>
-                <div className={s.photoAndNameAndPrice}>
-                  {/* <div className={s.photoAndNameAndBtn}> */}
-                  <div className={s.photoAndName}>
-                    <Link
-                      to={`/products/${categoryName}/${subCategoryName}/${_id}`}
-                    >
-                      <div className={s.thumb}>
-                        <img
-                          className={s.mainPhotoCard}
-                          src={mainPhotoUrl}
-                          onError={e => (e.target.src = NoPhoto)}
-                          alt={nameProduct}
-                        />
-                      </div>
-                      <div className={s.descriptionWrapper}>
-                        <Text textClass="verifyAttention" text={brendName} />
-                        <Text textClass="verifyAttention" text={nameProduct} />
-                      </div>
-                    </Link>
-                  </div>
-                  {isTablet && (
-                    <div className={s.priceAndQuantity}>
-                      <div className={s.smallBox}>
-                        <div className={s.key}>Ціна</div>
-                        <div className={s.sumValue}>{`${price} грн.`}</div>
-                      </div>
-                      <div className={s.smallBox}>
-                        <div className={s.key}>Кількість</div>
-                        <div className={s.buttonWrapper}>
-                          <button
-                            type="button"
-                            onClick={() => handleDecrement(_id)}
-                          >
-                            <AiOutlineMinus />
-                          </button>
-                          <span className={s.quantValue}>{quantity}</span>
-                          <button
-                            type="button"
-                            onClick={() => handleIncrement(_id)}
-                          >
-                            <AiOutlinePlus />
-                          </button>
+    return (
+      <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
+        <Text textClass="title" text={`Продавець: ${ownerName}`} />
+        <ul className={s.oneSellerBasket}>
+          {products.map(({ _id, nameProduct, mainPhotoUrl, brendName, price, size, section, category }) => {
+              const quantity = orderedProducts.find(item => item._id === _id)?.quantity || 1;
+              const translatedParamsObj = translateParamsToEN(section, category);
+              const [categoryName, subCategoryName] = Object.values(translatedParamsObj);
+              return (
+                <li className={s.wareItem} key={_id}>
+                  <div className={s.photoAndNameAndPrice}>
+                    {/* <div className={s.photoAndNameAndBtn}> */}
+                    <div className={s.photoAndName}>
+                      <Link
+                        to={`/products/${categoryName}/${subCategoryName}/${_id}`}
+                      >
+                        <div className={s.thumb}>
+                          <img
+                            className={s.mainPhotoCard}
+                            src={mainPhotoUrl}
+                            onError={e => (e.target.src = NoPhoto)}
+                            alt={nameProduct}
+                          />
+                        </div>
+                        <div className={s.descriptionWrapper}>
+                          <Text textClass="verifyAttention" text={brendName} />
+                          <Text
+                            textClass="verifyAttention"
+                            text={nameProduct}
+                          />
+                        </div>
+                      </Link>
+                    </div>
+                    {isTablet && (
+                      <div className={s.priceAndQuantity}>
+                        <div className={s.smallBox}>
+                          <div className={s.key}>Ціна</div>
+                          <div className={s.sumValue}>{`${price} грн.`}</div>
+                        </div>
+                        <div className={s.smallBox}>
+                          <div className={s.key}>Кількість</div>
+                          <div className={s.buttonWrapper}>
+                            <button
+                              type="button"
+                              onClick={() => handleDecrement(_id)}
+                            >
+                              <AiOutlineMinus />
+                            </button>
+                            <span className={s.quantValue}>{quantity}</span>
+                            <button
+                              type="button"
+                              onClick={() => handleIncrement(_id)}
+                            >
+                              <AiOutlinePlus />
+                            </button>
+                          </div>
+                        </div>
+                        <div className={s.smallBox}>
+                          <div className={s.key}>Сума</div>
+                          <div className={s.sumValue}>{`${
+                            quantity * price
+                          } грн.`}</div>
                         </div>
                       </div>
-                      <div className={s.smallBox}>
-                        <div className={s.key}>Сума</div>
-                        <div className={s.sumValue}>{`${
-                          quantity * price
-                        } грн.`}</div>
-                      </div>
-                    </div>
-                  )}
-                  <RoundButton
-                    icon={BsTrash}
-                    handleClick={handleButtonTrashClick}
-                    id={_id}
-                  />
-                  {/* </div> */}
-                  {size.length > 0 && (
-                    <SizesWithoutSelect sizes={size} text="Обраний розмір:" />
-                  )}
-                  {!isTablet && (
-                    // <div className={s.priceAndQuantity}>
-                    //   <div className={s.smallBox}>
-                    //       <div className={s.key }>Ціна</div>
-                    //       <div className={s.sumValue}>{`${price} грн.` }</div>
-                    //   </div>
-                    //   <div className={s.smallBox}>
-                    //       <div className={s.key }>Кількість</div>
-                    //       <div className={s.buttonWrapper}>
-                    //           <button
-                    //               type="button"
-                    //               onClick={() => handleDecrement(_id)}
-                    //           >
-                    //               <AiOutlineMinus />
-                    //           </button>
-                    //           <span className={s.quantValue}>{
-                    //               quantity
-                    //           }</span>
-                    //           <button
-                    //               type="button"
-                    //               onClick={() => handleIncrement(_id)}
-                    //           >
-                    //               <AiOutlinePlus />
-                    //           </button>
-                    //       </div>
-                    //   </div>
-                    //   <div className={s.smallBox}>
-                    //       <div className={s.key }>Сума</div>
-                    //       <div className={s.sumValue}>{`${quantity * price} грн.` }</div>
-                    //   </div>
-                    // </div>
-                    <CountBlock
-                      number={quantity}
-                      price={price}
-                      onMinus={handleDecrement}
-                      onPlus={handleIncrement}
+                    )}
+                    <RoundButton
+                      icon={BsTrash}
+                      handleClick={handleButtonTrashClick}
                       id={_id}
                     />
-                  )}
-                </div>
-              </li>
-            );
-          }
+                    {/* </div> */}
+                    {size.length > 0 && (
+                      <SizesWithoutSelect sizes={size} text="Обраний розмір:" />
+                    )}
+                    {!isTablet && (
+                      // <div className={s.priceAndQuantity}>
+                      //   <div className={s.smallBox}>
+                      //       <div className={s.key }>Ціна</div>
+                      //       <div className={s.sumValue}>{`${price} грн.` }</div>
+                      //   </div>
+                      //   <div className={s.smallBox}>
+                      //       <div className={s.key }>Кількість</div>
+                      //       <div className={s.buttonWrapper}>
+                      //           <button
+                      //               type="button"
+                      //               onClick={() => handleDecrement(_id)}
+                      //           >
+                      //               <AiOutlineMinus />
+                      //           </button>
+                      //           <span className={s.quantValue}>{
+                      //               quantity
+                      //           }</span>
+                      //           <button
+                      //               type="button"
+                      //               onClick={() => handleIncrement(_id)}
+                      //           >
+                      //               <AiOutlinePlus />
+                      //           </button>
+                      //       </div>
+                      //   </div>
+                      //   <div className={s.smallBox}>
+                      //       <div className={s.key }>Сума</div>
+                      //       <div className={s.sumValue}>{`${quantity * price} грн.` }</div>
+                      //   </div>
+                      // </div>
+                      <CountBlock
+                        number={quantity}
+                        price={price}
+                        onMinus={handleDecrement}
+                        onPlus={handleIncrement}
+                        id={_id}
+                      />
+                    )}
+                  </div>
+                </li>
+              );
+            }
+          )}
+        </ul>
+        <div className={s.linkWrapper}>
+          <Link to="/seller/:id" className={s.btnWrapper}>
+            <Text
+              textClass="verifyAttention"
+              text={'Додати інші товари продавця'}
+            />
+            <RoundButton icon={TfiPlus} />
+          </Link>
+          <Link to="/checkout" className={s.btnWrapper}>
+            <Text
+              textClass="verifyAttention"
+              text={`Оформити замовлення ${totalSum}`}
+            />
+            <RoundButton icon={TfiCheck} onClick={handleSubmit(onSubmit)} />
+          </Link>
+        </div>
+        {questionWindow && (
+          <MessageWindow
+            text="Ви впевнені, що хочете видалити товар з кошика?"
+            confirmButtons={true}
+            onConfirm={deleteProductFrombasket}
+          />
         )}
-      </ul>
-      <div className={s.linkWrapper}>
-        <Link to="/seller/:id" className={s.btnWrapper}>
-          <Text
-            textClass="verifyAttention"
-            text={'Додати інші товари продавця'}
-          />
-          <RoundButton icon={TfiPlus} />
-        </Link>
-        <Link to="/checkout" className={s.btnWrapper}>
-          <Text
-            textClass="verifyAttention"
-            text={`Оформити замовлення ${totalSum}`}
-          />
-          <RoundButton icon={TfiCheck} onClick={handleSubmit(onSubmit)} />
-        </Link>
-      </div>
-      {questionWindow && (
-        <MessageWindow
-          text="Ви впевнені, що хочете видалити товар з кошика?"
-          confirmButtons={true}
-          onConfirm={deleteProductFrombasket}
-        />
-      )}
-    </form>
-  );
+      </form>
+    );
 };
 
 export default BasketForm;
