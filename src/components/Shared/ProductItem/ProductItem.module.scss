@@ -45,7 +45,7 @@
   border-radius: 18px;
   padding: 4px 12px;
 
-  background: var(--bg-footer-header);
+  background: #000000;
 
   @include mixins.mq(desktop) {
     top: 6px;
@@ -60,7 +60,7 @@
   text-transform: uppercase;
   line-height: 16px;
 
-  color: var(--label-text-color);
+  color: var(--accent-color);
 }
 
 .saleLabel {
@@ -77,10 +77,20 @@
   border-radius: 18px;
   padding: 4px 12px;
 
-  background: var(--bg-footer-header);
+  background: #000000;
 
   @include mixins.mq(desktop) {
     top: 32px;
+    left: 6px;
+  }
+}
+
+.saleLabelNoVip {
+  top: 16px;
+  left: 16px;
+
+  @include mixins.mq(desktop) {
+    top: 6px;
     left: 6px;
   }
 }
@@ -91,8 +101,8 @@
   font-size: 14px;
   text-transform: uppercase;
   line-height: 16px;
-  
-  color: var(--label-text-color);
+
+  color: var(--accent-color);
 }
 
 .photoCard {
@@ -151,7 +161,7 @@
   line-height: 11px;
   text-decoration: line-through;
 
-  color: var(--second-text-color);
+  color: #acadac;
 }
 
 .newPriceCard {
@@ -159,7 +169,7 @@
   font-size: 18px;
   line-height: 16px;
 
-  color: var(--sale-text);
+  color: var(--btn-text-color);
 }
 
 .priceCard {
@@ -199,6 +209,9 @@
 }
 
 .styleSizeCard {
+  position: relative;
+  // overflow: hidden;
+
   display: flex;
   justify-content: left;
   align-items: center;
@@ -208,12 +221,60 @@
   margin-bottom: 0px;
 }
 
+.sizeItem {
+  // background-color: blue;
+}
+
 .separator {
   margin-left: 2px;
   margin-right: 2px;
 
   color: var(--second-text-color);
 }
+
+.sizeName {
+  font-weight: 200;
+  font-size: 16px;
+  color: var(--text-color);
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.hoveredSize {
+  // display: flex;
+
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  // padding: 8px;
+
+  background-color: #fff;
+
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+}
+
+.hoveredSize::before {
+  content: '';
+
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  // transform: translateX(-50%);
+
+  border: 8px solid transparent;
+  border-bottom-color: var(--btn-text-color);
+}
+
+// .hoveredSize p {
+//   margin: 0;
+//   padding: 5px 0;
+// }
+
+// .hoveredSize span {
+//   font-weight: bold;
+// }
 
 .link {
   color: var(--second-text-color);
@@ -224,4 +285,3 @@
     stroke: var(--icons-color);
   }
 }
-
