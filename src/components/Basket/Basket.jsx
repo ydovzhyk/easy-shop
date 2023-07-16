@@ -73,10 +73,9 @@ const Basket = () => {
                 products={products}
                 isTablet={isTablet}
               />
-              
             </li>
-            
-          ))}
+
+        ))}
       </ul>
     </section>
     </Container>

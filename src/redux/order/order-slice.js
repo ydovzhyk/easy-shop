@@ -1,0 +1,99 @@
+import { createSlice } from '@reduxjs/toolkit';
+
+import {
+  addOrder,
+  updateOrder,
+  getOrderById,
+  getAllOrders,
+} from './order-operations';
+
+const initialState = {
+  message: '',
+  loading: false,
+  error: null,
+  allOrders: [],
+  orderInCheckout: [],
+  orderById: {},
+};
+
+const orders = createSlice({
+  name: 'orders',
+  initialState,
+  reducers: {
+    clearOrderMessage: store => {
+      store.message = '';
+    },
+    clearOrderError: store => {
+      store.error = null;
+    },
+    clearOrders: store => {
+      store.allOrders = [];
+    },
+    clearOrderById: store => {
+      store.orderById = {};
+    },
+    clearOrderInCheckout: store => {
+      store.orderInCheckout = [];
+    },
+  },
+  extraReducers: {
+    //* addOrder
+    [addOrder.pending]: store => {
+      store.loading = true;
+      store.error = null;
+    },
+    [addOrder.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.message = payload.message;
+      store.orderInCheckout = payload.newOrder;
+    },
+    [addOrder.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
+    //* updateOrder
+    [updateOrder.pending]: store => {
+      store.loading = true;
+      store.error = null;
+    },
+    [updateOrder.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.message = payload.message;
+    },
+    [updateOrder.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
+    // getOrderById
+    [getOrderById.pending]: store => {
+      store.loading = true;
+      store.error = null;
+    },
+    [getOrderById.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.orderById = payload;
+    },
+    [getOrderById.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
+    //getAllOrders
+    [getAllOrders.pending]: store => {
+      store.loading = true;
+      store.error = null;
+    },
+    [getAllOrders.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.allOrders = payload;
+    },
+    [getAllOrders.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
+  },
+});
+
+export default orders.reducer;
+
+export const { clearOrderMessage, clearOrderError, clearOrders, clearOrderById } =
+  orders.actions;

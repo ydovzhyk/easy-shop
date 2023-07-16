@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { BsTrash } from 'react-icons/bs';
 import { TfiPlus, TfiCheck } from 'react-icons/tfi';
 import { updateUserBasket } from 'redux/auth/auth-opetations';
+import { addOrder } from 'redux/order/order-operations';
 
 import Text from 'components/Shared/Text/Text';
 import RoundButton from 'components/Shared/RoundButton/RoundButton';
@@ -115,7 +116,7 @@ const BasketForm = ({ ownerId, ownerName, products, isTablet }) => {
     }
   });
 
-  const onSubmit = (data, e) => {
+  const onSubmit = async (data, e) => {
     e.preventDefault();
     const dataForUpload = {
       ownerId: ownerId,
@@ -125,7 +126,12 @@ const BasketForm = ({ ownerId, ownerName, products, isTablet }) => {
 
     };
     console.log('Відправка форми', dataForUpload);
-    navigate('/checkout');
+    const newOrder = await dispatch(addOrder(dataForUpload));
+    // console.log('newOrder', newOrder);
+    // console.log('!newOrder', !newOrder.payload.newOrderId);
+    if (newOrder.payload.newOrderId) {
+      navigate('/checkout')
+    };
   };
 
     return (
