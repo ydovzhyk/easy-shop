@@ -1,7 +1,6 @@
 import React from 'react';
 import s from './SizeHovered.module.scss';
 
-
 const SizeHovered = ({ sizes, activeSize }) => {
 
   const transformedSizes =

@@ -39,9 +39,6 @@ const ProductItem = ({
   const [isErrorDisplayed, setIsErrorDisplayed] = useState(false);
   // console.log('vip', vip);
 
-
-
-  
   // for sale
   const discountedPrice = (price * (100 - sale)) / 100;
 
