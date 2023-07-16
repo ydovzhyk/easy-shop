@@ -1,19 +1,8 @@
 @use '../../../styles/mixins';
 
-.styleSizeHovered {
-  display: none;
-
-  &.hovered {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-
-    margin-top: auto;
-    margin-bottom: 0px;
-  }
-}
-
-.separator {
-  margin-left: 2px;
-  margin-right: 2px;
+.groupListHovering {
+  display: flex;
+  justify-content: center;
+  
+  padding: 8px;
 }

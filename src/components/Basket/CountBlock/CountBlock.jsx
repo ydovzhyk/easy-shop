@@ -2,8 +2,6 @@ import {AiOutlineMinus, AiOutlinePlus} from 'react-icons/ai'
 import s from 'components/Basket/CountBlock/CountBlock.module.scss';
 
 const CountBlock = ({ number, price, onMinus, onPlus, id }) => {
-
-
     return (
         <div className={s.priceAndQuantity}>
             <div className={s.smallBox}>

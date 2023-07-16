@@ -1,9 +1,7 @@
 import {  useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
-// import { Link } from 'react-router-dom';
-// import { BsTrash } from 'react-icons/bs';
-// import { TfiPlus, TfiCheck } from 'react-icons/tfi';
+
 import { getMessage, selectProductsFromBasket, selectSellersFromBasket } from 'redux/product/product-selectors';
 import { getUser, selectBasketProducts} from 'redux/auth/auth-selectors';
 import { getProductsFromBasket } from 'redux/product/product-operations';
@@ -12,14 +10,8 @@ import Container from 'components/Shared/Container/Container';
 import UserUpdateComponent from 'components/Shared/helper/UserUpdateComponent';
 import Text from 'components/Shared/Text/Text';
 import BasketForm from 'components/Basket/BasketForm/BasketForm';
-// import RoundButton from 'components/Shared/RoundButton/RoundButton';
-// import CountBlock from './CountBlock/CountBlock';
-
-// import NoPhoto from 'images/catalog_photo/no_photo.jpg';
-
 
 import s from './Basket.module.scss';
-
 
 const Basket = () => {
   const dispatch = useDispatch();
@@ -31,10 +23,6 @@ const Basket = () => {
   const selectedProductsWithSizes = useSelector(selectBasketProducts);
   const isTablet = useMediaQuery({ minWidth: 768 });
   
-  // console.log('productsFrombasket:', productsFrombasket);
-  // console.log('sellersfrombasket:', sellersFrombasket);
-  // console.log('selectedProductsWithSizes:', selectedProductsWithSizes);
-  
   const groupedProducts = sellersFrombasket.map((seller) => {
   const ownerName = seller.username;
   const ownerId = seller._id;
@@ -45,7 +33,6 @@ const Basket = () => {
         .flatMap((arr) => arr)
         .find((sp) => sp.productId === product._id);
       const selectedSizes = matchedProduct ? matchedProduct.selectedSizes : [];
-      // console.log("matchedProduct:", matchedProduct)
 
       return {
         _id: product._id,
@@ -67,12 +54,9 @@ const Basket = () => {
   };
 });
 
-  // console.log('groupedProducts:', groupedProducts);
-
   useEffect(() => {
     dispatch(getProductsFromBasket(user._id));
   }, [dispatch, user]); 
-
 
   return (
     <Container>
