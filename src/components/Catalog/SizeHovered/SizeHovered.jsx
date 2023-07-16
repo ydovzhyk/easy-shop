@@ -9,9 +9,6 @@ const SizeHovered = ({ sizes, activeSize }) => {
       ? sizes[activeSize][0].value
       : [];
 
-  console.log('transformedSizes', transformedSizes);
-  console.log('activeSize132', sizes[activeSize][0].value);
-
   return (
     <div className={s.groupListHovering}>
       {transformedSizes.length > 1

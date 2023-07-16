@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 import { updateUserLikes } from 'redux/auth/auth-opetations';
 import { getLogin } from 'redux/auth/auth-selectors.js';
 
-import NoPhoto from '../../../images/catalog_photo/no_photo.jpg';
-import ErrorMessage from 'components/Shared/ErrorMessage/ErrorMessage';
-// import SizesWithoutSelect from 'components/Shared/Sizes/SizesWithoutSelect/SizesWithoutSelect';
 import SizeHovered from '../../Catalog/SizeHovered/SizeHovered';
+import ErrorMessage from 'components/Shared/ErrorMessage/ErrorMessage';
 import Text from 'components/Shared/Text/Text';
+
+import NoPhoto from '../../../images/catalog_photo/no_photo.jpg';
 import { FiHeart } from 'react-icons/fi';
 import { translateParamsToEN } from 'funcs&hooks/translateParamsToEN';
 import s from './ProductItem.module.scss';
@@ -63,27 +63,10 @@ const ProductItem = ({
   };
 
   // for hovered Size
-  // const [isHovered, setIsHovered] = useState(false);
-
-  // const handleMouseEnter = () => {
-  //   setIsHovered(true);
-  // };
-
-  // const handleMouseLeave = () => {
-  //   setIsHovered(false);
-  // };
-
-  // for hovered Size
   const [activeSize, setActiveSize] = useState(null);
   const [triangleLeft, setTriangleLeft] = useState(null);
-  console.log('activeSize', activeSize);
 
   const handleMouseEnter = (index, event) => {
-    // const sizeValue = size[index][0] && size[index][0].name;
-    // if (size === 'one size' || size === 'інший' || !size) {
-    //   return;
-    // }
-    // console.log('size', size);
     setActiveSize(index);
     if (event && event.target) {
       setTriangleLeft(event.target.offsetLeft + event.target.offsetWidth / 2);
@@ -157,8 +140,8 @@ const ProductItem = ({
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        {size.map((item, index) =>
-          size[0]?.name === 'one size' || size[0]?.name === 'інший' ? (
+        {size.map((item, index) => {
+          return item[0]?.name === 'One size' || item[0]?.name === 'Інший' ? (
             <div className={s.sizeItem} key={index}>
               {index > 0 && <span className={s.separator}> / </span>}
               <Text text={item[0]?.name} textClass="after-title-bigger" />
@@ -178,8 +161,8 @@ const ProductItem = ({
                 </div>
               )}
             </div>
-          )
-        )}
+          );
+        })}
       </div>
       {isErrorDisplayed && (
         <ErrorMessage text={errorMessage} onDismiss={resetError} />
