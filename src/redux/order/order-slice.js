@@ -5,6 +5,7 @@ import {
   updateOrder,
   getOrderById,
   getAllOrders,
+  deleteOrderById
 } from './order-operations';
 
 const initialState = {
@@ -87,6 +88,19 @@ const orders = createSlice({
       store.allOrders = payload;
     },
     [getAllOrders.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
+    //* deleteOrderById
+    [deleteOrderById.pending]: store => {
+      store.loading = true;
+      store.error = null;
+    },
+    [deleteOrderById.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.message = payload.message;
+    },
+    [deleteOrderById.rejected]: (store, { payload }) => {
       store.loading = false;
       store.error = payload;
     },
