@@ -4,11 +4,9 @@ import { Link, useNavigate} from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { BsTrash } from 'react-icons/bs';
 import { TfiPlus, TfiCheck } from 'react-icons/tfi';
-import {AiOutlineMinus, AiOutlinePlus} from 'react-icons/ai'
 import { updateUserBasket } from 'redux/auth/auth-opetations';
 
 import Text from 'components/Shared/Text/Text';
-import CountBlock from 'components/Basket/CountBlock/CountBlock';
 import RoundButton from 'components/Shared/RoundButton/RoundButton';
 import SizesWithoutSelect from 'components/Shared/Sizes/SizesWithoutSelect/SizesWithoutSelect';
 import NoPhoto from 'images/catalog_photo/no_photo.jpg';
@@ -16,18 +14,32 @@ import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
 import { translateParamsToEN } from 'funcs&hooks/translateParamsToEN';
 import s from 'components/Basket/BasketForm/BasketForm.module.scss';
 
-const BasketForm = ({ ownerName, products, isTablet }) => {
+const BasketForm = ({ ownerId, ownerName, products, isTablet }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [productId, setProductId] = useState(null);
   const [questionWindow, setQuestionWindow] = useState(false);
-    
-  const preOrederedProducts = products.map((product) => {
-    return { _id: product._id, quantity: product.size.length, size: product.size, price: product.price, sum: product.size.length * product.price}
-  });
-  console.log('preOrederedProducts:', preOrederedProducts);
 
-  const [orderedProducts, setOrderedProducts] = useState(preOrederedProducts);
+  console.log('products:', products);
+    
+  const preOrderedProducts = products.map((product) => {
+    let modifiedSizes = product.size.map((size) => {
+    return {
+      ...size[0],
+      quantity: size.length
+    };
+  });
+    return {
+      _id: product._id,
+      quantity: product.size.length,
+      size: modifiedSizes,
+      price: product.price,
+      sum: product.size.length * product.price
+    }
+  });
+  console.log('preOrederedProducts:', preOrderedProducts);
+
+  const [orderedProducts, setOrderedProducts] = useState(preOrderedProducts);
   console.log('orderedProducts:', orderedProducts);
   
   const sortedArray = orderedProducts.sort((a, b) => a.sum - b.sum);
@@ -51,30 +63,52 @@ const BasketForm = ({ ownerName, products, isTablet }) => {
     }
   };
 
-  const handleDecrement = (productId) => {
-    setOrderedProducts((prevOrderedProducts) =>
-      prevOrderedProducts.map((product) => {
-        if (product._id === productId) {
-          return { ...product, quantity: product.quantity - 1, sum: product.sum - product.price };
-        }
-        return product;
-      })
-    );
-  };
-const handleIncrement = (productId) => {
-    setOrderedProducts((prevOrderedProducts) =>
-      prevOrderedProducts.map((product) => {
-        if (product._id === productId) {
-          return { ...product, quantity: product.quantity + 1, sum: product.sum + product.price };
-        }
-        return product;
-      })
-    );
-  };
-  
+
+  const handleDecrement = (productId, sizeId) => {
+  setOrderedProducts(prevOrderedProducts =>
+    prevOrderedProducts.map(product => {
+      if (product._id === productId) {
+        const updatedSizes = product.size.map(size => {
+          if (size.name === sizeId) {
+            const updatedSize = { ...size};
+            updatedSize.quantity -= 1;
+            return updatedSize;
+          }
+          return size;
+        });
+        const quantity = updatedSizes.reduce((total, size) => total + size.quantity, 0);
+        const sum = quantity * product.price;
+        return { ...product, size: updatedSizes, quantity, sum };
+      }
+      return product;
+    })
+  );
+};
+
+  const handleIncrement = (productId, sizeId) => {
+  setOrderedProducts(prevOrderedProducts =>
+    prevOrderedProducts.map(product => {
+      if (product._id === productId) {
+        const updatedSizes = product.size.map(size => {
+          if (size.name === sizeId) {
+            const updatedSize = { ...size };
+            updatedSize.quantity += 1;
+            return updatedSize;
+          }
+          return size;
+        });
+        const quantity = updatedSizes.reduce((total, size) => total + size.quantity, 0);
+        const sum = quantity * product.price;
+        return { ...product, size: updatedSizes, quantity, sum };
+      }
+      return product;
+    })
+  );
+};
   
   const { handleSubmit } = useForm({
     defaultValues: {
+      ownerId: ownerId ? ownerId : '',
       ownerName: ownerName ? ownerName : '',
       products: orderedProducts ? orderedProducts : [],
       totalSum: totalSum ? totalSum: null,
@@ -84,6 +118,7 @@ const handleIncrement = (productId) => {
   const onSubmit = (data, e) => {
     e.preventDefault();
     const dataForUpload = {
+      ownerId: ownerId,
       ownerName: data.ownerName,
       products: orderedProducts,
       totalSum: totalSum,
@@ -100,9 +135,11 @@ const handleIncrement = (productId) => {
             <Text textClass="title" text={`Продавець: ${ownerName}`} />
             <ul className={s.oneSellerBasket}>
           {products.map(({ _id, nameProduct, mainPhotoUrl, brendName, price, size, section, category }) => {
-            const quantity = orderedProducts.find(item => item._id === _id)?.quantity || 1;
+            
             const translatedParamsObj = translateParamsToEN(section, category);
             const [categoryName, subCategoryName] = Object.values(translatedParamsObj);
+            const sizesForCount = orderedProducts.find(item => item._id === _id)?.size || size
+            // console.log('sizesForCount', sizesForCount);
             return (
                   <li className={s.wareItem} key={_id}>
                     <div className={s.photoAndNameAndPrice}>
@@ -125,91 +162,22 @@ const handleIncrement = (productId) => {
                         
                   </Link> 
                   </div>
-                        {isTablet && (
-                          <div className={s.priceAndQuantity}>
-                            <div className={s.smallBox}>
-                                <div className={s.key }>Ціна</div>
-                                <div className={s.sumValue}>{`${price} грн.` }</div>
-                            </div>
-                            <div className={s.smallBox}>
-                                <div className={s.key }>Кількість</div>
-                                <div className={s.buttonWrapper}>
-                                    <button
-                                        type="button"
-                                        onClick={() => handleDecrement(_id)}
-                                    >
-                                        <AiOutlineMinus />
-                                    </button>
-                                    <span className={s.quantValue}>{
-                                        quantity
-                                    }</span>
-                                    <button
-                                        type="button"
-                                        onClick={() => handleIncrement(_id)}
-                                    >
-                                        <AiOutlinePlus />
-                                    </button>
-                                </div>
-                            </div>
-                            <div className={s.smallBox}>
-                                <div className={s.key }>Сума</div>
-                                <div className={s.sumValue}>{`${quantity * price} грн.` }</div>
-                            </div>
-                          </div>  
-
-                        )}
-                          <RoundButton
+                  
+                      {/* </div> */}
+                        
+                        <SizesWithoutSelect
+                          sizes={sizesForCount}
+                          text="Обраний розмір:"
+                          price={price}
+                          onDecrement={handleDecrement}
+                          onIncrement={handleIncrement}
+                          id={_id}
+                        />
+                      <RoundButton
                             icon={BsTrash}
                             handleClick={handleButtonTrashClick}
                             id={_id}
                           />
-                      {/* </div> */}
-                        {size.length > 0 && (
-                        
-                        <SizesWithoutSelect
-                          sizes={size}
-                          text="Обраний розмір:"/>
-                        )} 
-                      {!isTablet && (
-                          // <div className={s.priceAndQuantity}>
-                          //   <div className={s.smallBox}>
-                          //       <div className={s.key }>Ціна</div>
-                          //       <div className={s.sumValue}>{`${price} грн.` }</div>
-                          //   </div>
-                          //   <div className={s.smallBox}>
-                          //       <div className={s.key }>Кількість</div>
-                          //       <div className={s.buttonWrapper}>
-                          //           <button
-                          //               type="button"
-                          //               onClick={() => handleDecrement(_id)}
-                          //           >
-                          //               <AiOutlineMinus />
-                          //           </button>
-                          //           <span className={s.quantValue}>{
-                          //               quantity
-                          //           }</span>
-                          //           <button
-                          //               type="button"
-                          //               onClick={() => handleIncrement(_id)}
-                          //           >
-                          //               <AiOutlinePlus />
-                          //           </button>
-                          //       </div>
-                          //   </div>
-                          //   <div className={s.smallBox}>
-                          //       <div className={s.key }>Сума</div>
-                          //       <div className={s.sumValue}>{`${quantity * price} грн.` }</div>
-                          //   </div>
-                          // </div>  
-                    <CountBlock
-                      number={quantity}
-                      price={price}
-                      onMinus={handleDecrement}
-                      onPlus={handleIncrement}
-                      id={_id}
-                    />
-                      )}
-                      
                     </div> 
                   </li>
                 )})}
