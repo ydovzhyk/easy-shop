@@ -110,13 +110,13 @@ const Checkout = () => {
                     mainPhotoUrl,
                     brendName,
                     price,
-                    size,
+                    // size,
                   }) => {
-                    const sizesForProduct =
-                      products.find(item => item._id === _id)?.size || size;
-                    const transformedSize = sizesForProduct.map(
-                      item => item[0].name
-                    );
+                    // const sizesForProduct =
+                    //   products.find(item => item._id === _id)?.size || size;
+                    // const transformedSize = sizesForProduct.map(
+                    //   item => item[0].name
+                    // );
                     return (
                       <li className={s.productItem} key={_id}>
                         <div className={s.infoWraper}>
@@ -137,7 +137,7 @@ const Checkout = () => {
                               />
                               <Text
                                 textClass="productText"
-                                text={`Size: ${transformedSize}`}
+                                text={`Size:`}
                               />
                             </div>
                           </div>
