@@ -2,13 +2,15 @@
 
 .menuGroupList {
     display: flex;
+    flex-direction: column;
     gap: 10px;
     justify-content: flex-start;
-    flex-wrap: wrap;
+    // flex-wrap: wrap;
     margin-bottom: 16px;
 }
 
 .size {
+    width: 250px;
     display: inline-block;
     border: 1px solid var(--border-color);
     border-radius: 5px;

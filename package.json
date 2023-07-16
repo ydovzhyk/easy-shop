@@ -34,7 +34,8 @@
     "redux-persist": "^6.0.0",
     "sass": "^1.54.9",
     "typeface-montserrat": "^1.1.13",
-    "web-vitals": "^2.1.3"
+    "web-vitals": "^2.1.3",
+    "websocket": "^1.0.34"
   },
   "scripts": {
     "start": "react-scripts start",

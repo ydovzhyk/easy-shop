@@ -20,6 +20,7 @@
   height: 40px;
   font-weight: 400;
   line-height: 1.5;
+  background-color: var(--background-color);
   color: var(--second-text-color);
   box-shadow: none;
   border-radius: 0;
@@ -166,6 +167,7 @@
   font-weight: 400;
   line-height: 1.5;
   color: var(--second-text-color);
+  background-color: var(--background-color);
   box-shadow: none;
   border-radius: 8px;
   border: 1px solid var(--border-color);
@@ -213,4 +215,14 @@
 
 .span.aboutChangeProfile {
   display: none;
+}
+
+.input.addOrder {
+  border: 1px solid;
+  border-radius: 4px;
+  padding: 2px 8px;
+}
+.label.addOrder {
+  margin-bottom: 40px;
+  height: 40px;
 }
