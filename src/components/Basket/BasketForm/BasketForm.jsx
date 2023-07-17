@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate} from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { BsTrash } from 'react-icons/bs';
 import { TfiPlus, TfiCheck } from 'react-icons/tfi';
 import { updateUserBasket } from 'redux/auth/auth-opetations';
-import { addOrder } from 'redux/order/order-operations';
+import { addOrder, deleteOrderById } from 'redux/order/order-operations';
+import { selectOrderInCheckout } from 'redux/order/order-selectors';
 
 import Text from 'components/Shared/Text/Text';
 import RoundButton from 'components/Shared/RoundButton/RoundButton';
@@ -20,6 +21,7 @@ const BasketForm = ({ ownerId, ownerName, products, isTablet }) => {
   const navigate = useNavigate();
   const [productId, setProductId] = useState(null);
   const [questionWindow, setQuestionWindow] = useState(false);
+  const orderInCheckout = useSelector(selectOrderInCheckout);
 
   console.log('products:', products);
     
@@ -126,9 +128,12 @@ const BasketForm = ({ ownerId, ownerName, products, isTablet }) => {
 
     };
     console.log('Відправка форми', dataForUpload);
+    if (orderInCheckout.sellerId === ownerId) {
+      console.log('order exist');
+      await dispatch(deleteOrderById(orderInCheckout._id));
+    }
     const newOrder = await dispatch(addOrder(dataForUpload));
-    // console.log('newOrder', newOrder);
-    // console.log('!newOrder', !newOrder.payload.newOrderId);
+    console.log('newOrder', newOrder);
     if (newOrder.payload.newOrderId) {
       navigate('/checkout')
     };

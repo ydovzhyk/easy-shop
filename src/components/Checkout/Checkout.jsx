@@ -110,13 +110,17 @@ const Checkout = () => {
                     mainPhotoUrl,
                     brendName,
                     price,
-                    // size,
+                    size,
                   }) => {
-                    // const sizesForProduct =
-                    //   products.find(item => item._id === _id)?.size || size;
-                    // const transformedSize = sizesForProduct.map(
-                    //   item => item[0].name
-                    // );
+                    const sizesForProduct =
+                      products.find(item => item._id === _id)?.size || size;
+                    const transformedSize = sizesForProduct.map(
+                      item => item.name
+                    );
+                    const sizeQuantity = sizesForProduct.map(
+                      item => item.quantity
+                    );
+                    const productsPrice = sizeQuantity.reduce((prevValue, element) => prevValue + element, 0) * price;
                     return (
                       <li className={s.productItem} key={_id}>
                         <div className={s.infoWraper}>
@@ -135,17 +139,32 @@ const Checkout = () => {
                                 textClass="productHeadings"
                                 text={nameProduct}
                               />
-                              <Text
-                                textClass="productText"
-                                text={`Size:`}
-                              />
+                              <div className={s.sizeQuantity}>
+                                <div className={s.sizeQuantityWrapper}>
+                                  {transformedSize.map(size => (
+                                    <Text
+                                      key={size}
+                                      textClass="productText"
+                                      text={`Size: ${size}`}
+                                    />
+                                  ))}
+                                </div>
+                                <div className={s.sizeQuantityWrapper}>
+                                  {sizeQuantity.map((quantity, index) => (
+                                    <Text
+                                      key={index}
+                                      textClass="productText"
+                                      text={`Кількість: ${quantity}`}
+                                    />
+                                  ))}
+                                </div>
+                              </div>
                             </div>
                           </div>
                           <div className={s.priceWrapper}>
-                            <Text textClass="productText" text="Кількість: 1" />
                             <Text
                               textClass="productHeadings"
-                              text={`Сума: ${price}`}
+                              text={`Сума: ${productsPrice}`}
                             />
                           </div>
                         </div>
