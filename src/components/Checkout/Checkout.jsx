@@ -1,11 +1,12 @@
-// import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectProductsFromBasket } from 'redux/product/product-selectors';
 import { getUser } from 'redux/auth/auth-selectors';
-import { selectOrderInCheckout } from 'redux/order/order-selectors';
+import { selectOrderInCheckout, getOrderMessage } from 'redux/order/order-selectors';
 // import { getAllOrders, getOrderById, updateOrder } from 'redux/order/order-operations';
 import { updateOrder } from 'redux/order/order-operations';
+import { updateUserBasket } from 'redux/auth/auth-opetations';
 
 import { useForm, Controller } from 'react-hook-form';
 import Container from 'components/Shared/Container';
@@ -15,6 +16,7 @@ import TextField from 'components/Shared/TextField';
 import { field } from 'components/Shared/TextField/fields';
 import SelectField from 'components/Shared/SelectField/SelectField';
 import Button from 'components/Shared/Button/Button';
+import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
 import s from './Checkout.module.scss';
 
 const Checkout = () => {
@@ -22,24 +24,28 @@ const Checkout = () => {
   const navigate = useNavigate();
   const orderInCheckout = useSelector(selectOrderInCheckout);
   const productsFrombasket = useSelector(selectProductsFromBasket);
+  const user = useSelector(getUser);
+  const message = useSelector(getOrderMessage);
 
-  // console.log(orderInCheckout);
+  const [isMessage, setIsMessage] = useState('');
+
+  useEffect(() => {
+    if (message !== 'Order added successfully') {
+      setIsMessage(message)
+    };
+  }, [message]);
+
+  const resetMessage = () => {
+    setIsMessage('');
+  };
 
   const { client, orderSum, sellerId, sellerName, _id, products } =
     orderInCheckout;
-  // console.log(products);
+  console.log(products);
   
   const productsForOrder = productsFrombasket.filter(
     product => product.owner === sellerId
   );
-  // console.log(productsForOrder);
-  
-  // useEffect(() => {
-  //   dispatch(getOrderById(orderInChecout));
-  // }, [dispatch, orderInChecout]);
-  // const preOrder = dispatch(getOrderById(orderInChecout));
-  // console.log(preOrder);
-  const user = useSelector(getUser);
 
   const { secondName, firstName, surName, tel } = user || {};
 
@@ -50,17 +56,13 @@ const Checkout = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      // sellerName: sellerName ? sellerName : '',
-      // products: productsInOrder ? productsInOrder : [],
       delivery: '',
-      // orderSum: orderSum ? orderSum : null,
       secondName: secondName ? secondName : '',
       firstName: firstName ? firstName : '',
       surName: surName ? surName : '',
       tel: tel ? tel : '',
     },
   });
-  // console.log('errors', errors);
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
@@ -82,8 +84,10 @@ const Checkout = () => {
     const updatedOrder = await dispatch(updateOrder(orderData));
     // const allOrders = await dispatch(getAllOrders());
     // console.log('updatedOrder', updatedOrder);
-    // console.log('updatedOrder', updatedOrder.payload.code === 200);
     if (updatedOrder.payload.code === 200) {
+      for (const product of products) {
+        await dispatch(updateUserBasket({productId: product._id}))
+      }
       navigate('/profile/mypurchases');
     };
   };
@@ -120,7 +124,8 @@ const Checkout = () => {
                     const sizeQuantity = sizesForProduct.map(
                       item => item.quantity
                     );
-                    const productsPrice = sizeQuantity.reduce((prevValue, element) => prevValue + element, 0) * price;
+                    const productsPrice =
+                      sizeQuantity.reduce((prevValue, number) => prevValue + number, 0) * price;
                     return (
                       <li className={s.productItem} key={_id}>
                         <div className={s.infoWraper}>
@@ -336,6 +341,9 @@ const Checkout = () => {
             </div>
           </form>
         </div>
+        {isMessage && (
+          <MessageWindow text={`${message}`} onDismiss={resetMessage} />
+        )}
       </section>
     </Container>
   );
