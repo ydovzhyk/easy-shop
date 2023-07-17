@@ -46,6 +46,12 @@ export const axiosGetProductsByQuery = async payloadData => {
   });
   return data;
 };
+//   export const axiosGetProductsByQuery = async (payloadData) => {
+//   const { data } = await instance.get(`/product/search?page=${payloadData.page}`, {
+//     params: payloadData.payloadData,
+//   });
+//   return data;
+// };
 
 // Get vipProducts page
 export const axiosGetVipProducts = async userData => {

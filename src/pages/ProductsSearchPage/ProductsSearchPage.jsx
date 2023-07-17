@@ -8,12 +8,14 @@ import { getHeaderFormErrors } from 'redux/product/product-selectors';
 import { getHeaderFormReset } from 'redux/product/product-selectors';
 import { getHeaderFormClick } from 'redux/product/product-selectors';
 
+// import Pagination from 'components/Shared/Pagination/Pagination';
 import Filter from 'components/Filter/Filter';
 import Container from 'components/Shared/Container/Container';
 import { translateParamsToUA } from '../../funcs&hooks/translateParamsToUA.js';
 
 const ProductsSearchPage = () => {
   const [filterData, setFilterData] = useState({});
+  // const [currentPage, setCurrentPage] = useState(1);
 
   const { category, subcategory } = useParams();
   const [searchParams] = useSearchParams();
@@ -45,6 +47,12 @@ const ProductsSearchPage = () => {
       return;
     }
     dispatch(searchProducts(payload));
+    // dispatch(
+    //   searchProducts({
+    //     payloadData: payload,
+    //     page: currentPage,
+    //   })
+    // );
   }, [
     payload,
     hasHeaderFormErrors,
@@ -53,6 +61,10 @@ const ProductsSearchPage = () => {
     isHeaderFormClicked,
     dispatch,
   ]);
+
+  //   const handlePageChange = page => {
+  //     setCurrentPage(page);
+  //   };
 
   const dataFilterHandler = dataFilter => {
     setFilterData(dataFilter);
@@ -70,6 +82,11 @@ const ProductsSearchPage = () => {
           <Filter onChange={dataFilterHandler} />
           <Outlet />
         </div>
+        {/* <Pagination
+              totalPages={selectorPages}
+              currentPage={currentPage}
+              onPageChange={handlePageChange}
+            /> */}
       </Container>
     </div>
   );
