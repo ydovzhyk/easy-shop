@@ -138,52 +138,58 @@ const BasketForm = ({ ownerId, ownerName, products, isTablet }) => {
       <form className={s.form}
         onSubmit={handleSubmit(onSubmit)}
       >
-            <Text textClass="title" text={`Продавець: ${ownerName}`} />
-            <ul className={s.oneSellerBasket}>
-          {products.map(({ _id, nameProduct, mainPhotoUrl, brendName, price, size, section, category }) => {
+        <Text textClass="title" text={`Продавець: ${ownerName}`} />
+        <ul className={s.oneSellerBasket}>
+          {products.map(({
+            _id,
+            nameProduct,
+            mainPhotoUrl,
+            brendName,
+            price,
+            size,
+            section,
+            category }) => {
             
             const translatedParamsObj = translateParamsToEN(section, category);
             const [categoryName, subCategoryName] = Object.values(translatedParamsObj);
             const sizesForCount = orderedProducts.find(item => item._id === _id)?.size || size
             // console.log('sizesForCount', sizesForCount);
             return (
-                  <li className={s.wareItem} key={_id}>
-                    <div className={s.photoAndNameAndPrice}>
-                  {/* <div className={s.photoAndNameAndBtn}> */}
-                  <div className={s.photoAndName}>
-                      <Link to={`/products/${categoryName}/${subCategoryName}/${_id}`}>
-                        
-                          <div className={s.thumb}>
-                              <img
-                                className={s.mainPhotoCard}
-                                src={mainPhotoUrl}
-                                onError={e => (e.target.src = NoPhoto)}
-                                alt={nameProduct}
-                              />
-                          </div>
-                          <div className={s.descriptionWrapper}>
-                            <Text textClass="verifyAttention" text={brendName} />
-                            <Text textClass="verifyAttention" text={nameProduct} />
-                          </div>
-                        
-                  </Link> 
-                  </div>
+              <li className={s.wareItem} key={_id}>
+                <div className={s.photoAndNameAndPrice}>
                   
-                      {/* </div> */}
-                        
-                        <SizesWithoutSelect
-                          sizes={sizesForCount}
-                          text="Обраний розмір:"
-                          price={price}
-                          onDecrement={handleDecrement}
-                          onIncrement={handleIncrement}
-                          id={_id}
+                  <div className={s.photoAndName}>
+                    <Link to={`/products/${categoryName}/${subCategoryName}/${_id}`}>
+                      <div className={s.thumb}>
+                        <img
+                          className={s.mainPhotoCard}
+                          src={mainPhotoUrl}
+                          onError={e => (e.target.src = NoPhoto)}
+                          alt={nameProduct}
                         />
-                      <RoundButton
-                            icon={BsTrash}
-                            handleClick={handleButtonTrashClick}
-                            id={_id}
-                          />
+                      </div>
+                    </Link> 
+                    <div className={s.descriptionWrapper}>
+                      <Text textClass="verifyAttention" text={brendName} />
+                      <Text textClass="verifyAttention" text={nameProduct} />
+                    </div>
+                  </div>
+                  <div className={s.sizesAndButtonWrapper}>
+                    <SizesWithoutSelect
+                      sizes={sizesForCount}
+                      text="Обраний розмір:"
+                      price={price}
+                      onDecrement={handleDecrement}
+                      onIncrement={handleIncrement}
+                      id={_id}
+                    />
+                    <RoundButton
+                      icon={BsTrash}
+                      handleClick={handleButtonTrashClick}
+                      id={_id}
+                    />
+                  </div>
+                        
                     </div> 
                   </li>
                 )})}
@@ -194,7 +200,7 @@ const BasketForm = ({ ownerId, ownerName, products, isTablet }) => {
                   <RoundButton icon={TfiPlus}/>
                 </Link>
                 <Link to='/checkout' className={s.btnWrapper}>
-                  <Text textClass="verifyAttention" text={`Оформити замовлення ${totalSum}`}/>
+                  <Text textClass="verifyAttention" text={`Оформити замовлення на суму ${totalSum} грн.`}/>
                   <RoundButton
                     icon={TfiCheck}
                     onClick={handleSubmit(onSubmit)}
