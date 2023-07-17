@@ -6,11 +6,14 @@ import { VscAdd } from 'react-icons/vsc';
 
 import { useMediaQuery } from 'react-responsive';
 
-import { NavLink, useSearchParams } from 'react-router-dom';
+import { NavLink, useSearchParams, useLocation } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { getLogin } from 'redux/auth/auth-selectors';
-import { clearSearchProducts } from 'redux/product/product-slice';
+import {
+  clearSearchProducts,
+  setCurrentProductsPage,
+} from 'redux/product/product-slice';
 
 import UserInfo from 'components/UserInfo/UserInfo';
 import HeaderForm from 'components/HeaderForm/HeaderForm';
@@ -28,11 +31,13 @@ import s from './Header.module.scss';
 const Header = () => {
   const [darkTheme, setDarkTheme] = useState(false);
   const [showForm, setShowForm] = useState(false);
-  const [query, setQuery] = useState('');
   const [isModalCatalogOpen, setIsModalCatalogOpen] = useState(false);
 
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get('search') ?? '';
+  const { pathname } = useLocation();
+
+  const isUserAtProductsSearchPage = pathname.includes('/products');
 
   const isLogin = useSelector(getLogin);
   const dispatch = useDispatch();
@@ -44,8 +49,11 @@ const Header = () => {
   const categories = Object.keys(categoryOptions);
 
   useEffect(() => {
-    setQuery(searchQuery);
-  }, [searchQuery]);
+    if (isUserAtProductsSearchPage) {
+      return;
+    }
+    dispatch(setCurrentProductsPage(1));
+  }, [isUserAtProductsSearchPage, dispatch]);
 
   useEffect(() => {
     if (darkTheme) {
@@ -69,6 +77,7 @@ const Header = () => {
 
   const handleNavigateClick = () => {
     dispatch(clearSearchProducts());
+    dispatch(setCurrentProductsPage(1));
   };
 
   return (
@@ -162,7 +171,7 @@ const Header = () => {
                     className={({ isActive }) =>
                       `${isActive ? s.active : s.link}`
                     }
-                    to={getPath(query, category)}
+                    to={getPath(searchQuery, category)}
                     onClick={handleNavigateClick}
                   >
                     {category}
@@ -184,7 +193,7 @@ const Header = () => {
                     className={({ isActive }) =>
                       `${isActive ? s.active : s.link}`
                     }
-                    to={getPath(query, category)}
+                    to={getPath(searchQuery, category)}
                     onClick={handleNavigateClick}
                   >
                     {category}

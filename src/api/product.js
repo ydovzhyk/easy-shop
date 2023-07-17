@@ -40,18 +40,21 @@ export const axiosGetUserProducts = async userData => {
 };
 
 // Get products by Query
-export const axiosGetProductsByQuery = async payloadData => {
-  const { data } = await instance.get('/product/search/', {
-    params: payloadData,
-  });
-  return data;
-};
-//   export const axiosGetProductsByQuery = async (payloadData) => {
-//   const { data } = await instance.get(`/product/search?page=${payloadData.page}`, {
-//     params: payloadData.payloadData,
+// export const axiosGetProductsByQuery = async payloadData => {
+//   const { data } = await instance.get('/product/search/', {
+//     params: payloadData,
 //   });
 //   return data;
 // };
+export const axiosGetProductsByQuery = async payloadData => {
+  const { data } = await instance.get(
+    `/product/search?page=${payloadData.page}`,
+    {
+      params: payloadData.payloadData,
+    }
+  );
+  return data;
+};
 
 // Get vipProducts page
 export const axiosGetVipProducts = async userData => {
