@@ -5,6 +5,9 @@
     flex-direction: column;
     gap: 8px;
     align-items: center;
+    @include mixins.mq(desktop) {
+        align-items: flex-start;
+    }
 }
 .menuGroupList {
     display: flex;
@@ -13,17 +16,18 @@
     align-items:center;
     justify-content: flex-start;
     color: var(--text-color);
-    // flex-wrap: wrap;
-    // margin-bottom: 16px;
+    @include mixins.mq(desktop) {
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 650px;
+    }
 }
 
 .sizeAndCountWrapper {
-    // padding: 8px;
     display: flex;
     flex-direction: column;
     gap: 16px;
     align-items: center;
-    // justify-content: center;
 }
 .size {
     width: 250px;
@@ -31,7 +35,6 @@
     border: 1px solid var(--border-color);
     border-radius: 5px;
     padding: 8px;
-    // margin-bottom: 16px;
 
     @include mixins.mq(desktop) {
         margin-right: 20px;
