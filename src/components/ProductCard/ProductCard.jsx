@@ -62,6 +62,28 @@ const ProductCard = () => {
   } = product;
 
   console.log('userProductBasket:', userProductBasket.flatMap((arr) => arr));
+  // const transformedSizes = size.map((item) => {
+  //   return {
+  //     "0": {
+  //       ...item["0"],
+  //       quantity: 1,
+  //     },
+  //   };
+  // });
+
+  // console.log('transformedSizes', transformedSizes);
+  console.log('size:', size);
+  const modifiedSize = size && size.map(sizeGroup => {
+  const modifiedSizeGroup = sizeGroup.map(sizeObject => {
+    return {
+      ...sizeObject,
+      quantity: 1
+    };
+  });
+  return modifiedSizeGroup;
+  });
+  
+  console.log("modifiedSize:", modifiedSize);
 
   const isProductInLike = userLikes && userLikes.includes(userId);
   const isProductInBasket = userProductBasket
@@ -82,13 +104,12 @@ const ProductCard = () => {
       dispatch(
         updateUserBasket({
           productId: id,
-          selectedSizes: size,
+          selectedSizes:modifiedSize,
         })
       );
     } else if (size && size.length > 1) {
       if (selectedSizes.length === 0 && !isProductInBasket ) {
         setIsMessage(true);
-        // console.log('Оберіть розмір');
         event.preventDefault();
         return;
       }
@@ -122,15 +143,15 @@ const ProductCard = () => {
     const transformedSizes = sizes.map(sizeGroup => {
       const sizeName = sizeGroup[0].value[0].EU;
       if (sizeName) {
-        return [{ name: sizeName, value: sizeGroup[0].value }];
+        return [{ name: sizeName, quantity: 1, value: sizeGroup[0].value }];
       }
       if (!sizeName && Object.keys(sizeGroup[0].value[0])[0] === 'One size') {
         const key = Object.keys(sizeGroup[0].value[0])[0];
-        return [{ name: key, value: sizeGroup[0].value }];
+        return [{ name: key, quantity: 1, value: sizeGroup[0].value }];
       }
       if (!sizeName && Object.keys(sizeGroup[0].value[0])[0] === 'Інший') {
         const key = Object.keys(sizeGroup[0].value[0])[0];
-        return [{ name: key, value: sizeGroup[0].value }];
+        return [{ name: key, quantity: 1, value: sizeGroup[0].value }];
       }
       return [];
     });
