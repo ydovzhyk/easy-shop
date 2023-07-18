@@ -103,6 +103,17 @@
   }
 }
 
+.sizeQuantity {
+  display: flex;
+  gap: 12px;
+}
+
+.sizeQuantityWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 .priceWrapper {
   display: flex;
   flex-direction: row;
