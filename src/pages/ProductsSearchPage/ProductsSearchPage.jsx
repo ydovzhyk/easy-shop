@@ -18,7 +18,7 @@ import { translateParamsToUA } from '../../funcs&hooks/translateParamsToUA.js';
 const ProductsSearchPage = () => {
   const [filterData, setFilterData] = useState({});
   const { category, subcategory } = useParams();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = searchParams.get('search') ?? '';
 
   const dispatch = useDispatch();
@@ -37,6 +37,12 @@ const ProductsSearchPage = () => {
       filterData,
     };
   }, [category, subcategory, searchQuery, filterData]);
+  // console.log(currentPage);
+  // useEffect(() => {
+  //   if (currentPage > 1) {
+  //     setSearchParams({ page: currentPage });
+  //   }
+  // }, [currentPage, setSearchParams]);
 
   useEffect(() => {
     if (
@@ -61,6 +67,7 @@ const ProductsSearchPage = () => {
     searchQuery,
     isHeaderFormClicked,
     currentPage,
+    setSearchParams,
     dispatch,
   ]);
 

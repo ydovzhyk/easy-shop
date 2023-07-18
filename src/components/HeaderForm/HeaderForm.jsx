@@ -6,13 +6,16 @@ import { useForm, Controller } from 'react-hook-form';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import { notResetHeaderForm } from 'redux/product/product-slice';
-import { resetHeaderForm } from 'redux/product/product-slice';
-import { clearHeaderFormErrors } from 'redux/product/product-slice';
-import { setHeaderFormErrors } from 'redux/product/product-slice';
-import { clearSearchProducts } from 'redux/product/product-slice';
-import { setHeaderFormClick } from 'redux/product/product-slice';
-import { resetHeaderFormClick } from 'redux/product/product-slice';
+import {
+  resetHeaderForm,
+  notResetHeaderForm,
+  clearHeaderFormErrors,
+  setCurrentProductsPage,
+  setHeaderFormErrors,
+  clearSearchProducts,
+  setHeaderFormClick,
+  resetHeaderFormClick,
+} from 'redux/product/product-slice';
 import { getHeaderFormReset } from 'redux/product/product-selectors';
 
 import Button from 'components/Shared/Button';
@@ -54,6 +57,7 @@ const HeaderForm = () => {
       await dispatch(notResetHeaderForm());
       await dispatch(resetHeaderFormClick());
       await dispatch(clearSearchProducts());
+      await dispatch(setCurrentProductsPage(1));
     };
     resetForm();
   }, [shouldHeaderFormReset, reset, dispatch]);
@@ -73,6 +77,7 @@ const HeaderForm = () => {
     );
     await setSearchParams({ search: data.productName });
     await dispatch(clearHeaderFormErrors());
+    await dispatch(setCurrentProductsPage(1));
   };
 
   const handleClick = async () => {
