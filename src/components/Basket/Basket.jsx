@@ -40,7 +40,7 @@ const Basket = () => {
         nameProduct: product.nameProduct,
         mainPhotoUrl: product.mainPhotoUrl,
         price: product.price,
-        quantity: product.quantity,
+        // quantity: selectedSizes.length,
         size: selectedSizes,
         section: product.section,
         category: product.category
