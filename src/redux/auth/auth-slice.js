@@ -170,10 +170,21 @@ const auth = createSlice({
       store.loading = true;
       store.error = '';
     },
+    // [updateUserBasket.fulfilled]: (store, { payload }) => {
+    //   store.loading = false;
+    //   store.user.userBasket = payload.updatedUser.userBasket;
+    //   store.basketProducts = payload.basketProducts;
+    // },
     [updateUserBasket.fulfilled]: (store, { payload }) => {
-      store.loading = false;
-      store.user.userBasket = payload.updatedUser.userBasket;
-      store.basketProducts = payload.basketProducts;
+      return {
+        ...store,
+        loading: false,
+        user: {
+          ...store.user,
+          userBasket: payload.updatedUser.userBasket,
+        },
+        basketProducts: payload.basketProducts,
+      };
     },
     [updateUserBasket.rejected]: (store, { payload }) => {
       store.loading = false;
