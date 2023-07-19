@@ -28,6 +28,7 @@ const Checkout = () => {
   const message = useSelector(getOrderMessage);
 
   const [isMessage, setIsMessage] = useState('');
+  const [deliveryService, setDeliveryService] = useState('');
 
   useEffect(() => {
     if (message !== 'Order added successfully') {
@@ -41,7 +42,7 @@ const Checkout = () => {
 
   const { client, orderSum, sellerId, sellerName, _id, products } =
     orderInCheckout;
-  console.log(products);
+  // console.log(products);
   
   const productsForOrder = productsFrombasket.filter(
     product => product.owner === sellerId
@@ -53,7 +54,7 @@ const Checkout = () => {
     control,
     handleSubmit,
     register,
-    formState: { errors },
+    // formState: { errors },
   } = useForm({
     defaultValues: {
       delivery: '',
@@ -61,6 +62,8 @@ const Checkout = () => {
       firstName: firstName ? firstName : '',
       surName: surName ? surName : '',
       tel: tel ? tel : '',
+      department: '',
+      city: '',
     },
   });
 
@@ -71,7 +74,7 @@ const Checkout = () => {
       sellerId: sellerId,
       sellerName: sellerName,
       products: products,
-      delivery: data.delivery.value,
+      delivery: `${data.delivery.value}, ${data.city}, ${data.department}`,
       totalSum: orderSum,
       customerSecondName: data.secondName,
       customerFirstName: data.firstName,
@@ -82,8 +85,10 @@ const Checkout = () => {
     console.log('Відправка order', orderData);
     
     const updatedOrder = await dispatch(updateOrder(orderData));
+
     // const allOrders = await dispatch(getAllOrders());
     // console.log('updatedOrder', updatedOrder);
+
     if (updatedOrder.payload.code === 200) {
       for (const product of products) {
         await dispatch(updateUserBasket({productId: product._id}))
@@ -91,6 +96,10 @@ const Checkout = () => {
       navigate('/profile/mypurchases');
     };
   };
+  const labelName =
+    deliveryService === 'УкрПошта'
+      ? 'Введіть індекс(номер) відділення*'
+      : 'Введіть номер відділення*';
   return (
     <Container>
       <section className={s.default}>
@@ -189,7 +198,11 @@ const Checkout = () => {
                   render={({ field: { onChange, value } }) => (
                     <SelectField
                       value={value}
-                      handleChange={onChange}
+                      handleChange={selectedValue => {
+                        console.log(selectedValue);
+                        onChange(selectedValue);
+                        setDeliveryService(selectedValue.value);
+                      }}
                       className="addOrder"
                       {...field.delivery}
                       options={['Нова пошта', 'УкрПошта', 'Meest']}
@@ -199,9 +212,51 @@ const Checkout = () => {
                     />
                   )}
                 />
-                {errors.delivery && (
+                {/* {errors.delivery && (
                   <p className={s.inputError}>{errors.delivery.message}</p>
-                )}
+                )} */}
+                <Text text={'Введіть місто*'} textClass="productHeadings" />
+                <Controller
+                  control={control}
+                  name="city"
+                  rules={{
+                    required: true,
+                  }}
+                  render={({ field: { onChange, value } }) => (
+                    <TextField
+                      className="addOrder"
+                      value={value}
+                      control={control}
+                      handleChange={onChange}
+                      {...field.city}
+                      required={true}
+                      {...register('city', {
+                        required: "Обов'язково до заповнення",
+                      })}
+                    />
+                  )}
+                />
+                <Text text={labelName} textClass="productHeadings" />
+                <Controller
+                  control={control}
+                  name="department"
+                  rules={{
+                    required: true,
+                  }}
+                  render={({ field: { onChange, value } }) => (
+                    <TextField
+                      className="addOrder"
+                      value={value}
+                      control={control}
+                      handleChange={onChange}
+                      {...field.deliveryDepartment}
+                      required={true}
+                      {...register('department', {
+                        required: "Обов'язково до заповнення",
+                      })}
+                    />
+                  )}
+                />
               </div>
               <div>
                 <Text textClass="title" text="Ваші контактні дані" />
@@ -227,9 +282,9 @@ const Checkout = () => {
                       />
                     )}
                   />
-                  {errors.secondName && (
+                  {/* {errors.secondName && (
                     <p className={s.inputError}>{errors.secondName.message}</p>
-                  )}
+                  )} */}
                 </div>
                 <div className={s.formField}>
                   <Text text={"Ім'я*"} textClass="productHeadings" />
@@ -253,9 +308,9 @@ const Checkout = () => {
                       />
                     )}
                   />
-                  {errors.firstName && (
+                  {/* {errors.firstName && (
                     <p className={s.inputError}>{errors.firstName.message}</p>
-                  )}
+                  )} */}
                 </div>
 
                 <div className={s.formField}>
@@ -280,9 +335,9 @@ const Checkout = () => {
                       />
                     )}
                   />
-                  {errors.surName && (
+                  {/* {errors.surName && (
                     <p className={s.inputError}>{errors.surName.message}</p>
-                  )}
+                  )} */}
                 </div>
 
                 <div className={s.formField}>
@@ -315,9 +370,9 @@ const Checkout = () => {
                       />
                     )}
                   />
-                  {errors.tel && (
+                  {/* {errors.tel && (
                     <p className={s.inputError}>{errors.tel.message}</p>
-                  )}
+                  )} */}
                 </div>
               </div>
             </div>
@@ -325,12 +380,12 @@ const Checkout = () => {
               <p className={s.sumTitle}>Разом</p>
 
               <div className={s.sumBox}>
-                <Text textClass="title" text="Вартість товару" />
+                <Text textClass="after-title-bigger" text="Вартість товару" />
                 <span>{orderSum}</span>
               </div>
               <div className={s.sumBox}>
                 <Text textClass="title" text="До оплати" />
-                <span>{orderSum}</span>
+                <Text textClass="title" text={orderSum} />
               </div>
               <Button
                 type="submit"
