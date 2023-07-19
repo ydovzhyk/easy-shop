@@ -29,7 +29,7 @@
 .title {
   font-weight: 700;
   font-size: 16px;
-  line-height: 13px;
+  line-height: 20px;
   text-transform: uppercase;
   color: var(--title-text-color);
   text-align: center;
@@ -37,14 +37,15 @@
   margin-top: 20px;
 
   @include mixins.mq(tablet) {
+    line-height: 13px;
     text-align: left;
     font-size: 20px;
     letter-spacing: 0.04em;
-    margin-bottom: 32px;
+    margin-bottom: 40px;
   }
   @include mixins.mq(desktop) {
     font-size: 24px;
-    margin-bottom: 36px;
+    margin-bottom: 44px;
   }
 }
 
@@ -140,9 +141,12 @@
 }
 
 .sumWrapper {
+  display: flex;
+  flex-direction: column;
   padding: 28px 20px;
-  border: 1px solid rgb(174, 174, 174);
+  border: 1px solid var(--empty-color);
   border-radius: 4px;
+  margin-bottom: 16px;
   @include mixins.mq(tablet) {
     width: 70%;
   }
@@ -176,5 +180,6 @@
 }
 
 .sumWrapper > button {
-  width: 100%;
+  align-self: center;
+  margin-top: 16px;
 }
