@@ -34,6 +34,7 @@ const initialState = {
   headerFormErrors: false,
   filterProduct: false,
   filterForm: false,
+  currentProductsPage: 1,
 };
 
 const products = createSlice({
@@ -87,6 +88,9 @@ const products = createSlice({
     },
     clearSearchProducts: store => {
       store.productsByQuery = [];
+    },
+    setCurrentProductsPage: (store, { payload }) => {
+      store.currentProductsPage = payload;
     },
   },
   extraReducers: {
@@ -246,4 +250,5 @@ export const {
   unSubmitFilterForm,
   setHeaderFormClick,
   resetHeaderFormClick,
+  setCurrentProductsPage,
 } = products.actions;

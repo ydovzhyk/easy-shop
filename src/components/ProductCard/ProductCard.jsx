@@ -31,23 +31,13 @@ import s from './ProductCard.module.scss';
 const ProductCard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { category, subcategory, id } = useParams();
-  const translatedParamsObj = translateParamsToUA(category, subcategory);
-  const [categoryName, subCategoryName] = Object.values(translatedParamsObj);
-
-  const [isDataLoaded, setIsDataLoaded] = useState(false);
-  const [selectedSizes, setSelectedSizes] = useState([]);
-  const [isMessage, setIsMessage] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
-  const isLogin = useSelector(getLogin);
-  const isLoading = useSelector(getLoadingProducts);
-
-  
   const product = useSelector(selectProductById);
   const userId = useSelector(getID);
   const userProductBasket = useSelector(selectUserBasket);
   const chattingRef = useRef();
-
+  const { category, subcategory, id } = useParams();
+  const translatedParamsObj = translateParamsToUA(category, subcategory);
+  const [categoryName, subCategoryName] = Object.values(translatedParamsObj);
   const {
     nameProduct,
     mainPhotoUrl,
@@ -61,7 +51,30 @@ const ProductCard = () => {
     userDialogue,
   } = product;
 
-  console.log('userProductBasket:', userProductBasket.flatMap((arr) => arr));
+  const selectedSizesById = userProductBasket
+  .find((item) => item.productId === _id)
+  ?.selectedSizes;
+  
+  console.log('selectedSizesById', selectedSizesById);
+  
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
+
+  const [selectedSizes, setSelectedSizes] = useState(selectedSizesById || []);
+  const [isMessage, setIsMessage] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const isLogin = useSelector(getLogin);
+  const isLoading = useSelector(getLoadingProducts);
+
+  console.log('selectedSizes in ProductCard:', selectedSizes);
+  console.log('userProductBasket:', userProductBasket);
+
+  size && console.log('size in ProductCard:', size);
+  const transformedSizes = size && size.map(([size]) => ({
+    ...size,
+    quantity: 1,
+  }));
+
+  transformedSizes && console.log('transformedSizes in ProductCard:', transformedSizes);
 
   const isProductInLike = userLikes && userLikes.includes(userId);
   const isProductInBasket = userProductBasket
@@ -82,13 +95,12 @@ const ProductCard = () => {
       dispatch(
         updateUserBasket({
           productId: id,
-          selectedSizes: size,
+          selectedSizes:transformedSizes,
         })
       );
     } else if (size && size.length > 1) {
       if (selectedSizes.length === 0 && !isProductInBasket ) {
         setIsMessage(true);
-        // console.log('Оберіть розмір');
         event.preventDefault();
         return;
       }
@@ -119,24 +131,24 @@ const ProductCard = () => {
   }; 
 
   const handleSelectedSizesChange = useCallback(sizes => {
-    const transformedSizes = sizes.map(sizeGroup => {
-      const sizeName = sizeGroup[0].value[0].EU;
-      if (sizeName) {
-        return [{ name: sizeName, value: sizeGroup[0].value }];
-      }
-      if (!sizeName && Object.keys(sizeGroup[0].value[0])[0] === 'One size') {
-        const key = Object.keys(sizeGroup[0].value[0])[0];
-        return [{ name: key, value: sizeGroup[0].value }];
-      }
-      if (!sizeName && Object.keys(sizeGroup[0].value[0])[0] === 'Інший') {
-        const key = Object.keys(sizeGroup[0].value[0])[0];
-        return [{ name: key, value: sizeGroup[0].value }];
-      }
-      return [];
-    });
-    setSelectedSizes(transformedSizes);
-  }, []);
-
+  const transformedSizes = sizes.flatMap(sizeGroup => {
+    const sizeName = sizeGroup[0].value[0].EU;
+    if (sizeName) {
+      return { name: sizeName, quantity: 1, value: sizeGroup[0].value };
+    }
+    if (!sizeName && Object.keys(sizeGroup[0].value[0])[0] === 'One size') {
+      const key = Object.keys(sizeGroup[0].value[0])[0];
+      return { name: key, quantity: 1, value: sizeGroup[0].value };
+    }
+    if (!sizeName && Object.keys(sizeGroup[0].value[0])[0] === 'Інший') {
+      const key = Object.keys(sizeGroup[0].value[0])[0];
+      return { name: key, quantity: 1, value: sizeGroup[0].value };
+    }
+    return [];
+  });
+  setSelectedSizes(transformedSizes);
+  console.log('transformedSizes in handleSelectedSizesChange:', transformedSizes);
+}, []);
   
   useEffect(() => {
     dispatch(clearOtherUser());
@@ -261,5 +273,3 @@ const ProductCard = () => {
 };
 
 export default ProductCard;
-
-

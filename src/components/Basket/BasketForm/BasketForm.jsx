@@ -23,25 +23,26 @@ const BasketForm = ({ ownerId, ownerName, products, isTablet }) => {
   const [questionWindow, setQuestionWindow] = useState(false);
   const orderInCheckout = useSelector(selectOrderInCheckout);
 
-  console.log('products:', products);
+  // console.log('products:', products);
     
   const preOrderedProducts = products.map((product) => {
-    let modifiedSizes = product.size.map((size) => {
+  let modifiedSizes = product.size.map((size) => {
     return {
-      ...size[0],
-      quantity: size.length
+      name: size.name,
+      quantity: size.quantity,
+      value: size.value,
     };
   });
-    return {
-      _id: product._id,
-      quantity: product.size.length,
-      size: modifiedSizes,
-      price: product.price,
-      sum: product.size.length * product.price
-    }
-  });
+  const totalQuantity = modifiedSizes.reduce((total, size) => total + size.quantity, 0);
+  return {
+    _id: product._id,
+    quantity: totalQuantity,
+    size: modifiedSizes,
+    price: product.price,
+    sum: product.size.length * product.price,
+  };
+});
   console.log('preOrederedProducts:', preOrderedProducts);
-
   const [orderedProducts, setOrderedProducts] = useState(preOrderedProducts);
   console.log('orderedProducts:', orderedProducts);
   
@@ -66,6 +67,17 @@ const BasketForm = ({ ownerId, ownerName, products, isTablet }) => {
     }
   };
 
+  const handleUpdateUserBasket = async (products) => {
+    for (const product of products) {
+      await console.log('product._id:', product._id, 'product.size:', product.size);
+      await dispatch(
+        updateUserBasket({
+          productId: product._id,
+          selectedSizes: product.size,
+        })
+      );
+    }
+  };
 
   const handleDecrement = (productId, sizeId) => {
   setOrderedProducts(prevOrderedProducts =>
@@ -128,12 +140,14 @@ const BasketForm = ({ ownerId, ownerName, products, isTablet }) => {
 
     };
     console.log('Відправка форми', dataForUpload);
+    await handleUpdateUserBasket(orderedProducts);
     if (orderInCheckout.sellerId === ownerId) {
       console.log('order exist');
       await dispatch(deleteOrderById(orderInCheckout._id));
     }
     const newOrder = await dispatch(addOrder(dataForUpload));
     console.log('newOrder', newOrder);
+    
     if (newOrder.payload.newOrderId) {
       navigate('/checkout')
     };

@@ -24,6 +24,7 @@ export const getRefreshToken = ({ auth }) => auth.refreshToken;
 export const getError = ({ auth }) => auth.error;
 export const getID = ({ auth }) => auth.user._id;
 export const getUser = ({ auth }) => auth.user;
+export const getNewMessage = ({ auth }) => auth.user.newMessage;
 
 export const getNewUserId = ({ auth }) => auth.newUser?.id;
 export const getUserIsRefreshing = ({ auth }) => auth.isRefreshing;

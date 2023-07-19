@@ -1,12 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { createDialogue, getDialogue } from './dialogue-operations';
+import {
+  createDialogue,
+  getDialogue,
+  getAllDialoguesData,
+} from './dialogue-operations';
 
 const initialState = {
   loading: false,
   error: '',
   message: '',
   dialogueStore: [],
+  dialoguesArray: [],
 };
 
 const dialogue = createSlice({
@@ -21,6 +26,9 @@ const dialogue = createSlice({
     },
     clearDialogue: store => {
       store.dialogueStore = [];
+    },
+    clearDialoguesArray: store => {
+      store.dialoguesArray = [];
     },
   },
 
@@ -39,6 +47,7 @@ const dialogue = createSlice({
       store.loading = false;
       store.error = payload?.data?.message || '';
     },
+    // * Create current dialogue
     [getDialogue.pending]: store => {
       store.loading = true;
       store.error = '';
@@ -52,9 +61,27 @@ const dialogue = createSlice({
       store.loading = false;
       store.error = payload?.data?.message || '';
     },
+    // * Get all dialogues data
+    [getAllDialoguesData.pending]: store => {
+      store.loading = true;
+      store.error = '';
+      store.message = '';
+    },
+    [getAllDialoguesData.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.dialoguesArray = payload.dialoguesArray;
+    },
+    [getAllDialoguesData.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload?.data?.message || '';
+    },
   },
 });
 
 export default dialogue.reducer;
-export const { clearDialogueError, clearDialogue, clearDialogueMessage } =
-  dialogue.actions;
+export const {
+  clearDialogueError,
+  clearDialogue,
+  clearDialogueMessage,
+  clearDialoguesArray,
+} = dialogue.actions;

@@ -30,6 +30,7 @@ const initialState = {
     userLikes: [],
     likedProducts: [],
     username: null,
+    newMessage: 0,
   },
   sid: null,
   accessToken: null,
@@ -160,6 +161,7 @@ const auth = createSlice({
       store.sex = payload.user.sex;
       store.about = payload.user.about;
       store.message = payload.message;
+      store.newMessage = payload.newMessage;
     },
     [updateUserSettings.rejected]: (store, { payload }) => {
       store.loading = false;
@@ -175,6 +177,7 @@ const auth = createSlice({
       store.user.userBasket = payload.updatedUser.userBasket;
       store.basketProducts = payload.basketProducts;
     },
+
     [updateUserBasket.rejected]: (store, { payload }) => {
       store.loading = false;
       store.error = payload.message;
