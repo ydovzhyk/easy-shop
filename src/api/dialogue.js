@@ -9,3 +9,8 @@ export const axiosGetDialogue = async userData => {
   const { data } = await instance.post('/dialogue/get', userData);
   return data;
 };
+
+export const axiosGetDialoguesData = async userData => {
+  const { data } = await instance.post('/dialogue/getData', userData);
+  return data;
+};

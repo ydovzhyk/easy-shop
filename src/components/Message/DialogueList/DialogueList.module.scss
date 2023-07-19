@@ -1,0 +1,134 @@
+@use '../../../styles/mixins';
+
+.dialogueList {
+  @include mixins.mq(tablet) {
+    width: 45%;
+  }
+}
+
+.btnSelect {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+}
+
+.wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 45px;
+  &::before {
+    content: '';
+    background: var(--title-text-color);
+    display: block;
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    transition: all var(--transition-duration) var(--timing-function);
+  }
+  &:hover::before,
+  &:focus::before {
+    width: 100%;
+  }
+}
+
+.wrapper:has(a.active) {
+  position: relative;
+  &::before {
+    content: '';
+    background: var(--title-text-color);
+    display: block;
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    transition: all var(--transition-duration) var(--timing-function);
+  }
+}
+
+.dialogueGroup {
+  padding: 10px;
+  padding-top: 15px;
+  height: 540px;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 6px;
+    background-color: var(--bg-footer-header);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    width: 6px;
+    border-radius: 9em;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: var(--btn-border-color);
+  }
+}
+
+.dialogueCardBotoom {
+  margin-bottom: 30px;
+}
+
+.dialogueCardBotoom:last-child {
+  margin-bottom: 0px;
+}
+
+.dialogueCard {
+  margin-top: 3px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  height: 145px;
+  border: 1px solid var(--border-color);
+}
+
+.dialogueName {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: -20px;
+  margin-left: 100px;
+  padding: 3px 7px;
+  background-color: var(--bg-footer-header);
+}
+
+.imageCard {
+  width: 100px;
+  height: 143px;
+  background-size: cover;
+  background-position: center;
+}
+
+.deleteBox {
+  width: 100px;
+  height: 143px;
+  border: 1px solid green;
+}
+
+.message_title_box {
+  display: flex;
+  flex-direction: column;
+}
+
+.messageBoxTitle {
+  margin-top: 17px;
+  width: 300px;
+}
+
+.messageBox {
+  margin-top: 15px;
+}
+
+.messageBoxText {
+  width: 300px;
+  height: 50px;
+}

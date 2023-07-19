@@ -7,6 +7,7 @@ import {
   getLoadingUser,
   getLogin,
   getID,
+  getNewMessage,
 } from 'redux/auth/auth-selectors';
 import {
   getLoadingProducts,
@@ -39,6 +40,7 @@ import { useLocation } from 'react-router-dom';
 export const App = () => {
   const isLogin = useSelector(getLogin);
   const userId = useSelector(getID);
+  const newMessage = useSelector(getNewMessage);
   const authError = useSelector(getError);
   const productError = useSelector(getProductError);
   const verifyEmailError = useSelector(getErrorVerifyEmail);
@@ -147,40 +149,82 @@ export const App = () => {
   }, [location.pathname]);
 
   // Web Socket
+  // useEffect(() => {
+  //   if (isLogin) {
+  //     const socket = new WebSocket('ws://localhost:5000');
+
+  //     // Обробник події відкриття з'єднання
+  //     socket.onopen = () => {
+  //       console.log("WebSocket з'єднання встановлено");
+
+  //       // Відправити запит на перевірку оновлень
+  //       const request = {
+  //         type: 'check_updates_dialogue',
+  //         userId: userId,
+  //       };
+  //       socket.send(JSON.stringify(request));
+  //     };
+
+  //     // Обробник події отримання повідомлення з сервера
+  //     socket.onmessage = event => {
+  //       const message = event.data;
+  //       console.log('Отримано повідомлення:', message);
+  //       // Додайте обробку отриманого повідомлення
+  //     };
+
+  //     // Обробник події закриття з'єднання
+  //     socket.onclose = () => {
+  //       console.log("WebSocket з'єднання закрито");
+  //     };
+
+  //     // Закриття WebSocket з'єднання при видаленні компонента
+  //     return () => {
+  //       socket.close();
+  //     };
+  //   }
+  // }, [isLogin, userId]);
+
   useEffect(() => {
     if (isLogin) {
-      const socket = new WebSocket('ws://localhost:5000'); // Замініть на адресу вашого WebSocket сервера
+      const socket = new WebSocket('ws://localhost:5000');
 
-      // Обробник події відкриття з'єднання
-      socket.onopen = () => {
-        console.log("WebSocket з'єднання встановлено");
-
-        // Відправити запит на перевірку оновлень
+      const sendRequest = () => {
         const request = {
-          type: 'check_updates_dialogue', // тип запиту, можна обрати будь-яку назву
-          userId: userId, // ідентифікатор користувача, можна замінити на реальний ідентифікатор
+          type: 'check_updates_dialogue',
+          userId: userId,
+          newMessage: newMessage ? newMessage : 0,
         };
         socket.send(JSON.stringify(request));
       };
 
-      // Обробник події отримання повідомлення з сервера
-      socket.onmessage = event => {
-        const message = event.data;
-        console.log('Отримано повідомлення:', message);
-        // Додайте обробку отриманого повідомлення
+      socket.onopen = () => {
+        console.log("WebSocket з'єднання встановлено");
+
+        sendRequest(); // Відправити перший запит
+
+        // Встановити інтервал для повторної відправки запиту кожні 30 секунд
+        const intervalId = setInterval(sendRequest, 30000);
+
+        // Закриття WebSocket з'єднання та очищення інтервалу при закритті компонента
+        return () => {
+          clearInterval(intervalId);
+          socket.close();
+        };
       };
 
-      // Обробник події закриття з'єднання
+      socket.onmessage = event => {
+        const response = event.data;
+        console.log('Отримано повідомлення:', response.message);
+        if (response.message === 'Need to update') {
+          console.log('Відправляємо оновлення користувача');
+        }
+      };
+
       socket.onclose = () => {
         console.log("WebSocket з'єднання закрито");
       };
-
-      // Закриття WebSocket з'єднання при видаленні компонента
-      return () => {
-        socket.close();
-      };
     }
-  }, [isLogin, userId]);
+  }, [isLogin, userId, newMessage]);
 
   return (
     <div

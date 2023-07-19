@@ -131,9 +131,9 @@ const UserInfo = () => {
             marginRight: '25px',
           }}
         >
-          <NavLink to="/basket" className={getClassName}>
+          <NavLink to="/message" className={getClassName}>
             <SlEnvelopeOpen style={{ marginRight: '10px' }} size={22} />
-            <span>0</span>
+            <span>{user.newMessage ? user.newMessage : 0}</span>
           </NavLink>
         </div>
         <div
