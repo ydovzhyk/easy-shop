@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/easy-shop/static/css/main.1d0876d4.css",
-    "main.js": "/easy-shop/static/js/main.e2d5974a.js",
+    "main.js": "/easy-shop/static/js/main.7cf4b20d.js",
     "static/css/700.542a84d6.chunk.css": "/easy-shop/static/css/700.542a84d6.chunk.css",
     "static/js/700.4db452f8.chunk.js": "/easy-shop/static/js/700.4db452f8.chunk.js",
     "static/css/93.055c95ba.chunk.css": "/easy-shop/static/css/93.055c95ba.chunk.css",
@@ -27,7 +27,7 @@
     "static/js/712.5eb7fd4c.chunk.js": "/easy-shop/static/js/712.5eb7fd4c.chunk.js",
     "static/css/401.251621b1.chunk.css": "/easy-shop/static/css/401.251621b1.chunk.css",
     "static/js/401.6b510945.chunk.js": "/easy-shop/static/js/401.6b510945.chunk.js",
-    "static/css/225.3f7c2cae.chunk.css": "/easy-shop/static/css/225.3f7c2cae.chunk.css",
+    "static/css/225.bb2e2659.chunk.css": "/easy-shop/static/css/225.bb2e2659.chunk.css",
     "static/js/225.0d0f6e66.chunk.js": "/easy-shop/static/js/225.0d0f6e66.chunk.js",
     "static/css/774.064e181b.chunk.css": "/easy-shop/static/css/774.064e181b.chunk.css",
     "static/js/774.7c735339.chunk.js": "/easy-shop/static/js/774.7c735339.chunk.js",
@@ -61,7 +61,7 @@
     "static/media/line.svg": "/easy-shop/static/media/line.0f26fc2059a8880b7cd9170d6759923b.svg",
     "static/media/flech.svg": "/easy-shop/static/media/flech.92da029ad57f344330c1c5a1b0dff594.svg",
     "main.1d0876d4.css.map": "/easy-shop/static/css/main.1d0876d4.css.map",
-    "main.e2d5974a.js.map": "/easy-shop/static/js/main.e2d5974a.js.map",
+    "main.7cf4b20d.js.map": "/easy-shop/static/js/main.7cf4b20d.js.map",
     "700.542a84d6.chunk.css.map": "/easy-shop/static/css/700.542a84d6.chunk.css.map",
     "700.4db452f8.chunk.js.map": "/easy-shop/static/js/700.4db452f8.chunk.js.map",
     "93.055c95ba.chunk.css.map": "/easy-shop/static/css/93.055c95ba.chunk.css.map",
@@ -87,7 +87,7 @@
     "712.5eb7fd4c.chunk.js.map": "/easy-shop/static/js/712.5eb7fd4c.chunk.js.map",
     "401.251621b1.chunk.css.map": "/easy-shop/static/css/401.251621b1.chunk.css.map",
     "401.6b510945.chunk.js.map": "/easy-shop/static/js/401.6b510945.chunk.js.map",
-    "225.3f7c2cae.chunk.css.map": "/easy-shop/static/css/225.3f7c2cae.chunk.css.map",
+    "225.bb2e2659.chunk.css.map": "/easy-shop/static/css/225.bb2e2659.chunk.css.map",
     "225.0d0f6e66.chunk.js.map": "/easy-shop/static/js/225.0d0f6e66.chunk.js.map",
     "774.064e181b.chunk.css.map": "/easy-shop/static/css/774.064e181b.chunk.css.map",
     "774.7c735339.chunk.js.map": "/easy-shop/static/js/774.7c735339.chunk.js.map",
@@ -106,6 +106,6 @@
   },
   "entrypoints": [
     "static/css/main.1d0876d4.css",
-    "static/js/main.e2d5974a.js"
+    "static/js/main.7cf4b20d.js"
   ]
 }
