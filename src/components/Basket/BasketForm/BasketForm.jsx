@@ -42,9 +42,9 @@ const BasketForm = ({ ownerId, ownerName, products, isTablet }) => {
     sum: product.size.length * product.price,
   };
 });
-  console.log('preOrederedProducts:', preOrderedProducts);
+  // console.log('preOrederedProducts:', preOrderedProducts);
   const [orderedProducts, setOrderedProducts] = useState(preOrderedProducts);
-  console.log('orderedProducts:', orderedProducts);
+  // console.log('orderedProducts:', orderedProducts);
   
   const sortedArray = orderedProducts.sort((a, b) => a.sum - b.sum);
   const totalSum = sortedArray.reduce((sum, item) => sum + item.sum, 0);
