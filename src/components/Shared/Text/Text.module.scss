@@ -39,6 +39,26 @@
   margin-bottom: 5px;
 }
 
+.after-title-message {
+  font-weight: 200;
+  font-size: 14px;
+  color: var(--text-color);
+  text-align: center;
+}
+
+.after-title-message-title {
+  font-weight: bold;
+  font-size: 14px;
+  color: var(--text-color);
+  text-align: center;
+}
+
+.after-title-bottom {
+  font-weight: 200;
+  font-size: 14px;
+  color: var(--text-color);
+}
+
 .after-title-before {
   margin-left: 10px;
   margin-bottom: 15px;
@@ -166,9 +186,10 @@
 }
 
 .productTextDate {
-  // font-weight: bold;
   font-size: 12px;
   color: var(--text-color);
+  text-align: end;
+  margin-top: 10px;
 }
 
 .catalogTitle {
@@ -268,10 +289,7 @@
   font-size: 16px;
   line-height: 18px;
   text-decoration: none;
-  text-align: left!important;
-
-
-
+  text-align: left !important;
 
   color: var(--second-text-color);
 }

@@ -1,5 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { axiosCreateDialogue, axiosGetDialogue } from 'api/dialogue';
+import {
+  axiosCreateDialogue,
+  axiosGetDialogue,
+  axiosGetDialoguesData,
+} from 'api/dialogue';
 import { getUserWithDialogue } from '../auth/auth-slice';
 
 export const createDialogue = createAsyncThunk(
@@ -21,6 +25,19 @@ export const getDialogue = createAsyncThunk(
   async (userData, { rejectWithValue, getState, dispatch }) => {
     try {
       const data = await axiosGetDialogue(userData);
+      return data;
+    } catch (error) {
+      const { data, status } = error.response;
+      return rejectWithValue({ data, status });
+    }
+  }
+);
+
+export const getAllDialoguesData = createAsyncThunk(
+  'dialogue/getData',
+  async (userData, { rejectWithValue, getState, dispatch }) => {
+    try {
+      const data = await axiosGetDialoguesData(userData);
       return data;
     } catch (error) {
       const { data, status } = error.response;
