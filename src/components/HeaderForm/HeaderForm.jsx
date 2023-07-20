@@ -77,7 +77,6 @@ const HeaderForm = () => {
     );
     await setSearchParams({ search: data.productName });
     await dispatch(clearHeaderFormErrors());
-    await dispatch(setCurrentProductsPage(1));
   };
 
   const handleClick = async () => {
@@ -87,6 +86,7 @@ const HeaderForm = () => {
     if (isDirty) {
       await dispatch(clearHeaderFormErrors());
     }
+    await dispatch(setCurrentProductsPage(1));
     await dispatch(setHeaderFormClick());
     await navigate(!isUserAtProductsSearchPage ? '/products' : pathname);
   };

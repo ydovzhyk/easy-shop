@@ -37,12 +37,6 @@ const ProductsSearchPage = () => {
       filterData,
     };
   }, [category, subcategory, searchQuery, filterData]);
-  // console.log(currentPage);
-  // useEffect(() => {
-  //   if (currentPage > 1) {
-  //     setSearchParams({ page: currentPage });
-  //   }
-  // }, [currentPage, setSearchParams]);
 
   useEffect(() => {
     if (
@@ -52,6 +46,11 @@ const ProductsSearchPage = () => {
       isHeaderFormClicked
     ) {
       return;
+    }
+    if (currentPage > 1) {
+      searchQuery === ''
+        ? setSearchParams({ page: currentPage })
+        : setSearchParams({ search: searchQuery, page: currentPage });
     }
     // dispatch(searchProducts(payload));
     dispatch(
