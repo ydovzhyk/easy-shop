@@ -146,4 +146,12 @@ export const field = {
     placeholder: 'Виберіть службу доставки*',
     required: true,
   },
+  deliveryCity: {
+    name: 'city',
+    type: 'text',
+  },
+  deliveryDepartment: {
+    name: 'department',
+    type: 'text',
+  },
 };

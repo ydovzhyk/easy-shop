@@ -221,8 +221,12 @@
   border: 1px solid;
   border-radius: 4px;
   padding: 2px 8px;
+  margin-bottom: 28px;
+  background-color: transparent;
+  border-color: var(--empty-color);
 }
+
 .label.addOrder {
-  margin-bottom: 40px;
+  margin-bottom: 28px;
   height: 40px;
 }
