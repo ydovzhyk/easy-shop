@@ -43,6 +43,7 @@ const Checkout = () => {
   const { client, orderSum, sellerId, sellerName, _id, products } =
     orderInCheckout;
   // console.log(products);
+  const orderNumber = _id.match(/\d+/g).join('').slice(0, 6);
   
   const productsForOrder = productsFrombasket.filter(
     product => product.owner === sellerId
@@ -106,7 +107,9 @@ const Checkout = () => {
         <div className={s.defaultBox}>
           <form onSubmit={handleSubmit(onSubmit)} className={s.formWrapper}>
             <div className={s.orderInfo}>
-              <h2 className={s.title}>Оформлення замовлення</h2>
+              <h2 className={s.title}>
+                Оформлення замовлення &#8470; {orderNumber}
+              </h2>
               <Text
                 textClass="productHeadings"
                 text={`Продавець: ${sellerName}`}
@@ -134,7 +137,10 @@ const Checkout = () => {
                       item => item.quantity
                     );
                     const productsPrice =
-                      sizeQuantity.reduce((prevValue, number) => prevValue + number, 0) * price;
+                      sizeQuantity.reduce(
+                        (prevValue, number) => prevValue + number,
+                        0
+                      ) * price;
                     return (
                       <li className={s.productItem} key={_id}>
                         <div className={s.infoWraper}>
