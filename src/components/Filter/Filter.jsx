@@ -36,9 +36,15 @@ const Filter = ({ onChange }) => {
     resetField,
     reset,
     getValues,
-    watch,
+    // watch,
     setError,
-    formState: { errors, dirtyFields, isDirty, touchedFields, isSubmitting },
+    formState: {
+      // errors,
+      dirtyFields,
+      isDirty,
+      touchedFields,
+      isSubmitting,
+    },
   } = useForm({
     defaultValues: {
       filterCondition: [],
