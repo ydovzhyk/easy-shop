@@ -38,6 +38,7 @@ const ProductCard = () => {
   const { category, subcategory, id } = useParams();
   const translatedParamsObj = translateParamsToUA(category, subcategory);
   const [categoryName, subCategoryName] = Object.values(translatedParamsObj);
+
   const {
     nameProduct,
     mainPhotoUrl,
@@ -51,35 +52,26 @@ const ProductCard = () => {
     userDialogue,
   } = product;
 
-  const selectedSizesById = userProductBasket
-  .find((item) => item.productId === _id)
-  ?.selectedSizes;
+  const isProductInBasket = (userProductBasket || []).flat().find(product => product.productId === id);
   
-  console.log('selectedSizesById', selectedSizesById);
+  const selectedSizesById = isProductInBasket
+    ? isProductInBasket.selectedSizes
+    : [];
   
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
-  const [selectedSizes, setSelectedSizes] = useState(selectedSizesById || []);
+  const [selectedSizes, setSelectedSizes] = useState([]);
   const [isMessage, setIsMessage] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const isLogin = useSelector(getLogin);
   const isLoading = useSelector(getLoadingProducts);
-
-  console.log('selectedSizes in ProductCard:', selectedSizes);
-  console.log('userProductBasket:', userProductBasket);
-
-  size && console.log('size in ProductCard:', size);
+  
   const transformedSizes = size && size.map(([size]) => ({
     ...size,
     quantity: 1,
   }));
 
-  transformedSizes && console.log('transformedSizes in ProductCard:', transformedSizes);
-
   const isProductInLike = userLikes && userLikes.includes(userId);
-  const isProductInBasket = userProductBasket
-    ? userProductBasket.flatMap((arr) => arr).find(product => product.productId === id)
-    : [];
   
   const resetMessage = () => {
     setIsMessage(false);
@@ -99,7 +91,8 @@ const ProductCard = () => {
         })
       );
     } else if (size && size.length > 1) {
-      if (selectedSizes.length === 0 && !isProductInBasket ) {
+      if (selectedSizes.length === 0 && !isProductInBasket
+      ) {
         setIsMessage(true);
         event.preventDefault();
         return;
@@ -131,25 +124,24 @@ const ProductCard = () => {
   }; 
 
   const handleSelectedSizesChange = useCallback(sizes => {
-  const transformedSizes = sizes.flatMap(sizeGroup => {
-    const sizeName = sizeGroup[0].value[0].EU;
-    if (sizeName) {
-      return { name: sizeName, quantity: 1, value: sizeGroup[0].value };
-    }
-    if (!sizeName && Object.keys(sizeGroup[0].value[0])[0] === 'One size') {
-      const key = Object.keys(sizeGroup[0].value[0])[0];
-      return { name: key, quantity: 1, value: sizeGroup[0].value };
-    }
-    if (!sizeName && Object.keys(sizeGroup[0].value[0])[0] === 'Інший') {
-      const key = Object.keys(sizeGroup[0].value[0])[0];
-      return { name: key, quantity: 1, value: sizeGroup[0].value };
-    }
-    return [];
-  });
-  setSelectedSizes(transformedSizes);
-  console.log('transformedSizes in handleSelectedSizesChange:', transformedSizes);
-}, []);
-  
+    const transformedSizes = sizes.flatMap(sizeGroup => {
+      const sizeName = sizeGroup[0].value[0].EU;
+      if (sizeName) {
+        return { name: sizeName, quantity: 1, value: sizeGroup[0].value };
+      }
+      if (!sizeName && Object.keys(sizeGroup[0].value[0])[0] === 'One size') {
+        const key = Object.keys(sizeGroup[0].value[0])[0];
+        return { name: key, quantity: 1, value: sizeGroup[0].value };
+      }
+      if (!sizeName && Object.keys(sizeGroup[0].value[0])[0] === 'Інший') {
+        const key = Object.keys(sizeGroup[0].value[0])[0];
+        return { name: key, quantity: 1, value: sizeGroup[0].value };
+      }
+      return [];
+    });
+    setSelectedSizes(transformedSizes);
+  }, []);
+
   useEffect(() => {
     dispatch(clearOtherUser());
     dispatch(clearProductById());
@@ -199,10 +191,12 @@ const ProductCard = () => {
                       <span className={s.productPriceDiscount}>-8%</span>
                       <Text text={price} textClass="title" />
                     </div>
-                    <SizeSelection
-                      sizeOption={size}
-                      onSelectedSizesChange={handleSelectedSizesChange}
-                    />
+                      {size &&
+                        <SizeSelection
+                        sizeOption={size}
+                        defaultSelectedSizes={selectedSizesById}
+                        onSelectedSizesChange={handleSelectedSizesChange}
+                    />}
                     <div className={s.buyBtns}>
                       <NavLink to={isLogin ? '/checkout' : '/login'}>
                         <Button
@@ -226,7 +220,6 @@ const ProductCard = () => {
                     </div>
                     <div className={s.additionalOptsContainer}>
                       <div className={s.additionalOpts} onClick={handleClick}>
-                        {/* <BsSuitHeart className={s.favoriteIcon} /> */}
 
                         <FiHeart
                           className={`${isProductInLike ? s.active : s.liked}`}

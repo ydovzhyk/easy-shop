@@ -6,33 +6,52 @@ import s from 'components/Shared/Sizes/SizeSelection/SizeSelection.module.scss';
 
 const SizeSelection = ({
   sizeOption,
+  defaultSelectedSizes,
   onSelectedSizesChange,
   isFormSubmitted,
   historySize,
 }) => {
-  const [selectedSizes, setSelectedSizes] = useState([]);
+
+  const transformDefaultSelectedSizes = (defaultSelectedSizes, sizeOption) => {
+  const transformedSizes =  defaultSelectedSizes.map((selectedSize) => {
+    const { name, value } = selectedSize;
+    const indexInSizeOption = sizeOption.findIndex((size) => size[0].name === name);
+    if (indexInSizeOption !== -1) {
+      return [{ name: String(indexInSizeOption), value }];
+    }
+    return null;
+  });
+
+  return transformedSizes.filter(Boolean);
+};
+
+  const transformedDefaultSelectedSizes = defaultSelectedSizes ?
+    transformDefaultSelectedSizes(defaultSelectedSizes, sizeOption)
+    : [];
+
+  const [selectedSizes, setSelectedSizes] = useState(transformedDefaultSelectedSizes);
 
   const sizeValuesArray = sizeOption
     ? sizeOption.map(item => item[0].value)
     : [];
 
-  const handleSizeClick = size => {
+  const handleSizeClick = index => {
     let formattedSize = [];
-    if (sizeValuesArray.hasOwnProperty(size)) {
-      formattedSize.push({ name: size, value: sizeValuesArray[size] });
+    if (sizeValuesArray.hasOwnProperty(index)) {
+      formattedSize.push({ name: index, value: sizeValuesArray[index] });
     } else {
-      formattedSize.push({ name: size, value: size });
+      formattedSize.push({ name: index, value: index });
     }
 
-    if (isSelected(size)) {
-      setSelectedSizes(selectedSizes.filter(s => s[0].name !== size));
+    if (isSelected(index)) {
+      setSelectedSizes(selectedSizes.filter(s => s[0].name !== index));
     } else {
       setSelectedSizes([...selectedSizes, formattedSize]);
     }
   };
 
-  const isSelected = size => {
-    return selectedSizes.some(s => s[0].name === size);
+  const isSelected = index => {
+    return selectedSizes.some(s => s[0].name === index);
   };
 
   useEffect(() => {
@@ -58,9 +77,9 @@ const SizeSelection = ({
         textClass="productLabels"
       />
       <ul className={s.menuGroupList}>
-        {Object.entries(sizeValuesArray).map(([size, values]) => {
-          const isSelected = selectedSizes.some(s => {
-            return s[0].name === size;
+        {Object.entries(sizeValuesArray).map(([index, values]) => {
+          const isSelected = selectedSizes.some(selectedSize => {
+            return selectedSize[0].name === index;
           });
           return (
             <li
@@ -68,7 +87,7 @@ const SizeSelection = ({
               className={`${s.menuGroupItems} ${
                 isSelected ? s.menuGroupItemsSelected : ''
               }`}
-              onClick={() => handleSizeClick(size)}
+              onClick={() => handleSizeClick(index)}
             >
               {values.length > 1 ? (
                 <div className={s.size}>
