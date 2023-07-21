@@ -43,7 +43,7 @@ const Checkout = () => {
   const { client, orderSum, sellerId, sellerName, _id, products } =
     orderInCheckout;
   // console.log(products);
-  const orderNumber = _id.match(/\d+/g).join('').slice(0, 6);
+  const orderNumber = _id.match(/\d+/g).join('').slice(0, 7);
   
   const productsForOrder = productsFrombasket.filter(
     product => product.owner === sellerId
@@ -82,13 +82,11 @@ const Checkout = () => {
       customerSurName: data.surName,
       customerTel: data.tel,
       customerId: client.customerId,
+      orderNumber: orderNumber,
     };
     console.log('Відправка order', orderData);
     
     const updatedOrder = await dispatch(updateOrder(orderData));
-
-    // const allOrders = await dispatch(getAllOrders());
-    // console.log('updatedOrder', updatedOrder);
 
     if (updatedOrder.payload.code === 200) {
       for (const product of products) {
@@ -396,7 +394,7 @@ const Checkout = () => {
               <Button
                 type="submit"
                 btnClass="btnLight"
-                text="Оформити замовлення"
+                text="Оформити"
                 handleClick={handleSubmit(onSubmit)}
               />
             </div>
