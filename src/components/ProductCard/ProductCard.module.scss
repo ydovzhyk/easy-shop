@@ -131,27 +131,13 @@
 .buyBtns {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: 12px;
     margin-bottom: 24px;
     
     @include mixins.mq(desktop) {
       flex-direction: row;
       gap: 24px;
-  }
-}
-
-.buyBtns a {
-    width: 100%;
-    @include mixins.mq(desktop) {
-      width: 200px;
-  }
-}
-
-.buyBtns button {
-    width: 100%;
-    @include mixins.mq(desktop) {
-      width: 200px;
   }
 }
 
