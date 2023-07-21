@@ -63,7 +63,7 @@ const MenuItem = ({ menuItem, activeItem, setActiveItem }) => {
     >
       <a
         href={
-          // '/products/men'
+          // 'men'
           // getPathCategory(menuItem.link)
           query === ''
             ? `${menuItem.link}`

@@ -242,6 +242,14 @@
   }
 }
 
+.errorMessageFilter {
+  color: red;
+  font-size: 11px;
+  @include mixins.mq(mobile) {
+    font-size: 14px;
+  }
+}
+
 .titleGroupItems-filter {
   font-weight: 400;
   font-size: 14px;

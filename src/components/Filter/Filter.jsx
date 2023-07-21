@@ -35,16 +35,8 @@ const Filter = ({ onChange }) => {
     register,
     resetField,
     reset,
-    getValues,
-    // watch,
-    setError,
-    formState: {
-      // errors,
-      dirtyFields,
-      isDirty,
-      touchedFields,
-      isSubmitting,
-    },
+    watch,
+    formState: { errors, dirtyFields, isDirty, isSubmitting },
   } = useForm({
     defaultValues: {
       filterCondition: [],
@@ -54,11 +46,7 @@ const Filter = ({ onChange }) => {
       filterBrand: '',
     },
   });
-  // const watchPriceFrom = watch('filterPriceFrom');
-  // const watchPriceTo = watch('filterPriceTo');
-  const values = getValues();
-  // console.log(errors.filterPriceFrom);
-  // console.log(watchPriceTo);
+  const watchPriceFrom = watch('filterPriceFrom');
 
   useEffect(() => {
     if (!shouldFilterProductReset) {
@@ -90,56 +78,12 @@ const Filter = ({ onChange }) => {
     reset,
   ]);
 
-  // setError(
-  //   'filterPriceTo',
-  //   {
-  //     type: 'max',
-  //   },
-  //   {
-  //     message: 'Введіть коректні значення ціни "Від" і"До"',
-  //   }
-  // );
-  // setError(
-  //   'filterPriceTo',
-  //   { type: 'min', message: 'Тільки позитивне значення' },
-  //   { shouldFocus: true }
-  // );
-
   useEffect(() => {
     if (dirtyFields.filterPriceFrom || dirtyFields.filterPriceTo) {
       resetField('filterPriceRadio', { defaultValue: '' });
     }
     return;
   }, [dirtyFields.filterPriceFrom, dirtyFields.filterPriceTo, resetField]);
-
-  useEffect(() => {
-    if (touchedFields.filterPriceFrom && dirtyFields.filterPriceFrom) {
-      resetField('filterPriceTo', {
-        defaultValue: getValues().filterPriceFrom,
-      });
-    }
-    return;
-  }, [
-    dirtyFields.filterPriceFrom,
-    touchedFields.filterPriceFrom,
-    resetField,
-    getValues,
-    setError,
-  ]);
-
-  // useEffect(() => {
-  //   if (touchedFields.filterPriceFrom && dirtyFields.filterPriceTo) {
-  //     resetField('filterPriceFrom', {
-  //       defaultValue: getValues().filterPriceTo,
-  //     });
-  //   }
-  //   return;
-  // }, [
-  //   dirtyFields.filterPriceTo,
-  //   touchedFields.filterPriceTo,
-  //   resetField,
-  //   getValues,
-  // ]);
 
   useEffect(() => {
     if (
@@ -280,51 +224,67 @@ const Filter = ({ onChange }) => {
             </ul>
             <div className={s.filterInputBox}>
               <div className={s.inputWrap}>
-                <label className={s.filterLabel}>
-                  <input
-                    {...register(
-                      'filterPriceFrom'
-                      // {
-                      // min: 0,
-                      // max: watchPriceTo !== '' ? watchPriceTo : 0,
-                      // }
-                    )}
-                    className={s.inputFilter}
-                    type="number"
-                    placeholder="Від"
-                    max={
-                      values.filterPriceTo !== '' ? values.filterPriceTo : '0'
-                    }
-                    step="1"
-                  />
+                <label htmlFor="filterPriceFrom" className={s.filterLabel}>
+                  Від
                 </label>
+                <input
+                  {...register('filterPriceFrom', {
+                    min: 0,
+                  })}
+                  id="filterPriceFrom"
+                  className={s.inputFilter}
+                  type="number"
+                  placeholder="0.00"
+                  step="1"
+                />
+
+                {/* {errors.filterPriceFrom?.type === 'min' && (
+                  <Text
+                    text={'* Лише позитивні значення'}
+                    textClass="errorMessageFilter"
+                  />
+                )} */}
               </div>
 
               <div className={s.inputWrap}>
-                <label className={s.filterLabel}>
-                  <input
-                    {...register('filterPriceTo')}
-                    className={s.inputFilter}
-                    type="number"
-                    placeholder="До"
-                    min={
-                      values.filterPriceFrom !== ''
-                        ? values.filterPriceFrom
-                        : '0'
-                    }
-                    step="1"
-                  />
+                <label htmlFor="filterPriceTo" className={s.filterLabel}>
+                  До
                 </label>
+                <input
+                  {...register('filterPriceTo', {
+                    min: watchPriceFrom !== '' ? watchPriceFrom : 0,
+                  })}
+                  className={s.inputFilter}
+                  id="filterPriceTo"
+                  type="number"
+                  placeholder="0.00"
+                  step="1"
+                />
+
+                {/* {errors.filterPriceTo?.type === 'min' && (
+                  <Text
+                    text={'* Не коректне значення'}
+                    textClass="errorMessageFilter"
+                  />
+                )} */}
               </div>
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              {errors.filterPriceFrom?.type === 'min' && (
+                <Text
+                  text={'* Лише позитивні значення'}
+                  textClass="errorMessageFilter"
+                />
+              )}
+              {errors.filterPriceTo?.type === 'min' && (
+                <Text
+                  text={'* Не коректне значення'}
+                  textClass="errorMessageFilter"
+                />
+              )}
             </div>
           </div>
         )}
-        {/* {errors.filterPriceFrom.type === 'max' && (
-          <p>{errors.filterPriceFrom.message}</p>
-        )}
-        {errors.filterPriceFrom.type === 'min' && (
-          <p>{errors.filterPriceFrom.message}</p>
-        )} */}
         <OptionsHeader title="Стан" onChange={handleOptionsChange} />
         {showCondition && (
           <>
