@@ -9,7 +9,7 @@ const SizeHovered = ({ sizes, activeSize }) => {
       : [];
 
   return (
-    <div className={s.groupListHovering}>
+    <div className={s.groupHovering}>
       {transformedSizes.length > 1
         ? transformedSizes
             .map(obj => Object.entries(obj)[0].join(': '))

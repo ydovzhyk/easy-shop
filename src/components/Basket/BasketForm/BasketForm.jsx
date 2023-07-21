@@ -16,7 +16,7 @@ import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
 import { translateParamsToEN } from 'funcs&hooks/translateParamsToEN';
 import s from 'components/Basket/BasketForm/BasketForm.module.scss';
 
-const BasketForm = ({ ownerId, ownerName, products, isTablet }) => {
+const BasketForm = ({ ownerId, ownerName, products }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [productId, setProductId] = useState(null);

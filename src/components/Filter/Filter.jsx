@@ -36,7 +36,15 @@ const Filter = ({ onChange }) => {
     resetField,
     reset,
     getValues,
-    formState: { dirtyFields, isDirty, touchedFields, isSubmitting },
+    // watch,
+    setError,
+    formState: {
+      // errors,
+      dirtyFields,
+      isDirty,
+      touchedFields,
+      isSubmitting,
+    },
   } = useForm({
     defaultValues: {
       filterCondition: [],
@@ -46,8 +54,11 @@ const Filter = ({ onChange }) => {
       filterBrand: '',
     },
   });
-
+  // const watchPriceFrom = watch('filterPriceFrom');
+  // const watchPriceTo = watch('filterPriceTo');
   const values = getValues();
+  // console.log(errors.filterPriceFrom);
+  // console.log(watchPriceTo);
 
   useEffect(() => {
     if (!shouldFilterProductReset) {
@@ -79,6 +90,21 @@ const Filter = ({ onChange }) => {
     reset,
   ]);
 
+  // setError(
+  //   'filterPriceTo',
+  //   {
+  //     type: 'max',
+  //   },
+  //   {
+  //     message: 'Введіть коректні значення ціни "Від" і"До"',
+  //   }
+  // );
+  // setError(
+  //   'filterPriceTo',
+  //   { type: 'min', message: 'Тільки позитивне значення' },
+  //   { shouldFocus: true }
+  // );
+
   useEffect(() => {
     if (dirtyFields.filterPriceFrom || dirtyFields.filterPriceTo) {
       resetField('filterPriceRadio', { defaultValue: '' });
@@ -98,6 +124,7 @@ const Filter = ({ onChange }) => {
     touchedFields.filterPriceFrom,
     resetField,
     getValues,
+    setError,
   ]);
 
   // useEffect(() => {
@@ -255,11 +282,16 @@ const Filter = ({ onChange }) => {
               <div className={s.inputWrap}>
                 <label className={s.filterLabel}>
                   <input
-                    {...register('filterPriceFrom')}
+                    {...register(
+                      'filterPriceFrom'
+                      // {
+                      // min: 0,
+                      // max: watchPriceTo !== '' ? watchPriceTo : 0,
+                      // }
+                    )}
                     className={s.inputFilter}
                     type="number"
                     placeholder="Від"
-                    min="0"
                     max={
                       values.filterPriceTo !== '' ? values.filterPriceTo : '0'
                     }
@@ -287,6 +319,12 @@ const Filter = ({ onChange }) => {
             </div>
           </div>
         )}
+        {/* {errors.filterPriceFrom.type === 'max' && (
+          <p>{errors.filterPriceFrom.message}</p>
+        )}
+        {errors.filterPriceFrom.type === 'min' && (
+          <p>{errors.filterPriceFrom.message}</p>
+        )} */}
         <OptionsHeader title="Стан" onChange={handleOptionsChange} />
         {showCondition && (
           <>

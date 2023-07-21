@@ -1,6 +1,6 @@
 import {  useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useMediaQuery } from 'react-responsive';
+// import { useMediaQuery } from 'react-responsive';
 
 import { getMessage, selectProductsFromBasket, selectSellersFromBasket } from 'redux/product/product-selectors';
 import { getUser, selectBasketProducts} from 'redux/auth/auth-selectors';
@@ -21,7 +21,7 @@ const Basket = () => {
   const productsFrombasket = useSelector(selectProductsFromBasket);
   const sellersFrombasket = useSelector(selectSellersFromBasket);
   const selectedProductsWithSizes = useSelector(selectBasketProducts);
-  const isTablet = useMediaQuery({ minWidth: 768 });
+  // const isTablet = useMediaQuery({ minWidth: 768 });
 
   const groupedProducts = sellersFrombasket.map((seller) => {
     const ownerName = seller.username;
@@ -72,10 +72,8 @@ const Basket = () => {
                 ownerId={ownerId}
                 ownerName={ownerName}
                 products={products}
-                isTablet={isTablet}
               />
             </li>
-
         ))}
       </ul>
     </section>

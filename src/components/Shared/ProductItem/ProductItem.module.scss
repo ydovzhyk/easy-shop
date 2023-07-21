@@ -15,11 +15,6 @@
 }
 
 .photoLink {
-  display: flex;
-  flex-direction: column;
-}
-
-.stylePhotoCardWrap {
   position: relative;
   overflow: hidden;
 
@@ -45,7 +40,7 @@
   border-radius: 18px;
   padding: 4px 12px;
 
-  background: #000000;
+  background-color: #000000;
 
   @include mixins.mq(desktop) {
     top: 6px;
@@ -106,31 +101,19 @@
 }
 
 .photoCard {
-  // position: absolute;
-  // top: 0;
-  // left: 0;
-
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.descriptionProductCard {
-  display: flex;
-
+.styleDescriptionProductCardBox {
   position: absolute;
   top: 0;
-  padding: 12px;
   height: 100%;
-
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 18px;
-  text-decoration: none;
+  width: 100%;
 
   background-color: var(--bg-footer-header);
   opacity: 0.8;
-  color: var(--btn-text-color);
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
 
   transform: translateY(101%);
@@ -140,6 +123,42 @@
   .photoLink:focus & {
     transform: translateY(0%);
   }
+}
+
+.styleDescriptionProductCard {
+  position: absolute;
+  top: 60px;
+
+  text-align: center;
+
+  height: 60%;
+  width: 100%;
+  padding: 22px;
+
+  transform: translateY(135%);
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  .photoLink:hover &,
+  .photoLink:focus & {
+    transform: translateY(0%);
+  }
+}
+
+.descriptionProductCard {
+  white-space: pre-wrap;
+  display: block;
+  position: relative;
+  z-index: 1;
+  max-height: calc(1em * 1.2 * 7);
+  overflow: hidden;
+
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+  text-decoration: none;
+
+  color: var(--btn-text-color);
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
 }
 
 .stylePriceLike {
@@ -188,11 +207,6 @@
 .liked {
   stroke: var(--icons-color);
   transition: all 0.3s ease-in-out;
-
-  // &:hover {
-  //   fill: var(--accent-color);
-  //   stroke: var(--icons-color);
-  // }
 }
 
 .active {
@@ -210,19 +224,13 @@
 
 .styleSizeCard {
   position: relative;
-  // overflow: hidden;
 
   display: flex;
   justify-content: left;
   align-items: center;
 
   margin-top: auto;
-  // margin-right: 5px;
   margin-bottom: 0px;
-}
-
-.sizeItem {
-  // background-color: blue;
 }
 
 .separator {
@@ -241,13 +249,10 @@
 }
 
 .hoveredSize {
-  // display: flex;
-
   position: absolute;
   top: 100%;
   left: 0;
   width: 100%;
-  // padding: 8px;
 
   background-color: #fff;
 
@@ -261,20 +266,10 @@
   position: absolute;
   top: 5px;
   left: 5px;
-  // transform: translateX(-50%);
 
   border: 8px solid transparent;
-  border-bottom-color: var(--btn-text-color);
+  border-bottom-color: #000;
 }
-
-// .hoveredSize p {
-//   margin: 0;
-//   padding: 5px 0;
-// }
-
-// .hoveredSize span {
-//   font-weight: bold;
-// }
 
 .link {
   color: var(--second-text-color);

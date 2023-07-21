@@ -1,1 +1,49 @@
 @use '../../../styles/mixins';
+
+.dialogueDetail {
+  @include mixins.mq(tablet) {
+    width: 55%;
+  }
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.dialogueBox {
+  width: 100%;
+}
+
+.productBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+  width: 100%;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.imageCard {
+  width: 100px;
+  height: 143px;
+  background-size: cover;
+  background-position: center;
+}
+.productInfo {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.productNavigate {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
