@@ -23,28 +23,28 @@ const BasketForm = ({ ownerId, ownerName, products, isTablet }) => {
   const [questionWindow, setQuestionWindow] = useState(false);
   const orderInCheckout = useSelector(selectOrderInCheckout);
 
-  console.log('products:', products);
+  // console.log('products:', products);
     
   const preOrderedProducts = products.map((product) => {
-    let modifiedSizes = product.size.map((size) => {
+  let modifiedSizes = product.size.map((size) => {
     return {
-      ...size[0]
+      name: size.name,
+      quantity: size.quantity,
+      value: size.value,
     };
-    });
-    const totalQuantity = modifiedSizes.reduce((total, size) => total + size.quantity, 0);
-    return {
-      _id: product._id,
-      quantity: totalQuantity,
-      size: modifiedSizes,
-      price: product.price,
-      sum: product.size.length * product.price
-    };
-    
   });
-  console.log('preOrederedProducts:', preOrderedProducts);
-   
+  const totalQuantity = modifiedSizes.reduce((total, size) => total + size.quantity, 0);
+  return {
+    _id: product._id,
+    quantity: totalQuantity,
+    size: modifiedSizes,
+    price: product.price,
+    sum: product.size.length * product.price,
+  };
+});
+  // console.log('preOrederedProducts:', preOrderedProducts);
   const [orderedProducts, setOrderedProducts] = useState(preOrderedProducts);
-  console.log('orderedProducts:', orderedProducts);
+  // console.log('orderedProducts:', orderedProducts);
   
   const sortedArray = orderedProducts.sort((a, b) => a.sum - b.sum);
   const totalSum = sortedArray.reduce((sum, item) => sum + item.sum, 0);

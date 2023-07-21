@@ -22,42 +22,43 @@ const Basket = () => {
   const sellersFrombasket = useSelector(selectSellersFromBasket);
   const selectedProductsWithSizes = useSelector(selectBasketProducts);
   const isTablet = useMediaQuery({ minWidth: 768 });
-  
+
   const groupedProducts = sellersFrombasket.map((seller) => {
-  const ownerName = seller.username;
-  const ownerId = seller._id;
-  const products = productsFrombasket
-    .filter((product) => product.owner === ownerId)
-    .map((product) => {
-      const matchedProduct = selectedProductsWithSizes
-        .flatMap((arr) => arr)
-        .find((sp) => sp.productId === product._id);
-      const selectedSizes = matchedProduct ? matchedProduct.selectedSizes : [];
+    const ownerName = seller.username;
+    const ownerId = seller._id;
+    const products = productsFrombasket
+      .filter((product) => product.owner === ownerId)
+      .map((product) => {
+        const matchedProduct = selectedProductsWithSizes
+          .flatMap((arr) => arr)
+          .find((sp) => sp.productId === product._id);
+        const selectedSizes = matchedProduct ? matchedProduct.selectedSizes : [];
 
-      return {
-        _id: product._id,
-        brendName: product.brendName,
-        nameProduct: product.nameProduct,
-        mainPhotoUrl: product.mainPhotoUrl,
-        price: product.price,
-        // quantity: selectedSizes.length,
-        size: selectedSizes,
-        section: product.section,
-        category: product.category
-      };
-    });
+        return {
+          _id: product._id,
+          brendName: product.brendName,
+          nameProduct: product.nameProduct,
+          mainPhotoUrl: product.mainPhotoUrl,
+          price: product.price,
+          size: selectedSizes,
+          section: product.section,
+          category: product.category
+        };
+      });
 
-  return {
-    ownerId,
-    ownerName,
-    products,
-  };
-});
+    return {
+      ownerId,
+      ownerName,
+      products,
+    };
+  });
 
   useEffect(() => {
     dispatch(getProductsFromBasket(user._id));
   }, [dispatch, user]); 
-
+  
+  // productsFrombasket.length > 0 && console.log('productsFrombasket in Basket:', productsFrombasket);
+  // selectedProductsWithSizes.length > 0 && console.log('selectedProductsWithSizes in Basket:', selectedProductsWithSizes);
   return (
     <Container>
     <section className={s.basketsSection}>

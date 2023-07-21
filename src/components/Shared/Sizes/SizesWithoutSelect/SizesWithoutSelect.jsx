@@ -5,7 +5,7 @@ import s from 'components/Shared/Sizes/SizesWithoutSelect/SizesWithoutSelect.mod
 
 
 const SizesWithoutSelect = ({ sizes, text, price, onDecrement, onIncrement, id }) => {
-  console.log('sizes:', sizes);
+  // console.log('sizes:', sizes);
   const transformedSizes = sizes
     ? sizes.map((item) => {
       const sizeId = item.name;
@@ -14,7 +14,7 @@ const SizesWithoutSelect = ({ sizes, text, price, onDecrement, onIncrement, id }
       return { sizeId, value, quantity };
     })
     : []
-  console.log('transformedSizes', transformedSizes);
+  // console.log('transformedSizes', transformedSizes);
  
   return (
     <div className={s.wrapper}>
