@@ -214,19 +214,17 @@ const ProductCard = () => {
                     <p className={s.availability}>В наявності</p>
                     <Text text={nameProduct} textClass="productName" />
                     {sale ? (
-                        <>
-                          <span className={s.productOldPrice}>{price}грн</span>
-                          <span className={s.productPriceDiscount}>
-                            -{sale}%
-                          </span>
-                          <Text
-                            text={`${discountedPrice} грн`}
-                            textClass="title"
-                          />
-                        </>
-                      ) : (
-                        <Text text={`${price} грн`} textClass="title" />
-                      )}
+                      <>
+                        <span className={s.productOldPrice}>{price}грн</span>
+                        <span className={s.productPriceDiscount}>-{sale}%</span>
+                        <Text
+                          text={`${discountedPrice} грн`}
+                          textClass="title"
+                        />
+                      </>
+                    ) : (
+                      <Text text={`${price} грн`} textClass="title" />
+                    )}
                     {size && (
                       <SizeSelection
                         sizeOption={size}
@@ -234,41 +232,49 @@ const ProductCard = () => {
                         onSelectedSizesChange={handleSelectedSizesChange}
                       />
                     )}
-                    <div className={s.buyBtns}>
-                      <NavLink to={isLogin ? '/checkout' : '/login'}>
+                    {!isUserProduct && (
+                      <div className={s.buyBtns}>
+                        <NavLink to={isLogin ? '/checkout' : '/login'}>
+                          <Button
+                            type="button"
+                            btnClass="btnLight"
+                            text="Купити зараз"
+                            handleClick={setProductToBasket}
+                          />
+                        </NavLink>
+
                         <Button
                           type="button"
-                          btnClass="btnLight"
-                          text="Купити зараз"
+                          btnClass={!isProductInBasket ? 'btnLight' : 'btnDark'}
+                          text={
+                            isProductInBasket
+                              ? 'Товар у кошику'
+                              : 'Додати до кошика'
+                          }
                           handleClick={setProductToBasket}
                         />
-                      </NavLink>
-
-                      <Button
-                        type="button"
-                        btnClass={!isProductInBasket ? 'btnLight' : 'btnDark'}
-                        text={
-                          isProductInBasket
-                            ? 'Товар у кошику'
-                            : 'Додати до кошика'
-                        }
-                        handleClick={setProductToBasket}
-                      />
-                    </div>
-                    <div className={s.additionalOptsContainer}>
-                      <div className={s.additionalOpts} onClick={handleClick}>
-                        <FiHeart
-                          className={`${isProductInLike ? s.active : s.liked}`}
-                        />
-                        <Text
-                          text={
-                            isProductInLike
-                              ? 'Товар обраний'
-                              : 'Додати в обрані'
-                          }
-                          textClass="productText"
-                        />
                       </div>
+                    )}
+
+                    <div className={s.additionalOptsContainer}>
+                      {!isUserProduct && (
+                        <div className={s.additionalOpts} onClick={handleClick}>
+                          <FiHeart
+                            className={`${
+                              isProductInLike ? s.active : s.liked
+                            }`}
+                          />
+                          <Text
+                            text={
+                              isProductInLike
+                                ? 'Товар обраний'
+                                : 'Додати в обрані'
+                            }
+                            textClass="productText"
+                          />
+                        </div>
+                      )}
+
                       {!isUserProduct && (
                         <div className={s.additionalOpts}>
                           <BiMessageDetail className={s.favoriteIcon} />
