@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { BiCheck } from 'react-icons/bi';
 
+import { useMediaQuery } from 'react-responsive';
+
 import { useForm } from 'react-hook-form';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -20,6 +22,8 @@ import { filterConditions } from './filterСonditions';
 import s from './Filter.module.scss';
 
 const Filter = ({ onChange }) => {
+  const isDesktop = useMediaQuery({ minWidth: 1280 });
+
   const [filterData, setFilterData] = useState({});
   const [showSizes, setShowSizes] = useState(true);
   const [showPrices, setShowPrices] = useState(true);
@@ -223,7 +227,10 @@ const Filter = ({ onChange }) => {
               })}
             </ul>
             <div className={s.filterInputBox}>
-              <div className={s.inputWrap}>
+              <div
+                style={{ marginBottom: !isDesktop ? '10px' : 0 }}
+                className={s.inputWrap}
+              >
                 <label htmlFor="filterPriceFrom" className={s.filterLabel}>
                   Від
                 </label>
@@ -237,13 +244,6 @@ const Filter = ({ onChange }) => {
                   placeholder="0.00"
                   step="1"
                 />
-
-                {/* {errors.filterPriceFrom?.type === 'min' && (
-                  <Text
-                    text={'* Лише позитивні значення'}
-                    textClass="errorMessageFilter"
-                  />
-                )} */}
               </div>
 
               <div className={s.inputWrap}>
@@ -260,13 +260,6 @@ const Filter = ({ onChange }) => {
                   placeholder="0.00"
                   step="1"
                 />
-
-                {/* {errors.filterPriceTo?.type === 'min' && (
-                  <Text
-                    text={'* Не коректне значення'}
-                    textClass="errorMessageFilter"
-                  />
-                )} */}
               </div>
             </div>
             <div style={{ textAlign: 'center' }}>
