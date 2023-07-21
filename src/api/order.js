@@ -31,6 +31,6 @@ export const axiosDeleteOrderById = async userData => {
 
 // Get User Orders
 export const axiosGetUserOrders = async userData => {
-  const { data } = await instance.get(`/orders/user-orders/${userData}`);
+  const { data } = await instance.post(`/orders/user-orders?page=${userData}`);
   return data;
 };
