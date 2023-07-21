@@ -1,20 +1,11 @@
 @use '../../styles/mixins';
 
 .dialogueContainer {
-  width: 50vw;
   display: flex;
   flex-direction: column;
   gap: 8px;
   padding: 8px;
   margin-bottom: 12px;
-
-  @include mixins.mq(tablet) {
-    // height: 100vh;
-  }
-
-  @include mixins.mq(desktop) {
-    // height: auto;
-  }
 }
 
 .additionalOpts {
@@ -40,7 +31,7 @@
 .dialogueGroup {
   margin-top: 20px;
   margin-right: 5px;
-  height: 420px;
+  max-height: 420px;
   overflow-y: auto;
   &::-webkit-scrollbar {
     width: 6px;

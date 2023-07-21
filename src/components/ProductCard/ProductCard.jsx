@@ -10,7 +10,12 @@ import { getProductById } from 'redux/product/product-operations';
 import { clearOtherUser } from 'redux/otherUser/otherUser.slice';
 import { clearProductById } from 'redux/product/product-slice';
 import { updateUserBasket, updateUserLikes } from 'redux/auth/auth-opetations';
-import { getID, getLogin, selectUserBasket } from 'redux/auth/auth-selectors';
+import {
+  getID,
+  getLogin,
+  selectUserBasket,
+  getUser,
+} from 'redux/auth/auth-selectors';
 
 import SellerInfo from './SellerInfo/SellerInfo';
 import Dialogue from 'components/Dialogue/Dialogue';
@@ -42,11 +47,13 @@ const ProductCard = () => {
   const isLogin = useSelector(getLogin);
   const isLoading = useSelector(getLoadingProducts);
 
-  
   const product = useSelector(selectProductById);
   const userId = useSelector(getID);
+  const user = useSelector(getUser);
   const userProductBasket = useSelector(selectUserBasket);
   const chattingRef = useRef();
+  const userProducts = user.userProducts ? user.userProducts : [];
+  const userDialogue = null;
 
   const {
     nameProduct,
@@ -58,10 +65,12 @@ const ProductCard = () => {
     size,
     vip,
     _id,
-    userDialogue,
   } = product;
 
-  console.log('userProductBasket:', userProductBasket.flatMap((arr) => arr));
+  console.log(
+    'userProductBasket:',
+    userProductBasket.flatMap(arr => arr)
+  );
   // const transformedSizes = size.map((item) => {
   //   return {
   //     "0": {
@@ -73,28 +82,30 @@ const ProductCard = () => {
 
   // console.log('transformedSizes', transformedSizes);
   console.log('size:', size);
-  const modifiedSize = size && size.map(sizeGroup => {
-  const modifiedSizeGroup = sizeGroup.map(sizeObject => {
-    return {
-      ...sizeObject,
-      quantity: 1
-    };
-  });
-  return modifiedSizeGroup;
-  });
-  
-  console.log("modifiedSize:", modifiedSize);
+  const modifiedSize =
+    size &&
+    size.map(sizeGroup => {
+      const modifiedSizeGroup = sizeGroup.map(sizeObject => {
+        return {
+          ...sizeObject,
+          quantity: 1,
+        };
+      });
+      return modifiedSizeGroup;
+    });
 
   const isProductInLike = userLikes && userLikes.includes(userId);
   const isProductInBasket = userProductBasket
-    ? userProductBasket.flatMap((arr) => arr).find(product => product.productId === id)
+    ? userProductBasket
+        .flatMap(arr => arr)
+        .find(product => product.productId === id)
     : [];
-  
+
   const resetMessage = () => {
     setIsMessage(false);
   };
-  
-  const setProductToBasket = (event) => {
+
+  const setProductToBasket = event => {
     if (!isLogin) {
       navigate('/login');
       return;
@@ -104,40 +115,38 @@ const ProductCard = () => {
       dispatch(
         updateUserBasket({
           productId: id,
-          selectedSizes:modifiedSize,
+          selectedSizes: modifiedSize,
         })
       );
     } else if (size && size.length > 1) {
-      if (selectedSizes.length === 0 && !isProductInBasket ) {
+      if (selectedSizes.length === 0 && !isProductInBasket) {
         setIsMessage(true);
         event.preventDefault();
         return;
       }
-      
+
       dispatch(
         updateUserBasket({
           productId: id,
           selectedSizes: selectedSizes,
         })
       );
-      }
+    }
   };
 
-   // for likes
+  // for likes
   const handleClick = async () => {
     if (!isLogin) {
       navigate('/login');
       return;
     }
-
     await dispatch(updateUserLikes({ productId: _id }));
-
     setIsLiked(true);
   };
 
   const scrollToChating = () => {
     chattingRef.current.scrollIntoView({ behavior: 'smooth' });
-  }; 
+  };
 
   const handleSelectedSizesChange = useCallback(sizes => {
     const transformedSizes = sizes.map(sizeGroup => {
@@ -158,7 +167,6 @@ const ProductCard = () => {
     setSelectedSizes(transformedSizes);
   }, []);
 
-  
   useEffect(() => {
     dispatch(clearOtherUser());
     dispatch(clearProductById());
@@ -166,6 +174,13 @@ const ProductCard = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setIsLiked(false);
   }, [dispatch, id, isLiked]);
+
+  // Для відмалювання діалога якщо цей продукт не є власним
+  const isUserProduct = userProducts.find(id => id === _id);
+
+  const handleButtonClick = () => {
+    navigate('/message');
+  };
 
   return (
     <section className={s.productCard}>
@@ -217,8 +232,8 @@ const ProductCard = () => {
                         <Button
                           type="button"
                           btnClass="btnLight"
-                            text="Купити зараз"
-                            handleClick={setProductToBasket}
+                          text="Купити зараз"
+                          handleClick={setProductToBasket}
                         />
                       </NavLink>
 
@@ -249,15 +264,17 @@ const ProductCard = () => {
                           textClass="productText"
                         />
                       </div>
-                      <div className={s.additionalOpts}>
-                        <BiMessageDetail className={s.favoriteIcon} />
-                        <button onClick={scrollToChating}>
-                          <Text
-                            text="Поставити запитання"
-                            textClass="productText"
-                          />
-                        </button>
-                      </div>
+                      {!isUserProduct && (
+                        <div className={s.additionalOpts}>
+                          <BiMessageDetail className={s.favoriteIcon} />
+                          <button onClick={scrollToChating}>
+                            <Text
+                              text="Поставити запитання"
+                              textClass="productText"
+                            />
+                          </button>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -270,17 +287,34 @@ const ProductCard = () => {
                 </div>
               </div>
             </div>
-            <Dialogue productInfo={{ _id, owner, userDialogue }} />
+            <div className={s.dialogueBox}>
+              {!isUserProduct && (
+                <Dialogue productInfo={{ _id, owner, userDialogue }} />
+              )}
+              {isUserProduct && (
+                <div className={s.messageWarningBox}>
+                  <div className={s.messageWarningText}>
+                    <Text
+                      text="Якщо ви хочете знати, чи хтось зацікавлений у цьому продукті, перейдіть до ваших повідомлень"
+                      textClass="productLabels"
+                    />
+                  </div>
+                  <Button
+                    text="До повідомлень"
+                    btnClass="btnLight"
+                    handleClick={handleButtonClick}
+                  />
+                </div>
+              )}
+            </div>
           </>
         )}
       </Container>
       {isMessage && (
-          <MessageWindow text={"Оберіть розмір"} onDismiss={resetMessage} />
-        )}
+        <MessageWindow text={'Оберіть розмір'} onDismiss={resetMessage} />
+      )}
     </section>
   );
 };
 
 export default ProductCard;
-
-
