@@ -84,28 +84,28 @@ const ProductItem = ({
         to={`/products/${categoryName}/${subCategoryName}/${_id}`}
         className={s.photoLink}
       >
-        <div className={s.stylePhotoCardWrap}>
-          {vip === 'Так' && (
-            <div className={s.vipLabel}>
-              <span>Vip</span>
-            </div>
-          )}
-          {vip === 'Так' && sale && (
-            <div className={s.saleLabel}>
-              <span>{sale}%</span>
-            </div>
-          )}
-          {vip !== 'Так' && sale && (
-            <div className={`${s.saleLabel} ${s.saleLabelNoVip}`}>
-              <span>{sale}%</span>
-            </div>
-          )}
-          <img
-            className={s.photoCard}
-            src={mainPhotoUrl}
-            onError={e => (e.target.src = NoPhoto)}
-            alt=""
-          />
+        {vip === 'Так' && (
+          <div className={s.vipLabel}>
+            <span>Vip</span>
+          </div>
+        )}
+        {vip === 'Так' && sale && (
+          <div
+            className={`${s.saleLabel}  ${
+              vip === 'Так' ? '' : s.saleLabelNoVip
+            }`}
+          >
+            <span>{sale}%</span>
+          </div>
+        )}
+        <img
+          className={s.photoCard}
+          src={mainPhotoUrl}
+          onError={e => (e.target.src = NoPhoto)}
+          alt="фото товару"
+        />
+        <div className={s.styleDescriptionProductCardBox}></div>
+        <div className={s.styleDescriptionProductCard}>
           <p className={s.descriptionProductCard}>{description}</p>
         </div>
       </Link>
