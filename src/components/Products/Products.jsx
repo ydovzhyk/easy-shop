@@ -12,6 +12,7 @@ import {
 import {
   getFilterForm,
   getCurrentProductsPage,
+  getHeaderFormErrors,
 } from 'redux/product/product-selectors';
 import {
   resetHeaderForm,
@@ -31,6 +32,7 @@ import s from './Products.module.scss';
 const Products = () => {
   const [filterSelected, setFilterSelected] = useState('');
   const currentPage = useSelector(getCurrentProductsPage);
+  const hasHeaderFormErrors = useSelector(getHeaderFormErrors);
 
   const { category, subcategory } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -191,7 +193,8 @@ const Products = () => {
 
         {!isLoading &&
           productsToRender.length === 0 &&
-          products.length === 0 && (
+          products.length === 0 &&
+          !hasHeaderFormErrors && (
             <NotFound
               textTop={'За вашим запитом'}
               textBottom={'товарів не знайдено.'}
