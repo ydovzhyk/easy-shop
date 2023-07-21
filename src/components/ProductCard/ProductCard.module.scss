@@ -45,10 +45,16 @@
   }
 }
 
-.vipLabel {
-    position: absolute;
+.labelsContainer {
+  position: absolute;
     top: 16px;
     left: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.vipLabel {
     display: flex;
     background: var(--btn-text-color);
     min-width: 16px;
