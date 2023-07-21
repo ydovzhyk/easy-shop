@@ -1,1 +1,11 @@
 @use '../../styles/mixins';
+
+.section {
+  background-color: var(--main-color);
+}
+
+.dialogueGroup {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
