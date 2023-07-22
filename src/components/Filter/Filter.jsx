@@ -40,7 +40,7 @@ const Filter = ({ onChange }) => {
     resetField,
     reset,
     watch,
-    formState: { errors, dirtyFields, isDirty, isSubmitting },
+    formState: { errors, dirtyFields, touchedFields, isDirty, isSubmitting },
   } = useForm({
     defaultValues: {
       filterCondition: [],
@@ -51,6 +51,7 @@ const Filter = ({ onChange }) => {
     },
   });
   const watchPriceFrom = watch('filterPriceFrom');
+  const watchPriceTo = watch('filterPriceTo');
 
   useEffect(() => {
     if (!shouldFilterProductReset) {
@@ -88,6 +89,37 @@ const Filter = ({ onChange }) => {
     }
     return;
   }, [dirtyFields.filterPriceFrom, dirtyFields.filterPriceTo, resetField]);
+
+  useEffect(() => {
+    if (
+      dirtyFields.filterPriceFrom &&
+      touchedFields.filterPriceFrom &&
+      watchPriceTo === ''
+    ) {
+      resetField('filterPriceTo', { defaultValue: watchPriceFrom });
+    }
+  }, [
+    dirtyFields.filterPriceFrom,
+    touchedFields.filterPriceFrom,
+    watchPriceTo,
+    watchPriceFrom,
+    resetField,
+  ]);
+
+  useEffect(() => {
+    if (
+      dirtyFields.filterPriceTo &&
+      touchedFields.filterPriceTo &&
+      watchPriceFrom === ''
+    ) {
+      resetField('filterPriceFrom', { defaultValue: 0 });
+    }
+  }, [
+    dirtyFields.filterPriceTo,
+    touchedFields.filterPriceTo,
+    watchPriceFrom,
+    resetField,
+  ]);
 
   useEffect(() => {
     if (
@@ -241,8 +273,8 @@ const Filter = ({ onChange }) => {
                   id="filterPriceFrom"
                   className={s.inputFilter}
                   type="number"
-                  placeholder="0.00"
-                  step="1"
+                  placeholder="0.0"
+                  step="0.1"
                 />
               </div>
 
@@ -257,8 +289,8 @@ const Filter = ({ onChange }) => {
                   className={s.inputFilter}
                   id="filterPriceTo"
                   type="number"
-                  placeholder="0.00"
-                  step="1"
+                  placeholder="0.0"
+                  step="0.1"
                 />
               </div>
             </div>
