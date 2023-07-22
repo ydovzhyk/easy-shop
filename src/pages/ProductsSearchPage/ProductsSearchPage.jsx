@@ -18,7 +18,7 @@ import { translateParamsToUA } from '../../funcs&hooks/translateParamsToUA.js';
 const ProductsSearchPage = () => {
   const [filterData, setFilterData] = useState({});
   const { category, subcategory } = useParams();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = searchParams.get('search') ?? '';
 
   const dispatch = useDispatch();
@@ -47,6 +47,11 @@ const ProductsSearchPage = () => {
     ) {
       return;
     }
+    if (currentPage > 1) {
+      searchQuery === ''
+        ? setSearchParams({ page: currentPage })
+        : setSearchParams({ search: searchQuery, page: currentPage });
+    }
     // dispatch(searchProducts(payload));
     dispatch(
       searchProducts({
@@ -61,6 +66,7 @@ const ProductsSearchPage = () => {
     searchQuery,
     isHeaderFormClicked,
     currentPage,
+    setSearchParams,
     dispatch,
   ]);
 

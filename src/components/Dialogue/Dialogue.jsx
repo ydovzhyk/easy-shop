@@ -17,6 +17,7 @@ const Dialogue = ({ productInfo }) => {
   const dispatch = useDispatch();
   const productId = productInfo._id;
   const productOwner = productInfo.owner;
+  const selectedDialogueId = productInfo.userDialogue;
 
   const userAvatar = useSelector(getUserAvatar);
   const user = useSelector(getUser);
@@ -28,9 +29,20 @@ const Dialogue = ({ productInfo }) => {
     if (!productId) {
       return;
     }
+    if (selectedDialogueId) {
+      return;
+    }
     dispatch(clearDialogue());
     dispatch(getDialogue({ productId: productId }));
-  }, [dispatch, productId]);
+  }, [dispatch, productId, selectedDialogueId]);
+
+  useEffect(() => {
+    if (!selectedDialogueId) {
+      return;
+    }
+    dispatch(clearDialogue());
+    dispatch(getDialogue({ dialogueId: selectedDialogueId }));
+  }, [dispatch, selectedDialogueId]);
 
   let dialogueArray = [];
   if (dialogues.length === 0) {

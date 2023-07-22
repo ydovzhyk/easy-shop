@@ -10,7 +10,12 @@ import { getProductById } from 'redux/product/product-operations';
 import { clearOtherUser } from 'redux/otherUser/otherUser.slice';
 import { clearProductById } from 'redux/product/product-slice';
 import { updateUserBasket, updateUserLikes } from 'redux/auth/auth-opetations';
-import { getID, getLogin, selectUserBasket } from 'redux/auth/auth-selectors';
+import {
+  getID,
+  getLogin,
+  selectUserBasket,
+  getUser,
+} from 'redux/auth/auth-selectors';
 
 import SellerInfo from './SellerInfo/SellerInfo';
 import Dialogue from 'components/Dialogue/Dialogue';
@@ -38,6 +43,10 @@ const ProductCard = () => {
   const { category, subcategory, id } = useParams();
   const translatedParamsObj = translateParamsToUA(category, subcategory);
   const [categoryName, subCategoryName] = Object.values(translatedParamsObj);
+  const user = useSelector(getUser);
+  const userProducts = user.userProducts ? user.userProducts : [];
+  const userDialogue = null;
+
   const {
     nameProduct,
     mainPhotoUrl,
@@ -48,44 +57,38 @@ const ProductCard = () => {
     size,
     vip,
     _id,
-    userDialogue,
   } = product;
 
-  const selectedSizesById = userProductBasket
-  .find((item) => item.productId === _id)
-  ?.selectedSizes;
-  
-  console.log('selectedSizesById', selectedSizesById);
-  
+  const isProductInBasket = (userProductBasket || [])
+    .flat()
+    .find(product => product.productId === id);
+
+  const selectedSizesById = isProductInBasket
+    ? isProductInBasket.selectedSizes
+    : [];
+
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
-  const [selectedSizes, setSelectedSizes] = useState(selectedSizesById || []);
+  const [selectedSizes, setSelectedSizes] = useState([]);
   const [isMessage, setIsMessage] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const isLogin = useSelector(getLogin);
   const isLoading = useSelector(getLoadingProducts);
 
-  console.log('selectedSizes in ProductCard:', selectedSizes);
-  console.log('userProductBasket:', userProductBasket);
-
-  size && console.log('size in ProductCard:', size);
-  const transformedSizes = size && size.map(([size]) => ({
-    ...size,
-    quantity: 1,
-  }));
-
-  transformedSizes && console.log('transformedSizes in ProductCard:', transformedSizes);
+  const transformedSizes =
+    size &&
+    size.map(([size]) => ({
+      ...size,
+      quantity: 1,
+    }));
 
   const isProductInLike = userLikes && userLikes.includes(userId);
-  const isProductInBasket = userProductBasket
-    ? userProductBasket.flatMap((arr) => arr).find(product => product.productId === id)
-    : [];
-  
+
   const resetMessage = () => {
     setIsMessage(false);
   };
-  
-  const setProductToBasket = (event) => {
+
+  const setProductToBasket = event => {
     if (!isLogin) {
       navigate('/login');
       return;
@@ -95,26 +98,26 @@ const ProductCard = () => {
       dispatch(
         updateUserBasket({
           productId: id,
-          selectedSizes:transformedSizes,
+          selectedSizes: transformedSizes,
         })
       );
     } else if (size && size.length > 1) {
-      if (selectedSizes.length === 0 && !isProductInBasket ) {
+      if (selectedSizes.length === 0 && !isProductInBasket) {
         setIsMessage(true);
         event.preventDefault();
         return;
       }
-      
+
       dispatch(
         updateUserBasket({
           productId: id,
           selectedSizes: selectedSizes,
         })
       );
-      }
+    }
   };
 
-   // for likes
+  // for likes
   const handleClick = async () => {
     if (!isLogin) {
       navigate('/login');
@@ -128,28 +131,27 @@ const ProductCard = () => {
 
   const scrollToChating = () => {
     chattingRef.current.scrollIntoView({ behavior: 'smooth' });
-  }; 
+  };
 
   const handleSelectedSizesChange = useCallback(sizes => {
-  const transformedSizes = sizes.flatMap(sizeGroup => {
-    const sizeName = sizeGroup[0].value[0].EU;
-    if (sizeName) {
-      return { name: sizeName, quantity: 1, value: sizeGroup[0].value };
-    }
-    if (!sizeName && Object.keys(sizeGroup[0].value[0])[0] === 'One size') {
-      const key = Object.keys(sizeGroup[0].value[0])[0];
-      return { name: key, quantity: 1, value: sizeGroup[0].value };
-    }
-    if (!sizeName && Object.keys(sizeGroup[0].value[0])[0] === 'Інший') {
-      const key = Object.keys(sizeGroup[0].value[0])[0];
-      return { name: key, quantity: 1, value: sizeGroup[0].value };
-    }
-    return [];
-  });
-  setSelectedSizes(transformedSizes);
-  console.log('transformedSizes in handleSelectedSizesChange:', transformedSizes);
-}, []);
-  
+    const transformedSizes = sizes.flatMap(sizeGroup => {
+      const sizeName = sizeGroup[0].value[0].EU;
+      if (sizeName) {
+        return { name: sizeName, quantity: 1, value: sizeGroup[0].value };
+      }
+      if (!sizeName && Object.keys(sizeGroup[0].value[0])[0] === 'One size') {
+        const key = Object.keys(sizeGroup[0].value[0])[0];
+        return { name: key, quantity: 1, value: sizeGroup[0].value };
+      }
+      if (!sizeName && Object.keys(sizeGroup[0].value[0])[0] === 'Інший') {
+        const key = Object.keys(sizeGroup[0].value[0])[0];
+        return { name: key, quantity: 1, value: sizeGroup[0].value };
+      }
+      return [];
+    });
+    setSelectedSizes(transformedSizes);
+  }, []);
+
   useEffect(() => {
     dispatch(clearOtherUser());
     dispatch(clearProductById());
@@ -157,6 +159,12 @@ const ProductCard = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setIsLiked(false);
   }, [dispatch, id, isLiked]);
+
+  const isUserProduct = userProducts.find(id => id === _id);
+
+  const handleButtonClick = () => {
+    navigate('/message');
+  };
 
   return (
     <section className={s.productCard}>
@@ -199,17 +207,20 @@ const ProductCard = () => {
                       <span className={s.productPriceDiscount}>-8%</span>
                       <Text text={price} textClass="title" />
                     </div>
-                    <SizeSelection
-                      sizeOption={size}
-                      onSelectedSizesChange={handleSelectedSizesChange}
-                    />
+                    {size && (
+                      <SizeSelection
+                        sizeOption={size}
+                        defaultSelectedSizes={selectedSizesById}
+                        onSelectedSizesChange={handleSelectedSizesChange}
+                      />
+                    )}
                     <div className={s.buyBtns}>
                       <NavLink to={isLogin ? '/checkout' : '/login'}>
                         <Button
                           type="button"
                           btnClass="btnLight"
-                            text="Купити зараз"
-                            handleClick={setProductToBasket}
+                          text="Купити зараз"
+                          handleClick={setProductToBasket}
                         />
                       </NavLink>
 
@@ -226,8 +237,6 @@ const ProductCard = () => {
                     </div>
                     <div className={s.additionalOptsContainer}>
                       <div className={s.additionalOpts} onClick={handleClick}>
-                        {/* <BsSuitHeart className={s.favoriteIcon} /> */}
-
                         <FiHeart
                           className={`${isProductInLike ? s.active : s.liked}`}
                         />
@@ -240,15 +249,17 @@ const ProductCard = () => {
                           textClass="productText"
                         />
                       </div>
-                      <div className={s.additionalOpts}>
-                        <BiMessageDetail className={s.favoriteIcon} />
-                        <button onClick={scrollToChating}>
-                          <Text
-                            text="Поставити запитання"
-                            textClass="productText"
-                          />
-                        </button>
-                      </div>
+                      {!isUserProduct && (
+                        <div className={s.additionalOpts}>
+                          <BiMessageDetail className={s.favoriteIcon} />
+                          <button onClick={scrollToChating}>
+                            <Text
+                              text="Поставити запитання"
+                              textClass="productText"
+                            />
+                          </button>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -261,13 +272,32 @@ const ProductCard = () => {
                 </div>
               </div>
             </div>
-            <Dialogue productInfo={{ _id, owner, userDialogue }} />
+            <div className={s.dialogueBox}>
+              {!isUserProduct && (
+                <Dialogue productInfo={{ _id, owner, userDialogue }} />
+              )}
+              {isUserProduct && (
+                <div className={s.messageWarningBox}>
+                  <div className={s.messageWarningText}>
+                    <Text
+                      text="Якщо ви хочете знати, чи хтось зацікавлений у цьому продукті, перейдіть до ваших повідомлень"
+                      textClass="productLabels"
+                    />
+                  </div>
+                  <Button
+                    text="До повідомлень"
+                    btnClass="btnLight"
+                    handleClick={handleButtonClick}
+                  />
+                </div>
+              )}
+            </div>
           </>
         )}
       </Container>
       {isMessage && (
-          <MessageWindow text={"Оберіть розмір"} onDismiss={resetMessage} />
-        )}
+        <MessageWindow text={'Оберіть розмір'} onDismiss={resetMessage} />
+      )}
     </section>
   );
 };
