@@ -78,6 +78,27 @@ const ProductItem = ({
     setTriangleLeft(null);
   };
 
+  // for Descroption
+  const MAX_DESCRIPTION_LENGTH = 90;
+
+  const getShortenedDescription = () => {
+    if (description.length > MAX_DESCRIPTION_LENGTH) {
+      const shortenedDescription = description.substring(
+        0,
+        MAX_DESCRIPTION_LENGTH
+      );
+
+      return (
+        <>
+          <span>{shortenedDescription} </span>
+          <br />
+          <span>. . .</span>
+        </>
+      );
+    }
+    return description;
+  };
+
   return (
     <li className={s.itemCard}>
       <Link
@@ -106,7 +127,9 @@ const ProductItem = ({
         />
         <div className={s.styleDescriptionProductCardBox}></div>
         <div className={s.styleDescriptionProductCard}>
-          <p className={s.descriptionProductCard}>{description}</p>
+          <p className={s.descriptionProductCard}>
+            {getShortenedDescription()}
+          </p>
         </div>
       </Link>
 
