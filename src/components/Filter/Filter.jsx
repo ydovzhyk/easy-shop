@@ -9,9 +9,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
 
 import { getFilterProduct } from 'redux/product/product-selectors';
-import { showFilterProduct } from 'redux/product/product-slice';
-import { unSubmitFilterForm } from 'redux/product/product-slice';
-import { submitFilterForm } from 'redux/product/product-slice';
+import {
+  showFilterProduct,
+  unSubmitFilterForm,
+  submitFilterForm,
+} from 'redux/product/product-slice';
 
 import sizeOption from '../AddProduct/Size/sizeTable.json';
 import OptionsHeader from 'components/Shared/OptionsHeader/OptionsHeader';

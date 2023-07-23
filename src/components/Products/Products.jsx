@@ -26,7 +26,6 @@ import NotFound from 'components/NotFound/NotFound';
 import SelectField from 'components/Shared/SelectField/SelectField';
 
 import s from './Products.module.scss';
-import { useEffect } from 'react';
 
 const Products = () => {
   const [filterSelected, setFilterSelected] = useState('');
