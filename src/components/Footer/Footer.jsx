@@ -1,9 +1,12 @@
 import { useMediaQuery } from 'react-responsive';
+
 import { ImAppleinc } from 'react-icons/im';
 import { SiGoogleplay } from 'react-icons/si';
 import { BsFacebook, BsInstagram, BsYoutube, BsTwitter } from 'react-icons/bs';
+
 import Logo from 'components/Shared/Logo/Logo';
 import Button from 'components/Shared/Button/Button';
+
 import s from './Footer.module.scss';
 
 const Footer = () => {
