@@ -1,1 +1,0 @@
-{"version":3,"file":"static/js/748.f7808bd5.chunk.js","mappings":"+HAMA,UANmB,WACf,OACI,yFAEP,C","sources":["components/Profile/MyPurchases/MyPurchases.jsx"],"sourcesContent":["const MyShoppings= () => {\n    return (\n        <h3>Мої покупки</h3>\n    )\n}\n\nexport default MyShoppings;"],"names":[],"sourceRoot":""}

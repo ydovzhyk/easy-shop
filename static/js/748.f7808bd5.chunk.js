@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkeasy_shop=self.webpackChunkeasy_shop||[]).push([[748],{7748:function(e,s,n){n.r(s);var u=n(184);s.default=function(){return(0,u.jsx)("h3",{children:"\u041c\u043e\u0457 \u043f\u043e\u043a\u0443\u043f\u043a\u0438"})}}}]);
-//# sourceMappingURL=748.f7808bd5.chunk.js.map
