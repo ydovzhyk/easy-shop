@@ -29,11 +29,11 @@ const initialState = {
   productById: {},
   productsFromBasket: [],
   sellersFromBasket: [],
-  headerForm: false,
+  headerFormReset: false,
   headerFormClick: false,
   headerFormErrors: false,
   filterProduct: false,
-  filterForm: false,
+  filterFormSubmit: false,
   currentProductsPage: 1,
 };
 
@@ -57,10 +57,10 @@ const products = createSlice({
       store.productsFromBasket = [];
     },
     resetHeaderForm: store => {
-      store.headerForm = true;
+      store.headerFormReset = true;
     },
     notResetHeaderForm: store => {
-      store.headerForm = false;
+      store.headerFormReset = false;
     },
     setHeaderFormClick: store => {
       store.headerFormClick = true;
@@ -75,10 +75,10 @@ const products = createSlice({
       store.filterProduct = false;
     },
     submitFilterForm: store => {
-      store.filterForm = true;
+      store.filterFormSubmit = true;
     },
     unSubmitFilterForm: store => {
-      store.filterForm = false;
+      store.filterFormSubmit = false;
     },
     setHeaderFormErrors: store => {
       store.headerFormErrors = true;

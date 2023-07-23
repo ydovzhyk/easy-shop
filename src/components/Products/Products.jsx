@@ -8,8 +8,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   getLoadingProducts,
   getProductsByQuery,
-} from 'redux/product/product-selectors';
-import {
   getFilterForm,
   getCurrentProductsPage,
   getHeaderFormErrors,
@@ -28,6 +26,7 @@ import NotFound from 'components/NotFound/NotFound';
 import SelectField from 'components/Shared/SelectField/SelectField';
 
 import s from './Products.module.scss';
+import { useEffect } from 'react';
 
 const Products = () => {
   const [filterSelected, setFilterSelected] = useState('');
