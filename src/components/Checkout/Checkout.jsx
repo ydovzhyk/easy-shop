@@ -43,6 +43,7 @@ const Checkout = () => {
   const { client, orderSum, sellerId, sellerName, _id, products } =
     orderInCheckout;
   // console.log(products);
+  const orderNumber = _id.match(/\d+/g).join('').slice(0, 7);
   
   const productsForOrder = productsFrombasket.filter(
     product => product.owner === sellerId
@@ -81,13 +82,11 @@ const Checkout = () => {
       customerSurName: data.surName,
       customerTel: data.tel,
       customerId: client.customerId,
+      orderNumber: orderNumber,
     };
     console.log('Відправка order', orderData);
     
     const updatedOrder = await dispatch(updateOrder(orderData));
-
-    // const allOrders = await dispatch(getAllOrders());
-    // console.log('updatedOrder', updatedOrder);
 
     if (updatedOrder.payload.code === 200) {
       for (const product of products) {
@@ -106,7 +105,9 @@ const Checkout = () => {
         <div className={s.defaultBox}>
           <form onSubmit={handleSubmit(onSubmit)} className={s.formWrapper}>
             <div className={s.orderInfo}>
-              <h2 className={s.title}>Оформлення замовлення</h2>
+              <h2 className={s.title}>
+                Оформлення замовлення &#8470; {orderNumber}
+              </h2>
               <Text
                 textClass="productHeadings"
                 text={`Продавець: ${sellerName}`}
@@ -134,7 +135,10 @@ const Checkout = () => {
                       item => item.quantity
                     );
                     const productsPrice =
-                      sizeQuantity.reduce((prevValue, number) => prevValue + number, 0) * price;
+                      sizeQuantity.reduce(
+                        (prevValue, number) => prevValue + number,
+                        0
+                      ) * price;
                     return (
                       <li className={s.productItem} key={_id}>
                         <div className={s.infoWraper}>
@@ -390,7 +394,7 @@ const Checkout = () => {
               <Button
                 type="submit"
                 btnClass="btnLight"
-                text="Оформити замовлення"
+                text="Оформити"
                 handleClick={handleSubmit(onSubmit)}
               />
             </div>

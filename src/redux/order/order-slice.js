@@ -5,7 +5,8 @@ import {
   updateOrder,
   getOrderById,
   getAllOrders,
-  deleteOrderById
+  deleteOrderById,
+  getUserOrders,
 } from './order-operations';
 
 const initialState = {
@@ -15,6 +16,7 @@ const initialState = {
   allOrders: [],
   orderInCheckout: [],
   orderById: {},
+  userOrders: [],
 };
 
 const orders = createSlice({
@@ -101,6 +103,19 @@ const orders = createSlice({
       store.message = payload.message;
     },
     [deleteOrderById.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
+    //* get user Orders
+    [getUserOrders.pending]: store => {
+      store.loading = true;
+      store.error = null;
+    },
+    [getUserOrders.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.userOrders = payload;
+    },
+    [getUserOrders.rejected]: (store, { payload }) => {
       store.loading = false;
       store.error = payload;
     },
