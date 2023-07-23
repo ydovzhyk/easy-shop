@@ -69,6 +69,9 @@ const Filter = ({ onChange }) => {
     resetField('filterPriceTo', {
       defaultValue: '',
     });
+    resetField('filterPriceFrom', {
+      defaultValue: '',
+    });
     reset();
     dispatch(showFilterProduct());
     onChange(filterData);
@@ -181,7 +184,7 @@ const Filter = ({ onChange }) => {
       brandName: data.filterBrand,
       condition: data.filterCondition,
       filterPrice: data.filterPriceRadio,
-      filterPriceFrom: data.filterPriceFrom,
+      filterPriceFrom: String(data.filterPriceFrom),
       filterPriceTo: data.filterPriceTo,
     };
     await onChange(dataForUpload);
