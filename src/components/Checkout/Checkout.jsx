@@ -7,6 +7,7 @@ import { selectOrderInCheckout, getOrderMessage } from 'redux/order/order-select
 // import { getAllOrders, getOrderById, updateOrder } from 'redux/order/order-operations';
 import { updateOrder } from 'redux/order/order-operations';
 import { updateUserBasket } from 'redux/auth/auth-opetations';
+import { getProductsFromBasket } from 'redux/product/product-operations';
 
 import { useForm, Controller } from 'react-hook-form';
 import Container from 'components/Shared/Container';
@@ -26,6 +27,10 @@ const Checkout = () => {
   const productsFrombasket = useSelector(selectProductsFromBasket);
   const user = useSelector(getUser);
   const message = useSelector(getOrderMessage);
+  
+  useEffect(() => {
+    dispatch(getProductsFromBasket(user._id));
+  }, [dispatch, user]); 
 
   const [isMessage, setIsMessage] = useState('');
   const [deliveryService, setDeliveryService] = useState('');
@@ -203,7 +208,6 @@ const Checkout = () => {
                     <SelectField
                       value={value}
                       handleChange={selectedValue => {
-                        console.log(selectedValue);
                         onChange(selectedValue);
                         setDeliveryService(selectedValue.value);
                       }}
