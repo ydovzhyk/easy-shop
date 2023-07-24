@@ -8,10 +8,10 @@ export const getMyProductsPages = ({ products }) =>
 export const getProductsByQuery = ({ products }) => products.productsByQuery;
 export const getCurrentProductsPage = ({ products }) =>
   products.currentProductsPage;
-export const getHeaderFormReset = ({ products }) => products.headerForm;
+export const getHeaderFormReset = ({ products }) => products.headerFormReset;
 export const getHeaderFormClick = ({ products }) => products.headerFormClick;
 export const getFilterProduct = ({ products }) => products.filterProduct;
-export const getFilterForm = ({ products }) => products.filterForm;
+export const getFilterForm = ({ products }) => products.filterFormSubmit;
 export const getHeaderFormErrors = ({ products }) => products.headerFormErrors;
 export const getVipProductCard = ({ products }) => products.vipProducts;
 export const getVipPages = ({ products }) => products.vipPages;
