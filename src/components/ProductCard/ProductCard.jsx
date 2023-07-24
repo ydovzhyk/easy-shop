@@ -175,8 +175,18 @@ const ProductCard = () => {
   // for BuyNow
   const handleBuyNowButtonClick = async event => {
     await setProductToBasket(event);
+    if (!isLogin) {
+      navigate('/login');
+      return;
+    }
     const selectedProductSizes =
       size.length === 1 ? transformedSizes : selectedSizes;
+    console.log('selectedProductSizes', selectedProductSizes);
+    if (selectedProductSizes.length === 0 && !isProductInBasket) {
+      setIsMessage(true);
+      event.preventDefault();
+      return;
+    }
     const dataForUpload = {
       ownerId: owner,
       ownerName: sellerInfo.username,
