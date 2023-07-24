@@ -5,14 +5,19 @@
     gap: 24px;
 }
 .optionsList {
+    width: 20%;
     padding-left: 20px;
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
+.ordersList {
+    width: 80%;
+}
+
 .orderItem {
-    width: 600px;
+    // width: 600px;
     padding: 20px;
     border: 1px solid var(--border-color);
     

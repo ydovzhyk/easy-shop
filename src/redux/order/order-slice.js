@@ -16,7 +16,7 @@ const initialState = {
   allOrders: [],
   orderInCheckout: [],
   orderById: {},
-  userOrders: [],
+  userOrders: {},
 };
 
 const orders = createSlice({
