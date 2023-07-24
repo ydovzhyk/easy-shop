@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
-import { useParams, Link, NavLink, useNavigate } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -10,12 +10,14 @@ import { getProductById } from 'redux/product/product-operations';
 import { clearOtherUser } from 'redux/otherUser/otherUser.slice';
 import { clearProductById } from 'redux/product/product-slice';
 import { updateUserBasket, updateUserLikes } from 'redux/auth/auth-opetations';
+import { addOrder } from 'redux/order/order-operations';
 import {
   getID,
   getLogin,
   selectUserBasket,
   getUser,
 } from 'redux/auth/auth-selectors';
+import { selectOtherUser } from 'redux/otherUser/otherUser-selectors';
 
 import SellerInfo from './SellerInfo/SellerInfo';
 import Dialogue from 'components/Dialogue/Dialogue';
@@ -39,6 +41,7 @@ const ProductCard = () => {
   const product = useSelector(selectProductById);
   const userId = useSelector(getID);
   const userProductBasket = useSelector(selectUserBasket);
+  const sellerInfo = useSelector(selectOtherUser);
   const chattingRef = useRef();
   const { category, subcategory, id } = useParams();
   const translatedParamsObj = translateParamsToUA(category, subcategory);
@@ -168,7 +171,34 @@ const ProductCard = () => {
   };
 
   // for sale
-  const discountedPrice = (price * (100 - sale)) / 100;
+  const discountedPrice = sale ? (price * (100 - sale)) / 100 : price;
+  // for BuyNow
+  const handleBuyNowButtonClick = async event => {
+    await setProductToBasket(event);
+    const selectedProductSizes =
+      size.length === 1 ? transformedSizes : selectedSizes;
+    const dataForUpload = {
+      ownerId: owner,
+      ownerName: sellerInfo.username,
+      products: [
+        {
+          _id: _id,
+          quantity: selectedProductSizes.length,
+          size: selectedProductSizes,
+          price: discountedPrice,
+          sum: selectedProductSizes.length * discountedPrice,
+        },
+      ],
+      totalSum: selectedProductSizes.length * discountedPrice,
+    };
+    console.log('Відправка форми', dataForUpload);
+
+    const newOrder = await dispatch(addOrder(dataForUpload));
+
+    if (newOrder.payload.newOrderId) {
+      navigate('/checkout');
+    }
+  };
 
   return (
     <section className={s.productCard}>
@@ -234,14 +264,12 @@ const ProductCard = () => {
                     )}
                     {!isUserProduct && (
                       <div className={s.buyBtns}>
-                        <NavLink to={isLogin ? '/checkout' : '/login'}>
-                          <Button
-                            type="button"
-                            btnClass="btnLight"
-                            text="Купити зараз"
-                            handleClick={setProductToBasket}
-                          />
-                        </NavLink>
+                        <Button
+                          type="button"
+                          btnClass="btnLight"
+                          text="Купити зараз"
+                          handleClick={handleBuyNowButtonClick}
+                        />
 
                         <Button
                           type="button"
