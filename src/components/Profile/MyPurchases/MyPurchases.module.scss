@@ -1,0 +1,31 @@
+@use 'styles/mixins';
+
+.ordersWrapper{
+    display: flex;
+    gap: 24px;
+}
+.optionsList {
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.orderItem {
+    width: 600px;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    
+    &:hover{
+        border: 1px solid var(--accent-color);
+    }
+
+}
+
+.box {
+    display: flex;
+}
+
+.boxItem {
+    width: 200px;
+}
