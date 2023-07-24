@@ -181,10 +181,14 @@ const ProductCard = () => {
     }
     const selectedProductSizes =
       size.length === 1 ? transformedSizes : selectedSizes;
-    console.log('selectedProductSizes', selectedProductSizes);
+    
     if (selectedProductSizes.length === 0 && !isProductInBasket) {
       setIsMessage(true);
       event.preventDefault();
+      return;
+    }
+    if (userProductBasket.length >= 1) {
+      navigate('/basket');
       return;
     }
     const dataForUpload = {
