@@ -2,7 +2,10 @@ import Container from "components/Shared/Container/Container";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteOrderById, getUserOrders } from "redux/order/order-operations";
-import { selectUserOrders } from "redux/order/order-selectors";
+import {
+  selectUserOrders,
+  selectUserOrdersTotalPages,
+} from 'redux/order/order-selectors';
 
 import s from './MyPurchases.module.scss';
 import Text from "components/Shared/Text/Text";
@@ -17,6 +20,9 @@ const MyShoppings = () => {
 
     const userOrders = useSelector(selectUserOrders);
     userOrders && console.log(userOrders);
+
+    const totalPages = useSelector(selectUserOrdersTotalPages);
+    totalPages && console.log(totalPages);
 
     const handleDeteleOrder = (id) => {
       dispatch(deleteOrderById(id));

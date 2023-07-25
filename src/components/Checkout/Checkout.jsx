@@ -53,7 +53,7 @@ const Checkout = () => {
       customerId,
     },
     orderSum,
-    sellerId,
+    // sellerId,
     sellerName,
     _id,
     products,
