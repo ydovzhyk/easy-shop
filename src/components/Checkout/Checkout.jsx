@@ -4,20 +4,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectProductsFromBasket } from 'redux/product/product-selectors';
 import { getUser } from 'redux/auth/auth-selectors';
 import { selectOrderInCheckout, getOrderMessage } from 'redux/order/order-selectors';
-// import { getAllOrders, getOrderById, updateOrder } from 'redux/order/order-operations';
 import { updateOrder } from 'redux/order/order-operations';
 import { updateUserBasket } from 'redux/auth/auth-opetations';
+import { getProductsFromBasket } from 'redux/product/product-operations';
 
 import { useForm, Controller } from 'react-hook-form';
 import Container from 'components/Shared/Container';
 import Text from 'components/Shared/Text/Text';
-import NoPhoto from 'images/catalog_photo/no_photo.jpg';
 import TextField from 'components/Shared/TextField';
 import { field } from 'components/Shared/TextField/fields';
 import SelectField from 'components/Shared/SelectField/SelectField';
 import Button from 'components/Shared/Button/Button';
 import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
 import s from './Checkout.module.scss';
+import OrderProductList from './OrderProductsList';
 
 const Checkout = () => {
   const dispatch = useDispatch();
@@ -26,6 +26,10 @@ const Checkout = () => {
   const productsFrombasket = useSelector(selectProductsFromBasket);
   const user = useSelector(getUser);
   const message = useSelector(getOrderMessage);
+  
+  useEffect(() => {
+    dispatch(getProductsFromBasket(user._id));
+  }, [dispatch, user]); 
 
   const [isMessage, setIsMessage] = useState('');
   const [deliveryService, setDeliveryService] = useState('');
@@ -116,81 +120,11 @@ const Checkout = () => {
                 textClass="title"
                 text={`Сума замовлення: ${orderSum} грн.`}
               />
-              <ul>
-                {productsForOrder.map(
-                  ({
-                    _id,
-                    nameProduct,
-                    mainPhotoUrl,
-                    brendName,
-                    price,
-                    size,
-                  }) => {
-                    const sizesForProduct =
-                      products.find(item => item._id === _id)?.size || size;
-                    const transformedSize = sizesForProduct.map(
-                      item => item.name
-                    );
-                    const sizeQuantity = sizesForProduct.map(
-                      item => item.quantity
-                    );
-                    const productsPrice =
-                      sizeQuantity.reduce(
-                        (prevValue, number) => prevValue + number,
-                        0
-                      ) * price;
-                    return (
-                      <li className={s.productItem} key={_id}>
-                        <div className={s.infoWraper}>
-                          <div className={s.mainInfo}>
-                            <div className={s.thumb}>
-                              <img
-                                className={s.mainPhoto}
-                                src={mainPhotoUrl}
-                                onError={e => (e.target.src = NoPhoto)}
-                                alt={nameProduct}
-                              />
-                            </div>
-                            <div className={s.description}>
-                              <Text textClass="productText" text={brendName} />
-                              <Text
-                                textClass="productHeadings"
-                                text={nameProduct}
-                              />
-                              <div className={s.sizeQuantity}>
-                                <div className={s.sizeQuantityWrapper}>
-                                  {transformedSize.map(size => (
-                                    <Text
-                                      key={size}
-                                      textClass="productText"
-                                      text={`Size: ${size}`}
-                                    />
-                                  ))}
-                                </div>
-                                <div className={s.sizeQuantityWrapper}>
-                                  {sizeQuantity.map((quantity, index) => (
-                                    <Text
-                                      key={index}
-                                      textClass="productText"
-                                      text={`Кількість: ${quantity}`}
-                                    />
-                                  ))}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className={s.priceWrapper}>
-                            <Text
-                              textClass="productHeadings"
-                              text={`Сума: ${productsPrice}`}
-                            />
-                          </div>
-                        </div>
-                      </li>
-                    );
-                  }
-                )}
-              </ul>
+              <OrderProductList
+                productsForOrder={productsForOrder}
+                products={products}
+              />
+              
               <div className={s.formField}>
                 <Text textClass="title" text="Спосіб доставки" />
                 <Controller
@@ -203,7 +137,6 @@ const Checkout = () => {
                     <SelectField
                       value={value}
                       handleChange={selectedValue => {
-                        console.log(selectedValue);
                         onChange(selectedValue);
                         setDeliveryService(selectedValue.value);
                       }}
@@ -216,9 +149,7 @@ const Checkout = () => {
                     />
                   )}
                 />
-                {/* {errors.delivery && (
-                  <p className={s.inputError}>{errors.delivery.message}</p>
-                )} */}
+                
                 <Text text={'Введіть місто*'} textClass="productHeadings" />
                 <Controller
                   control={control}
@@ -286,9 +217,7 @@ const Checkout = () => {
                       />
                     )}
                   />
-                  {/* {errors.secondName && (
-                    <p className={s.inputError}>{errors.secondName.message}</p>
-                  )} */}
+                  
                 </div>
                 <div className={s.formField}>
                   <Text text={"Ім'я*"} textClass="productHeadings" />
@@ -312,9 +241,6 @@ const Checkout = () => {
                       />
                     )}
                   />
-                  {/* {errors.firstName && (
-                    <p className={s.inputError}>{errors.firstName.message}</p>
-                  )} */}
                 </div>
 
                 <div className={s.formField}>
@@ -339,9 +265,6 @@ const Checkout = () => {
                       />
                     )}
                   />
-                  {/* {errors.surName && (
-                    <p className={s.inputError}>{errors.surName.message}</p>
-                  )} */}
                 </div>
 
                 <div className={s.formField}>

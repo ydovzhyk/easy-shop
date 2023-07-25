@@ -93,7 +93,7 @@ export const updateUserBasket = createAsyncThunk(
   async (userData, { rejectWithValue, getState, dispatch }) => {
     try {
       const data = await axiosUpdateUserBasket(userData);
-      console.log('return data from updateUserBasket', data);
+      // console.log('return data from updateUserBasket', data);
       return data;
     } catch (error) {
       const { data, status } = error.response;

@@ -33,16 +33,18 @@ const Basket = () => {
           .flatMap((arr) => arr)
           .find((sp) => sp.productId === product._id);
         const selectedSizes = matchedProduct ? matchedProduct.selectedSizes : [];
-
+        const changedPrice = product.sale
+          ? (product.price * (100 - product.sale)) / 100
+          : product.price;
         return {
           _id: product._id,
           brendName: product.brendName,
           nameProduct: product.nameProduct,
           mainPhotoUrl: product.mainPhotoUrl,
-          price: product.price,
+          price: changedPrice,
           size: selectedSizes,
           section: product.section,
-          category: product.category
+          category: product.category,
         };
       });
 
