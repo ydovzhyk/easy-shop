@@ -14,7 +14,7 @@ const initialState = {
   loading: false,
   error: null,
   allOrders: [],
-  orderInCheckout: [],
+  orderInCheckout: {},
   orderById: {},
   userOrders: {},
 };
