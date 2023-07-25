@@ -92,6 +92,18 @@ const DialogueList = ({ selectedDialogue, setSelectedDialogue }) => {
     }
   };
 
+  const getNumberNewMessage = dialogue => {
+    const newMessageArray = dialogue.newMessages;
+    const hasMatchingObject = newMessageArray.filter(obj => {
+      return obj.userReceiver === user._id;
+    });
+    if (hasMatchingObject.length === 0) {
+      return 0;
+    } else {
+      return hasMatchingObject.length;
+    }
+  };
+
   return (
     <section className={s.dialogueList}>
       <div className={s.box}>
@@ -176,6 +188,12 @@ const DialogueList = ({ selectedDialogue, setSelectedDialogue }) => {
                     </div>
                   </div>
                   <div className={s.deleteBox}>
+                    <div className={s.numberNewMessage}>
+                      <Text
+                        text={getNumberNewMessage(dialogue)}
+                        textClass="after-title-message-title"
+                      />
+                    </div>
                     <RoundButton
                       icon={BsTrash}
                       handleClick={handleButtonTrashClick}
@@ -188,7 +206,10 @@ const DialogueList = ({ selectedDialogue, setSelectedDialogue }) => {
           </ul>
         )}
         {dialoguesArray.length === 0 && (
-          <Text text={'У вас не має діалогів'} textClass="after-title-bottom" />
+          <Text
+            text={'У вас не має діалогів'}
+            textClass="after-title-text-warning"
+          />
         )}
       </div>
       {questionWindow && (

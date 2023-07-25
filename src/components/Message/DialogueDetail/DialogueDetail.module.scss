@@ -2,6 +2,7 @@
 
 .dialogueDetail {
   @include mixins.mq(tablet) {
+    min-height: 520px;
     width: 55%;
   }
 }

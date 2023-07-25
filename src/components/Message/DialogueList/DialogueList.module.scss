@@ -110,6 +110,7 @@
 }
 
 .deleteBox {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -134,4 +135,17 @@
 .messageBoxText {
   width: 300px;
   height: 50px;
+}
+
+.numberNewMessage {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -145px;
+  width: 30px;
+  height: 30px;
+  background-color: var(--bg-footer-header);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
 }
