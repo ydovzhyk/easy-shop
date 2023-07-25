@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { ReactComponent as IconAvatar } from '../../../images/Avatar/avatar.svg';
+import avatar from '../../../images/Avatar/avatar.svg';
 import s from './Avatar.module.scss';
 
 const Avatar = ({ src, alt, avatarClass, width, heigth, ...attrs }) => {
@@ -13,7 +13,7 @@ const Avatar = ({ src, alt, avatarClass, width, heigth, ...attrs }) => {
       {...attrs}
     />
   ) : (
-    <IconAvatar className={s[avatarClass]} />
+    <img src={avatar} alt="Avatar" className={s[avatarClass]} />
   );
 };
 

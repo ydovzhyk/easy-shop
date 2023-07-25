@@ -56,6 +56,15 @@
 .after-title-bottom {
   font-weight: 600;
   font-size: 14px;
+  text-align: center;
+  color: var(--second-text-color);
+}
+
+.after-title-text-warning {
+  margin-top: 140px;
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
   color: var(--second-text-color);
 }
 
@@ -183,6 +192,12 @@
   font-weight: 200;
   font-size: 14px;
   color: var(--text-color);
+}
+
+.productTextDialogueNewMessage {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--second-text-color);
 }
 
 .productTextDate {
