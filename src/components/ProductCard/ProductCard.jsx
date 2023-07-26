@@ -175,8 +175,22 @@ const ProductCard = () => {
   // for BuyNow
   const handleBuyNowButtonClick = async event => {
     await setProductToBasket(event);
+    if (!isLogin) {
+      navigate('/login');
+      return;
+    }
     const selectedProductSizes =
       size.length === 1 ? transformedSizes : selectedSizes;
+    
+    if (selectedProductSizes.length === 0 && !isProductInBasket) {
+      setIsMessage(true);
+      event.preventDefault();
+      return;
+    }
+    if (userProductBasket.length >= 1) {
+      navigate('/basket');
+      return;
+    }
     const dataForUpload = {
       ownerId: owner,
       ownerName: sellerInfo.username,
@@ -196,6 +210,8 @@ const ProductCard = () => {
     const newOrder = await dispatch(addOrder(dataForUpload));
 
     if (newOrder.payload.newOrderId) {
+      console.log('productId', { productId: product._id });
+      await dispatch(updateUserBasket({ productId: _id }));
       navigate('/checkout');
     }
   };

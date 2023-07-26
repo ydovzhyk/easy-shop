@@ -14,9 +14,9 @@ const initialState = {
   loading: false,
   error: null,
   allOrders: [],
-  orderInCheckout: [],
+  orderInCheckout: {},
   orderById: {},
-  userOrders: [],
+  userOrders: { orders: [], totalPages: null, totalUserOrders: null, },
 };
 
 const orders = createSlice({
@@ -113,7 +113,9 @@ const orders = createSlice({
     },
     [getUserOrders.fulfilled]: (store, { payload }) => {
       store.loading = false;
-      store.userOrders = payload;
+      store.userOrders.orders = payload.orders;
+      store.userOrders.totalPages = payload.totalPages;
+      store.userOrders.totalUserOrders = payload.totalUserOrders;
     },
     [getUserOrders.rejected]: (store, { payload }) => {
       store.loading = false;

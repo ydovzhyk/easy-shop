@@ -1,0 +1,89 @@
+@use 'styles/mixins';
+
+.ordersWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    @include mixins.mq(tablet) {
+        flex-direction: row;
+    }
+}
+
+.heading {
+  font-size: 18px;
+  color: var(--text-color);
+  margin-bottom: 20px;
+  @include mixins.mq(desktop) {
+    font-size: 24px;
+  }
+}
+.optionsList {
+    // width: 100%;
+    // padding-left: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    @include mixins.mq(tablet) {
+        width: 20%;
+        padding-left: 16px;
+    }
+    @include mixins.mq(desktop) {
+        padding-left: 20px;
+    }
+}
+
+.ordersList {
+    // width: 80%;
+    @include mixins.mq(tablet) {
+        width: 80%;
+    }
+    @include mixins.mq(desktop) {
+    }
+}
+
+.orderItem {
+    margin-bottom: 20px;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    
+    &:hover{
+        border: 1px solid var(--accent-color);
+    }
+
+    @include mixins.mq(tablet) {
+        padding: 12px;
+    }
+    @include mixins.mq(desktop) {
+        padding: 20px;
+    }
+
+}
+
+.orderInfoWrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.orderInfoItem {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.orderInfoItem:nth-child(2) > p {
+    text-align: end;
+}
+
+.orderSum {
+    font-weight: 600;
+    text-align: end;
+    font-size: 18px;
+    color: var(--text-color);
+    @include mixins.mq(desktop) {
+        font-size: 24px;
+    }
+}

@@ -1,12 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectProductsFromBasket } from 'redux/product/product-selectors';
-import { getUser } from 'redux/auth/auth-selectors';
 import { selectOrderInCheckout, getOrderMessage } from 'redux/order/order-selectors';
 import { updateOrder } from 'redux/order/order-operations';
-import { updateUserBasket } from 'redux/auth/auth-opetations';
-import { getProductsFromBasket } from 'redux/product/product-operations';
 
 import { useForm, Controller } from 'react-hook-form';
 import Container from 'components/Shared/Container';
@@ -16,44 +12,45 @@ import { field } from 'components/Shared/TextField/fields';
 import SelectField from 'components/Shared/SelectField/SelectField';
 import Button from 'components/Shared/Button/Button';
 import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
+import OrderProductsList from 'components/Shared/OrderProductsList/OrderProductsList';
 import s from './Checkout.module.scss';
-import OrderProductList from './OrderProductsList';
+
 
 const Checkout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const orderInCheckout = useSelector(selectOrderInCheckout);
-  const productsFrombasket = useSelector(selectProductsFromBasket);
-  const user = useSelector(getUser);
   const message = useSelector(getOrderMessage);
-  
-  useEffect(() => {
-    dispatch(getProductsFromBasket(user._id));
-  }, [dispatch, user]); 
 
   const [isMessage, setIsMessage] = useState('');
   const [deliveryService, setDeliveryService] = useState('');
 
   useEffect(() => {
     if (message !== 'Order added successfully') {
-      setIsMessage(message)
-    };
+      setIsMessage(message);
+    }
   }, [message]);
 
   const resetMessage = () => {
     setIsMessage('');
   };
-
-  const { client, orderSum, sellerId, sellerName, _id, products } =
-    orderInCheckout;
-  // console.log(products);
-  const orderNumber = _id.match(/\d+/g).join('').slice(0, 7);
+  console.log('orderInCheckout', orderInCheckout);
+  const {
+    client: {
+      customerSecondName,
+      customerFirstName,
+      customerSurName,
+      customerTel,
+      customerId,
+    },
+    orderSum,
+    sellerName,
+    _id,
+    products,
+    orderNumber,
+  } = orderInCheckout.order;
   
-  const productsForOrder = productsFrombasket.filter(
-    product => product.owner === sellerId
-  );
-
-  const { secondName, firstName, surName, tel } = user || {};
+  const productsForOrder = orderInCheckout.orderProductInfo;
 
   const {
     control,
@@ -63,10 +60,10 @@ const Checkout = () => {
   } = useForm({
     defaultValues: {
       delivery: '',
-      secondName: secondName ? secondName : '',
-      firstName: firstName ? firstName : '',
-      surName: surName ? surName : '',
-      tel: tel ? tel : '',
+      secondName: customerSecondName ? customerSecondName : '',
+      firstName: customerFirstName ? customerFirstName : '',
+      surName: customerSurName ? customerSurName : '',
+      tel: customerTel ? customerTel : '',
       department: '',
       city: '',
     },
@@ -76,28 +73,23 @@ const Checkout = () => {
     e.preventDefault();
     const orderData = {
       orderId: _id,
-      sellerId: sellerId,
-      sellerName: sellerName,
-      products: products,
       delivery: `${data.delivery.value}, ${data.city}, ${data.department}`,
-      totalSum: orderSum,
       customerSecondName: data.secondName,
       customerFirstName: data.firstName,
       customerSurName: data.surName,
       customerTel: data.tel,
-      customerId: client.customerId,
-      orderNumber: orderNumber,
+      customerId: customerId,
     };
     console.log('Відправка order', orderData);
-    
+
     const updatedOrder = await dispatch(updateOrder(orderData));
 
     if (updatedOrder.payload.code === 200) {
-      for (const product of products) {
-        await dispatch(updateUserBasket({productId: product._id}))
-      }
+      // for (const product of products) {
+      //   await dispatch(updateUserBasket({ productId: product._id }));
+      // }
       navigate('/profile/mypurchases');
-    };
+    }
   };
   const labelName =
     deliveryService === 'УкрПошта'
@@ -120,11 +112,11 @@ const Checkout = () => {
                 textClass="title"
                 text={`Сума замовлення: ${orderSum} грн.`}
               />
-              <OrderProductList
+              <OrderProductsList
                 productsForOrder={productsForOrder}
                 products={products}
               />
-              
+
               <div className={s.formField}>
                 <Text textClass="title" text="Спосіб доставки" />
                 <Controller
@@ -149,7 +141,7 @@ const Checkout = () => {
                     />
                   )}
                 />
-                
+
                 <Text text={'Введіть місто*'} textClass="productHeadings" />
                 <Controller
                   control={control}
@@ -217,7 +209,6 @@ const Checkout = () => {
                       />
                     )}
                   />
-                  
                 </div>
                 <div className={s.formField}>
                   <Text text={"Ім'я*"} textClass="productHeadings" />

@@ -11,6 +11,7 @@ import s from 'components/Profile/UserInfoDetails/UserInfoDetails.module.scss';
 const UserInfoDetails = () => {
   const user = useSelector(getUser);
   const [myProducts, setMyProducts] = useState(0);
+  const [myPurchases, setMyPurchases] = useState(0);
 
   const location = useLocation().pathname;
 
@@ -33,6 +34,9 @@ const UserInfoDetails = () => {
       const userProducts = user.userProducts;
       const userProductsLength = userProducts.length;
       setMyProducts(userProductsLength);
+      const userOrders = user.userOrders;
+      const userOrdersLength = userOrders.length;
+      setMyPurchases(userOrdersLength || 0);
     } else {
       setMyProducts(0);
     }
@@ -61,6 +65,7 @@ const UserInfoDetails = () => {
             to="mypurchases"
             addValue
             isBackgroundChange={isMyPurchases}
+            value={myPurchases}
           >
             Мої покупки
           </ProfileLink>

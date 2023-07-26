@@ -1,6 +1,6 @@
 import Text from 'components/Shared/Text/Text';
 import NoPhoto from 'images/catalog_photo/no_photo.jpg';
-import s from './Checkout.module.scss';
+import s from './OrderProductsList.module.scss';
 
 const OrderProductsList = ({ productsForOrder, products }) => {
   return (
@@ -55,7 +55,7 @@ const OrderProductsList = ({ productsForOrder, products }) => {
                 <div className={s.priceWrapper}>
                   <Text
                     textClass="productHeadings"
-                    text={`Сума: ${productsPrice}`}
+                    text={`Сума: ${productsPrice} грн.`}
                   />
                 </div>
               </div>
