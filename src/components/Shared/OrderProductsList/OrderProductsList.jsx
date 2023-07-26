@@ -55,7 +55,7 @@ const OrderProductsList = ({ productsForOrder, products }) => {
                 <div className={s.priceWrapper}>
                   <Text
                     textClass="productHeadings"
-                    text={`Сума: ${productsPrice}`}
+                    text={`Сума: ${productsPrice} грн.`}
                   />
                 </div>
               </div>

@@ -19,7 +19,7 @@ const MyShoppings = () => {
     }, [dispatch, page]);
 
     const userOrders = useSelector(selectUserOrders);
-    userOrders && console.log(userOrders);
+    // userOrders && console.log(userOrders);
 
     const totalPages = useSelector(selectUserOrdersTotalPages);
     totalPages && console.log(totalPages);
@@ -69,7 +69,7 @@ const MyShoppings = () => {
                     </button> */}
                   </div>
                   <OrderProductsList productsForOrder={productInfo} products={products}/>
-                  <p className={s.orderSum}>{`Сума: ${orderSum}`}</p>
+                  <p className={s.orderSum}>{`Сума замовлення: ${orderSum} грн.`}</p>
                 </li>
               )
             )}
