@@ -53,7 +53,6 @@ const Filter = ({ onChange }) => {
     },
   });
   const watchPriceFrom = watch('filterPriceFrom');
-  const watchPriceTo = watch('filterPriceTo');
 
   useEffect(() => {
     if (!shouldFilterProductReset) {
@@ -95,21 +94,21 @@ const Filter = ({ onChange }) => {
     return;
   }, [dirtyFields.filterPriceFrom, dirtyFields.filterPriceTo, resetField]);
 
-  useEffect(() => {
-    if (
-      dirtyFields.filterPriceFrom &&
-      touchedFields.filterPriceFrom &&
-      watchPriceTo === ''
-    ) {
-      resetField('filterPriceTo', { defaultValue: watchPriceFrom });
-    }
-  }, [
-    dirtyFields.filterPriceFrom,
-    touchedFields.filterPriceFrom,
-    watchPriceTo,
-    watchPriceFrom,
-    resetField,
-  ]);
+  // useEffect(() => {
+  //   if (
+  //     dirtyFields.filterPriceFrom &&
+  //     touchedFields.filterPriceFrom &&
+  //     watchPriceTo === ''
+  //   ) {
+  //     resetField('filterPriceTo', { defaultValue: watchPriceFrom });
+  //   }
+  // }, [
+  //   dirtyFields.filterPriceFrom,
+  //   touchedFields.filterPriceFrom,
+  //   watchPriceTo,
+  //   watchPriceFrom,
+  //   resetField,
+  // ]);
 
   useEffect(() => {
     if (
@@ -279,7 +278,7 @@ const Filter = ({ onChange }) => {
                   className={s.inputFilter}
                   type="number"
                   placeholder="0.0"
-                  step="0.1"
+                  step="1"
                 />
               </div>
 
@@ -295,7 +294,7 @@ const Filter = ({ onChange }) => {
                   id="filterPriceTo"
                   type="number"
                   placeholder="0.0"
-                  step="0.1"
+                  step="1"
                 />
               </div>
             </div>
