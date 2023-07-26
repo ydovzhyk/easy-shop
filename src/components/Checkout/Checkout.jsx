@@ -16,8 +16,10 @@ import { field } from 'components/Shared/TextField/fields';
 import SelectField from 'components/Shared/SelectField/SelectField';
 import Button from 'components/Shared/Button/Button';
 import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
+// import OrderProductsList from './OrderProductsList';
+import OrderProductsList from 'components/Shared/OrderProductsList/OrderProductsList';
 import s from './Checkout.module.scss';
-import OrderProductList from './OrderProductsList';
+
 
 const Checkout = () => {
   const dispatch = useDispatch();
@@ -140,7 +142,7 @@ const Checkout = () => {
                 textClass="title"
                 text={`Сума замовлення: ${orderSum} грн.`}
               />
-              <OrderProductList
+              <OrderProductsList
                 productsForOrder={productsForOrder}
                 products={products}
               />

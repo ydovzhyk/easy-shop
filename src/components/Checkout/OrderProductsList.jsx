@@ -2,7 +2,7 @@ import Text from 'components/Shared/Text/Text';
 import NoPhoto from 'images/catalog_photo/no_photo.jpg';
 import s from './Checkout.module.scss';
 
-const OrderProductList = ({ productsForOrder, products }) => {
+const OrderProductsList = ({ productsForOrder, products }) => {
   return (
     <ul>
       {productsForOrder.map(
@@ -67,4 +67,4 @@ const OrderProductList = ({ productsForOrder, products }) => {
   );
 };
 
-export default OrderProductList;
+export default OrderProductsList;
