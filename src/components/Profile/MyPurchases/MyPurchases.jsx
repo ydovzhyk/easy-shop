@@ -49,6 +49,7 @@ const MyShoppings = () => {
                 orderNumber,
                 products,
                 productInfo,
+                delivery,
               }) => (
                 <li className={s.orderItem} key={_id}>
                   <div className={s.orderInfoWrapper}>
@@ -68,8 +69,17 @@ const MyShoppings = () => {
                       del
                     </button> */}
                   </div>
-                  <OrderProductsList productsForOrder={productInfo} products={products}/>
-                  <p className={s.orderSum}>{`Сума замовлення: ${orderSum} грн.`}</p>
+                  <OrderProductsList
+                    productsForOrder={productInfo}
+                    products={products}
+                  />
+                  <div className={s.orderBottomWrapper}>
+                    {delivery !== '' ? <p>Очікує підтвердження</p> : <button>Оформити замовлення</button>}
+
+                    <p
+                      className={s.orderSum}
+                    >{`Сума замовлення: ${orderSum} грн.`}</p>
+                  </div>
                 </li>
               )
             )}
