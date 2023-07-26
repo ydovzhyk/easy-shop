@@ -210,6 +210,8 @@ const ProductCard = () => {
     const newOrder = await dispatch(addOrder(dataForUpload));
 
     if (newOrder.payload.newOrderId) {
+      console.log('productId', { productId: product._id });
+      await dispatch(updateUserBasket({ productId: _id }));
       navigate('/checkout');
     }
   };
