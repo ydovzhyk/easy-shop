@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 // import { deleteOrderById } from "redux/order/order-operations";
 import { getUserOrders } from 'redux/order/order-operations';
@@ -6,9 +7,11 @@ import {
   selectUserOrders,
   selectUserOrdersTotalPages,
 } from 'redux/order/order-selectors';
+import { getLogin } from 'redux/auth/auth-selectors';
 
-import s from './MyPurchases.module.scss';
 import OrderProductsList from "components/Shared/OrderProductsList/OrderProductsList";
+import s from './MyPurchases.module.scss';
+
 
 const MyShoppings = () => {
     const dispatch = useDispatch();
@@ -23,6 +26,7 @@ const MyShoppings = () => {
 
     const totalPages = useSelector(selectUserOrdersTotalPages);
     totalPages && console.log(totalPages);
+    const isLogin = useSelector(getLogin);
 
     // const handleDeteleOrder = (id) => {
     //   dispatch(deleteOrderById(id));
@@ -74,7 +78,16 @@ const MyShoppings = () => {
                     products={products}
                   />
                   <div className={s.orderBottomWrapper}>
-                    {delivery !== '' ? <p>Очікує підтвердження</p> : <button>Оформити замовлення</button>}
+                    {delivery !== '' ? (
+                      <p className={s.waitingPhrase}>Очікує підтвердження</p>
+                    ) : (
+                      <NavLink
+                        to={isLogin ? '/checkout' : '/login'}
+                        className={s.btnLight}
+                      >
+                        Оформити замовлення
+                      </NavLink>
+                    )}
 
                     <p
                       className={s.orderSum}
