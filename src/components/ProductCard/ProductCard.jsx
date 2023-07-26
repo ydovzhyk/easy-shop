@@ -174,7 +174,7 @@ const ProductCard = () => {
   const discountedPrice = sale ? (price * (100 - sale)) / 100 : price;
   // for BuyNow
   const handleBuyNowButtonClick = async event => {
-    await setProductToBasket(event);
+    // await setProductToBasket(event);
     if (!isLogin) {
       navigate('/login');
       return;
