@@ -15,12 +15,12 @@ import { getSubcategoryPath } from '../../../funcs&hooks/getSubCategoryPath.js';
 
 import s from './TopNavProducts.module.scss';
 
-const TopNavProducts = ({ category, subcategory, products, query }) => {
+const TopNavProducts = ({ category, subcategory, query }) => {
   const isDesctop = useMediaQuery({ minWidth: 1280 });
   const isTablet = useMediaQuery({ minWidth: 768 });
 
   const totalProducts = useSelector(getProductsTotalByQuery);
-  let totalProductsAmount = totalProducts.length;
+  const totalProductsAmount = totalProducts.length;
   const dispatch = useDispatch();
 
   const { categoryName, subCategoryName } = translateParamsToUA(

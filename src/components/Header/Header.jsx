@@ -11,6 +11,7 @@ import { NavLink, useSearchParams, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getLogin } from 'redux/auth/auth-selectors';
 import {
+  clearTotalSearchProducts,
   clearSearchProducts,
   setCurrentProductsPage,
 } from 'redux/product/product-slice';
@@ -83,6 +84,7 @@ const Header = () => {
 
   const handleNavigateClick = () => {
     dispatch(clearSearchProducts());
+    dispatch(clearTotalSearchProducts());
     dispatch(setCurrentProductsPage(1));
   };
 

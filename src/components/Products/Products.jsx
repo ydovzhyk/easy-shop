@@ -96,7 +96,6 @@ const Products = () => {
     <section style={{ flexGrow: 1, position: 'relative' }}>
       <div className={s.container}>
         <TopNavProducts
-          products={products}
           category={category}
           subcategory={subcategory}
           query={searchQuery}

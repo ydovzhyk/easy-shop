@@ -91,6 +91,9 @@ const products = createSlice({
     clearSearchProducts: store => {
       store.productsByQuery = [];
     },
+    clearTotalSearchProducts: store => {
+      store.productsTotalByQuery = [];
+    },
     setCurrentProductsPage: (store, { payload }) => {
       store.currentProductsPage = payload;
     },
@@ -250,6 +253,7 @@ export const {
   resetFilterProduct,
   showFilterProduct,
   clearSearchProducts,
+  clearTotalSearchProducts,
   submitFilterForm,
   unSubmitFilterForm,
   setHeaderFormClick,
