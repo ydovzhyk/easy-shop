@@ -39,13 +39,6 @@ export const axiosGetUserProducts = async userData => {
   return data;
 };
 
-// Get products by Query
-// export const axiosGetProductsByQuery = async payloadData => {
-//   const { data } = await instance.get('/product/search/', {
-//     params: payloadData,
-//   });
-//   return data;
-// };
 export const axiosGetProductsByQuery = async payloadData => {
   const { data } = await instance.get(
     `/product/search?page=${payloadData.page}`,
