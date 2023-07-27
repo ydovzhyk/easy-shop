@@ -141,7 +141,7 @@ const BasketForm = ({ ownerId, ownerName, products }) => {
     };
     console.log('Відправка форми', dataForUpload);
     // await handleUpdateUserBasket(orderedProducts);
-    console.log('orderInCheckout', orderInCheckout);
+    // console.log('orderInCheckout', orderInCheckout);
     if (orderInCheckout.sellerId === ownerId) {
       console.log('order exist');
       await dispatch(deleteOrderById(orderInCheckout._id));
