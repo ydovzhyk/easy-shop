@@ -132,3 +132,41 @@
     box-shadow: var(--hover-box-shadow);
   }
 }
+
+.selectButton {
+  position: relative;
+
+  padding: 8px;
+  font-size: 16px;
+  line-height: 13px;
+  letter-spacing: 0.04em;
+
+  color: var(--title-text-color);
+  background-color: transparent;
+
+  &::before {
+    content: '';
+    display: block;
+
+    position: absolute;
+    bottom: 1px;
+    left: 0;
+
+    width: 0;
+    height: 1px;
+
+    background-color: var(--btn-border-color);
+    transition: all var(--transition-duration) var(--timing-function);
+  }
+//   &:focus::before,
+  &:hover::before {
+    width: 100%;
+  }
+}
+
+.active {
+  position: relative;
+
+  text-shadow: var(--hover-text-shadow);
+  color: var(--hover-active-color);
+}
