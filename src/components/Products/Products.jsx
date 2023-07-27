@@ -11,6 +11,7 @@ import {
   getFilterForm,
   getCurrentProductsPage,
   getHeaderFormErrors,
+  getProductsByQueryPages,
 } from 'redux/product/product-selectors';
 import {
   resetHeaderForm,
@@ -31,6 +32,7 @@ const Products = () => {
   const [filterSelected, setFilterSelected] = useState('');
   const currentPage = useSelector(getCurrentProductsPage);
   const hasHeaderFormErrors = useSelector(getHeaderFormErrors);
+  const totalPages = useSelector(getProductsByQueryPages);
 
   const { category, subcategory } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -182,7 +184,7 @@ const Products = () => {
               )}
             </ul>
             <Pagination
-              totalPages={4}
+              totalPages={totalPages}
               currentPage={currentPage}
               onPageChange={handlePageChange}
             />
