@@ -174,7 +174,7 @@ const ProductCard = () => {
   const discountedPrice = sale ? (price * (100 - sale)) / 100 : price;
   // for BuyNow
   const handleBuyNowButtonClick = async event => {
-    await setProductToBasket(event);
+    // await setProductToBasket(event);
     if (!isLogin) {
       navigate('/login');
       return;
@@ -188,6 +188,7 @@ const ProductCard = () => {
       return;
     }
     if (userProductBasket.length >= 1) {
+      await setProductToBasket(event);
       navigate('/basket');
       return;
     }
@@ -210,9 +211,10 @@ const ProductCard = () => {
     const newOrder = await dispatch(addOrder(dataForUpload));
 
     if (newOrder.payload.newOrderId) {
-      console.log('productId', { productId: product._id });
       await dispatch(updateUserBasket({ productId: _id }));
-      navigate('/checkout');
+      navigate('/checkout', {
+        state: { orderId: newOrder.payload.newOrderId },
+      });
     }
   };
 

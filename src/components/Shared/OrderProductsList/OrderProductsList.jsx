@@ -5,7 +5,7 @@ import s from './OrderProductsList.module.scss';
 const OrderProductsList = ({ productsForOrder, products }) => {
   return (
     <ul>
-      {productsForOrder.map(
+      {productsForOrder && productsForOrder.map(
         ({ _id, nameProduct, mainPhotoUrl, brendName, price, size, sale }) => {
           const sizesForProduct =
             products.find(item => item._id === _id)?.size || size;

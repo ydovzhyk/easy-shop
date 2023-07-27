@@ -67,17 +67,17 @@ const BasketForm = ({ ownerId, ownerName, products }) => {
     }
   };
 
-  const handleUpdateUserBasket = async (products) => {
-    for (const product of products) {
-      // await console.log('product._id:', product._id, 'product.size:', product.size);
-      await dispatch(
-        updateUserBasket({
-          productId: product._id,
-          selectedSizes: product.size,
-        })
-      );
-    }
-  };
+  // const handleUpdateUserBasket = async (products) => {
+  //   for (const product of products) {
+  //     // await console.log('product._id:', product._id, 'product.size:', product.size);
+  //     await dispatch(
+  //       updateUserBasket({
+  //         productId: product._id,
+  //         selectedSizes: product.size,
+  //       })
+  //     );
+  //   }
+  // };
 
   const handleDecrement = (productId, sizeId) => {
   setOrderedProducts(prevOrderedProducts =>
@@ -140,7 +140,8 @@ const BasketForm = ({ ownerId, ownerName, products }) => {
 
     };
     console.log('Відправка форми', dataForUpload);
-    await handleUpdateUserBasket(orderedProducts);
+    // await handleUpdateUserBasket(orderedProducts);
+    // console.log('orderInCheckout', orderInCheckout);
     if (orderInCheckout.sellerId === ownerId) {
       console.log('order exist');
       await dispatch(deleteOrderById(orderInCheckout._id));
@@ -149,10 +150,11 @@ const BasketForm = ({ ownerId, ownerName, products }) => {
     console.log('newOrder', newOrder);
     if (newOrder.payload.newOrderId) {
       for (const product of orderedProducts) {
-        console.log('productId', { productId: product._id });
         await dispatch(updateUserBasket({ productId: product._id }));
       }
-      navigate('/checkout')
+      navigate('/checkout', {
+        state: { orderId: newOrder.payload.newOrderId },
+      });
     };
   };
 
