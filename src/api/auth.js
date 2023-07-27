@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const REACT_APP_API_URL = 'http://localhost:4000';
-// const REACT_APP_API_URL = 'https://easy-shop-backend.herokuapp.com/';
+// const REACT_APP_API_URL = 'http://localhost:4000';
+const REACT_APP_API_URL = 'https://easy-shop-backend.herokuapp.com/';
 
 export const instance = axios.create({
   baseURL: REACT_APP_API_URL,
