@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectOrderInCheckout, getOrderMessage } from 'redux/order/order-selectors';
-import { updateOrder } from 'redux/order/order-operations';
+import { selectOrderInCheckout, getOrderMessage, selectOrderById, selectProductsOrderInCheckout, selectProductsOrderById } from 'redux/order/order-selectors';
+import { getOrderById, updateOrder } from 'redux/order/order-operations';
 
 import { useForm, Controller } from 'react-hook-form';
 import Container from 'components/Shared/Container';
@@ -19,7 +19,22 @@ import s from './Checkout.module.scss';
 const Checkout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const orderId = location.state?.orderId ?? null;
+
+  console.log(location.state);
+  console.log(orderId);
+  useEffect(() => {
+    console.log(!orderId);
+    if (!orderId) {
+      return
+    }
+    dispatch(getOrderById(orderId));
+  }, [dispatch, orderId]);
   const orderInCheckout = useSelector(selectOrderInCheckout);
+  const productsForOrder = useSelector(selectProductsOrderInCheckout);
+  const orderById = useSelector(selectOrderById);
+  const productsForOrderById = useSelector(selectProductsOrderById);
   const message = useSelector(getOrderMessage);
 
   const [isMessage, setIsMessage] = useState('');
@@ -34,23 +49,34 @@ const Checkout = () => {
   const resetMessage = () => {
     setIsMessage('');
   };
-  console.log('orderInCheckout', orderInCheckout);
+  console.log('orderInCheckout', orderInCheckout, productsForOrder);
+  console.log('orderById', orderById, productsForOrderById);
+  
   const {
-    client: {
-      customerSecondName,
-      customerFirstName,
-      customerSurName,
-      customerTel,
-      customerId,
-    },
+    client,
+    // client: {
+    //   customerSecondName,
+    //   customerFirstName,
+    //   customerSurName,
+    //   customerTel,
+    //   customerId,
+    // },
     orderSum,
     sellerName,
     _id,
     products,
     orderNumber,
-  } = orderInCheckout.order;
-  
-  const productsForOrder = orderInCheckout.orderProductInfo;
+  } = orderInCheckout || {};
+
+  const {
+    customerSecondName,
+    customerFirstName,
+    customerSurName,
+    customerTel,
+    customerId,
+  } = client || {};
+
+  // const productsForOrder = orderInCheckout.orderProductInfo || [];
 
   const {
     control,
@@ -112,10 +138,12 @@ const Checkout = () => {
                 textClass="title"
                 text={`Сума замовлення: ${orderSum} грн.`}
               />
-              <OrderProductsList
-                productsForOrder={productsForOrder}
-                products={products}
-              />
+              {productsForOrder && products && (
+                <OrderProductsList
+                  productsForOrder={productsForOrder}
+                  products={products}
+                />
+              )}
 
               <div className={s.formField}>
                 <Text textClass="title" text="Спосіб доставки" />
