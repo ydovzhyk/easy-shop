@@ -28,7 +28,12 @@ const Dialogue = ({ productInfo }) => {
   const user = useSelector(getUser);
   const isUserLogin = useSelector(getLogin);
   const [myQuestion, setMyQuestion] = useState('');
+  const [isNewMassege, setIsNewMassege] = useState(null);
   const dialogues = useSelector(getDialogueStore);
+
+  useEffect(() => {
+    setIsNewMassege(user.newMessage ? user.newMessage : 0);
+  }, [user.newMessage]);
 
   useEffect(() => {
     if (!productId || !isUserLogin) {
@@ -47,7 +52,7 @@ const Dialogue = ({ productInfo }) => {
     }
     dispatch(clearDialogue());
     dispatch(getDialogue({ dialogueId: selectedDialogueId }));
-  }, [dispatch, selectedDialogueId]);
+  }, [dispatch, selectedDialogueId, isNewMassege]);
 
   useEffect(() => {
     if (!dialogues || dialogues.length === 0) {
@@ -74,7 +79,7 @@ const Dialogue = ({ productInfo }) => {
         const timer = setTimeout(deleteNewMessageCallback, 5000);
         return () => {
           clearTimeout(timer);
-          // deleteNewMessageCallback();
+          deleteNewMessageCallback();
         };
       }
     }

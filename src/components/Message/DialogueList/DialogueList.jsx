@@ -25,9 +25,10 @@ const DialogueList = ({ selectedDialogue, setSelectedDialogue }) => {
   const [isMessage, setIsMessage] = useState('');
   const [dialogueId, setDialogueId] = useState(null);
   const [questionWindow, setQuestionWindow] = useState(false);
+  const user = useSelector(getUser);
+  const [isNewMassege, setIsNewMassege] = useState(null);
   const dialoguesArray = useSelector(getDialoguesArrayStore);
   const message = useSelector(getDialogueMessage);
-  const user = useSelector(getUser);
 
   const onActive = async data => {
     if (data) {
@@ -38,8 +39,12 @@ const DialogueList = ({ selectedDialogue, setSelectedDialogue }) => {
   };
 
   useEffect(() => {
+    setIsNewMassege(user.newMessage ? user.newMessage : 0);
+  }, [user.newMessage]);
+
+  useEffect(() => {
     dispatch(getAllDialoguesData({ statusDialogue }));
-  }, [dispatch, statusDialogue]);
+  }, [dispatch, statusDialogue, isNewMassege]);
 
   useEffect(() => {
     if (message) {
