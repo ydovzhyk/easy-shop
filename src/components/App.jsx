@@ -168,7 +168,7 @@ export const App = () => {
       console.log('Зайшли отримати нове зєднання');
       let uri = null;
       if (process.env.NODE_ENV === 'production') {
-        uri = `ws://easy-shop-backend.herokuapp.com/?user=${userId}`;
+        uri = `wss://easy-shop-backend.herokuapp.com/?user=${userId}`;
       }
       if (process.env.NODE_ENV === 'development') {
         uri = `ws://localhost:5000/?user=${userId}`;
