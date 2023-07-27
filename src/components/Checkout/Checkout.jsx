@@ -7,12 +7,13 @@ import { getOrderById, updateOrder } from 'redux/order/order-operations';
 import { useForm, Controller } from 'react-hook-form';
 import Container from 'components/Shared/Container';
 import Text from 'components/Shared/Text/Text';
-import TextField from 'components/Shared/TextField';
 import { field } from 'components/Shared/TextField/fields';
 import SelectField from 'components/Shared/SelectField/SelectField';
 import Button from 'components/Shared/Button/Button';
 import OrderProductsList from 'components/Shared/OrderProductsList/OrderProductsList';
+import FormField from './FormField';
 import s from './Checkout.module.scss';
+
 
 const Checkout = () => {
   const dispatch = useDispatch();
@@ -29,11 +30,10 @@ const Checkout = () => {
 
   const orderInCheckout = useSelector(selectOrderById);
   const productsForOrder = useSelector(selectProductsOrderById);
+  // console.log('orderInCheckout', orderInCheckout);
+  // console.log('productsForOrder', productsForOrder);
 
   const [deliveryService, setDeliveryService] = useState('');
-
-  console.log('orderInCheckout', orderInCheckout);
-  console.log('productsForOrder', productsForOrder);
   
   const {
     client: {
@@ -141,157 +141,54 @@ const Checkout = () => {
                     />
                   )}
                 />
-
-                <Text text={'Введіть місто*'} textClass="productHeadings" />
-                <Controller
-                  control={control}
-                  name="city"
-                  rules={{
-                    required: true,
-                  }}
-                  render={({ field: { onChange, value } }) => (
-                    <TextField
-                      className="addOrder"
-                      value={value}
-                      control={control}
-                      handleChange={onChange}
-                      {...field.city}
-                      required={true}
-                      {...register('city', {
-                        required: "Обов'язково до заповнення",
-                      })}
-                    />
-                  )}
-                />
-                <Text text={labelName} textClass="productHeadings" />
-                <Controller
-                  control={control}
-                  name="department"
-                  rules={{
-                    required: true,
-                  }}
-                  render={({ field: { onChange, value } }) => (
-                    <TextField
-                      className="addOrder"
-                      value={value}
-                      control={control}
-                      handleChange={onChange}
-                      {...field.deliveryDepartment}
-                      required={true}
-                      {...register('department', {
-                        required: "Обов'язково до заповнення",
-                      })}
-                    />
-                  )}
-                />
               </div>
+              <FormField
+                labelText={labelName}
+                controllerName="city"
+                fieldName="city"
+                control={control}
+                register={register}
+              />
+              <FormField
+                labelText="Введіть місто*"
+                controllerName="department"
+                fieldName="deliveryDepartment"
+                control={control}
+                register={register}
+              />
               <div>
                 <Text textClass="title" text="Ваші контактні дані" />
-                <div className={s.formField}>
-                  <Text text={'Прізвище*'} textClass="productHeadings" />
-                  <Controller
-                    control={control}
-                    name="secondName"
-                    rules={{
-                      required: true,
-                    }}
-                    render={({ field: { onChange, value } }) => (
-                      <TextField
-                        className="addOrder"
-                        value={value}
-                        control={control}
-                        handleChange={onChange}
-                        {...field.secondName}
-                        required={true}
-                        {...register('secondName', {
-                          required: "Обов'язково до заповнення",
-                        })}
-                      />
-                    )}
-                  />
-                </div>
-                <div className={s.formField}>
-                  <Text text={"Ім'я*"} textClass="productHeadings" />
-                  <Controller
-                    control={control}
-                    name="firstName"
-                    rules={{
-                      required: true,
-                    }}
-                    render={({ field: { onChange, value } }) => (
-                      <TextField
-                        className="addOrder"
-                        value={value}
-                        control={control}
-                        handleChange={onChange}
-                        {...field.firstName}
-                        required={true}
-                        {...register('firstName', {
-                          required: "Обов'язково до заповнення",
-                        })}
-                      />
-                    )}
-                  />
-                </div>
+                <FormField
+                  labelText="Прізвище*"
+                  controllerName="secondName"
+                  fieldName="secondName"
+                  control={control}
+                  register={register}
+                />
 
-                <div className={s.formField}>
-                  <Text text={'По батькові*'} textClass="productHeadings" />
-                  <Controller
-                    control={control}
-                    name="surName"
-                    rules={{
-                      required: true,
-                    }}
-                    render={({ field: { onChange, value } }) => (
-                      <TextField
-                        className="addOrder"
-                        value={value}
-                        control={control}
-                        handleChange={onChange}
-                        {...field.surName}
-                        required={true}
-                        {...register('surName', {
-                          required: "Обов'язково до заповнення",
-                        })}
-                      />
-                    )}
-                  />
-                </div>
+                <FormField
+                  labelText="Ім'я*"
+                  controllerName="firstName"
+                  fieldName="firstName"
+                  control={control}
+                  register={register}
+                />
 
-                <div className={s.formField}>
-                  <Text
-                    text={'Телефон +380*'}
-                    textClass="productHeadings"
-                    type="tel"
-                  />
-                  <Controller
-                    control={control}
-                    name="tel"
-                    rules={{
-                      required: true,
-                    }}
-                    render={({ field: { onChange, value } }) => (
-                      <TextField
-                        className="addOrder"
-                        value={value}
-                        control={control}
-                        handleChange={onChange}
-                        {...field.tel}
-                        required={true}
-                        {...register('tel', {
-                          required: "Обов'язково до заповнення",
-                          pattern: {
-                            value: /^\+?3?8?[0-9]{10}/,
-                            message: 'Приклад номеру : +380993453451',
-                          },
-                        })}
-                      />
-                    )}
-                  />
-                  {/* {errors.tel && (
-                    <p className={s.inputError}>{errors.tel.message}</p>
-                  )} */}
-                </div>
+                <FormField
+                  labelText="По батькові*"
+                  controllerName="surName"
+                  fieldName="surName"
+                  control={control}
+                  register={register}
+                />
+
+                <FormField
+                  labelText="Телефон +380*"
+                  controllerName="tel"
+                  fieldName="tel"
+                  control={control}
+                  register={register}
+                />
               </div>
             </div>
             <div className={s.sumWrapper}>
