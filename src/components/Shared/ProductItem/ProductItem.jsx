@@ -16,6 +16,7 @@ import s from './ProductItem.module.scss';
 
 const ProductItem = ({
   _id,
+  userId,
   mainPhotoUrl,
   price,
   likes,
@@ -23,6 +24,7 @@ const ProductItem = ({
   isLiked,
   handleLike,
   nameProduct,
+  owner,
   description,
   size,
   section,
@@ -37,16 +39,21 @@ const ProductItem = ({
   const isUserLogin = useSelector(getLogin);
   const [errorMessage, setErrorMessage] = useState(null);
   const [isErrorDisplayed, setIsErrorDisplayed] = useState(false);
-  // console.log('vip', vip);
+  //  console.log('isLiked', isLiked);
+  // console.log('owner', owner);
+  // console.log('userId', userId);
 
   // for sale
   const discountedPrice = (price * (100 - sale)) / 100;
-
   // for likes
   const handleClick = async () => {
     if (!isUserLogin) {
       setIsErrorDisplayed(true);
       setErrorMessage('Спочатку зареєструйтеся!');
+      return;
+    }
+
+    if (owner === userId) {
       return;
     }
 
@@ -111,11 +118,12 @@ const ProductItem = ({
           </div>
         )}
         {vip === 'Так' && sale && (
-          <div
-            className={`${s.saleLabel}  ${
-              vip === 'Так' ? '' : s.saleLabelNoVip
-            }`}
-          >
+          <div className={s.saleLabel}>
+            <span>{sale}%</span>
+          </div>
+        )}
+        {vip !== 'Так' && sale && (
+          <div className={`${s.saleLabel} ${s.saleLabelNoVip}`}>
             <span>{sale}%</span>
           </div>
         )}

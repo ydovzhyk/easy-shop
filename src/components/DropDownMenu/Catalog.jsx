@@ -17,9 +17,9 @@ export const Catalog = () => {
   return (
     <div
       className={s.nav}
-      onBlur={e => {
-        if (!e.relatedTarget) setActiveMenu(false);
-      }}
+      // onBlur={e => {
+      //   if (!e.relatedTarget) setActiveMenu(false);
+      // }}
     >
       <div
         className={getClassName({

@@ -92,6 +92,7 @@ const VipProducts = () => {
             <ProductItem
               key={item._id}
               _id={item._id}
+              userId={userId}
               mainPhotoUrl={item.mainPhotoUrl}
               price={item.price}
               likes={item.userLikes.length ? item.userLikes.length : 0}
@@ -99,6 +100,7 @@ const VipProducts = () => {
               isLiked={isLiked}
               handleLike={handleLike}
               nameProduct={item.nameProduct}
+              owner={item.owner}
               description={item.description}
               size={item.size}
               section={item.section}
