@@ -141,6 +141,7 @@ const BasketForm = ({ ownerId, ownerName, products }) => {
     };
     console.log('Відправка форми', dataForUpload);
     // await handleUpdateUserBasket(orderedProducts);
+    console.log('orderInCheckout', orderInCheckout);
     if (orderInCheckout.sellerId === ownerId) {
       console.log('order exist');
       await dispatch(deleteOrderById(orderInCheckout._id));
@@ -149,10 +150,11 @@ const BasketForm = ({ ownerId, ownerName, products }) => {
     console.log('newOrder', newOrder);
     if (newOrder.payload.newOrderId) {
       for (const product of orderedProducts) {
-        console.log('productId', { productId: product._id });
         await dispatch(updateUserBasket({ productId: product._id }));
       }
-      navigate('/checkout')
+      navigate('/checkout', {
+        state: { orderId: newOrder.payload.newOrderId },
+      });
     };
   };
 

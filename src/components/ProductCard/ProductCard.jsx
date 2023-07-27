@@ -188,6 +188,7 @@ const ProductCard = () => {
       return;
     }
     if (userProductBasket.length >= 1) {
+      await setProductToBasket(event);
       navigate('/basket');
       return;
     }
@@ -210,9 +211,10 @@ const ProductCard = () => {
     const newOrder = await dispatch(addOrder(dataForUpload));
 
     if (newOrder.payload.newOrderId) {
-      console.log('productId', { productId: _id });
       await dispatch(updateUserBasket({ productId: _id }));
-      navigate('/checkout');
+      navigate('/checkout', {
+        state: { orderId: newOrder.payload.newOrderId },
+      });
     }
   };
 

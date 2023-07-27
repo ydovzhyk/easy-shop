@@ -55,6 +55,7 @@ const orders = createSlice({
       store.loading = false;
       store.message = payload.message;
       store.orderInCheckout = payload.newOrder;
+      store.orderById = payload.newOrder;
     },
     [addOrder.rejected]: (store, { payload }) => {
       store.loading = false;
@@ -84,7 +85,7 @@ const orders = createSlice({
     },
     [getOrderById.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload;
+      store.error = payload.data.message;
     },
     //getAllOrders
     [getAllOrders.pending]: store => {

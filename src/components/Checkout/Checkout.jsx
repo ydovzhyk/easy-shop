@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectOrderInCheckout, getOrderMessage, selectOrderById, selectProductsOrderInCheckout, selectProductsOrderById } from 'redux/order/order-selectors';
+import { selectOrderById, selectProductsOrderById } from 'redux/order/order-selectors';
 import { getOrderById, updateOrder } from 'redux/order/order-operations';
 
 import { useForm, Controller } from 'react-hook-form';
@@ -11,10 +11,8 @@ import TextField from 'components/Shared/TextField';
 import { field } from 'components/Shared/TextField/fields';
 import SelectField from 'components/Shared/SelectField/SelectField';
 import Button from 'components/Shared/Button/Button';
-import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
 import OrderProductsList from 'components/Shared/OrderProductsList/OrderProductsList';
 import s from './Checkout.module.scss';
-
 
 const Checkout = () => {
   const dispatch = useDispatch();
@@ -22,61 +20,35 @@ const Checkout = () => {
   const location = useLocation();
   const orderId = location.state?.orderId ?? null;
 
-  console.log(location.state);
-  console.log(orderId);
   useEffect(() => {
-    console.log(!orderId);
     if (!orderId) {
       return
     }
     dispatch(getOrderById(orderId));
   }, [dispatch, orderId]);
-  const orderInCheckout = useSelector(selectOrderInCheckout);
-  const productsForOrder = useSelector(selectProductsOrderInCheckout);
-  const orderById = useSelector(selectOrderById);
-  const productsForOrderById = useSelector(selectProductsOrderById);
-  const message = useSelector(getOrderMessage);
 
-  const [isMessage, setIsMessage] = useState('');
+  const orderInCheckout = useSelector(selectOrderById);
+  const productsForOrder = useSelector(selectProductsOrderById);
+
   const [deliveryService, setDeliveryService] = useState('');
 
-  useEffect(() => {
-    if (message !== 'Order added successfully') {
-      setIsMessage(message);
-    }
-  }, [message]);
-
-  const resetMessage = () => {
-    setIsMessage('');
-  };
-  console.log('orderInCheckout', orderInCheckout, productsForOrder);
-  console.log('orderById', orderById, productsForOrderById);
+  console.log('orderInCheckout', orderInCheckout);
+  console.log('productsForOrder', productsForOrder);
   
   const {
-    client,
-    // client: {
-    //   customerSecondName,
-    //   customerFirstName,
-    //   customerSurName,
-    //   customerTel,
-    //   customerId,
-    // },
+    client: {
+      customerSecondName,
+      customerFirstName,
+      customerSurName,
+      customerTel,
+      customerId,
+    },
     orderSum,
     sellerName,
     _id,
     products,
     orderNumber,
-  } = orderInCheckout || {};
-
-  const {
-    customerSecondName,
-    customerFirstName,
-    customerSurName,
-    customerTel,
-    customerId,
-  } = client || {};
-
-  // const productsForOrder = orderInCheckout.orderProductInfo || [];
+  } = orderInCheckout;
 
   const {
     control,
@@ -342,9 +314,6 @@ const Checkout = () => {
             </div>
           </form>
         </div>
-        {isMessage && (
-          <MessageWindow text={`${message}`} onDismiss={resetMessage} />
-        )}
       </section>
     </Container>
   );
