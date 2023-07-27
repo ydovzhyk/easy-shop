@@ -1,50 +1,10 @@
 @use '../../styles/_mixins.scss';
-
-.catalog {
-  cursor: pointer;
-  display: flex;
-  transition: 0.3s;
-
-  :hover {
-    text-shadow: var(--hover-text-shadow);
-    fill: var(--icons-color);
-  }
-}
-
-.active {
-  :focus {
-    text-shadow: var(--hover-text-shadow);
-    fill: var(--icons-color);
-  }
-}
-
-.nav {
-  display: flex;
-  margin-right: 15px;
-  position: relative;
-}
-
-.activeMenu {
-  position: absolute;
-
-  height: 25px;
-  width: 205px;
-  background-color: var(--main-color);
-}
-
 .button {
   display: flex;
   background-color: transparent;
   align-items: center;
   color: var(--second-text-color);
 }
-
-.svg {
-  margin-right: 15px;
-  width: 20px;
-  height: 20px;
-}
-
 .dropdownMenu {
   position: absolute;
   margin-top: 50px;
@@ -65,8 +25,8 @@
   top: 0;
   margin-left: 278px;
   position: absolute;
-  top: 0px;
-  // min-height: 100%;
+  top: 0;
+  min-height: 100%;
   width: 280px;
   background-color: var(--main-color);
   :hover {
@@ -91,6 +51,33 @@
 
 .span {
   padding-left: 10px;
+}
+.nav {
+  display: flex;
+  margin-right: 15px;
+  position: relative;
+}
+.activeMenu {
+  position: absolute;
+
+  height: 250px;
+  width: 205px;
+  background-color: var(--main-color);
+}
+.svg {
+  margin-right: 15px;
+  width: 20px;
+  height: 20px;
+}
+.catalog {
+  cursor: pointer;
+  display: flex;
+  transition: 0.3s;
+
+  :hover {
+    text-shadow: var(--hover-text-shadow);
+    fill: var(--icons-color);
+  }
 }
 
 .item {
