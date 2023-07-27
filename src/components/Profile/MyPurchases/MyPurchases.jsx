@@ -84,6 +84,7 @@ const MyShoppings = () => {
                       <NavLink
                         to={isLogin ? '/checkout' : '/login'}
                         className={s.btnLight}
+                        state={{ orderId: _id }}
                       >
                         Оформити замовлення
                       </NavLink>
