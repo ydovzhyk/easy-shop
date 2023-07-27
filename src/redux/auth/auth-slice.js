@@ -69,6 +69,9 @@ const auth = createSlice({
     getUserWithDialogue: (store, action) => {
       store.user = action.payload;
     },
+    getUpdatedUserNewMessage: (store, action) => {
+      store.user = action.payload;
+    },
   },
 
   extraReducers: {
@@ -220,4 +223,5 @@ export const {
   clearUserError,
   clearUserMessage,
   getUserWithDialogue,
+  getUpdatedUserNewMessage,
 } = auth.actions;

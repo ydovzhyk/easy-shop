@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
-import { useParams, Link, NavLink, useNavigate } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -10,12 +10,14 @@ import { getProductById } from 'redux/product/product-operations';
 import { clearOtherUser } from 'redux/otherUser/otherUser.slice';
 import { clearProductById } from 'redux/product/product-slice';
 import { updateUserBasket, updateUserLikes } from 'redux/auth/auth-opetations';
+import { addOrder } from 'redux/order/order-operations';
 import {
   getID,
   getLogin,
   selectUserBasket,
   getUser,
 } from 'redux/auth/auth-selectors';
+import { selectOtherUser } from 'redux/otherUser/otherUser-selectors';
 
 import SellerInfo from './SellerInfo/SellerInfo';
 import Dialogue from 'components/Dialogue/Dialogue';
@@ -39,6 +41,7 @@ const ProductCard = () => {
   const product = useSelector(selectProductById);
   const userId = useSelector(getID);
   const userProductBasket = useSelector(selectUserBasket);
+  const sellerInfo = useSelector(selectOtherUser);
   const chattingRef = useRef();
   const { category, subcategory, id } = useParams();
   const translatedParamsObj = translateParamsToUA(category, subcategory);
@@ -57,6 +60,7 @@ const ProductCard = () => {
     size,
     vip,
     _id,
+    sale,
   } = product;
 
   const isProductInBasket = (userProductBasket || [])
@@ -166,6 +170,52 @@ const ProductCard = () => {
     navigate('/message');
   };
 
+  // for sale
+  const discountedPrice = sale ? (price * (100 - sale)) / 100 : price;
+  // for BuyNow
+  const handleBuyNowButtonClick = async event => {
+    await setProductToBasket(event);
+    if (!isLogin) {
+      navigate('/login');
+      return;
+    }
+    const selectedProductSizes =
+      size.length === 1 ? transformedSizes : selectedSizes;
+    
+    if (selectedProductSizes.length === 0 && !isProductInBasket) {
+      setIsMessage(true);
+      event.preventDefault();
+      return;
+    }
+    if (userProductBasket.length >= 1) {
+      navigate('/basket');
+      return;
+    }
+    const dataForUpload = {
+      ownerId: owner,
+      ownerName: sellerInfo.username,
+      products: [
+        {
+          _id: _id,
+          quantity: selectedProductSizes.length,
+          size: selectedProductSizes,
+          price: discountedPrice,
+          sum: selectedProductSizes.length * discountedPrice,
+        },
+      ],
+      totalSum: selectedProductSizes.length * discountedPrice,
+    };
+    console.log('Відправка форми', dataForUpload);
+
+    const newOrder = await dispatch(addOrder(dataForUpload));
+
+    if (newOrder.payload.newOrderId) {
+      console.log('productId', { productId: product._id });
+      await dispatch(updateUserBasket({ productId: _id }));
+      navigate('/checkout');
+    }
+  };
+
   return (
     <section className={s.productCard}>
       <Container>
@@ -185,11 +235,18 @@ const ProductCard = () => {
               <div>
                 <div className={s.productMainInfo}>
                   <div className={s.fotoContainer}>
-                    {vip === 'Так' && (
-                      <div className={s.vipLabel}>
-                        <span>Vip</span>
-                      </div>
-                    )}
+                    <div className={s.labelsContainer}>
+                      {vip === 'Так' && (
+                        <div className={s.vipLabel}>
+                          <span>Vip</span>
+                        </div>
+                      )}
+                      {sale && (
+                        <div className={s.vipLabel}>
+                          <span>{sale}%</span>
+                        </div>
+                      )}
+                    </div>
 
                     <PhotoCollection
                       mainPhotoUrl={mainPhotoUrl}
@@ -202,11 +259,18 @@ const ProductCard = () => {
                   <div className={s.productInfoWrapper}>
                     <p className={s.availability}>В наявності</p>
                     <Text text={nameProduct} textClass="productName" />
-                    <div className={s.productPrice}>
-                      <span className={s.productOldPrice}>379 грн</span>
-                      <span className={s.productPriceDiscount}>-8%</span>
-                      <Text text={price} textClass="title" />
-                    </div>
+                    {sale ? (
+                      <>
+                        <span className={s.productOldPrice}>{price}грн</span>
+                        <span className={s.productPriceDiscount}>-{sale}%</span>
+                        <Text
+                          text={`${discountedPrice} грн`}
+                          textClass="title"
+                        />
+                      </>
+                    ) : (
+                      <Text text={`${price} грн`} textClass="title" />
+                    )}
                     {size && (
                       <SizeSelection
                         sizeOption={size}
@@ -214,41 +278,47 @@ const ProductCard = () => {
                         onSelectedSizesChange={handleSelectedSizesChange}
                       />
                     )}
-                    <div className={s.buyBtns}>
-                      <NavLink to={isLogin ? '/checkout' : '/login'}>
+                    {!isUserProduct && (
+                      <div className={s.buyBtns}>
                         <Button
                           type="button"
                           btnClass="btnLight"
                           text="Купити зараз"
+                          handleClick={handleBuyNowButtonClick}
+                        />
+
+                        <Button
+                          type="button"
+                          btnClass={!isProductInBasket ? 'btnLight' : 'btnDark'}
+                          text={
+                            isProductInBasket
+                              ? 'Товар у кошику'
+                              : 'Додати до кошика'
+                          }
                           handleClick={setProductToBasket}
                         />
-                      </NavLink>
-
-                      <Button
-                        type="button"
-                        btnClass={!isProductInBasket ? 'btnLight' : 'btnDark'}
-                        text={
-                          isProductInBasket
-                            ? 'Товар у кошику'
-                            : 'Додати до кошика'
-                        }
-                        handleClick={setProductToBasket}
-                      />
-                    </div>
-                    <div className={s.additionalOptsContainer}>
-                      <div className={s.additionalOpts} onClick={handleClick}>
-                        <FiHeart
-                          className={`${isProductInLike ? s.active : s.liked}`}
-                        />
-                        <Text
-                          text={
-                            isProductInLike
-                              ? 'Товар обраний'
-                              : 'Додати в обрані'
-                          }
-                          textClass="productText"
-                        />
                       </div>
+                    )}
+
+                    <div className={s.additionalOptsContainer}>
+                      {!isUserProduct && (
+                        <div className={s.additionalOpts} onClick={handleClick}>
+                          <FiHeart
+                            className={`${
+                              isProductInLike ? s.active : s.liked
+                            }`}
+                          />
+                          <Text
+                            text={
+                              isProductInLike
+                                ? 'Товар обраний'
+                                : 'Додати в обрані'
+                            }
+                            textClass="productText"
+                          />
+                        </div>
+                      )}
+
                       {!isUserProduct && (
                         <div className={s.additionalOpts}>
                           <BiMessageDetail className={s.favoriteIcon} />

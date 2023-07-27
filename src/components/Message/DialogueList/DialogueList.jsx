@@ -25,9 +25,10 @@ const DialogueList = ({ selectedDialogue, setSelectedDialogue }) => {
   const [isMessage, setIsMessage] = useState('');
   const [dialogueId, setDialogueId] = useState(null);
   const [questionWindow, setQuestionWindow] = useState(false);
+  const user = useSelector(getUser);
+  const [isNewMassege, setIsNewMassege] = useState(null);
   const dialoguesArray = useSelector(getDialoguesArrayStore);
   const message = useSelector(getDialogueMessage);
-  const user = useSelector(getUser);
 
   const onActive = async data => {
     if (data) {
@@ -38,8 +39,12 @@ const DialogueList = ({ selectedDialogue, setSelectedDialogue }) => {
   };
 
   useEffect(() => {
+    setIsNewMassege(user.newMessage ? user.newMessage : 0);
+  }, [user.newMessage]);
+
+  useEffect(() => {
     dispatch(getAllDialoguesData({ statusDialogue }));
-  }, [dispatch, statusDialogue]);
+  }, [dispatch, statusDialogue, isNewMassege]);
 
   useEffect(() => {
     if (message) {
@@ -89,6 +94,18 @@ const DialogueList = ({ selectedDialogue, setSelectedDialogue }) => {
       return otherUserName;
     } else {
       return myName;
+    }
+  };
+
+  const getNumberNewMessage = dialogue => {
+    const newMessageArray = dialogue.newMessages;
+    const hasMatchingObject = newMessageArray.filter(obj => {
+      return obj.userReceiver === user._id;
+    });
+    if (hasMatchingObject.length === 0) {
+      return 0;
+    } else {
+      return hasMatchingObject.length;
     }
   };
 
@@ -176,6 +193,12 @@ const DialogueList = ({ selectedDialogue, setSelectedDialogue }) => {
                     </div>
                   </div>
                   <div className={s.deleteBox}>
+                    <div className={s.numberNewMessage}>
+                      <Text
+                        text={getNumberNewMessage(dialogue)}
+                        textClass="after-title-message-title"
+                      />
+                    </div>
                     <RoundButton
                       icon={BsTrash}
                       handleClick={handleButtonTrashClick}
@@ -188,7 +211,10 @@ const DialogueList = ({ selectedDialogue, setSelectedDialogue }) => {
           </ul>
         )}
         {dialoguesArray.length === 0 && (
-          <Text text={'У вас не має діалогів'} textClass="after-title-bottom" />
+          <Text
+            text={'У вас не має діалогів'}
+            textClass="after-title-text-warning"
+          />
         )}
       </div>
       {questionWindow && (

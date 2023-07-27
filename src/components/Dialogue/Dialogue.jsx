@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { createDialogue } from 'redux/dialogue/dialogue-operations';
 import { getLogin, getUser, getUserAvatar } from 'redux/auth/auth-selectors';
 import { getDialogueStore } from 'redux/dialogue/dialogue-selectors';
 import { clearDialogue } from 'redux/dialogue/dialogue-slice';
-import { getDialogue } from 'redux/dialogue/dialogue-operations';
+import {
+  getDialogue,
+  deleteDialogueNewMessage,
+} from 'redux/dialogue/dialogue-operations';
 
 import { BiMessageDetail } from 'react-icons/bi';
 import Text from 'components/Shared/Text/Text';
@@ -15,6 +19,7 @@ import s from './Dialogue.module.scss';
 
 const Dialogue = ({ productInfo }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const productId = productInfo._id;
   const productOwner = productInfo.owner;
   const selectedDialogueId = productInfo.userDialogue;
@@ -23,10 +28,15 @@ const Dialogue = ({ productInfo }) => {
   const user = useSelector(getUser);
   const isUserLogin = useSelector(getLogin);
   const [myQuestion, setMyQuestion] = useState('');
+  const [isNewMassege, setIsNewMassege] = useState(null);
   const dialogues = useSelector(getDialogueStore);
 
   useEffect(() => {
-    if (!productId) {
+    setIsNewMassege(user.newMessage ? user.newMessage : 0);
+  }, [user.newMessage]);
+
+  useEffect(() => {
+    if (!productId || !isUserLogin) {
       return;
     }
     if (selectedDialogueId) {
@@ -34,7 +44,7 @@ const Dialogue = ({ productInfo }) => {
     }
     dispatch(clearDialogue());
     dispatch(getDialogue({ productId: productId }));
-  }, [dispatch, productId, selectedDialogueId]);
+  }, [dispatch, productId, selectedDialogueId, isUserLogin]);
 
   useEffect(() => {
     if (!selectedDialogueId) {
@@ -42,13 +52,47 @@ const Dialogue = ({ productInfo }) => {
     }
     dispatch(clearDialogue());
     dispatch(getDialogue({ dialogueId: selectedDialogueId }));
-  }, [dispatch, selectedDialogueId]);
+  }, [dispatch, selectedDialogueId, isNewMassege]);
+
+  useEffect(() => {
+    if (!dialogues || dialogues.length === 0) {
+      return;
+    } else {
+      const dialogueId = dialogues._id;
+      const newMessageArray = dialogues.newMessages;
+      const userId = user._id;
+      const isUserNewMessage = newMessageArray.filter(
+        messageObj => messageObj.userReceiver === userId
+      );
+      if (!isUserNewMessage || isUserNewMessage.length === 0) {
+        return;
+      } else {
+        const deleteNewMessageCallback = () => {
+          dispatch(
+            deleteDialogueNewMessage({
+              dialogueId: dialogueId,
+              arrayNewMessage: isUserNewMessage,
+            })
+          );
+        };
+
+        const timer = setTimeout(deleteNewMessageCallback, 5000);
+        return () => {
+          clearTimeout(timer);
+          deleteNewMessageCallback();
+        };
+      }
+    }
+  }, [dispatch, dialogues, user._id]);
 
   let dialogueArray = [];
+  let newMessageArray = [];
   if (dialogues.length === 0) {
     dialogueArray = [];
+    newMessageArray = [];
   } else {
     dialogueArray = dialogues.messageArray.slice().reverse();
+    newMessageArray = dialogues.newMessages;
   }
 
   const findAvatar = id => {
@@ -74,16 +118,40 @@ const Dialogue = ({ productInfo }) => {
     setMyQuestion(e.target.value);
   };
 
-  const handleButtonClick = async () => {
-    await dispatch(
-      createDialogue({
-        text: myQuestion,
-        productId: productId,
-        productOwner: productOwner,
-        dialogueId: dialogues._id,
-      })
+  const handleButtonClick = async isUserLogin => {
+    if (isUserLogin) {
+      await dispatch(
+        createDialogue({
+          text: myQuestion,
+          productId: productId,
+          productOwner: productOwner,
+          dialogueId: dialogues._id,
+        })
+      );
+      setMyQuestion('');
+    } else {
+      navigate('/login');
+      return;
+    }
+  };
+
+  const isMessageNew = (text, date) => {
+    if (!newMessageArray || newMessageArray.length === 0) {
+      return false;
+    }
+    const userId = user._id;
+    const isNewMessageArray = newMessageArray.filter(
+      messageObj =>
+        messageObj.userReceiver === userId &&
+        messageObj.message === text &&
+        messageObj.date === date
     );
-    setMyQuestion('');
+
+    if (isNewMessageArray.length === 0) {
+      return false;
+    } else {
+      return true;
+    }
   };
 
   return (
@@ -111,7 +179,11 @@ const Dialogue = ({ productInfo }) => {
                     <div className={s.dialogueMessage}>
                       <Text
                         text={dialogue.text}
-                        textClass="productTextDialogue"
+                        textClass={
+                          isMessageNew(dialogue.text, dialogue.date)
+                            ? 'productTextDialogueNewMessage'
+                            : 'productTextDialogue'
+                        }
                       />
                       <div className={s.textDate}>
                         <Text
@@ -126,7 +198,11 @@ const Dialogue = ({ productInfo }) => {
                     <div className={s.dialogueMessageRight}>
                       <Text
                         text={dialogue.text}
-                        textClass="productTextDialogue"
+                        textClass={
+                          isMessageNew(dialogue.text, dialogue.date)
+                            ? 'productTextDialogueNewMessage'
+                            : 'productTextDialogue'
+                        }
                       />
                       <div className={s.textDate}>
                         <Text
@@ -159,7 +235,7 @@ const Dialogue = ({ productInfo }) => {
           <Button
             text={isUserLogin ? 'Надіслати' : 'Авторизуйтеся'}
             btnClass="btnLight"
-            handleClick={handleButtonClick}
+            handleClick={() => handleButtonClick(isUserLogin)}
           />
 
           {!isUserLogin && (

@@ -8,8 +8,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   getLoadingProducts,
   getProductsByQuery,
-} from 'redux/product/product-selectors';
-import {
   getFilterForm,
   getCurrentProductsPage,
   getHeaderFormErrors,

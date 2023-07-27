@@ -30,7 +30,6 @@ const Favorites = () => {
     if (product) {
       return product.userLikes.includes(userId);
     }
-
     return false;
   };
 

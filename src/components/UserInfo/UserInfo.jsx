@@ -17,6 +17,11 @@ import {
   getUser,
   getUserAvatar,
 } from 'redux/auth/auth-selectors';
+import {
+  clearDialoguesArray,
+  clearDialogue,
+} from 'redux/dialogue/dialogue-slice';
+import { clearOtherUser } from 'redux/otherUser/otherUser.slice';
 import { logout } from 'redux/auth/auth-opetations';
 import cartIcon from '../../images/header/cart-icon.svg';
 import heartIcon from '../../images/header/heart-icon.svg';
@@ -55,6 +60,9 @@ const UserInfo = () => {
       refreshToken: null,
       sid: null,
     };
+    dispatch(clearDialogue());
+    dispatch(clearDialoguesArray());
+    dispatch(clearOtherUser());
     await localStorage.setItem('easy-shop.authData', JSON.stringify(authData));
   };
 

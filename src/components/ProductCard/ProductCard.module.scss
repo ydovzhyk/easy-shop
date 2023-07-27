@@ -43,19 +43,25 @@
   }
 }
 
-.vipLabel {
+.labelsContainer {
   position: absolute;
-  top: 16px;
-  left: 16px;
-  display: flex;
-  background: var(--btn-text-color);
-  min-width: 16px;
-  min-height: 16px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 18px;
-  padding: 4px 12px;
+    top: 16px;
+    left: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
+
+.vipLabel {
+    display: flex;
+    background: var(--btn-text-color);
+    min-width: 16px;
+    min-height: 16px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    padding: 4px 12px;
+}    
 
 .vipLabel > span {
   display: inline-block;
@@ -121,29 +127,15 @@
 }
 
 .buyBtns {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 24px;
-
-  @include mixins.mq(desktop) {
-    flex-direction: row;
-    gap: 24px;
-  }
-}
-
-.buyBtns a {
-  width: 100%;
-  @include mixins.mq(desktop) {
-    width: 200px;
-  }
-}
-
-.buyBtns button {
-  width: 100%;
-  @include mixins.mq(desktop) {
-    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 24px;
+    
+    @include mixins.mq(desktop) {
+      flex-direction: row;
+      gap: 24px;
   }
 }
 
@@ -158,6 +150,7 @@
   display: flex;
   gap: 8px;
   margin-bottom: 12px;
+  cursor: pointer;
 }
 
 .additionalOpts button {
@@ -220,11 +213,6 @@
 .liked {
   stroke: var(--icons-color);
   transition: all 0.3s ease-in-out;
-
-  // &:hover {
-  //   fill: var(--accent-color);
-  //   stroke: var(--icons-color);
-  // }
 }
 
 .active {

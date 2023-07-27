@@ -33,7 +33,8 @@ const HeaderForm = () => {
   const shouldHeaderFormReset = useSelector(getHeaderFormReset);
   const dispatch = useDispatch();
 
-  const isUserAtProductsSearchPage = pathname.includes('/products');
+  const isUserAtProductsSearchPage =
+    pathname.includes('/products') && pathname.split('/').length <= 4;
 
   const {
     control,

@@ -56,6 +56,15 @@
 .after-title-bottom {
   font-weight: 600;
   font-size: 14px;
+  text-align: center;
+  color: var(--second-text-color);
+}
+
+.after-title-text-warning {
+  margin-top: 140px;
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
   color: var(--second-text-color);
 }
 
@@ -185,6 +194,12 @@
   color: var(--text-color);
 }
 
+.productTextDialogueNewMessage {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--second-text-color);
+}
+
 .productTextDate {
   font-size: 12px;
   color: var(--text-color);
@@ -239,6 +254,14 @@
   @include mixins.mq(mobile) {
     font-size: 14px;
     bottom: -20px;
+  }
+}
+
+.errorMessageFilter {
+  color: red;
+  font-size: 11px;
+  @include mixins.mq(mobile) {
+    font-size: 14px;
   }
 }
 

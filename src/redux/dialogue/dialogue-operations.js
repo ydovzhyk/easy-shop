@@ -4,8 +4,12 @@ import {
   axiosGetDialogue,
   axiosGetDialoguesData,
   axiosDeleteDialogue,
+  axiosDeleteDialogueNewMessage,
 } from 'api/dialogue';
-import { getUserWithDialogue } from '../auth/auth-slice';
+import {
+  getUserWithDialogue,
+  getUpdatedUserNewMessage,
+} from '../auth/auth-slice';
 
 export const createDialogue = createAsyncThunk(
   'dialogue/create',
@@ -48,10 +52,26 @@ export const getAllDialoguesData = createAsyncThunk(
 );
 
 export const deleteDialogue = createAsyncThunk(
-  'dialogue/gelete',
+  'dialogue/delete',
   async (userData, { rejectWithValue, getState, dispatch }) => {
     try {
       const data = await axiosDeleteDialogue(userData);
+      return data;
+    } catch (error) {
+      const { data, status } = error.response;
+      return rejectWithValue({ data, status });
+    }
+  }
+);
+
+export const deleteDialogueNewMessage = createAsyncThunk(
+  'dialogue/deleteNewMessage',
+  async (userData, { rejectWithValue, getState, dispatch }) => {
+    try {
+      const data = await axiosDeleteDialogueNewMessage(userData);
+      dispatch(getUpdatedUserNewMessage(data.user));
+      const statusDialogue = true;
+      dispatch(getAllDialoguesData({ statusDialogue }));
       return data;
     } catch (error) {
       const { data, status } = error.response;

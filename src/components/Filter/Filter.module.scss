@@ -2,7 +2,6 @@
 
 .title {
   font-size: 12px;
-  // text-align: center;
   margin-bottom: 5px;
   line-height: 1.14;
   letter-spacing: 0.04em;
@@ -111,7 +110,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 100px;
+  // height: 100px;
   margin-bottom: 15px;
   @include mixins.mq(desktop) {
     flex-direction: row;
@@ -121,10 +120,10 @@
 }
 
 .inputFilter {
+  width: 100%;
   border: 1px solid var(--btn-border-color);
   border-radius: 8px;
   padding: 10px;
-  width: 100%;
   font-size: 12px;
   line-height: 1.5;
   transition: background-color var(--transition-duration) var(--timing-function),
@@ -147,17 +146,24 @@
   display: block;
   flex-basis: 100%;
   border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.14;
+  letter-spacing: 0.04em;
+  color: var(--title-text-color);
+  @include mixins.mq(mobile) {
+    font-size: 12px;
+  }
+  @include mixins.mq(tablet) {
+    flex-basis: calc(50% - 5px);
+    font-size: 14px;
+  }
   transition: background-color var(--transition-duration) var(--timing-function),
     border-color var(--transition-duration) var(--timing-function);
   &:focus,
   &:hover {
     background-color: var(--background-btn-second-color);
     border-color: var(--accent-color);
-  }
-
-  @include mixins.mq(tablet) {
-    flex-basis: calc(50% - 5px);
-    margin-bottom: 0;
   }
 }
 

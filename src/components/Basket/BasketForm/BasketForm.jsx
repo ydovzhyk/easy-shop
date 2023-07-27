@@ -69,7 +69,7 @@ const BasketForm = ({ ownerId, ownerName, products }) => {
 
   const handleUpdateUserBasket = async (products) => {
     for (const product of products) {
-      await console.log('product._id:', product._id, 'product.size:', product.size);
+      // await console.log('product._id:', product._id, 'product.size:', product.size);
       await dispatch(
         updateUserBasket({
           productId: product._id,
@@ -147,8 +147,11 @@ const BasketForm = ({ ownerId, ownerName, products }) => {
     }
     const newOrder = await dispatch(addOrder(dataForUpload));
     console.log('newOrder', newOrder);
-    
     if (newOrder.payload.newOrderId) {
+      for (const product of orderedProducts) {
+        console.log('productId', { productId: product._id });
+        await dispatch(updateUserBasket({ productId: product._id }));
+      }
       navigate('/checkout')
     };
   };
