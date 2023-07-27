@@ -14,9 +14,15 @@ const initialState = {
   loading: false,
   error: null,
   allOrders: [],
-  orderInCheckout: {},
-  orderById: {},
-  userOrders: { orders: [], totalPages: null, totalUserOrders: null, },
+  orderInCheckout: {
+    order: {},
+    orderProductInfo: [],
+  },
+  orderById: {
+    order: {},
+    orderProductInfo: [],
+  },
+  userOrders: { orders: [], totalPages: null, totalUserOrders: null },
 };
 
 const orders = createSlice({

@@ -51,6 +51,7 @@ export const getOrderById = createAsyncThunk(
   'orders/:id',
   async (userData, { rejectWithValue, dispatch }) => {
     try {
+      // console.log(userData);
       const data = await axiosGetOrderById(userData);
       return data;
     } catch (error) {
@@ -78,7 +79,7 @@ export const getUserOrders = createAsyncThunk(
   async (userData, { rejectWithValue, dispatch }) => {
     try {
       const data = await axiosGetUserOrders(userData);
-      console.log(data);
+      // console.log(data);
       return data;
     } catch (error) {
       const { data, status } = error.response;
