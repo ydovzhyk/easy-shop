@@ -69,17 +69,21 @@ const Header = () => {
       document.body.classList.remove('dark-theme');
     }
   }, [darkTheme]);
+
   const setThemeToLocalStorage = theme => {
     localStorage.setItem('selectedTheme', theme);
   };
+
   const handleThemeChange = () => {
     setDarkTheme(!darkTheme);
     setThemeToLocalStorage(!darkTheme ? 'dark-theme' : 'light-theme');
   };
+
   useEffect(() => {
     const storedTheme = localStorage.getItem('selectedTheme');
     setDarkTheme(storedTheme === 'dark-theme');
   }, []);
+
   const handleModalCatalogOpen = () => {
     setIsModalCatalogOpen(true);
   };
