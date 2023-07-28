@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { BiSearchAlt } from 'react-icons/bi';
 import { HiOutlineBars4 } from 'react-icons/hi2';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
@@ -34,6 +34,8 @@ const Header = () => {
   const [showForm, setShowForm] = useState(false);
   const [isModalCatalogOpen, setIsModalCatalogOpen] = useState(false);
 
+  const refItems = useRef([]);
+
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get('search') ?? '';
   const { pathname } = useLocation();
@@ -48,6 +50,10 @@ const Header = () => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const categories = Object.keys(categoryOptions);
+
+  useEffect(() => {
+    refItems.current = refItems.current.slice(0, categories.length);
+  }, [categories.length]);
 
   useEffect(() => {
     if (isUserAtProductsSearchPage) {
@@ -82,7 +88,14 @@ const Header = () => {
     setShowForm(!showForm);
   };
 
-  const handleNavigateClick = () => {
+  const handleNavigateClick = index => {
+    const previousOnClickLinkIndex = refItems.current.findIndex(
+      el => el.ariaCurrent === 'page'
+    );
+    if (index === previousOnClickLinkIndex) {
+      dispatch(setCurrentProductsPage(1));
+      return;
+    }
     dispatch(clearSearchProducts());
     dispatch(clearTotalSearchProducts());
     dispatch(setCurrentProductsPage(1));
@@ -180,7 +193,8 @@ const Header = () => {
                       `${isActive ? s.active : s.link}`
                     }
                     to={getPath(searchQuery, category)}
-                    onClick={handleNavigateClick}
+                    onClick={() => handleNavigateClick(index)}
+                    ref={el => (refItems.current[index] = el)}
                   >
                     {category}
                   </NavLink>
@@ -202,7 +216,8 @@ const Header = () => {
                       `${isActive ? s.active : s.link}`
                     }
                     to={getPath(searchQuery, category)}
-                    onClick={handleNavigateClick}
+                    onClick={() => handleNavigateClick(index)}
+                    ref={el => (refItems.current[index] = el)}
                   >
                     {category}
                   </NavLink>
