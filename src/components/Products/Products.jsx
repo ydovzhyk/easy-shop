@@ -92,13 +92,6 @@ const Products = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  console.log(
-    !isLoading &&
-      productsToRender.length === 0 &&
-      products.length === 0 &&
-      !hasHeaderFormErrors
-  );
-
   return (
     <section style={{ flexGrow: 1, position: 'relative' }}>
       <div className={s.container}>
@@ -196,11 +189,20 @@ const Products = () => {
             />
           </>
         )}
-
         {!isLoading &&
           productsToRender.length === 0 &&
           products.length === 0 &&
           !hasHeaderFormErrors && (
+            <NotFound
+              textTop={'За вашим запитом'}
+              textBottom={'товарів не знайдено.'}
+              classComp={'booWrapper-products'}
+            />
+          )}
+        {isFilterFormSubmitted &&
+          !isLoading &&
+          productsToRender.length === 0 &&
+          products.length === 0 && (
             <NotFound
               textTop={'За вашим запитом'}
               textBottom={'товарів не знайдено.'}
