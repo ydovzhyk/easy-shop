@@ -1,4 +1,7 @@
 import { useEffect } from 'react';
+
+import { NavLink } from 'react-router-dom';
+
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getOtherUser } from 'redux/otherUser/otherUser-operations';
@@ -48,7 +51,10 @@ const SellerInfo = ({ owner }) => {
         {userInfo && (
           <div className={s.userframe}>
             <div className={s.profilebox}>
-              <h5 className={s.username}>{username}</h5>
+              <NavLink className={s.username} to={`/member/${username}`}>
+                {username}
+              </NavLink>
+              {/* <h5 className={s.username}>{username}</h5> */}
               <UserRating rating={rating} gradesAmount={gradesAmount} />
             </div>
             <div className={s.infowrapper}>

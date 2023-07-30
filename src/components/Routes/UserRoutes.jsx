@@ -30,6 +30,12 @@ const EmailVerification = lazy(() =>
 );
 const ProductDetails = lazy(() => import('pages/ProductDetailsPage'));
 const ProductsPage = lazy(() => import('pages/ProductsPage'));
+const UserSellingInfoPage = lazy(() => import('pages/UserSellingInfoPage'));
+const Wares = lazy(() => import('components/UserSellingInfo/Wares/Wares'));
+const About = lazy(() => import('components/UserSellingInfo/About/About'));
+const Reviews = lazy(() =>
+  import('components/UserSellingInfo/Reviews/Reviews')
+);
 
 const UserRoutes = () => {
   return (
@@ -49,6 +55,12 @@ const UserRoutes = () => {
             path="/products/:category/:subcategory/:id"
             element={<ProductDetails />}
           />
+          <Route path="/member/:userId" element={<UserSellingInfoPage />}>
+            <Route index element={<Wares />} />
+            <Route path="wares" element={<Wares />} />
+            <Route path="about" element={<About />} />
+            <Route path="reviews" element={<Reviews />} />
+          </Route>
         </Route>
         <Route element={<PrivateRoute />}>
           <Route path="/add-product" element={<AddProductPage />} />
