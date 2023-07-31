@@ -12,6 +12,7 @@ import {
   clearHeaderFormErrors,
   setCurrentProductsPage,
   setHeaderFormErrors,
+  clearTotalSearchProducts,
   clearSearchProducts,
   setHeaderFormClick,
   resetHeaderFormClick,
@@ -58,6 +59,7 @@ const HeaderForm = () => {
       await dispatch(notResetHeaderForm());
       await dispatch(resetHeaderFormClick());
       await dispatch(clearSearchProducts());
+      await dispatch(clearTotalSearchProducts());
       await dispatch(setCurrentProductsPage(1));
     };
     resetForm();

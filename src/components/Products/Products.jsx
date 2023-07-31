@@ -11,6 +11,7 @@ import {
   getFilterForm,
   getCurrentProductsPage,
   getHeaderFormErrors,
+  getProductsByQueryPages,
 } from 'redux/product/product-selectors';
 import {
   resetHeaderForm,
@@ -31,6 +32,7 @@ const Products = () => {
   const [filterSelected, setFilterSelected] = useState('');
   const currentPage = useSelector(getCurrentProductsPage);
   const hasHeaderFormErrors = useSelector(getHeaderFormErrors);
+  const totalPages = useSelector(getProductsByQueryPages);
 
   const { category, subcategory } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -94,7 +96,6 @@ const Products = () => {
     <section style={{ flexGrow: 1, position: 'relative' }}>
       <div className={s.container}>
         <TopNavProducts
-          products={products}
           category={category}
           subcategory={subcategory}
           query={searchQuery}
@@ -182,17 +183,26 @@ const Products = () => {
               )}
             </ul>
             <Pagination
-              totalPages={4}
+              totalPages={totalPages}
               currentPage={currentPage}
               onPageChange={handlePageChange}
             />
           </>
         )}
-
         {!isLoading &&
           productsToRender.length === 0 &&
           products.length === 0 &&
           !hasHeaderFormErrors && (
+            <NotFound
+              textTop={'За вашим запитом'}
+              textBottom={'товарів не знайдено.'}
+              classComp={'booWrapper-products'}
+            />
+          )}
+        {isFilterFormSubmitted &&
+          !isLoading &&
+          productsToRender.length === 0 &&
+          products.length === 0 && (
             <NotFound
               textTop={'За вашим запитом'}
               textBottom={'товарів не знайдено.'}
