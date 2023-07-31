@@ -188,7 +188,13 @@ const ProductCard = () => {
       return;
     }
     if (userProductBasket.length >= 1) {
-      await setProductToBasket(event);
+      await dispatch(
+        updateUserBasket({
+          productId: id,
+          selectedSizes: selectedProductSizes,
+        })
+      );
+      // await setProductToBasket(event);
       navigate('/basket');
       return;
     }
