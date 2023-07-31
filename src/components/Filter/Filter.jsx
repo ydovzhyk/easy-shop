@@ -42,7 +42,7 @@ const Filter = ({ onChange }) => {
     resetField,
     reset,
     watch,
-    formState: { errors, dirtyFields, touchedFields, isDirty, isSubmitting },
+    formState: { errors, dirtyFields, isDirty, isSubmitting },
   } = useForm({
     defaultValues: {
       filterCondition: [],
@@ -53,7 +53,6 @@ const Filter = ({ onChange }) => {
     },
   });
   const watchPriceFrom = watch('filterPriceFrom');
-  const watchPriceTo = watch('filterPriceTo');
 
   useEffect(() => {
     if (!shouldFilterProductReset) {
@@ -67,12 +66,6 @@ const Filter = ({ onChange }) => {
       filterPrice: '',
       filterPriceFrom: '',
       filterPriceTo: '',
-    });
-    resetField('filterPriceTo', {
-      defaultValue: '',
-    });
-    resetField('filterPriceFrom', {
-      defaultValue: '',
     });
     reset();
     dispatch(showFilterProduct());
@@ -94,37 +87,6 @@ const Filter = ({ onChange }) => {
     }
     return;
   }, [dirtyFields.filterPriceFrom, dirtyFields.filterPriceTo, resetField]);
-
-  useEffect(() => {
-    if (
-      dirtyFields.filterPriceFrom &&
-      touchedFields.filterPriceFrom &&
-      watchPriceTo === ''
-    ) {
-      resetField('filterPriceTo', { defaultValue: watchPriceFrom });
-    }
-  }, [
-    dirtyFields.filterPriceFrom,
-    touchedFields.filterPriceFrom,
-    watchPriceTo,
-    watchPriceFrom,
-    resetField,
-  ]);
-
-  useEffect(() => {
-    if (
-      dirtyFields.filterPriceTo &&
-      touchedFields.filterPriceTo &&
-      watchPriceFrom === ''
-    ) {
-      resetField('filterPriceFrom', { defaultValue: 0 });
-    }
-  }, [
-    dirtyFields.filterPriceTo,
-    touchedFields.filterPriceTo,
-    watchPriceFrom,
-    resetField,
-  ]);
 
   useEffect(() => {
     if (
@@ -186,8 +148,8 @@ const Filter = ({ onChange }) => {
       brandName: data.filterBrand,
       condition: data.filterCondition,
       filterPrice: data.filterPriceRadio,
-      filterPriceFrom: String(data.filterPriceFrom),
-      filterPriceTo: data.filterPriceTo,
+      filterPriceFrom: data.filterPriceFrom === '' ? '0' : data.filterPriceFrom,
+      filterPriceTo: data.filterPriceTo === '' ? '1000000' : data.filterPriceTo,
     };
     await onChange(dataForUpload);
     await dispatch(submitFilterForm());
@@ -278,8 +240,8 @@ const Filter = ({ onChange }) => {
                   id="filterPriceFrom"
                   className={s.inputFilter}
                   type="number"
-                  placeholder="0.0"
-                  step="0.1"
+                  placeholder="0"
+                  step="1"
                 />
               </div>
 
@@ -294,8 +256,8 @@ const Filter = ({ onChange }) => {
                   className={s.inputFilter}
                   id="filterPriceTo"
                   type="number"
-                  placeholder="0.0"
-                  step="0.1"
+                  placeholder="0"
+                  step="1"
                 />
               </div>
             </div>

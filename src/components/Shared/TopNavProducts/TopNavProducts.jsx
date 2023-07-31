@@ -3,6 +3,11 @@ import { BiChevronRight } from 'react-icons/bi';
 
 import { NavLink } from 'react-router-dom';
 
+import { useDispatch, useSelector } from 'react-redux';
+
+import { getProductsTotalByQuery } from 'redux/product/product-selectors';
+import { setCurrentProductsPage } from 'redux/product/product-slice';
+
 import { translateParamsToUA } from '../../../funcs&hooks/translateParamsToUA.js';
 import { getDeclension } from '../../../funcs&hooks/getDeclansion.js';
 import { getPath } from '../../../funcs&hooks/getPath.js';
@@ -10,20 +15,25 @@ import { getSubcategoryPath } from '../../../funcs&hooks/getSubCategoryPath.js';
 
 import s from './TopNavProducts.module.scss';
 
-const TopNavProducts = ({ category, subcategory, products, query }) => {
+const TopNavProducts = ({ category, subcategory, query }) => {
   const isDesctop = useMediaQuery({ minWidth: 1280 });
   const isTablet = useMediaQuery({ minWidth: 768 });
+
+  const totalProducts = useSelector(getProductsTotalByQuery);
+  const totalProductsAmount = totalProducts.length;
+  const dispatch = useDispatch();
+
   const { categoryName, subCategoryName } = translateParamsToUA(
     category,
     subcategory
   );
 
-  const mainCategoryFilter = products.reduce((acc, el) => {
+  const mainCategoryFilter = totalProducts.reduce((acc, el) => {
     acc[el.section] = (acc[el.section] || 0) + 1;
     return acc;
   }, {});
 
-  const subCategoriesFilter = products.reduce((acc, el) => {
+  const subCategoriesFilter = totalProducts.reduce((acc, el) => {
     acc[el.category] = (acc[el.category] || 0) + 1;
     return acc;
   }, {});
@@ -38,9 +48,9 @@ const TopNavProducts = ({ category, subcategory, products, query }) => {
               size={isDesctop ? 26 : isTablet ? 22 : 20}
               style={{ marginRight: '10px', flexShrink: '0' }}
             />
-            {products.length !== 0 && (
+            {totalProductsAmount !== 0 && (
               <span className={s.amountBox}>
-                {getDeclension(products.length)}
+                {getDeclension(totalProductsAmount)}
               </span>
             )}
           </>
@@ -55,9 +65,9 @@ const TopNavProducts = ({ category, subcategory, products, query }) => {
               </div>
               <div style={{ textAlign: 'left' }}>
                 <h3 className={s.secondaryTitle}>{subCategoryName}</h3>
-                {products.length !== 0 && (
+                {totalProductsAmount !== 0 && (
                   <span className={s.amountBox}>
-                    {getDeclension(products.length)}
+                    {getDeclension(totalProductsAmount)}
                   </span>
                 )}
               </div>
@@ -66,9 +76,9 @@ const TopNavProducts = ({ category, subcategory, products, query }) => {
         {categoryName !== category && !subcategory && (
           <>
             <h2 className={s.title}>{categoryName}</h2>
-            {products.length !== 0 && (
+            {totalProductsAmount !== 0 && (
               <span className={s.amountBox}>
-                {getDeclension(products.length)}
+                {getDeclension(totalProductsAmount)}
               </span>
             )}
           </>
@@ -85,6 +95,7 @@ const TopNavProducts = ({ category, subcategory, products, query }) => {
                     `${isActive ? s.active : s.link}`
                   }
                   to={getPath(query, key, true)}
+                  onClick={() => dispatch(setCurrentProductsPage(1))}
                 >
                   {key} -{' '}
                   <span className={s.amountBoxSecondary}>
@@ -96,7 +107,7 @@ const TopNavProducts = ({ category, subcategory, products, query }) => {
           })}
         </ul>
       )}
-      {category && !subcategory && products.length > 0 && (
+      {category && !subcategory && totalProductsAmount > 0 && (
         <ul className={s.linkBox}>
           {Object.entries(subCategoriesFilter).map(([key, val], index) => {
             return (
@@ -106,6 +117,7 @@ const TopNavProducts = ({ category, subcategory, products, query }) => {
                     `${isActive ? s.active : s.link}`
                   }
                   to={getSubcategoryPath(query, categoryName, key)}
+                  onClick={() => dispatch(setCurrentProductsPage(1))}
                 >
                   {key} -{' '}
                   <span

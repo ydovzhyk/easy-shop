@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { BiSearchAlt } from 'react-icons/bi';
 import { HiOutlineBars4 } from 'react-icons/hi2';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
@@ -11,6 +11,7 @@ import { NavLink, useSearchParams, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getLogin } from 'redux/auth/auth-selectors';
 import {
+  clearTotalSearchProducts,
   clearSearchProducts,
   setCurrentProductsPage,
 } from 'redux/product/product-slice';
@@ -33,6 +34,8 @@ const Header = () => {
   const [showForm, setShowForm] = useState(false);
   const [isModalCatalogOpen, setIsModalCatalogOpen] = useState(false);
 
+  const refItems = useRef([]);
+
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get('search') ?? '';
   const { pathname } = useLocation();
@@ -49,6 +52,10 @@ const Header = () => {
   const categories = Object.keys(categoryOptions);
 
   useEffect(() => {
+    refItems.current = refItems.current.slice(0, categories.length);
+  }, [categories.length]);
+
+  useEffect(() => {
     if (isUserAtProductsSearchPage) {
       return;
     }
@@ -63,9 +70,19 @@ const Header = () => {
     }
   }, [darkTheme]);
 
+  const setThemeToLocalStorage = theme => {
+    localStorage.setItem('selectedTheme', theme);
+  };
+
   const handleThemeChange = () => {
     setDarkTheme(!darkTheme);
+    setThemeToLocalStorage(!darkTheme ? 'dark-theme' : 'light-theme');
   };
+
+  useEffect(() => {
+    const storedTheme = localStorage.getItem('selectedTheme');
+    setDarkTheme(storedTheme === 'dark-theme');
+  }, []);
 
   const handleModalCatalogOpen = () => {
     setIsModalCatalogOpen(true);
@@ -75,8 +92,16 @@ const Header = () => {
     setShowForm(!showForm);
   };
 
-  const handleNavigateClick = () => {
+  const handleNavigateClick = index => {
+    const previousOnClickLinkIndex = refItems.current.findIndex(
+      el => el.ariaCurrent === 'page'
+    );
+    if (index === previousOnClickLinkIndex) {
+      dispatch(setCurrentProductsPage(1));
+      return;
+    }
     dispatch(clearSearchProducts());
+    dispatch(clearTotalSearchProducts());
     dispatch(setCurrentProductsPage(1));
   };
 
@@ -172,7 +197,8 @@ const Header = () => {
                       `${isActive ? s.active : s.link}`
                     }
                     to={getPath(searchQuery, category)}
-                    onClick={handleNavigateClick}
+                    onClick={() => handleNavigateClick(index)}
+                    ref={el => (refItems.current[index] = el)}
                   >
                     {category}
                   </NavLink>
@@ -194,7 +220,8 @@ const Header = () => {
                       `${isActive ? s.active : s.link}`
                     }
                     to={getPath(searchQuery, category)}
-                    onClick={handleNavigateClick}
+                    onClick={() => handleNavigateClick(index)}
+                    ref={el => (refItems.current[index] = el)}
                   >
                     {category}
                   </NavLink>

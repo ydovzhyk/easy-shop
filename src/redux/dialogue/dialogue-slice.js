@@ -5,6 +5,7 @@ import {
   getDialogue,
   getAllDialoguesData,
   deleteDialogue,
+  deleteDialogueNewMessage,
 } from './dialogue-operations';
 
 const initialState = {
@@ -86,6 +87,18 @@ const dialogue = createSlice({
       store.message = payload.message;
     },
     [deleteDialogue.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload?.data?.message || '';
+    },
+    // delete new Message
+    [deleteDialogueNewMessage.pending]: store => {
+      store.error = '';
+    },
+    [deleteDialogueNewMessage.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.dialogueStore = payload.userDialogue;
+    },
+    [deleteDialogueNewMessage.rejected]: (store, { payload }) => {
       store.loading = false;
       store.error = payload?.data?.message || '';
     },

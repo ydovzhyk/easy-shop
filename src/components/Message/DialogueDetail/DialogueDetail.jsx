@@ -60,7 +60,7 @@ const DialogueDetail = ({ selectedDialogue }) => {
                 </div>
                 <div>
                   <Text
-                    text={`ціна: ${selectedDialogue.productInfo.price}`}
+                    text={`ціна: ${selectedDialogue.productInfo.price} грн.`}
                     textClass="after-title"
                   />
                 </div>

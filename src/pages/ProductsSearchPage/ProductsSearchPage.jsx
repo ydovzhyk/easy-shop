@@ -52,7 +52,6 @@ const ProductsSearchPage = () => {
         ? setSearchParams({ page: currentPage })
         : setSearchParams({ search: searchQuery, page: currentPage });
     }
-    // dispatch(searchProducts(payload));
     dispatch(
       searchProducts({
         payloadData: payload,

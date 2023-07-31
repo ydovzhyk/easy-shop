@@ -22,6 +22,8 @@ const SelectorProducts = ({ activeButton, activeNewRef }) => {
   const arraySelectorProducts = useSelector(getProductsBySelectorCard);
   const selectorPages = useSelector(getSelectorPages);
   const userId = useSelector(getID);
+  // console.log('arraySelectorProducts', arraySelectorProducts);
+  // console.log('userId', userId);
 
   useEffect(() => {
     dispatch(
@@ -72,12 +74,15 @@ const SelectorProducts = ({ activeButton, activeNewRef }) => {
           <ProductItem
             key={item._id}
             _id={item._id}
+            userId={userId}
             mainPhotoUrl={item.mainPhotoUrl}
             price={item.price}
             likes={item.userLikes.length ? item.userLikes.length : 0}
             userLike={checkUserLike(item._id)}
+            isLiked={isLiked}
             handleLike={handleLike}
             nameProduct={item.nameProduct}
+            owner={item.owner}
             description={item.description}
             size={item.size}
             section={item.section}
