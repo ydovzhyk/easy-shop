@@ -12,6 +12,7 @@ import { ReactComponent as Flech } from '../../images/dropDownMenu/flech.svg';
 
 const MenuItem = ({ menuItem, activeItem, setActiveItem }) => {
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
+  const [url, setUrl] = useState('');
   const [query, setQuery] = useState('');
   const [searchParams] = useSearchParams();
   // const { pathname } = useLocation();
@@ -27,6 +28,15 @@ const MenuItem = ({ menuItem, activeItem, setActiveItem }) => {
     setActiveItem('');
     setIsSubMenuOpen(false);
   };
+
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'production') {
+      setUrl('easy-shop');
+    }
+    if (process.env.NODE_ENV === 'development') {
+      return;
+    }
+  }, []);
 
   // const getPathCategory = link => {
   //   if (!isUserAtProductsSearchPage && query === '') {
@@ -66,8 +76,8 @@ const MenuItem = ({ menuItem, activeItem, setActiveItem }) => {
           // 'men'
           // getPathCategory(menuItem.link)
           query === ''
-            ? `${menuItem.link}`
-            : `${menuItem.link}?${createSearchParams({
+            ? `${url}${menuItem.link}`
+            : `${url}${menuItem.link}?${createSearchParams({
                 search: query,
               })}`
         }
@@ -86,8 +96,8 @@ const MenuItem = ({ menuItem, activeItem, setActiveItem }) => {
               href={
                 // getPathCategory(subMenuItem.link)
                 query === ''
-                  ? `${subMenuItem.link}`
-                  : `${subMenuItem.link}?${createSearchParams({
+                  ? `${url}${subMenuItem.link}`
+                  : `${url}${subMenuItem.link}?${createSearchParams({
                       search: query,
                     })}`
               }
