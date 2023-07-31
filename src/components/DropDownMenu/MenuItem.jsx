@@ -17,7 +17,6 @@ const MenuItem = ({ menuItem, activeItem, setActiveItem }) => {
   const [searchParams] = useSearchParams();
   // const { pathname } = useLocation();
   // const isUserAtProductsSearchPage = pathname.includes('/products');
-
   const searchQuery = searchParams.get('search') ?? '';
 
   const handleMouseEnter = () => {
