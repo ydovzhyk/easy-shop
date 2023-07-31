@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useLocation, Outlet } from 'react-router-dom';
 
 import { getUser } from 'redux/auth/auth-selectors';
-import { selectUserTotalOrders } from 'redux/order/order-selectors';
+import { selectUserOrders } from 'redux/auth/auth-selectors';
 import Loader from 'components/Loader';
 import Container from 'components/Shared/Container';
 import ProfileLink from 'components/Profile/ProfileLink/ProfileLink';
@@ -11,7 +11,7 @@ import s from 'components/Profile/UserInfoDetails/UserInfoDetails.module.scss';
 
 const UserInfoDetails = () => {
   const user = useSelector(getUser);
-  const userOrders = useSelector(selectUserTotalOrders) || 0;
+  const userOrders = useSelector(selectUserOrders);
   const [myProducts, setMyProducts] = useState(0);
 
   const location = useLocation().pathname;
@@ -63,7 +63,7 @@ const UserInfoDetails = () => {
             to="mypurchases"
             addValue
             isBackgroundChange={isMyPurchases}
-            value={userOrders}
+            value={userOrders.length}
           >
             Мої покупки
           </ProfileLink>
