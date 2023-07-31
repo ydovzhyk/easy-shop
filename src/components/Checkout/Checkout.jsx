@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectOrderById, selectProductsOrderById } from 'redux/order/order-selectors';
+import { getLoadingOrders, selectOrderById, selectProductsOrderById } from 'redux/order/order-selectors';
 import { getOrderById, updateOrder } from 'redux/order/order-operations';
 
 import { useForm, Controller } from 'react-hook-form';
@@ -26,23 +26,25 @@ const Checkout = () => {
       return
     }
     dispatch(getOrderById(orderId));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [dispatch, orderId]);
 
   const orderInCheckout = useSelector(selectOrderById);
   const productsForOrder = useSelector(selectProductsOrderById);
-  // console.log('orderInCheckout', orderInCheckout);
-  // console.log('productsForOrder', productsForOrder);
+  const isLoading = useSelector(getLoadingOrders)
+  console.log('orderInCheckout', orderInCheckout);
+  console.log('productsForOrder', productsForOrder);
 
   const [deliveryService, setDeliveryService] = useState('');
   
   const {
     client: {
-      customerSecondName,
-      customerFirstName,
-      customerSurName,
-      customerTel,
+      customerSecondName = '',
+      customerFirstName = '',
+      customerSurName = '',
+      customerTel = '',
       customerId,
-    },
+    }= {},
     orderSum,
     sellerName,
     _id,
@@ -97,119 +99,121 @@ const Checkout = () => {
     <Container>
       <section className={s.default}>
         <div className={s.defaultBox}>
-          <form onSubmit={handleSubmit(onSubmit)} className={s.formWrapper}>
-            <div className={s.orderInfo}>
-              <h2 className={s.title}>
-                Оформлення замовлення &#8470; {orderNumber}
-              </h2>
-              <Text
-                textClass="productHeadings"
-                text={`Продавець: ${sellerName}`}
-              />
-              <Text
-                textClass="title"
-                text={`Сума замовлення: ${orderSum} грн.`}
-              />
-              {productsForOrder && products && (
-                <OrderProductsList
-                  productsForOrder={productsForOrder}
-                  products={products}
+          {!isLoading && (
+            <form onSubmit={handleSubmit(onSubmit)} className={s.formWrapper}>
+              <div className={s.orderInfo}>
+                <h2 className={s.title}>
+                  Оформлення замовлення &#8470; {orderNumber}
+                </h2>
+                <Text
+                  textClass="productHeadings"
+                  text={`Продавець: ${sellerName}`}
                 />
-              )}
+                <Text
+                  textClass="title"
+                  text={`Сума замовлення: ${orderSum} грн.`}
+                />
+                {productsForOrder && products && (
+                  <OrderProductsList
+                    productsForOrder={productsForOrder}
+                    products={products}
+                  />
+                )}
 
-              <div className={s.formField}>
-                <Text textClass="title" text="Спосіб доставки" />
-                <Controller
-                  control={control}
-                  name="delivery"
-                  rules={{
-                    required: true,
-                  }}
-                  render={({ field: { onChange, value } }) => (
-                    <SelectField
-                      value={value}
-                      handleChange={selectedValue => {
-                        onChange(selectedValue);
-                        setDeliveryService(selectedValue.value);
-                      }}
-                      className="addOrder"
-                      {...field.delivery}
-                      options={['Нова пошта', 'УкрПошта', 'Meest']}
-                      {...register('delivery', {
-                        required: 'Виберіть службу доставки',
-                      })}
-                    />
-                  )}
-                />
-              </div>
-              <FormField
-                labelText={labelName}
-                controllerName="city"
-                fieldName="city"
-                control={control}
-                register={register}
-              />
-              <FormField
-                labelText="Введіть місто*"
-                controllerName="department"
-                fieldName="deliveryDepartment"
-                control={control}
-                register={register}
-              />
-              <div>
-                <Text textClass="title" text="Ваші контактні дані" />
+                <div className={s.formField}>
+                  <Text textClass="title" text="Спосіб доставки" />
+                  <Controller
+                    control={control}
+                    name="delivery"
+                    rules={{
+                      required: true,
+                    }}
+                    render={({ field: { onChange, value } }) => (
+                      <SelectField
+                        value={value}
+                        handleChange={selectedValue => {
+                          onChange(selectedValue);
+                          setDeliveryService(selectedValue.value);
+                        }}
+                        className="addOrder"
+                        {...field.delivery}
+                        options={['Нова пошта', 'УкрПошта', 'Meest']}
+                        {...register('delivery', {
+                          required: 'Виберіть службу доставки',
+                        })}
+                      />
+                    )}
+                  />
+                </div>
                 <FormField
-                  labelText="Прізвище*"
-                  controllerName="secondName"
-                  fieldName="secondName"
+                  labelText={labelName}
+                  controllerName="city"
+                  fieldName="city"
                   control={control}
                   register={register}
                 />
-
                 <FormField
-                  labelText="Ім'я*"
-                  controllerName="firstName"
-                  fieldName="firstName"
+                  labelText="Введіть місто*"
+                  controllerName="department"
+                  fieldName="deliveryDepartment"
                   control={control}
                   register={register}
                 />
+                <div>
+                  <Text textClass="title" text="Ваші контактні дані" />
+                  <FormField
+                    labelText="Прізвище*"
+                    controllerName="secondName"
+                    fieldName="secondName"
+                    control={control}
+                    register={register}
+                  />
 
-                <FormField
-                  labelText="По батькові*"
-                  controllerName="surName"
-                  fieldName="surName"
-                  control={control}
-                  register={register}
+                  <FormField
+                    labelText="Ім'я*"
+                    controllerName="firstName"
+                    fieldName="firstName"
+                    control={control}
+                    register={register}
+                  />
+
+                  <FormField
+                    labelText="По батькові*"
+                    controllerName="surName"
+                    fieldName="surName"
+                    control={control}
+                    register={register}
+                  />
+
+                  <FormField
+                    labelText="Телефон +380*"
+                    controllerName="tel"
+                    fieldName="tel"
+                    control={control}
+                    register={register}
+                  />
+                </div>
+              </div>
+              <div className={s.sumWrapper}>
+                <p className={s.sumTitle}>Разом</p>
+
+                <div className={s.sumBox}>
+                  <Text textClass="after-title-bigger" text="Вартість товару" />
+                  <span>{orderSum}</span>
+                </div>
+                <div className={s.sumBox}>
+                  <Text textClass="title" text="До оплати" />
+                  <Text textClass="title" text={orderSum} />
+                </div>
+                <Button
+                  type="submit"
+                  btnClass="btnLight"
+                  text="Оформити"
+                  handleClick={handleSubmit(onSubmit)}
                 />
-
-                <FormField
-                  labelText="Телефон +380*"
-                  controllerName="tel"
-                  fieldName="tel"
-                  control={control}
-                  register={register}
-                />
               </div>
-            </div>
-            <div className={s.sumWrapper}>
-              <p className={s.sumTitle}>Разом</p>
-
-              <div className={s.sumBox}>
-                <Text textClass="after-title-bigger" text="Вартість товару" />
-                <span>{orderSum}</span>
-              </div>
-              <div className={s.sumBox}>
-                <Text textClass="title" text="До оплати" />
-                <Text textClass="title" text={orderSum} />
-              </div>
-              <Button
-                type="submit"
-                btnClass="btnLight"
-                text="Оформити"
-                handleClick={handleSubmit(onSubmit)}
-              />
-            </div>
-          </form>
+            </form>
+          )}
         </div>
       </section>
     </Container>
