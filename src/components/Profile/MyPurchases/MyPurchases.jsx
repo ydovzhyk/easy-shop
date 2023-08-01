@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 // import { deleteOrderById } from "redux/order/order-operations";
 import { getUserOrders } from 'redux/order/order-operations';
 import {
+  getLoadingOrders,
   selectUserOrders,
   selectUserOrdersTotalPages,
 } from 'redux/order/order-selectors';
@@ -17,14 +18,10 @@ import s from './MyPurchases.module.scss';
 const MyShoppings = () => {
   const dispatch = useDispatch();
   const isLogin = useSelector(getLogin);
+  const isLoading = useSelector(getLoadingOrders);
 
   const [currentPage, setCurrentPage] = useState(1);
-  // console.log('currentPage', currentPage);
   const [currentSelector, setcurrentSelector] = useState("all");
-  console.log('currentSelector', currentSelector);
-
-  const totalPages = useSelector(selectUserOrdersTotalPages);
-  console.log("totalPages", totalPages);
 
   useEffect(() => {
     dispatch(
@@ -37,7 +34,7 @@ const MyShoppings = () => {
   }, [dispatch, currentPage, currentSelector]);
 
   const userOrders = useSelector(selectUserOrders);
-  userOrders && console.log(userOrders.length);
+  const totalPages = useSelector(selectUserOrdersTotalPages);
 
   // for pagination
   const handlePageChange = page => {
@@ -47,12 +44,11 @@ const MyShoppings = () => {
 
   const handleButtonClick = optionName => {
     setcurrentSelector(optionName);
+    setCurrentPage(1);
   };
-
   // const handleDeteleOrder = (id) => {
   //   dispatch(deleteOrderById(id));
   // }
-
   return (
     <>
       <div className={s.ordersWrapper}>
@@ -133,7 +129,6 @@ const MyShoppings = () => {
                       <p>Замовлення &#8470; {orderNumber}</p>
                       <p>{orderDate}</p>
                     </div>
-
                     {/* <button
                       type="button"
                       onClick={() => handleDeteleOrder(_id)}
@@ -167,8 +162,7 @@ const MyShoppings = () => {
             )}
           </ul>
         )}
-
-        {userOrders.length === 0 && (
+        {!isLoading && userOrders.length === 0 && (
           <p className={s.message}>Замовлень з таким статусом у вас ще немає</p>
         )}
       </div>
