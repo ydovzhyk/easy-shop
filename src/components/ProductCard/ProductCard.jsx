@@ -26,14 +26,14 @@ import Container from 'components/Shared/Container/Container';
 import Text from 'components/Shared/Text/Text';
 import Button from 'components/Shared/Button/Button';
 import SizeSelection from 'components/Shared/Sizes/SizeSelection/SizeSelection';
-import ProductInfo from './ProductInfo';
-import PhotoCollection from 'components/Shared/PhotoCollection/PhotoCollection';
+import ProductDetails from './ProductDetails';
 import Loader from 'components/Loader/Loader';
 import { translateParamsToUA } from '../../funcs&hooks/translateParamsToUA.js';
 import { FiHeart } from 'react-icons/fi';
 import { BiMessageDetail } from 'react-icons/bi';
 
 import s from './ProductCard.module.scss';
+import ProductPhotoContainer from './ProductPhotoContainer';
 
 const ProductCard = () => {
   const dispatch = useDispatch();
@@ -50,18 +50,7 @@ const ProductCard = () => {
   const userProducts = user.userProducts ? user.userProducts : [];
   const userDialogue = null;
 
-  const {
-    nameProduct,
-    mainPhotoUrl,
-    additionalPhotoUrl,
-    price,
-    owner,
-    userLikes,
-    size,
-    vip,
-    _id,
-    sale,
-  } = product;
+  const { nameProduct, price, owner, userLikes, size, _id, sale } = product;
 
   const isProductInBasket = (userProductBasket || [])
     .flat()
@@ -242,28 +231,7 @@ const ProductCard = () => {
             <div className={s.productCardWrapper}>
               <div>
                 <div className={s.productMainInfo}>
-                  <div className={s.fotoContainer}>
-                    <div className={s.labelsContainer}>
-                      {vip === 'Так' && (
-                        <div className={s.vipLabel}>
-                          <span>Vip</span>
-                        </div>
-                      )}
-                      {sale && (
-                        <div className={s.vipLabel}>
-                          <span>{sale}%</span>
-                        </div>
-                      )}
-                    </div>
-
-                    <PhotoCollection
-                      mainPhotoUrl={mainPhotoUrl}
-                      nameProduct={nameProduct}
-                      additionalPhotoUrl={
-                        additionalPhotoUrl ? additionalPhotoUrl : []
-                      }
-                    />
-                  </div>
+                  <ProductPhotoContainer />
                   <div className={s.productInfoWrapper}>
                     <p className={s.availability}>В наявності</p>
                     <Text text={nameProduct} textClass="productName" />
@@ -341,7 +309,7 @@ const ProductCard = () => {
                     </div>
                   </div>
                 </div>
-                <ProductInfo product={product} />
+                <ProductDetails product={product} />
               </div>
               <div ref={chattingRef}>
                 <Text text="Продавець:" textClass="productLabels" />
