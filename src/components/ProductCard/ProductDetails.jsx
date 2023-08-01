@@ -2,7 +2,7 @@ import Text from 'components/Shared/Text/Text';
 import s from './ProductCard.module.scss';
 import DeliveryList from './DeliveryList';
 
-const ProductInfo = ({ product }) => {
+const ProductDetails = ({ product }) => {
   const { brendName, condition, description, category: subSection } = product;
   return (
     <>
@@ -31,4 +31,4 @@ const ProductInfo = ({ product }) => {
   );
 };
 
-export default ProductInfo;
+export default ProductDetails;

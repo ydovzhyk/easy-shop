@@ -63,12 +63,11 @@ const Basket = () => {
   // selectedProductsWithSizes.length > 0 && console.log('selectedProductsWithSizes in Basket:', selectedProductsWithSizes);
   return (
     <Container>
-    <section className={s.basketsSection}>
-      {isMessage === '' && <UserUpdateComponent />}
-      <Text textClass="title" text="Кошик" />
-      <ul className={s.orderList}>
-        {groupedProducts.map(
-          ({ ownerId, ownerName, products }) => (
+      <section className={s.basketsSection}>
+        {isMessage === '' && <UserUpdateComponent />}
+        <Text textClass="title" text="Кошик" />
+        <ul className={s.orderList}>
+          {groupedProducts.map(({ ownerId, ownerName, products }) => (
             <li className={s.orderItem} key={ownerId}>
               <BasketForm
                 ownerId={ownerId}
@@ -76,9 +75,10 @@ const Basket = () => {
                 products={products}
               />
             </li>
-        ))}
-      </ul>
-    </section>
+          ))}
+        </ul>
+        {groupedProducts.length === 0 && <p>Тут поки пусто</p>}
+      </section>
     </Container>
   );
 };

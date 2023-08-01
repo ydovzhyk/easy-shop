@@ -4,6 +4,7 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
+    margin-bottom: 20px;
     @include mixins.mq(tablet) {
         flex-direction: row;
     }
@@ -162,6 +163,10 @@
   &:hover::before {
     width: 100%;
   }
+  &:hover {
+    text-shadow: var(--hover-text-shadow);
+    color: var(--hover-active-color);
+  }
 }
 
 .active {
@@ -169,4 +174,16 @@
 
   text-shadow: var(--hover-text-shadow);
   color: var(--hover-active-color);
+}
+
+.message {
+    font-size: 16px;
+    margin: auto;
+    text-align: center;
+    @include mixins.mq(tablet) {
+        font-size: 20px;
+    }
+    @include mixins.mq(desktop) {
+        font-size: 26px;
+    }
 }

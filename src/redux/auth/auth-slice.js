@@ -31,6 +31,7 @@ const initialState = {
     likedProducts: [],
     username: null,
     newMessage: 0,
+    userOrders: [],
   },
   sid: null,
   accessToken: null,
