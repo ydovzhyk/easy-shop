@@ -13,6 +13,7 @@ import Button from 'components/Shared/Button/Button';
 import OrderProductsList from 'components/Shared/OrderProductsList/OrderProductsList';
 import FormField from './FormField';
 import s from './Checkout.module.scss';
+import { getUser } from 'redux/auth/auth-selectors';
 
 
 const Checkout = () => {
@@ -31,39 +32,34 @@ const Checkout = () => {
 
   const orderInCheckout = useSelector(selectOrderById);
   const productsForOrder = useSelector(selectProductsOrderById);
-  const isLoading = useSelector(getLoadingOrders)
+  const isLoading = useSelector(getLoadingOrders);
+  const user = useSelector(getUser);
   console.log('orderInCheckout', orderInCheckout);
   console.log('productsForOrder', productsForOrder);
 
   const [deliveryService, setDeliveryService] = useState('');
   
   const {
-    client: {
-      customerSecondName = '',
-      customerFirstName = '',
-      customerSurName = '',
-      customerTel = '',
-      customerId,
-    }= {},
+    client,
     orderSum,
     sellerName,
     _id,
     products,
     orderNumber,
   } = orderInCheckout;
+  const { secondName, firstName, surName, tel } = user;
 
   const {
     control,
     handleSubmit,
     register,
-    // formState: { errors },
   } = useForm({
     defaultValues: {
       delivery: '',
-      secondName: customerSecondName ? customerSecondName : '',
-      firstName: customerFirstName ? customerFirstName : '',
-      surName: customerSurName ? customerSurName : '',
-      tel: customerTel ? customerTel : '',
+      secondName: secondName ? secondName : '',
+      firstName: firstName ? firstName : '',
+      surName: surName ? surName : '',
+      tel: tel ? tel : '',
       department: '',
       city: '',
     },
@@ -78,7 +74,7 @@ const Checkout = () => {
       customerFirstName: data.firstName,
       customerSurName: data.surName,
       customerTel: data.tel,
-      customerId: customerId,
+      customerId: client.customerId,
     };
     console.log('Відправка order', orderData);
 
