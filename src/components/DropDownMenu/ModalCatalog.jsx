@@ -14,6 +14,7 @@ export const ModalCatalog = ({ closeModal }) => {
   //   const [activeMenu, setActiveMenu] = useState(false);
   const [activeItem, setActiveItem] = useState('');
   const [subMenu, setSubMenu] = useState({ submenu: [], itemName: '' });
+
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
     return () => {
