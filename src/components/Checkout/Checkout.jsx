@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getLoadingOrders, selectOrderById, selectProductsOrderById } from 'redux/order/order-selectors';
 import { getOrderById, updateOrder } from 'redux/order/order-operations';
+import { getUser } from 'redux/auth/auth-selectors';
 
 import { useForm, Controller } from 'react-hook-form';
 import Container from 'components/Shared/Container';
@@ -13,8 +14,6 @@ import Button from 'components/Shared/Button/Button';
 import OrderProductsList from 'components/Shared/OrderProductsList/OrderProductsList';
 import FormField from './FormField';
 import s from './Checkout.module.scss';
-import { getUser } from 'redux/auth/auth-selectors';
-
 
 const Checkout = () => {
   const dispatch = useDispatch();
@@ -34,26 +33,14 @@ const Checkout = () => {
   const productsForOrder = useSelector(selectProductsOrderById);
   const isLoading = useSelector(getLoadingOrders);
   const user = useSelector(getUser);
-  console.log('orderInCheckout', orderInCheckout);
-  console.log('productsForOrder', productsForOrder);
 
   const [deliveryService, setDeliveryService] = useState('');
   
-  const {
-    client,
-    orderSum,
-    sellerName,
-    _id,
-    products,
-    orderNumber,
-  } = orderInCheckout;
+  const { client, orderSum, sellerName, _id, products, orderNumber } =
+    orderInCheckout;
   const { secondName, firstName, surName, tel } = user;
 
-  const {
-    control,
-    handleSubmit,
-    register,
-  } = useForm({
+  const { control, handleSubmit, register } = useForm({
     defaultValues: {
       delivery: '',
       secondName: secondName ? secondName : '',
@@ -76,14 +63,9 @@ const Checkout = () => {
       customerTel: data.tel,
       customerId: client.customerId,
     };
-    console.log('Відправка order', orderData);
-
     const updatedOrder = await dispatch(updateOrder(orderData));
 
     if (updatedOrder.payload.code === 200) {
-      // for (const product of products) {
-      //   await dispatch(updateUserBasket({ productId: product._id }));
-      // }
       navigate('/profile/mypurchases');
     }
   };
@@ -91,6 +73,7 @@ const Checkout = () => {
     deliveryService === 'УкрПошта'
       ? 'Введіть індекс(номер) відділення*'
       : 'Введіть номер відділення*';
+  
   return (
     <Container>
       <section className={s.default}>
@@ -164,7 +147,6 @@ const Checkout = () => {
                     control={control}
                     register={register}
                   />
-
                   <FormField
                     labelText="Ім'я*"
                     controllerName="firstName"
@@ -172,7 +154,6 @@ const Checkout = () => {
                     control={control}
                     register={register}
                   />
-
                   <FormField
                     labelText="По батькові*"
                     controllerName="surName"
@@ -180,7 +161,6 @@ const Checkout = () => {
                     control={control}
                     register={register}
                   />
-
                   <FormField
                     labelText="Телефон +380*"
                     controllerName="tel"
@@ -192,7 +172,6 @@ const Checkout = () => {
               </div>
               <div className={s.sumWrapper}>
                 <p className={s.sumTitle}>Разом</p>
-
                 <div className={s.sumBox}>
                   <Text textClass="after-title-bigger" text="Вартість товару" />
                   <span>{orderSum}</span>
