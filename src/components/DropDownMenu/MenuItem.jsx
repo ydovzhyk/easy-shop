@@ -5,18 +5,18 @@ import React, { useState, useEffect } from 'react';
 import {
   useSearchParams,
   createSearchParams,
-  // useLocation,
+  useLocation,
 } from 'react-router-dom';
 
 import { ReactComponent as Flech } from '../../images/dropDownMenu/flech.svg';
 
 const MenuItem = ({ menuItem, activeItem, setActiveItem }) => {
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
-  const [url, setUrl] = useState('');
   const [query, setQuery] = useState('');
   const [searchParams] = useSearchParams();
-  // const { pathname } = useLocation();
-  // const isUserAtProductsSearchPage = pathname.includes('/products');
+  const { pathname } = useLocation();
+  const isUserAtProductsSearchPage =
+    pathname.includes('/products') && pathname.split('/').length <= 4;
   const searchQuery = searchParams.get('search') ?? '';
 
   const handleMouseEnter = () => {
@@ -27,36 +27,31 @@ const MenuItem = ({ menuItem, activeItem, setActiveItem }) => {
     setActiveItem('');
     setIsSubMenuOpen(false);
   };
+  // let mainUrl;
 
-  useEffect(() => {
+  // if (process.env.NODE_ENV === 'production') {
+  //   mainUrl = 'easy-shop';
+  // }
+  // if (process.env.NODE_ENV === 'development') {
+  //   mainUrl = '';
+  // }
+
+  const getPathCategory = link => {
     if (process.env.NODE_ENV === 'production') {
-      setUrl('easy-shop');
+      return query === ''
+        ? `${link.split('').slice(1).join('')}`
+        : `${link.split('').slice(1).join('')}?${createSearchParams({
+            search: query,
+          })}`;
     }
     if (process.env.NODE_ENV === 'development') {
-      return;
+      return query === ''
+        ? `${link}`
+        : `${link}?${createSearchParams({
+            search: query,
+          })}`;
     }
-  }, []);
-
-  // const getPathCategory = link => {
-  //   if (!isUserAtProductsSearchPage && query === '') {
-  //     console.log(`${link}`);
-  //     return `${link}`;
-  //   }
-  //   if (!isUserAtProductsSearchPage && query !== '') {
-  //     return `${link}?${createSearchParams({
-  //       search: query,
-  //     })}`;
-  //   }
-  //   if (isUserAtProductsSearchPage && query === '') {
-  //     console.log(`${link.split('/').slice(1).join('')}`);
-  //     return `${'/'} ${link.split('/').slice(1).join('')}`;
-  //   }
-  //   if (isUserAtProductsSearchPage && query !== '') {
-  //     return `${link.split('/').slice(2)}?${createSearchParams({
-  //       search: query,
-  //     })}`;
-  //   }
-  // };
+  };
 
   useEffect(() => {
     setQuery(searchQuery);
@@ -72,13 +67,12 @@ const MenuItem = ({ menuItem, activeItem, setActiveItem }) => {
     >
       <a
         href={
-          // 'men'
-          // getPathCategory(menuItem.link)
-          query === ''
-            ? `${url}${menuItem.link}`
-            : `${url}${menuItem.link}?${createSearchParams({
-                search: query,
-              })}`
+          getPathCategory(menuItem.link)
+          // query === ''
+          //   ? `${menuItem.link}`
+          //   : `${menuItem.link}?${createSearchParams({
+          //       search: query,
+          //     })}`
         }
       >
         <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -93,12 +87,12 @@ const MenuItem = ({ menuItem, activeItem, setActiveItem }) => {
           {menuItem.submenu.map(subMenuItem => (
             <a
               href={
-                // getPathCategory(subMenuItem.link)
-                query === ''
-                  ? `${url}${subMenuItem.link}`
-                  : `${url}${subMenuItem.link}?${createSearchParams({
-                      search: query,
-                    })}`
+                getPathCategory(subMenuItem.link)
+                // query === ''
+                //   ? `${subMenuItem.link}`
+                //   : `${subMenuItem.link}?${createSearchParams({
+                //       search: query,
+                //     })}`
               }
               key={subMenuItem.id}
             >
