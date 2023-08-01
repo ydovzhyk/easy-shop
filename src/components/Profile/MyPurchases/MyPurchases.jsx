@@ -21,18 +21,23 @@ const MyShoppings = () => {
   const [currentPage, setCurrentPage] = useState(1);
   // console.log('currentPage', currentPage);
   const [currentSelector, setcurrentSelector] = useState("all");
-  // console.log('currentSelector', currentSelector);
+  console.log('currentSelector', currentSelector);
 
   const totalPages = useSelector(selectUserOrdersTotalPages);
-  // console.log("totalPages", totalPages);
+  console.log("totalPages", totalPages);
 
   useEffect(() => {
-    dispatch(getUserOrders(currentPage));
+    dispatch(
+      getUserOrders({
+        page: currentPage,
+        selectorName: currentSelector,
+      })
+    );
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [dispatch, currentPage]);
+  }, [dispatch, currentPage, currentSelector]);
 
   const userOrders = useSelector(selectUserOrders);
-  // userOrders && console.log(userOrders);
+  userOrders && console.log(userOrders.length);
 
   // for pagination
   const handlePageChange = page => {
@@ -105,67 +110,75 @@ const MyShoppings = () => {
             </li>
           </ul>
         </div>
-        <ul className={s.ordersList}>
-          {userOrders?.map(
-            ({
-              _id,
-              sellerName,
-              orderSum,
-              orderDate,
-              orderNumber,
-              products,
-              productInfo,
-              delivery,
-            }) => (
-              <li className={s.orderItem} key={_id}>
-                <div className={s.orderInfoWrapper}>
-                  <div className={s.orderInfoItem}>
-                    <p>Продавець:</p>
-                    <p>{sellerName}</p>
-                  </div>
-                  <div className={s.orderInfoItem}>
-                    <p>Замовлення &#8470; {orderNumber}</p>
-                    <p>{orderDate}</p>
-                  </div>
+        {userOrders.length > 0 && (
+          <ul className={s.ordersList}>
+            {userOrders.map(
+              ({
+                _id,
+                sellerName,
+                orderSum,
+                orderDate,
+                orderNumber,
+                products,
+                productInfo,
+                delivery,
+              }) => (
+                <li className={s.orderItem} key={_id}>
+                  <div className={s.orderInfoWrapper}>
+                    <div className={s.orderInfoItem}>
+                      <p>Продавець:</p>
+                      <p>{sellerName}</p>
+                    </div>
+                    <div className={s.orderInfoItem}>
+                      <p>Замовлення &#8470; {orderNumber}</p>
+                      <p>{orderDate}</p>
+                    </div>
 
-                  {/* <button
+                    {/* <button
                       type="button"
                       onClick={() => handleDeteleOrder(_id)}
                     >
                       del
                     </button> */}
-                </div>
-                <OrderProductsList
-                  productsForOrder={productInfo}
-                  products={products}
-                />
-                <div className={s.orderBottomWrapper}>
-                  {delivery !== '' ? (
-                    <p className={s.waitingPhrase}>Очікує підтвердження</p>
-                  ) : (
-                    <NavLink
-                      to={isLogin ? '/checkout' : '/login'}
-                      className={s.btnLight}
-                      state={{ orderId: _id }}
-                    >
-                      Оформити замовлення
-                    </NavLink>
-                  )}
+                  </div>
+                  <OrderProductsList
+                    productsForOrder={productInfo}
+                    products={products}
+                  />
+                  <div className={s.orderBottomWrapper}>
+                    {delivery !== '' ? (
+                      <p className={s.waitingPhrase}>Очікує підтвердження</p>
+                    ) : (
+                      <NavLink
+                        to={isLogin ? '/checkout' : '/login'}
+                        className={s.btnLight}
+                        state={{ orderId: _id }}
+                      >
+                        Оформити замовлення
+                      </NavLink>
+                    )}
 
-                  <p
-                    className={s.orderSum}
-                  >{`Сума замовлення: ${orderSum} грн.`}</p>
-                </div>
-              </li>
-            )
-          )}
-        </ul>
+                    <p
+                      className={s.orderSum}
+                    >{`Сума замовлення: ${orderSum} грн.`}</p>
+                  </div>
+                </li>
+              )
+            )}
+          </ul>
+        )}
+
+        {userOrders.length === 0 && (
+          <p className={s.message}>Замовлень з таким статусом у вас ще немає</p>
+        )}
       </div>
-      <Pagination
-        totalPages={totalPages}
-        currentPage={currentPage}
-        onPageChange={handlePageChange}
-      />
+      {totalPages > 0 && (
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
+      )}
     </>
   );
 }

@@ -162,6 +162,10 @@
   &:hover::before {
     width: 100%;
   }
+  &:hover {
+    text-shadow: var(--hover-text-shadow);
+    color: var(--hover-active-color);
+  }
 }
 
 .active {
@@ -169,4 +173,9 @@
 
   text-shadow: var(--hover-text-shadow);
   color: var(--hover-active-color);
+}
+
+.message {
+    font-size: 26px;
+    margin: auto;
 }
