@@ -1,0 +1,27 @@
+@use 'styles/mixins';
+
+.deliveryListContainer {
+  min-width: 220px;
+  @include mixins.mq(desktop) {
+    margin-left: 24px;
+  }
+}
+
+.deliveryList {
+  margin-bottom: 24px;
+}
+
+.deliveryItem {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.deliveryItem:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+.deliveryIcon {
+  width: 22px;
+  height: 22px;
+}

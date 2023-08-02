@@ -1,0 +1,19 @@
+@use 'styles/mixins';
+
+.productInfo {
+  padding: 8px 0;
+  @include mixins.mq(tablet) {
+    display: flex;
+    gap: 48px;
+  }
+}
+
+.productDetails {
+  @include mixins.mq(desktop) {
+    display: flex;
+  }
+}
+
+.productDescription {
+  margin-bottom: 16px;
+}

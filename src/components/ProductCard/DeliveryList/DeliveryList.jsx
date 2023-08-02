@@ -1,8 +1,8 @@
-import ukrPoshtaIcon from '../../images/product-card/ic_ukrposhta.png';
-import novaPoshtaIcon from '../../images/product-card/ic_novaposhta.png';
-import meestPoshtaIcon from '../../images/product-card/ic_meest.png';
+import ukrPoshtaIcon from 'images/product-card/ic_ukrposhta.png';
+import novaPoshtaIcon from 'images/product-card/ic_novaposhta.png';
+import meestPoshtaIcon from 'images/product-card/ic_meest.png';
 import Text from 'components/Shared/Text/Text';
-import s from './ProductCard.module.scss';
+import s from './DeliveryList.module.scss';
 
 const DeliveryList = () => {
   return (

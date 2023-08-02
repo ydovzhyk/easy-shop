@@ -26,14 +26,14 @@ import Container from 'components/Shared/Container/Container';
 import Text from 'components/Shared/Text/Text';
 import Button from 'components/Shared/Button/Button';
 import SizeSelection from 'components/Shared/Sizes/SizeSelection/SizeSelection';
-import ProductDetails from './ProductDetails';
+import ProductDetails from './ProductDetails/ProductDetails';
 import Loader from 'components/Loader/Loader';
 import { translateParamsToUA } from '../../funcs&hooks/translateParamsToUA.js';
 import { FiHeart } from 'react-icons/fi';
 import { BiMessageDetail } from 'react-icons/bi';
 
 import s from './ProductCard.module.scss';
-import ProductPhotoContainer from './ProductPhotoContainer';
+import ProductPhotoContainer from './ProductPhotoContainer/ProductPhotoContainer';
 
 const ProductCard = () => {
   const dispatch = useDispatch();
