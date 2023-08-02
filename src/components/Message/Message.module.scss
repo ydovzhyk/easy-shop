@@ -9,3 +9,63 @@
   flex-direction: row;
   width: 100%;
 }
+
+.containerDialogueDetailDesktop {
+  // background-color: cadetblue;
+  width: 55%;
+  display: flex;
+}
+
+.containerDialogueDetailTabMob {
+  display: flex;
+
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1200;
+
+  width: 100%;
+  height: 90%;
+  padding: 20px;
+
+  background-color: var(--background-color);
+  // background-color: beige;
+  // border-radius: 30px;
+}
+
+// .buttonBox{
+//   // position: relative;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   // width: 80%;
+// }
+
+.dismissButton {
+  position: absolute;
+  top: 10px;
+  left: 35px;
+
+  width: 40px;
+
+  background-color: transparent;
+  border-color: transparent;
+  
+  &:hover,
+  &:focus {
+    // color: var(--hover-active-color);
+    transform: scale(1.3);
+  }
+}
+
+.buttonBack {
+  width: 24px;
+  height: 24px;
+
+  // display: flex;
+  // align-items: center;
+  // justify-content: flex-start;
+
+  color: var(--icons-color);
+}
