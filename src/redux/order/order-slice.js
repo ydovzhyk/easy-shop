@@ -7,6 +7,7 @@ import {
   getAllOrders,
   deleteOrderById,
   getUserOrders,
+  getUserSales
 } from './order-operations';
 
 const initialState = {
@@ -23,6 +24,7 @@ const initialState = {
     orderProductInfo: [],
   },
   userOrders: { orders: [], totalPages: null, totalUserOrders: null },
+  userSales: { sales: [], totalPages: null, totalUserSales: null },
 };
 
 const orders = createSlice({
@@ -125,6 +127,21 @@ const orders = createSlice({
       store.userOrders.totalUserOrders = payload.totalUserOrders;
     },
     [getUserOrders.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
+    //* get user Sales
+    [getUserSales.pending]: store => {
+      store.loading = true;
+      store.error = null;
+    },
+    [getUserSales.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.userSales.sales = payload.sales;
+      store.userSales.totalPages = payload.totalPages;
+      store.userSales.totalUserSales = payload.totalUserSales;
+    },
+    [getUserSales.rejected]: (store, { payload }) => {
       store.loading = false;
       store.error = payload;
     },

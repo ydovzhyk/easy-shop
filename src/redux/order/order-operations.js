@@ -6,6 +6,7 @@ import {
   axiosGetOrderById,
   axiosDeleteOrderById,
   axiosGetUserOrders,
+  axiosGetUserSales,
 } from 'api/order';
 
 export const addOrder = createAsyncThunk(
@@ -79,6 +80,20 @@ export const getUserOrders = createAsyncThunk(
   async (userData, { rejectWithValue, dispatch }) => {
     try {
       const data = await axiosGetUserOrders(userData);
+      // console.log(data);
+      return data;
+    } catch (error) {
+      const { data, status } = error.response;
+      return rejectWithValue({ data, status });
+    }
+  }
+);
+
+export const getUserSales = createAsyncThunk(
+  'orders/user-sales',
+  async (userData, { rejectWithValue, dispatch }) => {
+    try {
+      const data = await axiosGetUserSales(userData);
       // console.log(data);
       return data;
     } catch (error) {

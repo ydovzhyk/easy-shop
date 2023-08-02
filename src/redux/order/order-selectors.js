@@ -15,3 +15,7 @@ export const selectProductsOrderById = ({ orders }) =>
 export const selectOrderInCheckout = ({ orders }) => orders.orderInCheckout.order;
 export const selectProductsOrderInCheckout = ({ orders }) =>
   orders.orderInCheckout.orderProductInfo;
+
+export const selectUserSales = ({ orders }) => orders.userSales.sales;
+export const selectUserSalesTotalPages = ({ orders }) => orders.userSales.totalPages;
+export const selectUserTotalSales = ({ orders }) => orders.userSales.totalUserSales;  
