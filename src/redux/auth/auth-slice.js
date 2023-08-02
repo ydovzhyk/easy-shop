@@ -153,17 +153,17 @@ const auth = createSlice({
     [updateUserSettings.fulfilled]: (store, { payload }) => {
       store.isLogin = true;
       store.loading = false;
-      store.secondName = payload.user.secondName;
-      store.firstName = payload.user.firstName;
-      store.surName = payload.user.surName;
-      store.email = payload.user.email;
-      store.tel = payload.user.tel;
-      store.userAvatar = payload.user.userAvatar;
-      store.cityName = payload.user.cityName;
-      store.streetName = payload.user.streetName;
-      store.houseNamber = payload.user.houseNamber;
-      store.sex = payload.user.sex;
-      store.about = payload.user.about;
+      store.user.secondName = payload.user.secondName;
+      store.user.firstName = payload.user.firstName;
+      store.user.surName = payload.user.surName;
+      store.user.email = payload.user.email;
+      store.user.tel = payload.user.tel;
+      store.user.userAvatar = payload.user.userAvatar;
+      store.user.cityName = payload.user.cityName;
+      store.user.streetName = payload.user.streetName;
+      store.user.houseNamber = payload.user.houseNamber;
+      store.user.sex = payload.user.sex;
+      store.user.about = payload.user.about;
       store.message = payload.message;
       store.newMessage = payload.newMessage;
     },
@@ -179,7 +179,7 @@ const auth = createSlice({
     [updateUserBasket.fulfilled]: (store, { payload }) => {
       store.loading = false;
       store.user.userBasket = payload.updatedUser.userBasket;
-      store.basketProducts = payload.basketProducts;
+      store.user.basketProducts = payload.basketProducts;
     },
 
     [updateUserBasket.rejected]: (store, { payload }) => {
@@ -194,7 +194,7 @@ const auth = createSlice({
     [updateUserLikes.fulfilled]: (store, { payload }) => {
       store.loading = false;
       store.user = payload.updatedUser;
-      store.likedProducts = payload.likedProducts;
+      store.user.likedProducts = payload.likedProducts;
     },
     [updateUserLikes.rejected]: (store, { payload }) => {
       store.loading = false;
@@ -207,8 +207,8 @@ const auth = createSlice({
     },
     [getUserLikesBasket.fulfilled]: (store, { payload }) => {
       store.loading = false;
-      store.likedProducts = payload.likedProducts;
-      store.basketProducts = payload.basketProducts;
+      store.user.likedProducts = payload.likedProducts;
+      store.user.basketProducts = payload.basketProducts;
     },
     [getUserLikesBasket.rejected]: (store, { payload }) => {
       store.loading = false;
