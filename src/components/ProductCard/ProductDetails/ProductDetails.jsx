@@ -1,6 +1,6 @@
 import Text from 'components/Shared/Text/Text';
-import s from './ProductCard.module.scss';
-import DeliveryList from './DeliveryList';
+import s from './ProductDetails.module.scss';
+import DeliveryList from '../DeliveryList/DeliveryList';
 
 const ProductDetails = ({ product }) => {
   const { brendName, condition, description, category: subSection } = product;

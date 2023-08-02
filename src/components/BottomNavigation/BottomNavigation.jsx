@@ -64,7 +64,7 @@ const BottomNavigation = () => {
           </div>
         </NavLink>
         <NavLink
-          to={isLogin ? '/products' : '/login'}
+          to={isLogin ? '/message' : '/login'}
           className={({ isActive }) => `${isActive ? s.active : ''}`}
         >
           <BiMessageDetail className={s.navIcon} size={isMobile ? 25 : 30} />

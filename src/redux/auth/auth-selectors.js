@@ -16,7 +16,7 @@ export const getUserAvatar = ({ auth }) => auth.user.userAvatar;
 export const getUserDateCreate = ({ auth }) => auth.user.dateCreate;
 export const getUserMessage = ({ auth }) => auth.message;
 export const selectBasketProducts = ({ auth }) => auth.user.userBasket;
-export const getLikedProducts = ({ auth }) => auth.likedProducts;
+export const getLikedProducts = ({ auth }) => auth.user.likedProducts;
 
 export const getSid = ({ auth }) => auth.sid;
 export const getAccessToken = ({ auth }) => auth.accessToken;
@@ -31,5 +31,5 @@ export const getUserIsRefreshing = ({ auth }) => auth.isRefreshing;
 export const getIsTotalLogin = ({ auth }) => auth.isTotalLogin;
 export const selectUserBasket = ({ auth }) => auth.user.userBasket;
 export const getUserLikes = ({ auth }) => auth.user.userLikes;
-export const selectUserBasketProducts = ({ auth }) => auth.basketProducts;
+export const selectUserBasketProducts = ({ auth }) => auth.user.basketProducts;
 export const selectUserOrders = ({ auth }) => auth.user.userOrders;
