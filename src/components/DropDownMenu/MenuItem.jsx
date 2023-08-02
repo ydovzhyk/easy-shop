@@ -2,11 +2,7 @@
 import s from './Catalog.module.scss';
 
 import React, { useState, useEffect } from 'react';
-import {
-  useSearchParams,
-  createSearchParams,
-  useLocation,
-} from 'react-router-dom';
+import { useSearchParams, createSearchParams } from 'react-router-dom';
 
 import { ReactComponent as Flech } from '../../images/dropDownMenu/flech.svg';
 
