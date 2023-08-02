@@ -16,8 +16,8 @@
   font-weight: 400;
   font-size: 18px;
   color: var(--text-color);
-  margin-bottom: 20px;
-  margin-top: 20px;
+  margin-bottom: 10px;
+  margin-top: 10px;
   @include mixins.mq(tablet) {
     font-size: 24px;
   }
@@ -47,8 +47,9 @@
 }
 
 .after-title-message-title {
-  font-weight: bold;
+  font-weight: 700;
   font-size: 14px;
+  line-height: 1.5;
   color: var(--text-color);
   text-align: center;
 }
@@ -161,8 +162,8 @@
   font-size: 24px;
   font-weight: 600;
   color: var(--title-text-color);
-  margin-bottom: 20px;
-  margin-top: 20px;
+  margin-bottom: 10px;
+  margin-top: 10px;
   @include mixins.mq(tablet) {
     font-size: 28px;
   }
@@ -316,3 +317,28 @@
 
   color: var(--second-text-color);
 }
+
+.titleTabMob {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--text-color);
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.productLabelsDialog {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--second-text-color);
+  margin-bottom: 5px;
+
+  text-align: center;
+}
+
+// .productLabelsNone {
+//   display: none;
+// }

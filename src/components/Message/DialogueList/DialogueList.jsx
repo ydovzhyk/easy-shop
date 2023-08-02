@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import {
   getAllDialoguesData,
   deleteDialogue,
@@ -29,6 +30,7 @@ const DialogueList = ({ selectedDialogue, setSelectedDialogue }) => {
   const [isNewMassege, setIsNewMassege] = useState(null);
   const dialoguesArray = useSelector(getDialoguesArrayStore);
   const message = useSelector(getDialogueMessage);
+  const isTabletOrMobile = useMediaQuery({ maxWidth: 1279 });
 
   const onActive = async data => {
     if (data) {
@@ -112,7 +114,16 @@ const DialogueList = ({ selectedDialogue, setSelectedDialogue }) => {
   return (
     <section className={s.dialogueList}>
       <div className={s.box}>
-        <Text text={'Ваш список діалогів'} textClass="title" />
+        <Text
+          text={'Ваш список діалогів'}
+          textClass={isTabletOrMobile ? 'titleTabMob' : 'title'}
+        />
+        {isTabletOrMobile && (
+          <Text
+            text={'Виберіть діалог щоб побачити повідомлення'}
+            textClass="productLabelsDialog"
+          />
+        )}
         <div className={s.btnSelect}>
           <div className={s.wrapper}>
             <Button

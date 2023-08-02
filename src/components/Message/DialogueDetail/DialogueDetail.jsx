@@ -1,13 +1,20 @@
 import { useNavigate } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
+// import { Link } from 'react-router-dom';
 import { translateParamsToEN } from '../../../funcs&hooks/translateParamsToEN';
 import Dialogue from 'components/Dialogue/Dialogue';
+// import RoundButton from 'components/Shared/RoundButton/RoundButton';
 import Text from 'components/Shared/Text/Text';
 import Button from 'components/Shared/Button';
+// import { TfiPlus, TfiCheck } from 'react-icons/tfi';
+// import { AiOutlineArrowLeft } from 'react-icons/ai';
 
 import s from './DialogueDetail.module.scss';
 
 const DialogueDetail = ({ selectedDialogue }) => {
   const navigate = useNavigate();
+  const isDesktop = useMediaQuery({ minWidth: 1280 });
+  // const isTabletOrMobile = useMediaQuery({ minWidth: 480 });
 
   let _id = null;
   let owner = null;
@@ -36,14 +43,14 @@ const DialogueDetail = ({ selectedDialogue }) => {
         className={s.box}
         style={{ justifyContent: !userDialogue ? 'center' : 'initial' }}
       >
-        {!userDialogue && (
+        {!userDialogue && isDesktop && (
           <Text
             text={'Виберіть діалог щоб побачити повідомлення'}
-            textClass="productLabels"
+            textClass={isDesktop ? 'productLabels' : 'productLabelsNone'}
           />
         )}
         {userDialogue && (
-          <>
+          <div>
             <div className={s.productBox}>
               <div
                 className={s.imageCard}
@@ -66,9 +73,15 @@ const DialogueDetail = ({ selectedDialogue }) => {
                 </div>
               </div>
               <div className={s.productNavigate}>
+                {/* <RoundButton
+                  // text="До товару"
+                  icon={TfiPlus}
+                  // handleClick={handleButtonClick}
+                  // id={dialogue._id}
+                /> */}
                 <Button
                   text="До товару"
-                  btnClass="btnLight"
+                  btnClass="btnLightDialogueDetail"
                   handleClick={handleButtonClick}
                 />
               </div>
@@ -76,7 +89,7 @@ const DialogueDetail = ({ selectedDialogue }) => {
             <div className={s.dialogueBox}>
               <Dialogue productInfo={{ _id, owner, userDialogue }} />
             </div>
-          </>
+          </div>
         )}
       </div>
     </section>

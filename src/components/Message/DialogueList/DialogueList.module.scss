@@ -1,7 +1,10 @@
 @use '../../../styles/mixins';
 
 .dialogueList {
-  @include mixins.mq(tablet) {
+  padding: 10px;
+  width: 100%;
+
+  @include mixins.mq(desktop) {
     width: 45%;
   }
 }
@@ -52,7 +55,6 @@
 }
 
 .dialogueGroup {
-  padding: 10px;
   padding-top: 15px;
   height: 525px;
   overflow-y: auto;
