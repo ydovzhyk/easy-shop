@@ -29,7 +29,7 @@
     }
 
     @include mixins.mq(tablet) {
-        flex-basis: calc(100% / 4 - 10px);
+        flex-basis: calc(100% / 5 - 10px);
     }
 }
 

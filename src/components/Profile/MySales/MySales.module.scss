@@ -1,0 +1,189 @@
+@use 'styles/mixins';
+
+.ordersWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 20px;
+    @include mixins.mq(tablet) {
+        flex-direction: row;
+    }
+}
+
+.heading {
+  font-size: 18px;
+  color: var(--text-color);
+  margin-bottom: 20px;
+  @include mixins.mq(desktop) {
+    font-size: 24px;
+  }
+}
+.optionsList {
+    // width: 100%;
+    // padding-left: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    @include mixins.mq(tablet) {
+        width: 20%;
+        padding-left: 16px;
+    }
+    @include mixins.mq(desktop) {
+        padding-left: 20px;
+    }
+}
+
+.ordersList {
+    // width: 80%;
+    @include mixins.mq(tablet) {
+        width: 80%;
+    }
+    @include mixins.mq(desktop) {
+    }
+}
+
+.orderItem {
+    margin-bottom: 20px;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    
+    &:hover{
+        border: 1px solid var(--accent-color);
+    }
+
+    @include mixins.mq(tablet) {
+        padding: 12px;
+    }
+    @include mixins.mq(desktop) {
+        padding: 20px;
+    }
+
+}
+
+.orderInfoWrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.orderInfoItem {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.orderInfoItem:nth-child(2) > p {
+    text-align: end;
+}
+
+.orderSum {
+    font-weight: 600;
+    text-align: end;
+    font-size: 18px;
+    color: var(--text-color);
+    @include mixins.mq(desktop) {
+        font-size: 24px;
+    }
+}
+
+.orderBottomWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    @include mixins.mq(tablet) {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 12px;
+    }
+}
+
+.waitingPhrase {
+    padding: 8px;
+    border-bottom: 1px solid var(--border-color);
+    // text-shadow: var(--hover-text-shadow);
+}
+
+.btnLight {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 196px;
+  height: 50px;
+  background-color: var(--background-btn-main-color);
+  border: 1px solid var(--btn-border-color);
+  // border: 2px solid var(--border-color);
+  color: var(--btn-text-color);
+  border-radius: 10.3108px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 18px;
+  text-align: center;
+  transition: background-color var(--transition-duration) var(--timing-function),
+    color var(--transition-duration) var(--timing-function),
+    box-shadow var(--transition-duration) var(--timing-function);
+  &:hover {
+    background-color: var(--background-btn-second-color);
+    border-color: var(--btn-border-color);
+    box-shadow: var(--hover-box-shadow);
+  }
+}
+
+.selectButton {
+  position: relative;
+
+  padding: 8px;
+  font-size: 16px;
+  line-height: 13px;
+  letter-spacing: 0.04em;
+
+  color: var(--title-text-color);
+  background-color: transparent;
+
+  &::before {
+    content: '';
+    display: block;
+
+    position: absolute;
+    bottom: 1px;
+    left: 0;
+
+    width: 0;
+    height: 1px;
+
+    background-color: var(--btn-border-color);
+    transition: all var(--transition-duration) var(--timing-function);
+  }
+//   &:focus::before,
+  &:hover::before {
+    width: 100%;
+  }
+  &:hover {
+    text-shadow: var(--hover-text-shadow);
+    color: var(--hover-active-color);
+  }
+}
+
+.active {
+  position: relative;
+
+  text-shadow: var(--hover-text-shadow);
+  color: var(--hover-active-color);
+}
+
+.message {
+    font-size: 16px;
+    margin: auto;
+    text-align: center;
+    @include mixins.mq(tablet) {
+        font-size: 20px;
+    }
+    @include mixins.mq(desktop) {
+        font-size: 26px;
+    }
+}

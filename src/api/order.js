@@ -36,3 +36,11 @@ export const axiosGetUserOrders = async userData => {
   );
   return data;
 };
+
+// Get User Sales
+export const axiosGetUserSales = async userData => {
+  const { data } = await instance.post(
+    `/orders/user-sales?page=${userData.page}`
+  );
+  return data;
+};

@@ -33,3 +33,4 @@ export const selectUserBasket = ({ auth }) => auth.user.userBasket;
 export const getUserLikes = ({ auth }) => auth.user.userLikes;
 export const selectUserBasketProducts = ({ auth }) => auth.user.basketProducts;
 export const selectUserOrders = ({ auth }) => auth.user.userOrders;
+export const selectUserSales = ({ auth }) => auth.user.userSales;

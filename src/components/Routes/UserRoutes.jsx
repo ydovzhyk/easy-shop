@@ -36,6 +36,7 @@ const About = lazy(() => import('components/UserSellingInfo/About/About'));
 const Reviews = lazy(() =>
   import('components/UserSellingInfo/Reviews/Reviews')
 );
+const MySales = lazy(() => import('components/Profile/MySales/MySales'));
 
 const UserRoutes = () => {
   return (
@@ -74,6 +75,7 @@ const UserRoutes = () => {
             <Route path="mypurchases" element={<MyPurchases />} />
             <Route path="myreviews" element={<MyReviews />} />
             <Route path="mysettings" element={<MySettings />} />
+            <Route path="mysales" element={<MySales />} />
           </Route>
           <Route path="/email-verification" element={<EmailVerification />} />
           <Route path="/checkout" element={<CheckoutPage />} />
