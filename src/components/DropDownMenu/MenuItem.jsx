@@ -1,4 +1,3 @@
-// import { Link } from 'react-router-dom';
 import s from './Catalog.module.scss';
 
 import React, { useState, useEffect } from 'react';
@@ -11,7 +10,6 @@ const MenuItem = ({ menuItem, activeItem, setActiveItem }) => {
   const [query, setQuery] = useState('');
   const [searchParams] = useSearchParams();
 
-  // const { pathname } = useLocation();
   // const isUserAtProductsSearchPage =
   //   pathname.includes('/products') && pathname.split('/').length <= 4;
   const searchQuery = searchParams.get('search') ?? '';
@@ -24,20 +22,12 @@ const MenuItem = ({ menuItem, activeItem, setActiveItem }) => {
     setActiveItem('');
     setIsSubMenuOpen(false);
   };
-  // let mainUrl;
-
-  // if (process.env.NODE_ENV === 'production') {
-  //   mainUrl = 'easy-shop';
-  // }
-  // if (process.env.NODE_ENV === 'development') {
-  //   mainUrl = '';
-  // }
 
   const getPathCategory = link => {
     if (process.env.NODE_ENV === 'production') {
       return query === ''
-        ? `${link.split('').slice(1).join('')}`
-        : `${link.split('').slice(1).join('')}?${createSearchParams({
+        ? `${'#'}${link}`
+        : `${'#'}${link}?${createSearchParams({
             search: query,
           })}`;
     }
