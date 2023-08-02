@@ -172,9 +172,11 @@ export const App = () => {
       if (process.env.NODE_ENV === 'development') {
         uri = `wss://easy-shop-backend.herokuapp.com/?user=${userId}`;
       }
+
       // if (process.env.NODE_ENV === 'development') {
       //   uri = `ws://localhost:4000/?user=${userId}`;
       // }
+
       const socket = new WebSocket(uri);
 
       socket.onopen = () => {
