@@ -125,14 +125,14 @@ const Checkout = () => {
                   />
                 </div>
                 <FormField
-                  labelText={labelName}
+                  labelText="Введіть місто*"
                   controllerName="city"
                   fieldName="city"
                   control={control}
                   register={register}
                 />
                 <FormField
-                  labelText="Введіть місто*"
+                  labelText={labelName}
                   controllerName="department"
                   fieldName="deliveryDepartment"
                   control={control}
