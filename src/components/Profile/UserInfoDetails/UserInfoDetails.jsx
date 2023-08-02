@@ -19,6 +19,7 @@ const UserInfoDetails = () => {
   const [isMyPurchases, setIsMyPurchases] = useState(false);
   const [isMyReviews, setIsMyReviews] = useState(false);
   const [isMySettings, setIsMySettings] = useState(false);
+  const [isMySales, setIsMySales] = useState(false);
 
   useEffect(() => {
     setIsMyWares(
@@ -27,6 +28,7 @@ const UserInfoDetails = () => {
     setIsMyPurchases(location === '/profile/mypurchases' ? true : false);
     setIsMyReviews(location === '/profile/myreviews' ? true : false);
     setIsMySettings(location === '/profile/mysettings' ? true : false);
+    setIsMySales(location === '/profile/mysales' ? true : false);
   }, [location]);
 
   useEffect(() => {
@@ -66,6 +68,16 @@ const UserInfoDetails = () => {
             value={myPurchases}
           >
             Мої покупки
+          </ProfileLink>
+        </li>
+        <li className={s.item}>
+          <ProfileLink
+            to="mysales"
+            addValue
+            isBackgroundChange={isMySales}
+            value={0}
+          >
+            Мої продажі
           </ProfileLink>
         </li>
         <li className={s.item}>
