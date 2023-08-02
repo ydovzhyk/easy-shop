@@ -166,7 +166,7 @@ const MyShoppings = () => {
           <p className={s.message}>Замовлень з таким статусом у вас ще немає</p>
         )}
       </div>
-      {totalPages > 0 && (
+      {totalPages > 1 && (
         <Pagination
           totalPages={totalPages}
           currentPage={currentPage}
