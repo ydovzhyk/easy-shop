@@ -10,6 +10,7 @@ const MenuItem = ({ menuItem, activeItem, setActiveItem }) => {
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [searchParams] = useSearchParams();
+
   // const { pathname } = useLocation();
   // const isUserAtProductsSearchPage =
   //   pathname.includes('/products') && pathname.split('/').length <= 4;
