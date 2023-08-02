@@ -11,12 +11,7 @@ import { clearOtherUser } from 'redux/otherUser/otherUser.slice';
 import { clearProductById } from 'redux/product/product-slice';
 import { updateUserBasket, updateUserLikes } from 'redux/auth/auth-opetations';
 import { addOrder } from 'redux/order/order-operations';
-import {
-  getID,
-  getLogin,
-  selectUserBasket,
-  getUser,
-} from 'redux/auth/auth-selectors';
+import { getLogin, selectUserBasket, getUser } from 'redux/auth/auth-selectors';
 import { selectOtherUser } from 'redux/otherUser/otherUser-selectors';
 
 import SellerInfo from './SellerInfo/SellerInfo';
@@ -25,21 +20,18 @@ import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
 import Container from 'components/Shared/Container/Container';
 import Text from 'components/Shared/Text/Text';
 import Button from 'components/Shared/Button/Button';
-import SizeSelection from 'components/Shared/Sizes/SizeSelection/SizeSelection';
-import ProductDetails from './ProductDetails';
+import ProductDetails from './ProductDetails/ProductDetails';
 import Loader from 'components/Loader/Loader';
+import ProductPhotoContainer from './ProductPhotoContainer/ProductPhotoContainer';
+import ProductInfo from './ProductInfo/ProductInfo';
 import { translateParamsToUA } from '../../funcs&hooks/translateParamsToUA.js';
-import { FiHeart } from 'react-icons/fi';
-import { BiMessageDetail } from 'react-icons/bi';
 
 import s from './ProductCard.module.scss';
-import ProductPhotoContainer from './ProductPhotoContainer';
 
 const ProductCard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const product = useSelector(selectProductById);
-  const userId = useSelector(getID);
   const userProductBasket = useSelector(selectUserBasket);
   const sellerInfo = useSelector(selectOtherUser);
   const chattingRef = useRef();
@@ -50,7 +42,7 @@ const ProductCard = () => {
   const userProducts = user.userProducts ? user.userProducts : [];
   const userDialogue = null;
 
-  const { nameProduct, price, owner, userLikes, size, _id, sale } = product;
+  const { price, owner, size, _id, sale } = product;
 
   const isProductInBasket = (userProductBasket || [])
     .flat()
@@ -74,8 +66,6 @@ const ProductCard = () => {
       ...size,
       quantity: 1,
     }));
-
-  const isProductInLike = userLikes && userLikes.includes(userId);
 
   const resetMessage = () => {
     setIsMessage(false);
@@ -111,14 +101,12 @@ const ProductCard = () => {
   };
 
   // for likes
-  const handleClick = async () => {
+  const handleLikesClick = async () => {
     if (!isLogin) {
       navigate('/login');
       return;
     }
-
     await dispatch(updateUserLikes({ productId: _id }));
-
     setIsLiked(true);
   };
 
@@ -155,7 +143,7 @@ const ProductCard = () => {
 
   const isUserProduct = userProducts.find(id => id === _id);
 
-  const handleButtonClick = () => {
+  const handleMessageButtonClick = () => {
     navigate('/message');
   };
 
@@ -163,7 +151,6 @@ const ProductCard = () => {
   const discountedPrice = sale ? (price * (100 - sale)) / 100 : price;
   // for BuyNow
   const handleBuyNowButtonClick = async event => {
-    // await setProductToBasket(event);
     if (!isLogin) {
       navigate('/login');
       return;
@@ -183,7 +170,6 @@ const ProductCard = () => {
           selectedSizes: selectedProductSizes,
         })
       );
-      // await setProductToBasket(event);
       navigate('/basket');
       return;
     }
@@ -201,7 +187,6 @@ const ProductCard = () => {
       ],
       totalSum: selectedProductSizes.length * discountedPrice,
     };
-    console.log('Відправка форми', dataForUpload);
 
     const newOrder = await dispatch(addOrder(dataForUpload));
 
@@ -232,82 +217,17 @@ const ProductCard = () => {
               <div>
                 <div className={s.productMainInfo}>
                   <ProductPhotoContainer />
-                  <div className={s.productInfoWrapper}>
-                    <p className={s.availability}>В наявності</p>
-                    <Text text={nameProduct} textClass="productName" />
-                    {sale ? (
-                      <>
-                        <span className={s.productOldPrice}>{price}грн</span>
-                        <span className={s.productPriceDiscount}>-{sale}%</span>
-                        <Text
-                          text={`${discountedPrice} грн`}
-                          textClass="title"
-                        />
-                      </>
-                    ) : (
-                      <Text text={`${price} грн`} textClass="title" />
-                    )}
-                    {size && (
-                      <SizeSelection
-                        sizeOption={size}
-                        defaultSelectedSizes={selectedSizesById}
-                        onSelectedSizesChange={handleSelectedSizesChange}
-                      />
-                    )}
-                    {!isUserProduct && (
-                      <div className={s.buyBtns}>
-                        <Button
-                          type="button"
-                          btnClass="btnLight"
-                          text="Купити зараз"
-                          handleClick={handleBuyNowButtonClick}
-                        />
-
-                        <Button
-                          type="button"
-                          btnClass={!isProductInBasket ? 'btnLight' : 'btnDark'}
-                          text={
-                            isProductInBasket
-                              ? 'Товар у кошику'
-                              : 'Додати до кошика'
-                          }
-                          handleClick={setProductToBasket}
-                        />
-                      </div>
-                    )}
-
-                    <div className={s.additionalOptsContainer}>
-                      {!isUserProduct && (
-                        <div className={s.additionalOpts} onClick={handleClick}>
-                          <FiHeart
-                            className={`${
-                              isProductInLike ? s.active : s.liked
-                            }`}
-                          />
-                          <Text
-                            text={
-                              isProductInLike
-                                ? 'Товар обраний'
-                                : 'Додати в обрані'
-                            }
-                            textClass="productText"
-                          />
-                        </div>
-                      )}
-
-                      {!isUserProduct && (
-                        <div className={s.additionalOpts}>
-                          <BiMessageDetail className={s.favoriteIcon} />
-                          <button onClick={scrollToChating}>
-                            <Text
-                              text="Поставити запитання"
-                              textClass="productText"
-                            />
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  </div>
+                  <ProductInfo
+                    product={product}
+                    selectedSizesById={selectedSizesById}
+                    handleSelectedSizesChange={handleSelectedSizesChange}
+                    isUserProduct={isUserProduct}
+                    handleBuyNowButtonClick={handleBuyNowButtonClick}
+                    scrollToChating={scrollToChating}
+                    setProductToBasket={setProductToBasket}
+                    isProductInBasket={isProductInBasket}
+                    handleLikesClick={handleLikesClick}
+                  />
                 </div>
                 <ProductDetails product={product} />
               </div>
@@ -333,7 +253,7 @@ const ProductCard = () => {
                   <Button
                     text="До повідомлень"
                     btnClass="btnLight"
-                    handleClick={handleButtonClick}
+                    handleClick={handleMessageButtonClick}
                   />
                 </div>
               )}

@@ -2,14 +2,6 @@
 
 .productCard {
   padding-top: 30px;
-
-  @include mixins.mq(tablet) {
-    // height: 100vh;
-  }
-
-  @include mixins.mq(desktop) {
-    // height: auto;
-  }
 }
 
 .navigation {
@@ -24,51 +16,6 @@
   @include mixins.mq(desktop) {
     display: flex;
   }
-}
-
-.fotoContainer {
-  position: relative;
-  // width: 100%;
-  // height: 400px;
-
-  margin-bottom: 20px;
-
-  @include mixins.mq(tablet) {
-    // width: 380px;
-    margin-bottom: 0;
-  }
-
-  @include mixins.mq(desktop) {
-    // width: 420px;
-  }
-}
-
-.labelsContainer {
-  position: absolute;
-    top: 16px;
-    left: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.vipLabel {
-    display: flex;
-    background: var(--btn-text-color);
-    min-width: 16px;
-    min-height: 16px;
-    align-items: center;
-    justify-content: center;
-    border-radius: 18px;
-    padding: 4px 12px;
-}    
-
-.vipLabel > span {
-  display: inline-block;
-  font-size: 14px;
-  text-transform: uppercase;
-  line-height: 16px;
-  color: var(--accent-color);
 }
 
 .fotoGalery {
@@ -86,124 +33,8 @@
   }
 }
 
-.productInfoWrapper {
-  @include mixins.mq(tablet) {
-    width: 50%;
-  }
-}
-
-.availability {
-  color: var(--text-color);
-  padding: 8px;
-  background-color: var(--accent-color);
-  display: inline-block;
-  border-radius: 12px;
-}
-
 .productPrice > p {
   font-weight: 600;
-}
-
-.productOldPrice {
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 8px;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 16px;
-  text-decoration: line-through;
-  color: #8e8e8e;
-}
-
-.productPriceDiscount {
-  display: inline-block;
-  padding: 4px;
-  border-radius: 4px;
-  border: 1px solid var(--accent-color);
-  font-size: 12px;
-  line-height: 16px;
-  color: var(--btn-text-color);
-  text-transform: lowercase;
-}
-
-.buyBtns {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 24px;
-    
-    @include mixins.mq(desktop) {
-      flex-direction: row;
-      gap: 24px;
-  }
-}
-
-.additionalOptsContainer {
-  @include mixins.mq(tablet) {
-    display: flex;
-    gap: 24px;
-  }
-}
-
-.additionalOpts {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 12px;
-  cursor: pointer;
-}
-
-.additionalOpts button {
-  background-color: transparent;
-  text-align: start;
-}
-
-.additionalOpts button:hover {
-  text-shadow: 5px 5px 10px #dadada;
-}
-
-.productInfo {
-  padding: 8px 0;
-  @include mixins.mq(tablet) {
-    display: flex;
-    gap: 48px;
-  }
-}
-
-.productDetails {
-  @include mixins.mq(desktop) {
-    display: flex;
-  }
-}
-
-.productDescription {
-  margin-bottom: 16px;
-}
-
-.deliveryListContainer {
-  min-width: 220px;
-  @include mixins.mq(desktop) {
-    margin-left: 24px;
-  }
-}
-
-.deliveryList {
-  margin-bottom: 24px;
-}
-
-.deliveryItem {
-  display: flex;
-  gap: 4px;
-  align-items: center;
-}
-
-.deliveryItem:not(:last-child) {
-  margin-bottom: 8px;
-}
-
-.deliveryIcon {
-  width: 22px;
-  height: 22px;
 }
 
 .sellerInfo {

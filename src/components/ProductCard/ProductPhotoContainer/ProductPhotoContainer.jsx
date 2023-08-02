@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { selectProductById } from 'redux/product/product-selectors';
 import PhotoCollection from 'components/Shared/PhotoCollection/PhotoCollection';
-import s from './ProductCard.module.scss';
+import s from './ProductPhotoContainer.module.scss';
 
 const ProductPhotoContainer = () => {
   const product = useSelector(selectProductById);
