@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { useLocation, Outlet } from 'react-router-dom';
 
 import { getUser } from 'redux/auth/auth-selectors';
-import { selectUserOrders } from 'redux/auth/auth-selectors';
 import Loader from 'components/Loader';
 import Container from 'components/Shared/Container';
 import ProfileLink from 'components/Profile/ProfileLink/ProfileLink';
