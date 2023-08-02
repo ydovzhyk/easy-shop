@@ -9,6 +9,14 @@
   flex-direction: column;
   align-items: center;
   height: 100%;
+
+  @include mixins.mq(desktop) {
+    padding-left: 20px;
+  }
+}
+
+.groupProductDialogue {
+  width: 100%;
 }
 
 .dialogueBox {
@@ -17,12 +25,23 @@
 
 .productBox {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   padding: 10px;
-  margin-top: 10px;
   width: 100%;
   border-bottom: 1px solid var(--border-color);
+
+  @include mixins.mq(tablet) {
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+
+  @include mixins.mq(desktop) {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
 }
 
 .imageCard {
@@ -31,6 +50,7 @@
   background-size: cover;
   background-position: center;
 }
+
 .productInfo {
   height: 100%;
   display: flex;
@@ -38,7 +58,11 @@
   align-items: center;
   justify-content: center;
   padding-top: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 7px;
+
+  @include mixins.mq(tablet) {
+    padding-bottom: 20px;
+  }
 }
 
 .messageBoxTitle {
@@ -47,8 +71,12 @@
 }
 
 .productNavigate {
-  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
+  align-items: center;
+
+  @include mixins.mq(desktop) {
+    justify-content: center;
+  }
 }

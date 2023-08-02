@@ -56,7 +56,7 @@
 
 .dialogueGroup {
   padding-top: 15px;
-  height: 525px;
+  height: 730px;
   overflow-y: auto;
   cursor: pointer;
   &::-webkit-scrollbar {
@@ -75,6 +75,7 @@
 
 .dialogueCardBotoom {
   margin-bottom: 30px;
+  margin-right: 5px;
 }
 
 .dialogueCardBotoom:last-child {
@@ -88,7 +89,7 @@
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  height: 145px;
+  height: 155px;
   border: 1px solid var(--border-color);
 }
 
@@ -99,14 +100,18 @@
   justify-content: center;
   align-items: center;
   margin-top: -20px;
-  margin-left: 100px;
+  margin-left: 30px;
   padding: 3px 7px;
   background-color: var(--bg-footer-header);
+
+  @include mixins.mq(tablet) {
+    margin-left: 100px;
+  }
 }
 
 .imageCard {
   width: 100px;
-  height: 143px;
+  height: 153px;
   background-size: cover;
   background-position: center;
 }
@@ -126,17 +131,38 @@
 }
 
 .messageBoxTitle {
+  margin-left: 10px;
   margin-top: 17px;
-  width: 300px;
+  width: 320px;
+
+  @include mixins.mq(tablet) {
+    margin-left: 0px;
+    width: 400px;
+  }
+
+  @include mixins.mq(desktop) {
+    width: 300px;
+  }
 }
 
 .messageBox {
   margin-top: 15px;
+  margin-left: 15px;
+  width: 320px;
+
+  @include mixins.mq(tablet) {
+    margin-left: 0px;
+    width: 400px;
+  }
+
+  @include mixins.mq(desktop) {
+    width: 300px;
+  }
 }
 
 .messageBoxText {
-  width: 300px;
-  height: 50px;
+  min-height: 50px;
+  max-height: 50px;
 }
 
 .numberNewMessage {

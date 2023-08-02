@@ -31,6 +31,7 @@ const DialogueList = ({ selectedDialogue, setSelectedDialogue }) => {
   const dialoguesArray = useSelector(getDialoguesArrayStore);
   const message = useSelector(getDialogueMessage);
   const isTabletOrMobile = useMediaQuery({ maxWidth: 1279 });
+  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const onActive = async data => {
     if (data) {
@@ -169,12 +170,14 @@ const DialogueList = ({ selectedDialogue, setSelectedDialogue }) => {
                       textClass="after-title-bottom"
                     />
                   </div>
-                  <div
-                    className={s.imageCard}
-                    style={{
-                      backgroundImage: `url(${dialogue.productInfo.mainPhotoUrl})`,
-                    }}
-                  ></div>
+                  {!isMobile && (
+                    <div
+                      className={s.imageCard}
+                      style={{
+                        backgroundImage: `url(${dialogue.productInfo.mainPhotoUrl})`,
+                      }}
+                    ></div>
+                  )}
                   <div className={s.message_title_box}>
                     <div className={s.messageBoxTitle}>
                       <Text
@@ -207,7 +210,7 @@ const DialogueList = ({ selectedDialogue, setSelectedDialogue }) => {
                     <div className={s.numberNewMessage}>
                       <Text
                         text={getNumberNewMessage(dialogue)}
-                        textClass="after-title-message-title"
+                        textClass="after-title-message-count"
                       />
                     </div>
                     <RoundButton

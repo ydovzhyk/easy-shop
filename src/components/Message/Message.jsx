@@ -1,14 +1,11 @@
 import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-// import { Link } from 'react-router-dom';
-
 import Container from 'components/Shared/Container';
 import DialogueList from './DialogueList/DialogueList';
 import DialogueDetail from './DialogueDetail/DialogueDetail';
-import { BsArrowLeft } from 'react-icons/bs';
+import { FiX } from 'react-icons/fi';
 
 import s from './Message.module.scss';
-// import { Button } from 'antd';
 
 const Message = () => {
   const [selectedDialogue, setSelectedDialogue] = useState(null);
@@ -37,15 +34,19 @@ const Message = () => {
           )}
           {!isDesktop && selectedDialogue !== null && (
             <div className={s.containerDialogueDetailTabMob}>
-              <div className={s.buttonBox}>
-                <button className={s.dismissButton} onClick={handleClose}>
-                  <BsArrowLeft className={s.buttonBack} />
-                </button>
-              </div>
-              <DialogueDetail
-                selectedDialogue={selectedDialogue}
-                setSelectedDialogue={setSelectedDialogue}
-              />
+              <Container>
+                <div className={s.buttonBoxPosition}>
+                  <div className={s.buttonBox}>
+                    <button className={s.closeButton} onClick={handleClose}>
+                      <FiX />
+                    </button>
+                  </div>
+                </div>
+                <DialogueDetail
+                  selectedDialogue={selectedDialogue}
+                  setSelectedDialogue={setSelectedDialogue}
+                />
+              </Container>
             </div>
           )}
         </div>
@@ -55,10 +56,3 @@ const Message = () => {
 };
 
 export default Message;
-
-// <Button
-//   type="button"
-//   btnClass="burgerButton"
-//   handleClick={handleSearchBtnClick}
-//   text={<AiOutlineArrowLeft size={isMobile ? 15 : 20} />}
-// />;

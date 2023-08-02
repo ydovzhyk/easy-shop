@@ -47,6 +47,17 @@
 }
 
 .after-title-message-title {
+  min-height: 40px;
+  min-height: 40px;
+  overflow: hidden;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-color);
+  text-align: center;
+}
+
+.after-title-message-count {
   font-weight: 700;
   font-size: 14px;
   line-height: 1.5;
