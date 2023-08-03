@@ -58,10 +58,10 @@
   align-items: center;
   justify-content: center;
   padding-top: 20px;
-  padding-bottom: 7px;
+  padding-bottom: 20px;
 
   @include mixins.mq(tablet) {
-    padding-bottom: 20px;
+    padding-bottom: 10px;
   }
 }
 

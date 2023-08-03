@@ -117,23 +117,24 @@
 }
 
 .deleteBox {
+  margin-right: 10px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100px;
-  height: 143px;
 }
 
 .message_title_box {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .messageBoxTitle {
   margin-left: 10px;
   margin-top: 17px;
-  width: 320px;
+  max-height: 45px;
+  overflow: hidden;
 
   @include mixins.mq(tablet) {
     margin-left: 0px;
@@ -147,8 +148,8 @@
 
 .messageBox {
   margin-top: 15px;
-  margin-left: 15px;
-  width: 320px;
+  margin-left: 10px;
+  min-width: 230px;
 
   @include mixins.mq(tablet) {
     margin-left: 0px;
@@ -161,8 +162,9 @@
 }
 
 .messageBoxText {
-  min-height: 50px;
-  max-height: 50px;
+  min-height: 44px;
+  max-height: 44px;
+  overflow: hidden;
 }
 
 .numberNewMessage {
