@@ -2,8 +2,12 @@
 
 .profilewrapper {
   display: flex;
-  align-items: flex-start;
-  gap: 16px;
+  justify-content: space-between;
+
+  @include mixins.mq(tablet) {
+    gap: 16px;
+    justify-content: flex-start;
+  }
 }
 
 .avatarframe {
@@ -97,4 +101,27 @@
   margin-right: 8px;
   width: 16px;
   height: 16px;
+}
+
+.wrapper {
+  margin-top: auto;
+  margin-bottom: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 45px;
+
+  &:hover::before,
+  &:focus::before {
+    width: 100%;
+  }
+  @include mixins.mq(tablet) {
+    margin-left: 140px;
+    flex-direction: row;
+  }
+  @include mixins.mq(desktop) {
+    display: none;
+  }
 }
