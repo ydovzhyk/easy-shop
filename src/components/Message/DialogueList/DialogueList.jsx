@@ -214,6 +214,7 @@ const DialogueList = ({ selectedDialogue, setSelectedDialogue }) => {
                       />
                     </div>
                     <RoundButton
+                      btnClass={isMobile ? 'roundButtonMob' : 'roundButton'}
                       icon={BsTrash}
                       handleClick={handleButtonTrashClick}
                       id={dialogue._id}

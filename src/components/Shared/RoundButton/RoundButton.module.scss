@@ -1,48 +1,80 @@
 // @use '../../styles/_mixins.scss';
 
 .roundButton {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 64px;
-    height: 64px;
-    // background-color: var(--background-btn-main-color);
-    background-color: var(--bg-footer-header);
-    border-radius: 50%;
-    border: 1px solid var(--btn-border-color);
-    transition: background-color var(--transition-duration) var(--timing-function),
-        color var(--transition-duration) var(--timing-function),
-        box-shadow var(--transition-duration) var(--timing-function);
-    cursor: pointer;
-    
-    &:hover {
-        // background-color: var(--background-btn-second-color);
-        background-color: var(--background-btn-main-color);
-        border-color: var(--btn-border-color);
-        box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
-    }
-    
-    &:hover svg {
-        color: var(--icon-color);
-    }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 64px;
+  height: 64px;
+  // background-color: var(--background-btn-main-color);
+  background-color: var(--bg-footer-header);
+  border-radius: 50%;
+  border: 1px solid var(--btn-border-color);
+  transition: background-color var(--transition-duration) var(--timing-function),
+    color var(--transition-duration) var(--timing-function),
+    box-shadow var(--transition-duration) var(--timing-function);
+  cursor: pointer;
+
+  &:hover {
+    // background-color: var(--background-btn-second-color);
+    background-color: var(--background-btn-main-color);
+    border-color: var(--btn-border-color);
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
+  }
+
+  &:hover svg {
+    color: var(--icon-color);
+  }
 }
 
 .scrollButton {
-    @extend .roundButton;
-    position: fixed;
-    bottom: 120px;
-    right: 20px;
-    transition: opacity 0.3s ease;
+  @extend .roundButton;
+  position: fixed;
+  bottom: 120px;
+  right: 20px;
+  transition: opacity 0.3s ease;
 }
 
 .scrollButton:hover {
-    opacity: 0.8;
+  opacity: 0.8;
 }
+
 .icon {
-    width: 24px;
-    height: 24px;
+  width: 24px;
+  height: 24px;
 }
-        
+
+.iconMob {
+  width: 19px;
+  height: 19px;
+}
+
+.roundButtonMob {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  // background-color: var(--background-btn-main-color);
+  background-color: var(--bg-footer-header);
+  border-radius: 50%;
+  border: 1px solid var(--btn-border-color);
+  transition: background-color var(--transition-duration) var(--timing-function),
+    color var(--transition-duration) var(--timing-function),
+    box-shadow var(--transition-duration) var(--timing-function);
+  cursor: pointer;
+
+  &:hover {
+    // background-color: var(--background-btn-second-color);
+    background-color: var(--background-btn-main-color);
+    border-color: var(--btn-border-color);
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
+  }
+
+  &:hover svg {
+    color: var(--icon-color);
+  }
+}
 
 // .arrowButtonLeft {
 //     position: absolute;
@@ -59,4 +91,3 @@
 
 //     z-index: 10;
 // }
-
