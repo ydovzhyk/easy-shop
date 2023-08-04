@@ -1,12 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { getOtherUser } from './otherUser-operations';
+import { getOtherUser, updateUserSubscriptions } from './otherUser-operations';
 
 const initialState = {
   message: '',
   loading: false,
   error: null,
   otherUserInfo: {},
+  userSubscriptions: [],
+  totalPagesUserSubscription: 0,
 };
 
 const otherUser = createSlice({
@@ -34,6 +36,20 @@ const otherUser = createSlice({
       store.otherUserInfo = payload;
     },
     [getOtherUser.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload.message;
+    },
+     // * POST User Subscriptions
+     [updateUserSubscriptions.pending]: store => {
+      store.loading = true;
+      store.error = '';
+    },
+    [updateUserSubscriptions.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.user.userSubscriptions = payload.userSubscriptions;
+      store.user.totalPagesUserSubscription = payload.totalPagesUserSubscription;
+    },
+    [updateUserSubscriptions.rejected]: (store, { payload }) => {
       store.loading = false;
       store.error = payload.message;
     },
