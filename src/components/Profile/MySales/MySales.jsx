@@ -123,6 +123,8 @@ const MySales = () => {
                 products,
                 productInfo,
                 client,
+                statusNew,
+                confirmed,
               }) => (
                 <li className={s.orderItem} key={_id}>
                   <div className={s.orderInfoWrapper}>
@@ -143,18 +145,24 @@ const MySales = () => {
                     products={products}
                   />
                   <div className={s.orderBottomWrapper}>
-                    <Button
-                      type="button"
-                      btnClass="btnLight"
-                      text="Підтвердити замовлення"
-                      handleClick={handleConfirmButtonClick}
-                    />
-                    <Button
-                      type="button"
-                      btnClass="btnDark"
-                      text="Скасувати замовлення"
-                      handleClick={handleCancelButtonClick}
-                    />
+                    {statusNew === true ? (
+                      <>
+                        <Button
+                          type="button"
+                          btnClass="btnLight"
+                          text="Підтвердити замовлення"
+                          handleClick={handleConfirmButtonClick}
+                        />
+                        <Button
+                          type="button"
+                          btnClass="btnDark"
+                          text="Скасувати замовлення"
+                          handleClick={handleCancelButtonClick}
+                        />
+                      </>
+                    ) : (
+                      <p className={s.waitingPhrase}>{confirmed === true ? "Підтверджено" : "Скасовано"}</p>
+                    )}
 
                     <p
                       className={s.orderSum}
