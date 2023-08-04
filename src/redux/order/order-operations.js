@@ -7,6 +7,7 @@ import {
   axiosDeleteOrderById,
   axiosGetUserOrders,
   axiosGetUserSales,
+  axiosUpdateOrderStatus,
 } from 'api/order';
 
 export const addOrder = createAsyncThunk(
@@ -95,6 +96,19 @@ export const getUserSales = createAsyncThunk(
     try {
       const data = await axiosGetUserSales(userData);
       // console.log(data);
+      return data;
+    } catch (error) {
+      const { data, status } = error.response;
+      return rejectWithValue({ data, status });
+    }
+  }
+);
+
+export const updateOrderStatus = createAsyncThunk(
+  'orders/confirmation',
+  async (userData, { rejectWithValue, dispatch }) => {
+    try {
+      const data = await axiosUpdateOrderStatus(userData);
       return data;
     } catch (error) {
       const { data, status } = error.response;

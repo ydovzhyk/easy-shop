@@ -44,3 +44,9 @@ export const axiosGetUserSales = async userData => {
   );
   return data;
 };
+
+// Update orderStatus
+export const axiosUpdateOrderStatus = async orderData => {
+  const { data } = await instance.post(`/orders/confirmation`, orderData);
+  return data;
+};

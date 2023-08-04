@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 // import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {  getUserSales } from 'redux/order/order-operations';
+import {  getUserSales, updateOrderStatus } from 'redux/order/order-operations';
 import {
   getLoadingOrders,
   selectUserSales,
@@ -23,7 +23,7 @@ const MySales = () => {
 
     const [currentPage, setCurrentPage] = useState(1);
     const [currentSelector, setcurrentSelector] = useState('all');
-    console.log(currentSelector);
+    // console.log(currentSelector);
 
   useEffect(() => {
     dispatch(
@@ -48,11 +48,15 @@ const MySales = () => {
     setCurrentPage(1);
   };
   
-  const handleConfirmButtonClick = () => {
+  const handleConfirmButtonClick = (id) => {
     console.log('handleConfirmButtonClick');
-    }
-  const handleCancelButtonClick = () => {
-    console.log('handleCancelButtonClick');
+    dispatch(updateOrderStatus({ orderId: id, confirmed: true, statusNew: false }));
+  }
+  const handleCancelButtonClick = (id) => {
+      console.log('handleCancelButtonClick');
+      dispatch(
+        updateOrderStatus({ orderId: id, confirmed: false, statusNew: false })
+      );
   };
  
   return (
@@ -151,17 +155,19 @@ const MySales = () => {
                           type="button"
                           btnClass="btnLight"
                           text="Підтвердити замовлення"
-                          handleClick={handleConfirmButtonClick}
+                          handleClick={() => handleConfirmButtonClick(_id)}
                         />
                         <Button
                           type="button"
                           btnClass="btnDark"
                           text="Скасувати замовлення"
-                          handleClick={handleCancelButtonClick}
+                          handleClick={() => handleCancelButtonClick(_id)}
                         />
                       </>
                     ) : (
-                      <p className={s.waitingPhrase}>{confirmed === true ? "Підтверджено" : "Скасовано"}</p>
+                      <p className={s.waitingPhrase}>
+                        {confirmed === true ? 'Підтверджено' : 'Скасовано'}
+                      </p>
                     )}
 
                     <p
