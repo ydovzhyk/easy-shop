@@ -40,7 +40,13 @@ export const axiosGetUserOrders = async userData => {
 // Get User Sales
 export const axiosGetUserSales = async userData => {
   const { data } = await instance.post(
-    `/orders/user-sales?page=${userData.page}`
+    `/orders/user-sales?page=${userData.page}&selectorName=${userData.selectorName}`
   );
+  return data;
+};
+
+// Update orderStatus
+export const axiosUpdateOrderStatus = async orderData => {
+  const { data } = await instance.post(`/orders/confirmation`, orderData);
   return data;
 };
