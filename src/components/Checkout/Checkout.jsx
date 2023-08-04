@@ -1,7 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getLoadingOrders, selectOrderById, selectProductsOrderById } from 'redux/order/order-selectors';
+import {
+  getLoadingOrders,
+  selectOrderById,
+  selectProductsOrderById,
+} from 'redux/order/order-selectors';
+import { orderConfirmationDialogue } from 'redux/dialogue/dialogue-operations';
 import { getOrderById, updateOrder } from 'redux/order/order-operations';
 import { getUser } from 'redux/auth/auth-selectors';
 
@@ -23,7 +28,7 @@ const Checkout = () => {
 
   useEffect(() => {
     if (!orderId) {
-      return
+      return;
     }
     dispatch(getOrderById(orderId));
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -35,7 +40,7 @@ const Checkout = () => {
   const user = useSelector(getUser);
 
   const [deliveryService, setDeliveryService] = useState('');
-  
+
   const { client, orderSum, sellerName, _id, products, orderNumber } =
     orderInCheckout;
   const { secondName, firstName, surName, tel } = user;
@@ -65,6 +70,17 @@ const Checkout = () => {
     };
     const updatedOrder = await dispatch(updateOrder(orderData));
 
+    //// тут код для повідомлень
+    for (const product of productsForOrder) {
+      const { _id, owner } = product;
+      await dispatch(
+        orderConfirmationDialogue({
+          productId: _id,
+          productOwner: owner,
+        })
+      );
+    }
+
     if (updatedOrder.payload.code === 200) {
       navigate('/profile/mypurchases');
     }
@@ -73,7 +89,7 @@ const Checkout = () => {
     deliveryService === 'УкрПошта'
       ? 'Введіть індекс(номер) відділення*'
       : 'Введіть номер відділення*';
-  
+
   return (
     <Container>
       <section className={s.default}>
