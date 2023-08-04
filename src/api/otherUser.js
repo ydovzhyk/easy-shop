@@ -7,6 +7,6 @@ export const axiosGetOtherUser = async userData => {
 };
 
 export const axiosUserSubscriptions = async () => {
-  const { data } = await instance.post('/other-user/subscriptions/');
+  const { data } = await instance.post('/other-user/subscriptions');
   return data;
 };
