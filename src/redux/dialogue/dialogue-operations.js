@@ -5,6 +5,7 @@ import {
   axiosGetDialoguesData,
   axiosDeleteDialogue,
   axiosDeleteDialogueNewMessage,
+  axiosOrderConfirmationDialogue,
 } from 'api/dialogue';
 import {
   getUserWithDialogue,
@@ -72,6 +73,19 @@ export const deleteDialogueNewMessage = createAsyncThunk(
       dispatch(getUpdatedUserNewMessage(data.user));
       const statusDialogue = true;
       dispatch(getAllDialoguesData({ statusDialogue }));
+      return data;
+    } catch (error) {
+      const { data, status } = error.response;
+      return rejectWithValue({ data, status });
+    }
+  }
+);
+
+export const orderConfirmationDialogue = createAsyncThunk(
+  'dialogue/order',
+  async (userData, { rejectWithValue, getState, dispatch }) => {
+    try {
+      const data = await axiosOrderConfirmationDialogue(userData);
       return data;
     } catch (error) {
       const { data, status } = error.response;
