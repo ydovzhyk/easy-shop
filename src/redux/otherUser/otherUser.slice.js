@@ -46,8 +46,8 @@ const otherUser = createSlice({
     },
     [updateUserSubscriptions.fulfilled]: (store, { payload }) => {
       store.loading = false;
-      store.user.userSubscriptions = payload.userSubscriptions;
-      store.user.totalPagesUserSubscription = payload.totalPagesUserSubscription;
+      store.userSubscriptions = payload.userSubscriptions;
+      store.totalPagesUserSubscription = payload.totalPagesUserSubscription;
     },
     [updateUserSubscriptions.rejected]: (store, { payload }) => {
       store.loading = false;
