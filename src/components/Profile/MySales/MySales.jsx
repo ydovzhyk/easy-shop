@@ -1,22 +1,22 @@
 import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+// import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-// import { deleteOrderById } from "redux/order/order-operations";
 import {  getUserSales } from 'redux/order/order-operations';
 import {
   getLoadingOrders,
   selectUserSales,
   selectUserSalesTotalPages,
 } from 'redux/order/order-selectors';
-import { getLogin } from 'redux/auth/auth-selectors';
+// import { getLogin } from 'redux/auth/auth-selectors';
 
 import OrderProductsList from 'components/Shared/OrderProductsList/OrderProductsList';
 import Pagination from 'components/Shared/Pagination/Pagination';
+import Button from 'components/Shared/Button/Button';
 import s from './MySales.module.scss';
 
 const MySales = () => {
     const dispatch = useDispatch();
-    const isLogin = useSelector(getLogin);
+    // const isLogin = useSelector(getLogin);
     const isLoading = useSelector(getLoadingOrders);
     const userSales = useSelector(selectUserSales);
     const totalPages = useSelector(selectUserSalesTotalPages);
@@ -29,11 +29,11 @@ const MySales = () => {
     dispatch(
       getUserSales({
         page: currentPage,
-        // selectorName: currentSelector,
+        selectorName: currentSelector,
       })
     );
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [dispatch, currentPage]);
+  }, [dispatch, currentPage, currentSelector]);
 
 
 
@@ -47,9 +47,14 @@ const MySales = () => {
     setcurrentSelector(optionName);
     setCurrentPage(1);
   };
-  // const handleDeteleOrder = (id) => {
-  //   dispatch(deleteOrderById(id));
-  // }
+  
+  const handleConfirmButtonClick = () => {
+    console.log('handleConfirmButtonClick');
+    }
+  const handleCancelButtonClick = () => {
+    console.log('handleCancelButtonClick');
+  };
+ 
   return (
     <>
       <div className={s.ordersWrapper}>
@@ -132,24 +137,24 @@ const MySales = () => {
                       <p>Замовлення &#8470; {orderNumber}</p>
                       <p>{orderDate}</p>
                     </div>
-                    {/* <button
-                      type="button"
-                      onClick={() => handleDeteleOrder(_id)}
-                    >
-                      del
-                    </button> */}
                   </div>
                   <OrderProductsList
                     productsForOrder={productInfo}
                     products={products}
                   />
                   <div className={s.orderBottomWrapper}>
-                    <NavLink
-                      to={isLogin ? '/checkout' : '/login'}
-                      className={s.btnLight}
-                    >
-                      Підтвердити замовлення
-                    </NavLink>
+                    <Button
+                      type="button"
+                      btnClass="btnLight"
+                      text="Підтвердити замовлення"
+                      handleClick={handleConfirmButtonClick}
+                    />
+                    <Button
+                      type="button"
+                      btnClass="btnDark"
+                      text="Скасувати замовлення"
+                      handleClick={handleCancelButtonClick}
+                    />
 
                     <p
                       className={s.orderSum}
