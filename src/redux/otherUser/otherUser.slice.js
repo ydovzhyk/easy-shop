@@ -8,7 +8,7 @@ const initialState = {
   error: null,
   otherUserInfo: {},
   userSubscriptions: [],
-  totalPagesUserSubscription: 0,
+  totalPagesSubscription: 0,
 };
 
 const otherUser = createSlice({
@@ -39,15 +39,15 @@ const otherUser = createSlice({
       store.loading = false;
       store.error = payload.message;
     },
-     // * POST User Subscriptions
-     [updateUserSubscriptions.pending]: store => {
+    // * POST User Subscriptions
+    [updateUserSubscriptions.pending]: store => {
       store.loading = true;
       store.error = '';
     },
     [updateUserSubscriptions.fulfilled]: (store, { payload }) => {
       store.loading = false;
       store.userSubscriptions = payload.userSubscriptions;
-      store.totalPagesUserSubscription = payload.totalPagesUserSubscription;
+      store.totalPagesSubscription = payload.totalPagesUserSubscription;
     },
     [updateUserSubscriptions.rejected]: (store, { payload }) => {
       store.loading = false;
