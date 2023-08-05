@@ -13,6 +13,7 @@ import { getLogin } from 'redux/auth/auth-selectors';
 
 import OrderProductsList from "components/Shared/OrderProductsList/OrderProductsList";
 import Pagination from 'components/Shared/Pagination/Pagination';
+import OrderStatusList from 'components/Shared/OrderStatusList/OrderStatusList';
 import s from './MyPurchases.module.scss';
 
 
@@ -77,57 +78,10 @@ const MyShoppings = () => {
           )}
 
           {isTablet && (
-            <ul className={s.optionsList}>
-              <li>
-                <button
-                  className={
-                    currentSelector === 'all'
-                      ? `${s.selectButton} ${s.active}`
-                      : s.selectButton
-                  }
-                  onClick={() => handleButtonClick('all')}
-                >
-                  Всі
-                </button>
-              </li>
-              <li>
-                <button
-                  className={
-                    currentSelector === 'new'
-                      ? `${s.selectButton} ${s.active}`
-                      : s.selectButton
-                  }
-                  onClick={() => handleButtonClick('new')}
-                >
-                  Нові
-                </button>
-              </li>
-              <li>
-                <button
-                  className={
-                    currentSelector === 'confirmed'
-                      ? `${s.selectButton} ${s.active}`
-                      : s.selectButton
-                  }
-                  onClick={() => handleButtonClick('confirmed')}
-                >
-                  Підтверджені
-                </button>
-              </li>
-              {/* <li>Виконані</li> */}
-              <li>
-                <button
-                  className={
-                    currentSelector === 'canceled'
-                      ? `${s.selectButton} ${s.active}`
-                      : s.selectButton
-                  }
-                  onClick={() => handleButtonClick('canceled')}
-                >
-                  Відхилені
-                </button>
-              </li>
-            </ul>
+            <OrderStatusList
+              currentSelector={currentSelector}
+              handleButtonClick={handleButtonClick}
+            />
           )}
         </div>
         {userOrders.length > 0 && (

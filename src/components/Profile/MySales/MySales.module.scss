@@ -18,23 +18,8 @@
     font-size: 24px;
   }
 }
-.optionsList {
-    // width: 100%;
-    // padding-left: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    @include mixins.mq(tablet) {
-        width: 20%;
-        padding-left: 16px;
-    }
-    @include mixins.mq(desktop) {
-        padding-left: 20px;
-    }
-}
 
 .ordersList {
-    // width: 80%;
     @include mixins.mq(tablet) {
         width: 80%;
     }
@@ -106,74 +91,6 @@
     padding: 8px;
     border-bottom: 1px solid var(--border-color);
     // text-shadow: var(--hover-text-shadow);
-}
-
-// .btnLight {
-//   display: inline-flex;
-//   justify-content: center;
-//   align-items: center;
-//   width: 196px;
-//   height: 50px;
-//   background-color: var(--background-btn-main-color);
-//   border: 1px solid var(--btn-border-color);
-//   // border: 2px solid var(--border-color);
-//   color: var(--btn-text-color);
-//   border-radius: 10.3108px;
-//   font-style: normal;
-//   font-weight: 500;
-//   font-size: 18px;
-//   line-height: 18px;
-//   text-align: center;
-//   transition: background-color var(--transition-duration) var(--timing-function),
-//     color var(--transition-duration) var(--timing-function),
-//     box-shadow var(--transition-duration) var(--timing-function);
-//   &:hover {
-//     background-color: var(--background-btn-second-color);
-//     border-color: var(--btn-border-color);
-//     box-shadow: var(--hover-box-shadow);
-//   }
-// }
-
-.selectButton {
-  position: relative;
-
-  padding: 8px;
-  font-size: 16px;
-  line-height: 13px;
-  letter-spacing: 0.04em;
-
-  color: var(--title-text-color);
-  background-color: transparent;
-
-  &::before {
-    content: '';
-    display: block;
-
-    position: absolute;
-    bottom: 1px;
-    left: 0;
-
-    width: 0;
-    height: 1px;
-
-    background-color: var(--btn-border-color);
-    transition: all var(--transition-duration) var(--timing-function);
-  }
-//   &:focus::before,
-  &:hover::before {
-    width: 100%;
-  }
-  &:hover {
-    text-shadow: var(--hover-text-shadow);
-    color: var(--hover-active-color);
-  }
-}
-
-.active {
-  position: relative;
-
-  text-shadow: var(--hover-text-shadow);
-  color: var(--hover-active-color);
 }
 
 .message {
