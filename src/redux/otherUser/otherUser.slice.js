@@ -9,6 +9,7 @@ const initialState = {
   otherUserInfo: {},
   userSubscriptions: [],
   totalPagesSubscription: 0,
+  
 };
 
 const otherUser = createSlice({
