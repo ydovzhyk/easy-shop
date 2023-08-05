@@ -118,6 +118,8 @@ const MyShoppings = () => {
                 products,
                 productInfo,
                 delivery,
+                statusNew,
+                confirmed,
               }) => (
                 <li className={s.orderItem} key={_id}>
                   <div className={s.orderInfoWrapper}>
@@ -141,9 +143,10 @@ const MyShoppings = () => {
                     products={products}
                   />
                   <div className={s.orderBottomWrapper}>
-                    {delivery !== '' ? (
+                    {delivery !== '' && statusNew === true && (
                       <p className={s.waitingPhrase}>Очікує підтвердження</p>
-                    ) : (
+                    )}
+                    {delivery === '' && statusNew === true && (
                       <NavLink
                         to={isLogin ? '/checkout' : '/login'}
                         className={s.btnLight}
@@ -151,6 +154,11 @@ const MyShoppings = () => {
                       >
                         Оформити замовлення
                       </NavLink>
+                    )}
+                    {statusNew === false && (
+                      <p className={s.waitingPhrase}>
+                        {confirmed === true ? 'Підтверджено' : 'Скасовано'}
+                      </p>
                     )}
 
                     <p
