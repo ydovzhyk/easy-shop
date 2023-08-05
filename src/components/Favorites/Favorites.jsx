@@ -22,7 +22,6 @@ import {
   BsGeoAlt,
   BsHandbag,
   BsPeople,
-  BsEscape,
 } from 'react-icons/bs';
 
 import s from './Favorites.module.scss';
@@ -139,7 +138,7 @@ const Favorites = () => {
           <ul className={s.listCard}>
             {userSubscriptions.map(
               ({ _id, userAvatar, firstName, lastVisit, cityName }) => (
-                <li key={_id}>
+                <li key={_id} className={s.itemCard}>
                   <div className={s.avatarframe}>
                     <div className={s.avatar}>
                       <Avatar src={userAvatar} avatarClass="photoAvatar" />
