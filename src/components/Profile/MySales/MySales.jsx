@@ -48,11 +48,23 @@ const MySales = () => {
   const handleConfirmButtonClick = (id) => {
     console.log('handleConfirmButtonClick');
     dispatch(updateOrderStatus({ orderId: id, confirmed: true, statusNew: false }));
+    dispatch(
+      getUserSales({
+        page: currentPage,
+        selectorName: currentSelector,
+      })
+    );
   }
   const handleCancelButtonClick = (id) => {
       console.log('handleCancelButtonClick');
       dispatch(
         updateOrderStatus({ orderId: id, confirmed: false, statusNew: false })
+      );
+      dispatch(
+        getUserSales({
+          page: currentPage,
+          selectorName: currentSelector,
+        })
       );
   };
 
