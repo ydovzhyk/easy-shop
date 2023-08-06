@@ -5,7 +5,7 @@ import s from './OrderStatusList.module.scss';
 const OrderStatusList = ({ currentSelector, handleButtonClick }) => {
     const isTablet = useMediaQuery({ minWidth: 768 });
   return (
-    <div>
+    <div className={s.listBox}>
       <p className={s.heading}>За статусом</p>
       {!isTablet && (
         <Select

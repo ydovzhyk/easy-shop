@@ -11,7 +11,7 @@
     justify-content: center;
     gap: 8px;
     width: 100%;
-    padding: 16px 0px;
+    padding: 20px 0px;
     flex-wrap: wrap;
 
     @include mixins.mq(mobile) {
@@ -25,9 +25,9 @@
     // width: 100%;
     border-radius: 8px;
 
-    @include mixins.mq(mobile) {
-        flex-basis: calc(100% / 2 - 10px);
-    }
+    // @include mixins.mq(mobile) {
+    //     flex-basis: calc(100% / 2 - 10px);
+    // }
 
     @include mixins.mq(tablet) {
         flex-basis: calc(100% / 5 - 10px);

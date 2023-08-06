@@ -1,5 +1,11 @@
 @use 'styles/mixins';
 
+.listBox {
+    @include mixins.mq(mobile-tablet) {
+        padding: 0 40px;
+    }
+}
+
 .heading {
   font-size: 18px;
   color: var(--text-color);
