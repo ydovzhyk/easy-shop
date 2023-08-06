@@ -19,8 +19,19 @@
 }
 .custom-select__indicator {
   color: var(--icons-color) !important;
-  transition: transform var(--transition-duration) var(--timing-function) !important;
+  transition: transform var(--transition-duration) var(--timing-function),
+    color var(--transition-duration) var(--timing-function) !important;
 }
+
+.custom-select__control.custom-select__control--is-focused
+  .custom-select__indicator {
+  color: var(--accent-color) !important;
+}
+
+.custom-select__control:hover .custom-select__indicator {
+  color: var(--accent-color) !important;
+}
+
 .custom-select__control.custom-select__control--menu-is-open
   .custom-select__indicator {
   transform: rotate(180deg);
