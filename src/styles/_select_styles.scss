@@ -1,18 +1,16 @@
 .custom-select__control {
-  border-radius: 8px !important;
+  // border-radius: 8px !important;
   border: 1px solid var(--btn-border-color) !important;
   outline: none !important;
-  box-shadow: none !important;
+  box-shadow: var(--hover-box-shadow) !important;
 }
 .custom-select__control.custom-select__control--menu-is-open {
   border-color: var(--accent-color) !important;
   outline: none !important;
-  box-shadow: none;
 }
 .custom-select__control.custom-select__control--is-focused {
   border-color: var(--accent-color) !important;
   outline: none !important;
-  box-shadow: none;
 }
 .custom-select__control:hover {
   border-color: var(--accent-color) !important;
@@ -52,7 +50,7 @@
 
 .custom-select__menu {
   margin-top: 8px !important;
-  border-radius: 8px !important;
+  // border-radius: 8px !important;
   overflow: hidden !important;
 }
 
