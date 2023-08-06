@@ -10,15 +10,6 @@
     }
 }
 
-.heading {
-  font-size: 18px;
-  color: var(--text-color);
-  margin-bottom: 20px;
-  @include mixins.mq(desktop) {
-    font-size: 24px;
-  }
-}
-
 .ordersList {
     @include mixins.mq(tablet) {
         width: 80%;

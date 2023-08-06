@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import Select from 'react-select';
-import { useMediaQuery } from 'react-responsive';
 import { getUserOrders } from 'redux/order/order-operations';
 import {
   getLoadingOrders,
@@ -21,7 +19,6 @@ const MyShoppings = () => {
   const dispatch = useDispatch();
   const isLogin = useSelector(getLogin);
   const isLoading = useSelector(getLoadingOrders);
-  const isTablet = useMediaQuery({ minWidth: 768 });
 
   const [currentPage, setCurrentPage] = useState(1);
   const [currentSelector, setcurrentSelector] = useState("all");
@@ -53,37 +50,10 @@ const MyShoppings = () => {
   return (
     <>
       <div className={s.ordersWrapper}>
-        <div>
-          <p className={s.heading}>За статусом</p>
-          {!isTablet && (
-            <Select
-              onChange={value => handleButtonClick(value.value)}
-              options={[
-                { value: 'all', label: 'Всі' },
-                { value: 'new', label: 'Нові' },
-                { value: 'confirmed', label: 'Підтверджені' },
-                { value: 'canceled', label: 'Відхилені' },
-              ]}
-              defaultValue={{ value: 'all', label: 'Всі' }}
-              theme={theme => ({
-                ...theme,
-                borderRadius: 0,
-                colors: {
-                  ...theme.colors,
-                  primary25: '#fbef35;',
-                  primary: '#3b3b3b',
-                },
-              })}
-            />
-          )}
-
-          {isTablet && (
-            <OrderStatusList
-              currentSelector={currentSelector}
-              handleButtonClick={handleButtonClick}
-            />
-          )}
-        </div>
+        <OrderStatusList
+          currentSelector={currentSelector}
+          handleButtonClick={handleButtonClick}
+        />
         {userOrders.length > 0 && (
           <ul className={s.ordersList}>
             {userOrders.map(
