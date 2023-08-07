@@ -11,6 +11,7 @@ import {
   getProductsBySelector,
   getProductById,
   getProductsFromBasket,
+  getProductsFromOtherUser,
 } from './product-operations';
 
 const initialState = {
@@ -37,6 +38,7 @@ const initialState = {
   filterProduct: false,
   filterFormSubmit: false,
   currentProductsPage: 1,
+  productsFromOtherUser: [],
 };
 
 const products = createSlice({
@@ -96,6 +98,9 @@ const products = createSlice({
     },
     setCurrentProductsPage: (store, { payload }) => {
       store.currentProductsPage = payload;
+    },
+    clearProductsFromOtherUser: store => {
+      store.productsFromOtherUser = [];
     },
   },
   extraReducers: {
@@ -235,6 +240,19 @@ const products = createSlice({
       store.loading = false;
       store.error = payload;
     },
+    // get products from other user
+    [getProductsFromOtherUser.pending]: store => {
+      store.loading = true;
+      store.error = null;
+    },
+    [getProductsFromOtherUser.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.productsFromOtherUser = payload.productsFromOtherUser;
+    },
+    [getProductsFromOtherUser.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
   },
 });
 
@@ -259,4 +277,5 @@ export const {
   setHeaderFormClick,
   resetHeaderFormClick,
   setCurrentProductsPage,
+  clearProductsFromOtherUser,
 } = products.actions;
