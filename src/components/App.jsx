@@ -204,6 +204,7 @@ export const App = () => {
             updateUserFunction();
           }
         };
+
         // Закриття WebSocket з'єднання та очищення інтервалу при закритті компонента
         return () => {
           clearInterval(intervalId);
@@ -217,7 +218,11 @@ export const App = () => {
   }, [dispatch, isLogin, userId, newMessage]);
 
   useEffect(() => {
-    if (!isLogin && socketRef.current) {
+    if (
+      !isLogin &&
+      socketRef.current &&
+      socketRef.current.readyState === WebSocket.OPEN
+    ) {
       console.log("WebSocket з'єднання закрито");
       clearInterval(intervalRef.current);
       socketRef.current.close();
