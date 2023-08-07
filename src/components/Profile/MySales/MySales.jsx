@@ -1,41 +1,36 @@
 import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-// import { deleteOrderById } from "redux/order/order-operations";
-import {  getUserSales } from 'redux/order/order-operations';
+import {  getUserSales, updateOrderStatus } from 'redux/order/order-operations';
 import {
   getLoadingOrders,
   selectUserSales,
   selectUserSalesTotalPages,
 } from 'redux/order/order-selectors';
-import { getLogin } from 'redux/auth/auth-selectors';
 
 import OrderProductsList from 'components/Shared/OrderProductsList/OrderProductsList';
 import Pagination from 'components/Shared/Pagination/Pagination';
+import Button from 'components/Shared/Button/Button';
+import OrderStatusList from 'components/Shared/OrderStatusList/OrderStatusList';
 import s from './MySales.module.scss';
 
 const MySales = () => {
     const dispatch = useDispatch();
-    const isLogin = useSelector(getLogin);
     const isLoading = useSelector(getLoadingOrders);
     const userSales = useSelector(selectUserSales);
     const totalPages = useSelector(selectUserSalesTotalPages);
 
     const [currentPage, setCurrentPage] = useState(1);
     const [currentSelector, setcurrentSelector] = useState('all');
-    console.log(currentSelector);
 
   useEffect(() => {
     dispatch(
       getUserSales({
         page: currentPage,
-        // selectorName: currentSelector,
+        selectorName: currentSelector,
       })
     );
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [dispatch, currentPage]);
-
-
+  }, [dispatch, currentPage, currentSelector]);
 
   // for pagination
   const handlePageChange = page => {
@@ -47,66 +42,37 @@ const MySales = () => {
     setcurrentSelector(optionName);
     setCurrentPage(1);
   };
-  // const handleDeteleOrder = (id) => {
-  //   dispatch(deleteOrderById(id));
-  // }
+  
+  const handleConfirmButtonClick = (id) => {
+    console.log('handleConfirmButtonClick');
+    dispatch(updateOrderStatus({ orderId: id, confirmed: true, statusNew: false }));
+    dispatch(
+      getUserSales({
+        page: currentPage,
+        selectorName: currentSelector,
+      })
+    );
+  }
+  const handleCancelButtonClick = (id) => {
+      console.log('handleCancelButtonClick');
+      dispatch(
+        updateOrderStatus({ orderId: id, confirmed: false, statusNew: false })
+      );
+      dispatch(
+        getUserSales({
+          page: currentPage,
+          selectorName: currentSelector,
+        })
+      );
+  };
+
   return (
     <>
       <div className={s.ordersWrapper}>
-        <div>
-          <p className={s.heading}>За статусом</p>
-          <ul className={s.optionsList}>
-            <li>
-              <button
-                className={
-                  currentSelector === 'all'
-                    ? `${s.selectButton} ${s.active}`
-                    : s.selectButton
-                }
-                onClick={() => handleButtonClick('all')}
-              >
-                Всі
-              </button>
-            </li>
-            <li>
-              <button
-                className={
-                  currentSelector === 'new'
-                    ? `${s.selectButton} ${s.active}`
-                    : s.selectButton
-                }
-                onClick={() => handleButtonClick('new')}
-              >
-                Нові
-              </button>
-            </li>
-            <li>
-              <button
-                className={
-                  currentSelector === 'confirmed'
-                    ? `${s.selectButton} ${s.active}`
-                    : s.selectButton
-                }
-                onClick={() => handleButtonClick('confirmed')}
-              >
-                Підтверджені
-              </button>
-            </li>
-            {/* <li>Виконані</li> */}
-            <li>
-              <button
-                className={
-                  currentSelector === 'canceled'
-                    ? `${s.selectButton} ${s.active}`
-                    : s.selectButton
-                }
-                onClick={() => handleButtonClick('canceled')}
-              >
-                Відхилені
-              </button>
-            </li>
-          </ul>
-        </div>
+        <OrderStatusList
+            currentSelector={currentSelector}
+            handleButtonClick={handleButtonClick}
+        />
         {userSales.length > 0 && (
           <ul className={s.ordersList}>
             {userSales.map(
@@ -118,6 +84,8 @@ const MySales = () => {
                 products,
                 productInfo,
                 client,
+                statusNew,
+                confirmed,
               }) => (
                 <li className={s.orderItem} key={_id}>
                   <div className={s.orderInfoWrapper}>
@@ -132,24 +100,32 @@ const MySales = () => {
                       <p>Замовлення &#8470; {orderNumber}</p>
                       <p>{orderDate}</p>
                     </div>
-                    {/* <button
-                      type="button"
-                      onClick={() => handleDeteleOrder(_id)}
-                    >
-                      del
-                    </button> */}
                   </div>
                   <OrderProductsList
                     productsForOrder={productInfo}
                     products={products}
                   />
                   <div className={s.orderBottomWrapper}>
-                    <NavLink
-                      to={isLogin ? '/checkout' : '/login'}
-                      className={s.btnLight}
-                    >
-                      Підтвердити замовлення
-                    </NavLink>
+                    {statusNew === true ? (
+                      <>
+                        <Button
+                          type="button"
+                          btnClass="btnLight"
+                          text="Підтвердити замовлення"
+                          handleClick={() => handleConfirmButtonClick(_id)}
+                        />
+                        <Button
+                          type="button"
+                          btnClass="btnDark"
+                          text="Скасувати замовлення"
+                          handleClick={() => handleCancelButtonClick(_id)}
+                        />
+                      </>
+                    ) : (
+                      <p className={s.waitingPhrase}>
+                        {confirmed === true ? 'Підтверджено' : 'Скасовано'}
+                      </p>
+                    )}
 
                     <p
                       className={s.orderSum}

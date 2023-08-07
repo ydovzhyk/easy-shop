@@ -24,3 +24,8 @@ export const axiosDeleteDialogueNewMessage = async userData => {
   const { data } = await instance.post('/dialogue/deleteNewMessage', userData);
   return data;
 };
+
+export const axiosOrderConfirmationDialogue = async userData => {
+  const { data } = await instance.post('/dialogue/order', userData);
+  return data;
+};

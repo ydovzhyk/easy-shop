@@ -23,7 +23,7 @@ const ProductDetails = ({ product }) => {
       <div className={s.productDetails}>
         <div className={s.productDescription}>
           <Text text="Опис товару:" textClass="productLabels" />
-          <Text text={description} textClass="productText" />
+          <Text text={description} textClass="productTextDescription" />
         </div>
         <DeliveryList />
       </div>

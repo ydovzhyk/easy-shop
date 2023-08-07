@@ -2,7 +2,7 @@ import { Suspense, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation, Outlet } from 'react-router-dom';
 
-import { getUser } from 'redux/auth/auth-selectors';
+import { getUser, selectUserOrders, selectUserSales } from 'redux/auth/auth-selectors';
 import Loader from 'components/Loader';
 import Container from 'components/Shared/Container';
 import ProfileLink from 'components/Profile/ProfileLink/ProfileLink';
@@ -10,8 +10,10 @@ import s from 'components/Profile/UserInfoDetails/UserInfoDetails.module.scss';
 
 const UserInfoDetails = () => {
   const user = useSelector(getUser);
+  const userSales = useSelector(selectUserSales);
+  const userPurchases = useSelector(selectUserOrders);
+
   const [myProducts, setMyProducts] = useState(0);
-  const [myPurchases, setMyPurchases] = useState(0);
 
   const location = useLocation().pathname;
 
@@ -36,7 +38,6 @@ const UserInfoDetails = () => {
       const userProducts = user.userProducts;
       const userProductsLength = userProducts.length;
       setMyProducts(userProductsLength);
-      setMyPurchases(user.userOrders.length || 0);
     } else {
       setMyProducts(0);
     }
@@ -65,7 +66,7 @@ const UserInfoDetails = () => {
             to="mypurchases"
             addValue
             isBackgroundChange={isMyPurchases}
-            value={myPurchases}
+            value={userPurchases.length}
           >
             Мої покупки
           </ProfileLink>
@@ -75,7 +76,7 @@ const UserInfoDetails = () => {
             to="mysales"
             addValue
             isBackgroundChange={isMySales}
-            value={0}
+            value={userSales.length}
           >
             Мої продажі
           </ProfileLink>

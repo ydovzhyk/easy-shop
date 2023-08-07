@@ -32,7 +32,8 @@ const DialogueList = ({ selectedDialogue, setSelectedDialogue }) => {
   const message = useSelector(getDialogueMessage);
   const isTabletOrMobile = useMediaQuery({ maxWidth: 1279 });
   const isMobile = useMediaQuery({ maxWidth: 767 });
-
+  console.log('dialoguesArray', dialoguesArray);
+  
   const onActive = async data => {
     if (data) {
       setStatusDialogue(true);

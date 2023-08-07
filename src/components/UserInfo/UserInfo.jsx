@@ -4,6 +4,7 @@ import { SlEnvelopeOpen } from 'react-icons/sl';
 import { RxDividerVertical } from 'react-icons/rx';
 import { RxOpenInNewWindow } from 'react-icons/rx';
 import { AiOutlinePoweroff } from 'react-icons/ai';
+import { BsHeartHalf } from 'react-icons/bs';
 
 import { NavLink, useNavigate } from 'react-router-dom';
 
@@ -24,7 +25,7 @@ import {
 import { clearOtherUser } from 'redux/otherUser/otherUser.slice';
 import { logout } from 'redux/auth/auth-opetations';
 import cartIcon from '../../images/header/cart-icon.svg';
-import heartIcon from '../../images/header/heart-icon.svg';
+// import heartIcon from '../../images/header/heart-icon.svg';
 import Button from 'components/Shared/Button';
 
 const UserInfo = () => {
@@ -151,14 +152,15 @@ const UserInfo = () => {
           }}
         >
           <NavLink to="/favorites" className={getClassName}>
-            <img
+            <BsHeartHalf style={{ marginRight: '10px' }} size={22} />
+            {/* <img
               src={heartIcon}
               alt="Heart Icon"
               width={24}
               height={24}
               style={{ marginRight: '10px' }}
-            />
-            <span>{userLikesLength}</span>
+            /> */}
+            <span>{userLikesLength}/{userLikesLength}</span>
           </NavLink>
         </div>
         <div className={s.userWrapper}>
