@@ -240,7 +240,7 @@ const Filter = ({ onChange }) => {
                   id="filterPriceFrom"
                   className={s.inputFilter}
                   type="number"
-                  placeholder="0"
+                  placeholder="0 грн"
                   step="1"
                 />
               </div>
@@ -256,7 +256,7 @@ const Filter = ({ onChange }) => {
                   className={s.inputFilter}
                   id="filterPriceTo"
                   type="number"
-                  placeholder="0"
+                  placeholder="0 грн"
                   step="1"
                 />
               </div>

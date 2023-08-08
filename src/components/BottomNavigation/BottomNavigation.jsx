@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { BsSuitHeart } from 'react-icons/bs';
 import { HiPlus } from 'react-icons/hi';
-import { SlBasket } from 'react-icons/sl';
+import { BsBasket } from 'react-icons/bs';
 import { HiOutlineUser } from 'react-icons/hi';
 import { BiMessageDetail } from 'react-icons/bi';
 
@@ -45,7 +45,7 @@ const BottomNavigation = () => {
           to={isLogin ? '/basket' : '/login'}
           className={({ isActive }) => `${isActive ? s.active : ''}`}
         >
-          <SlBasket className={s.navIcon} size={isMobile ? 25 : 30} />
+          <BsBasket className={s.navIcon} size={isMobile ? 25 : 30} />
           <span>{userBasketLength}</span>
         </NavLink>
         <NavLink
