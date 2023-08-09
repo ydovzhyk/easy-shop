@@ -18,7 +18,6 @@ import Button from 'components/Shared/Button/Button';
 import s from './Dialogue.module.scss';
 
 const Dialogue = ({ productInfo }) => {
-  console.log('productInfo', productInfo);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const productId = productInfo._id;
@@ -46,7 +45,6 @@ const Dialogue = ({ productInfo }) => {
     if (selectedDialogueId) {
       return;
     }
-    console.log('Відправляємо запрос з ProductCard');
     dispatch(getDialogue({ productId: productId }));
   }, [dispatch, productId, selectedDialogueId, isUserLogin]);
 
@@ -55,7 +53,6 @@ const Dialogue = ({ productInfo }) => {
     if (!selectedDialogueId) {
       return;
     }
-    console.log('Відправляємо запрос з Dialogue');
     dispatch(getDialogue({ dialogueId: selectedDialogueId }));
   }, [dispatch, selectedDialogueId, isNewMassege]);
 

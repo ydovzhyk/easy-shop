@@ -68,7 +68,7 @@ const BottomNavigation = () => {
           className={({ isActive }) => `${isActive ? s.active : ''}`}
         >
           <BiMessageDetail className={s.navIcon} size={isMobile ? 25 : 30} />
-          <span>0</span>
+          <span>{user.newMessage ? user.newMessage : 0}</span>
         </NavLink>
         <NavLink
           to={isLogin ? '/profile' : '/login'}
