@@ -18,6 +18,7 @@ import Button from 'components/Shared/Button/Button';
 import s from './Dialogue.module.scss';
 
 const Dialogue = ({ productInfo }) => {
+  console.log('productInfo', productInfo);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const productId = productInfo._id;
@@ -27,6 +28,7 @@ const Dialogue = ({ productInfo }) => {
   const userAvatar = useSelector(getUserAvatar);
   const user = useSelector(getUser);
   const isUserLogin = useSelector(getLogin);
+
   const [myQuestion, setMyQuestion] = useState('');
   const [isNewMassege, setIsNewMassege] = useState(null);
   const dialogues = useSelector(getDialogueStore);
@@ -35,22 +37,25 @@ const Dialogue = ({ productInfo }) => {
     setIsNewMassege(user.newMessage ? user.newMessage : 0);
   }, [user.newMessage]);
 
+  //Коли ми в ProductCard
   useEffect(() => {
+    dispatch(clearDialogue());
     if (!productId || !isUserLogin) {
       return;
     }
     if (selectedDialogueId) {
       return;
     }
-    dispatch(clearDialogue());
+    console.log('Відправляємо запрос з ProductCard');
     dispatch(getDialogue({ productId: productId }));
   }, [dispatch, productId, selectedDialogueId, isUserLogin]);
 
   useEffect(() => {
+    dispatch(clearDialogue());
     if (!selectedDialogueId) {
       return;
     }
-    dispatch(clearDialogue());
+    console.log('Відправляємо запрос з Dialogue');
     dispatch(getDialogue({ dialogueId: selectedDialogueId }));
   }, [dispatch, selectedDialogueId, isNewMassege]);
 
