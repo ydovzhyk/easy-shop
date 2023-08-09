@@ -8,6 +8,7 @@ import {
 import {
   getDialoguesArrayStore,
   getDialogueMessage,
+  getLoadingDialogue,
 } from 'redux/dialogue/dialogue-selectors';
 import { getUser } from 'redux/auth/auth-selectors';
 
@@ -29,6 +30,7 @@ const DialogueList = ({ selectedDialogue, setSelectedDialogue }) => {
   const user = useSelector(getUser);
   const [isNewMassege, setIsNewMassege] = useState(null);
   const dialoguesArray = useSelector(getDialoguesArrayStore);
+  const isDialogueLoading = useSelector(getLoadingDialogue);
   const message = useSelector(getDialogueMessage);
   const isTabletOrMobile = useMediaQuery({ maxWidth: 1279 });
   const isMobile = useMediaQuery({ maxWidth: 767 });
@@ -201,7 +203,13 @@ const DialogueList = ({ selectedDialogue, setSelectedDialogue }) => {
             ))}
           </ul>
         )}
-        {dialoguesArray.length === 0 && (
+        {isDialogueLoading && (
+          <Text
+            text={'Список діалогів завантажується...'}
+            textClass="after-title-text-warning"
+          />
+        )}
+        {!isDialogueLoading && dialoguesArray.length === 0 && (
           <Text
             text={'У вас не має діалогів'}
             textClass="after-title-text-warning"
