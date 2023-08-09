@@ -1,4 +1,4 @@
-@use '../../../styles/mixins';
+@use 'styles/mixins';
 
 .profilewrapper {
   display: flex;
@@ -6,10 +6,18 @@
 
   @include mixins.mq(tablet) {
     gap: 16px;
+  }
+  @include mixins.mq(desktop) {
     justify-content: flex-start;
   }
 }
 
+.mainInformationWrapper{
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  justify-content: flex-start;
+}
 .avatarframe {
   display: flex;
   flex-direction: column;
@@ -91,7 +99,8 @@
   gap: 12px;
   color: var(--text-color);
 
-  @include mixins.mq(mobile) {
+  @include mixins.mq(tablet) {
+    max-width: 400px;
     flex-direction: row;
     flex-wrap: wrap;
   }
@@ -118,7 +127,7 @@
     width: 100%;
   }
   @include mixins.mq(tablet) {
-    margin-left: 140px;
+    // margin-left: 140px;
     flex-direction: row;
   }
   @include mixins.mq(desktop) {

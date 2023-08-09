@@ -10,6 +10,7 @@ import {
   axiosProductsBySelector,
   axiosGetProductById,
   axiosGetProductsFromBasket,
+  axiosGetProductsFromOtherUser,
 } from 'api/product';
 
 export const addProduct = createAsyncThunk(
@@ -133,6 +134,19 @@ export const getProductsFromBasket = createAsyncThunk(
   async (userData, { rejectWithValue, dispatch }) => {
     try {
       const data = await axiosGetProductsFromBasket(userData);
+      return data;
+    } catch (error) {
+      const { data, status } = error.response;
+      return rejectWithValue({ data, status });
+    }
+  }
+);
+
+export const getProductsFromOtherUser = createAsyncThunk(
+  'product/otheruser/:id',
+  async (userData, { rejectWithValue, dispatch }) => {
+    try {
+      const data = await axiosGetProductsFromOtherUser(userData);
       return data;
     } catch (error) {
       const { data, status } = error.response;

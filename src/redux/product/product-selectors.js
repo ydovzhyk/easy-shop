@@ -30,3 +30,6 @@ export const selectProductsFromBasket = ({ products }) =>
 
 export const selectSellersFromBasket = ({ products }) =>
   products.sellersFromBasket;
+
+export const selectProductsFromOtherUther = ({ products }) =>
+  products.productsFromOtherUser;
