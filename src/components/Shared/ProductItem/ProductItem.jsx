@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { updateUserLikes } from 'redux/auth/auth-opetations';
+import { updateUserLikes } from 'redux/auth/auth-operations';
 import { getLogin } from 'redux/auth/auth-selectors.js';
 
 import SizeHovered from '../../Catalog/SizeHovered/SizeHovered';

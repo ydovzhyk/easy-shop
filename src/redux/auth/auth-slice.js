@@ -8,7 +8,7 @@ import {
   updateUserBasket,
   updateUserLikes,
   getUserLikesBasket,
-} from './auth-opetations';
+} from './auth-operations';
 
 const initialState = {
   user: {
