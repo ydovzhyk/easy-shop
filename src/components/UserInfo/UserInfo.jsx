@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { BsEscape } from 'react-icons/bs';
 import { SlEnvelopeOpen } from 'react-icons/sl';
 import { RxDividerVertical } from 'react-icons/rx';
+import { BsBasket } from 'react-icons/bs';
 import { RxOpenInNewWindow } from 'react-icons/rx';
 import { AiOutlinePoweroff } from 'react-icons/ai';
 import { BsHeartHalf } from 'react-icons/bs';
@@ -24,7 +25,7 @@ import {
 } from 'redux/dialogue/dialogue-slice';
 import { clearOtherUser } from 'redux/otherUser/otherUser.slice';
 import { logout } from 'redux/auth/auth-opetations';
-import cartIcon from '../../images/header/cart-icon.svg';
+// import cartIcon from '../../images/header/cart-icon.svg';
 // import heartIcon from '../../images/header/heart-icon.svg';
 import Button from 'components/Shared/Button';
 
@@ -126,11 +127,12 @@ const UserInfo = () => {
           }}
         >
           <NavLink to="/basket" className={getClassName}>
-            <img
+            <BsBasket style={{ marginRight: '10px' }} size={22} />
+            {/* <img
               src={cartIcon}
               alt="Cart Icon"
               style={{ width: '26px', height: '26px', marginRight: '10px' }}
-            />
+            /> */}
             <span>{userBasketLength}</span>
           </NavLink>
         </div>
@@ -141,7 +143,7 @@ const UserInfo = () => {
           }}
         >
           <NavLink to="/message" className={getClassName}>
-            <SlEnvelopeOpen style={{ marginRight: '10px' }} size={22} />
+            <SlEnvelopeOpen style={{ marginRight: '10px' }} size={21} />
             <span>{user.newMessage ? user.newMessage : 0}</span>
           </NavLink>
         </div>
@@ -160,7 +162,9 @@ const UserInfo = () => {
               height={24}
               style={{ marginRight: '10px' }}
             /> */}
-            <span>{userLikesLength}/{userLikesLength}</span>
+            <span>
+              {userLikesLength}/{userLikesLength}
+            </span>
           </NavLink>
         </div>
         <div className={s.userWrapper}>

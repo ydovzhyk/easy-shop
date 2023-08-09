@@ -16,7 +16,7 @@ const Footer = () => {
       <div className={s.container}>
         <div className={s.mainFooterContent}>
           <div className={s.copyrightBlock}>
-            <p>&copy; 2023&nbsp;</p>
+            <p className={s.footerText}>&copy; 2023&nbsp;</p>
             <Logo className="static"></Logo>
           </div>
           <p className={s.footerMainText}>

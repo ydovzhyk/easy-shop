@@ -23,6 +23,7 @@
 
 .operationIcon {
   transition: transform var(--transition-duration) var(--timing-function);
+  color: var(--icons-color);
   &.active {
     transform: rotate(180deg);
   }
