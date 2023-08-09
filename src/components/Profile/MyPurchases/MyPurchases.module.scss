@@ -81,6 +81,7 @@
 }
 
 .waitingPhrase {
+    font-weight: 600;
     padding: 8px;
     border-bottom: 1px solid var(--border-color);
     // text-shadow: var(--hover-text-shadow);
@@ -95,7 +96,7 @@
   background-color: var(--background-btn-main-color);
   border: 1px solid var(--btn-border-color);
   // border: 2px solid var(--border-color);
-  color: var(--btn-text-color);
+  color: #000;
   border-radius: 10.3108px;
   font-style: normal;
   font-weight: 500;
@@ -109,6 +110,7 @@
     background-color: var(--background-btn-second-color);
     border-color: var(--btn-border-color);
     box-shadow: var(--hover-box-shadow);
+    color: var(--btn-text-color);
   }
 }
 

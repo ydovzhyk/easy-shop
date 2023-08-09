@@ -149,6 +149,36 @@ export const App = () => {
   let socketRef = useRef(null);
   let intervalRef = useRef(null);
   useEffect(() => {
+    if (isLogin && !socketRef.current) {
+      let uri = null;
+      if (process.env.NODE_ENV === 'production') {
+        uri = `wss://easy-shop-backend.herokuapp.com/?user=${userId}`;
+      }
+      if (process.env.NODE_ENV === 'development') {
+        uri = `wss://easy-shop-backend.herokuapp.com/?user=${userId}`;
+      }
+      // if (process.env.NODE_ENV === 'development') {
+      //   uri = `ws://localhost:4000/?user=${userId}`;
+      // }
+
+      socketRef.current = new WebSocket(uri);
+
+      socketRef.current.onopen = () => {
+        console.log("WebSocket з'єднання встановлено");
+      };
+      socketRef.current.onclose = () => {
+        console.log("WebSocket з'єднання закрито");
+      };
+
+      // Повертаємо функцію очищення для виконання при розмонтуванні компонента
+      return () => {
+        clearInterval(intervalRef.current);
+        socketRef.current.close();
+      };
+    }
+  }, [isLogin, userId]);
+
+  useEffect(() => {
     const updateUserFunction = () => {
       const authData = JSON.parse(localStorage.getItem('easy-shop.authData'));
       if (authData && authData.accessToken) {
@@ -163,66 +193,36 @@ export const App = () => {
       }
     };
 
-    if (isLogin && !socketRef.current) {
-      console.log('Зайшли отримати нове зєднання');
-      let uri = null;
-      if (process.env.NODE_ENV === 'production') {
-        uri = `wss://easy-shop-backend.herokuapp.com/?user=${userId}`;
-      }
-      if (process.env.NODE_ENV === 'development') {
-        uri = `wss://easy-shop-backend.herokuapp.com/?user=${userId}`;
-      }
-      // if (process.env.NODE_ENV === 'development') {
-      //   uri = `ws://localhost:4000/?user=${userId}`;
-      // }
-      const socket = new WebSocket(uri);
-
-      socket.onopen = () => {
-        console.log("WebSocket з'єднання встановлено");
-        socketRef.current = socket;
-
-        const sendRequest = () => {
-          const request = {
-            type: 'check_updates_dialogue',
-            userId: userId,
-            newMessage: newMessage ? newMessage : 0,
-          };
-          socket.send(JSON.stringify(request));
-        };
-
-        // Відправити перший запит
-        sendRequest();
-
-        // Встановити інтервал для повторної відправки запиту кожні 30 секунд
-        const intervalId = setInterval(sendRequest, 30000);
-        intervalRef.current = intervalId;
-
-        socket.onmessage = event => {
-          const response = event.data.trim();
-          console.log('Отримано повідомлення:', response);
-          if (response === 'true') {
-            updateUserFunction();
-          }
-        };
-
-        // Закриття WebSocket з'єднання та очищення інтервалу при закритті компонента
-        return () => {
-          clearInterval(intervalId);
-          socket.close();
-        };
+    const sendRequest = newM => {
+      const request = {
+        type: 'check_updates_dialogue',
+        userId: userId,
+        newMessage: newM ? newM : 0,
       };
-      socket.onclose = () => {
-        console.log("WebSocket з'єднання закрито");
+      socketRef.current.send(JSON.stringify(request));
+    };
+
+    if (isLogin && socketRef.current) {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+      // Встановити інтервал для повторної відправки запиту кожні 30 секунд
+      intervalRef.current = setInterval(() => {
+        sendRequest(newMessage);
+      }, 30000);
+
+      socketRef.current.onmessage = event => {
+        const response = event.data.trim();
+        console.log('Отримано повідомлення:', response);
+        if (response === 'true') {
+          updateUserFunction();
+        }
       };
     }
   }, [dispatch, isLogin, userId, newMessage]);
 
   useEffect(() => {
-    if (
-      !isLogin &&
-      socketRef.current &&
-      socketRef.current.readyState === WebSocket.OPEN
-    ) {
+    if (!isLogin && socketRef.current) {
       console.log("WebSocket з'єднання закрито");
       clearInterval(intervalRef.current);
       socketRef.current.close();
@@ -251,3 +251,90 @@ export const App = () => {
     </div>
   );
 };
+
+// let socketRef = useRef(null);
+// let intervalRef = useRef(null);
+// useEffect(() => {
+//   console.log('Кількість нових повідомлень', newMessage);
+//   const updateUserFunction = () => {
+//     const authData = JSON.parse(localStorage.getItem('easy-shop.authData'));
+//     if (authData && authData.accessToken) {
+//       const userData = {
+//         accessToken: authData.accessToken,
+//         refreshToken: authData.refreshToken,
+//         sid: authData.sid,
+//       };
+//       dispatch(updateUser(userData));
+//     } else {
+//       return;
+//     }
+//   };
+
+//   if (isLogin && !socketRef.current) {
+//     console.log('Зайшли отримати нове зєднання');
+//     let uri = null;
+//     if (process.env.NODE_ENV === 'production') {
+//       uri = `wss://easy-shop-backend.herokuapp.com/?user=${userId}`;
+//     }
+//     // if (process.env.NODE_ENV === 'development') {
+//     //   uri = `wss://easy-shop-backend.herokuapp.com/?user=${userId}`;
+//     // }
+//     if (process.env.NODE_ENV === 'development') {
+//       uri = `ws://localhost:4000/?user=${userId}`;
+//     }
+//     const socket = new WebSocket(uri);
+
+//     socket.onopen = () => {
+//       console.log("WebSocket з'єднання встановлено");
+//       socketRef.current = socket;
+
+//       const sendRequest = () => {
+//         console.log('Кількість нових повідомлень in Request', newMessage);
+//         const request = {
+//           type: 'check_updates_dialogue',
+//           userId: userId,
+//           newMessage: newMessage ? newMessage : 0,
+//         };
+//         socket.send(JSON.stringify(request));
+//       };
+
+//       // Відправити перший запит
+//       sendRequest();
+
+//       // Встановити інтервал для повторної відправки запиту кожні 30 секунд
+//       const intervalId = setInterval(sendRequest, 30000);
+//       intervalRef.current = intervalId;
+
+//       socket.onmessage = event => {
+//         const response = event.data.trim();
+//         console.log('Отримано повідомлення:', response);
+//         if (response === 'true') {
+//           updateUserFunction();
+//         }
+//       };
+
+//       // Закриття WebSocket з'єднання та очищення інтервалу при закритті компонента
+//       return () => {
+//         clearInterval(intervalRef.current);
+//         socket.close();
+//       };
+//     };
+//     socket.onclose = () => {
+//       console.log("WebSocket з'єднання закрито");
+//     };
+//   }
+// }, [dispatch, isLogin, userId, newMessage]);
+
+// useEffect(() => {
+//   if (
+//     !isLogin &&
+//     socketRef.current
+//     // socketRef.current.readyState === WebSocket.OPEN
+//   ) {
+//     console.log("WebSocket з'єднання закрито");
+//     clearInterval(intervalRef.current);
+//     socketRef.current.close();
+//     socketRef.current = null;
+//     intervalRef.current = null;
+//   }
+// }, [isLogin]);

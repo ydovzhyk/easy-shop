@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getUserLikesBasket } from 'redux/auth/auth-operations';
-import { getLikedProducts, getID } from 'redux/auth/auth-selectors';
+import {
+  getLikedProducts,
+  getID,
+  getTotalLikedProductsPages,
+} from 'redux/auth/auth-selectors';
 import { updateUserSubscriptions } from 'redux/otherUser/otherUser-operations';
 import {
   selectUserSubscriptions,
@@ -25,6 +29,8 @@ const Favorites = () => {
 
   const likedProducts = useSelector(getLikedProducts);
   const userId = useSelector(getID);
+  const totalLikedPages = useSelector(getTotalLikedProductsPages);
+  console.log('totalLikedPages', totalLikedPages);
   const userSubscriptions = useSelector(selectUserSubscriptions);
   console.log('userSubscriptions', userSubscriptions);
   const totalPages = useSelector(selectTotalPagesUserSubscription);
@@ -39,8 +45,9 @@ const Favorites = () => {
     }
   };
 
+  const currentPage = 1;
   useEffect(() => {
-    dispatch(getUserLikesBasket({ statusFavorites }));
+    dispatch(getUserLikesBasket({ currentPage }));
     dispatch(updateUserSubscriptions());
 
     setIsLiked(false);
