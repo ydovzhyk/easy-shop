@@ -11,11 +11,11 @@ const Wares = () => {
   }, [dispatch, id]);
     
   const sellerProducts = useSelector(selectProductsFromOtherUther);
-  console.log('sellerProducts in Wares:', sellerProducts);
+  // console.log('sellerProducts in Wares:', sellerProducts);
   const productsNamesArray = sellerProducts.map(product =>{ return product.nameProduct});
-  console.log(productsNamesArray);
+  // console.log(productsNamesArray);
     return (
-        <div>`Товари продавця: ${productsNamesArray.join(', ')} `</div>
+        <div>Товари продавця: {productsNamesArray.join(', ')} </div>
     )
 }
 

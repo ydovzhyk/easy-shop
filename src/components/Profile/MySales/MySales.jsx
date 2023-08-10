@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {  getUserSales, updateOrderStatus } from 'redux/order/order-operations';
+import { getUserSales, updateOrderStatus } from 'redux/order/order-operations';
 import {
   getLoadingOrders,
   selectUserSales,
   selectUserSalesTotalPages,
 } from 'redux/order/order-selectors';
+import { orderConfirmationDialogue } from 'redux/dialogue/dialogue-operations';
 
 import OrderProductsList from 'components/Shared/OrderProductsList/OrderProductsList';
 import Pagination from 'components/Shared/Pagination/Pagination';
@@ -14,13 +15,13 @@ import OrderStatusList from 'components/Shared/OrderStatusList/OrderStatusList';
 import s from './MySales.module.scss';
 
 const MySales = () => {
-    const dispatch = useDispatch();
-    const isLoading = useSelector(getLoadingOrders);
-    const userSales = useSelector(selectUserSales);
-    const totalPages = useSelector(selectUserSalesTotalPages);
+  const dispatch = useDispatch();
+  const isLoading = useSelector(getLoadingOrders);
+  const userSales = useSelector(selectUserSales);
+  const totalPages = useSelector(selectUserSalesTotalPages);
 
-    const [currentPage, setCurrentPage] = useState(1);
-    const [currentSelector, setcurrentSelector] = useState('all');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentSelector, setcurrentSelector] = useState('all');
 
   useEffect(() => {
     dispatch(
@@ -42,36 +43,50 @@ const MySales = () => {
     setcurrentSelector(optionName);
     setCurrentPage(1);
   };
-  
-  const handleConfirmButtonClick = (id) => {
+
+  const handleConfirmButtonClick = id => {
     console.log('handleConfirmButtonClick');
-    dispatch(updateOrderStatus({ orderId: id, confirmed: true, statusNew: false }));
+    dispatch(
+      updateOrderStatus({ orderId: id, confirmed: true, statusNew: false })
+    );
     dispatch(
       getUserSales({
         page: currentPage,
         selectorName: currentSelector,
       })
     );
-  }
-  const handleCancelButtonClick = (id) => {
-      console.log('handleCancelButtonClick');
-      dispatch(
-        updateOrderStatus({ orderId: id, confirmed: false, statusNew: false })
-      );
-      dispatch(
-        getUserSales({
-          page: currentPage,
-          selectorName: currentSelector,
-        })
-      );
+    dispatch(
+      orderConfirmationDialogue({
+        orderId: id,
+        typeDialogue: 'sales',
+      })
+    );
+  };
+  const handleCancelButtonClick = id => {
+    console.log('handleCancelButtonClick');
+    dispatch(
+      updateOrderStatus({ orderId: id, confirmed: false, statusNew: false })
+    );
+    dispatch(
+      getUserSales({
+        page: currentPage,
+        selectorName: currentSelector,
+      })
+    );
+    dispatch(
+      orderConfirmationDialogue({
+        orderId: id,
+        typeDialogue: 'cancel',
+      })
+    );
   };
 
   return (
     <>
       <div className={s.ordersWrapper}>
         <OrderStatusList
-            currentSelector={currentSelector}
-            handleButtonClick={handleButtonClick}
+          currentSelector={currentSelector}
+          handleButtonClick={handleButtonClick}
         />
         {userSales.length > 0 && (
           <ul className={s.ordersList}>

@@ -30,11 +30,11 @@ const EmailVerification = lazy(() =>
 );
 const ProductDetails = lazy(() => import('pages/ProductDetailsPage'));
 const ProductsPage = lazy(() => import('pages/ProductsPage'));
-const UserSellingInfoPage = lazy(() => import('pages/UserSellingInfoPage'));
-const Wares = lazy(() => import('components/UserSellingInfo/Wares/Wares'));
-const About = lazy(() => import('components/UserSellingInfo/About/About'));
+const SellerInfoPage = lazy(() => import('pages/SellerInfoPage'));
+const Wares = lazy(() => import('components/SellerInfo/Wares/Wares'));
+const About = lazy(() => import('components/SellerInfo/About/About'));
 const Reviews = lazy(() =>
-  import('components/UserSellingInfo/Reviews/Reviews')
+  import('components/SellerInfo/Reviews/Reviews')
 );
 const MySales = lazy(() => import('components/Profile/MySales/MySales'));
 
@@ -56,7 +56,7 @@ const UserRoutes = () => {
             path="/products/:category/:subcategory/:id"
             element={<ProductDetails />}
           />
-          <Route path="/member/:id" element={<UserSellingInfoPage />}>
+          <Route path="/member/:id" element={<SellerInfoPage />}>
             <Route index element={<Wares />} />
             <Route path="mywares" element={<Wares />} />
             <Route path="myreviews" element={<Reviews />} />

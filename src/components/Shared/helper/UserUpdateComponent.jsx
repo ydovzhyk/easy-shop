@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateUser } from 'redux/auth/auth-opetations';
+import { updateUser } from 'redux/auth/auth-operations';
 
 const UserUpdateComponent = () => {
   const dispatch = useDispatch();

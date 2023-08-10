@@ -1,9 +1,12 @@
-@use '../../../styles/mixins';
+@use 'styles/mixins';
 
 .profilewrapper {
   display: flex;
   align-items: flex-start;
   gap: 16px;
+  @include mixins.mq(mobile-only) {
+    gap: 8px;
+  }
 }
 
 .avatarframe {
@@ -11,6 +14,7 @@
   flex-direction: column;
   gap: 4px;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .avatar {

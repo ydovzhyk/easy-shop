@@ -4,7 +4,7 @@ import { Link, useNavigate} from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { BsTrash } from 'react-icons/bs';
 import { TfiPlus, TfiCheck } from 'react-icons/tfi';
-import { updateUserBasket } from 'redux/auth/auth-opetations';
+import { updateUserBasket } from 'redux/auth/auth-operations';
 import { addOrder, deleteOrderById } from 'redux/order/order-operations';
 import { selectOrderInCheckout } from 'redux/order/order-selectors';
 

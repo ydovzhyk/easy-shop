@@ -78,7 +78,7 @@ const Dialogue = ({ productInfo }) => {
           );
         };
 
-        const timer = setTimeout(deleteNewMessageCallback, 5000);
+        const timer = setTimeout(deleteNewMessageCallback, 10000);
         return () => {
           clearTimeout(timer);
           deleteNewMessageCallback();
