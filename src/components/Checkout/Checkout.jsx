@@ -77,6 +77,7 @@ const Checkout = () => {
         orderConfirmationDialogue({
           productId: _id,
           productOwner: owner,
+          typeDialogue: 'checkout',
         })
       );
     }
