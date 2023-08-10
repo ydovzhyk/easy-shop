@@ -1,10 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import {
-  getOtherUser,
-  updateUserSubscriptions,
-  updateUserFollowers,
-} from './otherUser-operations';
+import { getOtherUser, updateUserSubscriptions } from './otherUser-operations';
 
 const initialState = {
   message: '',
@@ -14,7 +10,6 @@ const initialState = {
   userSubscriptions: [],
   userFollowers: [],
   totalPagesSubscription: 0,
-  totalPagesFollowers: 0,
 };
 
 const otherUser = createSlice({
@@ -56,21 +51,6 @@ const otherUser = createSlice({
       store.totalPagesSubscription = payload.totalPagesUserSubscription;
     },
     [updateUserSubscriptions.rejected]: (store, { payload }) => {
-      store.loading = false;
-      store.error = payload.message;
-    },
-
-    // * POST User Followers
-    [updateUserFollowers.pending]: store => {
-      store.loading = true;
-      store.error = '';
-    },
-    [updateUserFollowers.fulfilled]: (store, { payload }) => {
-      store.loading = false;
-      store.userFollowers = payload.userFollowers;
-      store.totalPagesFollowers = payload.totalPagesFollowers;
-    },
-    [updateUserFollowers.rejected]: (store, { payload }) => {
       store.loading = false;
       store.error = payload.message;
     },

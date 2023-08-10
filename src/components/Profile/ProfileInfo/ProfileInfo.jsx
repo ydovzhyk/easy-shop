@@ -33,6 +33,7 @@ const ProfileInfo = ({
   salesAmount,
   onClick,
   isExitButton, 
+  onSubscribe,
   isSubscriptionButton
 }) => {
   const isTablet = useMediaQuery({ minWidth: 768 });
@@ -119,8 +120,9 @@ const ProfileInfo = ({
         {isSubscriptionButton &&
           <div className={s.subscriptionWrapper}>
           <Button
-          text="Підписатися"
-          btnClass='btnLight'
+            text="Підписатися"
+            btnClass='btnLight'
+            handleClick={onSubscribe}
             />
         </div>}
       </div>

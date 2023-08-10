@@ -1,8 +1,10 @@
 import { useEffect, useState, } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams} from 'react-router-dom';
+import { useParams, useNavigate} from 'react-router-dom';
 import { getOtherUser } from 'redux/otherUser/otherUser-operations';
+import { updateUserSibscribes } from 'redux/auth/auth-operations';
 // import { clearOtherUser } from 'redux/otherUser/otherUser.slice';
+import { getLogin } from 'redux/auth/auth-selectors';
 import { selectOtherUser } from 'redux/otherUser/otherUser-selectors';
 
 import ProfileInfo from 'components/Profile/ProfileInfo/ProfileInfo';
@@ -12,16 +14,18 @@ import s from './SellerInfo.module.scss';
 
 const SellerInfo = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const { id } = useParams();
-  console.log('owner id in SellerInfo', id);
+  const isLogin = useSelector(getLogin);
+  // console.log('owner id in SellerInfo', id);
   useEffect(() => {
     // dispatch(clearOtherUser());
     dispatch(getOtherUser(id)).then(() => setIsDataLoaded(true));
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [dispatch, id]);
   const sellerInfo = useSelector(selectOtherUser);
-console.log('sellerInfo in SellerInfo:', sellerInfo);
+// console.log('sellerInfo in SellerInfo:', sellerInfo);
   
   const {
     userAvatar,
@@ -34,6 +38,14 @@ console.log('sellerInfo in SellerInfo:', sellerInfo);
   } =
     sellerInfo;
 
+  const handleSubscribe = event => {
+    event.preventDefault();
+    if (!isLogin) {
+      navigate('/login');
+      return;
+    }
+    dispatch(updateUserSibscribes(id));
+  }
   return (
     <>
       <section className={s.profileavatar}>
@@ -49,6 +61,7 @@ console.log('sellerInfo in SellerInfo:', sellerInfo);
         sex={sex || ''}
           cityName={cityName || 'Kyiv'}
           isSubscriptionButton='true'
+          onSubscribe={handleSubscribe}
         // followersAmount={followersAmount}
         // salesAmount={salesAmount}
       />}
