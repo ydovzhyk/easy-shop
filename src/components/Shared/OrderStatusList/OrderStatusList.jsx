@@ -9,6 +9,7 @@ const OrderStatusList = ({ currentSelector, handleButtonClick }) => {
       <p className={s.heading}>За статусом</p>
       {!isTablet && (
         <Select
+          classNamePrefix="custom-select"
           onChange={value => handleButtonClick(value.value)}
           options={[
             { value: 'all', label: 'Всі' },
@@ -20,11 +21,11 @@ const OrderStatusList = ({ currentSelector, handleButtonClick }) => {
           theme={theme => ({
             ...theme,
             borderRadius: 0,
-            colors: {
-              ...theme.colors,
-              primary25: '#fbef35;',
-              primary: '#3b3b3b',
-            },
+            // colors: {
+            //   ...theme.colors,
+            //   primary25: '#fbef35;',
+            //   primary: '#3b3b3b',
+            // },
           })}
         />
       )}
