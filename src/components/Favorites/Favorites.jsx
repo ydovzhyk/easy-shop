@@ -22,7 +22,7 @@ import Text from 'components/Shared/Text/Text';
 import DaysValue from 'components/Shared/helper/DaysValue';
 
 import Avatar from 'components/Profile/Avatar/Avatar';
-import UserRating from 'components/Profile/UserProfileInfo/UserRating';
+import UserRating from 'components/Profile/ProfileInfo/UserRating';
 import Value from 'components/Profile/Value';
 import { BsCheck2, BsGeoAlt, BsHandbag, BsPeople } from 'react-icons/bs';
 
@@ -61,8 +61,8 @@ const Favorites = () => {
   const salesAmount = 16;
 
   useEffect(() => {
-    dispatch(getUserLikesBasket({currentPage}));
-    dispatch(updateUserSubscriptions({currentPage}));
+    dispatch(getUserLikesBasket({ currentPage }));
+    dispatch(updateUserSubscriptions({ currentPage }));
 
     setIsLiked(false);
   }, [dispatch, selectedTab, isLiked, currentPage]);
