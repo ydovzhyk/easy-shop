@@ -1,9 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import {
-  axiosGetOtherUser,
-  axiosUserSubscriptions,
-  axiosUserFollowers,
-} from 'api/otherUser';
+import { axiosGetOtherUser, axiosUserSubscriptions } from 'api/otherUser';
 
 export const getOtherUser = createAsyncThunk(
   'other-user/',
@@ -23,20 +19,6 @@ export const updateUserSubscriptions = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const data = await axiosUserSubscriptions();
-      console.log('data', data);
-      return data;
-    } catch (error) {
-      const { data, status } = error.response;
-      return rejectWithValue({ data, status });
-    }
-  }
-);
-
-export const updateUserFollowers = createAsyncThunk(
-  'other-user/followers',
-  async (_, { rejectWithValue }) => {
-    try {
-      const data = await axiosUserFollowers();
       console.log('data', data);
       return data;
     } catch (error) {

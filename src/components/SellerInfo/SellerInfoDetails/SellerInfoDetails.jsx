@@ -14,7 +14,7 @@ const SellerInfoDetails = () => {
   const location = useLocation().pathname;
     
     const sellerInfo = useSelector(selectOtherUser);
-  sellerInfo && console.log('sellerInfo in SellerInfoDetails', sellerInfo);
+  // sellerInfo && console.log('sellerInfo in SellerInfoDetails', sellerInfo);
 
   const [isMyWares, setIsMyWares] = useState(false);
   const [isMyReviews, setIsMyReviews] = useState(false);
@@ -39,9 +39,9 @@ const SellerInfoDetails = () => {
     }
   }, [sellerInfo]);
 
-  console.log('isMyWares:', isMyWares);
-  console.log('isMyReviews:', isMyReviews);
-  console.log('isAbout:', isAbout);
+  // console.log('isMyWares:', isMyWares);
+  // console.log('isMyReviews:', isMyReviews);
+  // console.log('isAbout:', isAbout);
 
   return (
     <Container>
