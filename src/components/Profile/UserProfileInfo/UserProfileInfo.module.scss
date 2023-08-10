@@ -17,12 +17,16 @@
   flex-direction: row;
   gap: 16px;
   justify-content: flex-start;
+  @include mixins.mq(mobile-only) {
+    gap: 8px;
+  }
 }
 .avatarframe {
   display: flex;
   flex-direction: column;
   gap: 4px;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .avatar {
