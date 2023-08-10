@@ -8,8 +8,8 @@ const initialState = {
   error: null,
   otherUserInfo: {},
   userSubscriptions: [],
+  totalPagesSubscription: 1,
   userFollowers: [],
-  totalPagesSubscription: 0,
 };
 
 const otherUser = createSlice({

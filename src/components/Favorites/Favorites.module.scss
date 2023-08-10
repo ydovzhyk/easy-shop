@@ -1,24 +1,11 @@
 @use '../../styles/mixins';
 
 .likesSection {
-  // display: flex;
-  // flex-direction: column;
-  // gap: 20px;
-
-  // align-items: center;
-  // justify-content: center;
-
   width: 100%;
   padding: 10px;
 
   background-color: var(--main-color);
 }
-
-// .defaultBox {
-//   @include mixins.mq(tablet) {
-//     margin-left: 30px;
-//   }
-// }
 
 .btnSelect {
   display: flex;
@@ -38,7 +25,7 @@
     background: var(--title-text-color);
     display: block;
     position: absolute;
-    bottom: -8px;
+    bottom: -4px;
     left: 0;
     width: 0;
     height: 1px;
@@ -65,32 +52,106 @@
   }
 }
 
-// .title {
-//   font-weight: 700;
-//   font-size: 14px;
-//   line-height: 13px;
-//   letter-spacing: 0.04em;
-//   text-transform: uppercase;
-//   color: var(--accent-color);
-//   text-align: center;
-
-//   margin-bottom: 60px;
-
-//   // @include mixins.mq(tablet) {
-//   //   text-align: left;
-//   // }
-// }
-
 .listCard {
+  margin-bottom: 20px;
+
   @include mixins.mq(tablet) {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 15px;
+    grid-gap: 45px;
   }
 
   @include mixins.mq(desktop) {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-gap: 15px;
+    grid-gap: 45px;
   }
+}
+
+.itemCard {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  // border: 2px solid yellow;
+  margin-bottom: 25px;
+  padding: 10px;
+  box-shadow: 0 0 20px 3px rgba(0, 0, 0, 0.2);
+  // width: 280px;
+
+  @include mixins.mq(tablet) {
+    margin-bottom: 0;
+  }
+}
+
+.avatarframe {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--icons-color);
+}
+
+.userframe {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.profilebox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.username {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.infowrapper {
+  display: flex;
+  margin-bottom: 16px;
+}
+
+.iconBefore {
+  margin-right: 8px;
+  width: 20px;
+  height: 20px;
+}
+
+.text {
+  font-size: 14px;
+  color: var(--text-color);
+}
+
+.rightvalue {
+  margin-left: 4px;
+}
+
+.profileinfo {
+  // flex-direction: row;
+  // flex-wrap: wrap;
+  // display: flex;
+  // flex-direction: column;
+  // gap: 16px;
+  color: var(--text-color);
+
+  // @include mixins.mq(mobile) {
+  //   flex-direction: row;
+  //   flex-wrap: wrap;
+  // }
+}
+
+.leftvalue {
+  margin-right: 4px;
 }

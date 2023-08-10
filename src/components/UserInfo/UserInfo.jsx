@@ -5,7 +5,8 @@ import { RxDividerVertical } from 'react-icons/rx';
 import { BsBasket } from 'react-icons/bs';
 import { RxOpenInNewWindow } from 'react-icons/rx';
 import { AiOutlinePoweroff } from 'react-icons/ai';
-import { BsHeartHalf } from 'react-icons/bs';
+import { FiHeart } from 'react-icons/fi';
+// import { BsHeartHalf } from 'react-icons/bs';
 
 import { NavLink, useNavigate } from 'react-router-dom';
 
@@ -154,7 +155,7 @@ const UserInfo = () => {
           }}
         >
           <NavLink to="/favorites" className={getClassName}>
-            <BsHeartHalf style={{ marginRight: '10px' }} size={22} />
+            <FiHeart style={{ marginRight: '10px' }} size={22} />
             {/* <img
               src={heartIcon}
               alt="Heart Icon"
@@ -163,7 +164,7 @@ const UserInfo = () => {
               style={{ marginRight: '10px' }}
             /> */}
             <span>
-              {userLikesLength}/{userLikesLength}
+              {userLikesLength}
             </span>
           </NavLink>
         </div>

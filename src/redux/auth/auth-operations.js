@@ -131,7 +131,7 @@ export const getUserLikesBasket = createAsyncThunk(
 
 export const updateUserSibscribes = createAsyncThunk(
   'auth/subscribes',
-  async (userData, { rejectWithValue, getState, dispatch }) => {
+  async (userData, { rejectWithValue, dispatch }) => {
     try {
       const data = await axiosUpdateUserSubscribes(userData);
       return data;

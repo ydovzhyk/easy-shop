@@ -3,14 +3,12 @@
 .itemCard {
   display: flex;
   flex-direction: column;
-
-  padding: 4px;
-  margin-bottom: 25px;
-
   row-gap: 15px;
 
+  margin-bottom: 25px;
+  
   @include mixins.mq(tablet) {
-    margin-bottom: 20;
+    margin-bottom: 0;
   }
 }
 
