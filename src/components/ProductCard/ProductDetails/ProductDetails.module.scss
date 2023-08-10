@@ -11,6 +11,7 @@
 .productDetails {
   @include mixins.mq(desktop) {
     display: flex;
+    justify-content: space-between;
   }
 }
 
