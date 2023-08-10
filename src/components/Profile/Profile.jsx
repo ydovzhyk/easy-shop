@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { logout } from 'redux/auth/auth-opetations';
+import { logout } from 'redux/auth/auth-operations';
 import {
   getUserName,
   getUser,
@@ -13,7 +13,7 @@ import {
   clearDialogue,
 } from 'redux/dialogue/dialogue-slice';
 import { clearOtherUser } from 'redux/otherUser/otherUser.slice';
-import UserProfileInfo from 'components/Profile/UserProfileInfo/UserProfileInfo';
+import ProfileInfo from 'components/Profile/ProfileInfo/ProfileInfo';
 import UserInfoDetails from 'components/Profile/UserInfoDetails/UserInfoDetails';
 
 import s from './Profile.module.scss';
@@ -30,6 +30,7 @@ const Profile = () => {
   const followersAmount = 36;
   const salesAmount = 16;
   const userAddress = user.userAddress || 'Kyiv';
+  const { verify, lastVisit } = user;
 
   const onLogout = async () => {
     navigate('/');
@@ -48,13 +49,15 @@ const Profile = () => {
   return (
     <>
       <section className={s.profileavatar}>
-        <UserProfileInfo
+        <ProfileInfo
           userAvatar={avatar}
           userName={name}
           rating={rating}
           gradesAmount={gradesAmount}
           date={dateCreate}
-          userAddress={userAddress}
+          lastVisit={lastVisit}
+          cityName={userAddress}
+          verify={verify}
           followersAmount={followersAmount}
           salesAmount={salesAmount}
           isExitButton='true'

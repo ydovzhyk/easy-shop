@@ -8,10 +8,10 @@ import { getOtherUser } from 'redux/otherUser/otherUser-operations';
 import { selectOtherUser } from 'redux/otherUser/otherUser-selectors';
 
 import Avatar from 'components/Profile/Avatar/Avatar';
-import UserRating from 'components/Profile/UserProfileInfo/UserRating';
+import UserRating from 'components/Profile/ProfileInfo/UserRating';
 import Value from 'components/Profile/Value';
 import DaysValue from 'components/Shared/helper/DaysValue';
-import { getDaysPassedFromDate, getPhrase } from 'components/ProductCard/SellerInfo/culculatingTimeFunc';
+import { getDaysPassedFromDate, getPhrase } from 'components/ProductCard/OwnerInfo/culculatingTimeFunc';
 import {
   BsCheck2,
   BsGeoAlt,
@@ -20,9 +20,9 @@ import {
   BsClock,
 } from 'react-icons/bs';
 import verifyIcon from 'images/product-card/verified.svg';
-import s from './SellerInfo.module.scss';
+import s from 'components/ProductCard/OwnerInfo/OwnerInfo.module.scss';
 
-const SellerInfo = ({ owner }) => {
+const OwnerInfo = ({ owner }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -110,4 +110,4 @@ const SellerInfo = ({ owner }) => {
     </>
   );
 };
-export default SellerInfo;
+export default OwnerInfo;

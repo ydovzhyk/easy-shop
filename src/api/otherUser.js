@@ -10,3 +10,8 @@ export const axiosUserSubscriptions = async () => {
   const { data } = await instance.post('/other-user/subscriptions');
   return data;
 };
+
+export const axiosUserFollowers = async () => {
+  const { data } = await instance.post('/other-user/followers');
+  return data;
+};

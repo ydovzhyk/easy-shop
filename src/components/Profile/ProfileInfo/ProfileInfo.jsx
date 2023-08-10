@@ -9,17 +9,17 @@ import {
 } from 'react-icons/bs';
 import Container from 'components/Shared/Container';
 import Avatar from 'components/Profile/Avatar/Avatar';
-import UserRating from 'components/Profile/UserProfileInfo/UserRating';
+import UserRating from 'components/Profile/ProfileInfo/UserRating';
 import Value from 'components/Profile/Value';
 import DaysValue from 'components/Shared/helper/DaysValue';
 import Button from 'components/Shared/Button';
-import { getDaysPassedFromDate, getPhrase } from 'components/ProductCard/SellerInfo/culculatingTimeFunc';
+import { getDaysPassedFromDate, getPhrase } from 'components/ProductCard/OwnerInfo/culculatingTimeFunc';
 
 import verifyIcon from 'images/product-card/verified.svg';
 
-import s from 'components/Profile/UserProfileInfo/UserProfileInfo.module.scss';
+import s from 'components/Profile/ProfileInfo/ProfileInfo.module.scss';
 
-const UserProfileInfo = ({
+const ProfileInfo = ({
   userAvatar,
   userName,
   rating,
@@ -32,7 +32,8 @@ const UserProfileInfo = ({
   followersAmount,
   salesAmount,
   onClick,
-  isExitButton
+  isExitButton, 
+  isSubscriptionButton
 }) => {
   const isTablet = useMediaQuery({ minWidth: 768 });
   const lastVisitDate = getPhrase(sex, lastVisit);
@@ -45,7 +46,7 @@ const UserProfileInfo = ({
         <div className={s.mainInformationWrapper}>
           <div className={s.avatarframe}>
           <div className={s.avatar}>
-            <Avatar src={userAvatar} avatarClass="photoAvatar" />
+          {userAvatar && <Avatar src={userAvatar} avatarClass="photoAvatar" />}
           </div>
         </div>
         <div className={s.userframe}>
@@ -115,8 +116,15 @@ const UserProfileInfo = ({
             btnClass="exitHeaderBtn"
           />
         </div>}
+        {isSubscriptionButton &&
+          <div className={s.subscriptionWrapper}>
+          <Button
+          text="Підписатися"
+          btnClass='btnLight'
+            />
+        </div>}
       </div>
     </Container>
   );
 };
-export default UserProfileInfo;
+export default ProfileInfo;

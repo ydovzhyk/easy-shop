@@ -5,3 +5,6 @@ export const selectUserSubscriptions = ({ otherUser }) =>
   otherUser.userSubscriptions;
 export const selectTotalPagesUserSubscription = ({ otherUser }) =>
   otherUser.totalPagesSubscription;
+export const selectUserFollowers = ({ otherUser }) => otherUser.userFollovers;
+export const selectTotalPagesUserFollovers = ({ otherUser }) =>
+  otherUser.totalPagesFollowers;
