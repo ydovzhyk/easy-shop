@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { updateUser } from 'redux/auth/auth-opetations';
+import { updateUser } from 'redux/auth/auth-operations';
 import { verifyConfirmation } from 'redux/verifyEmail/verifyEmail-slice';
 import { getVerifyMessage } from 'redux/verifyEmail/verifyEmail-selectors';
 import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';

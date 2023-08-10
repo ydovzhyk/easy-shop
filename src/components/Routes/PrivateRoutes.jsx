@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getLogin } from 'redux/auth/auth-selectors';
-import { updateUser } from 'redux/auth/auth-opetations';
+import { updateUser } from 'redux/auth/auth-operations';
 
 const PrivateRoute = () => {
   const dispatch = useDispatch();

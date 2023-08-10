@@ -9,31 +9,31 @@ import {
 import { getProductById } from 'redux/product/product-operations';
 import { clearOtherUser } from 'redux/otherUser/otherUser.slice';
 import { clearProductById } from 'redux/product/product-slice';
-import { updateUserBasket, updateUserLikes } from 'redux/auth/auth-opetations';
+import { updateUserBasket, updateUserLikes } from 'redux/auth/auth-operations';
 import { addOrder } from 'redux/order/order-operations';
 import { getLogin, selectUserBasket, getUser } from 'redux/auth/auth-selectors';
 import { selectOtherUser } from 'redux/otherUser/otherUser-selectors';
 
-import SellerInfo from './SellerInfo/SellerInfo';
+import OwnerInfo from 'components/ProductCard/OwnerInfo/OwnerInfo';
 import Dialogue from 'components/Dialogue/Dialogue';
 import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
 import Container from 'components/Shared/Container/Container';
 import Text from 'components/Shared/Text/Text';
 import Button from 'components/Shared/Button/Button';
-import ProductDetails from './ProductDetails/ProductDetails';
+import ProductDetails from 'components/ProductCard/ProductDetails/ProductDetails';
 import Loader from 'components/Loader/Loader';
-import ProductPhotoContainer from './ProductPhotoContainer/ProductPhotoContainer';
+import ProductPhotoContainer from 'components/ProductCard/ProductPhotoContainer/ProductPhotoContainer';
 import ProductInfo from './ProductInfo/ProductInfo';
-import { translateParamsToUA } from '../../funcs&hooks/translateParamsToUA.js';
+import { translateParamsToUA } from 'funcs&hooks/translateParamsToUA.js';
 
-import s from './ProductCard.module.scss';
+import s from 'components/ProductCard/ProductCard.module.scss';
 
 const ProductCard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const product = useSelector(selectProductById);
   const userProductBasket = useSelector(selectUserBasket);
-  const sellerInfo = useSelector(selectOtherUser);
+  const ownerInfo = useSelector(selectOtherUser);
   const chattingRef = useRef();
   const { category, subcategory, id } = useParams();
   const translatedParamsObj = translateParamsToUA(category, subcategory);
@@ -175,7 +175,7 @@ const ProductCard = () => {
     }
     const dataForUpload = {
       ownerId: owner,
-      ownerName: sellerInfo.username,
+      ownerName: ownerInfo.username,
       products: [
         {
           _id: _id,
@@ -233,8 +233,10 @@ const ProductCard = () => {
               </div>
               <div ref={chattingRef}>
                 <Text text="Продавець:" textClass="productLabels" />
-                <div className={s.sellerInfo}>
-                  {isDataLoaded && owner && <SellerInfo owner={owner} />}
+                <div className={s.ownerInfo}>
+                    {isDataLoaded && owner &&
+                      <OwnerInfo owner={owner}
+                      />}
                 </div>
               </div>
             </div>

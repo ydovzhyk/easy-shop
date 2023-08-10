@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
-import { register } from 'redux/auth/auth-opetations';
+import { register } from 'redux/auth/auth-operations';
 import { NavLink, Navigate, useLocation, Link } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import { getError, getNewUserId } from 'redux/auth/auth-selectors';

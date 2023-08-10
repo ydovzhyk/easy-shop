@@ -8,6 +8,7 @@ const initialState = {
   error: null,
   otherUserInfo: {},
   userSubscriptions: [],
+  userFollowers: [],
   totalPagesSubscription: 0,
 };
 

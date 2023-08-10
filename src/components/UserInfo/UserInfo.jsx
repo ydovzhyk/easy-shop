@@ -24,7 +24,7 @@ import {
   clearDialogue,
 } from 'redux/dialogue/dialogue-slice';
 import { clearOtherUser } from 'redux/otherUser/otherUser.slice';
-import { logout } from 'redux/auth/auth-opetations';
+import { logout } from 'redux/auth/auth-operations';
 // import cartIcon from '../../images/header/cart-icon.svg';
 // import heartIcon from '../../images/header/heart-icon.svg';
 import Button from 'components/Shared/Button';

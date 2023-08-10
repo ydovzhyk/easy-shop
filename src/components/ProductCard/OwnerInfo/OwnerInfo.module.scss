@@ -2,31 +2,15 @@
 
 .profilewrapper {
   display: flex;
-  justify-content: space-between;
-
-  @include mixins.mq(tablet) {
-    gap: 16px;
-  }
-  @include mixins.mq(desktop) {
-    justify-content: flex-start;
-  }
-}
-
-.mainInformationWrapper{
-  display: flex;
-  flex-direction: row;
+  align-items: flex-start;
   gap: 16px;
-  justify-content: flex-start;
-  @include mixins.mq(mobile-only) {
-    gap: 8px;
-  }
 }
+
 .avatarframe {
   display: flex;
   flex-direction: column;
   gap: 4px;
   align-items: center;
-  flex-shrink: 0;
 }
 
 .avatar {
@@ -35,12 +19,16 @@
   align-items: center;
   border-radius: 50%;
   border: 1px solid var(--icons-color);
+  @include mixins.mq(desktop) {
+    min-width: 120px;
+  }
 }
 
 .userframe {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  flex-shrink: 2;
 }
 
 .profilebox {
@@ -103,38 +91,16 @@
   gap: 12px;
   color: var(--text-color);
 
-  @include mixins.mq(tablet) {
-    max-width: 400px;
+  @include mixins.mq(tablet-only) {
     flex-direction: row;
     flex-wrap: wrap;
+    max-width: 600px;
   }
 }
 
 .iconBefore {
   margin-right: 8px;
-  width: 16px;
-  height: 16px;
-}
-
-.wrapper {
-  margin-top: auto;
-  margin-bottom: auto;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 45px;
-
-  &:hover::before,
-  &:focus::before {
-    width: 100%;
-  }
-  @include mixins.mq(tablet) {
-    // margin-left: 140px;
-    flex-direction: row;
-  }
-  @include mixins.mq(desktop) {
-    display: none;
-  }
+  width: 20px;
+  height: 20px;
+  color: var(--icons-color);
 }

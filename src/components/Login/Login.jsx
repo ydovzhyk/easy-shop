@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FcGoogle } from 'react-icons/fc';
 
 import { clearNewUser, clearUserError } from 'redux/auth/auth-slice';
-import { login } from 'redux/auth/auth-opetations';
+import { login } from 'redux/auth/auth-operations';
 import { getLogin, getError } from 'redux/auth/auth-selectors';
 
 import Container from 'components/Shared/Container';

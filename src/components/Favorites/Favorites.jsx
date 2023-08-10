@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getUserLikesBasket } from 'redux/auth/auth-opetations';
+import { getUserLikesBasket } from 'redux/auth/auth-operations';
 import {
   getLikedProducts,
   getID,

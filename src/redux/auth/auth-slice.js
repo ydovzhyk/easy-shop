@@ -8,7 +8,8 @@ import {
   updateUserBasket,
   updateUserLikes,
   getUserLikesBasket,
-} from './auth-opetations';
+  updateUserSibscribes,
+} from './auth-operations';
 
 const initialState = {
   user: {
@@ -214,6 +215,20 @@ const auth = createSlice({
       store.user.basketProducts = payload.basketProducts;
     },
     [getUserLikesBasket.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload.message;
+    },
+
+    // * UPDATE USER SUBSCRIBTIONS
+    [updateUserSibscribes.pending]: store => {
+      store.loading = true;
+      store.error = '';
+    },
+    [updateUserSibscribes.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.user = payload;
+    },
+    [updateUserSibscribes.rejected]: (store, { payload }) => {
       store.loading = false;
       store.error = payload.message;
     },
