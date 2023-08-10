@@ -22,7 +22,7 @@
   font-size: 12px;
   line-height: 16px;
   text-decoration: line-through;
-  color: #8e8e8e;
+  color: var(--second-text-color);
 }
 
 .productPriceDiscount {
@@ -32,7 +32,7 @@
   border: 1px solid var(--accent-color);
   font-size: 12px;
   line-height: 16px;
-  color: var(--btn-text-color);
+  color: var(--text-color);
   text-transform: lowercase;
 }
 

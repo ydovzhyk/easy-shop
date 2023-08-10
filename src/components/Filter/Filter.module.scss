@@ -225,6 +225,8 @@
   .input_check:checked + .labelCheckBox & {
     background-color: var(--accent-color);
     opacity: 1;
+
+    color: #000000;
   }
 
   .input_check:focus + .labelCheckBox .iconWrapper & {
@@ -276,6 +278,7 @@
     background-color: var(--background-btn-second-color);
     border-color: var(--btn-border-color);
     box-shadow: var(--hover-box-shadow);
+    color: var(--hover-btn-text);
   }
   @include mixins.mq(mobile) {
     height: 35px;
