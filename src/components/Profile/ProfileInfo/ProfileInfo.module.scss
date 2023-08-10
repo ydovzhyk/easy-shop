@@ -2,7 +2,7 @@
 
 .profilewrapper {
   display: flex;
-  flex-direction: column;
+  // flex-direction: column;
   gap: 16px;
   align-items:flex-start;
 
@@ -120,10 +120,11 @@
 
 .wrapper {
   margin-top: auto;
-  margin-bottom: auto;
+  // margin-bottom: auto;
   position: relative;
   display: block;
   padding-left: 80px;
+  padding-left: 12px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
