@@ -53,6 +53,8 @@
 }
 
 .listCard {
+  margin-bottom: 20px;
+
   @include mixins.mq(tablet) {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -69,24 +71,16 @@
 .itemCard {
   display: flex;
   flex-direction: column;
+  row-gap: 15px;
   // border: 2px solid yellow;
   margin-bottom: 25px;
   padding: 10px;
   box-shadow: 0 0 20px 3px rgba(0, 0, 0, 0.2);
   // width: 280px;
-  // align-items: center;
-
-  // padding: 4px;
-  // margin-bottom: 25px;
-
-  row-gap: 15px;
 
   @include mixins.mq(tablet) {
     margin-bottom: 0;
   }
-  // @include mixins.mq(mobile-only) {
-  //   margin-bottom: 25px;
-  // }
 }
 
 .avatarframe {

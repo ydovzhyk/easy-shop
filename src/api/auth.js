@@ -122,8 +122,8 @@ export const axiosUpdateUserLikes = async userData => {
   return data;
 };
 
-export const axiosUserLikesBasket = async () => {
-  const { data } = await instance.get('/auth/info');
+export const axiosUserLikesBasket = async userData => {
+  const { data } = await instance.get(`/auth/info?page=${userData}`);
   return data;
 };
 

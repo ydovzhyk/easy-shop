@@ -29,6 +29,7 @@ const initialState = {
     basketProducts: [],
     userLikes: [],
     likedProducts: [],
+    // totalPagesLikedProducts: 0,
     username: null,
     newMessage: 0,
     userOrders: [],
@@ -196,6 +197,7 @@ const auth = createSlice({
       store.loading = false;
       store.user = payload.updatedUser;
       store.user.likedProducts = payload.likedProducts;
+      // store.user.totalPagesLikedProducts = payload.totalPagesLikedProducts;
     },
     [updateUserLikes.rejected]: (store, { payload }) => {
       store.loading = false;

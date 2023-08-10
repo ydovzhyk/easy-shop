@@ -19,7 +19,7 @@ export const updateUserSubscriptions = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const data = await axiosUserSubscriptions();
-      console.log('data', data);
+      console.log('dataSubscriptions', data);
       return data;
     } catch (error) {
       const { data, status } = error.response;
