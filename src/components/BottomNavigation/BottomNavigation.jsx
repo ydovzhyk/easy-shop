@@ -82,8 +82,8 @@ const BottomNavigation = () => {
               src={userAvatar}
               alt="Userphoto"
               className={s.userPhoto}
-              width={isMobile ? 30 : 40}
-              height={isMobile ? 30 : 40}
+              // width={isMobile ? 30 : 40}
+              // height={isMobile ? 30 : 40}
             />
           )}
         </NavLink>

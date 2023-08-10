@@ -6,7 +6,7 @@ import {
   getID,
   getUserDateCreate,
   getLikedProducts,
-  // getTotalPagesLikedProducts,
+  getTotalLikedProductsPages,
 } from 'redux/auth/auth-selectors';
 import { updateUserSubscriptions } from 'redux/otherUser/otherUser-operations';
 import {
@@ -40,17 +40,10 @@ const Favorites = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const userId = useSelector(getID);
-
   const likedProducts = useSelector(getLikedProducts);
-  // const totalPagesLikedProducts = useSelector(getTotalPagesLikedProducts);
-
   const totalLikedPages = useSelector(getTotalLikedProductsPages);
-  console.log('totalLikedPages', totalLikedPages);
   const userSubscriptions = useSelector(selectUserSubscriptions);
-  // console.log('totalPagesLikedProducts', totalPagesLikedProducts);
   const totalPagesSubscription = useSelector(selectTotalPagesUserSubscription);
-  console.log('totalPagesSubscription', totalPagesSubscription);
-
   const dateCreate = useSelector(getUserDateCreate);
 
   const getDaysPassedFromDate = dateString => {
@@ -68,9 +61,8 @@ const Favorites = () => {
   const salesAmount = 16;
 
   useEffect(() => {
-    dispatch(getUserLikesBasket());
-    // dispatch(getUserLikesBasket({ currentPage }));
-    dispatch(updateUserSubscriptions());
+    dispatch(getUserLikesBasket({currentPage}));
+    dispatch(updateUserSubscriptions({currentPage}));
 
     setIsLiked(false);
   }, [dispatch, selectedTab, isLiked, currentPage]);
@@ -153,7 +145,7 @@ const Favorites = () => {
               ))}
             </ul>
             <Pagination
-              // totalPages={totalPagesLikedProducts}
+              totalPages={totalLikedPages}
               currentPage={currentPage}
               onPageChange={handlePageChange}
             />

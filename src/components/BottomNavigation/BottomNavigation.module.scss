@@ -73,6 +73,8 @@
 }
 
 .userPhoto {
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   transition: transform var(--transition-duration) var(--timing-function);
 }

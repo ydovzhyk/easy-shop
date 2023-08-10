@@ -29,7 +29,6 @@ const initialState = {
     basketProducts: [],
     userLikes: [],
     likedProducts: [],
-    // totalPagesLikedProducts: 0,
     totalLikedPages: 1,
     username: null,
     newMessage: 0,
