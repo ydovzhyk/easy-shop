@@ -1,82 +1,55 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams} from 'react-router-dom';
+import { getOtherUser } from 'redux/otherUser/otherUser-operations';
+import { selectOtherUser } from 'redux/otherUser/otherUser-selectors';
 
-import { NavLink, useLocation } from 'react-router-dom';
-
-import Container from 'components/Shared/Container/Container';
 import UserProfileInfo from 'components/Profile/UserProfileInfo/UserProfileInfo';
+import SellerInfoDetails from 'components/UserSellingInfo/SellerInfoDetails/SellerInfoDetails';
 
 import s from './UserSellingInfo.module.scss';
 
 const UserSellingInfo = () => {
-  const location = useLocation().pathname;
-
-  const [isWares, setIsWares] = useState(false);
-  const [isReviews, setIsReviews] = useState(false);
-  const [isAbout, setIsAbout] = useState(false);
-
+  const dispatch = useDispatch();
+  
+  const { id } = useParams();
+  console.log('owner id in UserSellingInfo', id);
   useEffect(() => {
-    setIsWares(
-      location === '/profile' || location === '/profile/mywares' ? true : false
-    );
-    // setIsWares(
-    //   location.includes('wares') || location.includes('members') ? true : false
-    // );
-    setIsReviews(location.includes('reviews') ? true : false);
-    setIsAbout(location.includes('about') ? true : false);
-  }, [location]);
+    dispatch(getOtherUser(id));
+  }, [dispatch, id]);
+  const userInfo = useSelector(selectOtherUser);
+console.log('userInfo in UserSellingInfo:', userInfo);
+  
+  const {
+    userAvatar,
+    username,
+    cityName,
+    dateCreate,
+    lastVisit,
+    sex,
+    verify,
+  } =
+    userInfo;
+
   return (
     <>
       <section className={s.profileavatar}>
-        <UserProfileInfo />
+        <UserProfileInfo
+          userAvatar={userAvatar}
+          userName={username}
+          verify={verify}
+          // rating={rating}
+          // gradesAmount={gradesAmount}
+          date={dateCreate}
+          lastVisit={lastVisit}
+          sex={sex || ''}
+          cityName={cityName || 'Kyiv'}
+          // followersAmount={followersAmount}
+          // salesAmount={salesAmount}
+        />
       </section>
-      <section>
-        <Container>
-          <ul className={s.list}>
-            <li className={s.item}>
-              <NavLink
-                className={s.navlink}
-                to="wares"
-                style={() => {
-                  return {
-                    background: isWares ? 'var(--bg-footer-header)' : 'inherit',
-                  };
-                }}
-              >
-                Товари
-                <span className={s.rightvalue}>10</span>
-              </NavLink>
-            </li>
-            <li className={s.item}>
-              <NavLink
-                className={s.navlink}
-                to="reviews"
-                style={() => {
-                  return {
-                    background: isReviews
-                      ? 'var(--bg-footer-header)'
-                      : 'inherit',
-                  };
-                }}
-              >
-                Відгуки
-                <span className={s.rightvalue}>10</span>
-              </NavLink>
-            </li>
-            <li className={s.item}>
-              <NavLink
-                className={s.navlink}
-                to="about"
-                style={() => {
-                  return {
-                    background: isAbout ? 'var(--bg-footer-header)' : 'inherit',
-                  };
-                }}
-              >
-                Про себе
-              </NavLink>
-            </li>
-          </ul>
-        </Container>
+      <section className={s.profiledetails}>
+        <SellerInfoDetails/>
       </section>
     </>
   );

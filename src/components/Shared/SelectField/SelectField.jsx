@@ -34,6 +34,7 @@ const SelectField = forwardRef(
     return (
       <label className={labelClass}>
         <Select
+          // menuIsOpen={true}
           classNamePrefix="custom-select"
           className={selectClass}
           name={name}
@@ -45,6 +46,16 @@ const SelectField = forwardRef(
           options={options.map(option => ({ value: option, label: option }))}
           styles={customStyles}
           ref={ref}
+          theme={theme => ({
+            ...theme,
+            borderRadius: 0,
+            // colors: {
+            //   ...theme.colors,
+            //   primary25: '#414141',
+            //   // '#fbef35',
+            //   primary: '#414141',
+            // },
+          })}
         />
       </label>
     );

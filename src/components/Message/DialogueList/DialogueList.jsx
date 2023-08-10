@@ -8,6 +8,7 @@ import {
 import {
   getDialoguesArrayStore,
   getDialogueMessage,
+  getLoadingDialogue,
 } from 'redux/dialogue/dialogue-selectors';
 import { getUser } from 'redux/auth/auth-selectors';
 
@@ -29,11 +30,13 @@ const DialogueList = ({ selectedDialogue, setSelectedDialogue }) => {
   const user = useSelector(getUser);
   const [isNewMassege, setIsNewMassege] = useState(null);
   const dialoguesArray = useSelector(getDialoguesArrayStore);
+  const isDialogueLoading = useSelector(getLoadingDialogue);
   const message = useSelector(getDialogueMessage);
   const isTabletOrMobile = useMediaQuery({ maxWidth: 1279 });
   const isMobile = useMediaQuery({ maxWidth: 767 });
-  console.log('dialoguesArray', dialoguesArray);
-  
+
+  console.log();
+
   const onActive = async data => {
     if (data) {
       setStatusDialogue(true);
@@ -80,29 +83,9 @@ const DialogueList = ({ selectedDialogue, setSelectedDialogue }) => {
     setSelectedDialogue(dialogue);
   };
 
-  const getAvatar = ({ otherUserAvatar, productId }) => {
-    const myAvatar = user.userAvatar;
-    const isMyProduct = user.userProducts.includes(productId);
-
-    if (isMyProduct) {
-      return otherUserAvatar;
-    } else {
-      return myAvatar;
-    }
-  };
-
-  const getName = ({ otherUserName, productId }) => {
-    const myName = user.username;
-    const isMyProduct = user.userProducts.includes(productId);
-    if (isMyProduct) {
-      return otherUserName;
-    } else {
-      return myName;
-    }
-  };
-
   const getNumberNewMessage = dialogue => {
     const newMessageArray = dialogue.newMessages;
+
     const hasMatchingObject = newMessageArray.filter(obj => {
       return obj.userReceiver === user._id;
     });
@@ -158,16 +141,10 @@ const DialogueList = ({ selectedDialogue, setSelectedDialogue }) => {
                   <div className={s.dialogueName}>
                     <Avatar
                       avatarClass="photoDialogue"
-                      src={getAvatar({
-                        otherUserAvatar: dialogue.otherUserInfo.userAvatar,
-                        productId: dialogue.productId,
-                      })}
+                      src={dialogue.otherUserInfo.userAvatar}
                     />
                     <Text
-                      text={getName({
-                        otherUserName: dialogue.otherUserInfo.username,
-                        productId: dialogue.productId,
-                      })}
+                      text={dialogue.otherUserInfo.username}
                       textClass="after-title-bottom"
                     />
                   </div>
@@ -226,7 +203,13 @@ const DialogueList = ({ selectedDialogue, setSelectedDialogue }) => {
             ))}
           </ul>
         )}
-        {dialoguesArray.length === 0 && (
+        {isDialogueLoading && (
+          <Text
+            text={'Список діалогів завантажується...'}
+            textClass="after-title-text-warning"
+          />
+        )}
+        {!isDialogueLoading && dialoguesArray.length === 0 && (
           <Text
             text={'У вас не має діалогів'}
             textClass="after-title-text-warning"

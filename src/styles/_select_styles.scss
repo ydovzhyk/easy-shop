@@ -1,0 +1,78 @@
+.custom-select__control {
+  background-color: var(--bg-footer-header) !important;
+  // outline: none !important;
+  // box-shadow: var(--hover-box-shadow) !important;
+}
+// .custom-select__control.custom-select__control--menu-is-open {
+//   border-color: var(--accent-color) !important;
+//   outline: none !important;
+// }
+.custom-select__control.custom-select__control--is-focused {
+  // border-color: var(--accent-color) !important;
+  border-color: var(--btn-text-color) !important;
+  box-shadow: var(--hover-box-shadow) !important;
+}
+// .custom-select__control:hover {
+//   border-color: var(--accent-color) !important;
+// }
+.custom-select__indicator {
+  color: var(--text-color) !important;
+  transition: transform var(--transition-duration) var(--timing-function) !important;
+}
+
+// .custom-select__control.custom-select__control--is-focused
+//   .custom-select__indicator {
+//   color: var(--accent-color) !important;
+// }
+
+// .custom-select__control:hover .custom-select__indicator {
+//   color: var(--accent-color) !important;
+// }
+
+.custom-select__control.custom-select__control--menu-is-open
+  .custom-select__indicator {
+  transform: rotate(180deg);
+}
+
+// .custom-select__value-container {
+//   padding: 10px 0 10px 10px !important;
+// }
+
+.custom-select__single-value {
+  // padding: 0 !important;
+  // margin: 0 !important;
+  color: var(--text-color) !important;
+}
+// .custom-select__input-container {
+//   padding: 0 !important;
+//   margin: 0 !important;
+// }
+
+.custom-select__menu {
+  margin-top: 0px !important;
+}
+
+.custom-select__menu-list {
+  padding: 0 !important;
+  background-color: var(--bg-selector-menu);
+}
+
+.custom-select__menu-list .custom-select__option--is-selected {
+  background-color: var(--select-background-option-color) !important;
+  color: #ffffff !important;
+  // text-shadow: var(--hover-text-shadow) !important;
+  // border-color: var(--accent-color) !important;
+}
+
+.custom-select__menu-list .custom-select__option--is-focused {
+  background-color: var(--select-background-option-color) !important;
+  // color: var(--btn-text-color) !important;
+}
+
+.custom-select__option {
+  color: #000000 !important;
+}
+
+// .custom-select__indicator-separator {
+//   display: none;
+// }

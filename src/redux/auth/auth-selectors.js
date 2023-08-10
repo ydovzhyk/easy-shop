@@ -17,6 +17,8 @@ export const getUserDateCreate = ({ auth }) => auth.user.dateCreate;
 export const getUserMessage = ({ auth }) => auth.message;
 export const selectBasketProducts = ({ auth }) => auth.user.userBasket;
 export const getLikedProducts = ({ auth }) => auth.user.likedProducts;
+export const getTotalLikedProductsPages = ({ auth }) =>
+  auth.user.totalLikedPages;
 
 export const getSid = ({ auth }) => auth.sid;
 export const getAccessToken = ({ auth }) => auth.accessToken;

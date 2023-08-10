@@ -11,7 +11,7 @@ import Avatar from 'components/Profile/Avatar/Avatar';
 import UserRating from 'components/Profile/UserProfileInfo/UserRating';
 import Value from 'components/Profile/Value';
 import DaysValue from 'components/Shared/helper/DaysValue';
-import { getDaysPassedFromDate, getPhrase } from './culculatingTimeFunc';
+import { getDaysPassedFromDate, getPhrase } from 'components/ProductCard/SellerInfo/culculatingTimeFunc';
 import {
   BsCheck2,
   BsGeoAlt,
@@ -51,7 +51,11 @@ const SellerInfo = ({ owner }) => {
         {userInfo && (
           <div className={s.userframe}>
             <div className={s.profilebox}>
-              <NavLink className={s.username} to={`/member/${username}`}>
+              <NavLink
+                className={s.username}
+                to={`/member/${owner}`}
+                // state={{ owner: owner }}
+              >
                 {username}
               </NavLink>
               {/* <h5 className={s.username}>{username}</h5> */}

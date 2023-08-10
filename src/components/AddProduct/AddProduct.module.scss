@@ -39,21 +39,22 @@
 .textarea {
   margin-bottom: 20px;
   font-weight: 400;
-  font-size: 17px;
+  font-size: 16px;
   line-height: 1.5;
   color: var(--second-text-color);
   border: 1px solid var(--border-color);
+  background-color: transparent;
 }
 
 .textarea:focus {
   outline: none;
   border: 1px solid var(--icons-color);
-  background: transparent;
+  // background: transparent;
 }
 
 .textarea::placeholder {
-  font-size: 17px;
-  color: var(--second-text-color);
+  font-size: 16px;
+  color: var(--second-text-input-color);
 }
 
 .blockOne {

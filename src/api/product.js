@@ -74,3 +74,9 @@ export const axiosGetProductsFromBasket = async id => {
   const { data } = await instance.get(`/product/basket/${id}`);
   return data;
 };
+
+// Get products from Other User
+export const axiosGetProductsFromOtherUser = async userId => {
+  const { data } = await instance.get(`/product/otheruser/${userId}`);
+  return data;
+};

@@ -56,11 +56,11 @@ const UserRoutes = () => {
             path="/products/:category/:subcategory/:id"
             element={<ProductDetails />}
           />
-          <Route path="/member/:userId" element={<UserSellingInfoPage />}>
+          <Route path="/member/:id" element={<UserSellingInfoPage />}>
             <Route index element={<Wares />} />
-            <Route path="wares" element={<Wares />} />
+            <Route path="mywares" element={<Wares />} />
+            <Route path="myreviews" element={<Reviews />} />
             <Route path="about" element={<About />} />
-            <Route path="reviews" element={<Reviews />} />
           </Route>
         </Route>
         <Route element={<PrivateRoute />}>

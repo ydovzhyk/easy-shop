@@ -42,7 +42,6 @@
   font-size: 12px;
   padding: 5px;
   border: 1px solid #dedddd;
-  border-radius: 5px;
   width: 100%;
   transition: box-shadow var(--transition-duration) var(--timing-function);
   @include mixins.mq(tablet) {
@@ -121,11 +120,12 @@
 
 .inputFilter {
   width: 100%;
-  border: 1px solid var(--btn-border-color);
-  border-radius: 8px;
-  padding: 10px;
+  border: 1px solid var(--border-color);
+  padding: 8px 8px 8px 10px;
   font-size: 12px;
   line-height: 1.5;
+  color: var(--text-color);
+  background-color: var(--background-color);
   transition: background-color var(--transition-duration) var(--timing-function),
     border-color var(--transition-duration) var(--timing-function);
   @include mixins.mq(mobile) {
@@ -137,15 +137,26 @@
   &:focus,
   &:hover {
     background-color: var(--background-btn-second-color);
-    border-color: var(--accent-color);
+    border-color: var(--btn-border-color);
     outline: none;
+  }
+}
+
+::placeholder {
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: normal;
+  @include mixins.mq(mobile) {
+    font-size: 14px;
+  }
+  @include mixins.mq(tablet) {
+    font-size: 16px;
   }
 }
 
 .filterLabel {
   display: block;
   flex-basis: 100%;
-  border-radius: 8px;
   font-size: 12px;
   font-weight: 600;
   line-height: 1.14;
@@ -188,6 +199,7 @@
 .radioContent {
   font-size: 12px;
   line-height: 1.5;
+  color: var(--text-color);
   @include mixins.mq(mobile) {
     font-size: 14px;
   }

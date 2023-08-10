@@ -40,8 +40,12 @@ const Favorites = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const userId = useSelector(getID);
+
   const likedProducts = useSelector(getLikedProducts);
   // const totalPagesLikedProducts = useSelector(getTotalPagesLikedProducts);
+
+  const totalLikedPages = useSelector(getTotalLikedProductsPages);
+  console.log('totalLikedPages', totalLikedPages);
   const userSubscriptions = useSelector(selectUserSubscriptions);
   // console.log('totalPagesLikedProducts', totalPagesLikedProducts);
   const totalPagesSubscription = useSelector(selectTotalPagesUserSubscription);
@@ -65,6 +69,7 @@ const Favorites = () => {
 
   useEffect(() => {
     dispatch(getUserLikesBasket());
+    // dispatch(getUserLikesBasket({ currentPage }));
     dispatch(updateUserSubscriptions());
 
     setIsLiked(false);

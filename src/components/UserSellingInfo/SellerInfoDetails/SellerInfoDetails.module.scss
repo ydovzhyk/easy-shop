@@ -1,4 +1,4 @@
-@use '../../../styles/mixins';
+@use 'styles/mixins';
 
 .rightvalue {
     margin-left: 4px;
@@ -6,13 +6,12 @@
 
 .list {
     display: flex;
-    // flex-direction: column;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 8px;
     width: 100%;
-    padding: 20px 0px;
-    flex-wrap: wrap;
+    padding: 16px 0px;
 
     @include mixins.mq(mobile) {
         flex-direction: row;
@@ -22,12 +21,12 @@
 
 .item {
     display: block;
-    // width: 100%;
+    width: 100%;
     border-radius: 8px;
 
-    // @include mixins.mq(mobile) {
-    //     flex-basis: calc(100% / 2 - 10px);
-    // }
+    @include mixins.mq(mobile) {
+        flex-basis: calc(100% / 2 - 10px);
+    }
 
     @include mixins.mq(tablet) {
         flex-basis: calc(100% / 5 - 10px);
@@ -44,4 +43,3 @@
     padding: 10px 16px;
     border-radius: 8px;
 }
-

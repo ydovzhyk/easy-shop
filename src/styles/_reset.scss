@@ -88,6 +88,7 @@ ruby,
 section,
 summary,
 time,
+textarea,
 mark,
 button,
 audio,
@@ -115,6 +116,7 @@ section {
 }
 body {
   line-height: 1;
+  color: var(--text-color);
 }
 ol,
 ul {

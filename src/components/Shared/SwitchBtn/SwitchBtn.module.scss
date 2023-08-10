@@ -45,10 +45,7 @@
     height: 30px;
   }
 }
-.switchOn {
-  background-color: var(--second-text-color);
-  color: var(--accent-color);
-}
+
 .switchOn::after {
   left: 30px;
   @include mixins.mq(desktop) {

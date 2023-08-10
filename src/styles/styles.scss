@@ -4,6 +4,7 @@
 @import 'container';
 @import 'common';
 @import 'libraries';
+@import 'select_styles';
 
 :root {
   --main-color: #ffffff;
@@ -17,10 +18,14 @@
   --text-color: #212121;
   --label-text-color: #212121;
   --second-text-color: #414141;
+  --second-text-input-color: #414141;
+  --select-background-option-color: #414141;
   --title-text-color: #3b3b3b;
   --border-color: #e0e0e0;
   --icons-color: #3b3b3b;
   --bg-footer-header: #f5f5f5;
+  --bg-selector: #f5f5f5;
+  --bg-selector-menu: #ffffff;
   --transition-duration: 300ms;
   --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   --hover-active-color: #212121;
@@ -49,13 +54,17 @@
   --btn-text-color: #fff;
   --btn-border-color: #cdc6c6;
   // --accent-color: #414141;
+  --select-background-option-color: #3b3b3b;
   --text-color: #fff;
   --label-text-color: #fbef35;
   --second-text-color: #e0e0e0;
+  --second-text-input-color: #65665a;
   --title-text-color: #f0f1f3;
   --border-color: #3b3b3b;
   --icons-color: #fff;
   --bg-footer-header: #414141;
+  --bg-selector: #414141;
+  --bg-selector-menu: #cdc6c6;
   --transition-duration: 300ms;
   --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   --hover-active-color: #fff;

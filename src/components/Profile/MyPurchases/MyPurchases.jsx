@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-// import { deleteOrderById } from "redux/order/order-operations";
 import { getUserOrders } from 'redux/order/order-operations';
 import {
   getLoadingOrders,
@@ -12,6 +11,7 @@ import { getLogin } from 'redux/auth/auth-selectors';
 
 import OrderProductsList from "components/Shared/OrderProductsList/OrderProductsList";
 import Pagination from 'components/Shared/Pagination/Pagination';
+import OrderStatusList from 'components/Shared/OrderStatusList/OrderStatusList';
 import s from './MyPurchases.module.scss';
 
 
@@ -46,66 +46,14 @@ const MyShoppings = () => {
     setcurrentSelector(optionName);
     setCurrentPage(1);
   };
-  // const handleDeteleOrder = (id) => {
-  //   dispatch(deleteOrderById(id));
-  // }
+  
   return (
     <>
       <div className={s.ordersWrapper}>
-        <div>
-          <p className={s.heading}>За статусом</p>
-          <ul className={s.optionsList}>
-            <li>
-              <button
-                className={
-                  currentSelector === 'all'
-                    ? `${s.selectButton} ${s.active}`
-                    : s.selectButton
-                }
-                onClick={() => handleButtonClick('all')}
-              >
-                Всі
-              </button>
-            </li>
-            <li>
-              <button
-                className={
-                  currentSelector === 'new'
-                    ? `${s.selectButton} ${s.active}`
-                    : s.selectButton
-                }
-                onClick={() => handleButtonClick('new')}
-              >
-                Нові
-              </button>
-            </li>
-            <li>
-              <button
-                className={
-                  currentSelector === 'confirmed'
-                    ? `${s.selectButton} ${s.active}`
-                    : s.selectButton
-                }
-                onClick={() => handleButtonClick('confirmed')}
-              >
-                Підтверджені
-              </button>
-            </li>
-            {/* <li>Виконані</li> */}
-            <li>
-              <button
-                className={
-                  currentSelector === 'canceled'
-                    ? `${s.selectButton} ${s.active}`
-                    : s.selectButton
-                }
-                onClick={() => handleButtonClick('canceled')}
-              >
-                Відхилені
-              </button>
-            </li>
-          </ul>
-        </div>
+        <OrderStatusList
+          currentSelector={currentSelector}
+          handleButtonClick={handleButtonClick}
+        />
         {userOrders.length > 0 && (
           <ul className={s.ordersList}>
             {userOrders.map(
@@ -118,6 +66,8 @@ const MyShoppings = () => {
                 products,
                 productInfo,
                 delivery,
+                statusNew,
+                confirmed,
               }) => (
                 <li className={s.orderItem} key={_id}>
                   <div className={s.orderInfoWrapper}>
@@ -129,21 +79,16 @@ const MyShoppings = () => {
                       <p>Замовлення &#8470; {orderNumber}</p>
                       <p>{orderDate}</p>
                     </div>
-                    {/* <button
-                      type="button"
-                      onClick={() => handleDeteleOrder(_id)}
-                    >
-                      del
-                    </button> */}
                   </div>
                   <OrderProductsList
                     productsForOrder={productInfo}
                     products={products}
                   />
                   <div className={s.orderBottomWrapper}>
-                    {delivery !== '' ? (
+                    {delivery !== '' && statusNew === true && (
                       <p className={s.waitingPhrase}>Очікує підтвердження</p>
-                    ) : (
+                    )}
+                    {delivery === '' && statusNew === true && (
                       <NavLink
                         to={isLogin ? '/checkout' : '/login'}
                         className={s.btnLight}
@@ -151,6 +96,11 @@ const MyShoppings = () => {
                       >
                         Оформити замовлення
                       </NavLink>
+                    )}
+                    {statusNew === false && (
+                      <p className={s.waitingPhrase}>
+                        {confirmed === true ? 'Підтверджено' : 'Скасовано'}
+                      </p>
                     )}
 
                     <p

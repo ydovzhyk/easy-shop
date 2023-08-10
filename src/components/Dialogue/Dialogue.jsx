@@ -27,6 +27,7 @@ const Dialogue = ({ productInfo }) => {
   const userAvatar = useSelector(getUserAvatar);
   const user = useSelector(getUser);
   const isUserLogin = useSelector(getLogin);
+
   const [myQuestion, setMyQuestion] = useState('');
   const [isNewMassege, setIsNewMassege] = useState(null);
   const dialogues = useSelector(getDialogueStore);
@@ -35,22 +36,23 @@ const Dialogue = ({ productInfo }) => {
     setIsNewMassege(user.newMessage ? user.newMessage : 0);
   }, [user.newMessage]);
 
+  //Коли ми в ProductCard
   useEffect(() => {
+    dispatch(clearDialogue());
     if (!productId || !isUserLogin) {
       return;
     }
     if (selectedDialogueId) {
       return;
     }
-    dispatch(clearDialogue());
     dispatch(getDialogue({ productId: productId }));
   }, [dispatch, productId, selectedDialogueId, isUserLogin]);
 
   useEffect(() => {
+    dispatch(clearDialogue());
     if (!selectedDialogueId) {
       return;
     }
-    dispatch(clearDialogue());
     dispatch(getDialogue({ dialogueId: selectedDialogueId }));
   }, [dispatch, selectedDialogueId, isNewMassege]);
 
@@ -87,12 +89,23 @@ const Dialogue = ({ productInfo }) => {
 
   let dialogueArray = [];
   let newMessageArray = [];
+  let isInfoDialogue = false;
+
+  const isInfo = dialogueArray => {
+    if (dialogueArray[0].textOwner === '64cccb7e5b8c2eb706fe655d') {
+      isInfoDialogue = true;
+    } else {
+      isInfoDialogue = false;
+    }
+  };
+
   if (dialogues.length === 0) {
     dialogueArray = [];
     newMessageArray = [];
   } else {
     dialogueArray = dialogues.messageArray.slice().reverse();
     newMessageArray = dialogues.newMessages;
+    isInfo(dialogueArray);
   }
 
   const findAvatar = id => {
@@ -156,10 +169,12 @@ const Dialogue = ({ productInfo }) => {
 
   return (
     <div className={s.dialogueContainer}>
-      <div className={s.additionalOpts}>
-        <BiMessageDetail className={s.favoriteIcon} />
-        <Text text="Поставити запитання" textClass="productText" />
-      </div>
+      {!isInfoDialogue && (
+        <div className={s.additionalOpts}>
+          <BiMessageDetail className={s.favoriteIcon} />
+          <Text text="Поставити запитання" textClass="productText" />
+        </div>
+      )}
       {dialogueArray.length === 0 && (
         <div className={s.avatar}>
           <Avatar avatarClass="photoDialogueLeft" src={userAvatar} />
@@ -222,30 +237,32 @@ const Dialogue = ({ productInfo }) => {
           ))}
         </ul>
       )}
-      <div className={s.textInputArea}>
-        <textarea
-          className={s.textarea}
-          name="myQuestion"
-          value={myQuestion}
-          onChange={handleQuestionChange}
-          rows={5}
-          cols={40}
-        />
-        <div className={s.questionButton}>
-          <Button
-            text={isUserLogin ? 'Надіслати' : 'Авторизуйтеся'}
-            btnClass="btnLight"
-            handleClick={() => handleButtonClick(isUserLogin)}
+      {!isInfoDialogue && (
+        <div className={s.textInputArea}>
+          <textarea
+            className={s.textarea}
+            name="myQuestion"
+            value={myQuestion}
+            onChange={handleQuestionChange}
+            rows={5}
+            cols={40}
           />
-
-          {!isUserLogin && (
-            <Text
-              text="*Щоб написати продавцю, увійдіть в обліковий запис або зареєструйтеся"
-              textClass="messageTextBtn"
+          <div className={s.questionButton}>
+            <Button
+              text={isUserLogin ? 'Надіслати' : 'Авторизуйтеся'}
+              btnClass="btnLight"
+              handleClick={() => handleButtonClick(isUserLogin)}
             />
-          )}
+
+            {!isUserLogin && (
+              <Text
+                text="*Щоб написати продавцю, увійдіть в обліковий запис або зареєструйтеся"
+                textClass="messageTextBtn"
+              />
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

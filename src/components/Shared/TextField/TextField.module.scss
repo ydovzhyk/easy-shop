@@ -58,9 +58,9 @@
   top: 1px;
   left: 1px;
   display: inline-block;
-  margin-top: 17px;
+  margin-top: 15px;
   font-size: 14px;
-  color: var(--second-text-color);
+  color: var(--second-text-input-color);
   transition: 0.25s;
   pointer-events: none;
   @include mixins.mq(tablet) {
@@ -136,9 +136,9 @@
   top: 1px;
   left: 1px;
   display: inline-block;
-  margin-top: 17px;
+  margin-top: 15px;
   font-size: 16px;
-  color: var(--second-text-color);
+  color: var(--second-text-input-color);
   transition: 0.25s;
   pointer-events: none;
 }
@@ -219,7 +219,7 @@
 
 .input.addOrder {
   border: 1px solid;
-  border-radius: 4px;
+  border-radius: 0px;
   padding: 2px 8px;
   margin-bottom: 28px;
   background-color: transparent;
