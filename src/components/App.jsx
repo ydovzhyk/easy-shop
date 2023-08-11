@@ -54,6 +54,7 @@ export const App = () => {
   const dispatch = useDispatch();
   const [errMessage, setErrMessage] = useState('');
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isConnectionWS, setIsConnectionWS] = useState(false);
 
   const location = useLocation();
   const headerFooterHidden =
@@ -148,35 +149,53 @@ export const App = () => {
   // Web Socket
   let socketRef = useRef(null);
   let intervalRef = useRef(null);
+  let uri = null;
+  if (process.env.NODE_ENV === 'production') {
+    uri = `wss://easy-shop-backend.herokuapp.com/?user=${userId}`;
+  }
+  if (process.env.NODE_ENV === 'development') {
+    uri = `wss://easy-shop-backend.herokuapp.com/?user=${userId}`;
+  }
+  // if (process.env.NODE_ENV === 'development') {
+  //   uri = `ws://localhost:4000/?user=${userId}`;
+  // }
+
   useEffect(() => {
-    if (isLogin && !socketRef.current) {
-      let uri = null;
-      if (process.env.NODE_ENV === 'production') {
-        uri = `wss://easy-shop-backend.herokuapp.com/?user=${userId}`;
+    const checkAndStartConnection = () => {
+      if (
+        !socketRef.current ||
+        socketRef.current.readyState === WebSocket.CLOSED
+      ) {
+        socketRef.current = new WebSocket(uri);
+
+        socketRef.current.onopen = () => {
+          console.log("WebSocket з'єднання встановлено");
+          setIsConnectionWS(true);
+        };
+        socketRef.current.onclose = () => {
+          console.log("WebSocket з'єднання закрито");
+          setIsConnectionWS(false);
+        };
+
+        // Повертаємо функцію очищення при розмонтуванні компонента
+        return () => {
+          clearInterval(intervalRef.current);
+          socketRef.current.close();
+        };
       }
-      if (process.env.NODE_ENV === 'development') {
-        uri = `wss://easy-shop-backend.herokuapp.com/?user=${userId}`;
-      }
-      // if (process.env.NODE_ENV === 'development') {
-      //   uri = `ws://localhost:4000/?user=${userId}`;
-      // }
+    };
 
-      socketRef.current = new WebSocket(uri);
-
-      socketRef.current.onopen = () => {
-        console.log("WebSocket з'єднання встановлено");
-      };
-      socketRef.current.onclose = () => {
-        console.log("WebSocket з'єднання закрито");
-      };
-
-      // Повертаємо функцію очищення для виконання при розмонтуванні компонента
-      return () => {
-        clearInterval(intervalRef.current);
-        socketRef.current.close();
-      };
+    if (!isLogin || socketRef.current) {
+      return;
     }
-  }, [isLogin, userId]);
+    const connectionInterval = setInterval(() => {
+      checkAndStartConnection();
+    }, 10000);
+
+    return () => {
+      clearInterval(connectionInterval);
+    };
+  }, [isLogin, uri]);
 
   useEffect(() => {
     const updateUserFunction = () => {
@@ -202,7 +221,11 @@ export const App = () => {
       socketRef.current.send(JSON.stringify(request));
     };
 
-    if (isLogin && socketRef.current) {
+    if (
+      isLogin &&
+      socketRef.current &&
+      socketRef.current.readyState === WebSocket.OPEN
+    ) {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
       }
@@ -219,15 +242,15 @@ export const App = () => {
         }
       };
     }
-  }, [dispatch, isLogin, userId, newMessage]);
+  }, [dispatch, isLogin, userId, newMessage, isConnectionWS]);
 
   useEffect(() => {
     if (!isLogin && socketRef.current) {
-      console.log("WebSocket з'єднання закрито");
       clearInterval(intervalRef.current);
       socketRef.current.close();
       socketRef.current = null;
       intervalRef.current = null;
+      setIsConnectionWS(false);
     }
   }, [isLogin]);
 
