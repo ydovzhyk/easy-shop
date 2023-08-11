@@ -58,7 +58,12 @@
   width: 45px;
   height: 45px;
   border-radius: 50%;
-  border: 1px solid var(--icons-color);
+  border: 1px solid #212121;
+}
+
+.userPhotoDarkTheme {
+  @extend .userPhoto;
+  filter: invert(100%);
 }
 
 .userBlock {

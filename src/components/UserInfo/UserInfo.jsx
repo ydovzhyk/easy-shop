@@ -38,6 +38,7 @@ const UserInfo = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // const [theme, setTheme] = useState('light-theme');
   const [userBasketLength, setUserBasketLength] = useState(0);
   const [userLikesLength, setUserLikesLength] = useState(0);
 
@@ -54,6 +55,14 @@ const UserInfo = () => {
       setUserLikesLength(0);
     }
   }, [user]);
+
+  // useEffect(() => {
+  //   const selectedTheme = localStorage.getItem('selectedTheme');
+  //   if (selectedTheme === "light-theme") {
+  //     setTheme('dark-theme');
+  //   }
+  //   return;
+  // }, [theme]);
 
   const onLogout = async () => {
     navigate('/');
@@ -74,6 +83,11 @@ const UserInfo = () => {
       ? `${s.link} ${s.active} ${s.custom}`
       : `${s.link} ${s.custom}`;
   };
+  // console.log(theme);
+  // const getClassNameAvatar = () => {
+  //   console.log(darkTheme);
+  //   return !darkTheme ? `${s.userPhoto}` : `${s.userPhotoDarkTheme}`;
+  // };
 
   if (!isUserLogin) {
     return (
@@ -129,11 +143,6 @@ const UserInfo = () => {
         >
           <NavLink to="/basket" className={getClassName}>
             <BsBasket style={{ marginRight: '10px' }} size={22} />
-            {/* <img
-              src={cartIcon}
-              alt="Cart Icon"
-              style={{ width: '26px', height: '26px', marginRight: '10px' }}
-            /> */}
             <span>{userBasketLength}</span>
           </NavLink>
         </div>
@@ -156,16 +165,7 @@ const UserInfo = () => {
         >
           <NavLink to="/favorites" className={getClassName}>
             <FiHeart style={{ marginRight: '10px' }} size={22} />
-            {/* <img
-              src={heartIcon}
-              alt="Heart Icon"
-              width={24}
-              height={24}
-              style={{ marginRight: '10px' }}
-            /> */}
-            <span>
-              {userLikesLength}
-            </span>
+            <span>{userLikesLength}</span>
           </NavLink>
         </div>
         <div className={s.userWrapper}>

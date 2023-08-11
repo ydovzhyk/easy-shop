@@ -13,7 +13,6 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  // padding: 0 20px 0 20px;
   max-width: 1280px;
   margin: 0 auto 20px auto;
 }
@@ -23,7 +22,6 @@
   justify-content: right;
   align-items: center;
   width: 100%;
-  // padding: 0 20px 0 20px;
   max-width: 1280px;
   margin: 0 auto;
   @include mixins.mq(tablet) {
@@ -147,12 +145,14 @@
   font-size: 18px;
   line-height: 22px;
   transition: background-color var(--transition-duration) var(--timing-function),
+    border-color var(--transition-duration) var(--timing-function),
     color var(--transition-duration) var(--timing-function),
     box-shadow var(--transition-duration) var(--timing-function);
   &:hover {
     background-color: var(--background-btn-second-color);
     border-color: var(--btn-border-color);
     box-shadow: var(--hover-box-shadow);
+    color: var(--hover-btn-text);
   }
 }
 .activeBtn {
