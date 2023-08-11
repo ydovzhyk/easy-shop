@@ -26,8 +26,10 @@
 
 .label {
   text-transform: capitalize;
-  color: #000;
+  color: var(--btn-text-color);
+  transition: color var(--transition-duration) var(--timing-function);
   .box:hover & {
     cursor: pointer;
+    color: var(--hover-btn-text);
   }
 }
