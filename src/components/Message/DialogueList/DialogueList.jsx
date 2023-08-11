@@ -35,8 +35,6 @@ const DialogueList = ({ selectedDialogue, setSelectedDialogue }) => {
   const isTabletOrMobile = useMediaQuery({ maxWidth: 1279 });
   const isMobile = useMediaQuery({ maxWidth: 767 });
 
-  console.log();
-
   const onActive = async data => {
     if (data) {
       setStatusDialogue(true);
