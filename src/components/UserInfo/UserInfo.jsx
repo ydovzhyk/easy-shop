@@ -38,7 +38,6 @@ const UserInfo = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // const [theme, setTheme] = useState('light-theme');
   const [userBasketLength, setUserBasketLength] = useState(0);
   const [userLikesLength, setUserLikesLength] = useState(0);
 
@@ -55,14 +54,6 @@ const UserInfo = () => {
       setUserLikesLength(0);
     }
   }, [user]);
-
-  // useEffect(() => {
-  //   const selectedTheme = localStorage.getItem('selectedTheme');
-  //   if (selectedTheme === "light-theme") {
-  //     setTheme('dark-theme');
-  //   }
-  //   return;
-  // }, [theme]);
 
   const onLogout = async () => {
     navigate('/');
@@ -83,11 +74,6 @@ const UserInfo = () => {
       ? `${s.link} ${s.active} ${s.custom}`
       : `${s.link} ${s.custom}`;
   };
-  // console.log(theme);
-  // const getClassNameAvatar = () => {
-  //   console.log(darkTheme);
-  //   return !darkTheme ? `${s.userPhoto}` : `${s.userPhotoDarkTheme}`;
-  // };
 
   if (!isUserLogin) {
     return (

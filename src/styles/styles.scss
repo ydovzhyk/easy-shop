@@ -31,6 +31,7 @@
   --border-color: #e0e0e0;
   --icons-color: #3b3b3b;
   --empty-color: #cdc6c6;
+  --unlogged-avatar-filter: invert(0%);
 
   --transition-duration: 300ms;
   --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -60,6 +61,7 @@
   --border-color: #3b3b3b;
   --icons-color: #fff;
   --empty-color: #65665a;
+  --unlogged-avatar-filter: invert(100%);
 
   --bg-selector: #414141;
   --bg-selector-menu: #cdc6c6;

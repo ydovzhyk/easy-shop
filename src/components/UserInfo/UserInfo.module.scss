@@ -59,11 +59,7 @@
   height: 45px;
   border-radius: 50%;
   border: 1px solid #212121;
-}
-
-.userPhotoDarkTheme {
-  @extend .userPhoto;
-  filter: invert(100%);
+  // filter: var(--unlogged-avatar-filter);
 }
 
 .userBlock {
