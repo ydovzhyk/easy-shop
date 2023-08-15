@@ -5,6 +5,8 @@ import { useMediaQuery } from 'react-responsive';
 
 import { useForm } from 'react-hook-form';
 
+import { createSearchParams, useNavigate } from 'react-router-dom';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
 
@@ -22,6 +24,7 @@ import { filterPrices } from './filterPrice';
 import { filterConditions } from './filterСonditions';
 
 import s from './Filter.module.scss';
+import { updateLocale } from 'moment';
 
 const Filter = ({ onChange }) => {
   const isDesktop = useMediaQuery({ minWidth: 1280 });
@@ -32,6 +35,8 @@ const Filter = ({ onChange }) => {
   const [showCondition, setShowCondition] = useState(true);
   const [showBrand, setShowBrand] = useState(true);
   const [selectedSizes, setSelectedSizes] = useState([]);
+
+  const navigate = useNavigate();
 
   const shouldFilterProductReset = useSelector(getFilterProduct);
   const dispatch = useDispatch();
@@ -153,6 +158,46 @@ const Filter = ({ onChange }) => {
     };
     await onChange(dataForUpload);
     await dispatch(submitFilterForm());
+    if (
+      data.filterBrand !== '' ||
+      data.filterCondition !== '' ||
+      data.filterPriceRadio !== '' ||
+      data.filterPriceFrom !== '' ||
+      data.filterPriceTo !== ''
+    ) {
+      await setSearchParamsNavigate(dataForUpload);
+    }
+  };
+
+  const setSearchParamsNavigate = data => {
+    let brandName = '';
+    let condition = '';
+    let price = '';
+    let price_from = '';
+    let price_to = '';
+
+    const dataArray = Object.entries(data);
+    const newDataArray = dataArray.filter(el => el[1].length !== 0);
+    let updateArray = [];
+    if (
+      newDataArray.filterPriceFrom === '0' &&
+      newDataArray.filterPriceTo === '1000000'
+    ) {
+      console.log(dataArray);
+    }
+
+    console.log(newDataArray);
+    // const newDataArray = dataArray.filter(el => el[1].length !== 0);
+    // return data !== ''
+    //   ? navigate(
+    //       `?${createSearchParams({
+    //         [searchName]: data,
+    //       })} `
+    //     )
+    //   : null;
+    // if (dataForUpload.filterPriceFrom === '0' & dataForUpload.filterPriceFrom === '1000000') {
+    //   newDataArray.
+    // }
   };
 
   return (
