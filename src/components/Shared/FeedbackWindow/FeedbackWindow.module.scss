@@ -1,0 +1,109 @@
+@use '../../../styles/mixins';
+
+.windowBackdrop {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.47);
+  cursor: pointer;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+}
+
+.closeButton {
+  position: absolute;
+  color: #000;
+  outline: 0;
+  width: 32px;
+  height: 32px;
+  right: 5px;
+  top: 5px;
+  background-color: rgba(245, 245, 245, 0.455);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  font-size: 20px;
+  align-items: center;
+
+  @include mixins.mq(tablet) {
+    width: 40px;
+    height: 40px;
+    right: 10px;
+    top: 10px;
+    font-size: 32px;
+  }
+  @include mixins.mq(desktop) {
+    width: 44px;
+    height: 44px;
+    right: 10px;
+    top: 10px;
+  }
+}
+
+.feedbackForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.windowContainer {
+  position: relative;
+  max-height: 96vh;
+  padding: 72px;
+  background-color: var(--main-color);
+}
+
+.heading {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 44px;
+}
+
+.ratingNumber {
+    font-size: 40px;
+    font-weight: 600;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 16px;
+}
+
+.starButton {
+    background-color: transparent;
+    transition: scale var(--transition-duration) var(--timing-function);
+  &:hover {
+    scale: 1.2;
+  }
+}
+
+.iconlist {
+  display: flex;
+  gap: 4px;
+  margin: 0 auto;
+  margin-bottom: 24px;
+}
+
+.iconEmpty {
+  fill: var(--empty-color);
+}
+
+.iconFilled {
+  fill: var(--accent-color);
+}
+
+.feedbackTitle {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 24px;
+}
+
+.textarea {
+    margin-bottom: 24px;
+    padding: 16px;
+    border: 1px solid ;
+    resize: none;
+}
+
