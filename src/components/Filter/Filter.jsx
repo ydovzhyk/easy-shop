@@ -5,7 +5,7 @@ import { useMediaQuery } from 'react-responsive';
 
 import { useForm } from 'react-hook-form';
 
-import { createSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
@@ -24,7 +24,6 @@ import { filterPrices } from './filterPrice';
 import { filterConditions } from './filterСonditions';
 
 import s from './Filter.module.scss';
-import { updateLocale } from 'moment';
 
 const Filter = ({ onChange }) => {
   const isDesktop = useMediaQuery({ minWidth: 1280 });
@@ -36,7 +35,7 @@ const Filter = ({ onChange }) => {
   const [showBrand, setShowBrand] = useState(true);
   const [selectedSizes, setSelectedSizes] = useState([]);
 
-  const navigate = useNavigate();
+  const [, setSearchParams] = useSearchParams();
 
   const shouldFilterProductReset = useSelector(getFilterProduct);
   const dispatch = useDispatch();
@@ -158,15 +157,7 @@ const Filter = ({ onChange }) => {
     };
     await onChange(dataForUpload);
     await dispatch(submitFilterForm());
-    if (
-      data.filterBrand !== '' ||
-      data.filterCondition !== '' ||
-      data.filterPriceRadio !== '' ||
-      data.filterPriceFrom !== '' ||
-      data.filterPriceTo !== ''
-    ) {
-      await setSearchParamsNavigate(dataForUpload);
-    }
+    // await setSearchParamsNavigate(dataForUpload);
   };
 
   const setSearchParamsNavigate = data => {
@@ -175,29 +166,28 @@ const Filter = ({ onChange }) => {
     let price = '';
     let price_from = '';
     let price_to = '';
+    Object.entries(data).forEach(([key, value]) => {
+      if (key === 'filterPrice') {
+        price = value;
+      }
+      if (key === 'filterPriceFrom') {
+        price_from = value;
+      }
+      if (key === 'filterPriceTo') {
+        price_to = value;
+      }
+      if (key === 'brandName') {
+        brandName = value;
+      }
+      if (key === 'condition' && value.length < 1) {
+        condition = '';
+      }
+      if (key === 'condition' && value.length > 0) {
+        condition = value.split(',');
+      }
+    });
 
-    const dataArray = Object.entries(data);
-    const newDataArray = dataArray.filter(el => el[1].length !== 0);
-    let updateArray = [];
-    if (
-      newDataArray.filterPriceFrom === '0' &&
-      newDataArray.filterPriceTo === '1000000'
-    ) {
-      console.log(dataArray);
-    }
-
-    console.log(newDataArray);
-    // const newDataArray = dataArray.filter(el => el[1].length !== 0);
-    // return data !== ''
-    //   ? navigate(
-    //       `?${createSearchParams({
-    //         [searchName]: data,
-    //       })} `
-    //     )
-    //   : null;
-    // if (dataForUpload.filterPriceFrom === '0' & dataForUpload.filterPriceFrom === '1000000') {
-    //   newDataArray.
-    // }
+    setSearchParams({ brandName, condition, price, price_from, price_to });
   };
 
   return (

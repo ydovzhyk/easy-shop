@@ -9,6 +9,8 @@ import {
   getHeaderFormReset,
   getHeaderFormClick,
   getCurrentProductsPage,
+  getFilterForm,
+  getFilterProduct,
 } from 'redux/product/product-selectors';
 
 import Filter from 'components/Filter/Filter';
@@ -19,13 +21,16 @@ const ProductsSearchPage = () => {
   const [filterData, setFilterData] = useState({});
   const { category, subcategory } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
-  const searchQuery = searchParams.get('search') ?? '';
+  const searchQuery = window.sessionStorage.getItem('searchQuery') ?? '';
+  // searchParams.get('search') ?? '';
 
   const dispatch = useDispatch();
   const isHeaderFormClicked = useSelector(getHeaderFormClick);
   const hasHeaderFormErrors = useSelector(getHeaderFormErrors);
   const shouldHeaderFormReset = useSelector(getHeaderFormReset);
   const currentPage = useSelector(getCurrentProductsPage);
+  const shouldFilterFormReset = useSelector(getFilterProduct);
+  const isFilterFormSubmitted = useSelector(getFilterForm);
 
   const payload = useMemo(() => {
     return {
@@ -39,6 +44,49 @@ const ProductsSearchPage = () => {
   }, [category, subcategory, searchQuery, filterData]);
 
   useEffect(() => {
+    if (!isFilterFormSubmitted) {
+      return;
+    }
+    if (shouldFilterFormReset) {
+      setSearchParams({});
+      return;
+    }
+    let brandName = '';
+    let condition = '';
+    let price = '';
+    let price_from = '';
+    let price_to = '';
+
+    Object.entries(payload.filterData).forEach(([key, value]) => {
+      if (key === 'filterPrice') {
+        price = value;
+      }
+      if (key === 'filterPriceFrom') {
+        price_from = value;
+      }
+      if (key === 'filterPriceTo') {
+        price_to = value;
+      }
+      if (key === 'brandName') {
+        brandName = value;
+      }
+      if (key === 'condition' && value.length < 1) {
+        condition = '';
+      }
+      if (key === 'condition' && value.length > 0) {
+        condition = value.join(',');
+      }
+    });
+
+    setSearchParams({ brandName, condition, price, price_from, price_to });
+  }, [
+    shouldFilterFormReset,
+    isFilterFormSubmitted,
+    payload.filterData,
+    setSearchParams,
+  ]);
+
+  useEffect(() => {
     if (
       !hasHeaderFormErrors &&
       searchQuery === '' &&
@@ -47,10 +95,63 @@ const ProductsSearchPage = () => {
     ) {
       return;
     }
+    let brandName = '';
+    let condition = '';
+    let price = '';
+    let price_from = '';
+    let price_to = '';
+
+    Object.entries(payload.filterData).forEach(([key, value]) => {
+      if (key === 'filterPrice') {
+        price = value;
+      }
+      if (key === 'filterPriceFrom') {
+        price_from = value;
+      }
+      if (key === 'filterPriceTo') {
+        price_to = value;
+      }
+      if (key === 'brandName') {
+        brandName = value;
+      }
+      if (key === 'condition' && value.length < 1) {
+        condition = '';
+      }
+      if (key === 'condition' && value.length > 0) {
+        condition = value.join(',');
+      }
+    });
+
+    // if (searchQuery !== '') {
+    //   setSearchParams({
+    //     search: searchQuery,
+    //     brandName,
+    //     condition,
+    //     price,
+    //     price_from,
+    //     price_to,
+    //   });
+    // }
+
     if (currentPage > 1) {
       searchQuery === ''
-        ? setSearchParams({ page: currentPage })
-        : setSearchParams({ search: searchQuery, page: currentPage });
+        ? setSearchParams({
+            brandName,
+            condition,
+            price,
+            price_from,
+            price_to,
+            page: currentPage,
+          })
+        : setSearchParams({
+            search: searchQuery,
+            brandName,
+            condition,
+            price,
+            price_from,
+            price_to,
+            page: currentPage,
+          });
     }
     dispatch(
       searchProducts({

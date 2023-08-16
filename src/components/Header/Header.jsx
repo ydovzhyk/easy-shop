@@ -205,7 +205,7 @@ const Header = () => {
                 ))}
               </div>
               <div className={s.switchMainBox}>
-                <SwitchBtn type="language" />
+                {/* <SwitchBtn type="language" /> */}
                 <SwitchBtn type="theme" onChange={handleThemeChange} />
               </div>
             </>
