@@ -63,9 +63,9 @@ export const getUserReviews = createAsyncThunk(
 
 export const getUserFeedback = createAsyncThunk(
   'reviews/user-feedback',
-  async (_, { rejectWithValue, dispatch }) => {
+  async (userData, { rejectWithValue, dispatch }) => {
     try {
-      const data = await axiosGetUserFeedback();
+      const data = await axiosGetUserFeedback(userData);
       // console.log(data);
       return data;
     } catch (error) {
