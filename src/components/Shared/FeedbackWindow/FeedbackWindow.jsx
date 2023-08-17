@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { FiX } from 'react-icons/fi';
-import { BsStarFill } from 'react-icons/bs';
+// import { BsStarFill } from 'react-icons/bs';
 import Button from 'components/Shared/Button/Button';
+import { StarsList } from './StarsList';
+import Avatar from 'components/Profile/Avatar/Avatar';
 import s from 'components/Shared/FeedbackWindow/FeedbackWindow.module.scss';
 
 const FeedbackWindow = ({ hideWindow }) => {
@@ -10,34 +12,8 @@ const FeedbackWindow = ({ hideWindow }) => {
 
     const calculatedRating = `${Number(rating).toFixed(1)}`;
 
-    const setFeedbackRating = (number) => {
-        setRating(number + 1);
-    }
+    const setFeedbackRating = number => setRating(number + 1);
 
-    const renderStars = () => {
-        const filledStars = Math.round(rating);
-        const stars = [];
-
-        for (let i = 0; i < 5; i++) {
-            let starClass = s.iconFilled; // Клас зафарбованої зірочки
-            if (i >= filledStars) {
-                starClass = s.iconEmpty; // Клас не зафарбованої зірочки
-            }
-            stars.push(
-              <li key={i}>
-                <button
-                  type='button'
-                  onClick={() => setFeedbackRating(i)}
-                  className={s.starButton}
-                >
-                  <BsStarFill className={starClass} size="36px" />
-                </button>
-              </li>
-            );
-        }
-        return stars;
-    };
-    
     const { control, handleSubmit, reset } = useForm({
         defaultValues: {
             rating: rating,
@@ -64,8 +40,14 @@ const FeedbackWindow = ({ hideWindow }) => {
         </button>
         <form className={s.feedbackForm}>
           <p className={s.heading}>Залишити відгук</p>
-          <p className={s.ratingNumber}>{calculatedRating}</p>
-          <ul className={s.iconlist}>{renderStars()}</ul>
+          <div className={s.starsBox}>
+            <StarsList
+              rating={rating}
+              size={24}
+              setFeedbackRating={setFeedbackRating}
+            />
+            <p className={s.ratingNumber}>{calculatedRating}</p>
+          </div>
           <p className={s.feedbackTitle}>Напишіть свій відгук:</p>
           <Controller
             control={control}
@@ -80,7 +62,7 @@ const FeedbackWindow = ({ hideWindow }) => {
                 onChange={onChange}
                 name="feedback"
                 type="text"
-                rows={8}
+                rows={4}
                 cols={40}
               />
             )}
@@ -92,6 +74,26 @@ const FeedbackWindow = ({ hideWindow }) => {
             handleClick={handleSubmit(onSubmit)}
           />
         </form>
+        <p className={s.reviewsHeading}>Відгуки інших користувачів:</p>
+        <ul className={s.reviewsWrapper}>
+          
+          <li className={s.reviewBox}>
+            <div className={s.avatarBox}>
+              <Avatar />
+            </div>
+            <div className={s.reviewWrapper}>
+              <div className={s.topReviewWrapper}>
+                <div>
+                  <p className={s.reviewerName}>Kateryna</p>
+                  <StarsList rating={rating} size={16} />
+                </div>
+                <p>data</p>
+              </div>
+              <p>black dress</p>
+              <p>review</p>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
   );
