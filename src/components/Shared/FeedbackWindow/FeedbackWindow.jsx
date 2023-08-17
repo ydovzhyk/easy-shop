@@ -1,36 +1,55 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { addReview, getUserFeedback } from 'redux/review/review-operations';
+import { selectUserFeedback } from 'redux/review/review-selectors';
+
 import { FiX } from 'react-icons/fi';
-// import { BsStarFill } from 'react-icons/bs';
 import Button from 'components/Shared/Button/Button';
-import { StarsList } from './StarsList';
 import Avatar from 'components/Profile/Avatar/Avatar';
+import { StarsList } from './StarsList';
 import s from 'components/Shared/FeedbackWindow/FeedbackWindow.module.scss';
 
-const FeedbackWindow = ({ hideWindow }) => {
+
+const FeedbackWindow = ({ hideWindow, orderId, sellerId, products }) => {
+  const dispatch = useDispatch();
+  const sellerFeedback = useSelector(selectUserFeedback);
     const [rating, setRating] = useState(1);
+  
+  useEffect(() => {
+    dispatch(getUserFeedback({sellerId}));
+  }, [dispatch, sellerId]);
+  
+  const calculatedRating = `${Number(rating).toFixed(1)}`;
 
-    const calculatedRating = `${Number(rating).toFixed(1)}`;
+  const setFeedbackRating = number => setRating(number + 1);
+  
+  const filteredProducts = products.map(product => {
+    return { _id: product._id, nameProduct: product.nameProduct }
+  });  
 
-    const setFeedbackRating = number => setRating(number + 1);
+  const { control, handleSubmit, reset } = useForm({
+    defaultValues: {
+      rating: rating,
+      feedback: '',
+    },
+  });
 
-    const { control, handleSubmit, reset } = useForm({
-        defaultValues: {
-            rating: rating,
-            feedback: '',
-        },
-    });
-
-    const onSubmit = async (data, e) => {
-        e.preventDefault();
-        const feedbackData = {
-            rating: rating,
-            feedback: data.feedback,
-        };
-        console.log(feedbackData);
-        reset();
-        hideWindow();
-    }
+  const onSubmit = async (data, e) => {
+    e.preventDefault();
+    const feedbackData = {
+      rating: rating,
+      feedback: data.feedback,
+      sellerId: sellerId,
+      products: filteredProducts,
+      orderId: orderId,
+    };
+    console.log(feedbackData);
+      await dispatch(addReview(feedbackData));
+      dispatch(getUserFeedback({ sellerId }));
+    reset();
+    // hideWindow();
+  };
 
   return (
     <div className={s.windowBackdrop}>
@@ -74,24 +93,39 @@ const FeedbackWindow = ({ hideWindow }) => {
             handleClick={handleSubmit(onSubmit)}
           />
         </form>
-        <p className={s.feedbackTitle}>Відгуки інших користувачів:</p>
+        {sellerFeedback.length > 0 && (
+          <p className={s.feedbackTitle}>Відгуки інших користувачів:</p>
+        )}
+
         <ul className={s.reviewsWrapper}>
-          <li className={s.reviewBox}>
-            <div className={s.avatarBox}>
-              <Avatar />
-            </div>
-            <div className={s.reviewWrapper}>
-              <div className={s.topReviewWrapper}>
-                <div>
-                  <p className={s.reviewerName}>Kateryna</p>
-                  <StarsList rating={rating} size={16} />
-                </div>
-                <p>data</p>
-              </div>
-              <p>black dress</p>
-              <p>review</p>
-            </div>
-          </li>
+          {sellerFeedback.map(
+            ({ _id, reviewer, rating, reviewDate, products, feedback }) => {
+              return (
+                <li className={s.reviewBox} key={_id}>
+                  <div className={s.avatarBox}>
+                    <Avatar src={reviewer.reviewerFoto} />
+                  </div>
+                  <div className={s.reviewWrapper}>
+                    <div className={s.topReviewWrapper}>
+                      <div>
+                        <p className={s.reviewerName}>
+                          {reviewer.reviewerName}
+                        </p>
+                        <StarsList rating={rating} size={16} />
+                      </div>
+                      <p>{reviewDate}</p>
+                    </div>
+                    <ul className={s.productName}>
+                      {products.map(product => (
+                        <li key={product._id}>{product.nameProduct}</li>
+                      ))}
+                    </ul>
+                    <p>{feedback}</p>
+                  </div>
+                </li>
+              );
+            }
+          )}
         </ul>
       </div>
     </div>

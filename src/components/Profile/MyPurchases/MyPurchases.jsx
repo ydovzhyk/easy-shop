@@ -78,6 +78,7 @@ const MyShoppings = () => {
                 delivery,
                 statusNew,
                 confirmed,
+                sellerId,
               }) => (
                 <li className={s.orderItem} key={_id}>
                   <div className={s.orderInfoWrapper}>
@@ -133,6 +134,14 @@ const MyShoppings = () => {
                       />
                     </div>
                   )}
+                  {isFeedbackWindowOpen && (
+                    <FeedbackWindow
+                      hideWindow={toggleIsOpen}
+                      orderId={_id}
+                      sellerId={sellerId}
+                      products={productInfo}
+                    />
+                  )}
                 </li>
               )
             )}
@@ -149,7 +158,6 @@ const MyShoppings = () => {
           onPageChange={handlePageChange}
         />
       )}
-      {isFeedbackWindowOpen && <FeedbackWindow hideWindow={toggleIsOpen} />}
     </>
   );
 }
