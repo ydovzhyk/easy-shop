@@ -117,11 +117,23 @@ const MyShoppings = () => {
                       className={s.orderSum}
                     >{`Сума замовлення: ${orderSum} грн.`}</p>
                   </div>
-                  <Button
-                    btnClass="btnLight"
-                    text="Залишити відгук"
-                    handleClick={toggleIsOpen}
-                  />
+
+                  {statusNew === false && (
+                    <>
+                      <NavLink
+                        to={isLogin ? '/message' : '/login'}
+                        className={s.btnLight}
+                        // state={{ orderId: _id }}
+                      >
+                        Перейти до чату
+                      </NavLink>
+                      <Button
+                        btnClass="btnLight"
+                        text="Залишити відгук"
+                        handleClick={toggleIsOpen}
+                      />
+                    </>
+                  )}
                 </li>
               )
             )}

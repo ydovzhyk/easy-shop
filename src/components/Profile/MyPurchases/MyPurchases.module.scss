@@ -33,6 +33,9 @@
     @include mixins.mq(desktop) {
         padding: 20px;
     }
+    &:last-child {
+        text-align: end;
+    }
 
 }
 
@@ -73,6 +76,7 @@
     align-items: center;
     gap: 12px;
     padding: 12px;
+    margin-bottom: 16px;
     @include mixins.mq(tablet) {
         flex-direction: row;
         justify-content: space-between;
@@ -95,7 +99,7 @@
   height: 50px;
   background-color: var(--background-btn-main-color);
   border: 1px solid var(--btn-border-color);
-  // border: 2px solid var(--border-color);
+  margin-right: 16px;
   color: #000;
   border-radius: 10.3108px;
   font-style: normal;

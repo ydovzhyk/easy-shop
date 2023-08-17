@@ -48,6 +48,7 @@
 .feedbackForm {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .windowContainer {
@@ -61,6 +62,7 @@
     font-size: 24px;
     font-weight: 600;
     margin-bottom: 44px;
+    align-self: flex-start;
 }
 
 .ratingNumber {
@@ -97,7 +99,8 @@
 .feedbackTitle {
     font-size: 20px;
     font-weight: 500;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
+    align-self: flex-start;
 }
 
 .textarea {
