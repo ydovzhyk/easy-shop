@@ -119,11 +119,10 @@ const MyShoppings = () => {
                   </div>
 
                   {statusNew === false && (
-                    <>
+                    <div className={s.buttonBottomWrapper}>
                       <NavLink
                         to={isLogin ? '/message' : '/login'}
                         className={s.btnLight}
-                        // state={{ orderId: _id }}
                       >
                         Перейти до чату
                       </NavLink>
@@ -132,7 +131,7 @@ const MyShoppings = () => {
                         text="Залишити відгук"
                         handleClick={toggleIsOpen}
                       />
-                    </>
+                    </div>
                   )}
                 </li>
               )
