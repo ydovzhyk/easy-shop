@@ -61,12 +61,15 @@
   width: 100%;
   padding: 44px 16px;
   background-color: var(--main-color);
+  overflow: auto;
   @include mixins.mq(tablet) {
-    padding: 44px 72px;
+    padding: 44px 60px;
+    max-width: 80vw;
   }
   @include mixins.mq(desktop) {
     padding: 44px 72px;
     max-height: 96vh;
+    max-width: 48vw;
   }
 }
 
@@ -78,30 +81,26 @@
         font-size: 24px;
         margin-bottom: 44px;
     }
-    @include mixins.mq(desktop) {
-        //
-    }
 }
 
 .starsBox {
     display: flex;
     gap: 16px;
     margin-bottom: 16px;
+    align-self: flex-start;
+    padding-left: 8px;
     @include mixins.mq(tablet) {
         margin-bottom: 24px;
     }
 }
 
 .ratingNumber {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 600;
     text-align: center;
     margin: 0 auto;
     @include mixins.mq(tablet) {
-        font-size: 36px;
-    }
-    @include mixins.mq(desktop) {
-        //
+        font-size: 32px;
     }
 }
 
@@ -150,15 +149,6 @@
     }
     @include mixins.mq(tablet) {
         margin-bottom: 24px;
-    }
-}
-
-.reviewsHeading {
-    font-size: 14px;
-    margin-bottom: 8px;
-    @include mixins.mq(tablet) {
-        font-size: 16px;
-        margin-bottom: 16px;
     }
 }
 
@@ -226,9 +216,15 @@
 .reviewerName {
     font-size: 14px;
     margin-bottom: 4px;
+    @include mixins.mq(tablet) {
+        font-size: 16px;
+    }
 }
 
 .reviewWrapper {
     width: 100%;
     font-size: 14px;
+    @include mixins.mq(tablet) {
+        font-size: 16px;
+    }
 }   

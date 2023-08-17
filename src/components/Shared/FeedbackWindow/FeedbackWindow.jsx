@@ -43,7 +43,7 @@ const FeedbackWindow = ({ hideWindow }) => {
           <div className={s.starsBox}>
             <StarsList
               rating={rating}
-              size={24}
+              size={32}
               setFeedbackRating={setFeedbackRating}
             />
             <p className={s.ratingNumber}>{calculatedRating}</p>
@@ -74,9 +74,8 @@ const FeedbackWindow = ({ hideWindow }) => {
             handleClick={handleSubmit(onSubmit)}
           />
         </form>
-        <p className={s.reviewsHeading}>Відгуки інших користувачів:</p>
+        <p className={s.feedbackTitle}>Відгуки інших користувачів:</p>
         <ul className={s.reviewsWrapper}>
-          
           <li className={s.reviewBox}>
             <div className={s.avatarBox}>
               <Avatar />
