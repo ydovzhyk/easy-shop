@@ -15,14 +15,14 @@ import {
 
 import Filter from 'components/Filter/Filter';
 import Container from 'components/Shared/Container/Container';
+import { getUrlFilterValues } from '../../funcs&hooks/getUrlFilterValues.js';
 import { translateParamsToUA } from '../../funcs&hooks/translateParamsToUA.js';
 
 const ProductsSearchPage = () => {
   const [filterData, setFilterData] = useState({});
   const { category, subcategory } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
-  const searchQuery = window.sessionStorage.getItem('searchQuery') ?? '';
-  // searchParams.get('search') ?? '';
+  const searchQuery = searchParams.get('search') ?? '';
 
   const dispatch = useDispatch();
   const isHeaderFormClicked = useSelector(getHeaderFormClick);
@@ -48,38 +48,36 @@ const ProductsSearchPage = () => {
       return;
     }
     if (shouldFilterFormReset) {
-      setSearchParams({});
+      if (searchQuery === '') {
+        setSearchParams({});
+      }
+      if (searchQuery !== '') {
+        setSearchParams({ search: searchQuery });
+      }
       return;
     }
-    let brandName = '';
-    let condition = '';
-    let price = '';
-    let price_from = '';
-    let price_to = '';
 
-    Object.entries(payload.filterData).forEach(([key, value]) => {
-      if (key === 'filterPrice') {
-        price = value;
-      }
-      if (key === 'filterPriceFrom') {
-        price_from = value;
-      }
-      if (key === 'filterPriceTo') {
-        price_to = value;
-      }
-      if (key === 'brandName') {
-        brandName = value;
-      }
-      if (key === 'condition' && value.length < 1) {
-        condition = '';
-      }
-      if (key === 'condition' && value.length > 0) {
-        condition = value.join(',');
-      }
-    });
+    const selectedFilterValues = getUrlFilterValues(payload.filterData);
 
-    setSearchParams({ brandName, condition, price, price_from, price_to });
+    if (searchQuery === '') {
+      setSearchParams({
+        ...selectedFilterValues,
+      });
+    }
+
+    if (searchQuery !== '' && isFilterFormSubmitted) {
+      setSearchParams({
+        search: searchQuery,
+        ...selectedFilterValues,
+      });
+    }
+    if (searchQuery !== '' && !isFilterFormSubmitted) {
+      setSearchParams({
+        search: searchQuery,
+      });
+    }
   }, [
+    searchQuery,
     shouldFilterFormReset,
     isFilterFormSubmitted,
     payload.filterData,
@@ -95,61 +93,18 @@ const ProductsSearchPage = () => {
     ) {
       return;
     }
-    let brandName = '';
-    let condition = '';
-    let price = '';
-    let price_from = '';
-    let price_to = '';
 
-    Object.entries(payload.filterData).forEach(([key, value]) => {
-      if (key === 'filterPrice') {
-        price = value;
-      }
-      if (key === 'filterPriceFrom') {
-        price_from = value;
-      }
-      if (key === 'filterPriceTo') {
-        price_to = value;
-      }
-      if (key === 'brandName') {
-        brandName = value;
-      }
-      if (key === 'condition' && value.length < 1) {
-        condition = '';
-      }
-      if (key === 'condition' && value.length > 0) {
-        condition = value.join(',');
-      }
-    });
-
-    // if (searchQuery !== '') {
-    //   setSearchParams({
-    //     search: searchQuery,
-    //     brandName,
-    //     condition,
-    //     price,
-    //     price_from,
-    //     price_to,
-    //   });
-    // }
+    const selectedFilterValues = getUrlFilterValues(payload.filterData);
 
     if (currentPage > 1) {
       searchQuery === ''
         ? setSearchParams({
-            brandName,
-            condition,
-            price,
-            price_from,
-            price_to,
+            ...selectedFilterValues,
             page: currentPage,
           })
         : setSearchParams({
             search: searchQuery,
-            brandName,
-            condition,
-            price,
-            price_from,
-            price_to,
+            ...selectedFilterValues,
             page: currentPage,
           });
     }

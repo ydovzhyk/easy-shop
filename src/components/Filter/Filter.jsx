@@ -5,8 +5,6 @@ import { useMediaQuery } from 'react-responsive';
 
 import { useForm } from 'react-hook-form';
 
-import { useSearchParams } from 'react-router-dom';
-
 import { useSelector, useDispatch } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
 
@@ -34,8 +32,6 @@ const Filter = ({ onChange }) => {
   const [showCondition, setShowCondition] = useState(true);
   const [showBrand, setShowBrand] = useState(true);
   const [selectedSizes, setSelectedSizes] = useState([]);
-
-  const [, setSearchParams] = useSearchParams();
 
   const shouldFilterProductReset = useSelector(getFilterProduct);
   const dispatch = useDispatch();
@@ -157,37 +153,6 @@ const Filter = ({ onChange }) => {
     };
     await onChange(dataForUpload);
     await dispatch(submitFilterForm());
-    // await setSearchParamsNavigate(dataForUpload);
-  };
-
-  const setSearchParamsNavigate = data => {
-    let brandName = '';
-    let condition = '';
-    let price = '';
-    let price_from = '';
-    let price_to = '';
-    Object.entries(data).forEach(([key, value]) => {
-      if (key === 'filterPrice') {
-        price = value;
-      }
-      if (key === 'filterPriceFrom') {
-        price_from = value;
-      }
-      if (key === 'filterPriceTo') {
-        price_to = value;
-      }
-      if (key === 'brandName') {
-        brandName = value;
-      }
-      if (key === 'condition' && value.length < 1) {
-        condition = '';
-      }
-      if (key === 'condition' && value.length > 0) {
-        condition = value.split(',');
-      }
-    });
-
-    setSearchParams({ brandName, condition, price, price_from, price_to });
   };
 
   return (
