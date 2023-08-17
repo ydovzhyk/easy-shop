@@ -27,7 +27,7 @@ export const axiosGetUserReviews = async () => {
 };
 
 // Get User feedback
-export const axiosGetUserFeedback = async () => {
-  const { data } = await instance.post(`/reviews/user-feedback`);
+export const axiosGetUserFeedback = async userData => {
+  const { data } = await instance.post(`/reviews/user-feedback`, userData);
   return data;
 };
