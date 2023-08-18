@@ -132,3 +132,8 @@
     box-shadow var(--transition-duration) var(--timing-function);
   cursor: pointer;
 }
+
+.btnLightSubscribe {
+  @extend .btnLight;
+  height: 38px;
+}
