@@ -157,7 +157,7 @@ const ProductCard = () => {
     }
     const selectedProductSizes =
       size.length === 1 ? transformedSizes : selectedSizes;
-    
+
     if (selectedProductSizes.length === 0 && !isProductInBasket) {
       setIsMessage(true);
       event.preventDefault();
@@ -203,8 +203,8 @@ const ProductCard = () => {
       <Container>
         <p className={s.navigation}>
           <Link to={`/`}>Easy shop </Link> &#8250;
-          <Link to={`/products/${category}`}> {categoryName} </Link>&#8250;
-          <Link to={`/products/${category}/${subcategory}`}>
+          <Link to={`/product/${category}`}> {categoryName} </Link>&#8250;
+          <Link to={`/product/${category}/${subcategory}`}>
             {' '}
             {subCategoryName}
           </Link>
@@ -234,9 +234,7 @@ const ProductCard = () => {
               <div ref={chattingRef}>
                 <Text text="Продавець:" textClass="productLabels" />
                 <div className={s.ownerInfo}>
-                    {isDataLoaded && owner &&
-                      <OwnerInfo owner={owner}
-                      />}
+                  {isDataLoaded && owner && <OwnerInfo owner={owner} />}
                 </div>
               </div>
             </div>

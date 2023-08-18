@@ -33,9 +33,7 @@ const ProductsPage = lazy(() => import('pages/ProductsPage'));
 const SellerInfoPage = lazy(() => import('pages/SellerInfoPage'));
 const Wares = lazy(() => import('components/SellerInfo/Wares/Wares'));
 const About = lazy(() => import('components/SellerInfo/About/About'));
-const Reviews = lazy(() =>
-  import('components/SellerInfo/Reviews/Reviews')
-);
+const Reviews = lazy(() => import('components/SellerInfo/Reviews/Reviews'));
 const MySales = lazy(() => import('components/Profile/MySales/MySales'));
 
 const UserRoutes = () => {
@@ -47,13 +45,13 @@ const UserRoutes = () => {
           <Route path="/easy-shop-test" element={<HomePage />} />
           <Route path="/registration" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/products" element={<ProductsSearchPage />}>
+          <Route path="/product" element={<ProductsSearchPage />}>
             <Route index element={<ProductsPage />} />
             <Route path=":category" element={<ProductsPage />} />
             <Route path=":category/:subcategory" element={<ProductsPage />} />
           </Route>
           <Route
-            path="/products/:category/:subcategory/:id"
+            path="/product/:category/:subcategory/:id"
             element={<ProductDetails />}
           />
           <Route path="/member/:id" element={<SellerInfoPage />}>
