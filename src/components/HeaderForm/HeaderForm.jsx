@@ -91,7 +91,7 @@ const HeaderForm = () => {
     }
     await dispatch(setCurrentProductsPage(1));
     await dispatch(setHeaderFormClick());
-    await navigate(!isUserAtProductsSearchPage ? '/products' : pathname);
+    await navigate(!isUserAtProductsSearchPage ? '/product' : pathname);
   };
 
   return (
