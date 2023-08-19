@@ -18,12 +18,13 @@
   }
 }
 
-.searchContent {
+.filterContent {
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
-  padding: 4px 8px;
+  // padding: 4px 8px;
   margin-bottom: 10px;
+  height: 38px;
   cursor: pointer;
   background-color: var(--border-color);
   border-radius: 8px;
@@ -60,12 +61,16 @@
   }
 }
 
-.selectWrapper {
+.bottomOptionsWrapper {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  flex-direction: column;
+  @include mixins.mq(tablet) {
+    flex-direction: row;
+  }
 }
 
-.bottomOptionsWrapper {
+.selectWrapper {
   text-align: right;
 }

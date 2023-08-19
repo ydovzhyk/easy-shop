@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useSearchParams, useParams } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 import { MdClose } from 'react-icons/md';
 
 import { useForm, Controller } from 'react-hook-form';
@@ -47,6 +48,8 @@ const Products = () => {
   const dispatch = useDispatch();
 
   const { control } = useForm();
+
+  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const handleChangeFilter = async filterSelected => {
     await setFilterSelected(filterSelected);
@@ -97,7 +100,7 @@ const Products = () => {
   };
 
   const getClassName = () => {
-    return isUserLogin ? `${s.selectWrapper}` : `${s.bottomOptionsWrapper}`;
+    return !isUserLogin ? `${s.selectWrapper}` : `${s.bottomOptionsWrapper}`;
   };
 
   return (
@@ -113,21 +116,21 @@ const Products = () => {
           {searchQuery && (
             <button
               type="button"
-              className={s.searchContent}
+              className={s.filterContent}
               onClick={handleClearSearchQueryClick}
             >
               <Text textClass="searchQueryContent" text={searchQuery} />
-              <MdClose size={22} />
+              <MdClose size={isMobile ? 18 : 22} />
             </button>
           )}
           {isFilterFormSubmitted && (
             <button
               type="button"
-              className={s.searchContent}
+              className={s.filterContent}
               onClick={handleClearFiltersClick}
             >
               <Text textClass="searchQueryContent" text="Скинути фільтри" />
-              <MdClose size={22} />
+              <MdClose size={isMobile ? 18 : 22} />
             </button>
           )}
         </div>

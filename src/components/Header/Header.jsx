@@ -205,7 +205,6 @@ const Header = () => {
                 ))}
               </div>
               <div className={s.switchMainBox}>
-                {/* <SwitchBtn type="language" /> */}
                 <SwitchBtn type="theme" onChange={handleThemeChange} />
               </div>
             </>
@@ -228,14 +227,12 @@ const Header = () => {
                 ))}
               </div>
               <div className={s.switchMainBox}>
-                <SwitchBtn type="language" />
                 <SwitchBtn type="theme" onChange={handleThemeChange} />
               </div>
             </>
           )}
           {!isDesktop && isMobile && (
             <div className={s.switchMainBox}>
-              <SwitchBtn type="language" />
               <SwitchBtn type="theme" onChange={handleThemeChange} />
             </div>
           )}

@@ -48,39 +48,29 @@ const ProductsSearchPage = () => {
       return;
     }
     if (shouldFilterFormReset) {
-      if (searchQuery === '') {
-        setSearchParams({});
-      }
-      if (searchQuery !== '') {
-        setSearchParams({ search: searchQuery });
-      }
+      searchParams.delete('size');
+      searchParams.delete('price');
+      searchParams.delete('condition');
+      searchParams.delete('brandName');
+      searchParams.delete('price_from');
+      searchParams.delete('price_to');
+      searchParams.delete('page');
+      setSearchParams(searchParams);
       return;
     }
 
     const selectedFilterValues = getUrlFilterValues(payload.filterData);
 
-    if (searchQuery === '') {
-      setSearchParams({
-        ...selectedFilterValues,
-      });
-    }
-
-    if (searchQuery !== '' && isFilterFormSubmitted) {
-      setSearchParams({
-        search: searchQuery,
-        ...selectedFilterValues,
-      });
-    }
-    if (searchQuery !== '' && !isFilterFormSubmitted) {
-      setSearchParams({
-        search: searchQuery,
-      });
-    }
+    Object.entries(selectedFilterValues).map(([name, value]) =>
+      searchParams.set(name, value)
+    );
+    setSearchParams(searchParams);
   }, [
     searchQuery,
     shouldFilterFormReset,
     isFilterFormSubmitted,
     payload.filterData,
+    searchParams,
     setSearchParams,
   ]);
 
@@ -94,19 +84,9 @@ const ProductsSearchPage = () => {
       return;
     }
 
-    const selectedFilterValues = getUrlFilterValues(payload.filterData);
-
     if (currentPage > 1) {
-      searchQuery === ''
-        ? setSearchParams({
-            ...selectedFilterValues,
-            page: currentPage,
-          })
-        : setSearchParams({
-            search: searchQuery,
-            ...selectedFilterValues,
-            page: currentPage,
-          });
+      searchParams.set('page', currentPage);
+      setSearchParams(searchParams);
     }
     dispatch(
       searchProducts({
@@ -116,6 +96,7 @@ const ProductsSearchPage = () => {
     );
   }, [
     payload,
+    searchParams,
     hasHeaderFormErrors,
     shouldHeaderFormReset,
     searchQuery,
