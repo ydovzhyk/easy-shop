@@ -5,6 +5,8 @@ import { useMediaQuery } from 'react-responsive';
 
 import { useForm } from 'react-hook-form';
 
+import { useSearchParams } from 'react-router-dom';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
 
@@ -32,6 +34,8 @@ const Filter = ({ onChange }) => {
   const [showCondition, setShowCondition] = useState(true);
   const [showBrand, setShowBrand] = useState(true);
   const [selectedSizes, setSelectedSizes] = useState([]);
+
+  const [searchParams] = useSearchParams();
 
   const shouldFilterProductReset = useSelector(getFilterProduct);
   const dispatch = useDispatch();
@@ -80,6 +84,18 @@ const Filter = ({ onChange }) => {
     resetField,
     reset,
   ]);
+
+  useEffect(() => {
+    const params = {};
+    if (searchParams.size === 0) {
+      return;
+    }
+
+    searchParams.forEach((value, key) => {
+      params[key] = value;
+    });
+    console.log(searchParams);
+  }, [searchParams]);
 
   useEffect(() => {
     if (dirtyFields.filterPriceFrom || dirtyFields.filterPriceTo) {
