@@ -4,17 +4,17 @@ export function getPath(query, category, isCurrentPageProducts = false) {
   let firstPartPath = '';
   switch (category) {
     case 'Жінкам':
-      firstPartPath = !isCurrentPageProducts ? 'products/women' : 'women';
+      firstPartPath = !isCurrentPageProducts ? 'product/women' : 'women';
       break;
     case 'Чоловікам':
-      firstPartPath = !isCurrentPageProducts ? 'products/men' : 'men';
+      firstPartPath = !isCurrentPageProducts ? 'product/men' : 'men';
       break;
     case 'Дитячі товари':
-      firstPartPath = !isCurrentPageProducts ? 'products/children' : 'children';
+      firstPartPath = !isCurrentPageProducts ? 'product/children' : 'children';
       break;
     case "Краса та здоров'я":
       firstPartPath = !isCurrentPageProducts
-        ? 'products/beauty&health'
+        ? 'product/beauty&health'
         : 'beauty&health';
       break;
     default:

@@ -109,7 +109,7 @@ const ProductItem = ({
   return (
     <li className={s.itemCard}>
       <Link
-        to={`/products/${categoryName}/${subCategoryName}/${_id}`}
+        to={`/product/${categoryName}/${subCategoryName}/${_id}`}
         className={s.photoLink}
       >
         {vip === 'Так' && (

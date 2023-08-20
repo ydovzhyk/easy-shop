@@ -1,42 +1,42 @@
 @use 'styles/mixins';
 
 .wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    align-items: center;
-    @include mixins.mq(desktop) {
-        align-items: flex-start;
-    }
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  @include mixins.mq(desktop) {
+    align-items: flex-start;
+  }
 }
 .menuGroupList {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    align-items:center;
-    justify-content: flex-start;
-    color: var(--text-color);
-    @include mixins.mq(desktop) {
-        flex-direction: row;
-        flex-wrap: wrap;
-        width: 650px;
-    }
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  justify-content: flex-start;
+  color: var(--text-color);
+  @include mixins.mq(desktop) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 650px;
+  }
 }
 
 .sizeAndCountWrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
 }
 .size {
-    width: 250px;
-    display: inline-block;
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
-    padding: 8px;
+  width: 250px;
+  display: inline-block;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  padding: 8px;
 
-    @include mixins.mq(desktop) {
-        margin-right: 20px;
-    }
+  @include mixins.mq(desktop) {
+    margin-right: 20px;
+  }
 }

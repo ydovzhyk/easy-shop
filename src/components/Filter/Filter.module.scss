@@ -43,6 +43,7 @@
   padding: 5px;
   border: 1px solid #dedddd;
   width: 100%;
+  color: var(--text-color);
   transition: box-shadow var(--transition-duration) var(--timing-function);
   @include mixins.mq(tablet) {
     padding: 10px;
@@ -60,6 +61,10 @@
 
 .menuGroupItemsSelected {
   background-color: var(--background-btn-main-color);
+  transition: color var(--transition-duration) var(--timing-function);
+  p {
+    color: #000;
+  }
 }
 
 .optionsWrapper {

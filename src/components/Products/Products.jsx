@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useSearchParams, useParams } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 import { MdClose } from 'react-icons/md';
 
 import { useForm, Controller } from 'react-hook-form';
@@ -13,6 +14,7 @@ import {
   getHeaderFormErrors,
   getProductsByQueryPages,
 } from 'redux/product/product-selectors';
+import { getLogin } from 'redux/auth/auth-selectors';
 import {
   resetHeaderForm,
   setCurrentProductsPage,
@@ -25,6 +27,8 @@ import ProductItem from 'components/Shared/ProductItem/ProductItem';
 import Text from 'components/Shared/Text/Text';
 import NotFound from 'components/NotFound/NotFound';
 import SelectField from 'components/Shared/SelectField/SelectField';
+import Button from 'components/Shared/Button/Button';
+import options from './options';
 
 import s from './Products.module.scss';
 
@@ -40,9 +44,12 @@ const Products = () => {
   const products = useSelector(getProductsByQuery);
   const isFilterFormSubmitted = useSelector(getFilterForm);
   const isLoading = useSelector(getLoadingProducts);
+  const isUserLogin = useSelector(getLogin);
   const dispatch = useDispatch();
 
   const { control } = useForm();
+
+  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const handleChangeFilter = async filterSelected => {
     await setFilterSelected(filterSelected);
@@ -92,6 +99,10 @@ const Products = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const getClassName = () => {
+    return !isUserLogin ? `${s.selectWrapper}` : `${s.bottomOptionsWrapper}`;
+  };
+
   return (
     <section style={{ flexGrow: 1, position: 'relative' }}>
       <div className={s.container}>
@@ -105,27 +116,34 @@ const Products = () => {
           {searchQuery && (
             <button
               type="button"
-              className={s.searchContent}
+              className={s.filterContent}
               onClick={handleClearSearchQueryClick}
             >
               <Text textClass="searchQueryContent" text={searchQuery} />
-              <MdClose size={22} />
+              <MdClose size={isMobile ? 18 : 22} />
             </button>
           )}
           {isFilterFormSubmitted && (
             <button
               type="button"
-              className={s.searchContent}
+              className={s.filterContent}
               onClick={handleClearFiltersClick}
             >
               <Text textClass="searchQueryContent" text="Скинути фільтри" />
-              <MdClose size={22} />
+              <MdClose size={isMobile ? 18 : 22} />
             </button>
           )}
         </div>
         {productsToRender.length > 0 && (
           <>
-            <div style={{ textAlign: 'right' }}>
+            <div className={getClassName()}>
+              {isUserLogin && (
+                <Button
+                  text="Підписатися"
+                  type="button"
+                  btnClass="btnLightSubscribe"
+                />
+              )}
               <Controller
                 control={control}
                 name="filterSection"
@@ -134,12 +152,7 @@ const Products = () => {
                     value={value}
                     className={'filterSection'}
                     handleChange={value => handleChangeFilter(value.value)}
-                    options={[
-                      'Популярні',
-                      'Від найдешевших',
-                      'Від найдорожчих',
-                      'За датою',
-                    ]}
+                    options={options}
                     defaultValue={
                       filterSelected === ''
                         ? { value: 'популярні', label: 'Популярні' }
