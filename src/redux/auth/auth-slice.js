@@ -35,6 +35,8 @@ const initialState = {
     newMessage: 0,
     userOrders: [],
     userSales: [],
+    userReviews: [],
+    userFeedback: [],
   },
   sid: null,
   accessToken: null,

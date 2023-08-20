@@ -12,8 +12,9 @@ import { getLogin } from 'redux/auth/auth-selectors';
 import OrderProductsList from "components/Shared/OrderProductsList/OrderProductsList";
 import Pagination from 'components/Shared/Pagination/Pagination';
 import OrderStatusList from 'components/Shared/OrderStatusList/OrderStatusList';
+import Button from 'components/Shared/Button/Button';
+import FeedbackWindow from 'components/Shared/FeedbackWindow/FeedbackWindow';
 import s from './MyPurchases.module.scss';
-
 
 const MyShoppings = () => {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ const MyShoppings = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [currentSelector, setcurrentSelector] = useState("all");
+  const [isFeedbackWindowOpen, setIsFeedbackWindowOpen] = useState(false);
 
   useEffect(() => {
     dispatch(
@@ -46,6 +48,14 @@ const MyShoppings = () => {
     setcurrentSelector(optionName);
     setCurrentPage(1);
   };
+
+  const toggleIsOpen = () => {
+    setIsFeedbackWindowOpen(!isFeedbackWindowOpen);
+  };
+
+  useEffect(() => {
+    document.body.style.overflow = isFeedbackWindowOpen ? 'hidden' : 'unset';
+  }, [isFeedbackWindowOpen]);
   
   return (
     <>
@@ -68,6 +78,7 @@ const MyShoppings = () => {
                 delivery,
                 statusNew,
                 confirmed,
+                sellerId,
               }) => (
                 <li className={s.orderItem} key={_id}>
                   <div className={s.orderInfoWrapper}>
@@ -107,6 +118,30 @@ const MyShoppings = () => {
                       className={s.orderSum}
                     >{`Сума замовлення: ${orderSum} грн.`}</p>
                   </div>
+
+                  {statusNew === false && (
+                    <div className={s.buttonBottomWrapper}>
+                      <NavLink
+                        to={isLogin ? '/message' : '/login'}
+                        className={s.btnLight}
+                      >
+                        Перейти до чату
+                      </NavLink>
+                      <Button
+                        btnClass="btnLight"
+                        text="Залишити відгук"
+                        handleClick={toggleIsOpen}
+                      />
+                    </div>
+                  )}
+                  {isFeedbackWindowOpen && (
+                    <FeedbackWindow
+                      hideWindow={toggleIsOpen}
+                      orderId={_id}
+                      sellerId={sellerId}
+                      products={productInfo}
+                    />
+                  )}
                 </li>
               )
             )}
