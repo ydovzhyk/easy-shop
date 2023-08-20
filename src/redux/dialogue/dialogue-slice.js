@@ -14,6 +14,9 @@ const initialState = {
   message: '',
   dialogueStore: [],
   dialoguesArray: [],
+  dialoguesArrayNew: [],
+  isNewMessage: false,
+  statusDialogueList: true,
 };
 
 const dialogue = createSlice({
@@ -31,6 +34,39 @@ const dialogue = createSlice({
     },
     clearDialoguesArray: store => {
       store.dialoguesArray = [];
+    },
+    changeStatusIsNewMessage: (store, action) => {
+      store.isNewMessage = action.payload;
+    },
+    updateDialoguesArray: (store, action) => {
+      const currentDialogue = action.payload;
+      const updatedArray = store.dialoguesArrayNew.map(dialogue => {
+        if (dialogue._id === currentDialogue) {
+          return {
+            ...dialogue,
+            newMessages: [],
+          };
+        }
+        return {
+          ...dialogue,
+        };
+      });
+      store.dialoguesArrayNew = updatedArray;
+    },
+    updateDialogueStore: (store, action) => {
+      const currentDialogue = action.payload;
+      if (
+        store.dialogueStore._id === currentDialogue &&
+        store.dialogueStore.newMessages.length !== 0
+      ) {
+        const updatedDialogue = { ...store.dialogueStore, newMessages: [] };
+        store.dialogueStore = updatedDialogue;
+      } else {
+        return;
+      }
+    },
+    updateStatusDialogueList: (store, action) => {
+      store.statusDialogueList = action.payload;
     },
   },
 
@@ -71,7 +107,9 @@ const dialogue = createSlice({
     },
     [getAllDialoguesData.fulfilled]: (store, { payload }) => {
       store.loading = false;
+      // store.isNewMessage = false;
       store.dialoguesArray = payload.dialoguesArray;
+      store.dialoguesArrayNew = payload.dialoguesArray;
     },
     [getAllDialoguesData.rejected]: (store, { payload }) => {
       store.loading = false;
@@ -111,4 +149,8 @@ export const {
   clearDialogue,
   clearDialogueMessage,
   clearDialoguesArray,
+  changeStatusIsNewMessage,
+  updateDialoguesArray,
+  updateDialogueStore,
+  updateStatusDialogueList,
 } = dialogue.actions;
