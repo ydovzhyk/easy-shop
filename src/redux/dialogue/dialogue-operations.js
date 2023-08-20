@@ -69,9 +69,13 @@ export const deleteDialogueNewMessage = createAsyncThunk(
   'dialogue/deleteNewMessage',
   async (userData, { rejectWithValue, getState, dispatch }) => {
     try {
+      const {
+        dialogue: { statusDialogueList },
+      } = getState();
+
       const data = await axiosDeleteDialogueNewMessage(userData);
       dispatch(getUpdatedUserNewMessage(data.user));
-      const statusDialogue = true;
+      const statusDialogue = statusDialogueList;
       dispatch(getAllDialoguesData({ statusDialogue }));
       return data;
     } catch (error) {

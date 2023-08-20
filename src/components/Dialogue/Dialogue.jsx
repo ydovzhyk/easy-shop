@@ -1,10 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { createDialogue } from 'redux/dialogue/dialogue-operations';
 import { getLogin, getUser, getUserAvatar } from 'redux/auth/auth-selectors';
-import { getDialogueStore } from 'redux/dialogue/dialogue-selectors';
-import { clearDialogue } from 'redux/dialogue/dialogue-slice';
+import {
+  getDialogueStore,
+  getDialoguesArrayStoreNew,
+  getIsNewMessage,
+} from 'redux/dialogue/dialogue-selectors';
+import {
+  clearDialogue,
+  changeStatusIsNewMessage,
+  updateDialoguesArray,
+  updateDialogueStore,
+} from 'redux/dialogue/dialogue-slice';
+
 import {
   getDialogue,
   deleteDialogueNewMessage,
@@ -27,12 +37,14 @@ const Dialogue = ({ productInfo }) => {
   const userAvatar = useSelector(getUserAvatar);
   const user = useSelector(getUser);
   const isUserLogin = useSelector(getLogin);
+  const dialoguesArray = useSelector(getDialoguesArrayStoreNew);
+  const isNewMessage = useSelector(getIsNewMessage);
 
   const [myQuestion, setMyQuestion] = useState('');
-  const [isNewMassege, setIsNewMassege] = useState(null);
   const [isShowComponent, setIsShowComponent] = useState(false);
   const [isProductId, setIsProductId] = useState(null);
-  const dialogues = useSelector(getDialogueStore);
+  const isDeleteInProgressRef = useRef(false);
+  const dialogueStore = useSelector(getDialogueStore);
 
   let dialogueArray = [];
   let newMessageArray = [];
@@ -47,69 +59,105 @@ const Dialogue = ({ productInfo }) => {
   }, [productId]);
 
   useEffect(() => {
-    setIsNewMassege(user.newMessage ? user.newMessage : 0);
-  }, [user.newMessage]);
+    if (dialoguesArray.length > 0 && !isNewMessage) {
+      const changedDialogues = dialoguesArray.filter(dialogue => {
+        const newMessageArray = dialogue.newMessages;
+        return newMessageArray.some(obj => obj.userReceiver === user._id);
+      });
 
-  //Коли ми в ProductCard
-  useEffect(() => {
-    const getDialogueNew = async () => {
-      setIsShowComponent(false);
-      dispatch(clearDialogue());
-      if (!isProductId || !isUserLogin) {
+      let currentDialogue = dialogueStore._id
+        ? dialogueStore._id
+        : selectedDialogueId;
+      const isChanged = changedDialogues.some(
+        dialogue => dialogue._id === currentDialogue
+      );
+      if (isChanged) {
+        dispatch(changeStatusIsNewMessage(true));
+        dispatch(updateDialoguesArray(currentDialogue));
+      } else {
         return;
       }
-      if (selectedDialogueId) {
+    } else {
+      return;
+    }
+  }, [
+    dispatch,
+    dialoguesArray,
+    user._id,
+    dialogueStore._id,
+    selectedDialogueId,
+    isNewMessage,
+  ]);
+
+  useEffect(() => {
+    const getDialogueNew = async () => {
+      isDeleteInProgressRef.current = false;
+      setIsShowComponent(false);
+      dispatch(clearDialogue());
+      dispatch(changeStatusIsNewMessage(false));
+      if (!isProductId || !isUserLogin || selectedDialogueId) {
         return;
       }
       await dispatch(getDialogue({ productId: isProductId }));
       setIsShowComponent(true);
     };
     getDialogueNew();
-  }, [dispatch, isProductId, selectedDialogueId, isUserLogin, isNewMassege]);
+  }, [dispatch, isProductId, selectedDialogueId, isUserLogin, isNewMessage]);
 
   useEffect(() => {
     const getDialogueNew = async () => {
+      isDeleteInProgressRef.current = false;
       setIsShowComponent(false);
       dispatch(clearDialogue());
+      dispatch(changeStatusIsNewMessage(false));
       if (!selectedDialogueId) {
         return;
       }
       await dispatch(getDialogue({ dialogueId: selectedDialogueId }));
+
       setIsShowComponent(true);
     };
     getDialogueNew();
-  }, [dispatch, selectedDialogueId, isNewMassege]);
+  }, [dispatch, selectedDialogueId, isNewMessage]);
 
   useEffect(() => {
-    if (!dialogues || dialogues.length === 0) {
+    if (dialogueStore.length === 0) {
+      return;
+    }
+    if (
+      isDeleteInProgressRef.current ||
+      dialogueStore.newMessages.length === 0
+    ) {
       return;
     } else {
-      const dialogueId = dialogues._id;
-      const newMessageArray = dialogues.newMessages;
+      const currentDialogue = dialogueStore._id;
+      const newMessageArray = dialogueStore.newMessages;
       const userId = user._id;
-      const isUserNewMessage = newMessageArray.filter(
+      const userNewMessage = newMessageArray.filter(
         messageObj => messageObj.userReceiver === userId
       );
-      if (!isUserNewMessage || isUserNewMessage.length === 0) {
-        return;
-      } else {
-        const deleteNewMessageCallback = () => {
-          dispatch(
-            deleteDialogueNewMessage({
-              dialogueId: dialogueId,
-              arrayNewMessage: isUserNewMessage,
-            })
-          );
-        };
-        ////////
-        const timer = setTimeout(deleteNewMessageCallback, 10000);
-        return () => {
-          clearTimeout(timer);
-          deleteNewMessageCallback();
-        };
-      }
+
+      const deleteNewMessageCallback = async () => {
+        if (isDeleteInProgressRef.current) {
+          return;
+        }
+        isDeleteInProgressRef.current = true;
+        await dispatch(
+          deleteDialogueNewMessage({
+            dialogueId: currentDialogue,
+            arrayNewMessage: userNewMessage,
+          })
+        );
+        await dispatch(updateDialogueStore(currentDialogue));
+      };
+
+      const timer = setTimeout(deleteNewMessageCallback, 20000);
+      return () => {
+        clearTimeout(timer);
+        deleteNewMessageCallback();
+      };
     }
-  }, [dispatch, dialogues, user._id]);
+  }, [dispatch, dialogueStore, user._id]);
 
   const isInfo = dialogueArray => {
     if (dialogueArray[0].textOwner === '64cccb7e5b8c2eb706fe655d') {
@@ -119,20 +167,20 @@ const Dialogue = ({ productInfo }) => {
     }
   };
 
-  if (dialogues.length === 0) {
+  if (dialogueStore.length === 0) {
     dialogueArray = [];
     newMessageArray = [];
   } else {
-    dialogueArray = dialogues.messageArray.slice().reverse();
-    newMessageArray = dialogues.newMessages;
+    dialogueArray = dialogueStore.messageArray.slice().reverse();
+    newMessageArray = dialogueStore.newMessages;
     isInfo(dialogueArray);
   }
 
   const findAvatar = id => {
     let myAvatar = '';
     let otherAvatar = '';
-    const firstAvatar = dialogues.userAvatar;
-    const secondAvatar = dialogues.productOwnerAvatar;
+    const firstAvatar = dialogueStore.userAvatar;
+    const secondAvatar = dialogueStore.productOwnerAvatar;
     if (user.userAvatar === firstAvatar) {
       myAvatar = firstAvatar;
       otherAvatar = secondAvatar;
@@ -158,7 +206,7 @@ const Dialogue = ({ productInfo }) => {
           text: myQuestion,
           productId: isProductId,
           productOwner: productOwner,
-          dialogueId: dialogues._id,
+          dialogueId: dialogueStore._id,
         })
       );
       setMyQuestion('');
