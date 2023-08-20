@@ -3,14 +3,13 @@ import { useForm, Controller } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { addReview, getUserFeedback } from 'redux/review/review-operations';
 import { selectUserFeedback } from 'redux/review/review-selectors';
+import { updateUser } from 'redux/auth/auth-operations';
 
 import { FiX } from 'react-icons/fi';
 import Button from 'components/Shared/Button/Button';
-// import Avatar from 'components/Profile/Avatar/Avatar';
 import StarsList from 'components/Shared/StarsList/StarsList';
-import s from 'components/Shared/FeedbackWindow/FeedbackWindow.module.scss';
 import ReviewList from '../ReviewList/ReviewList';
-
+import s from 'components/Shared/FeedbackWindow/FeedbackWindow.module.scss';
 
 const FeedbackWindow = ({ hideWindow, orderId, sellerId, products }) => {
   const dispatch = useDispatch();
@@ -45,9 +44,17 @@ const FeedbackWindow = ({ hideWindow, orderId, sellerId, products }) => {
       products: filteredProducts,
       orderId: orderId,
     };
-    console.log(feedbackData);
       await dispatch(addReview(feedbackData));
-      dispatch(getUserFeedback({ sellerId }));
+      await dispatch(getUserFeedback({ sellerId }));
+      const authData = JSON.parse(localStorage.getItem('easy-shop.authData'));
+      if (authData && authData.accessToken) {
+        const userData = {
+          accessToken: authData.accessToken,
+          refreshToken: authData.refreshToken,
+          sid: authData.sid,
+        };
+        dispatch(updateUser(userData));
+      }
     reset();
     // hideWindow();
   };
@@ -98,36 +105,6 @@ const FeedbackWindow = ({ hideWindow, orderId, sellerId, products }) => {
           <p className={s.feedbackTitle}>Відгуки інших користувачів:</p>
         )}
 
-        {/* <ul className={s.reviewsWrapper}>
-          {sellerFeedback.map(
-            ({ _id, reviewer, rating, reviewDate, products, feedback }) => {
-              return (
-                <li className={s.reviewBox} key={_id}>
-                  <div className={s.avatarBox}>
-                    <Avatar src={reviewer.reviewerFoto} />
-                  </div>
-                  <div className={s.reviewWrapper}>
-                    <div className={s.topReviewWrapper}>
-                      <div>
-                        <p className={s.reviewerName}>
-                          {reviewer.reviewerName}
-                        </p>
-                        <StarsList rating={rating} size={16} />
-                      </div>
-                      <p>{reviewDate}</p>
-                    </div>
-                    <ul className={s.productName}>
-                      {products.map(product => (
-                        <li key={product._id}>{product.nameProduct}</li>
-                      ))}
-                    </ul>
-                    <p>{feedback}</p>
-                  </div>
-                </li>
-              );
-            }
-          )}
-        </ul> */}
         <ReviewList review={sellerFeedback} />
       </div>
     </div>
