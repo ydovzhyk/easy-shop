@@ -7,7 +7,7 @@ import { selectUserFeedback } from 'redux/review/review-selectors';
 import { FiX } from 'react-icons/fi';
 import Button from 'components/Shared/Button/Button';
 import Avatar from 'components/Profile/Avatar/Avatar';
-import { StarsList } from './StarsList';
+import StarsList from 'components/Shared/StarsList/StarsList';
 import s from 'components/Shared/FeedbackWindow/FeedbackWindow.module.scss';
 
 

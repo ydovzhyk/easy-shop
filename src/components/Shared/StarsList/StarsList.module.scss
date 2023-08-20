@@ -1,0 +1,23 @@
+@use '../../../styles/mixins';
+
+.starButton {
+    background-color: transparent;
+    transition: scale var(--transition-duration) var(--timing-function);
+  &:hover {
+    scale: 1.2;
+  }
+}
+
+.iconlist {
+  display: flex;
+  gap: 4px;
+  margin: 0 auto;
+}
+
+.iconEmpty {
+  fill: var(--empty-color);
+}
+
+.iconFilled {
+  fill: var(--accent-color);
+}

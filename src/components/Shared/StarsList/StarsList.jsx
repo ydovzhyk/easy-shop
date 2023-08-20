@@ -1,7 +1,7 @@
 import { BsStarFill } from 'react-icons/bs';
-import s from 'components/Shared/FeedbackWindow/FeedbackWindow.module.scss';
+import s from './StarsList.module.scss';
 
-export const StarsList = ({ rating, size, setFeedbackRating }) => {
+const StarsList = ({ rating, size, setFeedbackRating }) => {
   const renderStars = () => {
     const filledStars = Math.round(rating);
     const stars = [];
@@ -42,3 +42,5 @@ export const StarsList = ({ rating, size, setFeedbackRating }) => {
   };
   return <ul className={s.iconlist}>{renderStars()}</ul>;
 };
+
+export default StarsList;

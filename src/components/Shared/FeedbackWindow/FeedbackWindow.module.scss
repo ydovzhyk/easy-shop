@@ -104,27 +104,27 @@
     }
 }
 
-.starButton {
-    background-color: transparent;
-    transition: scale var(--transition-duration) var(--timing-function);
-  &:hover {
-    scale: 1.2;
-  }
-}
+// .starButton {
+//     background-color: transparent;
+//     transition: scale var(--transition-duration) var(--timing-function);
+//   &:hover {
+//     scale: 1.2;
+//   }
+// }
 
-.iconlist {
-  display: flex;
-  gap: 4px;
-  margin: 0 auto;
-}
+// .iconlist {
+//   display: flex;
+//   gap: 4px;
+//   margin: 0 auto;
+// }
 
-.iconEmpty {
-  fill: var(--empty-color);
-}
+// .iconEmpty {
+//   fill: var(--empty-color);
+// }
 
-.iconFilled {
-  fill: var(--accent-color);
-}
+// .iconFilled {
+//   fill: var(--accent-color);
+// }
 
 .feedbackTitle {
     font-size: 14px;
