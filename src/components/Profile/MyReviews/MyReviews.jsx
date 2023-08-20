@@ -1,27 +1,42 @@
-import Text from 'components/Shared/Text/Text';
-import ProfileLink from 'components/Profile/ProfileLink/ProfileLink';
+import {  useState } from 'react';
 import s from './MyReviews.module.scss';
 
 const MyReviews = () => {
-    return (
-        <div className={s.reviewsWrapper}>
-            <Text text={'Відгуки'} textClass="verifyTextTitle" />
-            <ul className={s.list}>
-                <li className={s.item}>
-                    <ProfileLink
-                    to='s'
-                addValue>Як про продавця</ProfileLink>
-                </li>
-                <li className={s.item}>
-                    <ProfileLink
-                    to='b'
-                addValue>Як про покупця</ProfileLink>
-                </li>
-                
-            </ul>
-        </div>
-        
-    )
-}
+  const [currentSelector, setcurrentSelector] = useState('seller');
+  const handleButtonClick = optionName => {
+    setcurrentSelector(optionName);
+  };
+  return (
+    <div className={s.reviewsWrapper}>
+      <p className={s.heading}>Відгуки</p>
+      <ul className={s.optionsList}>
+        <li>
+          <button
+            className={
+              currentSelector === 'seller'
+                ? `${s.selectButton} ${s.active}`
+                : s.selectButton
+            }
+            onClick={() => handleButtonClick('seller')}
+          >
+            Як продавця
+          </button>
+        </li>
+        <li>
+          <button
+            className={
+              currentSelector === 'client'
+                ? `${s.selectButton} ${s.active}`
+                : s.selectButton
+            }
+            onClick={() => handleButtonClick('client')}
+          >
+            Як покупця
+          </button>
+        </li>
+      </ul>
+    </div>
+  );
+};
 
 export default MyReviews;
