@@ -49,9 +49,9 @@ export const deleteReviewById = createAsyncThunk(
 
 export const getUserReviews = createAsyncThunk(
   'reviews/user-reviews',
-  async (_, { rejectWithValue, dispatch }) => {
+  async (userData, { rejectWithValue, dispatch }) => {
     try {
-      const data = await axiosGetUserReviews();
+      const data = await axiosGetUserReviews(userData);
       // console.log(data);
       return data;
     } catch (error) {

@@ -30,6 +30,10 @@ const reviews = createSlice({
     clearReviewById: store => {
       store.orderById = {};
     },
+    clearReviewAndFeedback: store => {
+      store.userReviews = [];
+      store.userFeedback = [];
+    },
   },
   extraReducers: {
     //* addOrder
@@ -102,4 +106,9 @@ const reviews = createSlice({
 
 export default reviews.reducer;
 
-export const { clearReviewMessage, clearReviewError, clearReviewById } = reviews.actions;
+export const {
+  clearReviewMessage,
+  clearReviewError,
+  clearReviewById,
+  clearReviewAndFeedback,
+} = reviews.actions;

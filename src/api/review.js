@@ -19,10 +19,8 @@ export const axiosDeleteReviewById = async id => {
 };
 
 // Get User reviews
-export const axiosGetUserReviews = async () => {
-  const { data } = await instance.post(
-    `/reviews/user-reviews`
-  );
+export const axiosGetUserReviews = async userData => {
+  const { data } = await instance.post(`/reviews/user-reviews`, userData);
   return data;
 };
 

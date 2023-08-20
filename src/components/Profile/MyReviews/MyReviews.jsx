@@ -1,8 +1,27 @@
-import {  useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import s from './MyReviews.module.scss';
+import { selectUserFeedback, selectUserReviews } from 'redux/review/review-selectors';
+import { getUserFeedback, getUserReviews } from 'redux/review/review-operations';
+import { getID } from 'redux/auth/auth-selectors';
+import { clearReviewAndFeedback } from 'redux/review/review-slice';
 
 const MyReviews = () => {
-  const [currentSelector, setcurrentSelector] = useState('seller');
+    const dispatch = useDispatch();
+    const userId = useSelector(getID)
+    const myReview = useSelector(selectUserReviews);
+    const myFeedback = useSelector(selectUserFeedback);
+    console.log(myReview, myFeedback);
+    const [currentSelector, setcurrentSelector] = useState('seller');
+    useEffect(() => {
+        dispatch(clearReviewAndFeedback())
+      if (currentSelector === 'seller') {
+        dispatch(getUserFeedback({ sellerId: userId }));
+      }
+      if (currentSelector === 'client') {
+        dispatch(getUserReviews({ userId }));
+      }
+    }, [dispatch, userId, currentSelector]);
   const handleButtonClick = optionName => {
     setcurrentSelector(optionName);
   };
