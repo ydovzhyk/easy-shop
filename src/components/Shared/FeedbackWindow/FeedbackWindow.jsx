@@ -6,9 +6,10 @@ import { selectUserFeedback } from 'redux/review/review-selectors';
 
 import { FiX } from 'react-icons/fi';
 import Button from 'components/Shared/Button/Button';
-import Avatar from 'components/Profile/Avatar/Avatar';
+// import Avatar from 'components/Profile/Avatar/Avatar';
 import StarsList from 'components/Shared/StarsList/StarsList';
 import s from 'components/Shared/FeedbackWindow/FeedbackWindow.module.scss';
+import ReviewList from '../ReviewList/ReviewList';
 
 
 const FeedbackWindow = ({ hideWindow, orderId, sellerId, products }) => {
@@ -97,7 +98,7 @@ const FeedbackWindow = ({ hideWindow, orderId, sellerId, products }) => {
           <p className={s.feedbackTitle}>Відгуки інших користувачів:</p>
         )}
 
-        <ul className={s.reviewsWrapper}>
+        {/* <ul className={s.reviewsWrapper}>
           {sellerFeedback.map(
             ({ _id, reviewer, rating, reviewDate, products, feedback }) => {
               return (
@@ -126,7 +127,8 @@ const FeedbackWindow = ({ hideWindow, orderId, sellerId, products }) => {
               );
             }
           )}
-        </ul>
+        </ul> */}
+        <ReviewList review={sellerFeedback} />
       </div>
     </div>
   );
