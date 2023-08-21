@@ -203,7 +203,7 @@ const DialogueList = ({ selectedDialogue, setSelectedDialogue }) => {
             ))}
           </ul>
         )}
-        {isDialogueLoading && (
+        {isDialogueLoading && dialoguesArray.length === 0 && (
           <Text
             text={'Список діалогів завантажується...'}
             textClass="after-title-text-warning"
