@@ -2,7 +2,13 @@ import { Suspense, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation, Outlet } from 'react-router-dom';
 
-import { getUser, selectFeedback, selectReviews, selectUserOrders, selectUserSales } from 'redux/auth/auth-selectors';
+import {
+  getUser,
+  selectFeedback,
+  selectReviews,
+  selectUserOrders,
+  selectUserSales,
+} from 'redux/auth/auth-selectors';
 import Loader from 'components/Loader';
 import Container from 'components/Shared/Container';
 import ProfileLink from 'components/Profile/ProfileLink/ProfileLink';
@@ -14,7 +20,9 @@ const UserInfoDetails = () => {
   const userPurchases = useSelector(selectUserOrders);
   const userReviews = useSelector(selectReviews);
   const userFeedback = useSelector(selectFeedback);
-  const valueforReview = userReviews.length + userFeedback.length;
+  const valueforReview = !userReviews
+    ? 0
+    : userReviews.length + userFeedback.length;
 
   const [myProducts, setMyProducts] = useState(0);
 
