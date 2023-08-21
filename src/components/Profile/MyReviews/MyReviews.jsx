@@ -3,13 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 
 import { getLoadingReviews, selectUserFeedback, selectUserReviews } from 'redux/review/review-selectors';
-import { getUserFeedback, getUserReviews } from 'redux/review/review-operations';
+import { deleteReviewById, getUserFeedback, getUserReviews } from 'redux/review/review-operations';
 import { getID } from 'redux/auth/auth-selectors';
 import { clearReviewAndFeedback } from 'redux/review/review-slice';
 
 import Select from 'react-select';
 import Avatar from 'components/Profile/Avatar/Avatar';
 import StarsList from 'components/Shared/StarsList/StarsList';
+import RoundButton from 'components/Shared/RoundButton/RoundButton';
+import { BsTrash } from 'react-icons/bs';
+import { updateUserFunc } from 'funcs&hooks/updateUser';
 import s from './MyReviews.module.scss';
 
 const MyReviews = () => {
@@ -21,6 +24,7 @@ const MyReviews = () => {
     const isTablet = useMediaQuery({ minWidth: 768 });
     
     const [currentSelector, setcurrentSelector] = useState('seller');
+
     useEffect(() => {
         dispatch(clearReviewAndFeedback())
       if (currentSelector === 'seller') {
@@ -34,6 +38,13 @@ const MyReviews = () => {
     setcurrentSelector(optionName);
   };
   const review = currentSelector === 'seller' ? myFeedback : myReview;
+  
+  const handleButtonTrashClick = async id => {
+    await dispatch(deleteReviewById(id));
+    dispatch(getUserReviews({ userId }));
+    updateUserFunc(dispatch);
+  };
+
   return (
     <div className={s.reviewsPageWrapper}>
       <div className={s.reviewsListWrapper}>
@@ -106,6 +117,16 @@ const MyReviews = () => {
                   </ul>
                   <p>{feedback}</p>
                 </div>
+                {currentSelector === 'client' && (
+                  <div className={s.buttonTrashWrapper}>
+                    <RoundButton
+                      btnClass={isTablet ? 'roundButton' : 'roundButtonMob'}
+                      icon={BsTrash}
+                      handleClick={handleButtonTrashClick}
+                      id={_id}
+                    />
+                  </div>
+                )}
               </li>
             );
           }
