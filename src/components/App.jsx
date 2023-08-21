@@ -27,6 +27,7 @@ import {
   getLoadingOtherUser,
   getOtherUserError,
 } from 'redux/otherUser/otherUser-selectors';
+import { getLoadingReviews } from 'redux/review/review-selectors';
 import { getLoadingOrders, getOrderError } from 'redux/order/order-selectors';
 import UserRoutes from './Routes/UserRoutes';
 import Header from './Header';
@@ -52,6 +53,7 @@ export const App = () => {
   const loadingDialogue = useSelector(getLoadingDialogue);
   const loadingOtherUser = useSelector(getLoadingOtherUser);
   const loadingOrder = useSelector(getLoadingOrders);
+  const loadingReview = useSelector(getLoadingReviews)
   const statusDialogue = useSelector(getStatusDialogueList);
   const isDesctop = useMediaQuery({ minWidth: 1280 });
   const dispatch = useDispatch();
@@ -109,7 +111,8 @@ export const App = () => {
       loadingVerify ||
       loadingDialogue ||
       loadingOtherUser ||
-      loadingOrder
+      loadingOrder ||
+      loadingReview
     ) {
       setIsLoaded(true);
     } else {
@@ -122,6 +125,7 @@ export const App = () => {
     loadingDialogue,
     loadingOtherUser,
     loadingOrder,
+    loadingReview,
   ]);
 
   // render last visited page

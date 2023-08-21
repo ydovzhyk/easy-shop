@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { selectUserFeedback, selectUserReviews } from 'redux/review/review-selectors';
+import { getLoadingReviews, selectUserFeedback, selectUserReviews } from 'redux/review/review-selectors';
 import { getUserFeedback, getUserReviews } from 'redux/review/review-operations';
 import { getID } from 'redux/auth/auth-selectors';
 import { clearReviewAndFeedback } from 'redux/review/review-slice';
@@ -14,6 +14,7 @@ const MyReviews = () => {
     const userId = useSelector(getID)
     const myReview = useSelector(selectUserReviews);
     const myFeedback = useSelector(selectUserFeedback);
+    const loading = useSelector(getLoadingReviews);
     
     const [currentSelector, setcurrentSelector] = useState('seller');
     useEffect(() => {
@@ -60,7 +61,7 @@ const MyReviews = () => {
           </li>
         </ul>
       </div>
-      {review.length === 0 && (
+      {!loading && review.length === 0 && (
         <p className={s.message}>Тут поки нічого немає</p>
       )}
       <ul className={s.reviewsWrapper}>
