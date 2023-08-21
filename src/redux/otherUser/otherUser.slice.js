@@ -1,6 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { getOtherUser, updateUserSubscriptions } from './otherUser-operations';
+import {
+  getOtherUser,
+  updateUserSubscriptions,
+  deleteUserSubscriptions,
+} from './otherUser-operations';
 
 const initialState = {
   message: '',
@@ -51,6 +55,21 @@ const otherUser = createSlice({
       store.totalPagesSubscription = payload.totalPagesUserSubscription;
     },
     [updateUserSubscriptions.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload.message;
+    },
+
+    // * Delete User Subscriptions
+    [deleteUserSubscriptions.pending]: store => {
+      store.loading = true;
+      store.error = '';
+    },
+    [deleteUserSubscriptions.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.userSubscriptions = payload.userSubscriptions;
+      store.totalPagesSubscription = payload.totalPagesUserSubscription;
+    },
+    [deleteUserSubscriptions.rejected]: (store, { payload }) => {
       store.loading = false;
       store.error = payload.message;
     },

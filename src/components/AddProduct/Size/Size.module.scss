@@ -25,6 +25,7 @@
   width: 115px;
   border: 1px solid #dedddd;
   border-radius: 5px;
+  transition: box-shadow var(--transition-duration) var(--timing-function);
   @include mixins.mq(tablet) {
     width: 130px;
   }
@@ -34,10 +35,14 @@
 }
 
 .menuGroupItems:hover {
-  background-color: var(--background-color);
+  box-shadow: 2px 2px 2px 2px var(--border-color);
   cursor: pointer;
 }
 
 .menuGroupItemsSelected {
   background-color: var(--background-btn-main-color);
+  transition: color var(--transition-duration) var(--timing-function);
+  p {
+    color: #000;
+  }
 }

@@ -27,7 +27,7 @@ import Text from 'components/Shared/Text/Text';
 import s from './HeaderForm.module.scss';
 
 const HeaderForm = () => {
-  const [, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -35,12 +35,15 @@ const HeaderForm = () => {
   const dispatch = useDispatch();
 
   const isUserAtProductsSearchPage =
-    pathname.includes('/products') && pathname.split('/').length <= 4;
+    pathname.includes('/product') && pathname.split('/').length <= 4;
+
+  const searchUrlParam = searchParams.get('search');
 
   const {
     control,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors, isDirty },
   } = useForm({
     defaultValues: {
@@ -51,6 +54,13 @@ const HeaderForm = () => {
 
   useEffect(() => {
     if (!shouldHeaderFormReset) {
+      if (searchUrlParam && !window.sessionStorage.getItem('searchQuery')) {
+        window.sessionStorage.setItem(
+          'searchQuery',
+          JSON.stringify(searchUrlParam)
+        );
+        setValue('productName', searchUrlParam);
+      }
       return;
     }
     const resetForm = async () => {
@@ -63,7 +73,14 @@ const HeaderForm = () => {
       await dispatch(setCurrentProductsPage(1));
     };
     resetForm();
-  }, [shouldHeaderFormReset, reset, dispatch]);
+  }, [
+    shouldHeaderFormReset,
+    searchParams,
+    searchUrlParam,
+    setValue,
+    reset,
+    dispatch,
+  ]);
 
   useEffect(() => {
     if (isUserAtProductsSearchPage) {
@@ -91,7 +108,7 @@ const HeaderForm = () => {
     }
     await dispatch(setCurrentProductsPage(1));
     await dispatch(setHeaderFormClick());
-    await navigate(!isUserAtProductsSearchPage ? '/products' : pathname);
+    await navigate(!isUserAtProductsSearchPage ? '/product' : pathname);
   };
 
   return (

@@ -132,3 +132,11 @@
     box-shadow var(--transition-duration) var(--timing-function);
   cursor: pointer;
 }
+
+.btnLightSubscribe {
+  @extend .btnLight;
+  margin-bottom: 10px;
+  @include mixins.mq(tablet) {
+    margin-bottom: 0;
+  }
+}

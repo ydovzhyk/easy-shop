@@ -5,6 +5,8 @@ import { useMediaQuery } from 'react-responsive';
 
 import { useForm } from 'react-hook-form';
 
+import { useSearchParams } from 'react-router-dom';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
 
@@ -33,6 +35,8 @@ const Filter = ({ onChange }) => {
   const [showBrand, setShowBrand] = useState(true);
   const [selectedSizes, setSelectedSizes] = useState([]);
 
+  const [searchParams] = useSearchParams();
+
   const shouldFilterProductReset = useSelector(getFilterProduct);
   const dispatch = useDispatch();
 
@@ -40,6 +44,7 @@ const Filter = ({ onChange }) => {
     handleSubmit,
     register,
     resetField,
+    setValue,
     reset,
     watch,
     formState: { errors, dirtyFields, isDirty, isSubmitting },
@@ -80,6 +85,34 @@ const Filter = ({ onChange }) => {
     resetField,
     reset,
   ]);
+
+  useEffect(() => {
+    const params = {};
+    if (searchParams.size === 0) {
+      return;
+    }
+
+    searchParams.forEach((value, key) => {
+      params[key] = value;
+    });
+
+    for (const [key, value] of Object.entries(params)) {
+      if (key === 'price') {
+        const selectedFilterPrice = filterPrices.find(
+          (el, index) => Number(value) === index
+        );
+
+        setValue('filterPriceRadio', selectedFilterPrice);
+      }
+      // if (key === 'condition') {
+      //   const selectedFilterCondition = filterConditions.filter(
+      //     (el, index) => Number(value) === index
+      //   );
+
+      //   setValue('filterCondition', selectedFilterCondition);
+      // }
+    }
+  }, [searchParams, setValue]);
 
   useEffect(() => {
     if (dirtyFields.filterPriceFrom || dirtyFields.filterPriceTo) {

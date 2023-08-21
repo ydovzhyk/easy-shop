@@ -33,10 +33,10 @@ const ProductsPage = lazy(() => import('pages/ProductsPage'));
 const SellerInfoPage = lazy(() => import('pages/SellerInfoPage'));
 const Wares = lazy(() => import('components/SellerInfo/Wares/Wares'));
 const About = lazy(() => import('components/SellerInfo/About/About'));
-const Reviews = lazy(() =>
-  import('components/SellerInfo/Reviews/Reviews')
-);
+const Reviews = lazy(() => import('components/SellerInfo/Reviews/Reviews'));
 const MySales = lazy(() => import('components/Profile/MySales/MySales'));
+const LikedProducts = lazy(() => import('components/Favorites/LikedProducts/LikedProducts'));
+const UserSubscriptions = lazy(() => import('components/Favorites/UserSubscriptions/UserSubscriptions'));
 
 const UserRoutes = () => {
   return (
@@ -47,13 +47,13 @@ const UserRoutes = () => {
           <Route path="/easy-shop-test" element={<HomePage />} />
           <Route path="/registration" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/products" element={<ProductsSearchPage />}>
+          <Route path="/product" element={<ProductsSearchPage />}>
             <Route index element={<ProductsPage />} />
             <Route path=":category" element={<ProductsPage />} />
             <Route path=":category/:subcategory" element={<ProductsPage />} />
           </Route>
           <Route
-            path="/products/:category/:subcategory/:id"
+            path="/product/:category/:subcategory/:id"
             element={<ProductDetails />}
           />
           <Route path="/member/:id" element={<SellerInfoPage />}>
@@ -68,7 +68,11 @@ const UserRoutes = () => {
           <Route path="/edit-product/:id" element={<EditProductPage />} />
           <Route path="/message" element={<MessagePage />} />
           <Route path="/basket" element={<BasketPage />} />
-          <Route path="/favorites" element={<FavoritesPage />} />
+          <Route path="/favorites" element={<FavoritesPage />}>
+            <Route index element={<LikedProducts />} />
+            <Route path="liked-products" element={<LikedProducts />} />
+            <Route path="user-subscriptions" element={<UserSubscriptions />} />
+          </Route>
           <Route path="/profile" element={<ProfilePage />}>
             <Route index element={<MyWares />} />
             <Route path="mywares" element={<MyWares />} />

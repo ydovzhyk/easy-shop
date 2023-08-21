@@ -10,6 +10,7 @@ import {
   getDialogueMessage,
   getLoadingDialogue,
 } from 'redux/dialogue/dialogue-selectors';
+import { updateStatusDialogueList } from 'redux/dialogue/dialogue-slice';
 import { getUser } from 'redux/auth/auth-selectors';
 
 import Avatar from 'components/Profile/Avatar/Avatar';
@@ -28,7 +29,6 @@ const DialogueList = ({ selectedDialogue, setSelectedDialogue }) => {
   const [dialogueId, setDialogueId] = useState(null);
   const [questionWindow, setQuestionWindow] = useState(false);
   const user = useSelector(getUser);
-  const [isNewMassege, setIsNewMassege] = useState(null);
   const dialoguesArray = useSelector(getDialoguesArrayStore);
   const isDialogueLoading = useSelector(getLoadingDialogue);
   const message = useSelector(getDialogueMessage);
@@ -38,18 +38,18 @@ const DialogueList = ({ selectedDialogue, setSelectedDialogue }) => {
   const onActive = async data => {
     if (data) {
       setStatusDialogue(true);
+      dispatch(updateStatusDialogueList(true));
     } else {
       setStatusDialogue(false);
+      dispatch(updateStatusDialogueList(false));
     }
   };
 
-  useEffect(() => {
-    setIsNewMassege(user.newMessage ? user.newMessage : 0);
-  }, [user.newMessage]);
+  useEffect(() => {}, [user.newMessage]);
 
   useEffect(() => {
     dispatch(getAllDialoguesData({ statusDialogue }));
-  }, [dispatch, statusDialogue, isNewMassege]);
+  }, [dispatch, statusDialogue]);
 
   useEffect(() => {
     if (message) {
@@ -123,7 +123,9 @@ const DialogueList = ({ selectedDialogue, setSelectedDialogue }) => {
               text="Архівні"
               type="button"
               handleClick={() => onActive(false)}
-              btnClass="exitHeaderBtn"
+              btnClass={
+                statusDialogue ? 'exitHeaderBtn' : 'exitHeaderBtnDialogue'
+              }
             />
           </div>
         </div>
@@ -201,7 +203,7 @@ const DialogueList = ({ selectedDialogue, setSelectedDialogue }) => {
             ))}
           </ul>
         )}
-        {isDialogueLoading && (
+        {isDialogueLoading && dialoguesArray.length === 0 && (
           <Text
             text={'Список діалогів завантажується...'}
             textClass="after-title-text-warning"
