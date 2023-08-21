@@ -35,6 +35,8 @@ const Wares = lazy(() => import('components/SellerInfo/Wares/Wares'));
 const About = lazy(() => import('components/SellerInfo/About/About'));
 const Reviews = lazy(() => import('components/SellerInfo/Reviews/Reviews'));
 const MySales = lazy(() => import('components/Profile/MySales/MySales'));
+const LikedProducts = lazy(() => import('components/Favorites/LikedProducts/LikedProducts'));
+const UserSubscriptions = lazy(() => import('components/Favorites/UserSubscriptions/UserSubscriptions'));
 
 const UserRoutes = () => {
   return (
@@ -66,7 +68,11 @@ const UserRoutes = () => {
           <Route path="/edit-product/:id" element={<EditProductPage />} />
           <Route path="/message" element={<MessagePage />} />
           <Route path="/basket" element={<BasketPage />} />
-          <Route path="/favorites" element={<FavoritesPage />} />
+          <Route path="/favorites" element={<FavoritesPage />}>
+            <Route index element={<LikedProducts />} />
+            <Route path="liked-products" element={<LikedProducts />} />
+            <Route path="user-subscriptions" element={<UserSubscriptions />} />
+          </Route>
           <Route path="/profile" element={<ProfilePage />}>
             <Route index element={<MyWares />} />
             <Route path="mywares" element={<MyWares />} />

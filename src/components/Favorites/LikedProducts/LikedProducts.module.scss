@@ -1,0 +1,19 @@
+@use '../../../styles/mixins';
+
+.listCard {
+  margin-bottom: 20px;
+
+  @include mixins.mq(tablet) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 45px;
+  }
+
+  @include mixins.mq(desktop) {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 45px;
+
+    margin-bottom: 70px;
+  }
+}

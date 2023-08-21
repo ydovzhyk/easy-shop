@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+// import { NavLink } from 'react-router-dom';
 
 import { getUserLikesBasket } from 'redux/auth/auth-operations';
 import {
-  getID,
-  getUserDateCreate,
+  // getID,
+  getUser,
+  // getUserDateCreate,
   getLikedProducts,
   getTotalLikedProductsPages,
 } from 'redux/auth/auth-selectors';
@@ -15,16 +17,13 @@ import {
 } from 'redux/otherUser/otherUser-selectors';
 
 import Container from 'components/Shared/Container';
-import ProductItem from '../Shared/ProductItem/ProductItem';
+import LikedProducts from './LikedProducts/LikedProducts';
+import UserSubscriptions from './UserSubscriptions/UserSubscriptions';
+
+// import ProductItem from '../Shared/ProductItem/ProductItem';
 import Pagination from 'components/Shared/Pagination/Pagination';
 import Button from 'components/Shared/Button';
 import Text from 'components/Shared/Text/Text';
-import DaysValue from 'components/Shared/helper/DaysValue';
-
-import Avatar from 'components/Profile/Avatar/Avatar';
-import UserRating from 'components/Profile/ProfileInfo/UserRating';
-import Value from 'components/Profile/Value';
-import { BsCheck2, BsGeoAlt, BsHandbag, BsPeople } from 'react-icons/bs';
 
 import s from './Favorites.module.scss';
 
@@ -35,30 +34,19 @@ const TabTypes = {
 
 const Favorites = () => {
   const dispatch = useDispatch();
+  // const [userSubscriptionId, setUserSubscriptionId] = useState(null);
   const [isLiked, setIsLiked] = useState(false);
   const [selectedTab, setSelectedTab] = useState(TabTypes.PRODUCTS);
   const [currentPage, setCurrentPage] = useState(1);
+  const [userLikesLength, setUserLikesLength] = useState(0);
+  const [subscriptionsLength, setSubscriptionsLength] = useState(0);
 
-  const userId = useSelector(getID);
+  // const userId = useSelector(getID);
+  const user = useSelector(getUser);
   const likedProducts = useSelector(getLikedProducts);
   const totalLikedPages = useSelector(getTotalLikedProductsPages);
   const userSubscriptions = useSelector(selectUserSubscriptions);
   const totalPagesSubscription = useSelector(selectTotalPagesUserSubscription);
-  const dateCreate = useSelector(getUserDateCreate);
-
-  const getDaysPassedFromDate = dateString => {
-    const date = new Date(dateString);
-    const currentDate = new Date();
-    const deltaTime = currentDate - date;
-    const daysPassed = Math.floor(deltaTime / (1000 * 60 * 60 * 24));
-    return daysPassed;
-  };
-
-  const rating = 3.2;
-  const gradesAmount = 12;
-  const daysAmount = getDaysPassedFromDate(dateCreate);
-  const followersAmount = 36;
-  const salesAmount = 16;
 
   useEffect(() => {
     dispatch(getUserLikesBasket({ currentPage }));
@@ -67,19 +55,48 @@ const Favorites = () => {
     setIsLiked(false);
   }, [dispatch, selectedTab, isLiked, currentPage]);
 
-  // for likes
-  const checkUserLike = productId => {
-    const product = likedProducts.find(item => item._id === productId);
-
-    if (product) {
-      return product.userLikes.includes(userId);
+  useEffect(() => {
+    if (user && user.userLikes) {
+      setUserLikesLength(user.userLikes.length);
+    } else {
+      setUserLikesLength(0);
     }
-    return false;
-  };
+  }, [user]);
 
-  const handleLike = isLiked => {
-    setIsLiked(isLiked);
-  };
+  useEffect(() => {
+    if (user && user.userSubscriptions) {
+      setSubscriptionsLength(user.userSubscriptions.length);
+    } else {
+      setSubscriptionsLength(0);
+    }
+  }, [user]);
+
+  // // for likes
+  // const checkUserLike = productId => {
+  //   const product = likedProducts.find(item => item._id === productId);
+
+  //   if (product) {
+  //     return product.userLikes.includes(userId);
+  //   }
+  //   return false;
+  // };
+
+  // // const handleLike = isLiked => {
+  // //   setIsLiked(isLiked);
+  // // };
+  // const handleLike = productId => {
+  //   const product = likedProducts.find(item => item._id === productId);
+
+  //   if (product) {
+  //     // Видалити
+  //     const updatedLikedProducts = [...likedProducts];
+  //     updatedLikedProducts.splice(product, 1);
+  //     dispatch(getUserLikesBasket(updatedLikedProducts));
+
+  //     // Оновити
+  //     dispatch(getUserLikesBasket(updatedLikedProducts));
+  //   }
+  // };
 
   // for scroling
   const scrollToTop = () => {
@@ -92,13 +109,34 @@ const Favorites = () => {
     scrollToTop();
   };
 
+  // // for delete subscriptions
+  // const handleDeleteSubscriptions = _id => {
+  //   setUserSubscriptionId(_id);
+  //   setQuestionWindow(true);
+  //   console.log('handleDeleteSubscriptions called with _id:', _id);
+  // };
+
+  // const deleteSubscriptions = choice => {
+  //   if (choice === 'yes') {
+  //     console.log('yes', userSubscriptionId);
+  //     dispatch(
+  //       updateUserSubscriptions({ userSubscriptionId: userSubscriptionId })
+  //     );
+  //     setQuestionWindow(false);
+  //   } else if (choice === 'no') {
+  //     console.log('no');
+  //     setUserSubscriptionId(null);
+  //     setQuestionWindow(false);
+  //   }
+  // };
+
   return (
     <Container>
       <section className={s.likesSection}>
         <div className={s.btnSelect}>
           <div className={s.wrapper}>
             <Button
-              text="Обрані товари"
+              text={`Обрані товари - ${userLikesLength}`}
               type="button"
               handleClick={() => setSelectedTab(TabTypes.PRODUCTS)}
               btnClass={
@@ -110,7 +148,7 @@ const Favorites = () => {
           </div>
           <div className={s.wrapper}>
             <Button
-              text="Обрані продавці"
+              text={`Обрані продавці - ${subscriptionsLength}`}
               type="button"
               handleClick={() => setSelectedTab(TabTypes.SELLERS)}
               btnClass={
@@ -126,7 +164,8 @@ const Favorites = () => {
         likedProducts &&
         likedProducts.length > 0 ? (
           <>
-            <ul className={s.listCard}>
+            <LikedProducts to="liked-products"/>
+            {/* <ul className={s.listCard}>
               {likedProducts.map(item => (
                 <ProductItem
                   key={item._id}
@@ -143,7 +182,7 @@ const Favorites = () => {
                   category={item.category}
                 />
               ))}
-            </ul>
+            </ul> */}
             <Pagination
               totalPages={totalLikedPages}
               currentPage={currentPage}
@@ -154,58 +193,76 @@ const Favorites = () => {
           userSubscriptions &&
           userSubscriptions.length > 0 ? (
           <>
-            <ul className={s.listCard}>
+            <UserSubscriptions to="user-subscriptions"/>
+            {/* <ul className={s.listCard}>
               {userSubscriptions.map(
-                ({ _id, userAvatar, firstName, lastVisit, cityName }) => (
-                  <li key={_id} className={s.itemCard}>
-                    <div className={s.avatarframe}>
-                      <div className={s.avatar}>
-                        <Avatar src={userAvatar} avatarClass="photoAvatar" />
-                      </div>
-                    </div>
-                    <div className={s.userframe}>
-                      <div className={s.profilebox}>
-                        <h5 className={s.username}>{firstName}</h5>
-                        <UserRating
-                          rating={rating}
-                          gradesAmount={gradesAmount}
-                        />
-                      </div>
-                      <div className={s.infowrapper}>
-                        <BsCheck2 className={s.iconBefore} />
-                        <p className={s.text}>На Easy shop</p>
-                        <DaysValue
-                          value={daysAmount}
-                          className={`${s.rightvalue} ${s.text}`}
-                        />
-                      </div>
-                      <div className={s.profileinfo}>
-                        <div className={s.infowrapper}>
-                          <BsGeoAlt className={s.iconBefore} />
-                          <p className={s.text}>{cityName}</p>
-                        </div>
-                        <div className={s.infowrapper}>
-                          <BsPeople className={s.iconBefore} />
-                          <p className={s.text}>
-                            <Value className={s.leftvalue}>
-                              {followersAmount}
-                            </Value>
-                            підписників
-                          </p>
-                        </div>
-                        <div className={s.infowrapper}>
-                          <BsHandbag className={s.iconBefore} />
-                          <p className={s.text}>
-                            <Value className={s.leftvalue}>{salesAmount}</Value>
-                            продажів
-                          </p>
+                ({ _id, userAvatar, username, cityName }) => (
+                  <li className={s.itemCard} key={_id}>
+                    <NavLink to={`/member/${_id}`}>
+                      <div className={s.avatarframe}>
+                        <div className={s.avatar}>
+                          <Avatar src={userAvatar} avatarClass="photoAvatar" />
                         </div>
                       </div>
-                    </div>
+                      <div className={s.userframe}>
+                        <div className={s.profilebox}>
+                          <h5 className={s.username}>{username}</h5>
+                          <UserRating
+                            rating={rating}
+                            gradesAmount={gradesAmount}
+                          />
+                        </div>
+                        <div className={s.infowrapper}>
+                          <BsCheck2 className={s.iconBefore} />
+                          <p className={s.text}>На Easy shop</p>
+                          <DaysValue
+                            value={daysAmount}
+                            className={`${s.rightvalue} ${s.text}`}
+                          />
+                        </div>
+                        <div className={s.profileinfo}>
+                          <div className={s.infowrapper}>
+                            <BsGeoAlt className={s.iconBefore} />
+                            <p className={s.text}>{cityName}</p>
+                          </div>
+                          <div className={s.infowrapper}>
+                            <BsPeople className={s.iconBefore} />
+                            <p className={s.text}>
+                              <Value className={s.leftvalue}>
+                                {followersAmount}
+                              </Value>
+                              підписників
+                            </p>
+                          </div>
+                          <div className={s.infowrapper}>
+                            <BsHandbag className={s.iconBefore} />
+                            <p className={s.text}>
+                              <Value className={s.leftvalue}>
+                                {salesAmount}
+                              </Value>
+                              продажів
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </NavLink>
+                    <RoundButton
+                      icon={BsTrash}
+                      handleClick={handleDeleteSubscriptions}
+                      id={_id}
+                    />
                   </li>
                 )
               )}
-            </ul>
+            </ul> */}
+            {/* {questionWindow && (
+              <MessageWindow
+                // text={`"Ви впевнені, що хочете видалити підписку на ${username}?"`}
+                text={`"Ви впевнені, що хочете видалити підписку?"`}
+                confirmButtons={true}
+                onConfirm={deleteSubscriptions}
+              />
+            )} */}
             <Pagination
               totalPages={totalPagesSubscription}
               currentPage={currentPage}
