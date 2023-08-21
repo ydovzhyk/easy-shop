@@ -1,4 +1,6 @@
-import sizeOption from '../components/AddProduct/Size/sizeTable.json';
+import sizeOption from 'components/AddProduct/Size/sizeTable.json';
+import { filterConditions } from '../components/Filter/filterСonditions';
+import { filterPrices } from '../components/Filter/filterPrice';
 
 export function getUrlFilterValues(filterData) {
   let selectedFilterValues = {};
@@ -25,8 +27,13 @@ export function getUrlFilterValues(filterData) {
       selectedFilterValues.size = selectedSizeOptionsIndex.join('_');
     }
     if (key === 'filterPrice' && value !== '') {
-      selectedFilterValues.price = value;
+      const selectedFilterPriceIndex = filterPrices.findIndex(
+        el => el === value
+      );
+      selectedFilterValues.price = selectedFilterPriceIndex;
     }
+    // selectedFilterValues.price = value;
+
     if (key === 'filterPriceFrom' && value !== '0') {
       selectedFilterValues.price_from = value;
     }
@@ -37,8 +44,19 @@ export function getUrlFilterValues(filterData) {
       selectedFilterValues.brandName = value;
     }
     if (key === 'condition' && value.length > 0) {
-      selectedFilterValues.condition = value.join('_');
+      let selectedConditionOptionsIndex = [];
+
+      for (let i = 0; i < filterConditions.length; i += 1) {
+        for (let j = 0; j < value.length; j += 1) {
+          if (filterConditions[i] === value[j]) {
+            selectedConditionOptionsIndex.push(i);
+          }
+        }
+      }
+      selectedFilterValues.condition = selectedConditionOptionsIndex.join('_');
     }
+
+    // selectedFilterValues.condition = value.join('_');
   });
 
   return selectedFilterValues;
