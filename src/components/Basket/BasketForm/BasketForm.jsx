@@ -229,7 +229,7 @@ const BasketForm = ({ ownerId, ownerName, products }) => {
         )}
       </ul>
       <div className={s.linkWrapper}>
-        <Link to="/seller/:id" className={s.btnWrapper}>
+        <Link to={`/member/${ownerId}`} className={s.btnWrapper}>
           <Text
             textClass="verifyAttention"
             text={'Додати інші товари продавця'}
