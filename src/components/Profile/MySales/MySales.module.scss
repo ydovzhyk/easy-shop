@@ -19,6 +19,7 @@
 }
 
 .orderItem {
+    position: relative;
     margin-bottom: 20px;
     padding: 12px;
     border: 1px solid var(--border-color);
@@ -96,5 +97,19 @@
     }
     @include mixins.mq(desktop) {
         font-size: 26px;
+    }
+}
+
+
+.buttonTrashWrapper {
+    position: absolute;
+    top: 332px;
+    right: 16px;
+    @include mixins.mq(tablet) {
+        top: 108px;
+    }
+    @include mixins.mq(desktop) {
+        top: 120px;
+        right: 40px;
     }
 }
