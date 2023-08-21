@@ -7,13 +7,14 @@ export const axiosGetOtherUser = async userData => {
 };
 
 export const axiosUserSubscriptions = async userData => {
-  // const { data } = await instance.post(`/other-user/subscriptions?page=${userData}`, userData);
-  const { data } = await instance.post(`/other-user/subscriptions`);
+  const { data } = await instance.post(`/other-user/subscriptions`, userData);
   return data;
 };
 
-
 export const axiosDeleteUserSubscriptions = async userData => {
-  const { data } = await instance.post(`/other-user/subscriptions/delete`);
+  const { data } = await instance.post(
+    `/other-user/subscriptions/delete`,
+    userData
+  );
   return data;
 };

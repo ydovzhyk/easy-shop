@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 // import { NavLink } from 'react-router-dom';
 
-import { getUserLikesBasket } from 'redux/auth/auth-operations';
 import {
   getID,
   getUser,
-//   getUserDateCreate,
+  //   getUserDateCreate,
   getLikedProducts,
-//   getTotalLikedProductsPages,
+  //   getTotalLikedProductsPages,
 } from 'redux/auth/auth-selectors';
 // import { updateUserSubscriptions } from 'redux/otherUser/otherUser-operations';
 // import {
@@ -30,11 +29,12 @@ import s from 'components/Favorites/LikedProducts/LikedProducts.module.scss';
 // };
 
 const LikedProducts = () => {
-  const dispatch = useDispatch();
   const [userLikesLength, setUserLikesLength] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
 
   const user = useSelector(getUser);
   const userId = useSelector(getID);
+
   const likedProducts = useSelector(getLikedProducts);
 
   useEffect(() => {
@@ -48,28 +48,14 @@ const LikedProducts = () => {
   // for likes
   const checkUserLike = productId => {
     const product = likedProducts.find(item => item._id === productId);
-
     if (product) {
       return product.userLikes.includes(userId);
     }
     return false;
   };
 
-  // const handleLike = isLiked => {
-  //   setIsLiked(isLiked);
-  // };
-  const handleLike = productId => {
-    const product = likedProducts.find(item => item._id === productId);
-
-    if (product) {
-      // Видалити
-      const updatedLikedProducts = [...likedProducts];
-      updatedLikedProducts.splice(product, 1);
-      dispatch(getUserLikesBasket(updatedLikedProducts));
-
-      // Оновити
-      dispatch(getUserLikesBasket(updatedLikedProducts));
-    }
+  const handleLike = isLiked => {
+    setIsLiked(isLiked);
   };
 
   return (
@@ -79,16 +65,21 @@ const LikedProducts = () => {
           <ProductItem
             key={item._id}
             _id={item._id}
+            userId={userId}
             mainPhotoUrl={item.mainPhotoUrl}
             price={item.price}
             likes={item.userLikes.length ? item.userLikes.length : 0}
             userLike={checkUserLike(item._id)}
+            isLiked={isLiked}
             handleLike={handleLike}
             nameProduct={item.nameProduct}
+            owner={item.owner}
             description={item.description}
             size={item.size}
             section={item.section}
             category={item.category}
+            vip={item.vip}
+            sale={item.sale}
           />
         ))}
       </ul>
