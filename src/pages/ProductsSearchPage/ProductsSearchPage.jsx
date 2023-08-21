@@ -51,7 +51,7 @@ const ProductsSearchPage = () => {
       searchParams.delete('size');
       searchParams.delete('price');
       searchParams.delete('condition');
-      searchParams.delete('brandName');
+      searchParams.delete('brand');
       searchParams.delete('price_from');
       searchParams.delete('price_to');
       searchParams.delete('page');

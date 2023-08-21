@@ -41,7 +41,7 @@ export function getUrlFilterValues(filterData) {
       selectedFilterValues.price_to = value;
     }
     if (key === 'brandName' && value !== '') {
-      selectedFilterValues.brandName = value;
+      selectedFilterValues.brand = value;
     }
     if (key === 'condition' && value.length > 0) {
       let selectedConditionOptionsIndex = [];
