@@ -95,7 +95,10 @@
 .reviewsWrapper {
     padding: 4px;
     flex-grow: 1;
-    max-width: 75%;
+    width: 100%;
+    @include mixins.mq(tablet) {
+        max-width: 75%;
+    }
 }
 
 .reviewBox {
