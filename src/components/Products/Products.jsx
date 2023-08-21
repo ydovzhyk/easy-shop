@@ -85,21 +85,13 @@ const Products = () => {
     await dispatch(setCurrentProductsPage(1));
   };
 
-  // useEffect(() => {
-  //   // if (isFilterFormSubmitted || shouldFilterFormReset) {
-  //   //   return;
-  //   // }
-  //   if (shouldFilterFormReset) {
-  //     searchParams.get('size');
-  //     searchParams.get('price');
-  //     searchParams.get('condition');
-  //     searchParams.get('brand');
-  //     searchParams.get('price_from');
-  //     searchParams.get('price_to');
-  //     searchParams.get('page');
-  //     return;
-  //   }
-  // }, [searchParams]);
+  const hasUrlSearchParams =
+    searchParams.get('price') ||
+    searchParams.get('size') ||
+    searchParams.get('condition') ||
+    searchParams.get('brand') ||
+    searchParams.get('price_from') ||
+    searchParams.get('price_to');
 
   const handleClearFiltersClick = async () => {
     await dispatch(resetFilterProduct());
@@ -139,7 +131,7 @@ const Products = () => {
               <MdClose size={isMobile ? 18 : 22} />
             </button>
           )}
-          {isFilterFormSubmitted && (
+          {hasUrlSearchParams && (
             <button
               type="button"
               className={s.filterContent}
