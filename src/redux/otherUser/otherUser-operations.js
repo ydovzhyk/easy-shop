@@ -1,5 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { axiosGetOtherUser, axiosUserSubscriptions } from 'api/otherUser';
+import {
+  axiosGetOtherUser,
+  axiosUserSubscriptions,
+  axiosDeleteUserSubscriptions,
+} from 'api/otherUser';
 
 export const getOtherUser = createAsyncThunk(
   'other-user/',
@@ -16,9 +20,22 @@ export const getOtherUser = createAsyncThunk(
 
 export const updateUserSubscriptions = createAsyncThunk(
   'other-user/subscriptions',
-  async (_, { rejectWithValue }) => {
+  async (userData, { rejectWithValue }) => {
     try {
-      const data = await axiosUserSubscriptions();
+      const data = await axiosUserSubscriptions(userData);
+      return data;
+    } catch (error) {
+      const { data, status } = error.response;
+      return rejectWithValue({ data, status });
+    }
+  }
+);
+
+export const deleteUserSubscriptions = createAsyncThunk(
+  'other-user/subscriptions/delete',
+  async (userData, { rejectWithValue, dispatch }) => {
+    try {
+      const data = await axiosDeleteUserSubscriptions(userData);
       return data;
     } catch (error) {
       const { data, status } = error.response;

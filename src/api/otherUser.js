@@ -11,3 +11,9 @@ export const axiosUserSubscriptions = async userData => {
   const { data } = await instance.post(`/other-user/subscriptions`);
   return data;
 };
+
+
+export const axiosDeleteUserSubscriptions = async userData => {
+  const { data } = await instance.post(`/other-user/subscriptions/delete`);
+  return data;
+};
