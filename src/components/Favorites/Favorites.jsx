@@ -164,7 +164,7 @@ const Favorites = () => {
         likedProducts &&
         likedProducts.length > 0 ? (
           <>
-            <LikedProducts to="liked-products"/>
+            <LikedProducts to="liked-products" />
             {/* <ul className={s.listCard}>
               {likedProducts.map(item => (
                 <ProductItem
@@ -193,7 +193,7 @@ const Favorites = () => {
           userSubscriptions &&
           userSubscriptions.length > 0 ? (
           <>
-            <UserSubscriptions to="user-subscriptions"/>
+            <UserSubscriptions to="user-subscriptions" />
             {/* <ul className={s.listCard}>
               {userSubscriptions.map(
                 ({ _id, userAvatar, username, cityName }) => (

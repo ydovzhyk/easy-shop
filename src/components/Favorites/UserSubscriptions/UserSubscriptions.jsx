@@ -16,6 +16,8 @@ import {
   //   selectTotalPagesUserSubscription,
 } from 'redux/otherUser/otherUser-selectors';
 
+import { updateUserFunc } from '../../../funcs&hooks/updateUser';
+
 // import Container from 'components/Shared/Container';
 // import ProductItem from '../Shared/ProductItem/ProductItem';
 // import Pagination from 'components/Shared/Pagination/Pagination';
@@ -70,12 +72,13 @@ const UserSubscriptions = () => {
     console.log('handleDeleteSubscriptions called with _id:', _id);
   };
 
-  const deleteSubscriptions = choice => {
+  const deleteSubscriptions = async choice => {
     if (choice === 'yes') {
       console.log('yes', userSubscriptionId);
-      dispatch(
+      await dispatch(
         deleteUserSubscriptions({ userSubscriptionId: userSubscriptionId })
       );
+      updateUserFunc(dispatch);
       setQuestionWindow(false);
     } else if (choice === 'no') {
       console.log('no');
