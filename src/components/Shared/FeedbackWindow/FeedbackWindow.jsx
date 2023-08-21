@@ -3,7 +3,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { addReview, getUserFeedback } from 'redux/review/review-operations';
 import { selectUserFeedback } from 'redux/review/review-selectors';
-import { updateUser } from 'redux/auth/auth-operations';
+import { updateUserFunc } from 'funcs&hooks/updateUser';
 
 import { FiX } from 'react-icons/fi';
 import Button from 'components/Shared/Button/Button';
@@ -51,15 +51,7 @@ const FeedbackWindow = ({
     // console.log(feedbackData);
     await dispatch(addReview(feedbackData));
     await dispatch(getUserFeedback({ sellerId }));
-    const authData = JSON.parse(localStorage.getItem('easy-shop.authData'));
-    if (authData && authData.accessToken) {
-    const userData = {
-        accessToken: authData.accessToken,
-        refreshToken: authData.refreshToken,
-        sid: authData.sid,
-    };
-    dispatch(updateUser(userData));
-    }
+    updateUserFunc(dispatch)
     reset();
     // hideWindow();
   };
