@@ -43,6 +43,7 @@ const HeaderForm = () => {
     control,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors, isDirty },
   } = useForm({
     defaultValues: {
@@ -58,6 +59,7 @@ const HeaderForm = () => {
           'searchQuery',
           JSON.stringify(searchUrlParam)
         );
+        setValue('productName', searchUrlParam);
       }
       return;
     }
@@ -71,7 +73,14 @@ const HeaderForm = () => {
       await dispatch(setCurrentProductsPage(1));
     };
     resetForm();
-  }, [shouldHeaderFormReset, searchParams, searchUrlParam, reset, dispatch]);
+  }, [
+    shouldHeaderFormReset,
+    searchParams,
+    searchUrlParam,
+    setValue,
+    reset,
+    dispatch,
+  ]);
 
   useEffect(() => {
     if (isUserAtProductsSearchPage) {
