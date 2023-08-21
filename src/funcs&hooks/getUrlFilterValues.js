@@ -20,7 +20,7 @@ export function getUrlFilterValues(filterData) {
       for (let i = 0; i < sizeOptionsArray.length; i += 1) {
         for (let j = 0; j < selectedSizeOptions.length; j += 1) {
           if (sizeOptionsArray[i] === selectedSizeOptions[j]) {
-            selectedSizeOptionsIndex.push(i);
+            selectedSizeOptionsIndex.push(sizeOptionsArray[i]);
           }
         }
       }
