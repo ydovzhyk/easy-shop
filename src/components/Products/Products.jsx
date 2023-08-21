@@ -85,6 +85,14 @@ const Products = () => {
     await dispatch(setCurrentProductsPage(1));
   };
 
+  const hasUrlSearchParams =
+    searchParams.get('price') ||
+    searchParams.get('size') ||
+    searchParams.get('condition') ||
+    searchParams.get('brand') ||
+    searchParams.get('price_from') ||
+    searchParams.get('price_to');
+
   const handleClearFiltersClick = async () => {
     await dispatch(resetFilterProduct());
     await dispatch(setCurrentProductsPage(1));
@@ -123,7 +131,7 @@ const Products = () => {
               <MdClose size={isMobile ? 18 : 22} />
             </button>
           )}
-          {isFilterFormSubmitted && (
+          {hasUrlSearchParams && (
             <button
               type="button"
               className={s.filterContent}
