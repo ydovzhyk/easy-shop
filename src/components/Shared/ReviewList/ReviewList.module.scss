@@ -19,6 +19,9 @@
     &::-webkit-scrollbar-thumb:hover {
         background-color: var(--accent-color); /* Колір повзунка при наведенні */
     }
+    @include mixins.mq(tablet) {
+        max-height: 260px;;
+    }
 }
 
 .reviewBox {
