@@ -14,7 +14,7 @@ const MyReviews = () => {
     const userId = useSelector(getID)
     const myReview = useSelector(selectUserReviews);
     const myFeedback = useSelector(selectUserFeedback);
-    console.log(myReview, myFeedback);
+    
     const [currentSelector, setcurrentSelector] = useState('seller');
     useEffect(() => {
         dispatch(clearReviewAndFeedback())

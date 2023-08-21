@@ -3,7 +3,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { addReview, getUserFeedback } from 'redux/review/review-operations';
 import { selectUserFeedback } from 'redux/review/review-selectors';
-import { updateUser } from 'redux/auth/auth-operations';
+import { updateUserFunc } from 'funcs&hooks/updateUser';
 
 import { FiX } from 'react-icons/fi';
 import Button from 'components/Shared/Button/Button';
@@ -11,27 +11,31 @@ import StarsList from 'components/Shared/StarsList/StarsList';
 import ReviewList from '../ReviewList/ReviewList';
 import s from 'components/Shared/FeedbackWindow/FeedbackWindow.module.scss';
 
-const FeedbackWindow = ({ hideWindow, orderId, sellerId, products }) => {
+const FeedbackWindow = ({
+  hideWindow,
+  orderToFeedbackWindow,
+}) => {
   const dispatch = useDispatch();
   const sellerFeedback = useSelector(selectUserFeedback);
-    const [rating, setRating] = useState(1);
-  
+  const [rating, setRating] = useState(1);
+  const { orderId, sellerId, productInfo } = orderToFeedbackWindow;
+
   useEffect(() => {
-    dispatch(getUserFeedback({sellerId}));
+    dispatch(getUserFeedback({ sellerId }));
   }, [dispatch, sellerId]);
-  
+
   const calculatedRating = `${Number(rating).toFixed(1)}`;
 
   const setFeedbackRating = number => setRating(number + 1);
   
-  const filteredProducts = products.map(product => {
-    return { _id: product._id, nameProduct: product.nameProduct }
-  });  
+  const filteredProducts = productInfo.map(product => {
+    return { _id: product._id, nameProduct: product.nameProduct };
+  });
 
   const { control, handleSubmit, reset } = useForm({
     defaultValues: {
       rating: rating,
-      feedback: '',
+      feedback: "",
     },
   });
 
@@ -44,17 +48,10 @@ const FeedbackWindow = ({ hideWindow, orderId, sellerId, products }) => {
       products: filteredProducts,
       orderId: orderId,
     };
-      await dispatch(addReview(feedbackData));
-      await dispatch(getUserFeedback({ sellerId }));
-      const authData = JSON.parse(localStorage.getItem('easy-shop.authData'));
-      if (authData && authData.accessToken) {
-        const userData = {
-          accessToken: authData.accessToken,
-          refreshToken: authData.refreshToken,
-          sid: authData.sid,
-        };
-        dispatch(updateUser(userData));
-      }
+    // console.log(feedbackData);
+    await dispatch(addReview(feedbackData));
+    await dispatch(getUserFeedback({ sellerId }));
+    updateUserFunc(dispatch)
     reset();
     // hideWindow();
   };
@@ -62,7 +59,7 @@ const FeedbackWindow = ({ hideWindow, orderId, sellerId, products }) => {
   return (
     <div className={s.windowBackdrop}>
       <div className={s.windowContainer}>
-        <button className={s.closeButton} onClick={hideWindow}>
+        <button className={s.closeButton} onClick={() => hideWindow()}>
           <FiX />
         </button>
         <form className={s.feedbackForm}>
