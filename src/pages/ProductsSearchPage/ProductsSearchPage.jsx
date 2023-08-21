@@ -40,6 +40,14 @@ const ProductsSearchPage = () => {
         ? ''
         : translateParamsToUA(category, subcategory).subCategoryName,
       filterData,
+      // filterData: {
+      //   brandName: searchParams.get('brand'),
+      //   condition: [],
+      //   filterPrice: searchParams.get('price'),
+      //   filterPriceFrom: searchParams.get('price_from'),
+      //   filterPriceTo: searchParams.get('price_to'),
+      //   size: '[]',
+      // },
     };
   }, [category, subcategory, searchQuery, filterData]);
 

@@ -17,6 +17,10 @@
   border: 1px solid var(--border-color);
   border-radius: 5px;
   padding: 8px;
+  transition: color var(--transition-duration) var(--timing-function);
+  &:hover p {
+    color: var(--hover-btn-text);
+  }
 }
 
 .menuGroupItems {
@@ -25,6 +29,7 @@
   justify-content: center;
   justify-items: center;
   width: 210px;
+  transition: background-color var(--transition-duration) var(--timing-function);
 }
 
 .menuGroupItems:hover {

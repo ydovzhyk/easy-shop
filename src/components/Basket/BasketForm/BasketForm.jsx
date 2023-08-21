@@ -191,7 +191,7 @@ const BasketForm = ({ ownerId, ownerName, products }) => {
                 <div className={s.photoAndNameAndPrice}>
                   <div className={s.photoAndName}>
                     <Link
-                      to={`/products/${categoryName}/${subCategoryName}/${_id}`}
+                      to={`/product/${categoryName}/${subCategoryName}/${_id}`}
                     >
                       <div className={s.thumb}>
                         <img
