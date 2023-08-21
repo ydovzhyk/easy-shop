@@ -43,7 +43,7 @@ const LikedProducts = () => {
     } else {
       setUserLikesLength(0);
     }
-  }, [user]);
+  }, [user, userLikesLength]);
 
   // for likes
   const checkUserLike = productId => {
