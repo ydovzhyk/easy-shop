@@ -24,6 +24,7 @@ const MyShoppings = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentSelector, setcurrentSelector] = useState("all");
   const [isFeedbackWindowOpen, setIsFeedbackWindowOpen] = useState(false);
+  const [orderToFeedbackWindow, setOrderToFeedbackWindow] = useState({});
 
   useEffect(() => {
     dispatch(
@@ -49,8 +50,13 @@ const MyShoppings = () => {
     setCurrentPage(1);
   };
 
-  const toggleIsOpen = () => {
+  const toggleIsOpen = (orderId, sellerId, productInfo) => {
     setIsFeedbackWindowOpen(!isFeedbackWindowOpen);
+    if (orderId) {
+      setOrderToFeedbackWindow({ orderId, sellerId, productInfo });
+      return;
+    }
+    setOrderToFeedbackWindow({});
   };
 
   useEffect(() => {
@@ -130,16 +136,16 @@ const MyShoppings = () => {
                       <Button
                         btnClass="btnLight"
                         text="Залишити відгук"
-                        handleClick={toggleIsOpen}
+                        handleClick={() =>
+                          toggleIsOpen(_id, sellerId, productInfo)
+                        }
                       />
                     </div>
                   )}
                   {isFeedbackWindowOpen && (
                     <FeedbackWindow
                       hideWindow={toggleIsOpen}
-                      orderId={_id}
-                      sellerId={sellerId}
-                      products={productInfo}
+                      orderToFeedbackWindow={orderToFeedbackWindow}
                     />
                   )}
                 </li>
