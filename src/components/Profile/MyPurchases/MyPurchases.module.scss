@@ -17,6 +17,7 @@
 }
 
 .orderItem {
+    position: relative;
     margin-bottom: 20px;
     padding: 12px;
     border: 1px solid var(--border-color);
@@ -135,4 +136,17 @@
         text-align: end;
     }
     
+}
+
+.buttonTrashWrapper {
+    position: absolute;
+    top: 298px;
+    right: 16px;
+    @include mixins.mq(tablet) {
+        top: 80px;
+    }
+    @include mixins.mq(desktop) {
+        top: 92px;
+        right: 40px;
+    }
 }

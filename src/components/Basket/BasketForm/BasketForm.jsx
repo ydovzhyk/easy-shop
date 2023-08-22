@@ -146,7 +146,6 @@ const BasketForm = ({ ownerId, ownerName, products }) => {
       products: orderedProducts,
       totalSum: totalSum,
     };
-    console.log('Відправка форми', dataForUpload);
     // await handleUpdateUserBasket(orderedProducts);
     // console.log('orderInCheckout', orderInCheckout);
     if (orderInCheckout.sellerId === ownerId) {
@@ -154,7 +153,6 @@ const BasketForm = ({ ownerId, ownerName, products }) => {
       await dispatch(deleteOrderById(orderInCheckout._id));
     }
     const newOrder = await dispatch(addOrder(dataForUpload));
-    console.log('newOrder', newOrder);
     if (newOrder.payload.newOrderId) {
       for (const product of orderedProducts) {
         await dispatch(updateUserBasket({ productId: product._id }));
@@ -229,7 +227,7 @@ const BasketForm = ({ ownerId, ownerName, products }) => {
         )}
       </ul>
       <div className={s.linkWrapper}>
-        <Link to="/seller/:id" className={s.btnWrapper}>
+        <Link to={`/member/${ownerId}`} className={s.btnWrapper}>
           <Text
             textClass="verifyAttention"
             text={'Додати інші товари продавця'}
