@@ -1,6 +1,8 @@
 import { useState, useMemo } from 'react';
 import { useSearchParams, useParams, useLocation } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
+import { HiOutlineStar } from 'react-icons/hi';
+import { HiStar } from 'react-icons/hi';
 import { MdClose } from 'react-icons/md';
 
 import { useForm, Controller } from 'react-hook-form';
@@ -28,13 +30,13 @@ import ProductItem from 'components/Shared/ProductItem/ProductItem';
 import Text from 'components/Shared/Text/Text';
 import NotFound from 'components/NotFound/NotFound';
 import SelectField from 'components/Shared/SelectField/SelectField';
-import Button from 'components/Shared/Button/Button';
 import options from './options';
 
 import s from './Products.module.scss';
 
 const Products = () => {
   const [filterSelected, setFilterSelected] = useState('');
+  const [isSubscribed, setIsSubscribed] = useState(false);
   const currentPage = useSelector(getCurrentProductsPage);
   const hasHeaderFormErrors = useSelector(getHeaderFormErrors);
   const totalPages = useSelector(getProductsByQueryPages);
@@ -114,6 +116,7 @@ const Products = () => {
   };
 
   const handleSubscribtionClick = () => {
+    setIsSubscribed(!isSubscribed);
     dispatch(addSubscribtion({ urlSubscription: pathname + search }));
   };
 
@@ -152,12 +155,22 @@ const Products = () => {
           <>
             <div className={getClassName()}>
               {isUserLogin && (
-                <Button
-                  text="Підписатися"
+                <button
                   type="button"
-                  btnClass="btnLightSubscribe"
-                  handleClick={handleSubscribtionClick}
-                />
+                  // className={s.filterContent}
+                  className={s.btnLightSubscribe}
+                  onClick={handleSubscribtionClick}
+                >
+                  <Text
+                    textClass="searchQueryContent"
+                    text={isSubscribed ? 'Підписатися' : 'Ви підписані'}
+                  />
+                  {isSubscribed ? (
+                    <HiStar size={isMobile ? 18 : 22} />
+                  ) : (
+                    <HiOutlineStar size={isMobile ? 18 : 22} />
+                  )}
+                </button>
               )}
               <Controller
                 control={control}
