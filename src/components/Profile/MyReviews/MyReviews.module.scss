@@ -11,8 +11,15 @@
 }
 
 .reviewsListWrapper{
+    width: 100%;
     @include mixins.mq(mobile-tablet) {
         padding: 0 20px;
+    }
+    @include mixins.mq(tablet) {
+        width: 30%;
+    }
+    @include mixins.mq(desktop) {
+        width: 20%;
     }
 }
 
@@ -30,7 +37,6 @@
     flex-direction: column;
     gap: 8px;
     @include mixins.mq(tablet) {
-        // width: 20%;
         padding-left: 8px;
     }
     @include mixins.mq(desktop) {
@@ -97,9 +103,6 @@
     padding: 4px;
     flex-grow: 1;
     width: 100%;
-    @include mixins.mq(tablet) {
-        max-width: 75%;
-    }
 }
 
 .reviewBox {
