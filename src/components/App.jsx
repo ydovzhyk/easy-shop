@@ -233,6 +233,8 @@ export const App = () => {
           newMessage: newM ? newM : 0,
         };
         socketRef.current.send(JSON.stringify(request));
+      } else {
+        return;
       }
     };
 

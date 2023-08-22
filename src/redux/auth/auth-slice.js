@@ -227,10 +227,12 @@ const auth = createSlice({
     [updateUserSibscribes.pending]: store => {
       store.loading = true;
       store.error = '';
+      store.message = '';
     },
     [updateUserSibscribes.fulfilled]: (store, { payload }) => {
       store.loading = false;
-      store.user = payload;
+      store.user = payload.updatedUser;
+      store.message = payload.message;
     },
     [updateUserSibscribes.rejected]: (store, { payload }) => {
       store.loading = false;
