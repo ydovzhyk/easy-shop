@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { useSearchParams, useParams } from 'react-router-dom';
+import { useSearchParams, useParams, useLocation } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { MdClose } from 'react-icons/md';
 
@@ -15,6 +15,7 @@ import {
   getProductsByQueryPages,
 } from 'redux/product/product-selectors';
 import { getLogin } from 'redux/auth/auth-selectors';
+import { addSubscribtion } from 'redux/product/product-operations';
 import {
   resetHeaderForm,
   setCurrentProductsPage,
@@ -40,6 +41,7 @@ const Products = () => {
 
   const { category, subcategory } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
+  const { pathname, search } = useLocation();
 
   const products = useSelector(getProductsByQuery);
   const isFilterFormSubmitted = useSelector(getFilterForm);
@@ -111,6 +113,10 @@ const Products = () => {
     return !isUserLogin ? `${s.selectWrapper}` : `${s.bottomOptionsWrapper}`;
   };
 
+  const handleSubscribtionClick = () => {
+    dispatch(addSubscribtion({ urlSubscription: pathname + search }));
+  };
+
   return (
     <section style={{ flexGrow: 1, position: 'relative' }}>
       <div className={s.container}>
@@ -150,6 +156,7 @@ const Products = () => {
                   text="Підписатися"
                   type="button"
                   btnClass="btnLightSubscribe"
+                  handleClick={handleSubscribtionClick}
                 />
               )}
               <Controller

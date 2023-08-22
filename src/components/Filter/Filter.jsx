@@ -103,8 +103,6 @@ const Filter = ({ onChange }) => {
 
         for (const [key, value] of Object.entries(sizeOption)) {
           for (let i = 0; i < selectedIndexSizesArray.length; i += 1) {
-            console.log(selectedIndexSizesArray[i]);
-            console.log(key);
             if (selectedIndexSizesArray[i] === key) {
               selectedSizesArray.push([{ name: key, value: value }]);
             }

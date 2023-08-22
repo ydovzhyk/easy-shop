@@ -25,6 +25,7 @@
   justify-content: center;
   justify-items: center;
   width: 210px;
+  transition: background-color var(--transition-duration) var(--timing-function);
 }
 
 .menuGroupItems:hover {
@@ -34,4 +35,6 @@
 
 .menuGroupItemsSelected {
   background-color: var(--background-btn-main-color);
+  border-radius: 5px;
+  overflow: hidden;
 }

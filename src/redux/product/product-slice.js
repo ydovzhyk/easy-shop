@@ -170,6 +170,7 @@ const products = createSlice({
       store.loading = false;
       store.error = payload;
     },
+
     //* get my product
     [getUserProducts.pending]: store => {
       store.loading = true;

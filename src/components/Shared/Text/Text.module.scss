@@ -95,6 +95,7 @@
   color: var(--text-color);
   margin-bottom: 5px;
   text-align: center;
+  transition: color var(--transition-duration) var(--timing-function);
 }
 
 .after-title-cardContent {
