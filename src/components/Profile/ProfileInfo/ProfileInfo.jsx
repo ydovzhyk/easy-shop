@@ -35,7 +35,6 @@ const ProfileInfo = ({
   isExitButton, 
   onSubscribe,
   isSubscriptionButton,
-  isSellerInSubscription
 }) => {
   const isTablet = useMediaQuery({ minWidth: 768 });
   const lastVisitDate = getPhrase(sex, lastVisit);
@@ -121,7 +120,7 @@ const ProfileInfo = ({
         {isSubscriptionButton &&
           <div className={s.subscriptionWrapper}>
           <Button
-            text={isSellerInSubscription ? "Відписатися" : "Підписатися"}
+            text="Підписатися"
             btnClass='btnLight'
             handleClick={onSubscribe}
             />
