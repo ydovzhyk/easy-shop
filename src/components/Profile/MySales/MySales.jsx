@@ -1,11 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  getUserSales,
-  updateOrderStatus,
-  deleteOrderById,
-} from 'redux/order/order-operations';
+import { getUserSales, updateOrderStatus } from 'redux/order/order-operations';
 import {
   getLoadingOrders,
   selectUserSales,
@@ -17,9 +12,6 @@ import OrderProductsList from 'components/Shared/OrderProductsList/OrderProducts
 import Pagination from 'components/Shared/Pagination/Pagination';
 import Button from 'components/Shared/Button/Button';
 import OrderStatusList from 'components/Shared/OrderStatusList/OrderStatusList';
-import RoundButton from 'components/Shared/RoundButton/RoundButton';
-import { BsTrash } from 'react-icons/bs';
-import { updateUserFunc } from 'funcs&hooks/updateUser';
 import s from './MySales.module.scss';
 
 const MySales = () => {
@@ -27,7 +19,6 @@ const MySales = () => {
   const isLoading = useSelector(getLoadingOrders);
   const userSales = useSelector(selectUserSales);
   const totalPages = useSelector(selectUserSalesTotalPages);
-  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const [currentPage, setCurrentPage] = useState(1);
   const [currentSelector, setcurrentSelector] = useState('all');
@@ -54,7 +45,6 @@ const MySales = () => {
   };
 
   const handleConfirmButtonClick = id => {
-    console.log('handleConfirmButtonClick');
     dispatch(
       updateOrderStatus({ orderId: id, confirmed: true, statusNew: false })
     );
@@ -72,7 +62,6 @@ const MySales = () => {
     );
   };
   const handleCancelButtonClick = id => {
-    console.log('handleCancelButtonClick');
     dispatch(
       updateOrderStatus({ orderId: id, confirmed: false, statusNew: false })
     );
@@ -88,17 +77,6 @@ const MySales = () => {
         typeDialogue: 'cancel',
       })
     );
-  };
-
-  const handleButtonTrashClick = async id => {
-    await dispatch(deleteOrderById(id));
-    dispatch(
-      getUserSales({
-        page: currentPage,
-        selectorName: currentSelector,
-      })
-    );
-    updateUserFunc(dispatch);
   };
 
   return (
@@ -165,14 +143,6 @@ const MySales = () => {
                     <p
                       className={s.orderSum}
                     >{`Сума замовлення: ${orderSum} грн.`}</p>
-                  </div>
-                  <div className={s.buttonTrashWrapper}>
-                    <RoundButton
-                      btnClass={isMobile ? 'roundButtonMob' : 'roundButton'}
-                      icon={BsTrash}
-                      handleClick={handleButtonTrashClick}
-                      id={_id}
-                    />
                   </div>
                 </li>
               )
