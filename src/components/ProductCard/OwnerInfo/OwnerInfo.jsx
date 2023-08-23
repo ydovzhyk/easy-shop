@@ -1,7 +1,5 @@
 import { useEffect } from 'react';
-
 import { NavLink } from 'react-router-dom';
-
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getOtherUser } from 'redux/otherUser/otherUser-operations';
@@ -33,15 +31,22 @@ const OwnerInfo = ({ owner }) => {
 
   const userInfo = useSelector(selectOtherUser);
   const isLoading = useSelector(getLoadingOtherUser)
-  const { userAvatar, username, cityName, dateCreate, lastVisit, sex, verify } =
-    userInfo;
+  const {
+    userAvatar,
+    username,
+    cityName,
+    dateCreate,
+    lastVisit,
+    sex,
+    verify,
+    userFeedback,
+    rating,
+    successfulSales,
+    userFollowers,
+  } = userInfo;
 
   const lastVisitDate = getPhrase(sex, lastVisit);
-  const rating = 3.2;
-  const gradesAmount = 12;
   const daysAmount = getDaysPassedFromDate(dateCreate);
-  const followersAmount = 36;
-  const salesAmount = 16;
 
   return (
     <>
@@ -49,20 +54,17 @@ const OwnerInfo = ({ owner }) => {
         <div className={s.profilewrapper}>
           <div className={s.avatarframe}>
             <div className={s.avatar}>
-              <Avatar avatarClass="photoAvatar" src={userAvatar} />
+              <NavLink className={s.username} to={`/member/${owner}`}>
+                <Avatar avatarClass="photoAvatar" src={userAvatar} />
+              </NavLink>
             </div>
           </div>
           <div className={s.userframe}>
             <div className={s.profilebox}>
-              <NavLink
-                className={s.username}
-                to={`/member/${owner}`}
-                // state={{ owner: owner }}
-              >
+              <NavLink className={s.username} to={`/member/${owner}`}>
                 {username}
               </NavLink>
-              {/* <h5 className={s.username}>{username}</h5> */}
-              <UserRating rating={rating} gradesAmount={gradesAmount} />
+              <UserRating rating={rating} gradesAmount={userFeedback.length} />
             </div>
             <div className={s.infowrapper}>
               <BsCheck2 className={s.iconBefore} />
@@ -95,14 +97,14 @@ const OwnerInfo = ({ owner }) => {
               <div className={s.infowrapper}>
                 <BsPeople className={s.iconBefore} />
                 <p className={s.text}>
-                  <Value className={s.leftvalue}>{followersAmount}</Value>
+                  <Value className={s.leftvalue}>{userFollowers.length}</Value>
                   підписників
                 </p>
               </div>
               <div className={s.infowrapper}>
                 <BsHandbag className={s.iconBefore} />
                 <p className={s.text}>
-                  <Value className={s.leftvalue}>{salesAmount}</Value>
+                  <Value className={s.leftvalue}>{successfulSales}</Value>
                   продажів
                 </p>
               </div>
