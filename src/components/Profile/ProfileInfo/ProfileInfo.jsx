@@ -34,7 +34,7 @@ const ProfileInfo = ({
   onClick,
   isExitButton, 
   onSubscribe,
-  isSubscriptionButton
+  isSubscriptionButton,
 }) => {
   const isTablet = useMediaQuery({ minWidth: 768 });
   const lastVisitDate = getPhrase(sex, lastVisit);

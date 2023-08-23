@@ -15,6 +15,7 @@ import {
 import { clearOtherUser } from 'redux/otherUser/otherUser.slice';
 import ProfileInfo from 'components/Profile/ProfileInfo/ProfileInfo';
 import UserInfoDetails from 'components/Profile/UserInfoDetails/UserInfoDetails';
+import {calculateAverageRating} from 'funcs&hooks/calculateAverageRating';
 
 import s from './Profile.module.scss';
 
@@ -25,13 +26,10 @@ const Profile = () => {
   const name = useSelector(getUserName);
   const dateCreate = useSelector(getUserDateCreate);
   const user = useSelector(getUser);
-  const rating = 3.2;
-  const gradesAmount = 12;
-  const followersAmount = 36;
-  const salesAmount = 16;
   const userAddress = user.userAddress || 'Kyiv';
-  const { verify, lastVisit } = user;
-
+  const { verify, lastVisit, userFeedback, successfulSales, userFollowers } = user;
+  const averageRating = calculateAverageRating(userFeedback);
+  const gradesAmount = userFeedback?.length || 0;
   const onLogout = async () => {
     navigate('/');
     await dispatch(logout());
@@ -52,14 +50,14 @@ const Profile = () => {
         <ProfileInfo
           userAvatar={avatar}
           userName={name}
-          rating={rating}
+          rating={averageRating}
           gradesAmount={gradesAmount}
           date={dateCreate}
           lastVisit={lastVisit}
           cityName={userAddress}
           verify={verify}
-          followersAmount={followersAmount}
-          salesAmount={salesAmount}
+          followersAmount={userFollowers?.length || 0}
+          salesAmount={successfulSales}
           isExitButton='true'
           onClick={onLogout } />
       </section>
