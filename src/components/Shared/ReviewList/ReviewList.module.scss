@@ -1,0 +1,86 @@
+@use '../../../styles/mixins';
+
+.reviewsWrapper {
+    max-height: 240px;
+    overflow: auto;
+    padding: 4px;
+    /* Стилізація самого скрола */
+    &::-webkit-scrollbar {
+        width: 6px;
+        background-color: var(--bg-footer-header);
+    }
+    /* Стилізація повзунка */
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--text-selector-option-focused);
+        width: 6px;
+        border-radius: 9em;
+    }
+        /* Стилізація полоси прокрутки при наведенні */
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: var(--accent-color); /* Колір повзунка при наведенні */
+    }
+    @include mixins.mq(tablet) {
+        max-height: 260px;;
+    }
+}
+
+.reviewBox {
+    display: flex;
+    gap: 16px;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+
+    @include mixins.mq(tablet) {
+        padding: 16px;
+    }
+    
+    &:hover{
+        border: 1px solid var(--accent-color);
+    }
+    &:not(:last-child) {
+        margin-bottom: 8px;
+    }
+}
+
+.avatarBox {
+    @include mixins.mq(mobile-only) {
+        display: none;
+    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--icons-color);
+    background-color: rgba(245, 245, 245, 0.455);
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.topReviewWrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.reviewerName {
+    font-size: 14px;
+    margin-bottom: 4px;
+    @include mixins.mq(tablet) {
+        font-size: 16px;
+    }
+}
+
+.reviewWrapper {
+    width: 100%;
+    font-size: 14px;
+    @include mixins.mq(tablet) {
+        font-size: 16px;
+    }
+}   
+
+.productName {
+    margin-bottom: 8px;
+    font-weight: 600;
+}

@@ -6,11 +6,11 @@
   justify-content: space-between;
   padding: 10px 0 10px 0x;
   border-bottom: 1px solid var(--second-text-color);
+  transition: background-color var(--transition-duration) var(--timing-function);
   &:hover {
-    background: var(--bg-footer-header);
+    background-color: var(--bg-footer-header);
     cursor: pointer;
   }
-  //   border: red solid 0.5px;
 }
 .logo {
   font-family: 'Nunito Sans', sans-serif;
@@ -53,7 +53,6 @@
   width: 100%;
 
   // background-color: var(--main-color);
-  
 }
 // .menuContainer
 .containerSubMenu {
@@ -66,6 +65,10 @@
   min-height: 100%;
   // width: 205px;
   background-color: var(--main-color);
+  transition: background-clip var(--transition-duration) var(--timing-function),
+    background-repeat var(--transition-duration) var(--timing-function),
+    background-size var(--transition-duration) var(--timing-function),
+    background-color var(--transition-duration) var(--timing-function);
   :hover {
     background-clip: content-box;
     background-repeat: no-repeat;
@@ -82,8 +85,12 @@
 }
 .span {
   padding-left: 10px;
-  color: var(--second-text-color);
+  fill: var(--icons-color);
 }
 .menuContainer {
   padding: 10px;
+}
+
+.flech {
+  fill: var(--icons-color);
 }

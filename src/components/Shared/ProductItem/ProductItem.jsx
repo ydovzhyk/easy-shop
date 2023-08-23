@@ -39,9 +39,6 @@ const ProductItem = ({
   const isUserLogin = useSelector(getLogin);
   const [errorMessage, setErrorMessage] = useState(null);
   const [isErrorDisplayed, setIsErrorDisplayed] = useState(false);
-  //  console.log('isLiked', isLiked);
-  // console.log('owner', owner);
-  // console.log('userId', userId);
 
   // for sale
   const discountedPrice = (price * (100 - sale)) / 100;
@@ -109,7 +106,7 @@ const ProductItem = ({
   return (
     <li className={s.itemCard}>
       <Link
-        to={`/products/${categoryName}/${subCategoryName}/${_id}`}
+        to={`/product/${categoryName}/${subCategoryName}/${_id}`}
         className={s.photoLink}
       >
         {vip === 'Так' && (

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import { updateUser } from 'redux/auth/auth-operations';
+import { getAllDialoguesData } from 'redux/dialogue/dialogue-operations';
 import {
   getError,
   getLoadingUser,
@@ -20,11 +21,13 @@ import {
 import {
   getLoadingDialogue,
   getDialogueError,
+  getStatusDialogueList,
 } from 'redux/dialogue/dialogue-selectors';
 import {
   getLoadingOtherUser,
   getOtherUserError,
 } from 'redux/otherUser/otherUser-selectors';
+import { getLoadingReviews } from 'redux/review/review-selectors';
 import { getLoadingOrders, getOrderError } from 'redux/order/order-selectors';
 import UserRoutes from './Routes/UserRoutes';
 import Header from './Header';
@@ -50,6 +53,8 @@ export const App = () => {
   const loadingDialogue = useSelector(getLoadingDialogue);
   const loadingOtherUser = useSelector(getLoadingOtherUser);
   const loadingOrder = useSelector(getLoadingOrders);
+  const loadingReview = useSelector(getLoadingReviews);
+  const statusDialogue = useSelector(getStatusDialogueList);
   const isDesctop = useMediaQuery({ minWidth: 1280 });
   const dispatch = useDispatch();
   const [errMessage, setErrMessage] = useState('');
@@ -106,7 +111,8 @@ export const App = () => {
       loadingVerify ||
       loadingDialogue ||
       loadingOtherUser ||
-      loadingOrder
+      loadingOrder ||
+      loadingReview
     ) {
       setIsLoaded(true);
     } else {
@@ -119,6 +125,7 @@ export const App = () => {
     loadingDialogue,
     loadingOtherUser,
     loadingOrder,
+    loadingReview,
   ]);
 
   // render last visited page
@@ -206,19 +213,29 @@ export const App = () => {
           refreshToken: authData.refreshToken,
           sid: authData.sid,
         };
-        dispatch(updateUser(userData));
+
+        const getUserPromise = dispatch(updateUser(userData));
+        const getDialoguesDataPromise = dispatch(
+          getAllDialoguesData({ statusDialogue })
+        );
+
+        Promise.all([getDialoguesDataPromise, getUserPromise]);
       } else {
         return;
       }
     };
 
     const sendRequest = newM => {
-      const request = {
-        type: 'check_updates_dialogue',
-        userId: userId,
-        newMessage: newM ? newM : 0,
-      };
-      socketRef.current.send(JSON.stringify(request));
+      if (socketRef.current.readyState === WebSocket.OPEN) {
+        const request = {
+          type: 'check_updates_dialogue',
+          userId: userId,
+          newMessage: newM ? newM : 0,
+        };
+        socketRef.current.send(JSON.stringify(request));
+      } else {
+        return;
+      }
     };
 
     if (
@@ -236,16 +253,19 @@ export const App = () => {
 
       socketRef.current.onmessage = event => {
         const response = event.data.trim();
-        console.log('Отримано повідомлення:', response);
         if (response === 'true') {
           updateUserFunction();
         }
       };
     }
-  }, [dispatch, isLogin, userId, newMessage, isConnectionWS]);
+  }, [dispatch, isLogin, userId, newMessage, isConnectionWS, statusDialogue]);
 
   useEffect(() => {
-    if (!isLogin && socketRef.current) {
+    if (
+      !isLogin &&
+      socketRef.current &&
+      socketRef.current.readyState === WebSocket.OPEN
+    ) {
       clearInterval(intervalRef.current);
       socketRef.current.close();
       socketRef.current = null;
@@ -274,90 +294,3 @@ export const App = () => {
     </div>
   );
 };
-
-// let socketRef = useRef(null);
-// let intervalRef = useRef(null);
-// useEffect(() => {
-//   console.log('Кількість нових повідомлень', newMessage);
-//   const updateUserFunction = () => {
-//     const authData = JSON.parse(localStorage.getItem('easy-shop.authData'));
-//     if (authData && authData.accessToken) {
-//       const userData = {
-//         accessToken: authData.accessToken,
-//         refreshToken: authData.refreshToken,
-//         sid: authData.sid,
-//       };
-//       dispatch(updateUser(userData));
-//     } else {
-//       return;
-//     }
-//   };
-
-//   if (isLogin && !socketRef.current) {
-//     console.log('Зайшли отримати нове зєднання');
-//     let uri = null;
-//     if (process.env.NODE_ENV === 'production') {
-//       uri = `wss://easy-shop-backend.herokuapp.com/?user=${userId}`;
-//     }
-//     // if (process.env.NODE_ENV === 'development') {
-//     //   uri = `wss://easy-shop-backend.herokuapp.com/?user=${userId}`;
-//     // }
-//     if (process.env.NODE_ENV === 'development') {
-//       uri = `ws://localhost:4000/?user=${userId}`;
-//     }
-//     const socket = new WebSocket(uri);
-
-//     socket.onopen = () => {
-//       console.log("WebSocket з'єднання встановлено");
-//       socketRef.current = socket;
-
-//       const sendRequest = () => {
-//         console.log('Кількість нових повідомлень in Request', newMessage);
-//         const request = {
-//           type: 'check_updates_dialogue',
-//           userId: userId,
-//           newMessage: newMessage ? newMessage : 0,
-//         };
-//         socket.send(JSON.stringify(request));
-//       };
-
-//       // Відправити перший запит
-//       sendRequest();
-
-//       // Встановити інтервал для повторної відправки запиту кожні 30 секунд
-//       const intervalId = setInterval(sendRequest, 30000);
-//       intervalRef.current = intervalId;
-
-//       socket.onmessage = event => {
-//         const response = event.data.trim();
-//         console.log('Отримано повідомлення:', response);
-//         if (response === 'true') {
-//           updateUserFunction();
-//         }
-//       };
-
-//       // Закриття WebSocket з'єднання та очищення інтервалу при закритті компонента
-//       return () => {
-//         clearInterval(intervalRef.current);
-//         socket.close();
-//       };
-//     };
-//     socket.onclose = () => {
-//       console.log("WebSocket з'єднання закрито");
-//     };
-//   }
-// }, [dispatch, isLogin, userId, newMessage]);
-
-// useEffect(() => {
-//   if (
-//     !isLogin &&
-//     socketRef.current
-//     // socketRef.current.readyState === WebSocket.OPEN
-//   ) {
-//     console.log("WebSocket з'єднання закрито");
-//     clearInterval(intervalRef.current);
-//     socketRef.current.close();
-//     socketRef.current = null;
-//     intervalRef.current = null;
-//   }
-// }, [isLogin]);

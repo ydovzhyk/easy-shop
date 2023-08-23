@@ -17,6 +17,7 @@
   height: 450px;
   position: absolute;
   left: 100%;
+  transition: background-color var(--transition-duration) var(--timing-function);
   &:hover {
     background: var(--background-color);
   }
@@ -30,8 +31,9 @@
   min-height: 100%;
   width: 280px;
   background-color: var(--main-color);
+  transition: background-color var(--transition-duration) var(--timing-function);
   :hover {
-    background: var(--bg-footer-header);
+    background-color: var(--bg-footer-header);
   }
 }
 
@@ -43,14 +45,16 @@
   align-items: center;
   justify-content: space-between;
   height: 65px;
+  fill: var(--icons-color);
+  transition: background-color var(--transition-duration) var(--timing-function);
   &:hover {
-    fill: var(--icons-color);
-    background: var(--bg-footer-header);
+    background-color: var(--bg-footer-header);
   }
 }
 
 .span {
   padding-left: 10px;
+  fill: var(--icons-color);
 }
 .nav {
   display: flex;
@@ -72,7 +76,8 @@
 .catalog {
   cursor: pointer;
   display: flex;
-  transition: 0.3s;
+  transition: text-shadow var(--transition-duration) var(--timing-function),
+    fill var(--transition-duration) var(--timing-function);
 
   :hover {
     text-shadow: var(--hover-text-shadow);
@@ -96,6 +101,8 @@
 }
 
 .active {
+  transition: text-shadow var(--transition-duration) var(--timing-function),
+    fill var(--transition-duration) var(--timing-function);
   :focus {
     text-shadow: var(--hover-text-shadow);
     fill: var(--icons-color);

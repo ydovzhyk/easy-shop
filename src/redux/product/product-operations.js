@@ -11,6 +11,7 @@ import {
   axiosGetProductById,
   axiosGetProductsFromBasket,
   axiosGetProductsFromOtherUser,
+  axiosProductSubscriptions,
 } from 'api/product';
 
 export const addProduct = createAsyncThunk(
@@ -90,6 +91,18 @@ export const searchProducts = createAsyncThunk(
     }
   }
 );
+export const addSubscribtion = createAsyncThunk(
+  'product',
+  async (payload, { rejectWithValue }) => {
+    try {
+      const data = await axiosProductSubscriptions(payload);
+      return data;
+    } catch (error) {
+      const { data, status } = error.response;
+      return rejectWithValue({ data, status });
+    }
+  }
+);
 
 export const getVipProducts = createAsyncThunk(
   'product/vip',
@@ -129,6 +142,7 @@ export const getProductById = createAsyncThunk(
     }
   }
 );
+
 export const getProductsFromBasket = createAsyncThunk(
   'product/basket/:id',
   async (userData, { rejectWithValue, dispatch }) => {

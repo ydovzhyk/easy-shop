@@ -1,0 +1,213 @@
+@use '../../../styles/mixins';
+
+.windowBackdrop {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.47);
+  cursor: pointer;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+}
+
+.closeButton {
+  position: absolute;
+  color: #000;
+  outline: 0;
+  width: 32px;
+  height: 32px;
+  right: 5px;
+  top: 5px;
+  background-color: rgba(245, 245, 245, 0.455);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  font-size: 20px;
+  align-items: center;
+
+  @include mixins.mq(tablet) {
+    width: 40px;
+    height: 40px;
+    right: 10px;
+    top: 10px;
+    font-size: 32px;
+  }
+  @include mixins.mq(desktop) {
+    width: 44px;
+    height: 44px;
+    right: 10px;
+    top: 10px;
+  }
+}
+
+.feedbackForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    @include mixins.mq(tablet) {
+    margin-bottom: 24px;
+  }
+}
+
+.windowContainer {
+  position: relative;
+  max-height: 88vh;
+  width: 100%;
+  padding: 44px 16px;
+  background-color: var(--main-color);
+  overflow: auto;
+  @include mixins.mq(tablet) {
+    padding: 44px 60px;
+    max-width: 80vw;
+  }
+  @include mixins.mq(desktop) {
+    padding: 44px 72px;
+    max-height: 96vh;
+    max-width: 48vw;
+  }
+}
+
+.heading {
+    font-size: 20px;
+    margin-bottom: 24px;
+    align-self: flex-start;
+    @include mixins.mq(tablet) {
+        font-size: 24px;
+        margin-bottom: 44px;
+    }
+}
+
+.starsBox {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    align-self: flex-start;
+    padding-left: 8px;
+    @include mixins.mq(tablet) {
+        margin-bottom: 24px;
+    }
+}
+
+.ratingNumber {
+    font-size: 28px;
+    font-weight: 600;
+    text-align: center;
+    margin: 0 auto;
+    @include mixins.mq(tablet) {
+        font-size: 32px;
+    }
+}
+
+.feedbackTitle {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    align-self: flex-start;
+    @include mixins.mq(tablet) {
+        font-size: 16px;
+        margin-bottom: 16px;
+    }
+}
+
+.textarea {
+    margin-bottom: 16px;
+    padding: 16px;
+    border: 1px solid var(--border-color);
+    resize: none;
+    outline: none;
+    width: 100%;
+    &:focus-visible {
+        border: 1px solid var(--text-selector-option-focused);
+    }
+    @include mixins.mq(tablet) {
+        margin-bottom: 24px;
+    }
+}
+
+// .reviewsWrapper {
+//     max-height: 240px;
+//     overflow: auto;
+//     padding: 4px;
+//     /* Стилізація самого скрола */
+//     &::-webkit-scrollbar {
+//         width: 6px;
+//         background-color: var(--bg-footer-header);
+//     }
+//     /* Стилізація повзунка */
+//     &::-webkit-scrollbar-thumb {
+//         background-color: var(--text-selector-option-focused);
+//         width: 6px;
+//         border-radius: 9em;
+//     }
+//         /* Стилізація полоси прокрутки при наведенні */
+//     &::-webkit-scrollbar-thumb:hover {
+//         background-color: var(--accent-color); /* Колір повзунка при наведенні */
+//     }
+// }
+
+// .reviewBox {
+//     display: flex;
+//     gap: 16px;
+//     padding: 8px;
+//     border: 1px solid var(--border-color);
+
+//     @include mixins.mq(tablet) {
+//         padding: 16px;
+//     }
+    
+//     &:hover{
+//         border: 1px solid var(--accent-color);
+//     }
+//     &:not(:last-child) {
+//         margin-bottom: 8px;
+//     }
+// }
+
+// .avatarBox {
+//     @include mixins.mq(mobile-only) {
+//         display: none;
+//     }
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     width: 44px;
+//     height: 44px;
+//     border: 1px solid var(--icons-color);
+//     background-color: rgba(245, 245, 245, 0.455);
+//     border-radius: 50%;
+//     overflow: hidden;
+//     flex-shrink: 0;
+// }
+
+// .topReviewWrapper {
+//     display: flex;
+//     justify-content: space-between;
+//     margin-bottom: 8px;
+// }
+
+// .reviewerName {
+//     font-size: 14px;
+//     margin-bottom: 4px;
+//     @include mixins.mq(tablet) {
+//         font-size: 16px;
+//     }
+// }
+
+// .reviewWrapper {
+//     width: 100%;
+//     font-size: 14px;
+//     @include mixins.mq(tablet) {
+//         font-size: 16px;
+//     }
+// }   
+
+// .productName {
+//     margin-bottom: 8px;
+//     font-weight: 600;
+// }

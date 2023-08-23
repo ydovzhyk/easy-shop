@@ -52,16 +52,7 @@ const MenuItem = ({ menuItem, activeItem, setActiveItem }) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <a
-        href={
-          getPathCategory(menuItem.link)
-          // query === ''
-          //   ? `${menuItem.link}`
-          //   : `${menuItem.link}?${createSearchParams({
-          //       search: query,
-          //     })}`
-        }
-      >
+      <a href={getPathCategory(menuItem.link)}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <span className={s.span}>{menuItem.icon}</span>
           <span className={s.span}>{menuItem.name}</span>
@@ -72,17 +63,7 @@ const MenuItem = ({ menuItem, activeItem, setActiveItem }) => {
       {isSubMenuOpen && (
         <div className={s.containerSubMenu}>
           {menuItem.submenu.map(subMenuItem => (
-            <a
-              href={
-                getPathCategory(subMenuItem.link)
-                // query === ''
-                //   ? `${subMenuItem.link}`
-                //   : `${subMenuItem.link}?${createSearchParams({
-                //       search: query,
-                //     })}`
-              }
-              key={subMenuItem.id}
-            >
+            <a href={getPathCategory(subMenuItem.link)} key={subMenuItem.id}>
               <div
                 className={`submenu-item ${
                   activeItem === subMenuItem.name ? 'active' : ''

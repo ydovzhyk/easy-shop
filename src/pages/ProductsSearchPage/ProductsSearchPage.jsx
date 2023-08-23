@@ -9,10 +9,13 @@ import {
   getHeaderFormReset,
   getHeaderFormClick,
   getCurrentProductsPage,
+  getFilterForm,
+  getFilterProduct,
 } from 'redux/product/product-selectors';
 
 import Filter from 'components/Filter/Filter';
 import Container from 'components/Shared/Container/Container';
+import { getUrlFilterValues } from '../../funcs&hooks/getUrlFilterValues.js';
 import { translateParamsToUA } from '../../funcs&hooks/translateParamsToUA.js';
 
 const ProductsSearchPage = () => {
@@ -26,6 +29,8 @@ const ProductsSearchPage = () => {
   const hasHeaderFormErrors = useSelector(getHeaderFormErrors);
   const shouldHeaderFormReset = useSelector(getHeaderFormReset);
   const currentPage = useSelector(getCurrentProductsPage);
+  const shouldFilterFormReset = useSelector(getFilterProduct);
+  const isFilterFormSubmitted = useSelector(getFilterForm);
 
   const payload = useMemo(() => {
     return {
@@ -35,8 +40,62 @@ const ProductsSearchPage = () => {
         ? ''
         : translateParamsToUA(category, subcategory).subCategoryName,
       filterData,
+      // filterData: {
+      //   brandName: searchParams.get('brand'),
+      //   condition: [],
+      //   filterPrice: searchParams.get('price'),
+      //   filterPriceFrom: searchParams.get('price_from'),
+      //   filterPriceTo: searchParams.get('price_to'),
+      //   size: '[]',
+      // },
     };
   }, [category, subcategory, searchQuery, filterData]);
+
+  useEffect(() => {
+    if (!shouldFilterFormReset) {
+      return;
+    }
+    searchParams.delete('size');
+    searchParams.delete('price');
+    searchParams.delete('condition');
+    searchParams.delete('brand');
+    searchParams.delete('price_from');
+    searchParams.delete('price_to');
+    searchParams.delete('page');
+    setSearchParams(searchParams);
+  }, [setSearchParams, searchParams, shouldFilterFormReset]);
+
+  useEffect(() => {
+    if (!isFilterFormSubmitted) {
+      return;
+    }
+
+    if (shouldFilterFormReset) {
+      searchParams.delete('size');
+      searchParams.delete('price');
+      searchParams.delete('condition');
+      searchParams.delete('brand');
+      searchParams.delete('price_from');
+      searchParams.delete('price_to');
+      searchParams.delete('page');
+      setSearchParams(searchParams);
+      return;
+    }
+
+    const selectedFilterValues = getUrlFilterValues(payload.filterData);
+
+    Object.entries(selectedFilterValues).map(([name, value]) =>
+      searchParams.set(name, value)
+    );
+    setSearchParams(searchParams);
+  }, [
+    searchQuery,
+    shouldFilterFormReset,
+    isFilterFormSubmitted,
+    payload.filterData,
+    searchParams,
+    setSearchParams,
+  ]);
 
   useEffect(() => {
     if (
@@ -47,10 +106,10 @@ const ProductsSearchPage = () => {
     ) {
       return;
     }
+
     if (currentPage > 1) {
-      searchQuery === ''
-        ? setSearchParams({ page: currentPage })
-        : setSearchParams({ search: searchQuery, page: currentPage });
+      searchParams.set('page', currentPage);
+      setSearchParams(searchParams);
     }
     dispatch(
       searchProducts({
@@ -60,6 +119,7 @@ const ProductsSearchPage = () => {
     );
   }, [
     payload,
+    searchParams,
     hasHeaderFormErrors,
     shouldHeaderFormReset,
     searchQuery,

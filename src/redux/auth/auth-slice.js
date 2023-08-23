@@ -35,6 +35,8 @@ const initialState = {
     newMessage: 0,
     userOrders: [],
     userSales: [],
+    userReviews: [],
+    userFeedback: [],
   },
   sid: null,
   accessToken: null,
@@ -198,7 +200,7 @@ const auth = createSlice({
       store.loading = false;
       store.user = payload.updatedUser;
       store.user.likedProducts = payload.likedProducts;
-      // store.user.totalPagesLikedProducts = payload.totalPagesLikedProducts;
+      store.user.totalLikedPages = payload.totalLikedPages;
     },
     [updateUserLikes.rejected]: (store, { payload }) => {
       store.loading = false;
@@ -212,7 +214,8 @@ const auth = createSlice({
     [getUserLikesBasket.fulfilled]: (store, { payload }) => {
       store.loading = false;
       store.user.likedProducts = payload.likedProducts;
-      store.user.totalLikedPages = payload.totalLikedPages;
+      store.user.totalLikedPages =
+        payload.totalLikedPages === 0 ? 1 : payload.totalLikedPages;
       store.user.basketProducts = payload.basketProducts;
     },
     [getUserLikesBasket.rejected]: (store, { payload }) => {
@@ -224,10 +227,12 @@ const auth = createSlice({
     [updateUserSibscribes.pending]: store => {
       store.loading = true;
       store.error = '';
+      store.message = '';
     },
     [updateUserSibscribes.fulfilled]: (store, { payload }) => {
       store.loading = false;
-      store.user = payload;
+      store.user = payload.updatedUser;
+      store.message = payload.message;
     },
     [updateUserSibscribes.rejected]: (store, { payload }) => {
       store.loading = false;

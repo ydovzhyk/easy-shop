@@ -1,11 +1,181 @@
-.reviewsWrapper{
+@use 'styles/mixins';
+
+.reviewsPageWrapper{
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
+    margin-bottom: 20px;
+    @include mixins.mq(tablet) {
+        flex-direction: row;
+    }
 }
 
-.list {
+.reviewsListWrapper{
+    width: 100%;
+    @include mixins.mq(mobile-tablet) {
+        padding: 0 20px;
+    }
+    @include mixins.mq(tablet) {
+        width: 30%;
+    }
+    @include mixins.mq(desktop) {
+        width: 20%;
+    }
+}
+
+.heading {
+  font-size: 18px;
+  color: var(--text-color);
+  margin-bottom: 20px;
+  @include mixins.mq(desktop) {
+    font-size: 24px;
+  }
+}
+
+.optionsList {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    gap: 8px;
+    @include mixins.mq(tablet) {
+        padding-left: 8px;
+    }
+    @include mixins.mq(desktop) {
+        padding-left: 12px;
+    }
+}
+
+.selectButton {
+  position: relative;
+
+  padding: 8px;
+  font-size: 16px;
+  line-height: 13px;
+  letter-spacing: 0.04em;
+
+  color: var(--title-text-color);
+  background-color: transparent;
+
+  &::before {
+    content: '';
+    display: block;
+
+    position: absolute;
+    bottom: 1px;
+    left: 0;
+
+    width: 0;
+    height: 1px;
+
+    background-color: var(--btn-border-color);
+    transition: all var(--transition-duration) var(--timing-function);
+  }
+//   &:focus::before,
+  &:hover::before {
+    width: 100%;
+  }
+  &:hover {
+    text-shadow: var(--hover-text-shadow);
+    color: var(--hover-active-color);
+  }
+}
+
+.active {
+  position: relative;
+
+  text-shadow: var(--hover-text-shadow);
+  color: var(--hover-active-color);
+}
+
+.message {
+    font-size: 16px;
+    margin: auto;
+    text-align: center;
+    @include mixins.mq(tablet) {
+        font-size: 20px;
+        width: 75%;
+    }
+    @include mixins.mq(desktop) {
+        font-size: 26px;
+    }
+}
+
+.reviewsWrapper {
+    padding: 4px;
+    flex-grow: 1;
+    width: 100%;
+}
+
+.reviewBox {
+    position: relative;
+    display: flex;
+    gap: 16px;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+
+    @include mixins.mq(tablet) {
+        padding: 16px;
+    }
+    
+    &:hover{
+        border: 1px solid var(--accent-color);
+    }
+    &:not(:last-child) {
+        margin-bottom: 8px;
+    }
+}
+
+.avatarBox {
+    @include mixins.mq(mobile-only) {
+        display: none;
+    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--icons-color);
+    background-color: rgba(245, 245, 245, 0.455);
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.topReviewWrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.reviewerName {
+    font-size: 14px;
+    margin-bottom: 4px;
+    @include mixins.mq(tablet) {
+        font-size: 16px;
+    }
+}
+
+.reviewWrapper {
+    width: 100%;
+    font-size: 14px;
+    @include mixins.mq(tablet) {
+        font-size: 16px;
+    }
+}   
+
+.productName {
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.buttonTrashWrapper {
+    position: absolute;
+    top: 48px;
+    right: 16px;
+    @include mixins.mq(tablet) {
+        top: 42px;
+    }
+    @include mixins.mq(desktop) {
+        top: 44px;
+        right: 40px;
+    }
 }

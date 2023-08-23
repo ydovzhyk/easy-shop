@@ -4,7 +4,7 @@ import NoPhoto from 'images/catalog_photo/no_photo.jpg';
 import s from './OrderProductsList.module.scss';
 
 const OrderProductsList = ({ productsForOrder, products }) => {
-  console.log(productsForOrder);
+  // console.log(productsForOrder);
   return (
     <ul>
       {productsForOrder &&
