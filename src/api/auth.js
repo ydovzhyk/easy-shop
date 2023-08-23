@@ -123,7 +123,9 @@ export const axiosUpdateUserLikes = async userData => {
 };
 
 export const axiosUserLikesBasket = async userData => {
+  
   const { data } = await instance.post(`/auth/info?page=${userData}`, userData);
+  console.log('data12', data)
   return data;
 };
 

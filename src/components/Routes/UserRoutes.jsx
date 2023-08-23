@@ -69,7 +69,7 @@ const UserRoutes = () => {
           <Route path="/message" element={<MessagePage />} />
           <Route path="/basket" element={<BasketPage />} />
           <Route path="/favorites" element={<FavoritesPage />}>
-            <Route index element={<LikedProducts />} />
+            {/* <Route index element={<LikedProducts />} /> */}
             <Route path="liked-products" element={<LikedProducts />} />
             <Route path="user-subscriptions" element={<UserSubscriptions />} />
           </Route>

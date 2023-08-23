@@ -1,32 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 // import { getUserLikesBasket } from 'redux/auth/auth-operations';
-import {
-  //   getID,
-  // getUser,
-  getUserDateCreate,
-  //   getLikedProducts,
-  //   getTotalLikedProductsPages,
-} from 'redux/auth/auth-selectors';
-import { deleteUserSubscriptions } from 'redux/otherUser/otherUser-operations';
-import {
-  selectUserSubscriptions,
-  //   selectTotalPagesUserSubscription,
-} from 'redux/otherUser/otherUser-selectors';
-
+import { getUserDateCreate } from 'redux/auth/auth-selectors';
+import { updateUserSubscriptions, deleteUserSubscriptions } from 'redux/otherUser/otherUser-operations';
+import { selectUserSubscriptions, selectTotalPagesUserSubscription } from 'redux/otherUser/otherUser-selectors';
 import { updateUserFunc } from '../../../funcs&hooks/updateUser';
 
-// import Container from 'components/Shared/Container';
-// import ProductItem from '../Shared/ProductItem/ProductItem';
-// import Pagination from 'components/Shared/Pagination/Pagination';
-// import Button from 'components/Shared/Button';
-// import Text from 'components/Shared/Text/Text';
 import DaysValue from 'components/Shared/helper/DaysValue';
 import RoundButton from 'components/Shared/RoundButton/RoundButton';
+import Pagination from 'components/Shared/Pagination/Pagination';
 import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
-
 import Avatar from 'components/Profile/Avatar/Avatar';
 import UserRating from 'components/Profile/ProfileInfo/UserRating';
 import Value from 'components/Profile/Value';
@@ -35,20 +20,15 @@ import { BsTrash } from 'react-icons/bs';
 
 import s from './UserSubscriptions.module.scss';
 
-// const TabTypes = {
-//   PRODUCTS: 'products',
-//   SELLERS: 'sellers',
-// };
-
 const UserSubscriptions = () => {
   const dispatch = useDispatch();
 
   const [userSubscriptionId, setUserSubscriptionId] = useState(null);
-  // const [subscriptionsLength, setSubscriptionsLength] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [questionWindow, setQuestionWindow] = useState(false);
 
-  // const user = useSelector(getUser);
   const userSubscriptions = useSelector(selectUserSubscriptions);
+  const totalPagesSubscription = useSelector(selectTotalPagesUserSubscription);
   const dateCreate = useSelector(getUserDateCreate);
 
   const getDaysPassedFromDate = dateString => {
@@ -65,28 +45,43 @@ const UserSubscriptions = () => {
   const followersAmount = 36;
   const salesAmount = 16;
 
+  useEffect(() => {
+    // dispatch(getUserLikesBasket({ currentPage }));
+    dispatch(updateUserSubscriptions({ currentPage }));
+
+    // setIsLiked(false);
+  }, [dispatch, currentPage]);
+
   // for delete subscriptions
   const handleDeleteSubscriptions = _id => {
     setUserSubscriptionId(_id);
     setQuestionWindow(true);
-    console.log('handleDeleteSubscriptions called with _id:', _id);
   };
 
   const deleteSubscriptions = async choice => {
     if (choice === 'yes') {
-      console.log('yes', userSubscriptionId);
       await dispatch(
         deleteUserSubscriptions({ userSubscriptionId: userSubscriptionId })
       );
       updateUserFunc(dispatch);
       setQuestionWindow(false);
     } else if (choice === 'no') {
-      console.log('no');
       setUserSubscriptionId(null);
       setQuestionWindow(false);
     }
   };
 
+    // for scroling
+    const scrollToTop = () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+  
+    // for pagination
+    const handlePageChange = page => {
+      setCurrentPage(page);
+      scrollToTop();
+  };
+  
   return (
     <>
       <ul className={s.listCard}>
@@ -143,12 +138,17 @@ const UserSubscriptions = () => {
       </ul>
       {questionWindow && (
         <MessageWindow
-          // text={`"Ви впевнені, що хочете видалити підписку на ${username}?"`}
+          // text={`Ви впевнені, що хочете видалити підписку на ${username}?`}
           text={`"Ви впевнені, що хочете видалити підписку?"`}
           confirmButtons={true}
           onConfirm={deleteSubscriptions}
         />
       )}
+      <Pagination
+      totalPages={totalPagesSubscription}
+      currentPage={currentPage}
+      onPageChange={handlePageChange}
+    />
     </>
   );
 };
