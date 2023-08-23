@@ -10,6 +10,7 @@ import { selectOtherUser } from 'redux/otherUser/otherUser-selectors';
 import ProfileInfo from 'components/Profile/ProfileInfo/ProfileInfo';
 import SellerInfoDetails from 'components/SellerInfo/SellerInfoDetails/SellerInfoDetails';
 import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
+import {calculateAverageRating} from 'funcs&hooks/calculateAverageRating';
 
 import s from './SellerInfo.module.scss';
 
@@ -21,8 +22,8 @@ const SellerInfo = () => {
   const { id } = useParams();
   const isLogin = useSelector(getLogin);
   const userSubscriptions = useSelector(selectUserSubscriptions);
-  console.log('userSubscriptions in SellerInfo', userSubscriptions);
-  console.log('owner id in SellerInfo', id);
+  // console.log('userSubscriptions in SellerInfo', userSubscriptions);
+  // console.log('owner id in SellerInfo', id);
   const isSellerInSubscription = (userSubscriptions || [])
     .find(subscription => subscription === id);
 
@@ -34,8 +35,8 @@ const SellerInfo = () => {
     dispatch(getOtherUser(id)).then(() => setIsDataLoaded(true));
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [dispatch, id]);
-  console.log('sellerInfo in SellerInfo:', sellerInfo);
-  console.log('isSellerInSubscription in SellerInfo:', isSellerInSubscription)
+  // console.log('sellerInfo in SellerInfo:', sellerInfo);
+  // console.log('isSellerInSubscription in SellerInfo:', isSellerInSubscription);
   
   const {
     userAvatar,
@@ -45,10 +46,14 @@ const SellerInfo = () => {
     lastVisit,
     sex,
     verify,
-  } =  sellerInfo;
-
-  // console.log('sellerInfo in SellerInfo:', sellerInfo);
-
+    userFollowers,
+    successfulSales,
+    userFeedback,
+  } = sellerInfo;
+  
+  // console.log('userFeedback in SellerInfo:', userFeedback);
+  const averageRating = calculateAverageRating(userFeedback); 
+  const gradesAmount = userFeedback.length;
   useEffect(() => {
     setIsMessage(message);
   }, [message]);
@@ -71,20 +76,19 @@ const SellerInfo = () => {
       <section className={s.profileavatar}>
         {isDataLoaded && id && (
           <ProfileInfo
-        userAvatar={userAvatar}
-        userName={username}
-        verify={verify}
-        // rating={rating}
-        // gradesAmount={gradesAmount}
-        date={dateCreate}
-        lastVisit={lastVisit}
-        sex={sex || ''}
+          userAvatar={userAvatar}
+          userName={username}
+          verify={verify}
+          rating={averageRating}
+          gradesAmount={gradesAmount || 0}
+          date={dateCreate}
+          lastVisit={lastVisit}
+          sex={sex || ''}
           cityName={cityName || 'Kyiv'}
-          isSubscriptionButton='true'
+          isSubscriptionButton={!isSellerInSubscription}
           onSubscribe={handleSubscribe}
-          isSellerInSubscription={isSellerInSubscription}
-        // followersAmount={followersAmount}
-        // salesAmount={salesAmount}
+          followersAmount={userFollowers.length || 0}
+          salesAmount={successfulSales}
       />)}
     </section>
     <section className={s.profiledetails}>
