@@ -53,7 +53,7 @@ export const App = () => {
   const loadingDialogue = useSelector(getLoadingDialogue);
   const loadingOtherUser = useSelector(getLoadingOtherUser);
   const loadingOrder = useSelector(getLoadingOrders);
-  const loadingReview = useSelector(getLoadingReviews)
+  const loadingReview = useSelector(getLoadingReviews);
   const statusDialogue = useSelector(getStatusDialogueList);
   const isDesctop = useMediaQuery({ minWidth: 1280 });
   const dispatch = useDispatch();
@@ -226,12 +226,16 @@ export const App = () => {
     };
 
     const sendRequest = newM => {
-      const request = {
-        type: 'check_updates_dialogue',
-        userId: userId,
-        newMessage: newM ? newM : 0,
-      };
-      socketRef.current.send(JSON.stringify(request));
+      if (socketRef.current.readyState === WebSocket.OPEN) {
+        const request = {
+          type: 'check_updates_dialogue',
+          userId: userId,
+          newMessage: newM ? newM : 0,
+        };
+        socketRef.current.send(JSON.stringify(request));
+      } else {
+        return;
+      }
     };
 
     if (
@@ -257,7 +261,11 @@ export const App = () => {
   }, [dispatch, isLogin, userId, newMessage, isConnectionWS, statusDialogue]);
 
   useEffect(() => {
-    if (!isLogin && socketRef.current) {
+    if (
+      !isLogin &&
+      socketRef.current &&
+      socketRef.current.readyState === WebSocket.OPEN
+    ) {
       clearInterval(intervalRef.current);
       socketRef.current.close();
       socketRef.current = null;

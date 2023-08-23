@@ -1,6 +1,8 @@
 import { useState, useMemo } from 'react';
-import { useSearchParams, useParams } from 'react-router-dom';
+import { useSearchParams, useParams, useLocation } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
+import { HiOutlineStar } from 'react-icons/hi';
+import { HiStar } from 'react-icons/hi';
 import { MdClose } from 'react-icons/md';
 
 import { useForm, Controller } from 'react-hook-form';
@@ -15,6 +17,7 @@ import {
   getProductsByQueryPages,
 } from 'redux/product/product-selectors';
 import { getLogin } from 'redux/auth/auth-selectors';
+import { addSubscribtion } from 'redux/product/product-operations';
 import {
   resetHeaderForm,
   setCurrentProductsPage,
@@ -27,19 +30,20 @@ import ProductItem from 'components/Shared/ProductItem/ProductItem';
 import Text from 'components/Shared/Text/Text';
 import NotFound from 'components/NotFound/NotFound';
 import SelectField from 'components/Shared/SelectField/SelectField';
-import Button from 'components/Shared/Button/Button';
 import options from './options';
 
 import s from './Products.module.scss';
 
 const Products = () => {
   const [filterSelected, setFilterSelected] = useState('');
+  const [isSubscribed, setIsSubscribed] = useState(false);
   const currentPage = useSelector(getCurrentProductsPage);
   const hasHeaderFormErrors = useSelector(getHeaderFormErrors);
   const totalPages = useSelector(getProductsByQueryPages);
 
   const { category, subcategory } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
+  const { pathname, search } = useLocation();
 
   const products = useSelector(getProductsByQuery);
   const isFilterFormSubmitted = useSelector(getFilterForm);
@@ -85,6 +89,14 @@ const Products = () => {
     await dispatch(setCurrentProductsPage(1));
   };
 
+  const hasUrlSearchParams =
+    searchParams.get('price') ||
+    searchParams.get('size') ||
+    searchParams.get('condition') ||
+    searchParams.get('brand') ||
+    searchParams.get('price_from') ||
+    searchParams.get('price_to');
+
   const handleClearFiltersClick = async () => {
     await dispatch(resetFilterProduct());
     await dispatch(setCurrentProductsPage(1));
@@ -101,6 +113,11 @@ const Products = () => {
 
   const getClassName = () => {
     return !isUserLogin ? `${s.selectWrapper}` : `${s.bottomOptionsWrapper}`;
+  };
+
+  const handleSubscribtionClick = () => {
+    setIsSubscribed(!isSubscribed);
+    dispatch(addSubscribtion({ urlSubscription: pathname + search }));
   };
 
   return (
@@ -123,7 +140,7 @@ const Products = () => {
               <MdClose size={isMobile ? 18 : 22} />
             </button>
           )}
-          {isFilterFormSubmitted && (
+          {hasUrlSearchParams && (
             <button
               type="button"
               className={s.filterContent}
@@ -138,11 +155,22 @@ const Products = () => {
           <>
             <div className={getClassName()}>
               {isUserLogin && (
-                <Button
-                  text="Підписатися"
+                <button
                   type="button"
-                  btnClass="btnLightSubscribe"
-                />
+                  // className={s.filterContent}
+                  className={s.btnLightSubscribe}
+                  onClick={handleSubscribtionClick}
+                >
+                  <Text
+                    textClass="searchQueryContent"
+                    text={isSubscribed ? 'Підписатися' : 'Ви підписані'}
+                  />
+                  {isSubscribed ? (
+                    <HiStar size={isMobile ? 18 : 22} />
+                  ) : (
+                    <HiOutlineStar size={isMobile ? 18 : 22} />
+                  )}
+                </button>
               )}
               <Controller
                 control={control}

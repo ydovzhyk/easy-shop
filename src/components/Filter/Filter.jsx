@@ -97,6 +97,19 @@ const Filter = ({ onChange }) => {
     });
 
     for (const [key, value] of Object.entries(params)) {
+      if (key === 'size') {
+        const selectedSizesArray = [];
+        const selectedIndexSizesArray = value.split('_');
+
+        for (const [key, value] of Object.entries(sizeOption)) {
+          for (let i = 0; i < selectedIndexSizesArray.length; i += 1) {
+            if (selectedIndexSizesArray[i] === key) {
+              selectedSizesArray.push([{ name: key, value: value }]);
+            }
+          }
+          setSelectedSizes(selectedSizesArray);
+        }
+      }
       if (key === 'price') {
         const selectedFilterPrice = filterPrices.find(
           (el, index) => Number(value) === index
@@ -104,13 +117,27 @@ const Filter = ({ onChange }) => {
 
         setValue('filterPriceRadio', selectedFilterPrice);
       }
-      // if (key === 'condition') {
-      //   const selectedFilterCondition = filterConditions.filter(
-      //     (el, index) => Number(value) === index
-      //   );
-
-      //   setValue('filterCondition', selectedFilterCondition);
-      // }
+      if (key === 'brand') {
+        setValue('filterBrand', value);
+      }
+      if (key === 'price_to') {
+        setValue('filterPriceTo', value);
+      }
+      if (key === 'price_from') {
+        setValue('filterPriceFrom', value);
+      }
+      if (key === 'condition') {
+        let selectedConditions = [];
+        const selectedIndexConditionsArray = value.split('_');
+        for (let i = 0; i < filterConditions.length; i += 1) {
+          for (let j = 0; j < selectedIndexConditionsArray.length; j += 1) {
+            if (i === j) {
+              selectedConditions.push(filterConditions[i]);
+            }
+          }
+        }
+        setValue('filterCondition', selectedConditions);
+      }
     }
   }, [searchParams, setValue]);
 

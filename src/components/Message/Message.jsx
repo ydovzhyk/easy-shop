@@ -10,7 +10,6 @@ import s from './Message.module.scss';
 const Message = () => {
   const [selectedDialogue, setSelectedDialogue] = useState(null);
   const isDesktop = useMediaQuery({ minWidth: 1280 });
-  console.log('selectedDialogue', selectedDialogue);
   const handleClose = () => {
     setSelectedDialogue(null);
   };
