@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getOtherUser } from 'redux/otherUser/otherUser-operations';
-import { selectOtherUser } from 'redux/otherUser/otherUser-selectors';
+import { getLoadingOtherUser, selectOtherUser } from 'redux/otherUser/otherUser-selectors';
 
 import Avatar from 'components/Profile/Avatar/Avatar';
 import UserRating from 'components/Profile/ProfileInfo/UserRating';
@@ -32,6 +32,7 @@ const OwnerInfo = ({ owner }) => {
   }, [dispatch, owner]);
 
   const userInfo = useSelector(selectOtherUser);
+  const isLoading = useSelector(getLoadingOtherUser)
   const { userAvatar, username, cityName, dateCreate, lastVisit, sex, verify } =
     userInfo;
 
@@ -44,13 +45,13 @@ const OwnerInfo = ({ owner }) => {
 
   return (
     <>
-      <div className={s.profilewrapper}>
-        <div className={s.avatarframe}>
-          <div className={s.avatar}>
-            {userInfo && <Avatar avatarClass="photoAvatar" src={userAvatar} />}
+      {!isLoading && userInfo && (
+        <div className={s.profilewrapper}>
+          <div className={s.avatarframe}>
+            <div className={s.avatar}>
+              <Avatar avatarClass="photoAvatar" src={userAvatar} />
+            </div>
           </div>
-        </div>
-        {userInfo && (
           <div className={s.userframe}>
             <div className={s.profilebox}>
               <NavLink
@@ -107,8 +108,8 @@ const OwnerInfo = ({ owner }) => {
               </div>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </>
   );
 };
