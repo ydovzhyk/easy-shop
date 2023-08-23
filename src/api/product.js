@@ -49,6 +49,12 @@ export const axiosGetProductsByQuery = async payloadData => {
   return data;
 };
 
+// Create product subscribtion
+export const axiosProductSubscriptions = async payload => {
+  const { data } = await instance.post(`/product/subscriptions`, payload);
+  return data;
+};
+
 // Get vipProducts page
 export const axiosGetVipProducts = async userData => {
   const { data } = await instance.get(`/product/vip?page=${userData}`);

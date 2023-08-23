@@ -11,8 +11,15 @@
 }
 
 .reviewsListWrapper{
+    width: 100%;
     @include mixins.mq(mobile-tablet) {
         padding: 0 20px;
+    }
+    @include mixins.mq(tablet) {
+        width: 30%;
+    }
+    @include mixins.mq(desktop) {
+        width: 20%;
     }
 }
 
@@ -30,7 +37,6 @@
     flex-direction: column;
     gap: 8px;
     @include mixins.mq(tablet) {
-        // width: 20%;
         padding-left: 8px;
     }
     @include mixins.mq(desktop) {
@@ -86,6 +92,7 @@
     text-align: center;
     @include mixins.mq(tablet) {
         font-size: 20px;
+        width: 75%;
     }
     @include mixins.mq(desktop) {
         font-size: 26px;
@@ -95,10 +102,11 @@
 .reviewsWrapper {
     padding: 4px;
     flex-grow: 1;
-    max-width: 75%;
+    width: 100%;
 }
 
 .reviewBox {
+    position: relative;
     display: flex;
     gap: 16px;
     padding: 8px;
@@ -157,4 +165,17 @@
 .productName {
     margin-bottom: 8px;
     font-weight: 600;
+}
+
+.buttonTrashWrapper {
+    position: absolute;
+    top: 48px;
+    right: 16px;
+    @include mixins.mq(tablet) {
+        top: 42px;
+    }
+    @include mixins.mq(desktop) {
+        top: 44px;
+        right: 40px;
+    }
 }

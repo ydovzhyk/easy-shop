@@ -22,7 +22,7 @@
   &:hover {
     background-color: var(--background-btn-second-color);
     border-color: var(--btn-border-color);
-    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
+    box-shadow: var(--hover-box-shadow);
     color: var(--hover-btn-text);
   }
 }
@@ -32,16 +32,18 @@
   height: 50px;
   background-color: var(--background-btn-second-color);
   // box-shadow: 0px 3.43693px 3.43693px rgba(0, 0, 0, 0.25);
-  border: solid 2px var(--btn-border-color);
+  border: solid 1px var(--btn-border-color);
   color: var(--second-text-color);
   border-radius: 10.3108px;
   font-weight: 500;
   font-size: 18px;
   line-height: 22px;
-  transition: background-color var(--transition-duration) var(--timing-function),
+  transition: box-shadow var(--transition-duration) var(--timing-function),
+    background-color var(--transition-duration) var(--timing-function),
     color var(--transition-duration) var(--timing-function);
   &:hover {
     background-color: #f5f5f5;
+    box-shadow: var(--hover-box-shadow);
     color: var(--btn-text-color);
   }
 }

@@ -1,9 +1,10 @@
 import sizeOption from 'components/AddProduct/Size/sizeTable.json';
-import { filterConditions } from '../components/Filter/filterСonditions';
-import { filterPrices } from '../components/Filter/filterPrice';
+import { filterConditions } from 'components/Filter/filterСonditions';
+import { filterPrices } from 'components/Filter/filterPrice';
 
 export function getUrlFilterValues(filterData) {
   let selectedFilterValues = {};
+  console.log(filterData);
 
   Object.entries(filterData).forEach(([key, value]) => {
     if (key === 'size' && value !== '[]') {
@@ -20,7 +21,7 @@ export function getUrlFilterValues(filterData) {
       for (let i = 0; i < sizeOptionsArray.length; i += 1) {
         for (let j = 0; j < selectedSizeOptions.length; j += 1) {
           if (sizeOptionsArray[i] === selectedSizeOptions[j]) {
-            selectedSizeOptionsIndex.push(i);
+            selectedSizeOptionsIndex.push(sizeOptionsArray[i]);
           }
         }
       }
@@ -32,7 +33,6 @@ export function getUrlFilterValues(filterData) {
       );
       selectedFilterValues.price = selectedFilterPriceIndex;
     }
-    // selectedFilterValues.price = value;
 
     if (key === 'filterPriceFrom' && value !== '0') {
       selectedFilterValues.price_from = value;
@@ -41,7 +41,7 @@ export function getUrlFilterValues(filterData) {
       selectedFilterValues.price_to = value;
     }
     if (key === 'brandName' && value !== '') {
-      selectedFilterValues.brandName = value;
+      selectedFilterValues.brand = value;
     }
     if (key === 'condition' && value.length > 0) {
       let selectedConditionOptionsIndex = [];
@@ -55,8 +55,6 @@ export function getUrlFilterValues(filterData) {
       }
       selectedFilterValues.condition = selectedConditionOptionsIndex.join('_');
     }
-
-    // selectedFilterValues.condition = value.join('_');
   });
 
   return selectedFilterValues;

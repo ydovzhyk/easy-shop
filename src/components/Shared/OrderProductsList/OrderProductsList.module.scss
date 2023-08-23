@@ -74,5 +74,7 @@
   @include mixins.mq(tablet) {
     flex-direction: column;
     justify-content: center;
+    align-self: flex-end;
+    padding-bottom: 38px;
   }
 }

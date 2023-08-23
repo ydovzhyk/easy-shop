@@ -234,7 +234,9 @@ const ProductCard = () => {
               <div ref={chattingRef}>
                 <Text text="Продавець:" textClass="productLabels" />
                 <div className={s.ownerInfo}>
-                  {isDataLoaded && owner && <OwnerInfo owner={owner} />}
+                  {isDataLoaded && owner && (
+                    <OwnerInfo owner={owner} isUserProduct={isUserProduct} />
+                  )}
                 </div>
               </div>
             </div>

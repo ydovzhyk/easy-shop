@@ -13,7 +13,7 @@ import UserRating from 'components/Profile/ProfileInfo/UserRating';
 import Value from 'components/Profile/Value';
 import DaysValue from 'components/Shared/helper/DaysValue';
 import Button from 'components/Shared/Button';
-import { getDaysPassedFromDate, getPhrase } from 'components/ProductCard/OwnerInfo/culculatingTimeFunc';
+import { getDaysPassedFromDate, getPhrase } from 'funcs&hooks/culculatingTimeFunc';
 
 import verifyIcon from 'images/product-card/verified.svg';
 
@@ -34,7 +34,7 @@ const ProfileInfo = ({
   onClick,
   isExitButton, 
   onSubscribe,
-  isSubscriptionButton
+  isSubscriptionButton,
 }) => {
   const isTablet = useMediaQuery({ minWidth: 768 });
   const lastVisitDate = getPhrase(sex, lastVisit);
