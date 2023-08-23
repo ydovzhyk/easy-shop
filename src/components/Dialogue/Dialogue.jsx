@@ -241,8 +241,8 @@ const Dialogue = ({ productInfo }) => {
         <div className={s.dialogueContainer}>
           {!isInfoDialogue && (
             <div className={s.additionalOpts}>
-              <BiMessageDetail className={s.favoriteIcon} />
-              <Text text="Поставити запитання" textClass="productText" />
+              {/* <BiMessageDetail className={s.favoriteIcon} /> */}
+              <Text text="Запитати продавця" textClass="productText" />
             </div>
           )}
           {dialogueArray.length === 0 && (

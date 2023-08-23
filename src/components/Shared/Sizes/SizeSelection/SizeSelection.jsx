@@ -11,25 +11,28 @@ const SizeSelection = ({
   isFormSubmitted,
   historySize,
 }) => {
-
   const transformDefaultSelectedSizes = (defaultSelectedSizes, sizeOption) => {
-  const transformedSizes =  defaultSelectedSizes.map((selectedSize) => {
-    const { name, value } = selectedSize;
-    const indexInSizeOption = sizeOption.findIndex((size) => size[0].name === name);
-    if (indexInSizeOption !== -1) {
-      return [{ name: String(indexInSizeOption), value }];
-    }
-    return null;
-  });
+    const transformedSizes = defaultSelectedSizes.map(selectedSize => {
+      const { name, value } = selectedSize;
+      const indexInSizeOption = sizeOption.findIndex(
+        size => size[0].name === name
+      );
+      if (indexInSizeOption !== -1) {
+        return [{ name: String(indexInSizeOption), value }];
+      }
+      return null;
+    });
 
-  return transformedSizes.filter(Boolean);
-};
+    return transformedSizes.filter(Boolean);
+  };
 
-  const transformedDefaultSelectedSizes = defaultSelectedSizes ?
-    transformDefaultSelectedSizes(defaultSelectedSizes, sizeOption)
+  const transformedDefaultSelectedSizes = defaultSelectedSizes
+    ? transformDefaultSelectedSizes(defaultSelectedSizes, sizeOption)
     : [];
 
-  const [selectedSizes, setSelectedSizes] = useState(transformedDefaultSelectedSizes);
+  const [selectedSizes, setSelectedSizes] = useState(
+    transformedDefaultSelectedSizes
+  );
 
   const sizeValuesArray = sizeOption
     ? sizeOption.map(item => item[0].value)
@@ -74,7 +77,9 @@ const SizeSelection = ({
     <div className={s.sizeBox}>
       <Text
         text={sizeValuesArray.length > 1 ? 'Оберіть розмір:' : 'Розмір:'}
-        textClass="productLabels"
+        textClass={
+          sizeValuesArray.length > 1 ? 'productLabels' : 'productLabelsCard'
+        }
       />
       <ul className={s.menuGroupList}>
         {Object.entries(sizeValuesArray).map(([index, values]) => {
