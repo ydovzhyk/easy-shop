@@ -20,7 +20,7 @@ import {
   deleteDialogueNewMessage,
 } from 'redux/dialogue/dialogue-operations';
 
-import { BiMessageDetail } from 'react-icons/bi';
+// import { BiMessageDetail } from 'react-icons/bi';
 import Text from 'components/Shared/Text/Text';
 import Avatar from 'components/Profile/Avatar/Avatar';
 import Button from 'components/Shared/Button/Button';

@@ -1,15 +1,24 @@
 @use '../../styles/_mixins.scss';
 .menuContainer {
-  min-width: 280px;
+  min-width: 41%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 10px 0 10px 0x;
+  font-size: 12px;
   border-bottom: 1px solid var(--second-text-color);
   transition: background-color var(--transition-duration) var(--timing-function);
   &:hover {
     background-color: var(--bg-footer-header);
     cursor: pointer;
+  }
+  @include mixins.mq(mobile) {
+    min-width: 30%;
+    font-size: 14px;
+  }
+  @include mixins.mq(tablet) {
+    min-width: 30%;
+    font-size: 16px;
   }
 }
 .logo {
@@ -43,8 +52,11 @@
 .ModalCatalog {
   position: absolute;
   background-color: var(--main-color);
-  width: 288px;
+  min-width: 41%;
   height: 100%;
+  @include mixins.mq(tablet) {
+    min-width: 30%;
+  }
 }
 
 .dropdownMenu {
