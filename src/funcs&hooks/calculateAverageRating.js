@@ -1,5 +1,5 @@
 export const calculateAverageRating = feedbackArray => {
-  if (feedbackArray.length === 0) {
+  if (!feedbackArray || feedbackArray.length === 0) {
     return 0; // повертаємо 0, якщо масив порожній
   }
 
