@@ -94,9 +94,6 @@ const SellerInfo = () => {
     <section className={s.profiledetails}>
       <SellerInfoDetails/>
     </section>
-      <section className={s.profiledetails}>
-        <SellerInfoDetails />
-      </section>
       {isMessage && (
         <MessageWindow text={`${message}`} onDismiss={resetMessage} />
       )}
