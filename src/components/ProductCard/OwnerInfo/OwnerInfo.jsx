@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getOtherUser } from 'redux/otherUser/otherUser-operations';
 import { getLoadingOtherUser, selectOtherUser } from 'redux/otherUser/otherUser-selectors';
-import { getLogin, getUserMessage } from 'redux/auth/auth-selectors';
+import { getID, getLogin, getUserMessage } from 'redux/auth/auth-selectors';
 import { updateUserSibscribes } from 'redux/auth/auth-operations';
 
 import Avatar from 'components/Profile/Avatar/Avatar';
@@ -24,7 +24,7 @@ import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
 import Button from 'components/Shared/Button/Button';
 import s from 'components/ProductCard/OwnerInfo/OwnerInfo.module.scss';
 
-const OwnerInfo = ({ owner }) => {
+const OwnerInfo = ({ owner, isUserProduct }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -38,15 +38,16 @@ const OwnerInfo = ({ owner }) => {
   const isLoading = useSelector(getLoadingOtherUser);
   const isLogin = useSelector(getLogin);
   const message = useSelector(getUserMessage);
+  const userId = useSelector(getID);
   const [isMessage, setIsMessage] = useState('');
-    useEffect(() => {
-      setIsMessage(message);
-    }, [message]);
+  useEffect(() => {
+    setIsMessage(message);
+  }, [message]);
 
-    const resetMessage = () => {
-      setIsMessage('');
+  const resetMessage = () => {
+    setIsMessage('');
   };
-  
+
   const handleSubscribe = async event => {
     event.preventDefault();
     if (!isLogin) {
@@ -74,6 +75,8 @@ const OwnerInfo = ({ owner }) => {
 
   const lastVisitDate = getPhrase(sex, lastVisit);
   const daysAmount = getDaysPassedFromDate(dateCreate);
+
+  const isSubscribeBtnHidden = userFollowers?.find(id => id === userId);
 
   return (
     <>
@@ -141,11 +144,13 @@ const OwnerInfo = ({ owner }) => {
                 </p>
               </div>
             </div>
-            <Button
-              text="Підписатися"
-              btnClass="btnLight"
-              handleClick={handleSubscribe}
-            />
+            {!isSubscribeBtnHidden && !isUserProduct && (
+                <Button
+                  text="Підписатися"
+                  btnClass="btnLight"
+                  handleClick={handleSubscribe}
+                />
+              )}
           </div>
         </div>
       )}
