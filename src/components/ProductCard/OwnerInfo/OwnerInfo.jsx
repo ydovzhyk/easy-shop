@@ -1,17 +1,17 @@
-import { useEffect } from 'react';
-
-import { NavLink } from 'react-router-dom';
-
+import { useState, useEffect } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getOtherUser } from 'redux/otherUser/otherUser-operations';
-import { selectOtherUser } from 'redux/otherUser/otherUser-selectors';
+import { getLoadingOtherUser, selectOtherUser } from 'redux/otherUser/otherUser-selectors';
+import { getID, getLogin, getUserMessage } from 'redux/auth/auth-selectors';
+import { updateUserSibscribes } from 'redux/auth/auth-operations';
 
 import Avatar from 'components/Profile/Avatar/Avatar';
 import UserRating from 'components/Profile/ProfileInfo/UserRating';
 import Value from 'components/Profile/Value';
 import DaysValue from 'components/Shared/helper/DaysValue';
-import { getDaysPassedFromDate, getPhrase } from 'components/ProductCard/OwnerInfo/culculatingTimeFunc';
+import { getDaysPassedFromDate, getPhrase } from 'funcs&hooks/culculatingTimeFunc';
 import {
   BsCheck2,
   BsGeoAlt,
@@ -20,46 +20,84 @@ import {
   BsClock,
 } from 'react-icons/bs';
 import verifyIcon from 'images/product-card/verified.svg';
+import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
+import Button from 'components/Shared/Button/Button';
 import s from 'components/ProductCard/OwnerInfo/OwnerInfo.module.scss';
 
-const OwnerInfo = ({ owner }) => {
+const OwnerInfo = ({ owner, isUserProduct }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getOtherUser(owner));
+    if (owner) {
+      dispatch(getOtherUser(owner));
+    }
   }, [dispatch, owner]);
 
   const userInfo = useSelector(selectOtherUser);
-  const { userAvatar, username, cityName, dateCreate, lastVisit, sex, verify } =
-    userInfo;
+  const isLoading = useSelector(getLoadingOtherUser);
+  const isLogin = useSelector(getLogin);
+  const message = useSelector(getUserMessage);
+  const userId = useSelector(getID);
+  const [isMessage, setIsMessage] = useState('');
+  useEffect(() => {
+    setIsMessage(message);
+  }, [message]);
+
+  const resetMessage = () => {
+    setIsMessage('');
+  };
+
+  const handleSubscribe = async event => {
+    event.preventDefault();
+    if (!isLogin) {
+      navigate('/login');
+      return;
+    }
+    await dispatch(updateUserSibscribes(_id));
+    dispatch(getOtherUser(owner));
+  };
+
+  const {
+    userAvatar,
+    username,
+    cityName,
+    dateCreate,
+    lastVisit,
+    sex,
+    verify,
+    userFeedback,
+    rating,
+    successfulSales,
+    userFollowers,
+    _id,
+  } = userInfo;
 
   const lastVisitDate = getPhrase(sex, lastVisit);
-  const rating = 3.2;
-  const gradesAmount = 12;
   const daysAmount = getDaysPassedFromDate(dateCreate);
-  const followersAmount = 36;
-  const salesAmount = 16;
+
+  const isSubscribeBtnHidden = userFollowers?.find(id => id === userId);
 
   return (
     <>
-      <div className={s.profilewrapper}>
-        <div className={s.avatarframe}>
-          <div className={s.avatar}>
-            {userInfo && <Avatar avatarClass="photoAvatar" src={userAvatar} />}
+      {!isLoading && userInfo && (
+        <div className={s.profilewrapper}>
+          <div className={s.avatarframe}>
+            <div className={s.avatar}>
+              <NavLink className={s.username} to={`/member/${owner}`}>
+                <Avatar avatarClass="photoAvatar" src={userAvatar} />
+              </NavLink>
+            </div>
           </div>
-        </div>
-        {userInfo && (
           <div className={s.userframe}>
             <div className={s.profilebox}>
-              <NavLink
-                className={s.username}
-                to={`/member/${owner}`}
-                // state={{ owner: owner }}
-              >
+              <NavLink className={s.username} to={`/member/${owner}`}>
                 {username}
               </NavLink>
-              {/* <h5 className={s.username}>{username}</h5> */}
-              <UserRating rating={rating} gradesAmount={gradesAmount} />
+              <UserRating
+                rating={rating}
+                gradesAmount={userFeedback?.length || 0}
+              />
             </div>
             <div className={s.infowrapper}>
               <BsCheck2 className={s.iconBefore} />
@@ -92,21 +130,33 @@ const OwnerInfo = ({ owner }) => {
               <div className={s.infowrapper}>
                 <BsPeople className={s.iconBefore} />
                 <p className={s.text}>
-                  <Value className={s.leftvalue}>{followersAmount}</Value>
+                  <Value className={s.leftvalue}>
+                    {userFollowers?.length || 0}
+                  </Value>
                   підписників
                 </p>
               </div>
               <div className={s.infowrapper}>
                 <BsHandbag className={s.iconBefore} />
                 <p className={s.text}>
-                  <Value className={s.leftvalue}>{salesAmount}</Value>
+                  <Value className={s.leftvalue}>{successfulSales}</Value>
                   продажів
                 </p>
               </div>
             </div>
+            {!isSubscribeBtnHidden && !isUserProduct && (
+                <Button
+                  text="Підписатися"
+                  btnClass="btnLight"
+                  handleClick={handleSubscribe}
+                />
+              )}
           </div>
-        )}
-      </div>
+        </div>
+      )}
+      {isMessage && (
+        <MessageWindow text={`${message}`} onDismiss={resetMessage} />
+      )}
     </>
   );
 };
