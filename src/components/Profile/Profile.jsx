@@ -29,7 +29,7 @@ const Profile = () => {
   const userAddress = user.userAddress || 'Kyiv';
   const { verify, lastVisit, userFeedback, successfulSales, userFollowers } = user;
   const averageRating = calculateAverageRating(userFeedback);
-  const gradesAmount = userFeedback.length;
+  const gradesAmount = userFeedback?.length || 0;
   const onLogout = async () => {
     navigate('/');
     await dispatch(logout());
@@ -51,12 +51,12 @@ const Profile = () => {
           userAvatar={avatar}
           userName={name}
           rating={averageRating}
-          gradesAmount={gradesAmount || 0}
+          gradesAmount={gradesAmount}
           date={dateCreate}
           lastVisit={lastVisit}
           cityName={userAddress}
           verify={verify}
-          followersAmount={userFollowers.length || 0}
+          followersAmount={userFollowers?.length || 0}
           salesAmount={successfulSales}
           isExitButton='true'
           onClick={onLogout } />
