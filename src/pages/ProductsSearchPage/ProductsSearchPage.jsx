@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import { Outlet, useSearchParams, useParams } from 'react-router-dom';
 
@@ -9,7 +9,6 @@ import {
   getHeaderFormReset,
   getHeaderFormClick,
   getCurrentProductsPage,
-  getFilterForm,
   getFilterProduct,
 } from 'redux/product/product-selectors';
 
@@ -18,11 +17,20 @@ import Container from 'components/Shared/Container/Container';
 import { getUrlFilterValues } from '../../funcs&hooks/getUrlFilterValues.js';
 import { translateParamsToUA } from '../../funcs&hooks/translateParamsToUA.js';
 
+import { filterPrices } from 'components/Filter/filterPrice';
+import { filterConditions } from 'components/Filter/filterСonditions';
+import sizeOption from 'components/AddProduct/Size/sizeTable.json';
+
 const ProductsSearchPage = () => {
-  const [filterData, setFilterData] = useState({});
   const { category, subcategory } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = searchParams.get('search') ?? '';
+  const brandName = searchParams.get('brand') ?? '';
+  const filterPriceFrom = searchParams.get('price_from') ?? '0';
+  const filterPriceTo = searchParams.get('price_to') ?? '1000000';
+  const filterPrice = searchParams.get('price') ?? '';
+  const condition = searchParams.get('condition') ?? '';
+  const size = searchParams.get('size') ?? '';
 
   const dispatch = useDispatch();
   const isHeaderFormClicked = useSelector(getHeaderFormClick);
@@ -30,26 +38,54 @@ const ProductsSearchPage = () => {
   const shouldHeaderFormReset = useSelector(getHeaderFormReset);
   const currentPage = useSelector(getCurrentProductsPage);
   const shouldFilterFormReset = useSelector(getFilterProduct);
-  const isFilterFormSubmitted = useSelector(getFilterForm);
 
   const payload = useMemo(() => {
+    let selectedConditionsArray = [];
+    let selectedSizesArray = [];
+    if (condition !== '') {
+      const selectedConditionsIndexArray = condition.split('_');
+      selectedConditionsArray = selectedConditionsIndexArray.map(
+        el => filterConditions[Number(el)]
+      );
+    }
+
+    if (size !== '') {
+      const selectedIndexSizesArray = size.split('_');
+
+      for (const [key, value] of Object.entries(sizeOption)) {
+        for (let i = 0; i < selectedIndexSizesArray.length; i += 1) {
+          if (selectedIndexSizesArray[i] === key) {
+            selectedSizesArray.push([{ name: key, value: value }]);
+          }
+        }
+      }
+    }
     return {
       searchQuery,
       section: !category ? '' : translateParamsToUA(category).categoryName,
       category: !subcategory
         ? ''
         : translateParamsToUA(category, subcategory).subCategoryName,
-      filterData,
-      // filterData: {
-      //   brandName: searchParams.get('brand'),
-      //   condition: [],
-      //   filterPrice: searchParams.get('price'),
-      //   filterPriceFrom: searchParams.get('price_from'),
-      //   filterPriceTo: searchParams.get('price_to'),
-      //   size: '[]',
-      // },
+      filterData: {
+        brandName,
+        condition: selectedConditionsArray,
+        filterPrice: filterPrices[filterPrice] ?? '',
+        filterPriceFrom,
+        filterPriceTo,
+        size: JSON.stringify(selectedSizesArray),
+      },
     };
-  }, [category, subcategory, searchQuery, filterData]);
+  }, [
+    category,
+    subcategory,
+    searchQuery,
+    brandName,
+    size,
+    condition,
+    filterPrice,
+    filterPriceFrom,
+    filterPriceTo,
+  ]);
 
   useEffect(() => {
     if (!shouldFilterFormReset) {
@@ -66,38 +102,6 @@ const ProductsSearchPage = () => {
   }, [setSearchParams, searchParams, shouldFilterFormReset]);
 
   useEffect(() => {
-    if (!isFilterFormSubmitted) {
-      return;
-    }
-
-    if (shouldFilterFormReset) {
-      searchParams.delete('size');
-      searchParams.delete('price');
-      searchParams.delete('condition');
-      searchParams.delete('brand');
-      searchParams.delete('price_from');
-      searchParams.delete('price_to');
-      searchParams.delete('page');
-      setSearchParams(searchParams);
-      return;
-    }
-
-    const selectedFilterValues = getUrlFilterValues(payload.filterData);
-
-    Object.entries(selectedFilterValues).map(([name, value]) =>
-      searchParams.set(name, value)
-    );
-    setSearchParams(searchParams);
-  }, [
-    searchQuery,
-    shouldFilterFormReset,
-    isFilterFormSubmitted,
-    payload.filterData,
-    searchParams,
-    setSearchParams,
-  ]);
-
-  useEffect(() => {
     if (
       !hasHeaderFormErrors &&
       searchQuery === '' &&
@@ -111,6 +115,7 @@ const ProductsSearchPage = () => {
       searchParams.set('page', currentPage);
       setSearchParams(searchParams);
     }
+    console.log(payload);
     dispatch(
       searchProducts({
         payloadData: payload,
@@ -130,7 +135,13 @@ const ProductsSearchPage = () => {
   ]);
 
   const dataFilterHandler = dataFilter => {
-    setFilterData(dataFilter);
+    console.log(dataFilter);
+    const selectedFilterValues = getUrlFilterValues(dataFilter);
+
+    Object.entries(selectedFilterValues).map(([name, value]) =>
+      searchParams.set(name, value)
+    );
+    setSearchParams(searchParams);
   };
 
   return (

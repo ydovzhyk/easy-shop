@@ -1,9 +1,10 @@
 import sizeOption from 'components/AddProduct/Size/sizeTable.json';
-import { filterConditions } from '../components/Filter/filterСonditions';
-import { filterPrices } from '../components/Filter/filterPrice';
+import { filterConditions } from 'components/Filter/filterСonditions';
+import { filterPrices } from 'components/Filter/filterPrice';
 
 export function getUrlFilterValues(filterData) {
   let selectedFilterValues = {};
+  console.log(filterData);
 
   Object.entries(filterData).forEach(([key, value]) => {
     if (key === 'size' && value !== '[]') {
@@ -32,7 +33,6 @@ export function getUrlFilterValues(filterData) {
       );
       selectedFilterValues.price = selectedFilterPriceIndex;
     }
-    // selectedFilterValues.price = value;
 
     if (key === 'filterPriceFrom' && value !== '0') {
       selectedFilterValues.price_from = value;
@@ -55,8 +55,6 @@ export function getUrlFilterValues(filterData) {
       }
       selectedFilterValues.condition = selectedConditionOptionsIndex.join('_');
     }
-
-    // selectedFilterValues.condition = value.join('_');
   });
 
   return selectedFilterValues;
