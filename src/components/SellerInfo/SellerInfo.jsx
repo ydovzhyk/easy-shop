@@ -51,9 +51,9 @@ const SellerInfo = () => {
     userFeedback,
   } = sellerInfo;
   
-  // console.log('userFeedback in SellerInfo:', userFeedback);
+  console.log('userFeedback in SellerInfo:', userFeedback);
   const averageRating = calculateAverageRating(userFeedback); 
-  const gradesAmount = userFeedback.length;
+  const gradesAmount = userFeedback?.length || 0;
   useEffect(() => {
     setIsMessage(message);
   }, [message]);
@@ -80,14 +80,14 @@ const SellerInfo = () => {
           userName={username}
           verify={verify}
           rating={averageRating}
-          gradesAmount={gradesAmount || 0}
+          gradesAmount={gradesAmount}
           date={dateCreate}
           lastVisit={lastVisit}
           sex={sex || ''}
           cityName={cityName || 'Kyiv'}
           isSubscriptionButton={!isSellerInSubscription}
           onSubscribe={handleSubscribe}
-          followersAmount={userFollowers.length || 0}
+          followersAmount={userFollowers?.length || 0}
           salesAmount={successfulSales}
       />)}
     </section>
