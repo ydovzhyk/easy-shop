@@ -11,7 +11,7 @@ import Avatar from 'components/Profile/Avatar/Avatar';
 import UserRating from 'components/Profile/ProfileInfo/UserRating';
 import Value from 'components/Profile/Value';
 import DaysValue from 'components/Shared/helper/DaysValue';
-import { getDaysPassedFromDate, getPhrase } from 'components/ProductCard/OwnerInfo/culculatingTimeFunc';
+import { getDaysPassedFromDate, getPhrase } from 'funcs&hooks/culculatingTimeFunc';
 import {
   BsCheck2,
   BsGeoAlt,
@@ -26,7 +26,9 @@ const OwnerInfo = ({ owner }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getOtherUser(owner));
+    if (owner) {
+      dispatch(getOtherUser(owner));
+    }
   }, [dispatch, owner]);
 
   const userInfo = useSelector(selectOtherUser);
