@@ -4,7 +4,7 @@ import { useParams, useNavigate} from 'react-router-dom';
 import { getOtherUser } from 'redux/otherUser/otherUser-operations';
 import { updateUserSibscribes } from 'redux/auth/auth-operations';
 // import { clearOtherUser } from 'redux/otherUser/otherUser.slice';
-import { getLogin } from 'redux/auth/auth-selectors';
+import { getLogin, selectUserSubscriptions } from 'redux/auth/auth-selectors';
 import { selectOtherUser } from 'redux/otherUser/otherUser-selectors';
 
 import ProfileInfo from 'components/Profile/ProfileInfo/ProfileInfo';
@@ -18,14 +18,20 @@ const SellerInfo = () => {
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const { id } = useParams();
   const isLogin = useSelector(getLogin);
-  // console.log('owner id in SellerInfo', id);
+  const userSubscriptions = useSelector(selectUserSubscriptions);
+  console.log('userSubscriptions in SellerInfo', userSubscriptions);
+  console.log('owner id in SellerInfo', id);
+  const isSellerInSubscription = (userSubscriptions || [])
+    .find(subscription => subscription === id);
+
   useEffect(() => {
     // dispatch(clearOtherUser());
     dispatch(getOtherUser(id)).then(() => setIsDataLoaded(true));
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [dispatch, id]);
   const sellerInfo = useSelector(selectOtherUser);
-// console.log('sellerInfo in SellerInfo:', sellerInfo);
+  console.log('sellerInfo in SellerInfo:', sellerInfo);
+  console.log('isSellerInSubscription in SellerInfo:', isSellerInSubscription)
   
   const {
     userAvatar,
@@ -62,6 +68,7 @@ const SellerInfo = () => {
           cityName={cityName || 'Kyiv'}
           isSubscriptionButton='true'
           onSubscribe={handleSubscribe}
+          isSellerInSubscription={isSellerInSubscription}
         // followersAmount={followersAmount}
         // salesAmount={salesAmount}
       />}
