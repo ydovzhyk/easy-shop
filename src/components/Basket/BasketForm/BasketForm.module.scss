@@ -25,6 +25,9 @@
     justify-content: space-between;
     gap: 12px;
   }
+  @include mixins.mq(desktop) {
+    padding: 25px;
+  }
 }
 
 .photoAndNameAndPrice {
@@ -37,9 +40,9 @@
     flex-direction: row;
     gap: 8px;
   }
-  @include mixins.mq(desktop) {
-    justify-content: start;
-  }
+  // @include mixins.mq(desktop) {
+  //   justify-content: start;
+  // }
 }
 
 .photoAndName {
@@ -50,9 +53,14 @@
 
 .thumb {
   width: 100%;
-  height: 440px;
+  height: 500px;
+  // height: 440px;
   @include mixins.mq(tablet) {
     width: 336px;
+  }
+  @include mixins.mq(desktop) {
+    width: 500px;
+    // width: 336px;
   }
 }
 
@@ -91,8 +99,8 @@
   }
   @include mixins.mq(desktop) {
     flex-direction: row;
-    justify-content: space-around;
-    flex-grow: 1;
+    justify-content: space-betwceen;
+    // flex-grow: 1;
   }
 }
 

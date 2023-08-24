@@ -253,8 +253,7 @@ const Products = () => {
           products.length === 0 &&
           !hasHeaderFormErrors && (
             <NotFound
-              textTop={'За вашим запитом'}
-              textBottom={'товарів не знайдено.'}
+              textContent={'No products were found matching your request.'}
               classComp={'booWrapper-products'}
             />
           )}
@@ -263,8 +262,7 @@ const Products = () => {
           productsToRender.length === 0 &&
           products.length === 0 && (
             <NotFound
-              textTop={'За вашим запитом'}
-              textBottom={'товарів не знайдено.'}
+              textContent={'No products were found matching your request.'}
               classComp={'booWrapper-products'}
             />
           )}
