@@ -134,4 +134,9 @@ export const axiosUpdateUserSubscribes = async userData => {
   return data;
 };
 
+export const axiosUpdateSearchUserSibscribes = async userData => {
+  const { data } = await instance.post('/auth/subscribes/search', userData);
+  return data;
+};
+
 export default instance;
