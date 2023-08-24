@@ -11,7 +11,6 @@ import {
   axiosGetProductById,
   axiosGetProductsFromBasket,
   axiosGetProductsFromOtherUser,
-  axiosProductSubscriptions,
 } from 'api/product';
 
 export const addProduct = createAsyncThunk(
