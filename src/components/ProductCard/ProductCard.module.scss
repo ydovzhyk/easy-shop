@@ -15,6 +15,7 @@
 .productCardWrapper {
   @include mixins.mq(desktop) {
     display: flex;
+    margin-bottom: 10px;
   }
 }
 

@@ -19,7 +19,13 @@
   @include mixins.mq(desktop) {
     flex-direction: row;
     flex-wrap: wrap;
-    width: 650px;
+    // width: 650px;
+  }
+}
+
+.secondaryWrapper {
+  @include mixins.mq(desktop) {
+    width: 300px;
   }
 }
 
@@ -36,7 +42,7 @@
   border-radius: 5px;
   padding: 8px;
 
-  @include mixins.mq(desktop) {
-    margin-right: 20px;
-  }
+  // @include mixins.mq(desktop) {
+  //   margin-right: 20px;
+  // }
 }
