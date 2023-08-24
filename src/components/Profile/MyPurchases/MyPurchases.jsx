@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { deleteOrderById, getUserOrders } from 'redux/order/order-operations';
+import { getUserOrders } from 'redux/order/order-operations';
 import {
   getLoadingOrders,
   selectUserOrders,
@@ -17,9 +16,6 @@ import Pagination from 'components/Shared/Pagination/Pagination';
 import OrderStatusList from 'components/Shared/OrderStatusList/OrderStatusList';
 import Button from 'components/Shared/Button/Button';
 import FeedbackWindow from 'components/Shared/FeedbackWindow/FeedbackWindow';
-import RoundButton from 'components/Shared/RoundButton/RoundButton';
-import { BsTrash } from 'react-icons/bs';
-import { updateUserFunc } from 'funcs&hooks/updateUser';
 import s from './MyPurchases.module.scss';
 
 
@@ -29,7 +25,6 @@ const MyShoppings = () => {
   const isLogin = useSelector(getLogin);
   const isLoading = useSelector(getLoadingOrders);
   const myReview = useSelector(selectUserReviews);
-  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const [currentPage, setCurrentPage] = useState(1);
   const [currentSelector, setcurrentSelector] = useState("all");
@@ -37,7 +32,6 @@ const MyShoppings = () => {
   const [orderToFeedbackWindow, setOrderToFeedbackWindow] = useState({});
 
    useEffect(() => {
-    //  dispatch(clearReviewAndFeedback());
     dispatch(getUserReviews({ userId }));
    }, [dispatch, userId, orderToFeedbackWindow]);
 
@@ -79,17 +73,6 @@ const MyShoppings = () => {
     document.body.style.overflow = isFeedbackWindowOpen ? 'hidden' : 'unset';
   }, [isFeedbackWindowOpen]);
 
-  const handleButtonTrashClick = async id => {
-    await dispatch(deleteOrderById(id));
-    dispatch(
-      getUserOrders({
-        page: currentPage,
-        selectorName: currentSelector,
-      })
-    );
-    updateUserFunc(dispatch);
-  };
-  
   return (
     <>
       <div className={s.ordersWrapper}>
@@ -179,14 +162,6 @@ const MyShoppings = () => {
                         orderToFeedbackWindow={orderToFeedbackWindow}
                       />
                     )}
-                    <div className={s.buttonTrashWrapper}>
-                      <RoundButton
-                        btnClass={isMobile ? 'roundButtonMob' : 'roundButton'}
-                        icon={BsTrash}
-                        handleClick={handleButtonTrashClick}
-                        id={_id}
-                      />
-                    </div>
                   </li>
                 );}
             )}
