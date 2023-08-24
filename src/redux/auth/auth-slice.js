@@ -9,6 +9,7 @@ import {
   updateUserLikes,
   getUserLikesBasket,
   updateUserSibscribes,
+  updateSearchUserSibscribes,
 } from './auth-operations';
 
 const initialState = {
@@ -235,6 +236,21 @@ const auth = createSlice({
       store.message = payload.message;
     },
     [updateUserSibscribes.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload.message;
+    },
+    // * UPDATE USER SEARCH SUBSCRIBTIONS
+    [updateSearchUserSibscribes.pending]: store => {
+      store.loading = true;
+      store.error = '';
+      store.message = '';
+    },
+    [updateSearchUserSibscribes.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.user = payload.updatedUser;
+      store.message = payload.message;
+    },
+    [updateSearchUserSibscribes.rejected]: (store, { payload }) => {
       store.loading = false;
       store.error = payload.message;
     },

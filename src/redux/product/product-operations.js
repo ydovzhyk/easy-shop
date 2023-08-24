@@ -91,18 +91,6 @@ export const searchProducts = createAsyncThunk(
     }
   }
 );
-export const addSubscribtion = createAsyncThunk(
-  'product',
-  async (payload, { rejectWithValue }) => {
-    try {
-      const data = await axiosProductSubscriptions(payload);
-      return data;
-    } catch (error) {
-      const { data, status } = error.response;
-      return rejectWithValue({ data, status });
-    }
-  }
-);
 
 export const getVipProducts = createAsyncThunk(
   'product/vip',
