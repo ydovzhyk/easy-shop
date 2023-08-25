@@ -23,7 +23,7 @@
   flex-direction: column;
   gap: 8px;
   &:hover {
-    border: 1px solid var(--accent-color);
+    border: 1px solid var(--btn-border-color);
   }
 
   @include mixins.mq(tablet) {
@@ -42,9 +42,10 @@
   gap: 8px;
   align-items: center;
   justify-content: center;
+  width: 100%;
   @include mixins.mq(desktop) {
     flex-direction: row;
-    gap: 30px;
+    gap: 20px;
     justify-content: space-around;
   }
 }
@@ -56,7 +57,7 @@
   gap: 20px;
   align-items: center;
   justify-content: center;
-
+  width: 100%;
   @include mixins.mq(tablet) {
     justify-content: flex-start;
   }
@@ -66,33 +67,29 @@
 }
 
 .descriptionThumb {
-  font-size: 14px;
+  font-size: 12px;
   color: var(--text-color);
-  overflow: auto;
+  overflow-y: auto;
   white-space: pre-wrap;
-  line-height: 1.5;
   width: 100%;
-  // text-indent: 1.2em;
-  /* Стилізація самого скрола */
+  height: 180px;
   &::-webkit-scrollbar {
     width: 6px;
     background-color: var(--bg-footer-header);
   }
-  /* Стилізація повзунка */
   &::-webkit-scrollbar-thumb {
-    background-color: var(--background-btn-main-color);
+    background-color: var(--border-color);
     width: 6px;
     border-radius: 9em;
   }
-  /* Стилізація полоси прокрутки при наведенні */
   &::-webkit-scrollbar-thumb:hover {
-    background-color: var(
-      --btn-border-color
-    ); /* Колір повзунка при наведенні */
+    background-color: var(--btn-border-color);
   }
-
   @include mixins.mq(tablet) {
-    height: 200px;
+    height: 190px;
+  }
+  @include mixins.mq(desktop) {
+    height: 205px;
   }
 }
 
@@ -102,7 +99,6 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-
   @include mixins.mq(tablet) {
     gap: 12px;
   }

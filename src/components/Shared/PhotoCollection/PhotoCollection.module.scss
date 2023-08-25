@@ -1,72 +1,69 @@
 @use '../../../styles/mixins';
 
 .generalPhotoWrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
 
-    @include mixins.mq(tablet) {
-        flex-direction: row;
-        gap: 8px;
-        width: 355px;
-        height: 400px;
-    }
-    @include mixins.mq(desktop) {
-        width: 420px;
-    }
+  @include mixins.mq(tablet) {
+    flex-direction: row;
+    gap: 8px;
+    width: 355px;
+    height: 400px;
+  }
+  @include mixins.mq(desktop) {
+    width: 420px;
+  }
 }
 
 .thumb {
-    width: 100%;
-    height: 300px;
-    padding-bottom: 2px;
-    @include mixins.mq(tablet) {
-        width: 307px;
-        height: 400px;
-    }
-    @include mixins.mq(desktop) {
-        width: 370px;
-    }
+  width: 100%;
+  height: 300px;
+  padding-bottom: 2px;
+  @include mixins.mq(tablet) {
+    width: 307px;
+    height: 400px;
+  }
+  @include mixins.mq(desktop) {
+    width: 370px;
+  }
 }
 
 .mainPhotoCard {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    // border-radius: 25px;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .additionalPhotoList {
-    display: flex;
-    gap: 8px;
+  display: flex;
+  gap: 8px;
 
-    @include mixins.mq(tablet) {
-        flex-direction: column;
-        align-items: start;
-        justify-content: flex-start;
-        width: 40px;
-        height: 100%;
-    }
+  @include mixins.mq(tablet) {
+    flex-direction: column;
+    align-items: start;
+    justify-content: flex-start;
+    width: 60px;
+    height: 100%;
+  }
 }
 
 .additionalPhotoItem {
-    // border-radius: 25px;
-
-    @include mixins.mq(tablet) {
-        width: 40px;
-        min-height: 55px;
-    }
+  @include mixins.mq(tablet) {
+    width: 100%;
+  }
 }
 
 .additionalPhotoCard {
-    // border-radius: 12px;
-    width: 60px;
-    
-    @include mixins.mq(tablet) {
-        width: 100%;
-        // border-radius: 12px;
-    }
+  width: 60px;
+  height: 70px;
+  object-fit: cover;
+
+  @include mixins.mq(tablet) {
+    width: 100%;
+    height: 75px;
+  }
 }
