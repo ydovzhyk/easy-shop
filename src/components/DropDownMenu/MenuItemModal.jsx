@@ -1,6 +1,6 @@
 import { ReactComponent as Flech } from '../../images/dropDownMenu/flech.svg';
 import React, { useState, useEffect } from 'react';
-import { useSearchParams, createSearchParams } from 'react-router-dom';
+import { useSearchParams, createSearchParams, Link } from 'react-router-dom';
 
 import s from './ModalCatalog.module.scss';
 
@@ -45,12 +45,19 @@ const MenuItemModal = ({
         setIsSubMenuOpen({ submenu: menuItem.submenu, itemName: menuItem.name })
       }
     >
-      <a href={getPathCategory(menuItem.link)}>
+      {/* <a href={getPathCategory(menuItem.link)}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <span className={s.span}>{menuItem.icon}</span>
           <span className={s.span}>{menuItem.name}</span>
         </div>
-      </a>
+      </a> */}
+
+      <Link to={getPathCategory(menuItem.link)}>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <span className={s.span}>{menuItem.icon}</span>
+          <span className={s.span}>{menuItem.name}</span>
+        </div>
+      </Link>
 
       <Flech
         className={s.flech}
