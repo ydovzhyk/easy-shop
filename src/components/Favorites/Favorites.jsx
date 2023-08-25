@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import {  useSelector } from 'react-redux';
-import { NavLink, Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { NavLink, Outlet, useLocation } from 'react-router-dom';
 
 // import { getUserLikesBasket } from 'redux/auth/auth-operations';
 import {
@@ -30,6 +30,8 @@ import s from './Favorites.module.scss';
 // };
 
 const Favorites = () => {
+  const location = useLocation();
+  console.log('location.pathname', location.pathname);
   // const dispatch = useDispatch();
   // const navigate = useNavigate();
   // const [isLiked, setIsLiked] = useState(false);
@@ -39,6 +41,10 @@ const Favorites = () => {
   const [subscriptionsLength, setSubscriptionsLength] = useState(0);
 
   const user = useSelector(getUser);
+
+  // const likedProductsMatch = useMatch('/liked-products');
+  // const userSubscriptionsMatch = useMatch('/user-subscriptions');
+  // const selectedSearches = useMatch('/selected-searches');
   // const likedProducts = useSelector(getLikedProducts);
   // const totalLikedPages = useSelector(getTotalLikedProductsPages);
   // const userSubscriptions = useSelector(selectUserSubscriptions);
@@ -73,9 +79,11 @@ const Favorites = () => {
         <li className={s.itemLikes}>
           <NavLink
             to="liked-products"
-            // addValue
-            // value
-            // isBackgroundChange={isLikedProducts}
+            className={
+              location.pathname === '/liked-products'
+                ? s.activeLink
+                : s.linkStyle
+            }
           >
             Обрані товари - {userLikesLength}
           </NavLink>
@@ -83,9 +91,12 @@ const Favorites = () => {
         <li className={s.itemLikes}>
           <NavLink
             to="user-subscriptions"
-            // addValue
-            // value
-            // isBackgroundChange={isMyWares}
+            // style={'user-subscriptions' ? { backgroundColor: 'green' } : {}}
+            className={
+              location.pathname === '/user-subscriptions'
+                ? s.activeLink
+                : s.linkStyle
+            }
           >
             Обрані продавці - {subscriptionsLength}
           </NavLink>
@@ -93,9 +104,12 @@ const Favorites = () => {
         <li className={s.itemLikes}>
           <NavLink
             to="selected-searches"
-            // addValue
-            // value
-            // isBackgroundChange={isMyWares}
+            className={
+              location.pathname === '/selected-searches'
+                ? s.activeLink
+                : s.linkStyle
+            }
+            // style={'selected-searches' ? { backgroundColor: 'red' } : {}}
           >
             Обрані пошуки
           </NavLink>
@@ -107,5 +121,3 @@ const Favorites = () => {
 };
 
 export default Favorites;
-
-

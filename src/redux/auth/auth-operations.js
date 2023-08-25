@@ -121,7 +121,6 @@ export const getUserLikesBasket = createAsyncThunk(
   async (userData, { rejectWithValue, getState, dispatch }) => {
     try {
       const data = await axiosUserLikesBasket(userData);
-     
       return data;
     } catch (error) {
       const { data, status } = error.response;

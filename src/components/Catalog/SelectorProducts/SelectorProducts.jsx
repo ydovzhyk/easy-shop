@@ -22,8 +22,6 @@ const SelectorProducts = ({ activeButton, activeNewRef }) => {
   const arraySelectorProducts = useSelector(getProductsBySelectorCard);
   const selectorPages = useSelector(getSelectorPages);
   const userId = useSelector(getID);
-  // console.log('arraySelectorProducts', arraySelectorProducts);
-  // console.log('userId', userId);
 
   useEffect(() => {
     dispatch(

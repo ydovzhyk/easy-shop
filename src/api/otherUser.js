@@ -18,3 +18,8 @@ export const axiosDeleteUserSubscriptions = async userData => {
   );
   return data;
 };
+
+export const axiosSelectedSearches = async userData => {
+  const { data } = await instance.post(`/other-user/selected-searches`, userData);
+  return data;
+};

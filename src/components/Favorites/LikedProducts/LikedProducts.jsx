@@ -57,29 +57,31 @@ const LikedProducts = () => {
 
   return (
     <>
-      <ul className={s.listCard}>
-        {likedProducts.map(item => (
-          <ProductItem
-            key={item._id}
-            _id={item._id}
-            userId={userId}
-            mainPhotoUrl={item.mainPhotoUrl}
-            price={item.price}
-            likes={item.userLikes.length ? item.userLikes.length : 0}
-            userLike={checkUserLike(item._id)}
-            isLiked={isLiked}
-            handleLike={handleLike}
-            nameProduct={item.nameProduct}
-            owner={item.owner}
-            description={item.description}
-            size={item.size}
-            section={item.section}
-            category={item.category}
-            vip={item.vip}
-            sale={item.sale}
-          />
-        ))}
-      </ul>
+      {likedProducts && (
+        <ul className={s.listCard}>
+          {likedProducts.map(item => (
+            <ProductItem
+              key={item._id}
+              _id={item._id}
+              userId={userId}
+              mainPhotoUrl={item.mainPhotoUrl}
+              price={item.price}
+              likes={item.userLikes.length ? item.userLikes.length : 0}
+              userLike={checkUserLike(item._id)}
+              isLiked={isLiked}
+              handleLike={handleLike}
+              nameProduct={item.nameProduct}
+              owner={item.owner}
+              description={item.description}
+              size={item.size}
+              section={item.section}
+              category={item.category}
+              vip={item.vip}
+              sale={item.sale}
+            />
+          ))}
+        </ul>
+      )}
       <Pagination
         totalPages={totalLikedPages}
         currentPage={currentPage}
