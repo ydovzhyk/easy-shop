@@ -61,7 +61,7 @@
   margin-top: 15px;
   font-size: 14px;
   color: var(--second-text-input-color);
-  transition: 0.25s;
+  transition: all var(--transition-duration) var(--timing-function);
   pointer-events: none;
   @include mixins.mq(tablet) {
     font-size: 16px;
@@ -169,7 +169,7 @@
   color: var(--second-text-color);
   background-color: var(--background-color);
   box-shadow: none;
-  border-radius: 8px;
+  // border-radius: 8px;
   border: 1px solid var(--border-color);
   letter-spacing: 1px;
   -webkit-transition: all 0.2s ease-in-out;

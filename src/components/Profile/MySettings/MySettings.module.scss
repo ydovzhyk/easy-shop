@@ -23,7 +23,7 @@
   flex-direction: column;
   gap: 12px;
   border: 1px solid var(--border-color);
-  border-radius: 8px;
+  // border-radius: 8px;
 }
 
 .form {
@@ -84,7 +84,7 @@
   color: var(--second-text-color);
   background-color: var(--background-color);
   box-shadow: none;
-  border-radius: 8px;
+  // border-radius: 8px;
   border: 1px solid var(--border-color);
   letter-spacing: 1px;
   -webkit-transition: all 0.2s ease-in-out;

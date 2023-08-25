@@ -1,89 +1,89 @@
 @use 'styles/mixins';
 
-.ordersWrapper{
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    margin-bottom: 20px;
-    @include mixins.mq(tablet) {
-        flex-direction: row;
-    }
+.ordersWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 20px;
+  @include mixins.mq(tablet) {
+    flex-direction: row;
+  }
 }
 
 .ordersList {
-    @include mixins.mq(tablet) {
-        width: 80%;
-    }
+  @include mixins.mq(tablet) {
+    width: 80%;
+  }
 }
 
 .orderItem {
-    position: relative;
-    margin-bottom: 20px;
-    padding: 12px;
-    border: 1px solid var(--border-color);
-    
-    &:hover{
-        border: 1px solid var(--accent-color);
-    }
+  position: relative;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid var(--border-color);
 
-    @include mixins.mq(tablet) {
-        padding: 12px;
-    }
-    @include mixins.mq(desktop) {
-        padding: 20px;
-    }
+  &:hover {
+    border: 1px solid var(--btn-border-color);
+  }
+
+  @include mixins.mq(tablet) {
+    padding: 12px;
+  }
+  @include mixins.mq(desktop) {
+    padding: 20px;
+  }
 }
 
 .orderInfoWrapper {
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 20px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .orderInfoItem {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .orderInfoItem:nth-child(2) > p {
-    text-align: end;
+  text-align: end;
 }
 
 .orderSum {
-    font-weight: 600;
-    text-align: end;
-    color: var(--text-color);
-    @include mixins.mq(tablet) {
-        font-size: 18px;
-    }
-    @include mixins.mq(desktop) {
-        font-size: 24px;
-    }
+  font-weight: 600;
+  text-align: end;
+  color: var(--text-color);
+  @include mixins.mq(tablet) {
+    font-size: 18px;
+  }
+  @include mixins.mq(desktop) {
+    font-size: 24px;
+  }
 }
 
 .orderBottomWrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 12px;
+  margin-bottom: 16px;
+  @include mixins.mq(tablet) {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 12px;
     padding: 12px;
-    margin-bottom: 16px;
-    @include mixins.mq(tablet) {
-        flex-direction: row;
-        justify-content: space-between;
-        gap: 12px;
-        padding: 12px;
-    }
+  }
 }
 
 .waitingPhrase {
-    font-weight: 600;
-    padding: 8px;
-    border-bottom: 1px solid var(--border-color);
+  font-weight: 600;
+  padding: 8px;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .btnLight {
@@ -119,34 +119,33 @@
 }
 
 .message {
-    font-size: 16px;
-    margin: auto;
-    text-align: center;
-    @include mixins.mq(tablet) {
-        font-size: 20px;
-    }
-    @include mixins.mq(desktop) {
-        font-size: 26px;
-    }
+  font-size: 16px;
+  margin: auto;
+  text-align: center;
+  @include mixins.mq(tablet) {
+    font-size: 20px;
+  }
+  @include mixins.mq(desktop) {
+    font-size: 26px;
+  }
 }
 
 .buttonBottomWrapper {
-    text-align: center;
-    @include mixins.mq(tablet) {
-        text-align: end;
-    }
-    
+  text-align: center;
+  @include mixins.mq(tablet) {
+    text-align: end;
+  }
 }
 
 .buttonTrashWrapper {
-    position: absolute;
-    top: 298px;
-    right: 16px;
-    @include mixins.mq(tablet) {
-        top: 80px;
-    }
-    @include mixins.mq(desktop) {
-        top: 92px;
-        right: 40px;
-    }
+  position: absolute;
+  top: 298px;
+  right: 16px;
+  @include mixins.mq(tablet) {
+    top: 80px;
+  }
+  @include mixins.mq(desktop) {
+    top: 92px;
+    right: 40px;
+  }
 }

@@ -281,7 +281,7 @@
   position: absolute;
   bottom: -15px;
   left: 5px;
-  color: red;
+  color: var(--error-text-color);
   font-size: 11px;
   @include mixins.mq(mobile) {
     font-size: 14px;
@@ -290,7 +290,7 @@
 }
 
 .errorMessageFilter {
-  color: red;
+  color: var(--error-text-color);
   font-size: 11px;
   @include mixins.mq(mobile) {
     font-size: 14px;
