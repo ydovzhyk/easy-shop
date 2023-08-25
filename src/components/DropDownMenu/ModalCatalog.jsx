@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { HiOutlineBars4, HiArrowLongLeft } from 'react-icons/hi2';
 
 import { createPortal } from 'react-dom';
@@ -83,7 +84,7 @@ export const ModalCatalog = ({ closeModal }) => {
           {subMenu.submenu.length ? (
             <div className={s.containerSubMenu}>
               {subMenu.submenu.map(subMenuItem => (
-                <a href={subMenuItem.link} key={subMenuItem.id}>
+                <Link to={subMenuItem.link} key={subMenuItem.id}>
                   <div
                     className={`submenu-item ${
                       activeItem === subMenuItem.name ? 'active' : ''
@@ -91,7 +92,7 @@ export const ModalCatalog = ({ closeModal }) => {
                   >
                     {subMenuItem.name}
                   </div>
-                </a>
+                </Link>
               ))}
             </div>
           ) : (
