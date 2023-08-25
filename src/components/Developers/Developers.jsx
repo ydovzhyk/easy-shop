@@ -24,7 +24,7 @@ const developers = [
     gitHubLink: 'https://github.com/Immayou',
   },
   {
-    devName: 'Марина',
+    devName: 'Марина Петренко',
     devPhoto: 'https://avatars.githubusercontent.com/u/99042644?v=4',
     gitHubLink: 'https://github.com/MariOkner',
   },
