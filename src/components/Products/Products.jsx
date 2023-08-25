@@ -175,7 +175,6 @@ const Products = () => {
               {isUserLogin && (
                 <button
                   type="button"
-                  // className={s.filterContent}
                   className={s.btnLightSubscribe}
                   onClick={handleSubscribtionClick}
                 >
