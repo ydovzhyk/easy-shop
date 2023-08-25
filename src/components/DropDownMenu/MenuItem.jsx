@@ -1,7 +1,7 @@
 import s from './Catalog.module.scss';
 
 import React, { useState, useEffect } from 'react';
-import { useSearchParams, createSearchParams } from 'react-router-dom';
+import { useSearchParams, createSearchParams, Link } from 'react-router-dom';
 
 import { ReactComponent as Flech } from '../../images/dropDownMenu/flech.svg';
 
@@ -52,12 +52,20 @@ const MenuItem = ({ menuItem, activeItem, setActiveItem }) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <a href={getPathCategory(menuItem.link)}>
+      {/* <a href={getPathCategory(menuItem.link)}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <span className={s.span}>{menuItem.icon}</span>
           <span className={s.span}>{menuItem.name}</span>
         </div>
-      </a>
+      </a> */}
+
+      <Link to={getPathCategory(menuItem.link)}>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <span className={s.span}>{menuItem.icon}</span>
+          <span className={s.span}>{menuItem.name}</span>
+        </div>
+      </Link>
+
       <Flech className={s.flech} />
 
       {isSubMenuOpen && (
