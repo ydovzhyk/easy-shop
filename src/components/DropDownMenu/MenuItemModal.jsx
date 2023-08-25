@@ -16,20 +16,20 @@ const MenuItemModal = ({
   const searchQuery = searchParams.get('search') ?? '';
 
   const getPathCategory = link => {
-    if (process.env.NODE_ENV === 'production') {
-      return query === ''
-        ? `${'#'}${link}`
-        : `${'#'}${link}?${createSearchParams({
-            search: query,
-          })}`;
-    }
-    if (process.env.NODE_ENV === 'development') {
-      return query === ''
-        ? `${link}`
-        : `${link}?${createSearchParams({
-            search: query,
-          })}`;
-    }
+    // if (process.env.NODE_ENV === 'production') {
+    //   return query === ''
+    //     ? `${'#'}${link}`
+    //     : `${'#'}${link}?${createSearchParams({
+    //         search: query,
+    //       })}`;
+    // }
+    // if (process.env.NODE_ENV === 'development') {
+    return query === ''
+      ? `${link}`
+      : `${link}?${createSearchParams({
+          search: query,
+        })}`;
+    // }
   };
 
   useEffect(() => {
