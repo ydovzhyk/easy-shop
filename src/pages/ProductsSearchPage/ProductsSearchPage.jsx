@@ -136,29 +136,16 @@ const ProductsSearchPage = () => {
 
   const dataFilterHandler = dataFilter => {
     const selectedFilterValues = getUrlFilterValues(dataFilter);
-    console.log(selectedFilterValues);
+    searchParams.delete('size');
+    searchParams.delete('price');
+    searchParams.delete('condition');
+    searchParams.delete('brand');
+    searchParams.delete('price_from');
+    searchParams.delete('price_to');
+    searchParams.delete('page');
     Object.entries(selectedFilterValues).map(([name, value]) => {
       return searchParams.set(name, value);
     });
-
-    // filter(([name, value]) => {
-    // const qqq = searchParams.has(name) && searchParams.get(name) !== value;
-    // const www = !searchParams.has(name);
-    // console.log(qqq);
-    // console.log(www);
-    // return qqq || www ? searchParams.set(name, value) : null;
-    // });
-
-    // .filter(([name, value]) => {
-    // const qqq = searchParams.has(name) && searchParams.get(name) !== value;
-    // const www = !searchParams.has(name);
-
-    // return qqq || www ? searchParams.set(name, value) : null;
-    // });
-
-    // map(([name, value]) => {
-    //   return searchParams.set(name, value);
-    // });
     setSearchParams(searchParams);
   };
 
