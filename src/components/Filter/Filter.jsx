@@ -129,13 +129,10 @@ const Filter = ({ onChange }) => {
       if (key === 'condition') {
         let selectedConditions = [];
         const selectedIndexConditionsArray = value.split('_');
-        for (let i = 0; i < filterConditions.length; i += 1) {
-          for (let j = 0; j < selectedIndexConditionsArray.length; j += 1) {
-            if (i === j) {
-              selectedConditions.push(filterConditions[i]);
-            }
-          }
-        }
+        selectedIndexConditionsArray.forEach(el => {
+          selectedConditions.push(filterConditions[Number(el)]);
+        });
+
         setValue('filterCondition', selectedConditions);
       }
     }
