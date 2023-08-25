@@ -16,20 +16,11 @@ const MenuItemModal = ({
   const searchQuery = searchParams.get('search') ?? '';
 
   const getPathCategory = link => {
-    // if (process.env.NODE_ENV === 'production') {
-    //   return query === ''
-    //     ? `${'#'}${link}`
-    //     : `${'#'}${link}?${createSearchParams({
-    //         search: query,
-    //       })}`;
-    // }
-    // if (process.env.NODE_ENV === 'development') {
     return query === ''
       ? `${link}`
       : `${link}?${createSearchParams({
           search: query,
         })}`;
-    // }
   };
 
   useEffect(() => {
@@ -45,13 +36,6 @@ const MenuItemModal = ({
         setIsSubMenuOpen({ submenu: menuItem.submenu, itemName: menuItem.name })
       }
     >
-      {/* <a href={getPathCategory(menuItem.link)}>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <span className={s.span}>{menuItem.icon}</span>
-          <span className={s.span}>{menuItem.name}</span>
-        </div>
-      </a> */}
-
       <Link to={getPathCategory(menuItem.link)}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <span className={s.span}>{menuItem.icon}</span>
