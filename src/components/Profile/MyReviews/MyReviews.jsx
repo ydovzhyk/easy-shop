@@ -64,74 +64,80 @@ const MyReviews = () => {
             })}
           />
         )}
-        {isTablet && <ul className={s.optionsList}>
-          <li>
-            <button
-              className={
-                currentSelector === 'seller'
-                  ? `${s.selectButton} ${s.active}`
-                  : s.selectButton
-              }
-              onClick={() => handleButtonClick('seller')}
-            >
-              Як продавця
-            </button>
-          </li>
-          <li>
-            <button
-              className={
-                currentSelector === 'client'
-                  ? `${s.selectButton} ${s.active}`
-                  : s.selectButton
-              }
-              onClick={() => handleButtonClick('client')}
-            >
-              Як покупця
-            </button>
-          </li>
-        </ul>}
+        {isTablet && (
+          <ul className={s.optionsList}>
+            <li>
+              <button
+                className={
+                  currentSelector === 'seller'
+                    ? `${s.selectButton} ${s.active}`
+                    : s.selectButton
+                }
+                onClick={() => handleButtonClick('seller')}
+              >
+                Як продавця
+              </button>
+            </li>
+            <li>
+              <button
+                className={
+                  currentSelector === 'client'
+                    ? `${s.selectButton} ${s.active}`
+                    : s.selectButton
+                }
+                onClick={() => handleButtonClick('client')}
+              >
+                Як покупця
+              </button>
+            </li>
+          </ul>
+        )}
       </div>
       {!loading && review.length === 0 && (
         <p className={s.message}>Тут поки нічого немає</p>
       )}
-      <ul className={s.reviewsWrapper}>
-        {review.map(
-          ({ _id, reviewer, rating, reviewDate, products, feedback }) => {
-            return (
-              <li className={s.reviewBox} key={_id}>
-                <div className={s.avatarBox}>
-                  <Avatar src={reviewer.reviewerFoto} />
-                </div>
-                <div className={s.reviewWrapper}>
-                  <div className={s.topReviewWrapper}>
-                    <div>
-                      <p className={s.reviewerName}>{reviewer.reviewerName}</p>
-                      <StarsList rating={rating} size={16} />
+      {review.length > 0 && (
+        <ul className={s.reviewsWrapper}>
+          {review.map(
+            ({ _id, reviewer, rating, reviewDate, products, feedback }) => {
+              return (
+                <li className={s.reviewBox} key={_id}>
+                  <div className={s.avatarBox}>
+                    <Avatar src={reviewer.reviewerFoto} />
+                  </div>
+                  <div className={s.reviewWrapper}>
+                    <div className={s.topReviewWrapper}>
+                      <div>
+                        <p className={s.reviewerName}>
+                          {reviewer.reviewerName}
+                        </p>
+                        <StarsList rating={rating} size={16} />
+                      </div>
+                      <p>{reviewDate}</p>
                     </div>
-                    <p>{reviewDate}</p>
+                    <ul className={s.productName}>
+                      {products.map(product => (
+                        <li key={product._id}>{product.nameProduct}</li>
+                      ))}
+                    </ul>
+                    <p>{feedback}</p>
                   </div>
-                  <ul className={s.productName}>
-                    {products.map(product => (
-                      <li key={product._id}>{product.nameProduct}</li>
-                    ))}
-                  </ul>
-                  <p>{feedback}</p>
-                </div>
-                {currentSelector === 'client' && (
-                  <div className={s.buttonTrashWrapper}>
-                    <RoundButton
-                      btnClass={isTablet ? 'roundButton' : 'roundButtonMob'}
-                      icon={BsTrash}
-                      handleClick={handleButtonTrashClick}
-                      id={_id}
-                    />
-                  </div>
-                )}
-              </li>
-            );
-          }
-        )}
-      </ul>
+                  {currentSelector === 'client' && (
+                    <div className={s.buttonTrashWrapper}>
+                      <RoundButton
+                        btnClass={isTablet ? 'roundButton' : 'roundButtonMob'}
+                        icon={BsTrash}
+                        handleClick={handleButtonTrashClick}
+                        id={_id}
+                      />
+                    </div>
+                  )}
+                </li>
+              );
+            }
+          )}
+        </ul>
+      )}
     </div>
   );
 };

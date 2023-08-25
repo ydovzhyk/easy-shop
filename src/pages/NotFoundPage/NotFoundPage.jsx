@@ -11,8 +11,7 @@ const NotFoundPage = () => {
   return (
     <div className={s.container}>
       <NotFound
-        textTop={'Нам не вдалося знайти сторінку,'}
-        textBottom={'яку ви шукали.'}
+        textContent={"We couldn't find page, you were searching for."}
         backLink={backLinkHref}
         classComp={'booWrapper'}
       />

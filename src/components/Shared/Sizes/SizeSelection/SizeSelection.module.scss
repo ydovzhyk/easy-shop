@@ -24,6 +24,8 @@
   flex-direction: column;
   justify-content: center;
   justify-items: center;
+  overflow: hidden;
+  border-radius: 5px;
   width: 210px;
   transition: box-shadow var(--transition-duration) var(--timing-function);
 }

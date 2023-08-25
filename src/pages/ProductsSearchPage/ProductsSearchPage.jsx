@@ -115,7 +115,7 @@ const ProductsSearchPage = () => {
       searchParams.set('page', currentPage);
       setSearchParams(searchParams);
     }
-    console.log(payload);
+
     dispatch(
       searchProducts({
         payloadData: payload,
@@ -135,12 +135,17 @@ const ProductsSearchPage = () => {
   ]);
 
   const dataFilterHandler = dataFilter => {
-    console.log(dataFilter);
     const selectedFilterValues = getUrlFilterValues(dataFilter);
-
-    Object.entries(selectedFilterValues).map(([name, value]) =>
-      searchParams.set(name, value)
-    );
+    searchParams.delete('size');
+    searchParams.delete('price');
+    searchParams.delete('condition');
+    searchParams.delete('brand');
+    searchParams.delete('price_from');
+    searchParams.delete('price_to');
+    searchParams.delete('page');
+    Object.entries(selectedFilterValues).map(([name, value]) => {
+      return searchParams.set(name, value);
+    });
     setSearchParams(searchParams);
   };
 

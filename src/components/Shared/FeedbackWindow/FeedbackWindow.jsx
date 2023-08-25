@@ -41,7 +41,7 @@ const FeedbackWindow = ({
     return { _id: product._id, nameProduct: product.nameProduct };
   });
 
-  const { control, handleSubmit, reset } = useForm({
+  const { control, handleSubmit, reset, register } = useForm({
     defaultValues: {
       rating: rating,
       feedback: '',
@@ -99,6 +99,9 @@ const FeedbackWindow = ({
                   type="text"
                   rows={4}
                   cols={40}
+                  {...register('feedback', {
+                    required: 'Напишіть відгук',
+                  })}
                 />
               )}
             />

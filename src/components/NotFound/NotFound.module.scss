@@ -58,6 +58,8 @@
   margin-top: 20px;
   margin-bottom: 30px;
   color: var(--second-text-color);
+  line-height: 1.5;
+  text-align: center;
 }
 
 .booWrapper {
@@ -66,21 +68,27 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: var(--accent-color);
+  background-color: var(--bg-footer-header);
   // opacity: 0.9;
-  padding: 16px;
-  border-radius: 32px;
+  width: 300px;
+  // height: 330px;
+  padding: 40px;
+  border-radius: 30px;
+  box-shadow: 10px 10px 30px rgba(82, 85, 95, 0.4);
+  z-index: 1200;
 }
 
 .booWrapper-products {
   position: fixed;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   top: calc(100vh / 2 - 160px);
   left: calc(100vw / 2 - 150px);
   width: 300px;
-  height: 330px;
+  // height: 330px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
   padding: 40px;
   background: var(--bg-footer-header);
   box-shadow: 10px 10px 30px rgba(82, 85, 95, 0.4);

@@ -20,7 +20,7 @@ import {
   deleteDialogueNewMessage,
 } from 'redux/dialogue/dialogue-operations';
 
-import { BiMessageDetail } from 'react-icons/bi';
+// import { BiMessageDetail } from 'react-icons/bi';
 import Text from 'components/Shared/Text/Text';
 import Avatar from 'components/Profile/Avatar/Avatar';
 import Button from 'components/Shared/Button/Button';
@@ -241,8 +241,8 @@ const Dialogue = ({ productInfo }) => {
         <div className={s.dialogueContainer}>
           {!isInfoDialogue && (
             <div className={s.additionalOpts}>
-              <BiMessageDetail className={s.favoriteIcon} />
-              <Text text="Поставити запитання" textClass="productText" />
+              {/* <BiMessageDetail className={s.favoriteIcon} /> */}
+              <Text text="Запитати продавця" textClass="productText" />
             </div>
           )}
           {dialogueArray.length === 0 && (
