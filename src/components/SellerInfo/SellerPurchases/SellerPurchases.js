@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   // useDispatch,
   useSelector,
@@ -6,7 +6,7 @@ import {
 
 import { selectOtherUser } from 'redux/otherUser/otherUser-selectors';
 import OrderStatusList from 'components/Shared/OrderStatusList/OrderStatusList';
-import Pagination from 'components/Shared/Pagination/Pagination';
+// import Pagination from 'components/Shared/Pagination/Pagination';
 
 import s from 'components/SellerInfo/SellerPurchases/SellerPurchases.module.scss';
 
@@ -16,13 +16,13 @@ const SellerPurchases = () => {
   console.log('sellerInfo in SellerPurchases:', sellerInfo);
   const sellerOrders = sellerInfo.userOrders;
   console.log('sellerOrders in SellerPurchases:', sellerOrders);
-  const [currentPage, setCurrentPage] = useState(1);
+  // const [currentPage, setCurrentPage] = useState(1);
 
   const [currentSelector, setcurrentSelector] = useState('all');
 
   const handleButtonClick = optionName => {
     setcurrentSelector(optionName);
-    setCurrentPage(1);
+    // setCurrentPage(1);
   };
 
   return (
