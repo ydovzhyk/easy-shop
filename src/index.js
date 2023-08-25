@@ -20,15 +20,6 @@ if (process.env.NODE_ENV === 'production') {
       </Provider>
     </BrowserRouter>
   );
-  // ReactDOM.createRoot(document.getElementById('root')).render(
-  //   <HashRouter>
-  //     <Provider store={store}>
-  //       <PersistGate loading={<Loader />} persistor={persistor}>
-  //         <App />
-  //       </PersistGate>
-  //     </Provider>
-  //   </HashRouter>
-  // );
 }
 
 if (process.env.NODE_ENV === 'development') {
