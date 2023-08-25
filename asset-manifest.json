@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/easy-shop/static/css/main.6667cb7f.css",
-    "main.js": "/easy-shop/static/js/main.b4a0528b.js",
+    "main.js": "/easy-shop/static/js/main.ad1cbcd6.js",
     "static/css/700.a2a4b09e.chunk.css": "/easy-shop/static/css/700.a2a4b09e.chunk.css",
     "static/js/700.d916cf5d.chunk.js": "/easy-shop/static/js/700.d916cf5d.chunk.js",
     "static/css/93.f9a307f5.chunk.css": "/easy-shop/static/css/93.f9a307f5.chunk.css",
@@ -22,7 +22,7 @@
     "static/js/997.75ef58a7.chunk.js": "/easy-shop/static/js/997.75ef58a7.chunk.js",
     "static/css/625.892006a7.chunk.css": "/easy-shop/static/css/625.892006a7.chunk.css",
     "static/js/625.020ba9c5.chunk.js": "/easy-shop/static/js/625.020ba9c5.chunk.js",
-    "static/css/617.6838c6be.chunk.css": "/easy-shop/static/css/617.6838c6be.chunk.css",
+    "static/css/617.d06faf98.chunk.css": "/easy-shop/static/css/617.d06faf98.chunk.css",
     "static/js/617.1f43d3f6.chunk.js": "/easy-shop/static/js/617.1f43d3f6.chunk.js",
     "static/css/746.86cc702f.chunk.css": "/easy-shop/static/css/746.86cc702f.chunk.css",
     "static/js/746.4508f37c.chunk.js": "/easy-shop/static/js/746.4508f37c.chunk.js",
@@ -38,7 +38,7 @@
     "static/js/774.609a27e9.chunk.js": "/easy-shop/static/js/774.609a27e9.chunk.js",
     "static/css/762.ea6bdaef.chunk.css": "/easy-shop/static/css/762.ea6bdaef.chunk.css",
     "static/js/762.d9ebef2e.chunk.js": "/easy-shop/static/js/762.d9ebef2e.chunk.js",
-    "static/css/263.2a8f8652.chunk.css": "/easy-shop/static/css/263.2a8f8652.chunk.css",
+    "static/css/263.ec408d01.chunk.css": "/easy-shop/static/css/263.ec408d01.chunk.css",
     "static/js/263.8d7808f9.chunk.js": "/easy-shop/static/js/263.8d7808f9.chunk.js",
     "static/css/62.7bd094d0.chunk.css": "/easy-shop/static/css/62.7bd094d0.chunk.css",
     "static/js/62.3a2104d2.chunk.js": "/easy-shop/static/js/62.3a2104d2.chunk.js",
@@ -81,7 +81,7 @@
     "static/media/line.svg": "/easy-shop/static/media/line.0f26fc2059a8880b7cd9170d6759923b.svg",
     "static/media/flech.svg": "/easy-shop/static/media/flech.92da029ad57f344330c1c5a1b0dff594.svg",
     "main.6667cb7f.css.map": "/easy-shop/static/css/main.6667cb7f.css.map",
-    "main.b4a0528b.js.map": "/easy-shop/static/js/main.b4a0528b.js.map",
+    "main.ad1cbcd6.js.map": "/easy-shop/static/js/main.ad1cbcd6.js.map",
     "700.a2a4b09e.chunk.css.map": "/easy-shop/static/css/700.a2a4b09e.chunk.css.map",
     "700.d916cf5d.chunk.js.map": "/easy-shop/static/js/700.d916cf5d.chunk.js.map",
     "93.f9a307f5.chunk.css.map": "/easy-shop/static/css/93.f9a307f5.chunk.css.map",
@@ -102,7 +102,7 @@
     "997.75ef58a7.chunk.js.map": "/easy-shop/static/js/997.75ef58a7.chunk.js.map",
     "625.892006a7.chunk.css.map": "/easy-shop/static/css/625.892006a7.chunk.css.map",
     "625.020ba9c5.chunk.js.map": "/easy-shop/static/js/625.020ba9c5.chunk.js.map",
-    "617.6838c6be.chunk.css.map": "/easy-shop/static/css/617.6838c6be.chunk.css.map",
+    "617.d06faf98.chunk.css.map": "/easy-shop/static/css/617.d06faf98.chunk.css.map",
     "617.1f43d3f6.chunk.js.map": "/easy-shop/static/js/617.1f43d3f6.chunk.js.map",
     "746.86cc702f.chunk.css.map": "/easy-shop/static/css/746.86cc702f.chunk.css.map",
     "746.4508f37c.chunk.js.map": "/easy-shop/static/js/746.4508f37c.chunk.js.map",
@@ -118,7 +118,7 @@
     "774.609a27e9.chunk.js.map": "/easy-shop/static/js/774.609a27e9.chunk.js.map",
     "762.ea6bdaef.chunk.css.map": "/easy-shop/static/css/762.ea6bdaef.chunk.css.map",
     "762.d9ebef2e.chunk.js.map": "/easy-shop/static/js/762.d9ebef2e.chunk.js.map",
-    "263.2a8f8652.chunk.css.map": "/easy-shop/static/css/263.2a8f8652.chunk.css.map",
+    "263.ec408d01.chunk.css.map": "/easy-shop/static/css/263.ec408d01.chunk.css.map",
     "263.8d7808f9.chunk.js.map": "/easy-shop/static/js/263.8d7808f9.chunk.js.map",
     "62.7bd094d0.chunk.css.map": "/easy-shop/static/css/62.7bd094d0.chunk.css.map",
     "62.3a2104d2.chunk.js.map": "/easy-shop/static/js/62.3a2104d2.chunk.js.map",
@@ -148,6 +148,6 @@
   },
   "entrypoints": [
     "static/css/main.6667cb7f.css",
-    "static/js/main.b4a0528b.js"
+    "static/js/main.ad1cbcd6.js"
   ]
 }
