@@ -8,14 +8,7 @@ import { useDispatch } from 'react-redux';
 import { clearUserError } from 'redux/auth/auth-slice';
 import { clearProductError } from 'redux/product/product-slice';
 import { clearVerifyError } from 'redux/verifyEmail/verifyEmail-slice';
-const NotFound = ({
-  textTop,
-  textBottom,
-  backLink,
-  classComp,
-  onDismiss,
-  text,
-}) => {
+const NotFound = ({ textContent, backLink, classComp, onDismiss, text }) => {
   const dispatch = useDispatch();
   const [isDisplayed, setIsDisplayed] = useState(true);
 
@@ -46,16 +39,13 @@ const NotFound = ({
       </div>
       <div className={s.shadow}></div>
 
-      <h1 className={s.title}>Ой!</h1>
-      <p className={s.txt}>
-        {textTop}
-        <br />
-        {textBottom}
-      </p>
+      <h1 className={s.title}>Oh!</h1>
+
+      <p className={s.txt}>{textContent}</p>
 
       {backLink && (
         <Link to={backLink}>
-          <Button text="Повернутися" btnClass="btnLight" />
+          <Button text="Go back" btnClass="btnDark" />
         </Link>
       )}
     </div>

@@ -66,11 +66,12 @@
 }
 
 .descriptionThumb {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--text-color);
   overflow: auto;
   white-space: pre-wrap;
   line-height: 1.5;
+  width: 100%;
   // text-indent: 1.2em;
   /* Стилізація самого скрола */
   &::-webkit-scrollbar {
