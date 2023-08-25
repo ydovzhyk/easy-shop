@@ -4,13 +4,15 @@ import { Routes, Route } from 'react-router-dom';
 import Loader from 'components/Loader';
 import PublicRoute from './PublicRoutes';
 import PrivateRoute from './PrivateRoutes';
-import CheckoutPage from 'pages/CheckoutPage/CheckoutPage';
+// import CheckoutPage from 'pages/CheckoutPage/CheckoutPage';
 
 const HomePage = lazy(() => import('pages/HomePage'));
 const NotFoundPage = lazy(() => import('pages/NotFoundPage'));
 const LoginPage = lazy(() => import('pages/LoginPage'));
 const RegisterPage = lazy(() => import('pages/RegisterPage'));
 const BasketPage = lazy(() => import('pages/BasketPage'));
+const CheckoutPage = lazy(() => import('pages/CheckoutPage'));
+const DevelopersPage = lazy(() => import('pages/DevelopersPage'));
 const FavoritesPage = lazy(() => import('pages/FavoritesPage'));
 const ProfilePage = lazy(() => import('pages/ProfilePage'));
 const ProductsSearchPage = lazy(() => import('pages/ProductsSearchPage'));
@@ -38,6 +40,7 @@ const MySales = lazy(() => import('components/Profile/MySales/MySales'));
 const LikedProducts = lazy(() => import('components/Favorites/LikedProducts/LikedProducts'));
 const UserSubscriptions = lazy(() => import('components/Favorites/UserSubscriptions/UserSubscriptions'));
 
+
 const UserRoutes = () => {
   return (
     <Suspense fallback={<Loader />}>
@@ -62,6 +65,7 @@ const UserRoutes = () => {
             <Route path="myreviews" element={<Reviews />} />
             <Route path="about" element={<About />} />
           </Route>
+          <Route path="/developers" element={<DevelopersPage />} />
         </Route>
         <Route element={<PrivateRoute />}>
           <Route path="/add-product" element={<AddProductPage />} />
