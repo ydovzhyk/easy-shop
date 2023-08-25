@@ -31,9 +31,11 @@ const EmailVerification = lazy(() =>
 const ProductDetails = lazy(() => import('pages/ProductDetailsPage'));
 const ProductsPage = lazy(() => import('pages/ProductsPage'));
 const SellerInfoPage = lazy(() => import('pages/SellerInfoPage'));
-const Wares = lazy(() => import('components/SellerInfo/Wares/Wares'));
-const About = lazy(() => import('components/SellerInfo/About/About'));
-const Reviews = lazy(() => import('components/SellerInfo/Reviews/Reviews'));
+const SellerWares = lazy(() => import('components/SellerInfo/SellerWares/SellerWares'));
+const SellerPurchases = lazy(() => import('components/SellerInfo/SellerPurchases/SellerPurchases'));
+const SellerSales = lazy(() => import('components/SellerInfo/SellerSales/SellerSales'));
+const AboutSeller = lazy(() => import('components/SellerInfo/AboutSeller/AboutSeller'));
+const SellerReviews = lazy(() => import('components/SellerInfo/SellerReviews/SellerReviews'));
 const MySales = lazy(() => import('components/Profile/MySales/MySales'));
 const LikedProducts = lazy(() => import('components/Favorites/LikedProducts/LikedProducts'));
 const UserSubscriptions = lazy(() => import('components/Favorites/UserSubscriptions/UserSubscriptions'));
@@ -57,10 +59,12 @@ const UserRoutes = () => {
             element={<ProductDetails />}
           />
           <Route path="/member/:id" element={<SellerInfoPage />}>
-            <Route index element={<Wares />} />
-            <Route path="mywares" element={<Wares />} />
-            <Route path="myreviews" element={<Reviews />} />
-            <Route path="about" element={<About />} />
+            <Route index element={<SellerWares />} />
+            <Route path="mywares" element={<SellerWares />} />
+            <Route path="mypurchases" element={<SellerPurchases />} />
+            <Route path="mysales" element={<SellerSales />} />
+            <Route path="myreviews" element={<SellerReviews />} />
+            <Route path="about" element={<AboutSeller />} />
           </Route>
         </Route>
         <Route element={<PrivateRoute />}>

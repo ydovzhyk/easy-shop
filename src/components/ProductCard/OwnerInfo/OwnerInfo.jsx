@@ -84,14 +84,20 @@ const OwnerInfo = ({ owner, isUserProduct }) => {
         <div className={s.profilewrapper}>
           <div className={s.avatarframe}>
             <div className={s.avatar}>
-              <NavLink className={s.username} to={`/member/${owner}`}>
+              <NavLink
+                className={s.username}
+                to={isUserProduct ? '/profile' : `/member/${owner}`}
+              >
                 <Avatar avatarClass="photoAvatar" src={userAvatar} />
               </NavLink>
             </div>
           </div>
           <div className={s.userframe}>
             <div className={s.profilebox}>
-              <NavLink className={s.username} to={`/member/${owner}`}>
+              <NavLink
+                className={s.username}
+                to={isUserProduct ? '/profile' : `/member/${owner}`}
+              >
                 {username}
               </NavLink>
               <UserRating

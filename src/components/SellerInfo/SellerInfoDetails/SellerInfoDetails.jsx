@@ -2,7 +2,7 @@ import { Suspense, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation, useParams, Outlet } from 'react-router-dom';
 
-import { selectOtherUser } from 'redux/otherUser/otherUser-selectors';
+import { selectOtherUser} from 'redux/otherUser/otherUser-selectors';
 import Loader from 'components/Loader';
 import Container from 'components/Shared/Container';
 import ProfileLink from 'components/Profile/ProfileLink/ProfileLink';
@@ -14,18 +14,34 @@ const SellerInfoDetails = () => {
   const location = useLocation().pathname;
     
     const sellerInfo = useSelector(selectOtherUser);
-  // sellerInfo && console.log('sellerInfo in SellerInfoDetails', sellerInfo);
-
+  sellerInfo && console.log('sellerInfo in SellerInfoDetails', sellerInfo);
+  const {
+    userReviews,
+    userFeedback,
+    userOrders,
+    userSales,
+  } = sellerInfo;
+  
+  console.log('sellerReviews in SellerInfoDetails', userReviews);
+  
+  console.log('sellerFeedback in SellerInfoDetails', userFeedback);
   const [isMyWares, setIsMyWares] = useState(false);
+  const [isMyPurchases, setIsMyPurchases] = useState(false);
   const [isMyReviews, setIsMyReviews] = useState(false);
+  const [isMySales, setIsMySales] = useState(false);
   const [isAbout, setIsAbout] = useState(false);
 
+  const valueforReview = !userReviews
+    ? 0
+    : userReviews.length + userFeedback.length;
+  
   useEffect(() => {
     setIsMyWares(
       location === `/member/${id}` || location === `/member/${id}/mywares` ? true : false
     );
+    setIsMyPurchases(location === `/member/${id}/mypurchases` ? true : false);
+    setIsMySales(location === `/member/${id}/mysales` ? true : false);
     setIsMyReviews(location === `/member/${id}/myreviews` ? true : false);
-    
     setIsAbout(location === `/member/${id}/about` ? true : false);
   }, [location, id]);
 
@@ -56,10 +72,30 @@ const SellerInfoDetails = () => {
             Мої товари
           </ProfileLink>
         </li>
-        
+        <li className={s.item}>
+          <ProfileLink
+            to="mypurchases"
+            addValue
+            isBackgroundChange={isMyPurchases}
+            value={userOrders.length}
+          >
+            Мої покупки
+          </ProfileLink>
+        </li>
+        <li className={s.item}>
+          <ProfileLink
+            to="mysales"
+            addValue
+            isBackgroundChange={isMySales}
+            value={userSales.length}
+          >
+            Мої продажі
+          </ProfileLink>
+        </li>
         <li className={s.item}>
           <ProfileLink to="myreviews"
-            // addValue
+            addValue
+            value={valueforReview}
             isBackgroundChange={isMyReviews}
           >
             Мої відгуки
