@@ -16,8 +16,8 @@
   font-weight: 400;
   font-size: 18px;
   color: var(--text-color);
-  margin-bottom: 10px;
-  margin-top: 10px;
+  margin-bottom: 15px;
+  margin-top: 15px;
   @include mixins.mq(tablet) {
     font-size: 24px;
   }
@@ -184,10 +184,19 @@
 }
 
 .productLabels {
-  font-weight: 600;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 200;
   color: var(--second-text-color);
-  margin-bottom: 5px;
+  margin-bottom: 15px;
+  text-align: center;
+  @include mixins.mq(desktop) {
+    font-size: 18px;
+  }
+}
+
+.productLabelsCard {
+  @extend .productLabels;
+  text-align: left;
 }
 
 .productHeadings {
@@ -198,8 +207,8 @@
 }
 
 .productText {
-  font-weight: 200;
-  font-size: 14px;
+  font-weight: 600;
+  font-size: 16px;
   color: var(--text-color);
 }
 
@@ -207,6 +216,7 @@
   font-weight: 200;
   font-size: 14px;
   white-space: pre-wrap;
+  line-height: 1.5;
   color: var(--text-color);
 }
 

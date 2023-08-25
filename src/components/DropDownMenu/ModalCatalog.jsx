@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { HiOutlineBars4, HiArrowLongLeft } from 'react-icons/hi2';
+
+import { useMediaQuery } from 'react-responsive';
 
 import { createPortal } from 'react-dom';
 
@@ -14,6 +17,7 @@ export const ModalCatalog = ({ closeModal }) => {
   //   const [activeMenu, setActiveMenu] = useState(false);
   const [activeItem, setActiveItem] = useState('');
   const [subMenu, setSubMenu] = useState({ submenu: [], itemName: '' });
+  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
@@ -46,7 +50,7 @@ export const ModalCatalog = ({ closeModal }) => {
                   handleClick={() => {
                     closeModal(false);
                   }}
-                  text={<HiOutlineBars4 size={30} />}
+                  text={<HiOutlineBars4 size={isMobile ? 22 : 30} />}
                 />
                 <p className={s.logo}>EasyShop</p>
               </>
@@ -83,7 +87,7 @@ export const ModalCatalog = ({ closeModal }) => {
           {subMenu.submenu.length ? (
             <div className={s.containerSubMenu}>
               {subMenu.submenu.map(subMenuItem => (
-                <a href={subMenuItem.link} key={subMenuItem.id}>
+                <Link to={subMenuItem.link} key={subMenuItem.id}>
                   <div
                     className={`submenu-item ${
                       activeItem === subMenuItem.name ? 'active' : ''
@@ -91,7 +95,7 @@ export const ModalCatalog = ({ closeModal }) => {
                   >
                     {subMenuItem.name}
                   </div>
-                </a>
+                </Link>
               ))}
             </div>
           ) : (

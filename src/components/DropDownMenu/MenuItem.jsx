@@ -1,7 +1,7 @@
 import s from './Catalog.module.scss';
 
 import React, { useState, useEffect } from 'react';
-import { useSearchParams, createSearchParams } from 'react-router-dom';
+import { useSearchParams, createSearchParams, Link } from 'react-router-dom';
 
 import { ReactComponent as Flech } from '../../images/dropDownMenu/flech.svg';
 
@@ -24,20 +24,11 @@ const MenuItem = ({ menuItem, activeItem, setActiveItem }) => {
   };
 
   const getPathCategory = link => {
-    if (process.env.NODE_ENV === 'production') {
-      return query === ''
-        ? `${'#'}${link}`
-        : `${'#'}${link}?${createSearchParams({
-            search: query,
-          })}`;
-    }
-    if (process.env.NODE_ENV === 'development') {
-      return query === ''
-        ? `${link}`
-        : `${link}?${createSearchParams({
-            search: query,
-          })}`;
-    }
+    return query === ''
+      ? `${link}`
+      : `${link}?${createSearchParams({
+          search: query,
+        })}`;
   };
 
   useEffect(() => {
@@ -52,18 +43,19 @@ const MenuItem = ({ menuItem, activeItem, setActiveItem }) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <a href={getPathCategory(menuItem.link)}>
+      <Link to={getPathCategory(menuItem.link)}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <span className={s.span}>{menuItem.icon}</span>
           <span className={s.span}>{menuItem.name}</span>
         </div>
-      </a>
+      </Link>
+
       <Flech className={s.flech} />
 
       {isSubMenuOpen && (
         <div className={s.containerSubMenu}>
           {menuItem.submenu.map(subMenuItem => (
-            <a href={getPathCategory(subMenuItem.link)} key={subMenuItem.id}>
+            <Link to={getPathCategory(subMenuItem.link)} key={subMenuItem.id}>
               <div
                 className={`submenu-item ${
                   activeItem === subMenuItem.name ? 'active' : ''
@@ -71,7 +63,7 @@ const MenuItem = ({ menuItem, activeItem, setActiveItem }) => {
               >
                 {subMenuItem.name}
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       )}

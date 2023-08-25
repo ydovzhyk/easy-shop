@@ -29,7 +29,7 @@ const DialogueDetail = ({ selectedDialogue }) => {
   const handleButtonClick = () => {
     const params = translateParamsToEN(category, subcategory);
     const { categoryName, subCategoryName } = params;
-    const path = `/products/${categoryName}/${subCategoryName}/${_id}`;
+    const path = `/product/${categoryName}/${subCategoryName}/${_id}`;
     navigate(path);
   };
 

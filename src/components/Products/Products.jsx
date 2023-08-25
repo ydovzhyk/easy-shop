@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams, useParams, useLocation } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { HiOutlineStar } from 'react-icons/hi';
@@ -16,8 +16,8 @@ import {
   getHeaderFormErrors,
   getProductsByQueryPages,
 } from 'redux/product/product-selectors';
-import { getLogin } from 'redux/auth/auth-selectors';
-import { addSubscribtion } from 'redux/product/product-operations';
+import { getLogin, getUserMessage, getUser } from 'redux/auth/auth-selectors';
+import { updateSearchUserSibscribes } from 'redux/auth/auth-operations';
 import {
   resetHeaderForm,
   setCurrentProductsPage,
@@ -25,6 +25,7 @@ import {
 } from 'redux/product/product-slice';
 
 import Pagination from 'components/Shared/Pagination/Pagination';
+import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
 import TopNavProducts from 'components/Shared/TopNavProducts/TopNavProducts';
 import ProductItem from 'components/Shared/ProductItem/ProductItem';
 import Text from 'components/Shared/Text/Text';
@@ -36,7 +37,9 @@ import s from './Products.module.scss';
 
 const Products = () => {
   const [filterSelected, setFilterSelected] = useState('');
-  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [isMessage, setIsMessage] = useState('');
+  const message = useSelector(getUserMessage);
+  const user = useSelector(getUser);
   const currentPage = useSelector(getCurrentProductsPage);
   const hasHeaderFormErrors = useSelector(getHeaderFormErrors);
   const totalPages = useSelector(getProductsByQueryPages);
@@ -54,6 +57,20 @@ const Products = () => {
   const { control } = useForm();
 
   const isMobile = useMediaQuery({ maxWidth: 767 });
+
+  useEffect(() => {
+    setIsMessage(message);
+  }, [message]);
+
+  const resetMessage = () => {
+    setIsMessage('');
+  };
+
+  const isSubscribedSearch = () => {
+    const subscribedSearchArray = user.userSearchSubscription;
+    const currentUrl = pathname + search;
+    return subscribedSearchArray.includes(currentUrl);
+  };
 
   const handleChangeFilter = async filterSelected => {
     await setFilterSelected(filterSelected);
@@ -116,8 +133,9 @@ const Products = () => {
   };
 
   const handleSubscribtionClick = () => {
-    setIsSubscribed(!isSubscribed);
-    dispatch(addSubscribtion({ urlSubscription: pathname + search }));
+    dispatch(
+      updateSearchUserSibscribes({ urlSubscription: pathname + search })
+    );
   };
 
   return (
@@ -163,9 +181,9 @@ const Products = () => {
                 >
                   <Text
                     textClass="searchQueryContent"
-                    text={isSubscribed ? 'Підписатися' : 'Ви підписані'}
+                    text={isSubscribedSearch() ? 'Ви підписані' : 'Підписатися'}
                   />
-                  {isSubscribed ? (
+                  {isSubscribedSearch() ? (
                     <HiStar size={isMobile ? 18 : 22} />
                   ) : (
                     <HiOutlineStar size={isMobile ? 18 : 22} />
@@ -235,8 +253,7 @@ const Products = () => {
           products.length === 0 &&
           !hasHeaderFormErrors && (
             <NotFound
-              textTop={'За вашим запитом'}
-              textBottom={'товарів не знайдено.'}
+              textContent={'No products were found matching your request.'}
               classComp={'booWrapper-products'}
             />
           )}
@@ -245,12 +262,14 @@ const Products = () => {
           productsToRender.length === 0 &&
           products.length === 0 && (
             <NotFound
-              textTop={'За вашим запитом'}
-              textBottom={'товарів не знайдено.'}
+              textContent={'No products were found matching your request.'}
               classComp={'booWrapper-products'}
             />
           )}
       </div>
+      {isMessage && (
+        <MessageWindow text={`${message}`} onDismiss={resetMessage} />
+      )}
     </section>
   );
 };
