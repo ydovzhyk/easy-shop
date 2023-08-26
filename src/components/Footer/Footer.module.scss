@@ -171,7 +171,7 @@ h3.footerMainText {
 }
 
 .footerSocialIcon {
-  transition: all var(--transition-duration) var(--timing-function);
+  transition: color var(--transition-duration) var(--timing-function);
   &:hover,
   &:focus {
     color: var(--accent-color);

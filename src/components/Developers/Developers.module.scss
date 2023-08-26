@@ -1,59 +1,92 @@
 @use 'styles/mixins';
 
 .developersContainer {
-    padding: 20px 0;
+  padding: 20px 0;
 }
 
 .developersHeading {
-    font-size: 28px;
-    font-weight: 500;
-    text-align: center;
-    margin-bottom: 20px;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.14;
+  letter-spacing: 0.04em;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .developersList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 20px;
 
   @include mixins.mq(tablet) {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 300px);
+    justify-content: center;
     grid-gap: 45px;
   }
 
   @include mixins.mq(desktop) {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 45px;
+    grid-template-columns: repeat(3, 300px);
+    // grid-gap: 45px;
 
     margin-bottom: 70px;
   }
 }
 
 .listItem {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  // display: flex;
+  // flex-direction: column;
+  // align-items: center;
+  width: 300px;
   row-gap: 15px;
+  border: 1px solid var(--border-color);
 
   margin-bottom: 25px;
-  
+
   @include mixins.mq(tablet) {
     margin-bottom: 0;
   }
 }
 
 .avatarWrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    border: 1px solid var(--icons-color);
-    width: 300px;
-    height: 300px;
-    overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // border-radius: 50%;
+  border: 1px solid transparent;
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
 
-    @include mixins.mq(tablet) {
-    width: 120px;
-    height: 120px;
+  // @include mixins.mq(tablet) {
+  //   width: 120px;
+  //   height: 120px;
+  // }
+}
+
+.bottomSocialContentWrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.bottomContentWrapper {
+  padding: 20px;
+}
+
+.socialLink {
+  &:not(:last-of-type) {
+    margin-right: 20px;
+  }
+}
+
+.socialIcon {
+  transition: color var(--transition-duration) var(--timing-function);
+  &:hover,
+  &:focus {
+    color: var(--accent-color);
   }
 }
