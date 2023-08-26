@@ -47,6 +47,10 @@
   background-color: transparent;
 }
 
+.input.headerForm::placeholder {
+  color: var(--empty-color);
+}
+
 .label.headerForm {
   margin-bottom: 0;
   height: auto;
