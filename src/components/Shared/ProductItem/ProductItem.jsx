@@ -109,28 +109,18 @@ const ProductItem = ({
         to={`/product/${categoryName}/${subCategoryName}/${_id}`}
         className={s.photoLink}
       >
-        {vip === 'Так' && (
-          <div className={s.vipLabel}>
-            <span>Vip</span>
-          </div>
-        )}
-        {sale !== 0 && vip === 'Так' && (
-          <div className={s.saleLabel}>
-            <span>{sale}%</span>
-          </div>
-        )}
-        {sale !== 0 && vip !== 'Так' && (
+        {/* {sale > 0 && vip !== 'Так' && (
           <div className={`${s.saleLabel} ${s.saleLabelNoVip}`}>
             <span>{sale}%</span>
           </div>
-        )}
+        )} */}
 
-        {/* {vip === 'Так' && sale !== 0 && (
+        {/* {vip === 'Так' && sale && (
           <div className={s.saleLabel}>
             <span>{sale}%</span>
           </div>
         )}
-        {vip !== 'Так' && sale !== 0 && (
+        {vip !== 'Так' && sale && (
           <div className={`${s.saleLabel} ${s.saleLabelNoVip}`}>
             <span>{sale}%</span>
           </div>
@@ -141,6 +131,18 @@ const ProductItem = ({
           onError={e => (e.target.src = NoPhoto)}
           alt="фото товару"
         />
+        <div className={s.overlayLabel}>
+          {vip && vip === 'Так' && (
+            <div className={s.label}>
+              <span>Vip</span>
+            </div>
+          )}
+          {sale && sale > 0 && (
+            <div className={s.label}>
+              <span>{sale}%</span>
+            </div>
+          )}
+        </div>
         <div className={s.styleDescriptionProductCardBox}></div>
         <div className={s.styleDescriptionProductCard}>
           <p className={s.descriptionProductCard}>

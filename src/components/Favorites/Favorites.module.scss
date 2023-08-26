@@ -22,7 +22,7 @@
 
   @include mixins.mq(tablet) {
     justify-content: center;
-    
+
     margin-bottom: 0px;
   }
 }
@@ -32,7 +32,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 45px;
+  min-height: 25px;
   &::before {
     content: '';
     background: var(--title-text-color);
@@ -51,8 +51,8 @@
 }
 
 .activeLink {
-  color: aqua;
-  background-color: bisque;
+  // color: aqua;
+  // background-color: bisque;
   display: inline-flex;
   align-items: baseline;
   transition: all var(--transition-duration) var(--timing-function);
@@ -61,7 +61,8 @@
 }
 
 .linkStyle {
-  // color: aqua;
+  // color: purple;
+  // background-color: aquamarine;
   font-size: 14px;
 
   @include mixins.mq(tablet) {

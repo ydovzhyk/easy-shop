@@ -30,7 +30,7 @@ import s from './Favorites.module.scss';
 // };
 
 const Favorites = () => {
-  const location = useLocation();
+  const location = useLocation().pathname;
   console.log('location.pathname', location.pathname);
   // const dispatch = useDispatch();
   // const navigate = useNavigate();
@@ -42,6 +42,28 @@ const Favorites = () => {
 
   const user = useSelector(getUser);
 
+  //
+  const [isLikedProducts, setLikedProducts] = useState(false);
+  const [isUserSubscriptions, setUserSubscriptions] = useState(false);
+  const [isSelectedSearches, setSelectedSearches] = useState(false);
+
+  // const handleLinkClick = path => {
+  //   setActiveLink(path);
+  // };
+
+  useEffect(() => {
+    setLikedProducts(
+      location === '/favorites' || location === '/favorites/liked-products'
+        ? true
+        : false
+    );
+    setUserSubscriptions(
+      location === '/favorites/user-subscriptions' ? true : false
+    );
+    setSelectedSearches(
+      location === '/favorites/selected-searches' ? true : false
+    );
+  }, [location]);
   // const likedProductsMatch = useMatch('/liked-products');
   // const userSubscriptionsMatch = useMatch('/user-subscriptions');
   // const selectedSearches = useMatch('/selected-searches');
@@ -73,46 +95,43 @@ const Favorites = () => {
     }
   }, [user]);
 
+  // console.log('isLikedProducts', isLikedProducts);
+  // console.log('isUserSubscriptions', isUserSubscriptions);
+  // console.log('isSelectedSearches', isSelectedSearches);
+
   return (
     <Container>
       <ul className={s.listLikes}>
         <li className={s.itemLikes}>
-          <NavLink
-            to="liked-products"
-            className={
-              location.pathname === '/liked-products'
-                ? s.activeLink
-                : s.linkStyle
-            }
-          >
-            Обрані товари - {userLikesLength}
-          </NavLink>
+          <div className={s.wrapper}>
+            <NavLink
+              to="liked-products"
+              className={isLikedProducts ? s.activeLink : s.linkStyle}
+            >
+              Обрані товари - {userLikesLength}
+            </NavLink>
+          </div>
         </li>
         <li className={s.itemLikes}>
-          <NavLink
-            to="user-subscriptions"
-            // style={'user-subscriptions' ? { backgroundColor: 'green' } : {}}
-            className={
-              location.pathname === '/user-subscriptions'
-                ? s.activeLink
-                : s.linkStyle
-            }
-          >
-            Обрані продавці - {subscriptionsLength}
-          </NavLink>
+          <div className={s.wrapper}>
+            {' '}
+            <NavLink
+              to="user-subscriptions"
+              className={`${isUserSubscriptions ? s.activeLink : s.linkStyle} `}
+            >
+              Обрані продавці - {subscriptionsLength}
+            </NavLink>
+          </div>
         </li>
         <li className={s.itemLikes}>
-          <NavLink
-            to="selected-searches"
-            className={
-              location.pathname === '/selected-searches'
-                ? s.activeLink
-                : s.linkStyle
-            }
-            // style={'selected-searches' ? { backgroundColor: 'red' } : {}}
-          >
-            Обрані пошуки
-          </NavLink>
+          <div className={s.wrapper}>
+            <NavLink
+              to="selected-searches"
+              className={`${isSelectedSearches ? s.activeLink : s.linkStyle} `}
+            >
+              Обрані пошуки
+            </NavLink>
+          </div>
         </li>
       </ul>
       <Outlet />
