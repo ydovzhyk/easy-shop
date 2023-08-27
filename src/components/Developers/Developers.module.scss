@@ -41,7 +41,7 @@
   // flex-direction: column;
   // align-items: center;
   width: 300px;
-  padding: 15px;
+  // padding: 15px;
   row-gap: 15px;
   border: 1px solid var(--border-color);
 
@@ -56,11 +56,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  // border-radius: 50%;
-  border: 1px solid transparent;
   width: 100%;
   height: auto;
+  // margin-bottom: 15px;
   overflow: hidden;
+  // border-radius: 50%;
 
   // @include mixins.mq(tablet) {
   //   width: 120px;
@@ -68,14 +68,15 @@
   // }
 }
 
+.bottomContentWrapper {
+  padding: 15px;
+  background-color: var(--bg-footer-header);
+}
+
 .bottomSocialContentWrapper {
   width: 100%;
   display: flex;
   align-items: center;
-}
-
-.bottomContentWrapper {
-  padding: 20px 0;
 }
 
 .socialLink {
@@ -86,8 +87,15 @@
 
 .socialIcon {
   transition: color var(--transition-duration) var(--timing-function);
+  color: var(--icons-color);
   &:hover,
   &:focus {
     color: var(--accent-color);
   }
+}
+
+.contactLinkContent {
+  display: inline-block;
+  margin-bottom: 15px;
+  color: var(--second-text-color);
 }
