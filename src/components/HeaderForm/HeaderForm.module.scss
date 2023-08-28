@@ -9,7 +9,7 @@
   padding-right: 14px;
   border: 1px solid var(--btn-border-color);
   border-radius: 8px;
-  background-color: var(--background-color);
+  background-color: var(--bg-footer-header);
   width: 100%;
   transition: background-color var(--transition-duration) var(--timing-function);
 
@@ -24,5 +24,4 @@
 
 .form:focus-within {
   background-color: var(--background-btn-second-color);
-  border-color: var(--accent-color);
 }
