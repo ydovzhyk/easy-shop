@@ -6,7 +6,7 @@
   row-gap: 15px;
 
   margin-bottom: 25px;
-  
+
   @include mixins.mq(tablet) {
     margin-bottom: 0;
   }
@@ -252,24 +252,32 @@
   position: absolute;
   top: 100%;
   left: 0;
-  width: 100%;
-
+  // width: 100%;
+  margin-top: 5px;
   background-color: #fff;
-
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.1);
   z-index: 999;
 }
 
-.hoveredSize::before {
-  content: '';
+// .hoveredSize::before {
+//   content: '';
 
-  position: absolute;
-  top: 5px;
-  left: 5px;
+//   position: absolute;
+//   top: 5px;
+//   left: -15px;
 
-  border: 8px solid transparent;
-  border-bottom-color: #000;
-}
+//   border: 8px solid transparent;
+//   border-bottom-color: #000;
+// }
+
+// .triangleLeft {
+//   position: absolute;
+//   background-color: aqua;
+//   // left: 0; /* Зсуваємо вліво */
+//   // bottom: 100%; /* Розташовуємо вгорі від позиції виходу */
+//   // transform: translateX(-50%); /* Центруємо горизонтально */
+//   margin-bottom: 250px;
+// }
 
 .link {
   color: var(--second-text-color);

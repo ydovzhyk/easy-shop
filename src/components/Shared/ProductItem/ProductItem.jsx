@@ -68,18 +68,18 @@ const ProductItem = ({
 
   // for hovered Size
   const [activeSize, setActiveSize] = useState(null);
-  const [triangleLeft, setTriangleLeft] = useState(null);
+  // const [triangleLeft, setTriangleLeft] = useState(null);
 
   const handleMouseEnter = (index, event) => {
     setActiveSize(index);
-    if (event && event.target) {
-      setTriangleLeft(event.target.offsetLeft + event.target.offsetWidth / 2);
-    }
+    // if (event && event.target) {
+    //   setTriangleLeft(event.target.offsetLeft + event.target.offsetWidth / 2);
+    // }
   };
 
   const handleMouseLeave = () => {
     setActiveSize(null);
-    setTriangleLeft(null);
+    // setTriangleLeft(null);
   };
 
   // for Descroption
@@ -114,16 +114,27 @@ const ProductItem = ({
             <span>Vip</span>
           </div>
         )}
-        {vip === 'Так' && sale && (
+        {sale !== 0 && vip === 'Так' && (
           <div className={s.saleLabel}>
             <span>{sale}%</span>
           </div>
         )}
-        {vip !== 'Так' && sale && (
+        {sale !== 0 && vip !== 'Так' && (
           <div className={`${s.saleLabel} ${s.saleLabelNoVip}`}>
             <span>{sale}%</span>
           </div>
         )}
+
+        {/* {vip === 'Так' && sale !== 0 && (
+          <div className={s.saleLabel}>
+            <span>{sale}%</span>
+          </div>
+        )}
+        {vip !== 'Так' && sale !== 0 && (
+          <div className={`${s.saleLabel} ${s.saleLabelNoVip}`}>
+            <span>{sale}%</span>
+          </div>
+        )} */}
         <img
           className={s.photoCard}
           src={mainPhotoUrl}
@@ -184,8 +195,15 @@ const ProductItem = ({
               {index > 0 && <span className={s.separator}> / </span>}
               <span className={s.sizeName}>{item[0]?.name}</span>
               {activeSize === index && (
-                <div className={s.hoveredSize} style={{ left: triangleLeft }}>
-                  <SizeHovered activeSize={activeSize} sizes={size} />
+                <div
+                  className={s.hoveredSize}
+                  // style={{ right: triangleLeft }}
+                >
+                  <SizeHovered
+                    activeSize={activeSize}
+                    sizes={size}
+                    // triangleLeft={triangleLeft}
+                  />
                 </div>
               )}
             </div>
