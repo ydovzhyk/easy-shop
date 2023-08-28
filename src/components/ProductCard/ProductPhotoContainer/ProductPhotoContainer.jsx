@@ -14,7 +14,7 @@ const ProductPhotoContainer = () => {
             <span>Vip</span>
           </div>
         )}
-        {sale && (
+        {sale > 0 && (
           <div className={s.vipLabel}>
             <span>{sale}%</span>
           </div>

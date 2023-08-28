@@ -18,6 +18,8 @@ import DaysValue from 'components/Shared/helper/DaysValue';
 import RoundButton from 'components/Shared/RoundButton/RoundButton';
 import Pagination from 'components/Shared/Pagination/Pagination';
 import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
+import Text from 'components/Shared/Text/Text';
+
 import Avatar from 'components/Profile/Avatar/Avatar';
 import UserRating from 'components/Profile/ProfileInfo/UserRating';
 import Value from 'components/Profile/Value';
@@ -46,10 +48,7 @@ const UserSubscriptions = () => {
   };
 
   useEffect(() => {
-    // dispatch(getUserLikesBasket({ currentPage }));
     dispatch(updateUserSubscriptions({ currentPage }));
-
-    // setIsLiked(false);
   }, [dispatch, currentPage]);
 
   // for delete subscriptions
@@ -161,10 +160,15 @@ const UserSubscriptions = () => {
       )}
       {questionWindow && (
         <MessageWindow
-          // text={`Ви впевнені, що хочете видалити підписку на ${username}?`}
           text={`"Ви впевнені, що хочете видалити підписку?"`}
           confirmButtons={true}
           onConfirm={deleteSubscriptions}
+        />
+      )}
+      {userSubscriptions && userSubscriptions.length === 0 && (
+        <Text
+          text={'У вас немає обраних продавців'}
+          textClass="after-title-text-warning"
         />
       )}
       <Pagination

@@ -10,6 +10,7 @@ import {
 
 import ProductItem from 'components/Shared/ProductItem/ProductItem';
 import Pagination from 'components/Shared/Pagination/Pagination';
+import Text from 'components/Shared/Text/Text';
 
 import s from 'components/Favorites/LikedProducts/LikedProducts.module.scss';
 
@@ -22,11 +23,9 @@ const LikedProducts = () => {
   const userId = useSelector(getID);
   const likedProducts = useSelector(getLikedProducts);
   const totalLikedPages = useSelector(getTotalLikedProductsPages);
-  console.log('likedProducts', likedProducts);
 
   useEffect(() => {
     dispatch(getUserLikesBasket({ currentPage }));
-    // dispatch(updateUserSubscriptions({ currentPage }));
 
     setIsLiked(false);
   }, [dispatch, isLiked, currentPage]);
@@ -81,6 +80,12 @@ const LikedProducts = () => {
             />
           ))}
         </ul>
+      )}
+      {likedProducts && likedProducts.length === 0 && (
+        <Text
+          text={'У вас немає обраних товарів'}
+          textClass="after-title-text-warning"
+        />
       )}
       <Pagination
         totalPages={totalLikedPages}
