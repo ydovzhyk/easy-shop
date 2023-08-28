@@ -54,15 +54,14 @@ const AddProduct = () => {
     if (!mainFile && additionalFiles.length === 0) {
       setErrorFormFilling(true);
       setErrorMessage(
-        prevErrorMessage =>
-          prevErrorMessage + ' Виберіть хоча б одну фотографію'
+        prevErrorMessage => prevErrorMessage + 'Choose at least one photo'
       );
       return true;
     }
     if (selectedSizes.length === 0) {
       setErrorFormFilling(true);
       setErrorMessage(
-        prevErrorMessage => prevErrorMessage + ' Виберіть хоча б один розмір'
+        prevErrorMessage => prevErrorMessage + 'Choose at least one size'
       );
       return true;
     }
