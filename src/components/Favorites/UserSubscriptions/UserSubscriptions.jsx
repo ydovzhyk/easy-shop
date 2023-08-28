@@ -37,8 +37,7 @@ const UserSubscriptions = () => {
 
   const userSubscriptions = useSelector(selectUserSubscriptions);
   const totalPagesSubscription = useSelector(selectTotalPagesUserSubscription);
-  // const dateCreate = useSelector(getUserDateCreate);
-  console.log('userSubscriptions', userSubscriptions);
+
   const getDaysPassedFromDate = dateString => {
     const date = new Date(dateString);
     const currentDate = new Date();
