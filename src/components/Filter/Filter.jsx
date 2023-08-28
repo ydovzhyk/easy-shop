@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BiCheck } from 'react-icons/bi';
+import { AiOutlineClose } from 'react-icons/ai';
 
 import { useMediaQuery } from 'react-responsive';
 
@@ -15,6 +16,7 @@ import {
   showFilterProduct,
   unSubmitFilterForm,
   submitFilterForm,
+  hideFilterInMobile,
 } from 'redux/product/product-slice';
 
 import sizeOption from '../AddProduct/Size/sizeTable.json';
@@ -27,6 +29,7 @@ import s from './Filter.module.scss';
 
 const Filter = ({ onChange }) => {
   const isDesktop = useMediaQuery({ minWidth: 1280 });
+  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const [filterData, setFilterData] = useState({});
   const [showSizes, setShowSizes] = useState(true);
@@ -213,10 +216,20 @@ const Filter = ({ onChange }) => {
     };
     await onChange(dataForUpload);
     await dispatch(submitFilterForm());
+    await dispatch(hideFilterInMobile());
   };
 
   return (
     <section className={s.optionsWrapper}>
+      {isMobile && (
+        <AiOutlineClose
+          size={20}
+          className={s.closeIcon}
+          onClick={() => {
+            dispatch(hideFilterInMobile());
+          }}
+        />
+      )}
       <h2 className={s.title}>Фільтри</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <OptionsHeader title="Розмір" onChange={handleOptionsChange} />

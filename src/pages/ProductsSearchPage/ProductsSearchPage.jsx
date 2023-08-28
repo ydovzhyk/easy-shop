@@ -1,5 +1,7 @@
 import { useEffect, useMemo } from 'react';
 
+import { useMediaQuery } from 'react-responsive';
+
 import { Outlet, useSearchParams, useParams } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,6 +12,7 @@ import {
   getHeaderFormClick,
   getCurrentProductsPage,
   getFilterProduct,
+  getShownFilterInMobile,
 } from 'redux/product/product-selectors';
 
 import Filter from 'components/Filter/Filter';
@@ -20,6 +23,8 @@ import { translateParamsToUA } from '../../funcs&hooks/translateParamsToUA.js';
 import { filterPrices } from 'components/Filter/filterPrice';
 import { filterConditions } from 'components/Filter/filterСonditions';
 import sizeOption from 'components/AddProduct/Size/sizeTable.json';
+
+import s from './ProductsSearchPage.module.scss';
 
 const ProductsSearchPage = () => {
   const { category, subcategory } = useParams();
@@ -38,6 +43,9 @@ const ProductsSearchPage = () => {
   const shouldHeaderFormReset = useSelector(getHeaderFormReset);
   const currentPage = useSelector(getCurrentProductsPage);
   const shouldFilterFormReset = useSelector(getFilterProduct);
+  const showFilterInMobile = useSelector(getShownFilterInMobile);
+
+  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const payload = useMemo(() => {
     let selectedConditionsArray = [];
@@ -152,14 +160,17 @@ const ProductsSearchPage = () => {
   return (
     <div>
       <Container>
-        <div
-          style={{
-            display: 'flex',
-            padding: '20px 0',
-          }}
-        >
-          <Filter onChange={dataFilterHandler} />
-          <Outlet />
+        <div className={s.mainWrapper}>
+          {isMobile && showFilterInMobile && (
+            <Filter onChange={dataFilterHandler} />
+          )}
+          {isMobile && !showFilterInMobile && <Outlet />}
+          {!isMobile && (
+            <>
+              <Filter onChange={dataFilterHandler} />
+              <Outlet />
+            </>
+          )}
         </div>
       </Container>
     </div>
