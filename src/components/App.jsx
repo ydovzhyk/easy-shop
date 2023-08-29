@@ -147,7 +147,7 @@ export const App = () => {
       }
     }
 
-    if (currentPathSearch) {
+    if (currentPathSearch && process.env.NODE_ENV === 'development') {
       const pageInfoToUpdate = {
         lastVisitedPage: currentPath + currentPathSearch,
         lastVisitedTime: new Date().getTime().toString(),
@@ -156,7 +156,18 @@ export const App = () => {
         'easy-shop-page-info',
         JSON.stringify(pageInfoToUpdate)
       );
-    } else {
+    }
+    if (currentPathSearch && process.env.NODE_ENV === 'production') {
+      const pageInfoToUpdate = {
+        lastVisitedPage: currentPathSearch,
+        lastVisitedTime: new Date().getTime().toString(),
+      };
+      localStorage.setItem(
+        'easy-shop-page-info',
+        JSON.stringify(pageInfoToUpdate)
+      );
+    }
+    if (!currentPathSearch) {
       const pageInfoToUpdate = {
         lastVisitedPage: currentPath,
         lastVisitedTime: new Date().getTime().toString(),
