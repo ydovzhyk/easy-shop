@@ -2,11 +2,8 @@ import { BsTrash } from 'react-icons/bs';
 
 import { useNavigate } from 'react-router-dom';
 
-import {
-  useSelector,
-  // useDispatch
-} from 'react-redux';
-// import { updateSearchUserSibscribes } from 'redux/auth/auth-operations';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateSearchUserSibscribes } from 'redux/auth/auth-operations';
 import { selectUserSearchSubscriptions } from 'redux/auth/auth-selectors';
 
 import Pagination from 'components/Shared/Pagination/Pagination';
@@ -17,14 +14,14 @@ import { translateParamsToUA } from 'funcs&hooks/translateParamsToUA';
 import s from 'components/Favorites/SelectedSearches/SelectedSearches.module.scss';
 
 const SelectedSearches = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const userSearchSubscriptions = useSelector(selectUserSearchSubscriptions);
-  // const handleDeleteUserSearchSubscription = () => {
-  //   dispatch(
-  //     updateSearchUserSibscribes({ urlSubscription: pathname + search })
-  //   );
-  // };
+  const handleDeleteUserSearchSubscription = url => {
+    dispatch(
+      updateSearchUserSibscribes({ urlSubscription: url, statusDelete: true })
+    );
+  };
 
   return (
     <>
@@ -78,8 +75,8 @@ const SelectedSearches = () => {
                 </div>
                 <RoundButton
                   icon={BsTrash}
-                  // handleClick={handleDeleteUserSearchSubscription}
-                  // id={_id}
+                  handleClick={handleDeleteUserSearchSubscription}
+                  id={el}
                 />
               </li>
             );
