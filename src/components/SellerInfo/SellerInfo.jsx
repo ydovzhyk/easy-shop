@@ -29,15 +29,15 @@ const SellerInfo = () => {
   const isSellerInSubscription = (userSubscriptions || [])
     .find(subscription => subscription === id);
 
-  const sellerInfo = useSelector(selectOtherUser);
-  const message = useSelector(getUserMessage);
-  // console.log('owner id in SellerInfo', id);
   useEffect(() => {
     // dispatch(clearOtherUser());
     dispatch(getOtherUser(id)).then(() => setIsDataLoaded(true));
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [dispatch, id]);
-  // console.log('sellerInfo in SellerInfo:', sellerInfo);
+
+  const sellerInfo = useSelector(selectOtherUser);
+  const message = useSelector(getUserMessage);
+  console.log('sellerInfo in SellerInfo:', sellerInfo);
   // console.log('isSellerInSubscription in SellerInfo:', isSellerInSubscription);
   
   const {
@@ -96,7 +96,9 @@ const SellerInfo = () => {
       />)}
     </section>
     <section className={s.profiledetails}>
-      <SellerInfoDetails/>
+        {isDataLoaded && id && (
+          <SellerInfoDetails />)
+        }
     </section>
       {isMessage && (
         <MessageWindow text={`${message}`} onDismiss={resetMessage} />
