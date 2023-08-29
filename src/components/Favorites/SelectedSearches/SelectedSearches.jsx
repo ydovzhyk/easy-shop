@@ -30,12 +30,13 @@ const SelectedSearches = () => {
           userSearchSubscriptions.map((el, index) => {
             let category = 'Каталог';
             let subCategory;
+            console.log(el.split('?'));
 
             if (
-              el.includes('/product/women') ||
-              el.includes('/product/men') ||
-              el.includes('/product/children') ||
-              el.includes('/product/beauty&health')
+              el.includes('/product/women/') ||
+              el.includes('/product/men/') ||
+              el.includes('/product/children/') ||
+              el.includes('/product/beauty&health/')
             ) {
               const { categoryName, subCategoryName } = translateParamsToUA(
                 el.split('/')[2],
