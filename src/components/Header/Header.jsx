@@ -4,8 +4,6 @@ import { HiOutlineBars4 } from 'react-icons/hi2';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { VscAdd } from 'react-icons/vsc';
 
-import { useMediaQuery } from 'react-responsive';
-
 import { NavLink, useSearchParams, useLocation } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -26,6 +24,7 @@ import menuItems from 'components/DropDownMenu/menuItems';
 import { ModalCatalog } from 'components/DropDownMenu/ModalCatalog';
 import categoryOptions from '../AddProduct/category.json';
 import { getPath } from '../../funcs&hooks/getPath.js';
+import useScreenResizing from '../../funcs&hooks/useScreenResizing';
 
 import s from './Header.module.scss';
 
@@ -45,9 +44,10 @@ const Header = () => {
   const isLogin = useSelector(getLogin);
   const dispatch = useDispatch();
 
-  const isDesktop = useMediaQuery({ minWidth: 1280 });
-  const isTablet = useMediaQuery({ minWidth: 768 });
-  const isMobile = useMediaQuery({ maxWidth: 767 });
+  const viewPort = useScreenResizing();
+  const isDesktop = viewPort.width > 1279;
+  const isTablet = viewPort.width > 767;
+  const isMobile = viewPort.width < 768;
 
   const categories = Object.keys(categoryOptions);
 

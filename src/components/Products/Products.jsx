@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams, useParams, useLocation } from 'react-router-dom';
-import { useMediaQuery } from 'react-responsive';
+
 import { HiOutlineStar, HiStar } from 'react-icons/hi';
 import { MdClose } from 'react-icons/md';
 import { BsFilter } from 'react-icons/bs';
@@ -33,6 +33,7 @@ import Text from 'components/Shared/Text/Text';
 import NotFound from 'components/NotFound/NotFound';
 import SelectField from 'components/Shared/SelectField/SelectField';
 import options from './options';
+import useScreenResizing from '../../funcs&hooks/useScreenResizing';
 
 import s from './Products.module.scss';
 
@@ -58,7 +59,8 @@ const Products = () => {
 
   const { control } = useForm();
 
-  const isMobile = useMediaQuery({ maxWidth: 767 });
+  const viewPort = useScreenResizing();
+  const isMobile = viewPort.width < 768;
 
   useEffect(() => {
     setIsMessage(message);
