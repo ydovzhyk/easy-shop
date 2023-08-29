@@ -50,7 +50,7 @@ const Catalog = () => {
       <SelectorProducts
         activeButton={activeButton}
         activeNewRef={activeNewRef}
-       />
+      />
     </section>
   );
 };

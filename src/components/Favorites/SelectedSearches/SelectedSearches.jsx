@@ -1,5 +1,6 @@
 // import { useDispatch, useSelector } from 'react-redux';
-
+import Pagination from 'components/Shared/Pagination/Pagination';
+import Text from 'components/Shared/Text/Text';
 import Button from 'components/Shared/Button/Button';
 import RoundButton from 'components/Shared/RoundButton/RoundButton';
 import { BsTrash } from 'react-icons/bs';
@@ -133,11 +134,12 @@ const SelectedSearches = () => {
           ))}
         </ul>
       )} */}
-      {/* <Pagination
-        totalPages={totalLikedPages}
-        currentPage={currentPage}
-        onPageChange={handlePageChange}
-      /> */}
+      <p>У вас немає обраних пошуків</p>
+      <Pagination
+        // totalPages={totalLikedPages}
+        // currentPage={currentPage}
+        // onPageChange={handlePageChange}
+      />
     </>
   );
 };

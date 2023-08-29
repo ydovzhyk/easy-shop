@@ -47,13 +47,30 @@ const UserSubscriptions = lazy(() =>
 const SelectedSearches = lazy(() =>
   import('components/Favorites/SelectedSearches/SelectedSearches')
 );
+const SelectorProducts = lazy(() =>
+  import('components/Catalog/SelectorProducts/SelectorProducts')
+);
 
 const UserRoutes = () => {
   return (
     <Suspense fallback={<Loader />}>
       <Routes>
         <Route element={<PublicRoute />}>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<HomePage />}>
+            <Route index element={<SelectorProducts activeButton="new" />} />
+            <Route
+              path="new"
+              element={<SelectorProducts activeButton="new" />}
+            />
+            <Route
+              path="sale"
+              element={<SelectorProducts activeButton="sale" />}
+            />
+            <Route
+              path="advice"
+              element={<SelectorProducts activeButton="advice" />}
+            />
+          </Route>
           <Route path="/easy-shop-test" element={<HomePage />} />
           <Route path="/registration" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
