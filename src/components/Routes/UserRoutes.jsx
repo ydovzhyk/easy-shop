@@ -33,9 +33,7 @@ const ProductDetails = lazy(() => import('pages/ProductDetailsPage'));
 const ProductsPage = lazy(() => import('pages/ProductsPage'));
 const SellerInfoPage = lazy(() => import('pages/SellerInfoPage'));
 const SellerWares = lazy(() => import('components/SellerInfo/SellerWares/SellerWares'));
-const SellerPurchases = lazy(() => import('components/SellerInfo/SellerPurchases/SellerPurchases'));
-const SellerSales = lazy(() => import('components/SellerInfo/SellerSales/SellerSales'));
-const AboutSeller = lazy(() => import('components/SellerInfo/AboutSeller/AboutSeller'));
+const About = lazy(() => import('components/SellerInfo/About/About'));
 const SellerReviews = lazy(() => import('components/SellerInfo/SellerReviews/SellerReviews'));
 const MySales = lazy(() => import('components/Profile/MySales/MySales'));
 const LikedProducts = lazy(() =>
@@ -47,6 +45,9 @@ const UserSubscriptions = lazy(() =>
 const SelectedSearches = lazy(() =>
   import('components/Favorites/SelectedSearches/SelectedSearches')
 );
+
+const AboutSellerReviews = lazy(() => import('components/SellerInfo/SellerReviews/AboutSellerReviews'));
+const AboutBuyerReviews = lazy(() => import('components/SellerInfo/SellerReviews/AboutBuyerReviews'));
 
 const UserRoutes = () => {
   return (
@@ -69,10 +70,12 @@ const UserRoutes = () => {
           <Route path="/member/:id" element={<SellerInfoPage />}>
             <Route index element={<SellerWares />} />
             <Route path="mywares" element={<SellerWares />} />
-            <Route path="mypurchases" element={<SellerPurchases />} />
-            <Route path="mysales" element={<SellerSales />} />
-            <Route path="myreviews" element={<SellerReviews />} />
-            <Route path="about" element={<AboutSeller />} />
+            <Route path="myreviews" element={<SellerReviews />}>
+              <Route index element={<AboutSellerReviews />} />
+              <Route path="aboutseller" element={<AboutSellerReviews />} />
+              <Route path="aboutbuyer" element={<AboutBuyerReviews />}/>
+            </Route> 
+            <Route path="about" element={<About />} />
           </Route>
           <Route path="/developers" element={<DevelopersPage />} />
         </Route>
