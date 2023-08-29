@@ -106,6 +106,7 @@ const Products = () => {
   const handleClearSearchQueryClick = async () => {
     await searchParams.delete('search');
     await setSearchParams(searchParams);
+    await window.sessionStorage.removeItem('searchQuery');
     await dispatch(resetHeaderForm());
     await dispatch(setCurrentProductsPage(1));
   };
@@ -142,8 +143,9 @@ const Products = () => {
     );
   };
 
-  const handleShownFilterClick = () => {
+  const handleShowFilterClick = () => {
     dispatch(showFilterInMobile());
+    scrollToTop();
   };
 
   return (
@@ -204,7 +206,7 @@ const Products = () => {
                   <button
                     type="button"
                     className={s.btnDark}
-                    onClick={handleShownFilterClick}
+                    onClick={handleShowFilterClick}
                   >
                     <Text textClass="searchQueryContent" text="Фільтри" />
                     <BsFilter size={18} />

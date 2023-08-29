@@ -39,15 +39,15 @@ const Header = () => {
   const searchQuery = searchParams.get('search') ?? '';
   const { pathname } = useLocation();
 
-  const isUserAtProductsSearchPage = pathname.includes('/products');
+  const isUserAtProductsSearchPage = pathname.includes('/product');
 
   const isLogin = useSelector(getLogin);
   const dispatch = useDispatch();
 
   const viewPort = useScreenResizing();
+  const isMobile = viewPort.width < 768;
   const isDesktop = viewPort.width > 1279;
   const isTablet = viewPort.width > 767;
-  const isMobile = viewPort.width < 768;
 
   const categories = Object.keys(categoryOptions);
 
