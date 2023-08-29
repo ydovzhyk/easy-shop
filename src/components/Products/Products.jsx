@@ -48,7 +48,7 @@ const Products = () => {
   const { category, subcategory } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const { pathname, search } = useLocation();
-  const page = searchParams.get('page');
+  // const page = searchParams.get('page');
 
   const products = useSelector(getProductsByQuery);
   const isFilterFormSubmitted = useSelector(getFilterForm);
