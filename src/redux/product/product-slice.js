@@ -37,6 +37,7 @@ const initialState = {
   headerFormErrors: false,
   filterProduct: false,
   filterFormSubmit: false,
+  shownFilterInMobile: false,
   currentProductsPage: 1,
   productsFromOtherUser: [],
 };
@@ -71,6 +72,12 @@ const products = createSlice({
     },
     resetHeaderFormClick: store => {
       store.headerFormClick = false;
+    },
+    showFilterInMobile: store => {
+      store.shownFilterInMobile = true;
+    },
+    hideFilterInMobile: store => {
+      store.shownFilterInMobile = false;
     },
     resetFilterProduct: store => {
       store.filterProduct = true;
@@ -275,6 +282,8 @@ export const {
   clearTotalSearchProducts,
   submitFilterForm,
   unSubmitFilterForm,
+  showFilterInMobile,
+  hideFilterInMobile,
   setHeaderFormClick,
   resetHeaderFormClick,
   setCurrentProductsPage,

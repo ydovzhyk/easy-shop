@@ -68,18 +68,13 @@ const ProductItem = ({
 
   // for hovered Size
   const [activeSize, setActiveSize] = useState(null);
-  // const [triangleLeft, setTriangleLeft] = useState(null);
 
   const handleMouseEnter = (index, event) => {
     setActiveSize(index);
-    // if (event && event.target) {
-    //   setTriangleLeft(event.target.offsetLeft + event.target.offsetWidth / 2);
-    // }
   };
 
   const handleMouseLeave = () => {
     setActiveSize(null);
-    // setTriangleLeft(null);
   };
 
   // for Descroption
@@ -109,38 +104,24 @@ const ProductItem = ({
         to={`/product/${categoryName}/${subCategoryName}/${_id}`}
         className={s.photoLink}
       >
-        {vip === 'Так' && (
-          <div className={s.vipLabel}>
-            <span>Vip</span>
-          </div>
-        )}
-        {sale !== 0 && vip === 'Так' && (
-          <div className={s.saleLabel}>
-            <span>{sale}%</span>
-          </div>
-        )}
-        {sale !== 0 && vip !== 'Так' && (
-          <div className={`${s.saleLabel} ${s.saleLabelNoVip}`}>
-            <span>{sale}%</span>
-          </div>
-        )}
-
-        {/* {vip === 'Так' && sale !== 0 && (
-          <div className={s.saleLabel}>
-            <span>{sale}%</span>
-          </div>
-        )}
-        {vip !== 'Так' && sale !== 0 && (
-          <div className={`${s.saleLabel} ${s.saleLabelNoVip}`}>
-            <span>{sale}%</span>
-          </div>
-        )} */}
         <img
           className={s.photoCard}
           src={mainPhotoUrl}
           onError={e => (e.target.src = NoPhoto)}
           alt="фото товару"
         />
+        <div className={s.overlayLabel}>
+          {vip === 'Так' && (
+            <div className={s.label}>
+              <span>Vip</span>
+            </div>
+          )}
+          {sale > 0 && (
+            <div className={s.label}>
+              <span>{sale}%</span>
+            </div>
+          )}
+        </div>
         <div className={s.styleDescriptionProductCardBox}></div>
         <div className={s.styleDescriptionProductCard}>
           <p className={s.descriptionProductCard}>
@@ -170,7 +151,6 @@ const ProductItem = ({
         <Link to={`/products/${categoryName}/${subCategoryName}/${_id}`}>
           <div style={{ justifyContent: 'flex-start' }}>
             <Text text={nameProduct} textClass="nameProductCard" />
-            {/* <p className={s.nameProductCard}>{nameProduct}</p> */}
           </div>
         </Link>
       </div>
@@ -195,15 +175,8 @@ const ProductItem = ({
               {index > 0 && <span className={s.separator}> / </span>}
               <span className={s.sizeName}>{item[0]?.name}</span>
               {activeSize === index && (
-                <div
-                  className={s.hoveredSize}
-                  // style={{ right: triangleLeft }}
-                >
-                  <SizeHovered
-                    activeSize={activeSize}
-                    sizes={size}
-                    // triangleLeft={triangleLeft}
-                  />
+                <div className={s.hoveredSize}>
+                  <SizeHovered activeSize={activeSize} sizes={size} />
                 </div>
               )}
             </div>

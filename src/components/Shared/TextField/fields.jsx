@@ -37,7 +37,7 @@ export const field = {
   },
   sale: {
     name: 'sale',
-    type: 'text',
+    type: 'number',
     required: true,
   },
   category: {
