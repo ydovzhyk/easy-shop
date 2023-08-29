@@ -68,12 +68,10 @@ const Catalog = () => {
 
     if (process.env.NODE_ENV === 'development') {
       const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
-      console.log('Це нове посилання', newUrl);
       navigate(newUrl);
     }
     if (process.env.NODE_ENV === 'production') {
       const newUrl = `?${searchParams.toString()}`;
-      console.log('Це нове посилання', newUrl);
       navigate(newUrl);
     }
   };

@@ -100,8 +100,16 @@ const VipProducts = () => {
     searchParamsVip.set('category', paramsObjVip.category);
     searchParamsVip.set('page', paramsObjVip.page);
 
-    const newUrl = `${window.location.pathname}?${searchParamsVip.toString()}`;
-    navigate(newUrl);
+    if (process.env.NODE_ENV === 'development') {
+      const newUrl = `${
+        window.location.pathname
+      }?${searchParamsVip.toString()}`;
+      navigate(newUrl);
+    }
+    if (process.env.NODE_ENV === 'production') {
+      const newUrl = `?${searchParamsVip.toString()}`;
+      navigate(newUrl);
+    }
   };
 
   return (

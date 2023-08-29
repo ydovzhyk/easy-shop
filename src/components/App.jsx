@@ -134,9 +134,6 @@ export const App = () => {
     const currentPath = location.pathname;
     const currentPathSearch = location.search;
 
-    console.log('currentPath', currentPath);
-    console.log('currentPathSearch', currentPathSearch);
-
     if (pageInfo && pageInfo.lastVisitedPage && pageInfo.lastVisitedTime) {
       const currentTime = new Date().getTime();
       const timeDifference =
