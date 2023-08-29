@@ -17,6 +17,8 @@ export const getHeaderFormClick = ({ products }) => products.headerFormClick;
 export const getFilterProduct = ({ products }) => products.filterProduct;
 export const getFilterForm = ({ products }) => products.filterFormSubmit;
 export const getHeaderFormErrors = ({ products }) => products.headerFormErrors;
+export const getShownFilterInMobile = ({ products }) =>
+  products.shownFilterInMobile;
 export const getVipProductCard = ({ products }) => products.vipProducts;
 export const getVipPages = ({ products }) => products.vipPages;
 export const getLoadingProducts = ({ products }) => products.loading;

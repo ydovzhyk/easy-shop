@@ -1,0 +1,89 @@
+@use 'styles/mixins';
+
+.developersContainer {
+  padding: 20px 0;
+}
+
+.developersHeading {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.14;
+  letter-spacing: 0.04em;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.developersList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+
+  @include mixins.mq(tablet) {
+    display: grid;
+    grid-template-columns: repeat(2, 300px);
+    justify-content: center;
+    grid-gap: 45px;
+  }
+
+  @include mixins.mq(desktop) {
+    display: grid;
+    grid-template-columns: repeat(3, 300px);
+
+    margin-bottom: 70px;
+  }
+}
+
+.listItem {
+  width: 300px;
+  row-gap: 15px;
+  border: 1px solid var(--border-color);
+
+  margin-bottom: 25px;
+
+  @include mixins.mq(tablet) {
+    margin-bottom: 0;
+  }
+}
+
+.avatarWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.bottomContentWrapper {
+  padding: 15px;
+  background-color: var(--bg-footer-header);
+}
+
+.bottomSocialContentWrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.socialLink {
+  &:not(:last-of-type) {
+    margin-right: 20px;
+  }
+}
+
+.socialIcon {
+  transition: color var(--transition-duration) var(--timing-function);
+  color: var(--icons-color);
+  &:hover,
+  &:focus {
+    color: var(--accent-color);
+  }
+}
+
+.contactLinkContent {
+  display: inline-block;
+  margin-bottom: 15px;
+  color: var(--second-text-color);
+}

@@ -1,121 +1,132 @@
 @use 'styles/mixins';
 
 .form {
-    padding-bottom: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  padding-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .wareItem {
-    padding: 16px;
-    border: 1px solid var(--border-color);
-    display: flex;
+  padding: 16px;
+  border: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  transition: border var(--transition-duration) var(--timing-function);
+
+  &:hover {
+    border: 1px solid var(--btn-border-color);
+  }
+
+  @include mixins.mq(tablet) {
+    width: 100%;
+    flex-direction: row;
     justify-content: space-between;
-    gap: 8px;
-    
-    &:hover {
-        border: 1px solid var(--accent-color);
-    }
-    
-    @include mixins.mq(tablet) {
-        width: 100%;
-        flex-direction: row;
-        justify-content: space-between;
-        gap: 12px;
-    }
+    gap: 12px;
+  }
+  @include mixins.mq(desktop) {
+    padding: 20px;
+  }
 }
 
 .photoAndNameAndPrice {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    justify-content: space-between;
-    @include mixins.mq(tablet) {
-        flex-direction: row;
-        gap: 8px;
-    }
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: space-between;
+  @include mixins.mq(tablet) {
+    flex-direction: row;
+    gap: 8px;
+  }
+  // @include mixins.mq(desktop) {
+  //   justify-content: start;
+  // }
 }
-
 
 .photoAndName {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-
 .thumb {
-    width: 100%;
-    height: 440px;
-    @include mixins.mq(tablet) {
-        width: 336px;
-    }
+  width: 100%;
+  height: 500px;
+  // height: 440px;
+  @include mixins.mq(tablet) {
+    width: 336px;
+  }
+  @include mixins.mq(desktop) {
+    width: 500px;
+    // width: 336px;
+  }
 }
 
 .mainPhotoCard {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .descriptionWrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: flex-start;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-start;
+  justify-content: center;
 
-    @include mixins.mq(tablet) {
-        justify-content: flex-start;
-        max-width: 336px;
-    }
+  @include mixins.mq(tablet) {
+    justify-content: flex-start;
+    max-width: 336px;
+  }
 
-    @include mixins.mq(desktop) {
-        width: 600px;
-    }
+  @include mixins.mq(desktop) {
+    width: 600px;
+  }
 }
 
 .sizesAndButtonWrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    align-items: center;
-    justify-content: center;
-    @include mixins.mq(tablet) {
-        justify-content: space-between;
-    }
-    @include mixins.mq(desktop) {
-        flex-direction: row;
-        
-    }
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  @include mixins.mq(tablet) {
+    justify-content: space-evenly;
+  }
+  @include mixins.mq(desktop) {
+    flex-direction: row;
+    justify-content: space-betwceen;
+    // flex-grow: 1;
+  }
 }
 
 .linkWrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    align-items: center;
-    justify-content: center;
-    @include mixins.mq(tablet) {
-        flex-direction: row;
-        justify-content:space-between;
-    }
-    @include mixins.mq(desktop) {
-        justify-content: space-around;
-    }
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  @include mixins.mq(tablet) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  @include mixins.mq(desktop) {
+    justify-content: space-around;
+  }
 }
 
 .btnWrapper {
-    width: 300px;
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    justify-content: space-between;
+  width: 300px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .btnWrapper p {
-    width: 224px;
+  width: 224px;
 }

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -22,6 +23,7 @@ const BasketForm = ({ ownerId, ownerName, products }) => {
   const [productId, setProductId] = useState(null);
   const [questionWindow, setQuestionWindow] = useState(false);
   const orderInCheckout = useSelector(selectOrderInCheckout);
+  const isDesktop = useMediaQuery({ minWidth: 1280 });
 
   // console.log('products:', products);
 
@@ -214,12 +216,23 @@ const BasketForm = ({ ownerId, ownerName, products }) => {
                       onIncrement={handleIncrement}
                       id={_id}
                     />
-                    <RoundButton
-                      icon={BsTrash}
-                      handleClick={handleButtonTrashClick}
-                      id={_id}
-                    />
+                    {!isDesktop && (
+                      <RoundButton
+                        icon={BsTrash}
+                        handleClick={handleButtonTrashClick}
+                        id={_id}
+                      />
+                    )}
                   </div>
+                  {isDesktop && (
+                    <div style={{ alignSelf: 'center' }}>
+                      <RoundButton
+                        icon={BsTrash}
+                        handleClick={handleButtonTrashClick}
+                        id={_id}
+                      />
+                    </div>
+                  )}
                 </div>
               </li>
             );

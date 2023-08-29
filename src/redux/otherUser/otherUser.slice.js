@@ -4,6 +4,7 @@ import {
   getOtherUser,
   updateUserSubscriptions,
   deleteUserSubscriptions,
+  updateSelectedSearches,
 } from './otherUser-operations';
 
 const initialState = {
@@ -14,6 +15,8 @@ const initialState = {
   userSubscriptions: [],
   totalPagesSubscription: 1,
   userFollowers: [],
+  selectedSearches: [],
+  totalPagesSelectedSearches: 1,
 };
 
 const otherUser = createSlice({
@@ -70,6 +73,21 @@ const otherUser = createSlice({
       store.totalPagesSubscription = payload.totalPagesUserSubscription;
     },
     [deleteUserSubscriptions.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload.message;
+    },
+
+    // * POST Selecte Searches
+    [updateSelectedSearches.pending]: store => {
+      store.loading = true;
+      store.error = '';
+    },
+    [updateSelectedSearches.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.selectedSearches = payload.selectedSearches;
+      store.totalPagesSelectedSearches = payload.totalPagesSelectedSearches;
+    },
+    [updateSelectedSearches.rejected]: (store, { payload }) => {
       store.loading = false;
       store.error = payload.message;
     },

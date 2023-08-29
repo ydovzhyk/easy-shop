@@ -1,9 +1,9 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams, useParams, useLocation } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
-import { HiOutlineStar } from 'react-icons/hi';
-import { HiStar } from 'react-icons/hi';
+import { HiOutlineStar, HiStar } from 'react-icons/hi';
 import { MdClose } from 'react-icons/md';
+import { BsFilter } from 'react-icons/bs';
 
 import { useForm, Controller } from 'react-hook-form';
 
@@ -22,6 +22,7 @@ import {
   resetHeaderForm,
   setCurrentProductsPage,
   resetFilterProduct,
+  showFilterInMobile,
 } from 'redux/product/product-slice';
 
 import Pagination from 'components/Shared/Pagination/Pagination';
@@ -47,6 +48,7 @@ const Products = () => {
   const { category, subcategory } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const { pathname, search } = useLocation();
+  // const page = searchParams.get('page');
 
   const products = useSelector(getProductsByQuery);
   const isFilterFormSubmitted = useSelector(getFilterForm);
@@ -138,6 +140,10 @@ const Products = () => {
     );
   };
 
+  const handleShownFilterClick = () => {
+    dispatch(showFilterInMobile());
+  };
+
   return (
     <section style={{ flexGrow: 1, position: 'relative' }}>
       <div className={s.container}>
@@ -172,24 +178,37 @@ const Products = () => {
         {productsToRender.length > 0 && (
           <>
             <div className={getClassName()}>
-              {isUserLogin && (
-                <button
-                  type="button"
-                  // className={s.filterContent}
-                  className={s.btnLightSubscribe}
-                  onClick={handleSubscribtionClick}
-                >
-                  <Text
-                    textClass="searchQueryContent"
-                    text={isSubscribedSearch() ? 'Ви підписані' : 'Підписатися'}
-                  />
-                  {isSubscribedSearch() ? (
-                    <HiStar size={isMobile ? 18 : 22} />
-                  ) : (
-                    <HiOutlineStar size={isMobile ? 18 : 22} />
-                  )}
-                </button>
-              )}
+              <div className={s.topBtnBox}>
+                {isUserLogin && (
+                  <button
+                    type="button"
+                    className={s.btnLightSubscribe}
+                    onClick={handleSubscribtionClick}
+                  >
+                    <Text
+                      textClass="searchQueryContent"
+                      text={
+                        isSubscribedSearch() ? 'Ви підписані' : 'Підписатися'
+                      }
+                    />
+                    {isSubscribedSearch() ? (
+                      <HiStar size={isMobile ? 18 : 22} />
+                    ) : (
+                      <HiOutlineStar size={isMobile ? 18 : 22} />
+                    )}
+                  </button>
+                )}
+                {isMobile && (
+                  <button
+                    type="button"
+                    className={s.btnDark}
+                    onClick={handleShownFilterClick}
+                  >
+                    <Text textClass="searchQueryContent" text="Фільтри" />
+                    <BsFilter size={18} />
+                  </button>
+                )}
+              </div>
               <Controller
                 control={control}
                 name="filterSection"
@@ -253,8 +272,7 @@ const Products = () => {
           products.length === 0 &&
           !hasHeaderFormErrors && (
             <NotFound
-              textTop={'За вашим запитом'}
-              textBottom={'товарів не знайдено.'}
+              textContent={'No products were found matching your request.'}
               classComp={'booWrapper-products'}
             />
           )}
@@ -263,8 +281,7 @@ const Products = () => {
           productsToRender.length === 0 &&
           products.length === 0 && (
             <NotFound
-              textTop={'За вашим запитом'}
-              textBottom={'товарів не знайдено.'}
+              textContent={'No products were found matching your request.'}
               classComp={'booWrapper-products'}
             />
           )}

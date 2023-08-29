@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BiCheck } from 'react-icons/bi';
+import { AiOutlineClose } from 'react-icons/ai';
 
 import { useMediaQuery } from 'react-responsive';
 
@@ -15,6 +16,7 @@ import {
   showFilterProduct,
   unSubmitFilterForm,
   submitFilterForm,
+  hideFilterInMobile,
 } from 'redux/product/product-slice';
 
 import sizeOption from '../AddProduct/Size/sizeTable.json';
@@ -27,6 +29,7 @@ import s from './Filter.module.scss';
 
 const Filter = ({ onChange }) => {
   const isDesktop = useMediaQuery({ minWidth: 1280 });
+  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const [filterData, setFilterData] = useState({});
   const [showSizes, setShowSizes] = useState(true);
@@ -96,49 +99,49 @@ const Filter = ({ onChange }) => {
       params[key] = value;
     });
 
-    for (const [key, value] of Object.entries(params)) {
-      if (key === 'size') {
-        const selectedSizesArray = [];
-        const selectedIndexSizesArray = value.split('_');
+    const getParsedParamsValues = params => {
+      for (const [key, value] of Object.entries(params)) {
+        if (key === 'size') {
+          const selectedSizesArray = [];
+          const selectedIndexSizesArray = value.split('_');
 
-        for (const [key, value] of Object.entries(sizeOption)) {
-          for (let i = 0; i < selectedIndexSizesArray.length; i += 1) {
-            if (selectedIndexSizesArray[i] === key) {
-              selectedSizesArray.push([{ name: key, value: value }]);
+          for (const [key, value] of Object.entries(sizeOption)) {
+            for (let i = 0; i < selectedIndexSizesArray.length; i += 1) {
+              if (selectedIndexSizesArray[i] === key) {
+                selectedSizesArray.push([{ name: key, value: value }]);
+              }
             }
-          }
-          setSelectedSizes(selectedSizesArray);
-        }
-      }
-      if (key === 'price') {
-        const selectedFilterPrice = filterPrices.find(
-          (el, index) => Number(value) === index
-        );
-
-        setValue('filterPriceRadio', selectedFilterPrice);
-      }
-      if (key === 'brand') {
-        setValue('filterBrand', value);
-      }
-      if (key === 'price_to') {
-        setValue('filterPriceTo', value);
-      }
-      if (key === 'price_from') {
-        setValue('filterPriceFrom', value);
-      }
-      if (key === 'condition') {
-        let selectedConditions = [];
-        const selectedIndexConditionsArray = value.split('_');
-        for (let i = 0; i < filterConditions.length; i += 1) {
-          for (let j = 0; j < selectedIndexConditionsArray.length; j += 1) {
-            if (i === j) {
-              selectedConditions.push(filterConditions[i]);
-            }
+            setSelectedSizes(selectedSizesArray);
           }
         }
-        setValue('filterCondition', selectedConditions);
+        if (key === 'price') {
+          const selectedFilterPrice = filterPrices.find(
+            (el, index) => Number(value) === index
+          );
+
+          setValue('filterPriceRadio', selectedFilterPrice);
+        }
+        if (key === 'brand') {
+          setValue('filterBrand', value);
+        }
+        if (key === 'price_to') {
+          setValue('filterPriceTo', value);
+        }
+        if (key === 'price_from') {
+          setValue('filterPriceFrom', value);
+        }
+        if (key === 'condition') {
+          let selectedConditions = [];
+          const selectedIndexConditionsArray = value.split('_');
+          selectedIndexConditionsArray.forEach(el => {
+            selectedConditions.push(filterConditions[Number(el)]);
+          });
+
+          setValue('filterCondition', selectedConditions);
+        }
       }
-    }
+    };
+    getParsedParamsValues(params);
   }, [searchParams, setValue]);
 
   useEffect(() => {
@@ -213,10 +216,20 @@ const Filter = ({ onChange }) => {
     };
     await onChange(dataForUpload);
     await dispatch(submitFilterForm());
+    await dispatch(hideFilterInMobile());
   };
 
   return (
     <section className={s.optionsWrapper}>
+      {isMobile && (
+        <AiOutlineClose
+          size={20}
+          className={s.closeIcon}
+          onClick={() => {
+            dispatch(hideFilterInMobile());
+          }}
+        />
+      )}
       <h2 className={s.title}>Фільтри</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <OptionsHeader title="Розмір" onChange={handleOptionsChange} />

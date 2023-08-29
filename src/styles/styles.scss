@@ -22,6 +22,7 @@
   --label-text-color: #212121;
   --second-text-color: #414141;
   --second-text-input-color: #414141;
+  --error-text-color: #f30808;
 
   --select-background-option-color: #414141;
   --bg-selector: #f5f5f5;
@@ -30,7 +31,7 @@
 
   --border-color: #e0e0e0;
   --icons-color: #3b3b3b;
-  --empty-color: #cdc6c6;
+  --empty-color: #bbb4b4;
   --unlogged-avatar-filter: invert(0%);
 
   --transition-duration: 300ms;
@@ -59,10 +60,12 @@
   --second-text-color: #e0e0e0;
   --second-text-input-color: #65665a;
   --title-text-color: #f0f1f3;
+  --error-text-color: #f0f1f3;
 
   --border-color: #3b3b3b;
   --icons-color: #fff;
-  --empty-color: #65665a;
+  --empty-color: #737564;
+  // --empty-color: #65665a;
   --unlogged-avatar-filter: invert(100%);
 
   --bg-selector: #414141;

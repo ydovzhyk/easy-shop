@@ -34,7 +34,7 @@ const OrderProductsList = ({ productsForOrder, products }) => {
               <li className={s.productItem} key={_id}>
                 <div className={s.infoWraper}>
                   <div className={s.mainInfo}>
-                    <Link to={`/products/${section}/${category}/${_id}`}>
+                    <Link to={`/product/${section}/${category}/${_id}`}>
                       <div className={s.thumb}>
                         <img
                           className={s.mainPhoto}

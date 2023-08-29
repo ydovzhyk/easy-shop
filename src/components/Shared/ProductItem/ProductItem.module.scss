@@ -6,7 +6,7 @@
   row-gap: 15px;
 
   margin-bottom: 25px;
-  
+
   @include mixins.mq(tablet) {
     margin-bottom: 0;
   }
@@ -24,85 +24,91 @@
   }
 }
 
-.vipLabel {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  position: absolute;
-  top: 16px;
-  left: 16px;
-
-  min-width: 16px;
-  min-height: 16px;
-  border-radius: 18px;
-  padding: 4px 12px;
-
-  background-color: #000000;
-
-  @include mixins.mq(desktop) {
-    top: 6px;
-    left: 6px;
-  }
-}
-
-.vipLabel > span {
-  display: inline-block;
-
-  font-size: 14px;
-  text-transform: uppercase;
-  line-height: 16px;
-
-  color: var(--accent-color);
-}
-
-.saleLabel {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  position: absolute;
-  top: 42px;
-  left: 16px;
-
-  width: 48px;
-  height: 23px;
-  border-radius: 18px;
-  padding: 4px 12px;
-
-  background: #000000;
-
-  @include mixins.mq(desktop) {
-    top: 32px;
-    left: 6px;
-  }
-}
-
-.saleLabelNoVip {
-  top: 16px;
-  left: 16px;
-
-  @include mixins.mq(desktop) {
-    top: 6px;
-    left: 6px;
-  }
-}
-
-.saleLabel > span {
-  display: inline-block;
-
-  font-size: 14px;
-  text-transform: uppercase;
-  line-height: 16px;
-
-  color: var(--accent-color);
-}
-
 .photoCard {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
+
+.overlayLabel {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  pointer-events: none;
+
+  @include mixins.mq(desktop) {
+    top: 6px;
+    left: 6px;
+  }
+}
+
+.label {
+  width: 50px;
+  margin-bottom: 4px;
+  padding: 4px 12px;
+
+  text-align: center;
+  border-radius: 18px;
+  background-color: #000000;
+}
+
+.label > span {
+  display: inline-block;
+
+  font-size: 14px;
+  text-transform: uppercase;
+  line-height: 16px;
+
+  color: var(--accent-color);
+}
+
+// .saleLabel {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+
+//   position: absolute;
+//   top: 42px;
+//   left: 16px;
+
+//   width: 48px;
+//   height: 23px;
+//   border-radius: 18px;
+//   padding: 4px 12px;
+
+//   background: #000000;
+
+//   @include mixins.mq(desktop) {
+//     top: 32px;
+//     left: 6px;
+//   }
+// }
+
+// .saleLabelNoVip {
+//   top: 16px;
+//   left: 16px;
+
+//   @include mixins.mq(desktop) {
+//     top: 6px;
+//     left: 6px;
+//   }
+// }
+
+// .saleLabel > span {
+//   display: inline-block;
+
+//   font-size: 14px;
+//   text-transform: uppercase;
+//   line-height: 16px;
+
+//   color: var(--accent-color);
+// }
 
 .styleDescriptionProductCardBox {
   position: absolute;
@@ -187,7 +193,7 @@
   font-size: 18px;
   line-height: 16px;
 
-  color: var(--btn-text-color);
+  color: var(--text-color);
 }
 
 .priceCard {
@@ -252,24 +258,32 @@
   position: absolute;
   top: 100%;
   left: 0;
-  width: 100%;
-
+  // width: 100%;
+  margin-top: 5px;
   background-color: #fff;
-
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--hover-box-shadow);
   z-index: 999;
 }
 
-.hoveredSize::before {
-  content: '';
+// .hoveredSize::before {
+//   content: '';
 
-  position: absolute;
-  top: 5px;
-  left: 5px;
+//   position: absolute;
+//   top: 5px;
+//   left: -15px;
 
-  border: 8px solid transparent;
-  border-bottom-color: #000;
-}
+//   border: 8px solid transparent;
+//   border-bottom-color: #000;
+// }
+
+// .triangleLeft {
+//   position: absolute;
+//   background-color: aqua;
+//   // left: 0; /* Зсуваємо вліво */
+//   // bottom: 100%; /* Розташовуємо вгорі від позиції виходу */
+//   // transform: translateX(-50%); /* Центруємо горизонтально */
+//   margin-bottom: 250px;
+// }
 
 .link {
   color: var(--second-text-color);

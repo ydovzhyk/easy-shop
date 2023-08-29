@@ -8,6 +8,7 @@ import Logo from 'components/Shared/Logo/Logo';
 import Button from 'components/Shared/Button/Button';
 
 import s from './Footer.module.scss';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const isDesctop = useMediaQuery({ minWidth: 1280 });
@@ -139,11 +140,13 @@ const Footer = () => {
               </a>
             </li>
           </ul>
-          <Button
-            type="button"
-            text="Команда розробників сайту"
-            btnClass="footerAccentLink"
-          />
+          <Link to="/developers">
+            <Button
+              type="button"
+              text="Команда розробників сайту"
+              btnClass="footerAccentLink"
+            />
+          </Link>
         </div>
       </div>
     </footer>

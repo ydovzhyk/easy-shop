@@ -3,6 +3,7 @@ import {
   axiosGetOtherUser,
   axiosUserSubscriptions,
   axiosDeleteUserSubscriptions,
+  axiosSelectedSearches,
 } from 'api/otherUser';
 
 export const getOtherUser = createAsyncThunk(
@@ -36,6 +37,19 @@ export const deleteUserSubscriptions = createAsyncThunk(
   async (userData, { rejectWithValue, dispatch }) => {
     try {
       const data = await axiosDeleteUserSubscriptions(userData);
+      return data;
+    } catch (error) {
+      const { data, status } = error.response;
+      return rejectWithValue({ data, status });
+    }
+  }
+);
+
+export const updateSelectedSearches = createAsyncThunk(
+  'other-user/selected-searches',
+  async (userData, { rejectWithValue }) => {
+    try {
+      const data = await axiosSelectedSearches(userData);
       return data;
     } catch (error) {
       const { data, status } = error.response;

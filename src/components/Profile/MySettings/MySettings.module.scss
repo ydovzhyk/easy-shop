@@ -23,7 +23,7 @@
   flex-direction: column;
   gap: 12px;
   border: 1px solid var(--border-color);
-  border-radius: 8px;
+  // border-radius: 8px;
 }
 
 .form {
@@ -84,16 +84,18 @@
   color: var(--second-text-color);
   background-color: var(--background-color);
   box-shadow: none;
-  border-radius: 8px;
+  // border-radius: 8px;
   border: 1px solid var(--border-color);
   letter-spacing: 1px;
   -webkit-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
+  transition: outline var(--transition-duration) var(--timing-function),
+    border var(--transition-duration) var(--timing-function),
+    background-color var(--transition-duration) var(--timing-function);
 
   &:focus {
     outline: none;
-    border: 1px solid var(--accent-color);
-    background: transparent;
+    border: 1px solid var(--btn-border-color);
+    background-color: transparent;
   }
 }

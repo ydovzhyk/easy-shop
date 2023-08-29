@@ -1,0 +1,10 @@
+@use '../../styles/mixins';
+
+.mainWrapper {
+  display: flex;
+  padding: 20px 0;
+  justify-content: center;
+  @include mixins.mq(mobile) {
+    justify-content: center;
+  }
+}

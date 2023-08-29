@@ -54,10 +54,10 @@ const UserInfoDetails = () => {
     }
   }, [user]);
 
-  // console.log('isMyWares:', isMyWares);
-  // console.log('isMyPurchases:', isMyPurchases);
-  // console.log('isMyReviews:', isMyReviews);
-  // console.log('isMySettings:', isMySettings);
+  console.log('isMyWares:', isMyWares);
+  console.log('isMyPurchases:', isMyPurchases);
+  console.log('isMyReviews:', isMyReviews);
+  console.log('isMySettings:', isMySettings);
 
   return (
     <Container>
