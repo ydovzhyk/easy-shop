@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState, Suspense } from 'react';
+import { useParams, Link, Outlet, useNavigate} from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Select from 'react-select';
 import { useMediaQuery } from 'react-responsive';
@@ -10,25 +10,30 @@ import {
   getUserFeedback, getUserReviews
 } from 'redux/review/review-operations';
 
+import Loader from 'components/Loader';
+
 import s from 'components/SellerInfo/SellerReviews/SellerReviews.module.scss';
 
 const SellerReviews = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const navigate = useNavigate();
     // const location = useLocation();
     // const owner = location.state?.owner ?? null;
   const isTablet = useMediaQuery({ minWidth: 768 });
-  const [currentSelector, setcurrentSelector] = useState('seller');
+  const [currentSelector, setcurrentSelector] = useState('aboutseller');
 
   useEffect(() => {
         dispatch(clearReviewAndFeedback())
-      if (currentSelector === 'seller') {
-        dispatch(getUserFeedback({ sellerId: id}));
+      if (currentSelector === 'aboutseller') {
+        dispatch(getUserFeedback({ sellerId: id }));
+        navigate("aboutseller");
       }
-      if (currentSelector === 'client') {
+      if (currentSelector === 'aboutbuyer') {
         dispatch(getUserReviews({ id }));
+        navigate("aboutbuyer");
       }
-    }, [dispatch, id, currentSelector]);
+    }, [dispatch, id, currentSelector, navigate]);
 
   const handleButtonClick = optionName => {
     setcurrentSelector(optionName);
@@ -43,10 +48,10 @@ const SellerReviews = () => {
             classNamePrefix="custom-select"
             onChange={value => handleButtonClick(value.value)}
             options={[
-              { value: 'seller', label: 'Як продавця' },
-              { value: 'client', label: 'Як покупця' },
+              { value: 'aboutseller', label: 'Як про продавця' },
+              { value: 'aboutbuyer', label: 'Як про покупця' },
             ]}
-            defaultValue={{ value: 'seller', label: 'Як продавця' }}
+            defaultValue={{ value: 'aboutseller', label: 'Як про продавця' }}
             theme={theme => ({
               ...theme,
               borderRadius: 0,
@@ -54,33 +59,41 @@ const SellerReviews = () => {
           />
           )}
           {isTablet && <ul className={s.optionsList}>
-          <li>
-            <button
-              className={
-                currentSelector === 'seller'
-                  ? `${s.selectButton} ${s.active}`
-                  : s.selectButton
-              }
-              onClick={() => handleButtonClick('seller')}
-            >
-              Як продавця
-            </button>
-          </li>
-          <li>
-            <button
-              className={
-                currentSelector === 'client'
-                  ? `${s.selectButton} ${s.active}`
-                  : s.selectButton
-              }
-              onClick={() => handleButtonClick('client')}
-            >
-              Як покупця
-            </button>
-          </li>
+            <li>
+              <Link to="aboutseller">
+                <button
+                  className={
+                    currentSelector === 'aboutseller'
+                      ? `${s.selectButton} ${s.active}`
+                      : s.selectButton
+                  }
+                  onClick={() => handleButtonClick('aboutseller')}
+                >
+                  Як про продавця
+                </button>
+              </Link>
+            
+            </li>
+            <li>
+              <Link to="aboutbuyer">
+                <button
+                  className={
+                    currentSelector === 'aboutbuyer'
+                      ? `${s.selectButton} ${s.active}`
+                      : s.selectButton
+                  }
+                  onClick={() => handleButtonClick('aboutbuyer')}
+                >
+                  Як про покупця
+                </button>
+              </Link>  
+            </li>
         </ul>}
         </div>
-       </div>
+        <Suspense fallback={<Loader />}>
+        <Outlet />
+    </Suspense>
+      </div>
     )
 }
 
