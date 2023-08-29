@@ -18,17 +18,13 @@ const SellerInfoDetails = () => {
   const {
     userReviews,
     userFeedback,
-    userOrders,
-    userSales,
   } = sellerInfo;
   
   console.log('sellerReviews in SellerInfoDetails', userReviews);
   
   console.log('sellerFeedback in SellerInfoDetails', userFeedback);
   const [isMyWares, setIsMyWares] = useState(false);
-  const [isMyPurchases, setIsMyPurchases] = useState(false);
   const [isMyReviews, setIsMyReviews] = useState(false);
-  const [isMySales, setIsMySales] = useState(false);
   const [isAbout, setIsAbout] = useState(false);
 
   const valueforReview = !userReviews
@@ -39,8 +35,6 @@ const SellerInfoDetails = () => {
     setIsMyWares(
       location === `/member/${id}` || location === `/member/${id}/mywares` ? true : false
     );
-    setIsMyPurchases(location === `/member/${id}/mypurchases` ? true : false);
-    setIsMySales(location === `/member/${id}/mysales` ? true : false);
     setIsMyReviews(location === `/member/${id}/myreviews` ? true : false);
     setIsAbout(location === `/member/${id}/about` ? true : false);
   }, [location, id]);
@@ -70,26 +64,6 @@ const SellerInfoDetails = () => {
             isBackgroundChange={isMyWares}
           >
             Мої товари
-          </ProfileLink>
-        </li>
-        <li className={s.item}>
-          <ProfileLink
-            to="mypurchases"
-            addValue
-            isBackgroundChange={isMyPurchases}
-            value={userOrders.length}
-          >
-            Мої покупки
-          </ProfileLink>
-        </li>
-        <li className={s.item}>
-          <ProfileLink
-            to="mysales"
-            addValue
-            isBackgroundChange={isMySales}
-            value={userSales.length}
-          >
-            Мої продажі
           </ProfileLink>
         </li>
         <li className={s.item}>
