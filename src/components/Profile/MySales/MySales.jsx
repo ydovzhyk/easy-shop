@@ -44,9 +44,13 @@ const MySales = () => {
     setCurrentPage(1);
   };
 
-  const handleConfirmButtonClick = id => {
+  const handleChangeOrderStatus = (id, confirmed, typeDialogue) => {
     dispatch(
-      updateOrderStatus({ orderId: id, confirmed: true, statusNew: false })
+      updateOrderStatus({
+        orderId: id,
+        confirmed: confirmed,
+        statusNew: false,
+      })
     );
     dispatch(
       getUserSales({
@@ -57,24 +61,7 @@ const MySales = () => {
     dispatch(
       orderConfirmationDialogue({
         orderId: id,
-        typeDialogue: 'sales',
-      })
-    );
-  };
-  const handleCancelButtonClick = id => {
-    dispatch(
-      updateOrderStatus({ orderId: id, confirmed: false, statusNew: false })
-    );
-    dispatch(
-      getUserSales({
-        page: currentPage,
-        selectorName: currentSelector,
-      })
-    );
-    dispatch(
-      orderConfirmationDialogue({
-        orderId: id,
-        typeDialogue: 'cancel',
+        typeDialogue: typeDialogue,
       })
     );
   };
@@ -125,13 +112,17 @@ const MySales = () => {
                           type="button"
                           btnClass="btnLight"
                           text="Підтвердити замовлення"
-                          handleClick={() => handleConfirmButtonClick(_id)}
+                          handleClick={() =>
+                            handleChangeOrderStatus(_id, true, 'sales')
+                          }
                         />
                         <Button
                           type="button"
                           btnClass="btnDark"
                           text="Скасувати замовлення"
-                          handleClick={() => handleCancelButtonClick(_id)}
+                          handleClick={() =>
+                            handleChangeOrderStatus(_id, false, 'cancel')
+                          }
                         />
                       </>
                     ) : (
