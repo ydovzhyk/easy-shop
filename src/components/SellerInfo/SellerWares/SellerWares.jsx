@@ -15,9 +15,7 @@ const SellerWares = () => {
   }, [dispatch, id]);
     
   const sellerProducts = useSelector(selectProductsFromOtherUther);
-  // console.log('sellerProducts in Wares:', sellerProducts);
-  // const productsNamesArray = sellerProducts.map(product =>{ return product.nameProduct});
-  // console.log(productsNamesArray);
+  console.log('sellerProducts in Wares:', sellerProducts);
     return (
       <section>
         <ul className={s.listCard}>
