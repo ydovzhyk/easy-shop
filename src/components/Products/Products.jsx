@@ -34,6 +34,7 @@ import NotFound from 'components/NotFound/NotFound';
 import SelectField from 'components/Shared/SelectField/SelectField';
 import options from './options';
 import useScreenResizing from '../../funcs&hooks/useScreenResizing';
+import { scrollToTop } from '../../funcs&hooks/scrollToTop';
 
 import s from './Products.module.scss';
 
@@ -129,10 +130,6 @@ const Products = () => {
     scrollToTop();
   };
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   const getClassName = () => {
     return !isUserLogin ? `${s.selectWrapper}` : `${s.bottomOptionsWrapper}`;
   };
@@ -145,7 +142,6 @@ const Products = () => {
 
   const handleShowFilterClick = () => {
     dispatch(showFilterInMobile());
-    scrollToTop();
   };
 
   return (

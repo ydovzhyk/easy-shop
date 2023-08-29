@@ -23,6 +23,7 @@ import OptionsHeader from 'components/Shared/OptionsHeader/OptionsHeader';
 import { filterPrices } from './filterPrice';
 import { filterConditions } from './filterСonditions';
 import useScreenResizing from '../../funcs&hooks/useScreenResizing';
+import { scrollToTop } from '../../funcs&hooks/scrollToTop';
 
 import s from './Filter.module.scss';
 
@@ -217,6 +218,7 @@ const Filter = ({ onChange }) => {
     await onChange(dataForUpload);
     await dispatch(submitFilterForm());
     await dispatch(hideFilterInMobile());
+    await scrollToTop();
   };
 
   return (
