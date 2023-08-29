@@ -41,7 +41,7 @@ const VipProducts = () => {
       setActivePage(Number(pageParamVip));
       setActiveButton(categoryParamVip);
     }
-  }, [locationVip.search, activePage, activeButton]);
+  }, [locationVip.search]);
 
   useEffect(() => {
     dispatch(getVipProducts(activePage));

@@ -35,7 +35,7 @@ const Catalog = () => {
       setCurrentPage(Number(pageParam));
       setCurrentButton(categoryParam);
     }
-  }, [location.search, currentButton, currentPage]);
+  }, [location.search]);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
