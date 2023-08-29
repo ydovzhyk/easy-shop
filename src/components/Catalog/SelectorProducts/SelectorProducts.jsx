@@ -2,67 +2,39 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ProductItem from 'components/Shared/ProductItem/ProductItem';
-import Pagination from 'components/Shared/Pagination/Pagination';
-
 import { getProductsBySelector } from 'redux/product/product-operations';
-import {
-  getProductsBySelectorCard,
-  getSelectorPages,
-} from 'redux/product/product-selectors';
+import { getProductsBySelectorCard } from 'redux/product/product-selectors';
 import { getID } from 'redux/auth/auth-selectors';
 
 import s from './SelectorProducts.module.scss';
 
-const SelectorProducts = ({ activeButton, activeNewRef }) => {
+const SelectorProducts = ({ currentButton, currentPage }) => {
   const dispatch = useDispatch();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [currentSelector, setcurrentSelector] = useState('new');
   const [isLiked, setIsLiked] = useState(false);
 
   const arraySelectorProducts = useSelector(getProductsBySelectorCard);
-  const selectorPages = useSelector(getSelectorPages);
   const userId = useSelector(getID);
 
   useEffect(() => {
     dispatch(
       getProductsBySelector({
         page: currentPage,
-        selectorName: currentSelector,
+        selectorName: currentButton,
       })
     );
-  }, [dispatch, currentPage, currentSelector, isLiked]);
-
-  useEffect(() => {
-    if (activeButton !== currentSelector) {
-      setCurrentPage(1);
-      setcurrentSelector(activeButton);
-    }
-  }, [activeButton, currentPage, currentSelector]);
-
-  // for pagination
-  const handlePageChange = page => {
-    setCurrentPage(page);
-    scrollToNew();
-  };
+  }, [dispatch, currentPage, currentButton, isLiked]);
 
   // for likes
   const checkUserLike = productId => {
     const product = arraySelectorProducts.find(item => item._id === productId);
-
     if (product) {
       return product.userLikes.includes(userId);
     }
-
     return false;
   };
 
   const handleLike = isLiked => {
     setIsLiked(isLiked);
-  };
-
-  // for scroling
-  const scrollToNew = () => {
-    activeNewRef.current.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -90,11 +62,6 @@ const SelectorProducts = ({ activeButton, activeNewRef }) => {
           />
         ))}
       </ul>
-      <Pagination
-        totalPages={selectorPages}
-        currentPage={currentPage}
-        onPageChange={handlePageChange}
-      />
     </>
   );
 };

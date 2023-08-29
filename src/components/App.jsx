@@ -132,6 +132,7 @@ export const App = () => {
   useEffect(() => {
     const pageInfo = JSON.parse(localStorage.getItem('easy-shop-page-info'));
     const currentPath = location.pathname;
+    const currentPathSearch = location.search;
 
     if (pageInfo && pageInfo.lastVisitedPage && pageInfo.lastVisitedTime) {
       const currentTime = new Date().getTime();
@@ -143,15 +144,26 @@ export const App = () => {
       }
     }
 
-    const pageInfoToUpdate = {
-      lastVisitedPage: currentPath,
-      lastVisitedTime: new Date().getTime().toString(),
-    };
-    localStorage.setItem(
-      'easy-shop-page-info',
-      JSON.stringify(pageInfoToUpdate)
-    );
-  }, [location.pathname]);
+    if (currentPathSearch) {
+      const pageInfoToUpdate = {
+        lastVisitedPage: currentPath + currentPathSearch,
+        lastVisitedTime: new Date().getTime().toString(),
+      };
+      localStorage.setItem(
+        'easy-shop-page-info',
+        JSON.stringify(pageInfoToUpdate)
+      );
+    } else {
+      const pageInfoToUpdate = {
+        lastVisitedPage: currentPath,
+        lastVisitedTime: new Date().getTime().toString(),
+      };
+      localStorage.setItem(
+        'easy-shop-page-info',
+        JSON.stringify(pageInfoToUpdate)
+      );
+    }
+  }, [location.pathname, location.search]);
 
   // Web Socket
   let socketRef = useRef(null);
