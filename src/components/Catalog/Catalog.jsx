@@ -67,6 +67,7 @@ const Catalog = () => {
     searchParams.set('page', paramsObj.page);
 
     const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
+    console.log('Це нове посилання', newUrl);
     navigate(newUrl);
   };
 
