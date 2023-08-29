@@ -264,7 +264,7 @@ const ProductCard = () => {
         )}
       </Container>
       {isMessage && (
-        <MessageWindow text={'Оберіть розмір'} onDismiss={resetMessage} />
+        <MessageWindow text={'Choose size'} onDismiss={resetMessage} />
       )}
     </section>
   );

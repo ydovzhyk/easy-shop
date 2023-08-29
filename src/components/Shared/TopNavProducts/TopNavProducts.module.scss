@@ -15,6 +15,7 @@
     font-size: 20px;
   }
   @include mixins.mq(tablet) {
+    margin-bottom: 5px;
     font-size: 26px;
   }
 }
@@ -27,7 +28,7 @@
 .mainTitleBox {
   display: flex;
   align-items: center;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   @include mixins.mq(mobile) {
     margin-bottom: 10px;
   }
@@ -47,12 +48,17 @@
 }
 
 .title {
+  font-size: 18px;
   margin-right: 15px;
   text-align: left;
+  @include mixins.mq(mobile) {
+    font-size: 20px;
+  }
 }
 
 .secondaryTitle {
-  font-size: 10px;
+  font-size: 16px;
+  margin-bottom: 10px;
   @include mixins.mq(mobile) {
     font-size: 18px;
   }
@@ -78,7 +84,7 @@
   display: inline-block;
   border: 1px solid var(--border-color);
   padding: 2px;
-  font-size: 10px;
+  font-size: 14px;
   color: grey;
 
   @include mixins.mq(mobile) {
