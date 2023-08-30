@@ -19,6 +19,7 @@ import s from 'components/Shared/FeedbackWindow/FeedbackWindow.module.scss';
 const FeedbackWindow = ({
   hideWindow,
   orderToFeedbackWindow,
+  feedbackType,
 }) => {
   const dispatch = useDispatch();
   const sellerFeedback = useSelector(selectUserFeedback);
@@ -26,9 +27,9 @@ const FeedbackWindow = ({
   const myReview = useSelector(selectUserReviews);
   const [rating, setRating] = useState(1);
   const { orderId, sellerId, productInfo } = orderToFeedbackWindow;
-    
+
   const isBtnRewiewShown = myReview.find(it => it.orderId === orderId);
-    
+
   useEffect(() => {
     dispatch(getUserFeedback({ sellerId }));
   }, [dispatch, sellerId]);
@@ -56,6 +57,7 @@ const FeedbackWindow = ({
       sellerId: sellerId,
       products: filteredProducts,
       orderId: orderId,
+      feedbackType,
     };
     await dispatch(addReview(feedbackData));
     await dispatch(getUserFeedback({ sellerId }));

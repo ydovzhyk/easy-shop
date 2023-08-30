@@ -160,6 +160,7 @@ const MyShoppings = () => {
                       <FeedbackWindow
                         hideWindow={toggleIsOpen}
                         orderToFeedbackWindow={orderToFeedbackWindow}
+                        feedbackType={'asCustomer'}
                       />
                     )}
                   </li>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserSales, updateOrderStatus } from 'redux/order/order-operations';
 import {
@@ -6,22 +7,35 @@ import {
   selectUserSales,
   selectUserSalesTotalPages,
 } from 'redux/order/order-selectors';
+import { getID, getLogin } from 'redux/auth/auth-selectors';
+import { selectUserReviews } from 'redux/review/review-selectors';
+import { getUserReviews } from 'redux/review/review-operations';
 import { orderConfirmationDialogue } from 'redux/dialogue/dialogue-operations';
 
 import OrderProductsList from 'components/Shared/OrderProductsList/OrderProductsList';
 import Pagination from 'components/Shared/Pagination/Pagination';
 import Button from 'components/Shared/Button/Button';
 import OrderStatusList from 'components/Shared/OrderStatusList/OrderStatusList';
+import FeedbackWindow from 'components/Shared/FeedbackWindow/FeedbackWindow';
 import s from './MySales.module.scss';
 
 const MySales = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(getLoadingOrders);
+  const userId = useSelector(getID);
+  const isLogin = useSelector(getLogin);
   const userSales = useSelector(selectUserSales);
   const totalPages = useSelector(selectUserSalesTotalPages);
+  const myReview = useSelector(selectUserReviews);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [currentSelector, setcurrentSelector] = useState('all');
+  const [isFeedbackWindowOpen, setIsFeedbackWindowOpen] = useState(false);
+  const [orderToFeedbackWindow, setOrderToFeedbackWindow] = useState({});
+
+  useEffect(() => {
+    dispatch(getUserReviews({ userId }));
+  }, [dispatch, userId, orderToFeedbackWindow]);
 
   useEffect(() => {
     dispatch(
@@ -66,6 +80,20 @@ const MySales = () => {
     );
   };
 
+  const toggleIsOpen = (orderId, sellerId, productInfo) => {
+    if (orderId) {
+      setOrderToFeedbackWindow({ orderId, sellerId, productInfo });
+      setIsFeedbackWindowOpen(!isFeedbackWindowOpen);
+      return;
+    }
+    setOrderToFeedbackWindow({});
+    setIsFeedbackWindowOpen(!isFeedbackWindowOpen);
+  };
+
+  useEffect(() => {
+    document.body.style.overflow = isFeedbackWindowOpen ? 'hidden' : 'unset';
+  }, [isFeedbackWindowOpen]);
+
   return (
     <>
       <div className={s.ordersWrapper}>
@@ -86,57 +114,89 @@ const MySales = () => {
                 client,
                 statusNew,
                 confirmed,
-              }) => (
-                <li className={s.orderItem} key={_id}>
-                  <div className={s.orderInfoWrapper}>
-                    <div className={s.orderInfoItem}>
-                      <p>Покупець:</p>
-                      <p>
-                        {client.customerSecondName} {client.customerFirstName}
-                      </p>
-                      <p>Номер телефону: {client.customerTel}</p>
+                sellerId,
+              }) => {
+                const isBtnRewiewShown = myReview.find(
+                  ({ orderId }) => orderId === _id
+                );
+                return (
+                  <li className={s.orderItem} key={_id}>
+                    <div className={s.orderInfoWrapper}>
+                      <div className={s.orderInfoItem}>
+                        <p>Покупець:</p>
+                        <p>
+                          {client.customerSecondName} {client.customerFirstName}
+                        </p>
+                        <p>Номер телефону: {client.customerTel}</p>
+                      </div>
+                      <div className={s.orderInfoItem}>
+                        <p>Замовлення &#8470; {orderNumber}</p>
+                        <p>{orderDate}</p>
+                      </div>
                     </div>
-                    <div className={s.orderInfoItem}>
-                      <p>Замовлення &#8470; {orderNumber}</p>
-                      <p>{orderDate}</p>
-                    </div>
-                  </div>
-                  <OrderProductsList
-                    productsForOrder={productInfo}
-                    products={products}
-                  />
-                  <div className={s.orderBottomWrapper}>
-                    {statusNew === true ? (
-                      <>
-                        <Button
-                          type="button"
-                          btnClass="btnLight"
-                          text="Підтвердити замовлення"
-                          handleClick={() =>
-                            handleChangeOrderStatus(_id, true, 'sales')
-                          }
-                        />
-                        <Button
-                          type="button"
-                          btnClass="btnDark"
-                          text="Скасувати замовлення"
-                          handleClick={() =>
-                            handleChangeOrderStatus(_id, false, 'cancel')
-                          }
-                        />
-                      </>
-                    ) : (
-                      <p className={s.waitingPhrase}>
-                        {confirmed === true ? 'Підтверджено' : 'Скасовано'}
-                      </p>
-                    )}
+                    <OrderProductsList
+                      productsForOrder={productInfo}
+                      products={products}
+                    />
+                    <div className={s.orderBottomWrapper}>
+                      {statusNew === true ? (
+                        <>
+                          <Button
+                            type="button"
+                            btnClass="btnLight"
+                            text="Підтвердити замовлення"
+                            handleClick={() =>
+                              handleChangeOrderStatus(_id, true, 'sales')
+                            }
+                          />
+                          <Button
+                            type="button"
+                            btnClass="btnDark"
+                            text="Скасувати замовлення"
+                            handleClick={() =>
+                              handleChangeOrderStatus(_id, false, 'cancel')
+                            }
+                          />
+                        </>
+                      ) : (
+                        <p className={s.waitingPhrase}>
+                          {confirmed === true ? 'Підтверджено' : 'Скасовано'}
+                        </p>
+                      )}
 
-                    <p
-                      className={s.orderSum}
-                    >{`Сума замовлення: ${orderSum} грн.`}</p>
-                  </div>
-                </li>
-              )
+                      <p
+                        className={s.orderSum}
+                      >{`Сума замовлення: ${orderSum} грн.`}</p>
+                    </div>
+                    {statusNew === false && (
+                      <div className={s.buttonBottomWrapper}>
+                        <NavLink
+                          to={isLogin ? '/message' : '/login'}
+                          className={s.btnLight}
+                        >
+                          Перейти до чату
+                        </NavLink>
+                        {!isBtnRewiewShown && (
+                          <Button
+                            btnClass="btnLight"
+                            text="Залишити відгук"
+                            handleClick={() =>
+                              toggleIsOpen(_id, sellerId, productInfo)
+                            }
+                          />
+                        )}
+                      </div>
+                    )}
+                    {isFeedbackWindowOpen && (
+                      <FeedbackWindow
+                        hideWindow={toggleIsOpen}
+                        orderToFeedbackWindow={orderToFeedbackWindow}
+                        feedbackType={'asSeller'}
+                      />
+                    )}
+                  </li>
+                );
+              }
             )}
           </ul>
         )}
