@@ -60,7 +60,7 @@ const FeedbackWindow = ({
       feedbackType,
     };
     await dispatch(addReview(feedbackData));
-    await dispatch(getUserFeedback({ sellerId }));
+    await dispatch(getUserFeedback({ userId }));
     dispatch(getUserReviews({ userId }));
     updateUserFunc(dispatch);
     reset();
@@ -118,6 +118,9 @@ const FeedbackWindow = ({
 
         {sellerFeedback.length > 0 && (
           <p className={s.feedbackTitle}>Відгуки інших користувачів:</p>
+        )}
+        {sellerFeedback.length === 0 && (
+          <p className={s.message}>Відгуків інших користувачів поки немає</p>
         )}
 
         <ReviewList review={sellerFeedback} />
