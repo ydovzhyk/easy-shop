@@ -4,7 +4,10 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { getOtherUser } from 'redux/otherUser/otherUser-operations';
 import { updateUserSibscribes } from 'redux/auth/auth-operations';
 // import { clearOtherUser } from 'redux/otherUser/otherUser.slice';
-import { getLogin, getUserMessage, selectUserSubscriptions, getID } from 'redux/auth/auth-selectors';
+import {
+  getLogin, getUserMessage, selectUserSubscriptions,
+  // getID
+} from 'redux/auth/auth-selectors';
 import { selectOtherUser } from 'redux/otherUser/otherUser-selectors';
 
 import ProfileInfo from 'components/Profile/ProfileInfo/ProfileInfo';
@@ -21,11 +24,11 @@ const SellerInfo = () => {
   const [isMessage, setIsMessage] = useState('');
   const { id } = useParams();
   const isLogin = useSelector(getLogin);
-  const userId = useSelector(getID);
+  // const userId = useSelector(getID);
   const userSubscriptions = useSelector(selectUserSubscriptions);
   // console.log('userSubscriptions in SellerInfo', userSubscriptions);
-  console.log('Seller id in SellerInfo', id);
-   console.log('User id in SellerInfo', userId);
+  // console.log('Seller id in SellerInfo', id);
+  // console.log('User id in SellerInfo', userId);
   const isSellerInSubscription = (userSubscriptions || [])
     .find(subscription => subscription === id);
 
@@ -53,7 +56,7 @@ const SellerInfo = () => {
     userFeedback,
   } = sellerInfo;
   
-  console.log('userFeedback in SellerInfo:', userFeedback);
+  // console.log('userFeedback in SellerInfo:', userFeedback);
   const averageRating = calculateAverageRating(userFeedback); 
   const gradesAmount = userFeedback?.length || 0;
   useEffect(() => {
