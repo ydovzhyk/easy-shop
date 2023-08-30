@@ -18,6 +18,9 @@ import Pagination from 'components/Shared/Pagination/Pagination';
 import Button from 'components/Shared/Button/Button';
 import OrderStatusList from 'components/Shared/OrderStatusList/OrderStatusList';
 import FeedbackWindow from 'components/Shared/FeedbackWindow/FeedbackWindow';
+import Dialogue from 'components/Dialogue/Dialogue';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import s from './MySales.module.scss';
 
 const MySales = () => {
@@ -33,6 +36,9 @@ const MySales = () => {
   const [currentSelector, setcurrentSelector] = useState('all');
   const [isFeedbackWindowOpen, setIsFeedbackWindowOpen] = useState(false);
   const [orderToFeedbackWindow, setOrderToFeedbackWindow] = useState({});
+  const [isMessage, setIsMessage] = useState(false);
+  const [messageId, setMessageId] = useState('');
+  const [customerId, setCustomerId] = useState('');
 
   useEffect(() => {
     dispatch(getUserReviews({ userId }));
@@ -52,6 +58,18 @@ const MySales = () => {
   const handlePageChange = page => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleMessageClick = (product, customer) => {
+    setIsMessage(true);
+    setMessageId(product);
+    setCustomerId(customer);
+  };
+
+  const handleDismissClick = () => {
+    setIsMessage(false);
+    setMessageId('');
+    setCustomerId('');
   };
 
   const handleButtonClick = optionName => {
@@ -211,6 +229,20 @@ const MySales = () => {
           currentPage={currentPage}
           onPageChange={handlePageChange}
         />
+      )}
+  {isMessage && (
+        <div className={s.messageWindow}>
+          <button className={s.dismissButton} onClick={handleDismissClick}>
+            <FontAwesomeIcon icon={faTimes} size="lg" />
+          </button>
+          <Dialogue
+            productInfo={{
+              _id: messageId,
+              owner: user._id,
+              customer: customerId,
+            }}
+          />
+        </div>
       )}
     </>
   );
