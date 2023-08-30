@@ -14,15 +14,15 @@ const SellerInfoDetails = () => {
   const location = useLocation().pathname;
     
     const sellerInfo = useSelector(selectOtherUser);
-  sellerInfo && console.log('sellerInfo in SellerInfoDetails', sellerInfo);
+  // sellerInfo && console.log('sellerInfo in SellerInfoDetails', sellerInfo);
   const {
     userReviews,
     userFeedback,
   } = sellerInfo;
   
-  console.log('sellerReviews in SellerInfoDetails', userReviews);
+  // console.log('sellerReviews in SellerInfoDetails', userReviews);
   
-  console.log('sellerFeedback in SellerInfoDetails', userFeedback);
+  // console.log('sellerFeedback in SellerInfoDetails', userFeedback);
   const [isMyWares, setIsMyWares] = useState(false);
   const [isMyReviews, setIsMyReviews] = useState(false);
   const [isAbout, setIsAbout] = useState(false);
