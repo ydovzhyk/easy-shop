@@ -40,6 +40,8 @@ const MySales = () => {
   const [messageId, setMessageId] = useState('');
   const [customerId, setCustomerId] = useState('');
 
+  console.log(userSales);
+
   useEffect(() => {
     dispatch(getUserReviews({ userId }));
   }, [dispatch, userId, orderToFeedbackWindow]);
@@ -64,6 +66,7 @@ const MySales = () => {
     setIsMessage(true);
     setMessageId(product);
     setCustomerId(customer);
+    console.log(product, customer);
   };
 
   const handleDismissClick = () => {
@@ -157,6 +160,14 @@ const MySales = () => {
                       productsForOrder={productInfo}
                       products={products}
                     />
+                    <Button
+                      type="button"
+                      btnClass="btnLight"
+                      text="Питання покупцю"
+                      handleClick={() =>
+                        handleMessageClick(products[0]._id, client.customerId)
+                      }
+                    />
                     <div className={s.orderBottomWrapper}>
                       {statusNew === true ? (
                         <>
@@ -230,7 +241,7 @@ const MySales = () => {
           onPageChange={handlePageChange}
         />
       )}
-  {isMessage && (
+      {isMessage && (
         <div className={s.messageWindow}>
           <button className={s.dismissButton} onClick={handleDismissClick}>
             <FontAwesomeIcon icon={faTimes} size="lg" />
@@ -238,7 +249,7 @@ const MySales = () => {
           <Dialogue
             productInfo={{
               _id: messageId,
-              owner: user._id,
+              owner: userId,
               customer: customerId,
             }}
           />
