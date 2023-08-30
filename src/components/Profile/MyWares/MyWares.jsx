@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import {
   BsTrash,
   BsPencil,
-  BsChatSquareText,
+  BsListColumnsReverse,
   BsChevronUp,
 } from 'react-icons/bs';
 import {
@@ -23,6 +23,7 @@ import RoundButton from 'components/Shared/RoundButton/RoundButton';
 import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
 import PhotoCollection from 'components/Shared/PhotoCollection/PhotoCollection';
 import UserUpdateComponent from 'components/Shared/helper/UserUpdateComponent';
+import { translateParamsToEN } from '../../../funcs&hooks/translateParamsToEN';
 
 import s from './MyWares.module.scss';
 
@@ -113,6 +114,8 @@ const MyWares = () => {
               nameProduct,
               description,
               price,
+              section,
+              category,
             }) => (
               <li className={s.wareItem} key={_id}>
                 <PhotoCollection
@@ -127,7 +130,15 @@ const MyWares = () => {
                     <Text textClass="verifyAttention" text={`${price}грн.`} />
                   </div>
                   <div className={s.buttonWrapper}>
-                    <RoundButton icon={BsChatSquareText} />
+                    <Link
+                      to={`/product/${
+                        translateParamsToEN(section, category).categoryName
+                      }/${
+                        translateParamsToEN(section, category).subCategoryName
+                      }/${_id}`}
+                    >
+                      <RoundButton icon={BsListColumnsReverse} />
+                    </Link>
                     <Link to={`/edit-product/${_id}`}>
                       <RoundButton
                         icon={BsPencil}

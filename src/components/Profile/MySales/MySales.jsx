@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserSales, updateOrderStatus } from 'redux/order/order-operations';
+import { getUser } from 'redux/auth/auth-selectors';
 import {
   getLoadingOrders,
   selectUserSales,
@@ -12,6 +13,9 @@ import OrderProductsList from 'components/Shared/OrderProductsList/OrderProducts
 import Pagination from 'components/Shared/Pagination/Pagination';
 import Button from 'components/Shared/Button/Button';
 import OrderStatusList from 'components/Shared/OrderStatusList/OrderStatusList';
+import Dialogue from 'components/Dialogue/Dialogue';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import s from './MySales.module.scss';
 
 const MySales = () => {
@@ -19,9 +23,13 @@ const MySales = () => {
   const isLoading = useSelector(getLoadingOrders);
   const userSales = useSelector(selectUserSales);
   const totalPages = useSelector(selectUserSalesTotalPages);
+  const user = useSelector(getUser);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [currentSelector, setcurrentSelector] = useState('all');
+  const [isMessage, setIsMessage] = useState(false);
+  const [messageId, setMessageId] = useState('');
+  const [customerId, setCustomerId] = useState('');
 
   useEffect(() => {
     dispatch(
@@ -37,6 +45,12 @@ const MySales = () => {
   const handlePageChange = page => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleMessageClick = (product, customer) => {
+    setIsMessage(true);
+    setMessageId(product);
+    setCustomerId(customer);
   };
 
   const handleButtonClick = optionName => {
@@ -79,6 +93,12 @@ const MySales = () => {
     );
   };
 
+  const handleDismissClick = () => {
+    setIsMessage(false);
+    setMessageId('');
+    setCustomerId('');
+  };
+
   return (
     <>
       <div className={s.ordersWrapper}>
@@ -118,6 +138,16 @@ const MySales = () => {
                     productsForOrder={productInfo}
                     products={products}
                   />
+
+                  <Button
+                    type="button"
+                    btnClass="btnLight"
+                    text="Спитати покупця"
+                    handleClick={() =>
+                      handleMessageClick(products[0]._id, client.customerId)
+                    }
+                  />
+
                   <div className={s.orderBottomWrapper}>
                     {statusNew === true ? (
                       <>
@@ -159,6 +189,20 @@ const MySales = () => {
           currentPage={currentPage}
           onPageChange={handlePageChange}
         />
+      )}
+      {isMessage && (
+        <div className={s.messageWindow}>
+          <button className={s.dismissButton} onClick={handleDismissClick}>
+            <FontAwesomeIcon icon={faTimes} size="lg" />
+          </button>
+          <Dialogue
+            productInfo={{
+              _id: messageId,
+              owner: user._id,
+              customer: customerId,
+            }}
+          />
+        </div>
       )}
     </>
   );

@@ -111,3 +111,27 @@
     right: 40px;
   }
 }
+
+.messageWindow {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: calc(100vh / 2 - 250px);
+  left: calc(100vw / 2 - 300px);
+  width: 600px;
+  height: 500px;
+  padding: 40px;
+  background: var(--bg-footer-header);
+  box-shadow: 10px 10px 30px rgba(82, 85, 95, 0.4);
+  border-radius: 30px;
+  z-index: 1200;
+}
+
+.dismissButton {
+  background-color: transparent;
+  border-color: transparent;
+  position: absolute;
+  top: 25px;
+  right: 25px;
+}
