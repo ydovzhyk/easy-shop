@@ -40,8 +40,6 @@ const MySales = () => {
   const [messageId, setMessageId] = useState('');
   const [customerId, setCustomerId] = useState('');
 
-  console.log(userSales);
-
   useEffect(() => {
     dispatch(getUserReviews({ userId }));
   }, [dispatch, userId, orderToFeedbackWindow]);
@@ -66,7 +64,6 @@ const MySales = () => {
     setIsMessage(true);
     setMessageId(product);
     setCustomerId(customer);
-    console.log(product, customer);
   };
 
   const handleDismissClick = () => {
