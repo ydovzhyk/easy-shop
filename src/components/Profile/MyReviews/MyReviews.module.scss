@@ -35,7 +35,7 @@
 .optionsList {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  // gap: 8px;
   @include mixins.mq(tablet) {
     padding-left: 8px;
   }
@@ -92,7 +92,7 @@
   text-align: center;
   @include mixins.mq(tablet) {
     font-size: 20px;
-    width: 75%;
+    width: 70%;
   }
   @include mixins.mq(desktop) {
     font-size: 26px;
@@ -103,6 +103,9 @@
   padding: 4px;
   flex-grow: 1;
   width: 100%;
+  @include mixins.mq(tablet) {
+    width: 70%;
+  }
 }
 
 .reviewBox {
