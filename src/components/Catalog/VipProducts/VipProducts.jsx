@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import ProductItem from '../../Shared/ProductItem/ProductItem';
 import Pagination from 'components/Shared/Pagination/Pagination';
@@ -17,7 +18,11 @@ import s from './VipProducts.module.scss';
 
 const VipProducts = () => {
   const dispatch = useDispatch();
-  const [currentPage, setCurrentPage] = useState(1);
+  const locationVip = useLocation();
+  const navigate = useNavigate();
+
+  const [activePage, setActivePage] = useState(1);
+  const [activeButton, setActiveButton] = useState('vip');
   const [isLiked, setIsLiked] = useState(false);
 
   const arrayVipProducts = useSelector(getVipProductCard);
@@ -26,36 +31,58 @@ const VipProducts = () => {
   const isDesktop = useMediaQuery({ minWidth: 1280 });
 
   useEffect(() => {
-    dispatch(getVipProducts(currentPage));
-  }, [dispatch, currentPage, isLiked]);
+    const searchParamsVip = new URLSearchParams(locationVip.search);
+    const categoryParamVip = searchParamsVip.get('category');
+    const pageParamVip = searchParamsVip.get('page');
+    if (pageParamVip && categoryParamVip && categoryParamVip !== 'vip') {
+      return;
+    }
+    if (pageParamVip && categoryParamVip && categoryParamVip === 'vip') {
+      setActivePage(Number(pageParamVip));
+      setActiveButton(categoryParamVip);
+    }
+  }, [locationVip.search]);
+
+  useEffect(() => {
+    dispatch(getVipProducts(activePage));
+  }, [dispatch, activePage, isLiked]);
+
+  useEffect(() => {
+    const searchParamsVip = new URLSearchParams(window.location.search);
+    const categoryParamVip = searchParamsVip.get('category');
+
+    if (categoryParamVip === 'vip') {
+      scrollToTop();
+    }
+  }, [arrayVipProducts]);
 
   // for page
   const handlePrevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+    if (activePage > 1) {
+      setActivePage(activePage - 1);
+      updateUrlParamsVip({ category: activeButton, page: activePage - 1 });
     }
   };
 
   const handleNextPage = () => {
-    if (currentPage < vipPages) {
-      setCurrentPage(currentPage + 1);
+    if (activePage < vipPages) {
+      setActivePage(activePage + 1);
+      updateUrlParamsVip({ category: activeButton, page: activePage + 1 });
     }
   };
 
   // for pagination
   const handlePageChange = page => {
-    setCurrentPage(page);
-    scrollToTop();
+    setActivePage(page);
+    updateUrlParamsVip({ category: activeButton, page: page });
   };
 
   // for likes
   const checkUserLike = productId => {
     const product = arrayVipProducts.find(item => item._id === productId);
-
     if (product) {
       return product.userLikes.includes(userId);
     }
-
     return false;
   };
 
@@ -68,12 +95,29 @@ const VipProducts = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const updateUrlParamsVip = paramsObjVip => {
+    const searchParamsVip = new URLSearchParams(locationVip.search);
+    searchParamsVip.set('category', paramsObjVip.category);
+    searchParamsVip.set('page', paramsObjVip.page);
+
+    if (process.env.NODE_ENV === 'development') {
+      const newUrl = `${
+        window.location.pathname
+      }?${searchParamsVip.toString()}`;
+      navigate(newUrl);
+    }
+    if (process.env.NODE_ENV === 'production') {
+      const newUrl = `?${searchParamsVip.toString()}`;
+      navigate(newUrl);
+    }
+  };
+
   return (
     <div>
       <div className={s.styleButtonList}>
         {isDesktop && (
           <>
-            {currentPage > 1 && (
+            {activePage > 1 && (
               <div
                 className={`${s.arrowButton} ${s.arrowButtonLeft}`}
                 onClick={handlePrevPage}
@@ -112,7 +156,7 @@ const VipProducts = () => {
         </ul>
         {isDesktop && (
           <>
-            {currentPage < vipPages && (
+            {activePage < vipPages && (
               <div
                 className={`${s.arrowButton} ${s.arrowButtonRight}`}
                 onClick={handleNextPage}
@@ -133,7 +177,7 @@ const VipProducts = () => {
           <div>
             <Pagination
               totalPages={vipPages}
-              currentPage={currentPage}
+              currentPage={activePage}
               onPageChange={handlePageChange}
             />
           </div>

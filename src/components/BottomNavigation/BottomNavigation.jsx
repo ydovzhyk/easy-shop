@@ -7,10 +7,10 @@ import { BiMessageDetail } from 'react-icons/bi';
 
 import { NavLink } from 'react-router-dom';
 
-import { useMediaQuery } from 'react-responsive';
-
 import { useSelector } from 'react-redux';
 import { getLogin, getUser, getUserAvatar } from 'redux/auth/auth-selectors';
+
+import useScreenResizing from '../../funcs&hooks/useScreenResizing';
 
 import s from './BottomNavigation.module.scss';
 
@@ -18,7 +18,8 @@ const BottomNavigation = () => {
   const [userBasketLength, setUserBasketLength] = useState(0);
   const [userLikesLength, setUserLikesLength] = useState(0);
 
-  const isMobile = useMediaQuery({ maxWidth: 767 });
+  const viewPort = useScreenResizing();
+  const isMobile = viewPort.width < 768;
 
   const isLogin = useSelector(getLogin);
   const userAvatar = useSelector(getUserAvatar);

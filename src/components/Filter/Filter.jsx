@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import { BiCheck } from 'react-icons/bi';
 import { AiOutlineClose } from 'react-icons/ai';
 
-import { useMediaQuery } from 'react-responsive';
-
 import { useForm } from 'react-hook-form';
 
 import { useSearchParams } from 'react-router-dom';
@@ -19,17 +17,20 @@ import {
   hideFilterInMobile,
 } from 'redux/product/product-slice';
 
+import Text from 'components/Shared/Text/Text';
 import sizeOption from '../AddProduct/Size/sizeTable.json';
 import OptionsHeader from 'components/Shared/OptionsHeader/OptionsHeader';
-import Text from 'components/Shared/Text/Text';
 import { filterPrices } from './filterPrice';
 import { filterConditions } from './filterСonditions';
+import useScreenResizing from '../../funcs&hooks/useScreenResizing';
+import { scrollToTop } from '../../funcs&hooks/scrollToTop';
 
 import s from './Filter.module.scss';
 
 const Filter = ({ onChange }) => {
-  const isDesktop = useMediaQuery({ minWidth: 1280 });
-  const isMobile = useMediaQuery({ maxWidth: 767 });
+  const viewPort = useScreenResizing();
+  const isMobile = viewPort.width < 768;
+  const isDesktop = viewPort.width > 1279;
 
   const [filterData, setFilterData] = useState({});
   const [showSizes, setShowSizes] = useState(true);
@@ -217,6 +218,7 @@ const Filter = ({ onChange }) => {
     await onChange(dataForUpload);
     await dispatch(submitFilterForm());
     await dispatch(hideFilterInMobile());
+    await scrollToTop();
   };
 
   return (

@@ -1,7 +1,5 @@
 import { useEffect, useMemo } from 'react';
 
-import { useMediaQuery } from 'react-responsive';
-
 import { Outlet, useSearchParams, useParams } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,6 +17,7 @@ import Filter from 'components/Filter/Filter';
 import Container from 'components/Shared/Container/Container';
 import { getUrlFilterValues } from '../../funcs&hooks/getUrlFilterValues.js';
 import { translateParamsToUA } from '../../funcs&hooks/translateParamsToUA.js';
+import useScreenResizing from '../../funcs&hooks/useScreenResizing';
 
 import { filterPrices } from 'components/Filter/filterPrice';
 import { filterConditions } from 'components/Filter/filterСonditions';
@@ -45,7 +44,8 @@ const ProductsSearchPage = () => {
   const shouldFilterFormReset = useSelector(getFilterProduct);
   const showFilterInMobile = useSelector(getShownFilterInMobile);
 
-  const isMobile = useMediaQuery({ maxWidth: 767 });
+  const viewPort = useScreenResizing();
+  const isMobile = viewPort.width < 768;
 
   const payload = useMemo(() => {
     let selectedConditionsArray = [];

@@ -34,9 +34,7 @@ const AddProduct = () => {
   const [isMessage, setIsMessage] = useState('');
 
   const date = new Date();
-  const today = `${date.getFullYear()}-${
-    date.getMonth() + 1
-  }-${date.getDate()}`;
+  const today = date.toISOString();
 
   const handleSelectedSizesChange = sizes => {
     setSelectedSizes(sizes);
