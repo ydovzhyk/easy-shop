@@ -139,12 +139,12 @@ const MyShoppings = () => {
 
                     {statusNew === false && (
                       <div className={s.buttonBottomWrapper}>
-                        <NavLink
+                        {/* <NavLink
                           to={isLogin ? '/message' : '/login'}
                           className={s.btnLight}
                         >
                           Перейти до чату
-                        </NavLink>
+                        </NavLink> */}
                         {!isBtnRewiewShown && (
                           <Button
                             btnClass="btnLight"
@@ -160,6 +160,7 @@ const MyShoppings = () => {
                       <FeedbackWindow
                         hideWindow={toggleIsOpen}
                         orderToFeedbackWindow={orderToFeedbackWindow}
+                        feedbackType={'asCustomer'}
                       />
                     )}
                   </li>
