@@ -1,14 +1,12 @@
 import { useEffect, useState, Suspense } from 'react';
 import { useParams, Link, Outlet, useNavigate} from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 import { useMediaQuery } from 'react-responsive';
 
 import { clearReviewAndFeedback } from 'redux/review/review-slice';
-import {
-  // deleteReviewById,
-  getUserFeedback, getUserReviews
-} from 'redux/review/review-operations';
+import { getUserFeedback, getUserReviews } from 'redux/review/review-operations';
+import {  selectUserFeedback, selectUserReviews } from 'redux/review/review-selectors';
 
 import Loader from 'components/Loader';
 
@@ -17,6 +15,11 @@ import s from 'components/SellerInfo/SellerReviews/SellerReviews.module.scss';
 const SellerReviews = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const sellerReview = useSelector(selectUserReviews);
+  console.log('sellerReview in SellerReviews:', sellerReview);
+  const sellerFeedback = useSelector(selectUserFeedback);
+  console.log('sellerFeedback in SellerReviews:', sellerFeedback);
+  
   const navigate = useNavigate();
     // const location = useLocation();
     // const owner = location.state?.owner ?? null;
