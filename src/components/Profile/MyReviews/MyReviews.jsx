@@ -23,21 +23,25 @@ const MyReviews = () => {
     const loading = useSelector(getLoadingReviews);
     const isTablet = useMediaQuery({ minWidth: 768 });
     
-    const [currentSelector, setcurrentSelector] = useState('seller');
+  const [currentSelector, setcurrentSelector] = useState('asSeller');
+  console.log(currentSelector);
 
     useEffect(() => {
         dispatch(clearReviewAndFeedback())
-      if (currentSelector === 'seller') {
-        dispatch(getUserFeedback({ sellerId: userId }));
+      if (currentSelector === 'asSeller') {
+        dispatch(getUserFeedback({ userId, feedbackType: 'asSeller' }));
       }
-      if (currentSelector === 'client') {
+      if (currentSelector === 'asCustomer') {
+        dispatch(getUserFeedback({ userId, feedbackType: 'asCustomer' }));
+      }
+      if (currentSelector === 'asUser') {
         dispatch(getUserReviews({ userId }));
       }
     }, [dispatch, userId, currentSelector]);
   const handleButtonClick = optionName => {
     setcurrentSelector(optionName);
   };
-  const review = currentSelector === 'seller' ? myFeedback : myReview;
+  const review = currentSelector === 'asUser' ? myReview : myFeedback;
   
   const handleButtonTrashClick = async id => {
     await dispatch(deleteReviewById(id));
@@ -54,10 +58,11 @@ const MyReviews = () => {
             classNamePrefix="custom-select"
             onChange={value => handleButtonClick(value.value)}
             options={[
-              { value: 'seller', label: 'Як продавця' },
-              { value: 'client', label: 'Як покупця' },
+              { value: 'asSeller', label: 'Як про продавця' },
+              { value: 'asCustomer', label: 'Як про покупця' },
+              { value: 'asUser', label: 'Мої відгуки' },
             ]}
-            defaultValue={{ value: 'seller', label: 'Як продавця' }}
+            defaultValue={{ value: 'asSeller', label: 'Як про продавця' }}
             theme={theme => ({
               ...theme,
               borderRadius: 0,
@@ -69,25 +74,37 @@ const MyReviews = () => {
             <li>
               <button
                 className={
-                  currentSelector === 'seller'
+                  currentSelector === 'asSeller'
                     ? `${s.selectButton} ${s.active}`
                     : s.selectButton
                 }
-                onClick={() => handleButtonClick('seller')}
+                onClick={() => handleButtonClick('asSeller')}
               >
-                Як продавця
+                Як про продавця
               </button>
             </li>
             <li>
               <button
                 className={
-                  currentSelector === 'client'
+                  currentSelector === 'asCustomer'
                     ? `${s.selectButton} ${s.active}`
                     : s.selectButton
                 }
-                onClick={() => handleButtonClick('client')}
+                onClick={() => handleButtonClick('asCustomer')}
               >
-                Як покупця
+                Як про покупця
+              </button>
+            </li>
+            <li>
+              <button
+                className={
+                  currentSelector === 'asUser'
+                    ? `${s.selectButton} ${s.active}`
+                    : s.selectButton
+                }
+                onClick={() => handleButtonClick('asUser')}
+              >
+                Мої відгуки
               </button>
             </li>
           </ul>
@@ -122,7 +139,7 @@ const MyReviews = () => {
                     </ul>
                     <p>{feedback}</p>
                   </div>
-                  {currentSelector === 'client' && (
+                  {currentSelector === 'asUser' && (
                     <div className={s.buttonTrashWrapper}>
                       <RoundButton
                         btnClass={isTablet ? 'roundButton' : 'roundButtonMob'}
@@ -138,6 +155,7 @@ const MyReviews = () => {
           )}
         </ul>
       )}
+      
     </div>
   );
 };
