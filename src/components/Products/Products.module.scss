@@ -77,7 +77,10 @@
 }
 
 .selectWrapper {
-  text-align: right;
+  text-align: left;
+  @include mixins.mq(tablet) {
+    text-align: right;
+  }
 }
 
 .btnLightSubscribe {

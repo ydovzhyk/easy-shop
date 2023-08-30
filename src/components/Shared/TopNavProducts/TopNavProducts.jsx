@@ -1,4 +1,3 @@
-import { useMediaQuery } from 'react-responsive';
 import { BiChevronRight } from 'react-icons/bi';
 
 import { NavLink } from 'react-router-dom';
@@ -12,12 +11,14 @@ import { translateParamsToUA } from '../../../funcs&hooks/translateParamsToUA.js
 import { getDeclension } from '../../../funcs&hooks/getDeclansion.js';
 import { getPath } from '../../../funcs&hooks/getPath.js';
 import { getSubcategoryPath } from '../../../funcs&hooks/getSubCategoryPath.js';
+import useScreenResizing from '../../../funcs&hooks/useScreenResizing.js';
 
 import s from './TopNavProducts.module.scss';
 
 const TopNavProducts = ({ category, subcategory, query }) => {
-  const isDesctop = useMediaQuery({ minWidth: 1280 });
-  const isTablet = useMediaQuery({ minWidth: 768 });
+  const viewPort = useScreenResizing();
+  const isDesktop = viewPort.width > 1279;
+  const isTablet = viewPort.width > 767;
 
   const totalProducts = useSelector(getProductsTotalByQuery);
   const totalProductsAmount = totalProducts.length;
@@ -45,7 +46,7 @@ const TopNavProducts = ({ category, subcategory, query }) => {
           <>
             <h2 className={s.title}>Каталог - EASY Shop</h2>
             <BiChevronRight
-              size={isDesctop ? 26 : isTablet ? 22 : 20}
+              size={isDesktop ? 26 : isTablet ? 22 : 20}
               style={{ marginRight: '10px', flexShrink: '0' }}
             />
             {totalProductsAmount !== 0 && (
@@ -61,7 +62,7 @@ const TopNavProducts = ({ category, subcategory, query }) => {
             <div className={s.wrapper}>
               <div className={s.mainTitleBox}>
                 <h2 className={s.title}>{categoryName}</h2>
-                <BiChevronRight size={isDesctop ? 24 : isTablet ? 20 : 18} />
+                <BiChevronRight size={isDesktop ? 24 : isTablet ? 20 : 18} />
               </div>
               <div style={{ textAlign: 'left' }}>
                 <h3 className={s.secondaryTitle}>{subCategoryName}</h3>
