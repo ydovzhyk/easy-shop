@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getOtherUser } from 'redux/otherUser/otherUser-operations';
 import { selectOtherUser } from 'redux/otherUser/otherUser-selectors';
 
-const AboutSeller = () => {
+const About = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
     
@@ -20,4 +20,5 @@ const AboutSeller = () => {
     )
 }
 
-export default AboutSeller;
+export default About
+  ;
