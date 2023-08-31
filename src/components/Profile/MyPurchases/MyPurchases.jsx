@@ -59,9 +59,9 @@ const MyShoppings = () => {
     setCurrentPage(1);
   };
 
-  const toggleIsOpen = (orderId, sellerId, productInfo) => {
+  const toggleIsOpen = (orderId, sellerId, productInfo, customerId) => {
     if (orderId) {
-      setOrderToFeedbackWindow({ orderId, sellerId, productInfo });
+      setOrderToFeedbackWindow({ orderId, sellerId, productInfo, customerId });
       setIsFeedbackWindowOpen(!isFeedbackWindowOpen);
       return;
     }
@@ -95,8 +95,11 @@ const MyShoppings = () => {
                 statusNew,
                 confirmed,
                 sellerId,
+                client,
               }) => {
-                const isBtnRewiewShown = myReview.find(({ orderId }) => orderId === _id);
+                const isBtnRewiewShown = myReview.find(
+                  ({ orderId }) => orderId === _id
+                );
                 return (
                   <li className={s.orderItem} key={_id}>
                     <div className={s.orderInfoWrapper}>
@@ -150,7 +153,12 @@ const MyShoppings = () => {
                             btnClass="btnLight"
                             text="Залишити відгук"
                             handleClick={() =>
-                              toggleIsOpen(_id, sellerId, productInfo)
+                              toggleIsOpen(
+                                _id,
+                                sellerId,
+                                productInfo,
+                                client.customerId
+                              )
                             }
                           />
                         )}
@@ -164,7 +172,8 @@ const MyShoppings = () => {
                       />
                     )}
                   </li>
-                );}
+                );
+              }
             )}
           </ul>
         )}

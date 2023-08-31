@@ -37,8 +37,8 @@ const MySales = () => {
   const [isFeedbackWindowOpen, setIsFeedbackWindowOpen] = useState(false);
   const [orderToFeedbackWindow, setOrderToFeedbackWindow] = useState({});
   const [isMessage, setIsMessage] = useState(false);
-  const [messageId, setMessageId] = useState('');
-  const [customerId, setCustomerId] = useState('');
+  const [productId, setProductId] = useState(null);
+  const [customerId, setCustomerId] = useState(null);
 
   useEffect(() => {
     dispatch(getUserReviews({ userId }));
@@ -62,14 +62,14 @@ const MySales = () => {
 
   const handleMessageClick = (product, customer) => {
     setIsMessage(true);
-    setMessageId(product);
+    setProductId(product);
     setCustomerId(customer);
   };
 
   const handleDismissClick = () => {
     setIsMessage(false);
-    setMessageId('');
-    setCustomerId('');
+    setProductId(null);
+    setCustomerId(null);
   };
 
   const handleButtonClick = optionName => {
@@ -99,9 +99,9 @@ const MySales = () => {
     );
   };
 
-  const toggleIsOpen = (orderId, sellerId, productInfo) => {
+  const toggleIsOpen = (orderId, sellerId, productInfo, customerId) => {
     if (orderId) {
-      setOrderToFeedbackWindow({ orderId, sellerId, productInfo });
+      setOrderToFeedbackWindow({ orderId, sellerId, productInfo, customerId });
       setIsFeedbackWindowOpen(!isFeedbackWindowOpen);
       return;
     }
@@ -157,14 +157,6 @@ const MySales = () => {
                       productsForOrder={productInfo}
                       products={products}
                     />
-                    <Button
-                      type="button"
-                      btnClass="btnLight"
-                      text="Питання покупцю"
-                      handleClick={() =>
-                        handleMessageClick(products[0]._id, client.customerId)
-                      }
-                    />
                     <div className={s.orderBottomWrapper}>
                       {statusNew === true ? (
                         <>
@@ -197,18 +189,28 @@ const MySales = () => {
                     </div>
                     {statusNew === false && (
                       <div className={s.buttonBottomWrapper}>
-                        {/* <NavLink
-                          to={isLogin ? '/message' : '/login'}
-                          className={s.btnLight}
-                        >
-                          Перейти до чату
-                        </NavLink> */}
+                        <Button
+                          type="button"
+                          btnClass="btnLight"
+                          text="Питання покупцю"
+                          handleClick={() =>
+                            handleMessageClick(
+                              products[0]._id,
+                              client.customerId
+                            )
+                          }
+                        />
                         {!isBtnRewiewShown && (
                           <Button
                             btnClass="btnLight"
                             text="Залишити відгук"
                             handleClick={() =>
-                              toggleIsOpen(_id, sellerId, productInfo)
+                              toggleIsOpen(
+                                _id,
+                                sellerId,
+                                productInfo,
+                                client.customerId
+                              )
                             }
                           />
                         )}
@@ -245,7 +247,7 @@ const MySales = () => {
           </button>
           <Dialogue
             productInfo={{
-              _id: messageId,
+              _id: productId,
               owner: userId,
               customer: customerId,
             }}
