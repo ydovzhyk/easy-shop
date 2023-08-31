@@ -137,7 +137,7 @@ const MyReviews = () => {
                         <li key={product._id}>{product.nameProduct}</li>
                       ))}
                     </ul>
-                    <p>{feedback}</p>
+                    <p className={s.productFeedback}>{feedback}</p>
                   </div>
                   {currentSelector === 'asUser' && (
                     <div className={s.buttonTrashWrapper}>
