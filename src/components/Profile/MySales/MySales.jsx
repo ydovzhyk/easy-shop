@@ -112,7 +112,7 @@ const MySales = () => {
   useEffect(() => {
     document.body.style.overflow = isFeedbackWindowOpen ? 'hidden' : 'unset';
   }, [isFeedbackWindowOpen]);
-
+  const filteredSales = userSales.filter(({ delivery }) => delivery !== "");
   return (
     <>
       <div className={s.ordersWrapper}>
@@ -120,9 +120,9 @@ const MySales = () => {
           currentSelector={currentSelector}
           handleButtonClick={handleButtonClick}
         />
-        {userSales.length > 0 && (
+        {filteredSales.length > 0 && (
           <ul className={s.ordersList}>
-            {userSales.map(
+            {filteredSales.map(
               ({
                 _id,
                 orderSum,
@@ -229,7 +229,7 @@ const MySales = () => {
             )}
           </ul>
         )}
-        {!isLoading && userSales.length === 0 && (
+        {!isLoading && filteredSales.length === 0 && (
           <p className={s.message}>Замовлень з таким статусом у вас ще немає</p>
         )}
       </div>
