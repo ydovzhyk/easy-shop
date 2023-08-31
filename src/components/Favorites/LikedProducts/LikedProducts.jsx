@@ -87,11 +87,13 @@ const LikedProducts = () => {
           textClass="after-title-text-warning"
         />
       )}
-      <Pagination
-        totalPages={totalLikedPages}
-        currentPage={currentPage}
-        onPageChange={handlePageChange}
-      />
+      {totalLikedPages > 1 && (
+        <Pagination
+          totalPages={totalLikedPages}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
+      )}
     </>
   );
 };
