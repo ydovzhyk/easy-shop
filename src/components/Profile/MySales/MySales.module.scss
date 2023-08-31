@@ -139,8 +139,13 @@
 
 .buttonBottomWrapper {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
   @include mixins.mq(tablet) {
-    text-align: end;
+    flex-direction: row;
+    justify-content: space-between;
   }
 }
 
