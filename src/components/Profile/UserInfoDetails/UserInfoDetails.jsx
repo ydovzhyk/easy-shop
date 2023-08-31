@@ -89,7 +89,7 @@ const UserInfoDetails = () => {
         </li>
         <li className={s.item}>
           <ProfileLink
-            to="myreviews"
+            to="myreviews?type=asSeller"
             addValue
             isBackgroundChange={isMyReviews}
             value={valueforReview}
