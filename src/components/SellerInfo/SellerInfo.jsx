@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getOtherUser } from 'redux/otherUser/otherUser-operations';
 import { updateUserSibscribes } from 'redux/auth/auth-operations';
-// import { clearOtherUser } from 'redux/otherUser/otherUser.slice';
+
 import {
   getLogin, getUserMessage, selectUserSubscriptions,
-  // getID
+  
 } from 'redux/auth/auth-selectors';
 import { selectOtherUser } from 'redux/otherUser/otherUser-selectors';
 
@@ -33,14 +33,13 @@ const SellerInfo = () => {
     .find(subscription => subscription === id);
 
   useEffect(() => {
-    // dispatch(clearOtherUser());
     dispatch(getOtherUser(id)).then(() => setIsDataLoaded(true));
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [dispatch, id]);
 
   const sellerInfo = useSelector(selectOtherUser);
   const message = useSelector(getUserMessage);
-  console.log('sellerInfo in SellerInfo:', sellerInfo);
+  // console.log('sellerInfo in SellerInfo:', sellerInfo);
   // console.log('isSellerInSubscription in SellerInfo:', isSellerInSubscription);
   
   const {
@@ -56,7 +55,6 @@ const SellerInfo = () => {
     userFeedback,
   } = sellerInfo;
   
-  // console.log('userFeedback in SellerInfo:', userFeedback);
   const averageRating = calculateAverageRating(userFeedback); 
   const gradesAmount = userFeedback?.length || 0;
   useEffect(() => {
