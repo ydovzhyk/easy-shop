@@ -32,6 +32,7 @@ const initialState = {
     userLikes: [],
     likedProducts: [],
     totalLikedPages: 1,
+    totalSearchSubscriptionsPages: 1,
     username: null,
     newMessage: 0,
     userOrders: [],
@@ -248,6 +249,8 @@ const auth = createSlice({
     [updateSearchUserSibscribes.fulfilled]: (store, { payload }) => {
       store.loading = false;
       store.user = payload.updatedUser;
+      store.user.totalSearchSubscriptionsPages =
+        payload.totalSearchSubscriptionsPages;
       store.message = payload.message;
     },
     [updateSearchUserSibscribes.rejected]: (store, { payload }) => {

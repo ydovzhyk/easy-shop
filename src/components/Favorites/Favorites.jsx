@@ -13,6 +13,7 @@ const Favorites = () => {
 
   const [userLikesLength, setUserLikesLength] = useState(0);
   const [subscriptionsLength, setSubscriptionsLength] = useState(0);
+  const [searchSubscriptionsLength, setSearchSubscriptionsLength] = useState(0);
 
   const user = useSelector(getUser);
 
@@ -50,6 +51,14 @@ const Favorites = () => {
     }
   }, [user]);
 
+  useEffect(() => {
+    if (user && user.userSearchSubscription) {
+      setSearchSubscriptionsLength(user.userSearchSubscription.length);
+    } else {
+      setSearchSubscriptionsLength(0);
+    }
+  }, [user]);
+
   return (
     <Container>
       <ul className={s.listLikes}>
@@ -80,7 +89,7 @@ const Favorites = () => {
               to="selected-searches"
               className={`${isSelectedSearches ? s.activeLink : s.linkStyle} `}
             >
-              Обрані пошуки
+              Обрані пошуки - {searchSubscriptionsLength}
             </NavLink>
           </div>
         </li>

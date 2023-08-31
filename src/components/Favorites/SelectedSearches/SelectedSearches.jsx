@@ -1,28 +1,42 @@
+import { useState } from 'react';
 import { BsTrash } from 'react-icons/bs';
 
 import { useNavigate } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { updateSearchUserSibscribes } from 'redux/auth/auth-operations';
-import { selectUserSearchSubscriptions } from 'redux/auth/auth-selectors';
+import {
+  selectUserSearchSubscriptions,
+  selectTotalSearchSubscriptionsPages,
+} from 'redux/auth/auth-selectors';
 
 import Pagination from 'components/Shared/Pagination/Pagination';
 import Button from 'components/Shared/Button/Button';
 import RoundButton from 'components/Shared/RoundButton/RoundButton';
+import Text from 'components/Shared/Text/Text';
 import { translateParamsToUA } from 'funcs&hooks/translateParamsToUA';
+import { scrollToTop } from 'funcs&hooks/scrollToTop';
 
 import s from 'components/Favorites/SelectedSearches/SelectedSearches.module.scss';
 
 const SelectedSearches = () => {
+  const [currentPage, setCurrentPage] = useState(1);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userSearchSubscriptions = useSelector(selectUserSearchSubscriptions);
+  const totalSearchSubscriptionsPages = useSelector(
+    selectTotalSearchSubscriptionsPages
+  );
   const handleDeleteUserSearchSubscription = url => {
     dispatch(
       updateSearchUserSibscribes({ urlSubscription: url, statusDelete: true })
     );
   };
 
+  const handlePageChange = page => {
+    setCurrentPage(page);
+    scrollToTop();
+  };
   return (
     <>
       <ul className={s.listCard}>
@@ -84,36 +98,16 @@ const SelectedSearches = () => {
           })}
       </ul>
 
-      {/* {likedProducts && (
-        <ul className={s.listCard}>
-          {likedProducts.map(item => (
-            <ProductItem
-              key={item._id}
-              _id={item._id}
-              userId={userId}
-              mainPhotoUrl={item.mainPhotoUrl}
-              price={item.price}
-              likes={item.userLikes.length ? item.userLikes.length : 0}
-              userLike={checkUserLike(item._id)}
-              isLiked={isLiked}
-              handleLike={handleLike}
-              nameProduct={item.nameProduct}
-              owner={item.owner}
-              description={item.description}
-              size={item.size}
-              section={item.section}
-              category={item.category}
-              vip={item.vip}
-              sale={item.sale}
-            />
-          ))}
-        </ul>
-      )} */}
-      <p>У вас немає обраних пошуків</p>
+      {userSearchSubscriptions && updateSearchUserSibscribes.length === 0 && (
+        <Text
+          text={'У вас немає обраних товарів'}
+          textClass="after-title-text-warning"
+        />
+      )}
       <Pagination
-      // totalPages={totalLikedPages}
-      // currentPage={currentPage}
-      // onPageChange={handlePageChange}
+        totalPages={totalSearchSubscriptionsPages}
+        currentPage={currentPage}
+        onPageChange={handlePageChange}
       />
     </>
   );
