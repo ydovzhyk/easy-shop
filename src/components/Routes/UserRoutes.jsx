@@ -34,7 +34,7 @@ const ProductsPage = lazy(() => import('pages/ProductsPage'));
 const SellerInfoPage = lazy(() => import('pages/SellerInfoPage'));
 const SellerWares = lazy(() => import('components/SellerInfo/SellerWares/SellerWares'));
 const About = lazy(() => import('components/SellerInfo/About/About'));
-const SellerReviews = lazy(() => import('components/SellerInfo/SellerReviews/SellerReviews'));
+const SellerFeedback = lazy(() => import('components/SellerInfo/SellerFeedback/SellerFeedback'));
 const MySales = lazy(() => import('components/Profile/MySales/MySales'));
 const LikedProducts = lazy(() =>
   import('components/Favorites/LikedProducts/LikedProducts')
@@ -49,8 +49,6 @@ const SelectorProducts = lazy(() =>
   import('components/Catalog/SelectorProducts/SelectorProducts')
 );
 
-const AboutSellerReviews = lazy(() => import('components/SellerInfo/SellerReviews/AboutSellerReviews'));
-const AboutBuyerReviews = lazy(() => import('components/SellerInfo/SellerReviews/AboutBuyerReviews'));
 
 const UserRoutes = () => {
   return (
@@ -86,12 +84,8 @@ const UserRoutes = () => {
           />
           <Route path="/member/:id" element={<SellerInfoPage />}>
             <Route index element={<SellerWares />} />
-            <Route path="mywares" element={<SellerWares />} />
-            <Route path="myreviews" element={<SellerReviews />}>
-              <Route index element={<AboutSellerReviews />} />
-              <Route path="aboutseller" element={<AboutSellerReviews />} />
-              <Route path="aboutbuyer" element={<AboutBuyerReviews />}/>
-            </Route> 
+            <Route path="wares" element={<SellerWares />} />
+            <Route path="feedback" element={<SellerFeedback />}/>
             <Route path="about" element={<About />} />
           </Route>
           <Route path="/developers" element={<DevelopersPage />} />

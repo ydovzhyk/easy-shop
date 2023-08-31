@@ -14,7 +14,7 @@ const About = () => {
   
   const sellerInfo = useSelector(selectOtherUser);
   const aboutSeller = sellerInfo.about;
-  console.log('aboutSeller in about:', aboutSeller);
+  // console.log('aboutSeller in about:', aboutSeller);
     return (
         <div> {aboutSeller ? aboutSeller : "Продавець нічого не повідомив про себе"}</div>
     )

@@ -20,7 +20,6 @@ const SellerWares = () => {
   }, [dispatch, id, isLiked]);
     
   const sellerProducts = useSelector(selectProductsFromOtherUther);
-  console.log('sellerProducts in Wares:', sellerProducts);
 
   const checkUserLike = productId => {
     const product = sellerProducts.find(item => item._id === productId);

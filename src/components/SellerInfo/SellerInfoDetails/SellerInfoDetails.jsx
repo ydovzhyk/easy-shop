@@ -12,11 +12,9 @@ const SellerInfoDetails = () => {
   const { id } = useParams();
   const [myWares, setMyWares] = useState(0);
   const location = useLocation().pathname;
-    
-    const sellerInfo = useSelector(selectOtherUser);
+  const sellerInfo = useSelector(selectOtherUser);
   // sellerInfo && console.log('sellerInfo in SellerInfoDetails', sellerInfo);
   const {
-    userReviews,
     userFeedback,
   } = sellerInfo;
   
@@ -24,19 +22,27 @@ const SellerInfoDetails = () => {
   
   // console.log('sellerFeedback in SellerInfoDetails', userFeedback);
   const [isMyWares, setIsMyWares] = useState(false);
-  const [isMyReviews, setIsMyReviews] = useState(false);
+  const [isMyFeedback, setIsMyFeedback] = useState(false);
   const [isAbout, setIsAbout] = useState(false);
 
-  const valueforReview = !userReviews
+  const valueforFeedback =  !userFeedback
     ? 0
-    : userReviews.length + userFeedback.length;
+    : userFeedback.length;
   
   useEffect(() => {
     setIsMyWares(
-      location === `/member/${id}` || location === `/member/${id}/mywares` ? true : false
+      location === `/member/${id}` || location === `/member/${id}/wares`
+        ? true
+        : false
     );
-    setIsMyReviews(location === `/member/${id}/myreviews` ? true : false);
-    setIsAbout(location === `/member/${id}/about` ? true : false);
+    setIsMyFeedback(
+      location === `/member/${id}/feedback`
+        ? true
+        : false
+    );
+    setIsAbout(location === `/member/${id}/about`
+      ? true
+      : false);
   }, [location, id]);
 
   useEffect(() => {
@@ -50,7 +56,7 @@ const SellerInfoDetails = () => {
   }, [sellerInfo]);
 
   // console.log('isMyWares:', isMyWares);
-  // console.log('isMyReviews:', isMyReviews);
+  // console.log('isMyFeedback:', isMyFeedback);
   // console.log('isAbout:', isAbout);
 
   return (
@@ -58,7 +64,7 @@ const SellerInfoDetails = () => {
       <ul className={s.list}>
         <li className={s.item}>
           <ProfileLink
-            to="mywares"
+            to="wares"
             addValue
             value={myWares}
             isBackgroundChange={isMyWares}
@@ -67,10 +73,10 @@ const SellerInfoDetails = () => {
           </ProfileLink>
         </li>
         <li className={s.item}>
-          <ProfileLink to="myreviews"
+          <ProfileLink to="feedback"
             addValue
-            value={valueforReview}
-            isBackgroundChange={isMyReviews}
+            value={valueforFeedback}
+            isBackgroundChange={isMyFeedback}
           >
             Мої відгуки
           </ProfileLink>
