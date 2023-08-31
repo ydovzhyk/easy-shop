@@ -38,8 +38,8 @@ export const selectUserOrders = ({ auth }) => auth.user.userOrders;
 export const selectUserSales = ({ auth }) => auth.user.userSales;
 export const selectUserSubscriptions = ({ auth }) =>
   auth.user.userSubscriptions;
-export const selectTotalSearchSubscriptionsPages = ({ auth }) =>
-  auth.user.totalSearchSubscriptionsPages;
+export const selectTotalUserSearchSubscriptionsPages = ({ auth }) =>
+  auth.user.totalUserSearchSubscriptionsPages;
 export const selectUserSearchSubscriptions = ({ auth }) =>
   auth.user.userSearchSubscription;
 export const selectReviews = ({ auth }) => auth.user.userReviews;
