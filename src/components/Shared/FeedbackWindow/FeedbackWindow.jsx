@@ -26,13 +26,15 @@ const FeedbackWindow = ({
   const userId = useSelector(getID);
   const myReview = useSelector(selectUserReviews);
   const [rating, setRating] = useState(1);
-  const { orderId, sellerId, productInfo } = orderToFeedbackWindow;
+  const { orderId, sellerId, productInfo, customerId } = orderToFeedbackWindow;
 
   const isBtnRewiewShown = myReview.find(it => it.orderId === orderId);
+  const feedbackOwnerId =
+    feedbackType === 'asSeller' ? customerId : sellerId;
 
   useEffect(() => {
-    dispatch(getUserFeedback({ sellerId }));
-  }, [dispatch, sellerId]);
+    dispatch(getUserFeedback({ userId: feedbackOwnerId }));
+  }, [dispatch, sellerId, feedbackOwnerId]);
 
   const calculatedRating = `${Number(rating).toFixed(1)}`;
 
@@ -60,7 +62,7 @@ const FeedbackWindow = ({
       feedbackType,
     };
     await dispatch(addReview(feedbackData));
-    await dispatch(getUserFeedback({ userId }));
+    await dispatch(getUserFeedback({ userId: feedbackOwnerId}));
     dispatch(getUserReviews({ userId }));
     updateUserFunc(dispatch);
     reset();
@@ -117,10 +119,10 @@ const FeedbackWindow = ({
         )}
 
         {sellerFeedback.length > 0 && (
-          <p className={s.feedbackTitle}>Відгуки інших користувачів:</p>
+          <p className={s.feedbackTitle}>Всі відгуки про користувача:</p>
         )}
         {sellerFeedback.length === 0 && (
-          <p className={s.message}>Відгуків інших користувачів поки немає</p>
+          <p className={s.message}>Відгуків про користувача поки немає</p>
         )}
 
         <ReviewList review={sellerFeedback} />
