@@ -259,7 +259,7 @@ const Dialogue = ({ productInfo }) => {
             <div className={s.additionalOpts}>
               {/* <BiMessageDetail className={s.favoriteIcon} /> */}
               {!isCustomerId && (
-                <Text text="Запитати продавця" textClass="productText" />
+                <Text text="Запитати" textClass="productText" />
               )}
               {isCustomerId && (
                 <Text text="Запитати покупця" textClass="productText" />
@@ -272,7 +272,11 @@ const Dialogue = ({ productInfo }) => {
             </div>
           )}
           {dialogueArray.length > 0 && (
-            <ul className={s.dialogueGroup}>
+            <ul
+              className={
+                !isCustomerId ? s.dialogueGroup : s.dialogueGroupCustomer
+              }
+            >
               {dialogueArray.map((dialogue, index) => (
                 <li key={index}>
                   <div className={s.dialogueBox}>

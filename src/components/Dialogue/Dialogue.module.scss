@@ -48,6 +48,25 @@
   }
 }
 
+.dialogueGroupCustomer {
+  margin-top: 20px;
+  margin-right: 5px;
+  max-height: 205px;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 6px;
+    background-color: var(--bg-footer-header);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    width: 6px;
+    border-radius: 9em;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: var(--btn-border-color);
+  }
+}
+
 .dialogueBox {
   display: flex;
   flex-direction: row;
