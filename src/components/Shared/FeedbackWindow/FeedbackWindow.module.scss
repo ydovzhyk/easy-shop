@@ -6,7 +6,7 @@
   left: 0px;
   height: 100vh;
   width: 100vw;
-  background-color: rgba(0, 0, 0, 0.47);
+  background-color: rgba(5, 5, 5, 0.038);
   cursor: pointer;
   z-index: 1000;
   display: flex;
@@ -61,6 +61,7 @@
   width: 100%;
   padding: 44px 16px;
   background-color: var(--main-color);
+  box-shadow: 10px 10px 30px rgba(82, 85, 95, 0.4);
   overflow: auto;
   @include mixins.mq(tablet) {
     padding: 44px 60px;
