@@ -1,30 +1,33 @@
 @use '../../styles/_mixins.scss';
 
 .container {
-  // padding: 20px 0;
-  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .styleWrapButton {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
 
+  padding-top: 20px;
+  padding-bottom: 20px;
+
   background-color: var(--bg-footer-header);
 
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 
 .button {
   position: relative;
 
-  padding-top: 25px;
-  padding-bottom: 25px;
-  margin-right: 36px;
+  margin-right: 25px;
 
   font-weight: 700;
   font-size: 16px;
-  line-height: 13px;
+  line-height: 10px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   text-align: center;
@@ -32,17 +35,12 @@
   color: var(--title-text-color);
   background-color: transparent;
 
-  // &:hover,
-  // &:focus {
-  //   color: var(--accent-color);
-  // }
-
   &::before {
     content: '';
     display: block;
 
     position: absolute;
-    bottom: 1px;
+    bottom: -10px;
     left: 0;
 
     width: 0;
@@ -57,6 +55,10 @@
   }
 
   @include mixins.mq(tablet) {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    margin-right: 36px;
+
     font-size: 24px;
   }
 }
@@ -70,4 +72,14 @@
 
   text-shadow: var(--hover-text-shadow);
   color: var(--hover-active-color);
+}
+
+@media (max-width: 374px) {
+  .buttonAdvice {
+    margin-top: 20px; /* Додайте необхідний відступ зверху */
+  }
+
+  .button:not(:first-child){
+    margin-right: 20px;
+  }
 }

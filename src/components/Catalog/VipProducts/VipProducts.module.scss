@@ -1,5 +1,13 @@
 @use '../../../styles/mixins';
 
+.container {
+  margin-top: 20px;
+}
+
+.styleButtonList {
+  position: relative;
+}
+
 .arrowButton {
   display: none;
   cursor: pointer;
@@ -24,10 +32,6 @@
       color: var(--icon-color);
     }
   }
-}
-
-.styleButtonList {
-  position: relative;
 }
 
 .arrowButtonLeft {
@@ -59,17 +63,17 @@
 }
 
 .listCard {
-  margin-bottom: 20px;
-  
+  // margin-bottom: 20px;
+
   @include mixins.mq(tablet) {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 15px;
+    grid-gap: 20px;
   }
 
   @include mixins.mq(desktop) {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-gap: 15px;
+    grid-gap: 20px;
   }
 }

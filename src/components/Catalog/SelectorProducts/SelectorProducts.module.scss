@@ -76,18 +76,18 @@
 }
 
 .listCard {
-  margin-bottom: 20px;
+  // margin-bottom: 20px;
 
   @include mixins.mq(tablet) {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 15px;
+    grid-gap: 20px;
   }
 
   @include mixins.mq(desktop) {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-gap: 15px;
+    grid-gap: 20px;
     // width: calc(100% / 5 - 30px);
   }
 }

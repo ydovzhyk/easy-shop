@@ -1,13 +1,18 @@
 @use '../../styles/_mixins.scss';
 
 .container {
-  display: none;
-  @include mixins.mq(tablet) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 7px solid var(--bg-footer-header);
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 7px solid var(--bg-footer-header);
+  margin-top: 20px;
+  // display: none;
+  // @include mixins.mq(tablet) {
+  //   display: flex;
+  //   align-items: center;
+  //   justify-content: center;
+  //   border: 7px solid var(--bg-footer-header);
+  // }
 }
 
 .imageBox {
