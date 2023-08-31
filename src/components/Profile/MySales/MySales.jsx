@@ -99,9 +99,9 @@ const MySales = () => {
     );
   };
 
-  const toggleIsOpen = (orderId, sellerId, productInfo) => {
+  const toggleIsOpen = (orderId, sellerId, productInfo, customerId) => {
     if (orderId) {
-      setOrderToFeedbackWindow({ orderId, sellerId, productInfo });
+      setOrderToFeedbackWindow({ orderId, sellerId, productInfo, customerId });
       setIsFeedbackWindowOpen(!isFeedbackWindowOpen);
       return;
     }
@@ -208,7 +208,12 @@ const MySales = () => {
                             btnClass="btnLight"
                             text="Залишити відгук"
                             handleClick={() =>
-                              toggleIsOpen(_id, sellerId, productInfo)
+                              toggleIsOpen(
+                                _id,
+                                sellerId,
+                                productInfo,
+                                client.customerId
+                              )
                             }
                           />
                         )}

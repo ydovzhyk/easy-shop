@@ -4,7 +4,7 @@ import { useMediaQuery } from 'react-responsive';
 
 import { getLoadingReviews, selectUserFeedback, selectUserReviews } from 'redux/review/review-selectors';
 import { deleteReviewById, getUserFeedback, getUserReviews } from 'redux/review/review-operations';
-import { getID } from 'redux/auth/auth-selectors';
+import { getID, selectFeedback, selectReviews } from 'redux/auth/auth-selectors';
 import { clearReviewAndFeedback } from 'redux/review/review-slice';
 
 import Select from 'react-select';
@@ -16,12 +16,20 @@ import { updateUserFunc } from 'funcs&hooks/updateUser';
 import s from './MyReviews.module.scss';
 
 const MyReviews = () => {
-    const dispatch = useDispatch();
-    const userId = useSelector(getID)
-    const myReview = useSelector(selectUserReviews);
-    const myFeedback = useSelector(selectUserFeedback);
-    const loading = useSelector(getLoadingReviews);
-    const isTablet = useMediaQuery({ minWidth: 768 });
+  const dispatch = useDispatch();
+  const userId = useSelector(getID)
+  const myReview = useSelector(selectUserReviews);
+  const myFeedback = useSelector(selectUserFeedback);
+  const loading = useSelector(getLoadingReviews);
+  const isTablet = useMediaQuery({ minWidth: 768 });
+  const userReviews = useSelector(selectReviews);
+  const userFeedback = useSelector(selectFeedback);
+  const asSellerFeedback = userFeedback.filter(
+    ({ feedbackType }) => feedbackType === 'asCustomer'
+  );
+  const asCustomerFeedback = userFeedback.filter(
+    ({ feedbackType }) => feedbackType === 'asSeller'
+  );
     
   const [currentSelector, setcurrentSelector] = useState('asSeller');
   console.log(currentSelector);
@@ -58,11 +66,20 @@ const MyReviews = () => {
             classNamePrefix="custom-select"
             onChange={value => handleButtonClick(value.value)}
             options={[
-              { value: 'asSeller', label: 'Як про продавця' },
-              { value: 'asCustomer', label: 'Як про покупця' },
-              { value: 'asUser', label: 'Мої відгуки' },
+              {
+                value: 'asSeller',
+                label: `Як про продавця ${asSellerFeedback.length}`,
+              },
+              {
+                value: 'asCustomer',
+                label: `Як про покупця ${asCustomerFeedback.length}`,
+              },
+              { value: 'asUser', label: `Мої відгуки ${userReviews.length}` },
             ]}
-            defaultValue={{ value: 'asSeller', label: 'Як про продавця' }}
+            defaultValue={{
+              value: 'asSeller',
+              label: `Як про продавця ${asSellerFeedback.length}`,
+            }}
             theme={theme => ({
               ...theme,
               borderRadius: 0,
@@ -80,7 +97,7 @@ const MyReviews = () => {
                 }
                 onClick={() => handleButtonClick('asSeller')}
               >
-                Як про продавця
+                Як про продавця {asSellerFeedback.length}
               </button>
             </li>
             <li>
@@ -92,7 +109,7 @@ const MyReviews = () => {
                 }
                 onClick={() => handleButtonClick('asCustomer')}
               >
-                Як про покупця
+                Як про покупця {asCustomerFeedback.length}
               </button>
             </li>
             <li>
@@ -104,7 +121,7 @@ const MyReviews = () => {
                 }
                 onClick={() => handleButtonClick('asUser')}
               >
-                Мої відгуки
+                Мої відгуки {userReviews.length}
               </button>
             </li>
           </ul>
@@ -137,7 +154,7 @@ const MyReviews = () => {
                         <li key={product._id}>{product.nameProduct}</li>
                       ))}
                     </ul>
-                    <p>{feedback}</p>
+                    <p className={s.productFeedback}>{feedback}</p>
                   </div>
                   {currentSelector === 'asUser' && (
                     <div className={s.buttonTrashWrapper}>
@@ -155,7 +172,6 @@ const MyReviews = () => {
           )}
         </ul>
       )}
-      
     </div>
   );
 };
