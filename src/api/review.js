@@ -29,3 +29,9 @@ export const axiosGetUserFeedback = async userData => {
   const { data } = await instance.post(`/reviews/user-feedback`, userData);
   return data;
 };
+
+// Update feedback
+export const axiosUpdateFeedback = async userData => {
+  const { data } = await instance.post(`/reviews/update`, userData);
+  return data;
+};

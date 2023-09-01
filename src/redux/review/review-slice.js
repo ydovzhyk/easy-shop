@@ -6,6 +6,7 @@ import {
   deleteReviewById,
   getUserReviews,
   getUserFeedback,
+  updateFeedback,
 } from './review-operations.js';
 
 const initialState = {
@@ -98,6 +99,19 @@ const reviews = createSlice({
       store.userFeedback = payload.feedback;
     },
     [getUserFeedback.rejected]: (store, { payload }) => {
+      store.loading = false;
+      store.error = payload;
+    },
+    //* updateFeedback
+    [updateFeedback.pending]: store => {
+      store.loading = true;
+      store.error = null;
+    },
+    [updateFeedback.fulfilled]: (store, { payload }) => {
+      store.loading = false;
+      store.message = payload.message;
+    },
+    [updateFeedback.rejected]: (store, { payload }) => {
       store.loading = false;
       store.error = payload;
     },
