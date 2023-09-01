@@ -148,37 +148,20 @@ const SelectedSearches = () => {
 
               if (key === 'size') {
                 const selectedIndexSizesArray = value.split('_');
-
+                let allSelectedValues = [];
                 for (let [key, value] of Object.entries(sizeOption)) {
                   for (let i = 0; i < selectedIndexSizesArray.length; i += 1) {
                     if (selectedIndexSizesArray[i] === key) {
-                      console.log(searchParamsToRender);
-
-                      const indexOfSizeValues = searchParamsToRender.findIndex(
-                        el => el[0] === 'Розмір'
+                      allSelectedValues.push(
+                        `EU: ${value[0].EU}/UA:${value[1].UA}/IN:${value[2].IN}`
                       );
-                      console.log(indexOfSizeValues);
-                      if (indexOfSizeValues >= 0) {
-                        // console.log(
-                        //   searchParamsToRender[indexOfSizeValues][1] +
-                        //     `, EU: ${value[0].EU}/UA:${value[1].UA}/IN:${value[2].IN}`
-                        // );
-                        searchParamsToRender[indexOfSizeValues][1].replace(
-                          searchParamsToRender[indexOfSizeValues][1],
-                          searchParamsToRender[indexOfSizeValues][1] +
-                            `EU: ${value[0].EU}/UA:${value[1].UA}/IN:${value[2].IN}`
-                        );
-
-                        // `EU: ${value[0].EU}/UA:${value[1].UA}/IN:${value[2].IN}`;
-                      } else {
-                        searchParamsToRender.push([
-                          'Розмір',
-                          `EU: ${value[0].EU}/UA:${value[1].UA}/IN:${value[2].IN}`,
-                        ]);
-                      }
                     }
                   }
                 }
+                searchParamsToRender.push([
+                  'Розмір',
+                  allSelectedValues.join(', '),
+                ]);
               }
 
               if (key === 'price') {
@@ -190,17 +173,11 @@ const SelectedSearches = () => {
               }
 
               if (key === 'price_from') {
-                searchParamsToRender.push([
-                  'Ціна',
-                  `${'від '}${value}${' грн'}`,
-                ]);
+                searchParamsToRender.push(['Ціна від', `${value}${' грн'}`]);
               }
 
               if (key === 'price_to') {
-                searchParamsToRender.push([
-                  'Ціна',
-                  `${'до '}${value}${' грн'}`,
-                ]);
+                searchParamsToRender.push(['Ціна до', `${value}${' грн'}`]);
               }
 
               if (key === 'condition') {
