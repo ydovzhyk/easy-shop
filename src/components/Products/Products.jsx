@@ -182,7 +182,11 @@ const Products = () => {
                 {isUserLogin && (
                   <button
                     type="button"
-                    className={s.btnLightSubscribe}
+                    className={
+                      isSubscribedSearch()
+                        ? `${s.btnDarkSubscribe}`
+                        : `${s.btnLightSubscribe}`
+                    }
                     onClick={handleSubscribtionClick}
                   >
                     <Text
@@ -201,7 +205,7 @@ const Products = () => {
                 {isMobile && (
                   <button
                     type="button"
-                    className={s.btnDark}
+                    className={s.btnLightSubscribe}
                     onClick={handleShowFilterClick}
                   >
                     <Text textClass="searchQueryContent" text="Фільтри" />
