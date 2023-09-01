@@ -157,39 +157,32 @@ const MyShoppings = () => {
                       >{`Сума замовлення: ${orderSum} грн.`}</p>
                     </div>
 
-                    <Button
-                      type="button"
-                      btnClass="btnLight"
-                      text="Питання продавцю"
-                      handleClick={() =>
-                        handleMessageClick(products[0]._id, sellerId)
-                      }
-                    />
-
-                    {statusNew === false && (
-                      <div className={s.buttonBottomWrapper}>
-                        {/* <NavLink
-                          to={isLogin ? '/message' : '/login'}
-                          className={s.btnLight}
-                        >
-                          Перейти до чату
-                        </NavLink> */}
-                        {!isBtnRewiewShown && (
-                          <Button
-                            btnClass="btnLight"
-                            text="Залишити відгук"
-                            handleClick={() =>
-                              toggleIsOpen(
-                                _id,
-                                sellerId,
-                                productInfo,
-                                client.customerId
-                              )
-                            }
-                          />
-                        )}
-                      </div>
-                    )}
+                    {/* {statusNew === false && ( */}
+                    <div className={s.buttonBottomWrapper}>
+                      <Button
+                        type="button"
+                        btnClass="btnLight"
+                        text="Питання продавцю"
+                        handleClick={() =>
+                          handleMessageClick(products[0]._id, sellerId)
+                        }
+                      />
+                      {!isBtnRewiewShown && (
+                        <Button
+                          btnClass="btnLight"
+                          text="Залишити відгук"
+                          handleClick={() =>
+                            toggleIsOpen(
+                              _id,
+                              sellerId,
+                              productInfo,
+                              client.customerId
+                            )
+                          }
+                        />
+                      )}
+                    </div>
+                    {/* )} */}
                     {isFeedbackWindowOpen && (
                       <FeedbackWindow
                         hideWindow={toggleIsOpen}

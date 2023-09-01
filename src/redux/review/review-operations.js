@@ -5,6 +5,7 @@ import {
   axiosDeleteReviewById,
   axiosGetUserReviews,
   axiosGetUserFeedback,
+  axiosUpdateFeedback,
 } from 'api/review';
 
 export const addReview = createAsyncThunk(
@@ -67,6 +68,19 @@ export const getUserFeedback = createAsyncThunk(
     try {
       const data = await axiosGetUserFeedback(userData);
       // console.log(data);
+      return data;
+    } catch (error) {
+      const { data, status } = error.response;
+      return rejectWithValue({ data, status });
+    }
+  }
+);
+
+export const updateFeedback = createAsyncThunk(
+  'reviews/update',
+  async (userData, { rejectWithValue, dispatch }) => {
+    try {
+      const data = await axiosUpdateFeedback(userData);
       return data;
     } catch (error) {
       const { data, status } = error.response;
