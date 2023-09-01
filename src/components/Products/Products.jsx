@@ -50,6 +50,7 @@ const Products = () => {
   const { category, subcategory } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const { pathname, search } = useLocation();
+  const sort = searchParams.get('sort') ?? '';
   // const page = searchParams.get('page');
 
   const products = useSelector(getProductsByQuery);
@@ -81,17 +82,36 @@ const Products = () => {
     await setFilterSelected(filterSelected);
   };
 
+  useEffect(() => {
+    if (sort === '') {
+      return;
+    }
+    setFilterSelected(options[Number(sort)]);
+  }, [sort]);
+
   const productsToRender = useMemo(() => {
     let productsState = [...products];
+    const selectedSortIndex = options.findIndex(el => el === filterSelected);
 
     switch (filterSelected) {
+      case 'Популярні':
+        searchParams.delete('sort');
+        setSearchParams(searchParams);
+        return productsState;
+
       case 'Від найдешевших':
+        searchParams.set('sort', selectedSortIndex);
+        setSearchParams(searchParams);
         return productsState.slice(0).sort((a, b) => a.price - b.price);
 
       case 'Від найдорожчих':
+        searchParams.set('sort', '2');
+        setSearchParams(searchParams);
         return productsState.slice(0).sort((a, b) => b.price - a.price);
 
       case 'За датою':
+        searchParams.set('sort', '3');
+        setSearchParams(searchParams);
         return productsState
           .slice(0)
           .sort((a, b) => -a.date.localeCompare(b.date));
@@ -99,7 +119,7 @@ const Products = () => {
       default:
         return productsState;
     }
-  }, [products, filterSelected]);
+  }, [products, filterSelected, searchParams, setSearchParams]);
 
   const searchQuery =
     JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '';
