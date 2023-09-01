@@ -1,5 +1,9 @@
 @use 'styles/_mixins.scss';
 
+.waresWrapper{
+    padding: 16px 0 32px 0;
+}
+
 .listCard {
     display: grid;
     grid-template-columns: repeat(1, 1fr);

@@ -20,7 +20,7 @@
         background-color: var(--accent-color); /* Колір повзунка при наведенні */
     }
     @include mixins.mq(tablet) {
-        max-height: 260px;;
+        max-height: 260px;
     }
 }
 

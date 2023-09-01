@@ -1,0 +1,17 @@
+@use 'styles/mixins';
+
+.message {
+    font-size: 16px;
+    margin: auto;
+    text-align: center;
+    padding: 16px;
+
+    @include mixins.mq(tablet) {
+        font-size: 20px;
+        width: 75%;
+    }
+
+    @include mixins.mq(desktop) {
+        font-size: 26px;
+    }
+}

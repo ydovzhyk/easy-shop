@@ -24,11 +24,7 @@ const SellerInfo = () => {
   const [isMessage, setIsMessage] = useState('');
   const { id } = useParams();
   const isLogin = useSelector(getLogin);
-  // const userId = useSelector(getID);
   const userSubscriptions = useSelector(selectUserSubscriptions);
-  // console.log('userSubscriptions in SellerInfo', userSubscriptions);
-  // console.log('Seller id in SellerInfo', id);
-  // console.log('User id in SellerInfo', userId);
   const isSellerInSubscription = (userSubscriptions || [])
     .find(subscription => subscription === id);
 
@@ -39,8 +35,6 @@ const SellerInfo = () => {
 
   const sellerInfo = useSelector(selectOtherUser);
   const message = useSelector(getUserMessage);
-  // console.log('sellerInfo in SellerInfo:', sellerInfo);
-  // console.log('isSellerInSubscription in SellerInfo:', isSellerInSubscription);
   
   const {
     userAvatar,
@@ -64,7 +58,6 @@ const SellerInfo = () => {
   const resetMessage = () => {
     setIsMessage('');
   };
-
 
   const handleSubscribe = async event => {
     event.preventDefault();
@@ -96,7 +89,7 @@ const SellerInfo = () => {
           salesAmount={successfulSales}
       />)}
     </section>
-    <section className={s.profiledetails}>
+    <section>
         {isDataLoaded && id && (
           <SellerInfoDetails />)
         }

@@ -13,14 +13,9 @@ const SellerInfoDetails = () => {
   const [myWares, setMyWares] = useState(0);
   const location = useLocation().pathname;
   const sellerInfo = useSelector(selectOtherUser);
-  // sellerInfo && console.log('sellerInfo in SellerInfoDetails', sellerInfo);
-  const {
-    userFeedback,
-  } = sellerInfo;
   
-  // console.log('sellerReviews in SellerInfoDetails', userReviews);
+  const { userFeedback } = sellerInfo;
   
-  // console.log('sellerFeedback in SellerInfoDetails', userFeedback);
   const [isMyWares, setIsMyWares] = useState(false);
   const [isMyFeedback, setIsMyFeedback] = useState(false);
   const [isAbout, setIsAbout] = useState(false);
@@ -55,9 +50,6 @@ const SellerInfoDetails = () => {
     }
   }, [sellerInfo]);
 
-  // console.log('isMyWares:', isMyWares);
-  // console.log('isMyFeedback:', isMyFeedback);
-  // console.log('isAbout:', isAbout);
 
   return (
     <Container>

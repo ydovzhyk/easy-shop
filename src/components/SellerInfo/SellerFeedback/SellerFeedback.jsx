@@ -7,6 +7,7 @@ import { useMediaQuery } from 'react-responsive';
 import { clearReviewAndFeedback } from 'redux/review/review-slice';
 import {getUserFeedback} from 'redux/review/review-operations';
 import { getLoadingReviews, selectUserFeedback} from 'redux/review/review-selectors';
+import { selectOtherUser } from 'redux/otherUser/otherUser-selectors';
 
 import  ReviewList  from 'components/Shared/ReviewList/ReviewList';
 
@@ -16,20 +17,26 @@ const SellerFeedback = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
+  const sellerInfo = useSelector(selectOtherUser);
+  const { userFeedback } = sellerInfo;
+  const asSellerFeedback = userFeedback.filter(
+    ({ feedbackType }) => feedbackType === 'asCustomer'
+  );
+  const asCustomerFeedback = userFeedback.filter(
+    ({ feedbackType }) => feedbackType === 'asSeller'
+  );
+  
+  const sellerFeedback = useSelector(selectUserFeedback); 
+  const loading = useSelector(getLoadingReviews);
+  const isTablet = useMediaQuery({ minWidth: 768 });
+  const [currentSelector, setcurrentSelector] = useState('asSeller');
+
   useEffect(() => {
     
     if (!searchParams.get('type')) {
       setSearchParams({ type: 'asSeller' });
     }
   }, [searchParams, setSearchParams]);
-
-  const sellerFeedback = useSelector(selectUserFeedback);
-  // console.log('sellerFeedback in SellerFeedback:', sellerFeedback);
-  const loading = useSelector(getLoadingReviews);
-  
-    
-  const isTablet = useMediaQuery({ minWidth: 768 });
-  const [currentSelector, setcurrentSelector] = useState('asSeller');
 
   useEffect(() => {
     dispatch(clearReviewAndFeedback());
@@ -56,10 +63,10 @@ const SellerFeedback = () => {
             classNamePrefix="custom-select"
             onChange={value => handleButtonClick(value.value)}
             options={[
-              { value: 'asSeller', label: 'Як про продавця' },
-              { value: 'asCustomer', label: 'Як про покупця' },
+              { value: 'asSeller', label: `Як про продавця ${asSellerFeedback.length}` },
+              { value: 'asCustomer', label: `Як про покупця ${asCustomerFeedback.length}` },
             ]}
-            defaultValue={{ value: 'asSeller', label: 'Як про продавця' }}
+            defaultValue={{ value: 'asSeller', label: `Як про продавця ${asSellerFeedback.length}` }}
             theme={theme => ({
               ...theme,
               borderRadius: 0,
@@ -77,7 +84,7 @@ const SellerFeedback = () => {
                   }
                   onClick={() => handleButtonClick('asSeller')}
                 >
-                  Як про продавця
+                  Як про продавця {asSellerFeedback.length}
                 </button>
               
             
@@ -91,7 +98,7 @@ const SellerFeedback = () => {
                   }
                   onClick={() => handleButtonClick('asCustomer')}
                 >
-                  Як про покупця
+                  Як про покупця {asCustomerFeedback.length}
                 </button>
               
             </li>
@@ -99,15 +106,17 @@ const SellerFeedback = () => {
         </div>
         {!loading && sellerFeedback.length === 0 && (
         <p
-        // className={s.message}
+        className={s.message}
         >
           Ще немає відгуків 
         </p>
         )}
         {sellerFeedback.length > 0 && (
+          <div className={s.reviewsListBox}>
           <ReviewList
             review={sellerFeedback}
-          />
+            />
+            </div>
         )}
       </div>
     )

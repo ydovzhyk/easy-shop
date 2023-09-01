@@ -196,3 +196,9 @@
         right: 40px;
     }
 }
+
+.reviewsListBox {
+    @include mixins.mq(tablet) {
+        width: 100%;
+    }
+}
