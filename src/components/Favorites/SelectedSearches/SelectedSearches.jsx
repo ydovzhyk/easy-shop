@@ -57,7 +57,10 @@ const SelectedSearches = () => {
       .map(el => el.split('='));
     searchParams.forEach(([key, value]) => {
       if (key === 'search') {
-        searchParamsToRender.push(['Пошуковий запит', value]);
+        searchParamsToRender.push([
+          'Пошуковий запит',
+          decodeURIComponent(value),
+        ]);
       }
 
       if (key === 'size') {
