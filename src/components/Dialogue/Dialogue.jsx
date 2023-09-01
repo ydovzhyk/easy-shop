@@ -147,12 +147,17 @@ const Dialogue = ({ productInfo }) => {
   }, [dispatch, selectedDialogueId, isNewMessage]);
 
   useEffect(() => {
+    const checkIsNewMessageCurrentUser = data => {
+      const result = data.some(item => item.userReceiver === user._id);
+      return result;
+    };
     if (dialogueStore.length === 0) {
       return;
     }
     if (
       isDeleteInProgressRef.current ||
-      dialogueStore.newMessages.length === 0
+      dialogueStore.newMessages.length === 0 ||
+      !checkIsNewMessageCurrentUser(dialogueStore.newMessages)
     ) {
       return;
     } else {
