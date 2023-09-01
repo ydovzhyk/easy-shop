@@ -34,6 +34,7 @@ const Dialogue = ({ productInfo }) => {
   const productOwner = productInfo.owner;
   const selectedDialogueId = productInfo.userDialogue;
   const customerId = productInfo.customer;
+  const sellerId = productInfo.seller;
 
   const userAvatar = useSelector(getUserAvatar);
   const user = useSelector(getUser);
@@ -45,6 +46,7 @@ const Dialogue = ({ productInfo }) => {
   const [isShowComponent, setIsShowComponent] = useState(false);
   const [isProductId, setIsProductId] = useState(null);
   const [isCustomerId, setIsCustomerId] = useState(null);
+  const [isSellerId, setIsSellerId] = useState(null);
   const isDeleteInProgressRef = useRef(false);
   const dialogueStore = useSelector(getDialogueStore);
 
@@ -53,16 +55,20 @@ const Dialogue = ({ productInfo }) => {
   let isInfoDialogue = false;
 
   useEffect(() => {
-    if (productId && !customerId) {
+    if (productId && !customerId && !sellerId) {
       setIsProductId(productId);
     }
     if (productId && customerId) {
       setIsProductId(productId);
       setIsCustomerId(customerId);
+    }
+    if (productId && sellerId) {
+      setIsProductId(productId);
+      setIsSellerId(sellerId);
     } else {
       return;
     }
-  }, [productId, customerId]);
+  }, [productId, customerId, sellerId]);
 
   useEffect(() => {
     if (dialoguesArray.length > 0 && !isNewMessage) {
@@ -105,7 +111,11 @@ const Dialogue = ({ productInfo }) => {
         return;
       }
       await dispatch(
-        getDialogue({ productId: isProductId, customerId: isCustomerId })
+        getDialogue({
+          productId: isProductId,
+          customerId: isCustomerId,
+          sellerId: isSellerId,
+        })
       );
       setIsShowComponent(true);
     };
@@ -117,6 +127,7 @@ const Dialogue = ({ productInfo }) => {
     isUserLogin,
     isNewMessage,
     isCustomerId,
+    isSellerId,
   ]);
 
   useEffect(() => {
@@ -223,6 +234,7 @@ const Dialogue = ({ productInfo }) => {
           productOwner: productOwner,
           dialogueId: dialogueStore._id,
           customerId: isCustomerId,
+          sellerId: isSellerId,
         })
       );
       setMyQuestion('');
@@ -258,11 +270,14 @@ const Dialogue = ({ productInfo }) => {
           {!isInfoDialogue && (
             <div className={s.additionalOpts}>
               {/* <BiMessageDetail className={s.favoriteIcon} /> */}
-              {!isCustomerId && (
-                <Text text="Запитати" textClass="productText" />
+              {!isCustomerId && !isSellerId && (
+                <Text text="Написати повідомлення" textClass="productText" />
               )}
-              {isCustomerId && (
+              {isCustomerId && !isSellerId && (
                 <Text text="Запитати покупця" textClass="productText" />
+              )}
+              {isSellerId && !isCustomerId && (
+                <Text text="Запитати продавця" textClass="productText" />
               )}
             </div>
           )}
@@ -274,7 +289,9 @@ const Dialogue = ({ productInfo }) => {
           {dialogueArray.length > 0 && (
             <ul
               className={
-                !isCustomerId ? s.dialogueGroup : s.dialogueGroupCustomer
+                isCustomerId || isSellerId
+                  ? s.dialogueGroupCustomer
+                  : s.dialogueGroup
               }
             >
               {dialogueArray.map((dialogue, index) => (

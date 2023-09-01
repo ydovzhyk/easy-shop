@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import { getUserOrders } from 'redux/order/order-operations';
 import {
   getLoadingOrders,
@@ -8,16 +8,18 @@ import {
   selectUserOrdersTotalPages,
 } from 'redux/order/order-selectors';
 import { getID, getLogin } from 'redux/auth/auth-selectors';
-import {selectUserReviews} from 'redux/review/review-selectors';
+import { selectUserReviews } from 'redux/review/review-selectors';
 import { getUserReviews } from 'redux/review/review-operations';
 
-import OrderProductsList from "components/Shared/OrderProductsList/OrderProductsList";
+import OrderProductsList from 'components/Shared/OrderProductsList/OrderProductsList';
 import Pagination from 'components/Shared/Pagination/Pagination';
 import OrderStatusList from 'components/Shared/OrderStatusList/OrderStatusList';
 import Button from 'components/Shared/Button/Button';
 import FeedbackWindow from 'components/Shared/FeedbackWindow/FeedbackWindow';
+import Dialogue from 'components/Dialogue/Dialogue';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import s from './MyPurchases.module.scss';
-
 
 const MyShoppings = () => {
   const dispatch = useDispatch();
@@ -27,13 +29,16 @@ const MyShoppings = () => {
   const myReview = useSelector(selectUserReviews);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentSelector, setcurrentSelector] = useState("all");
+  const [currentSelector, setcurrentSelector] = useState('all');
   const [isFeedbackWindowOpen, setIsFeedbackWindowOpen] = useState(false);
   const [orderToFeedbackWindow, setOrderToFeedbackWindow] = useState({});
+  const [isMessage, setIsMessage] = useState(false);
+  const [productId, setProductId] = useState(null);
+  const [sellerId, setSellerId] = useState(null);
 
-   useEffect(() => {
+  useEffect(() => {
     dispatch(getUserReviews({ userId }));
-   }, [dispatch, userId, orderToFeedbackWindow]);
+  }, [dispatch, userId, orderToFeedbackWindow]);
 
   useEffect(() => {
     dispatch(
@@ -73,6 +78,19 @@ const MyShoppings = () => {
     document.body.style.overflow = isFeedbackWindowOpen ? 'hidden' : 'unset';
   }, [isFeedbackWindowOpen]);
 
+  const handleMessageClick = (product, seller) => {
+    setIsMessage(true);
+    setProductId(product);
+    setSellerId(seller);
+  };
+
+  const handleDismissClick = () => {
+    setIsMessage(false);
+    setProductId(null);
+    setSellerId(null);
+  };
+
+  console.log(userOrders);
   return (
     <>
       <div className={s.ordersWrapper}>
@@ -140,6 +158,15 @@ const MyShoppings = () => {
                       >{`Сума замовлення: ${orderSum} грн.`}</p>
                     </div>
 
+                    <Button
+                      type="button"
+                      btnClass="btnLight"
+                      text="Питання продавцю"
+                      handleClick={() =>
+                        handleMessageClick(products[0]._id, sellerId)
+                      }
+                    />
+
                     {statusNew === false && (
                       <div className={s.buttonBottomWrapper}>
                         {/* <NavLink
@@ -188,8 +215,22 @@ const MyShoppings = () => {
           onPageChange={handlePageChange}
         />
       )}
+      {isMessage && (
+        <div className={s.messageWindow}>
+          <button className={s.dismissButton} onClick={handleDismissClick}>
+            <FontAwesomeIcon icon={faTimes} size="lg" />
+          </button>
+          <Dialogue
+            productInfo={{
+              _id: productId,
+              owner: userId,
+              seller: sellerId,
+            }}
+          />
+        </div>
+      )}
     </>
   );
-}
+};
 
 export default MyShoppings;
