@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-// import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserSales, updateOrderStatus } from 'redux/order/order-operations';
 import {
@@ -7,7 +6,6 @@ import {
   selectUserSales,
   selectUserSalesTotalPages,
 } from 'redux/order/order-selectors';
-// import { getID, getLogin } from 'redux/auth/auth-selectors';
 import { getID } from 'redux/auth/auth-selectors';
 import { selectUserReviews } from 'redux/review/review-selectors';
 import { getUserReviews } from 'redux/review/review-operations';
@@ -27,7 +25,6 @@ const MySales = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(getLoadingOrders);
   const userId = useSelector(getID);
-  // const isLogin = useSelector(getLogin);
   const userSales = useSelector(selectUserSales);
   const totalPages = useSelector(selectUserSalesTotalPages);
   const myReview = useSelector(selectUserReviews);
