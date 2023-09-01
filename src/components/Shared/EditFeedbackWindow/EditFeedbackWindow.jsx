@@ -8,7 +8,7 @@ import { updateUserFunc } from 'funcs&hooks/updateUser';
 import { FiX } from 'react-icons/fi';
 import Button from 'components/Shared/Button/Button';
 import StarsList from 'components/Shared/StarsList/StarsList';
-import s from 'components/Shared/FeedbackWindow/FeedbackWindow.module.scss';
+import s from 'components/Shared/EditFeedbackWindow/EditFeedbackWindow.module.scss';
 
 const EditFeedbackWindow = ({ hideWindow, reviewToFeedbackWindow }) => {
   const dispatch = useDispatch();
