@@ -90,7 +90,6 @@ const MyShoppings = () => {
     setSellerId(null);
   };
 
-  console.log(userOrders);
   return (
     <>
       <div className={s.ordersWrapper}>
