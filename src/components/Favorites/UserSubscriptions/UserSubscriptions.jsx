@@ -170,11 +170,13 @@ const UserSubscriptions = () => {
           textClass="after-title-text-warning"
         />
       )}
-      <Pagination
-        totalPages={totalPagesSubscription}
-        currentPage={currentPage}
-        onPageChange={handlePageChange}
-      />
+      {totalPagesSubscription > 1 && (
+        <Pagination
+          totalPages={totalPagesSubscription}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
+      )}
     </>
   );
 };

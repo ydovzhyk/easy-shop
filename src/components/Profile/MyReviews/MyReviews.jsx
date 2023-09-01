@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 
 import { getLoadingReviews, selectUserFeedback, selectUserReviews } from 'redux/review/review-selectors';
@@ -31,25 +33,30 @@ const MyReviews = () => {
     ({ feedbackType }) => feedbackType === 'asSeller'
   );
     
-  const [currentSelector, setcurrentSelector] = useState('asSeller');
-  console.log(currentSelector);
+  // const [currentSelector, setСurrentSelector] = useState('asSeller');
+  // console.log(currentSelector);
+  const [searchParams, setSearchParams] = useSearchParams();
+  // console.log(searchParams);
+  const feedbackTypeParams = searchParams.get('type');
+  // console.log(feedbackTypeParams);
 
     useEffect(() => {
-        dispatch(clearReviewAndFeedback())
-      if (currentSelector === 'asSeller') {
+      dispatch(clearReviewAndFeedback());
+      if (feedbackTypeParams === 'asSeller') {
         dispatch(getUserFeedback({ userId, feedbackType: 'asSeller' }));
       }
-      if (currentSelector === 'asCustomer') {
+      if (feedbackTypeParams === 'asCustomer') {
         dispatch(getUserFeedback({ userId, feedbackType: 'asCustomer' }));
       }
-      if (currentSelector === 'asUser') {
+      if (feedbackTypeParams === 'asUser') {
         dispatch(getUserReviews({ userId }));
       }
-    }, [dispatch, userId, currentSelector]);
+    }, [dispatch, userId, feedbackTypeParams]);
   const handleButtonClick = optionName => {
-    setcurrentSelector(optionName);
+    // setСurrentSelector(optionName);
+    setSearchParams({ type: optionName });
   };
-  const review = currentSelector === 'asUser' ? myReview : myFeedback;
+  const review = feedbackTypeParams === 'asUser' ? myReview : myFeedback;
   
   const handleButtonTrashClick = async id => {
     await dispatch(deleteReviewById(id));
@@ -91,7 +98,7 @@ const MyReviews = () => {
             <li>
               <button
                 className={
-                  currentSelector === 'asSeller'
+                  feedbackTypeParams === 'asSeller'
                     ? `${s.selectButton} ${s.active}`
                     : s.selectButton
                 }
@@ -103,7 +110,7 @@ const MyReviews = () => {
             <li>
               <button
                 className={
-                  currentSelector === 'asCustomer'
+                  feedbackTypeParams === 'asCustomer'
                     ? `${s.selectButton} ${s.active}`
                     : s.selectButton
                 }
@@ -115,7 +122,7 @@ const MyReviews = () => {
             <li>
               <button
                 className={
-                  currentSelector === 'asUser'
+                  feedbackTypeParams === 'asUser'
                     ? `${s.selectButton} ${s.active}`
                     : s.selectButton
                 }
@@ -156,7 +163,7 @@ const MyReviews = () => {
                     </ul>
                     <p className={s.productFeedback}>{feedback}</p>
                   </div>
-                  {currentSelector === 'asUser' && (
+                  {feedbackTypeParams === 'asUser' && (
                     <div className={s.buttonTrashWrapper}>
                       <RoundButton
                         btnClass={isTablet ? 'roundButton' : 'roundButtonMob'}
