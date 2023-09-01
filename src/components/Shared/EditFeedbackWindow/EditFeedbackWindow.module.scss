@@ -23,7 +23,7 @@
   height: 32px;
   right: 5px;
   top: 5px;
-  background-color: rgba(245, 245, 245, 0.455);
+  background-color: transparent;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -33,15 +33,15 @@
   @include mixins.mq(tablet) {
     width: 40px;
     height: 40px;
-    right: 10px;
-    top: 10px;
+    right: 12px;
+    top: 12px;
     font-size: 32px;
   }
   @include mixins.mq(desktop) {
     width: 44px;
     height: 44px;
-    right: 10px;
-    top: 10px;
+    right: 12px;
+    top: 12px;
   }
 }
 
@@ -63,6 +63,7 @@
   background-color: var(--main-color);
   box-shadow: 10px 10px 30px rgba(82, 85, 95, 0.4);
   overflow: auto;
+  border-radius: 30px;
   @include mixins.mq(tablet) {
     padding: 44px 60px;
     max-width: 80vw;
@@ -78,6 +79,7 @@
     font-size: 20px;
     margin-bottom: 24px;
     align-self: flex-start;
+    font-weight: 600;
     @include mixins.mq(tablet) {
         font-size: 24px;
         margin-bottom: 44px;
