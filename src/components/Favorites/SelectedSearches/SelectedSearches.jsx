@@ -267,11 +267,13 @@ const SelectedSearches = () => {
           textClass="after-title-text-warning"
         />
       )}
-      <Pagination
-        totalPages={totalUserSearchSubscriptionsPages}
-        currentPage={currentPage}
-        onPageChange={handlePageChange}
-      />
+      {totalUserSearchSubscriptionsPages > 1 && (
+        <Pagination
+          totalPages={totalUserSearchSubscriptionsPages}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
+      )}
     </>
   );
 };
