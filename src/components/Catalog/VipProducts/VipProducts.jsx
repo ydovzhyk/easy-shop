@@ -113,7 +113,7 @@ const VipProducts = () => {
   };
 
   return (
-    <div>
+    <section className={s.container}>
       <div className={s.styleButtonList}>
         {isDesktop && (
           <>
@@ -183,7 +183,7 @@ const VipProducts = () => {
           </div>
         )}
       </div>
-    </div>
+    </section>
   );
 };
 

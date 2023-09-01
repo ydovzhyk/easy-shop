@@ -105,7 +105,9 @@ const Catalog = () => {
         </button>
         <button
           className={
-            currentButton === 'advice' ? `${s.button} ${s.active}` : s.button
+            currentButton === 'advice'
+              ? `${s.button} ${s.active} ${s.buttonAdvice}`
+              : `${s.button} ${s.buttonAdvice}`
           }
           onClick={() => handleButtonClick('advice')}
         >

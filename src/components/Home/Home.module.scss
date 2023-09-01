@@ -1,27 +1,27 @@
 @use '../../styles/mixins';
 
-.home {
-  // padding-top: 30px;
-  // padding-top: 150px;
+// .home {
+//   // padding-top: 30px;
+//   // padding-top: 150px;
 
-  @include mixins.mq(tablet) {
-    // height: 100vh;
-  }
+//   @include mixins.mq(tablet) {
+//     // height: 100vh;
+//   }
 
-  @include mixins.mq(desktop) {
-    // height: auto;
-  }
-}
+//   @include mixins.mq(desktop) {
+//     // height: auto;
+//   }
+// }
 
-.imgDesktop {
-  display: none;
+// .imgDesktop {
+//   display: none;
 
-  @include mixins.mq(desktop) {
-    display: block;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 1280px;
-    z-index: -1;
-  }
-}
+//   @include mixins.mq(desktop) {
+//     display: block;
+//     position: absolute;
+//     bottom: 0;
+//     right: 0;
+//     width: 1280px;
+//     z-index: -1;
+//   }
+// }

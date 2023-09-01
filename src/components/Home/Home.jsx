@@ -8,8 +8,6 @@ import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
 import Container from 'components/Shared/Container';
 import Default from 'components/Default/Default';
 
-import s from './Home.module.scss';
-
 const Home = () => {
   const dispatch = useDispatch();
   const isMessage = useSelector(getVerifyMessage);
@@ -50,12 +48,10 @@ const Home = () => {
   }, [dispatch, navigate, siteUrl]);
 
   return (
-    <section className={s.home}>
-      <Container>
-        <Default />
-        {isMessage && <MessageWindow text={isMessage} />}
-      </Container>
-    </section>
+    <Container>
+      <Default />
+      {isMessage && <MessageWindow text={isMessage} />}
+    </Container>
   );
 };
 
