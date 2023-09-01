@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-// import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
@@ -35,13 +34,10 @@ const MyReviews = () => {
   );
     
   // const [currentSelector, setСurrentSelector] = useState('asSeller');
-  // console.log(currentSelector);
   const [isEditFeedbackWindowOpen, setIsEditFeedbackWindowOpen] = useState(false);
   const [reviewToFeedbackWindow, setReviewToFeedbackWindow] = useState({});
   const [searchParams, setSearchParams] = useSearchParams();
-  // console.log(searchParams);
   const feedbackTypeParams = searchParams.get('type');
-  // console.log(feedbackTypeParams);
 
     useEffect(() => {
       dispatch(clearReviewAndFeedback());
