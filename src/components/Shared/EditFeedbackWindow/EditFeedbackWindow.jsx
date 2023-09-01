@@ -34,7 +34,6 @@ const EditFeedbackWindow = ({ hideWindow, reviewToFeedbackWindow }) => {
       rating: reviewRating,
       feedback: data.feedback,
     };
-    console.log(feedbackData);
     await dispatch(updateFeedback(feedbackData));
     dispatch(getUserReviews({ userId }));
     updateUserFunc(dispatch);
@@ -62,9 +61,6 @@ const EditFeedbackWindow = ({ hideWindow, reviewToFeedbackWindow }) => {
           <Controller
             control={control}
             name="feedback"
-            // rules={{
-            //   required: true,
-            // }}
             render={({ field: { onChange, value } }) => (
               <textarea
                 className={s.textarea}
