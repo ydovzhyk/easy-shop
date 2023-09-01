@@ -34,7 +34,7 @@ const SellerWares = () => {
   };
 
     return (
-      <section>
+      <section className={s.waresWrapper}>
         <ul className={s.listCard}>
               {sellerProducts.map(
                 ({
