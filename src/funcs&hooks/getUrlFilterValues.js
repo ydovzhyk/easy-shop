@@ -4,7 +4,6 @@ import { filterPrices } from 'components/Filter/filterPrice';
 
 export function getUrlFilterValues(filterData) {
   let selectedFilterValues = {};
-  console.log(filterData);
 
   Object.entries(filterData).forEach(([key, value]) => {
     if (key === 'size' && value !== '[]') {

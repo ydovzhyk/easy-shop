@@ -137,7 +137,6 @@ const Filter = ({ onChange }) => {
           selectedIndexConditionsArray.forEach(el => {
             selectedConditions.push(filterConditions[Number(el)]);
           });
-
           setValue('filterCondition', selectedConditions);
         }
       }
