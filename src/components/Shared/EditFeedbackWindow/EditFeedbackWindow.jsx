@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import {  getUserReviews } from 'redux/review/review-operations';
+import { getUserReviews, updateFeedback } from 'redux/review/review-operations';
 import { getID } from 'redux/auth/auth-selectors';
 import { updateUserFunc } from 'funcs&hooks/updateUser';
 
@@ -30,12 +30,12 @@ const EditFeedbackWindow = ({ hideWindow, reviewToFeedbackWindow }) => {
   const onSubmit = async (data, e) => {
     e.preventDefault();
     const feedbackData = {
-      id,
+      reviewId: id,
       rating: reviewRating,
       feedback: data.feedback,
     };
     console.log(feedbackData);
-    // await dispatch(editReview(feedbackData));
+    await dispatch(updateFeedback(feedbackData));
     dispatch(getUserReviews({ userId }));
     updateUserFunc(dispatch);
     reset();
@@ -58,7 +58,7 @@ const EditFeedbackWindow = ({ hideWindow, reviewToFeedbackWindow }) => {
             />
             <p className={s.ratingNumber}>{calculatedRating}</p>
           </div>
-          <p className={s.feedbackTitle}>Напишіть свій відгук:</p>
+          <p className={s.feedbackTitle}>Редагуйте свій відгук:</p>
           <Controller
             control={control}
             name="feedback"
