@@ -148,9 +148,7 @@ const Dialogue = ({ productInfo }) => {
 
   useEffect(() => {
     const checkIsNewMessageCurrentUser = data => {
-      console.log(data);
       const result = data.some(item => item.userReceiver === user._id);
-      console.log(result);
       return result;
     };
     if (dialogueStore.length === 0) {
