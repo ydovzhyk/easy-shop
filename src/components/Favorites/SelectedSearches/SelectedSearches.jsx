@@ -32,77 +32,80 @@ const SelectedSearches = () => {
     selectTotalUserSearchSubscriptionsPages
   );
 
-  // userSearchSubscriptions.map(el => {
-  //   let category = 'Каталог';
-  //   let subCategory;
-  //   const searchParamsToRender = [];
-  //   if (
-  //     el.includes('/product/women/') ||
-  //     el.includes('/product/men/') ||
-  //     el.includes('/product/children/') ||
-  //     el.includes('/product/beauty&health/')
-  //   ) {
-  //     const { categoryName, subCategoryName } = translateParamsToUA(
-  //       el.split('/')[2],
-  //       el.split('/')[3]
-  //     );
-  //     category = categoryName;
-  //     subCategory = subCategoryName;
-  //   }
-  //   const searchParams = el
-  //     .split('?')
-  //     .slice(1)
-  //     .join('')
-  //     .split('&')
-  //     .map(el => el.split('='));
-  //   searchParams.forEach(([key, value]) => {
-  //     if (key === 'search') {
-  //       searchParamsToRender.push(['Пошуковий запит', value]);
-  //     }
+  const handleParseUserSearchSubscriptionUrl = url => {
+    let category = 'Каталог';
+    let subCategory;
+    const searchParamsToRender = [];
+    if (
+      url.includes('/product/women/') ||
+      url.includes('/product/men/') ||
+      url.includes('/product/children/') ||
+      url.includes('/product/beauty&health/')
+    ) {
+      const { categoryName, subCategoryName } = translateParamsToUA(
+        url.split('/')[2],
+        url.split('/')[3]
+      );
+      category = categoryName;
+      subCategory = subCategoryName;
+    }
+    const searchParams = url
+      .split('?')
+      .slice(1)
+      .join('')
+      .split('&')
+      .map(el => el.split('='));
+    searchParams.forEach(([key, value]) => {
+      if (key === 'search') {
+        searchParamsToRender.push(['Пошуковий запит', value]);
+      }
 
-  //     if (key === 'size') {
-  //       const selectedSizesArray = [];
-  //       const selectedIndexSizesArray = value.split('_');
+      if (key === 'size') {
+        const selectedIndexSizesArray = value.split('_');
+        let allSelectedValues = [];
+        for (let [key, value] of Object.entries(sizeOption)) {
+          for (let i = 0; i < selectedIndexSizesArray.length; i += 1) {
+            if (selectedIndexSizesArray[i] === key) {
+              allSelectedValues.push(
+                `EU: ${value[0].EU}/UA:${value[1].UA}/IN:${value[2].IN}`
+              );
+            }
+          }
+        }
+        searchParamsToRender.push(['Розмір', allSelectedValues.join(', ')]);
+      }
 
-  //       for (let [key, value] of Object.entries(sizeOption)) {
-  //         for (let i = 0; i < selectedIndexSizesArray.length; i += 1) {
-  //           if (selectedIndexSizesArray[i] === key) {
-  //             selectedSizesArray.push([{ name: key, value: value }]);
-  //           }
-  //         }
-  //         searchParamsToRender.push(['Розмір', selectedSizesArray]);
-  //       }
-  //     }
+      if (key === 'price') {
+        const selectedFilterPrice = filterPrices.find(
+          (url, index) => Number(value) === index
+        );
 
-  //     if (key === 'price') {
-  //       const selectedFilterPrice = filterPrices.find(
-  //         (el, index) => Number(value) === index
-  //       );
+        searchParamsToRender.push(['Ціна', selectedFilterPrice]);
+      }
 
-  //       searchParamsToRender.push(['Ціна', selectedFilterPrice]);
-  //     }
+      if (key === 'price_from') {
+        searchParamsToRender.push(['Ціна від', `${value}${' грн'}`]);
+      }
 
-  //     if (key === 'price_from') {
-  //       searchParamsToRender.push(['Ціна - до', value]);
-  //     }
+      if (key === 'price_to') {
+        searchParamsToRender.push(['Ціна до', `${value}${' грн'}`]);
+      }
 
-  //     if (key === 'price_to') {
-  //       searchParamsToRender.push(['Ціна - від ', value]);
-  //     }
+      if (key === 'condition') {
+        let selectedConditions = [];
+        const selectedIndexConditionsArray = value.split('_');
+        selectedIndexConditionsArray.forEach(el => {
+          selectedConditions.push(filterConditions[Number(el)]);
+        });
+        searchParamsToRender.push(['Стан', selectedConditions.join(', ')]);
+      }
+      if (key === 'brand') {
+        searchParamsToRender.push(['Бренд', value]);
+      }
+    });
 
-  //     if (key === 'condition') {
-  //       let selectedConditions = [];
-  //       const selectedIndexConditionsArray = value.split('_');
-  //       selectedIndexConditionsArray.forEach(el => {
-  //         selectedConditions.push(filterConditions[Number(el)]);
-  //       });
-  //       searchParamsToRender.push(['Стан', selectedConditions.join(', ')]);
-  //     }
-  //     if (key === 'brand') {
-  //       searchParamsToRender.push(['Бренд', value]);
-  //     }
-  //   });
-  // });
+    return [category, subCategory, searchParamsToRender];
+  };
 
   const handleDeleteUserSearchSubscription = url => {
     dispatch(
@@ -114,110 +117,14 @@ const SelectedSearches = () => {
     setCurrentPage(page);
     scrollToTop();
   };
+
   return (
     <>
       <ul className={s.listCard}>
         {userSearchSubscriptions.length > 0 &&
           userSearchSubscriptions.map((el, index) => {
-            let category = 'Каталог';
-            let subCategory;
-            const searchParamsToRender = [];
-            if (
-              el.includes('/product/women/') ||
-              el.includes('/product/men/') ||
-              el.includes('/product/children/') ||
-              el.includes('/product/beauty&health/')
-            ) {
-              const { categoryName, subCategoryName } = translateParamsToUA(
-                el.split('/')[2],
-                el.split('/')[3]
-              );
-              category = categoryName;
-              subCategory = subCategoryName;
-            }
-            const searchParams = el
-              .split('?')
-              .slice(1)
-              .join('')
-              .split('&')
-              .map(el => el.split('='));
-            searchParams.forEach(([key, value]) => {
-              if (key === 'search') {
-                searchParamsToRender.push(['Пошуковий запит', value]);
-              }
-
-              if (key === 'size') {
-                const selectedIndexSizesArray = value.split('_');
-
-                for (let [key, value] of Object.entries(sizeOption)) {
-                  for (let i = 0; i < selectedIndexSizesArray.length; i += 1) {
-                    if (selectedIndexSizesArray[i] === key) {
-                      console.log(searchParamsToRender);
-
-                      const indexOfSizeValues = searchParamsToRender.findIndex(
-                        el => el[0] === 'Розмір'
-                      );
-                      console.log(indexOfSizeValues);
-                      if (indexOfSizeValues >= 0) {
-                        // console.log(
-                        //   searchParamsToRender[indexOfSizeValues][1] +
-                        //     `, EU: ${value[0].EU}/UA:${value[1].UA}/IN:${value[2].IN}`
-                        // );
-                        searchParamsToRender[indexOfSizeValues][1].replace(
-                          searchParamsToRender[indexOfSizeValues][1],
-                          searchParamsToRender[indexOfSizeValues][1] +
-                            `EU: ${value[0].EU}/UA:${value[1].UA}/IN:${value[2].IN}`
-                        );
-
-                        // `EU: ${value[0].EU}/UA:${value[1].UA}/IN:${value[2].IN}`;
-                      } else {
-                        searchParamsToRender.push([
-                          'Розмір',
-                          `EU: ${value[0].EU}/UA:${value[1].UA}/IN:${value[2].IN}`,
-                        ]);
-                      }
-                    }
-                  }
-                }
-              }
-
-              if (key === 'price') {
-                const selectedFilterPrice = filterPrices.find(
-                  (el, index) => Number(value) === index
-                );
-
-                searchParamsToRender.push(['Ціна', selectedFilterPrice]);
-              }
-
-              if (key === 'price_from') {
-                searchParamsToRender.push([
-                  'Ціна',
-                  `${'від '}${value}${' грн'}`,
-                ]);
-              }
-
-              if (key === 'price_to') {
-                searchParamsToRender.push([
-                  'Ціна',
-                  `${'до '}${value}${' грн'}`,
-                ]);
-              }
-
-              if (key === 'condition') {
-                let selectedConditions = [];
-                const selectedIndexConditionsArray = value.split('_');
-                selectedIndexConditionsArray.forEach(el => {
-                  selectedConditions.push(filterConditions[Number(el)]);
-                });
-                searchParamsToRender.push([
-                  'Стан',
-                  selectedConditions.join(', '),
-                ]);
-              }
-              if (key === 'brand') {
-                searchParamsToRender.push(['Бренд', value]);
-              }
-            });
+            const [category, subCategory, searchParamsToRender] =
+              handleParseUserSearchSubscriptionUrl(el);
             return (
               <li className={s.itemCard} key={index}>
                 <div className={s.userframe}>
