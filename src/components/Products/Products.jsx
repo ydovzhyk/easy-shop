@@ -195,11 +195,33 @@ const Products = () => {
             </button>
           )}
         </div>
-        {productsToRender.length > 0 && (
-          <>
-            <div className={getClassName()}>
-              <div className={s.topBtnBox}>
-                {isUserLogin && (
+        <div style={{ position: 'relative' }}>
+          {isUserLogin && (
+            <button
+              type="button"
+              className={
+                isSubscribedSearch()
+                  ? `${s.btnDarkSubscribe}`
+                  : `${s.btnLightSubscribe}`
+              }
+              onClick={handleSubscribtionClick}
+            >
+              <Text
+                textClass="searchQueryContent"
+                text={isSubscribedSearch() ? 'Ви підписані' : 'Підписатися'}
+              />
+              {isSubscribedSearch() ? (
+                <HiStar size={isMobile ? 18 : 22} />
+              ) : (
+                <HiOutlineStar size={isMobile ? 18 : 22} />
+              )}
+            </button>
+          )}
+          {productsToRender.length > 0 && (
+            <>
+              <div className={getClassName()}>
+                <div className={s.topBtnBox}>
+                  {/* {isUserLogin && (
                   <button
                     type="button"
                     className={
@@ -221,78 +243,79 @@ const Products = () => {
                       <HiOutlineStar size={isMobile ? 18 : 22} />
                     )}
                   </button>
-                )}
-                {isMobile && (
-                  <button
-                    type="button"
-                    className={s.btnLightSubscribe}
-                    onClick={handleShowFilterClick}
-                  >
-                    <Text textClass="searchQueryContent" text="Фільтри" />
-                    <BsFilter size={18} />
-                  </button>
-                )}
+                )} */}
+                  {isMobile && (
+                    <button
+                      type="button"
+                      className={s.btnLightSubscribe}
+                      onClick={handleShowFilterClick}
+                    >
+                      <Text textClass="searchQueryContent" text="Фільтри" />
+                      <BsFilter size={18} />
+                    </button>
+                  )}
+                </div>
+                <Controller
+                  control={control}
+                  name="filterSection"
+                  render={({ field: { value } }) => (
+                    <SelectField
+                      value={value}
+                      className={'filterSection'}
+                      handleChange={value => handleChangeFilter(value.value)}
+                      options={options}
+                      defaultValue={
+                        filterSelected === ''
+                          ? { value: 'популярні', label: 'Популярні' }
+                          : {
+                              value: filterSelected,
+                              label:
+                                filterSelected[0].toUpperCase() +
+                                filterSelected.slice(1),
+                            }
+                      }
+                      name="filterSection"
+                    />
+                  )}
+                />
               </div>
-              <Controller
-                control={control}
-                name="filterSection"
-                render={({ field: { value } }) => (
-                  <SelectField
-                    value={value}
-                    className={'filterSection'}
-                    handleChange={value => handleChangeFilter(value.value)}
-                    options={options}
-                    defaultValue={
-                      filterSelected === ''
-                        ? { value: 'популярні', label: 'Популярні' }
-                        : {
-                            value: filterSelected,
-                            label:
-                              filterSelected[0].toUpperCase() +
-                              filterSelected.slice(1),
-                          }
-                    }
-                    name="filterSection"
-                  />
-                )}
-              />
-            </div>
 
-            <ul className={s.listCard}>
-              {productsToRender.map(
-                ({
-                  _id,
-                  mainPhotoUrl,
-                  price,
-                  nameProduct,
-                  description,
-                  section,
-                  category,
-                  size,
-                }) => (
-                  <ProductItem
-                    key={_id}
-                    _id={_id}
-                    mainPhotoUrl={mainPhotoUrl}
-                    section={section}
-                    category={category}
-                    description={description}
-                    price={price}
-                    nameProduct={nameProduct}
-                    size={size}
-                  />
-                )
+              <ul className={s.listCard}>
+                {productsToRender.map(
+                  ({
+                    _id,
+                    mainPhotoUrl,
+                    price,
+                    nameProduct,
+                    description,
+                    section,
+                    category,
+                    size,
+                  }) => (
+                    <ProductItem
+                      key={_id}
+                      _id={_id}
+                      mainPhotoUrl={mainPhotoUrl}
+                      section={section}
+                      category={category}
+                      description={description}
+                      price={price}
+                      nameProduct={nameProduct}
+                      size={size}
+                    />
+                  )
+                )}
+              </ul>
+              {totalPages > 1 && (
+                <Pagination
+                  totalPages={totalPages}
+                  currentPage={currentPage}
+                  onPageChange={handlePageChange}
+                />
               )}
-            </ul>
-            {totalPages > 1 && (
-              <Pagination
-                totalPages={totalPages}
-                currentPage={currentPage}
-                onPageChange={handlePageChange}
-              />
-            )}
-          </>
-        )}
+            </>
+          )}
+        </div>
         {!isLoading &&
           productsToRender.length === 0 &&
           products.length === 0 &&

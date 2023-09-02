@@ -113,8 +113,14 @@
 }
 
 .label.filterSection {
+  min-width: 196px;
+  max-width: 240px;
   margin: 0;
-  text-align: left;
+  @include mixins.mq(tablet) {
+    position: absolute;
+    top: -50px;
+    right: 0;
+  }
 }
 
 .label.addOrder {

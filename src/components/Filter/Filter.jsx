@@ -49,6 +49,7 @@ const Filter = ({ onChange }) => {
     register,
     resetField,
     setValue,
+    getFieldState,
     reset,
     watch,
     formState: { errors, dirtyFields, isDirty, isSubmitting },
