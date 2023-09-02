@@ -64,12 +64,13 @@ const Products = () => {
   const viewPort = useScreenResizing();
   const isMobile = viewPort.width < 768;
 
-  useEffect(() => {
-    if (currentPage === 1) {
-      searchParams.delete('page');
-      setSearchParams(searchParams);
-    }
-  }, [currentPage, searchParams, setSearchParams]);
+  // useEffect(() => {
+
+  //   if (currentPage === 1) {
+  //     searchParams.delete('page');
+  //     setSearchParams(searchParams);
+  //   }
+  // }, [page, currentPage, searchParams, setSearchParams]);
 
   useEffect(() => {
     setIsMessage(message);
