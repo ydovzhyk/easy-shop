@@ -65,6 +65,13 @@ const Products = () => {
   const isMobile = viewPort.width < 768;
 
   useEffect(() => {
+    if (currentPage === 1) {
+      searchParams.delete('page');
+      setSearchParams(searchParams);
+    }
+  }, [currentPage, searchParams, setSearchParams]);
+
+  useEffect(() => {
     setIsMessage(message);
   }, [message]);
 
