@@ -235,7 +235,7 @@
   opacity: 0;
   transition: opacity var(--transition-duration) var(--timing-function),
     background-color var(--transition-duration) var(--timing-function),
-    border-color var(--transition-duration) var(--timing-function);
+    box-shadow var(--transition-duration) var(--timing-function);
 
   .radioContent:hover &,
   .radioContent:focus & {
@@ -248,11 +248,6 @@
     opacity: 1;
 
     color: #000000;
-  }
-
-  .input_check:focus + .labelCheckBox .iconWrapper & {
-    border: 1px solid var(--btn-border-color);
-    opacity: 1;
   }
 }
 

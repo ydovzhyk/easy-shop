@@ -221,29 +221,6 @@ const Products = () => {
             <>
               <div className={getClassName()}>
                 <div className={s.topBtnBox}>
-                  {/* {isUserLogin && (
-                  <button
-                    type="button"
-                    className={
-                      isSubscribedSearch()
-                        ? `${s.btnDarkSubscribe}`
-                        : `${s.btnLightSubscribe}`
-                    }
-                    onClick={handleSubscribtionClick}
-                  >
-                    <Text
-                      textClass="searchQueryContent"
-                      text={
-                        isSubscribedSearch() ? 'Ви підписані' : 'Підписатися'
-                      }
-                    />
-                    {isSubscribedSearch() ? (
-                      <HiStar size={isMobile ? 18 : 22} />
-                    ) : (
-                      <HiOutlineStar size={isMobile ? 18 : 22} />
-                    )}
-                  </button>
-                )} */}
                   {isMobile && (
                     <button
                       type="button"
