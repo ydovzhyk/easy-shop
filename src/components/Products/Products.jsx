@@ -50,6 +50,7 @@ const Products = () => {
   const { category, subcategory } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const { pathname, search } = useLocation();
+  const sort = searchParams.get('sort') ?? '';
   // const page = searchParams.get('page');
 
   const products = useSelector(getProductsByQuery);
@@ -62,6 +63,14 @@ const Products = () => {
 
   const viewPort = useScreenResizing();
   const isMobile = viewPort.width < 768;
+
+  // useEffect(() => {
+
+  //   if (currentPage === 1) {
+  //     searchParams.delete('page');
+  //     setSearchParams(searchParams);
+  //   }
+  // }, [page, currentPage, searchParams, setSearchParams]);
 
   useEffect(() => {
     setIsMessage(message);
@@ -81,17 +90,36 @@ const Products = () => {
     await setFilterSelected(filterSelected);
   };
 
+  useEffect(() => {
+    if (sort === '') {
+      return;
+    }
+    setFilterSelected(options[Number(sort)]);
+  }, [sort]);
+
   const productsToRender = useMemo(() => {
     let productsState = [...products];
+    const selectedSortIndex = options.findIndex(el => el === filterSelected);
 
     switch (filterSelected) {
+      case 'Популярні':
+        searchParams.delete('sort');
+        setSearchParams(searchParams);
+        return productsState;
+
       case 'Від найдешевших':
+        searchParams.set('sort', selectedSortIndex);
+        setSearchParams(searchParams);
         return productsState.slice(0).sort((a, b) => a.price - b.price);
 
       case 'Від найдорожчих':
+        searchParams.set('sort', '2');
+        setSearchParams(searchParams);
         return productsState.slice(0).sort((a, b) => b.price - a.price);
 
       case 'За датою':
+        searchParams.set('sort', '3');
+        setSearchParams(searchParams);
         return productsState
           .slice(0)
           .sort((a, b) => -a.date.localeCompare(b.date));
@@ -99,7 +127,7 @@ const Products = () => {
       default:
         return productsState;
     }
-  }, [products, filterSelected]);
+  }, [products, filterSelected, searchParams, setSearchParams]);
 
   const searchQuery =
     JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '';
@@ -175,100 +203,104 @@ const Products = () => {
             </button>
           )}
         </div>
-        {productsToRender.length > 0 && (
-          <>
-            <div className={getClassName()}>
-              <div className={s.topBtnBox}>
-                {isUserLogin && (
-                  <button
-                    type="button"
-                    className={s.btnLightSubscribe}
-                    onClick={handleSubscribtionClick}
-                  >
-                    <Text
-                      textClass="searchQueryContent"
-                      text={
-                        isSubscribedSearch() ? 'Ви підписані' : 'Підписатися'
-                      }
-                    />
-                    {isSubscribedSearch() ? (
-                      <HiStar size={isMobile ? 18 : 22} />
-                    ) : (
-                      <HiOutlineStar size={isMobile ? 18 : 22} />
-                    )}
-                  </button>
-                )}
-                {isMobile && (
-                  <button
-                    type="button"
-                    className={s.btnDark}
-                    onClick={handleShowFilterClick}
-                  >
-                    <Text textClass="searchQueryContent" text="Фільтри" />
-                    <BsFilter size={18} />
-                  </button>
-                )}
-              </div>
-              <Controller
-                control={control}
-                name="filterSection"
-                render={({ field: { value } }) => (
-                  <SelectField
-                    value={value}
-                    className={'filterSection'}
-                    handleChange={value => handleChangeFilter(value.value)}
-                    options={options}
-                    defaultValue={
-                      filterSelected === ''
-                        ? { value: 'популярні', label: 'Популярні' }
-                        : {
-                            value: filterSelected,
-                            label:
-                              filterSelected[0].toUpperCase() +
-                              filterSelected.slice(1),
-                          }
-                    }
-                    name="filterSection"
-                  />
-                )}
+        <div style={{ position: 'relative' }}>
+          {isUserLogin && (
+            <button
+              type="button"
+              className={
+                isSubscribedSearch()
+                  ? `${s.btnDarkSubscribe}`
+                  : `${s.btnLightSubscribe}`
+              }
+              onClick={handleSubscribtionClick}
+            >
+              <Text
+                textClass="searchQueryContent"
+                text={isSubscribedSearch() ? 'Ви підписані' : 'Підписатися'}
               />
-            </div>
-
-            <ul className={s.listCard}>
-              {productsToRender.map(
-                ({
-                  _id,
-                  mainPhotoUrl,
-                  price,
-                  nameProduct,
-                  description,
-                  section,
-                  category,
-                  size,
-                }) => (
-                  <ProductItem
-                    key={_id}
-                    _id={_id}
-                    mainPhotoUrl={mainPhotoUrl}
-                    section={section}
-                    category={category}
-                    description={description}
-                    price={price}
-                    nameProduct={nameProduct}
-                    size={size}
-                  />
-                )
+              {isSubscribedSearch() ? (
+                <HiStar size={isMobile ? 18 : 22} />
+              ) : (
+                <HiOutlineStar size={isMobile ? 18 : 22} />
               )}
-            </ul>
-            {totalPages > 1 && (
-              <Pagination
-                totalPages={totalPages}
-                currentPage={currentPage}
-                onPageChange={handlePageChange}
-              />
-            )}
-          </>
-        )}
+            </button>
+          )}
+          {productsToRender.length > 0 && (
+            <>
+              <div className={getClassName()}>
+                <div className={s.topBtnBox}>
+                  {isMobile && (
+                    <button
+                      type="button"
+                      className={s.btnLightSubscribe}
+                      onClick={handleShowFilterClick}
+                    >
+                      <Text textClass="searchQueryContent" text="Фільтри" />
+                      <BsFilter size={18} />
+                    </button>
+                  )}
+                </div>
+                <Controller
+                  control={control}
+                  name="filterSection"
+                  render={({ field: { value } }) => (
+                    <SelectField
+                      value={value}
+                      className={'filterSection'}
+                      handleChange={value => handleChangeFilter(value.value)}
+                      options={options}
+                      defaultValue={
+                        filterSelected === ''
+                          ? { value: 'популярні', label: 'Популярні' }
+                          : {
+                              value: filterSelected,
+                              label:
+                                filterSelected[0].toUpperCase() +
+                                filterSelected.slice(1),
+                            }
+                      }
+                      name="filterSection"
+                    />
+                  )}
+                />
+              </div>
+
+              <ul className={s.listCard}>
+                {productsToRender.map(
+                  ({
+                    _id,
+                    mainPhotoUrl,
+                    price,
+                    nameProduct,
+                    description,
+                    section,
+                    category,
+                    size,
+                  }) => (
+                    <ProductItem
+                      key={_id}
+                      _id={_id}
+                      mainPhotoUrl={mainPhotoUrl}
+                      section={section}
+                      category={category}
+                      description={description}
+                      price={price}
+                      nameProduct={nameProduct}
+                      size={size}
+                    />
+                  )
+                )}
+              </ul>
+              {totalPages > 1 && (
+                <Pagination
+                  totalPages={totalPages}
+                  currentPage={currentPage}
+                  onPageChange={handlePageChange}
+                />
+              )}
+            </>
+          )}
+        </div>
         {!isLoading &&
           productsToRender.length === 0 &&
           products.length === 0 &&

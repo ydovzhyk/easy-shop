@@ -1,6 +1,7 @@
 @use '../../../styles/mixins';
 
 .listCard {
+  line-height: 1.32;
   margin-bottom: 20px;
 
   @include mixins.mq(tablet) {
@@ -10,18 +11,18 @@
   }
 
   @include mixins.mq(desktop) {
-    display: grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-gap: 8px;
 
     margin-bottom: 70px;
   }
 }
 
 .itemCard {
+  max-width: 250px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   row-gap: 15px;
   // border: 2px solid yellow;
   margin-bottom: 25px;
@@ -54,14 +55,17 @@
   color: var(--text-color);
 }
 
-.infowrapper {
-  // display: flex;
-  margin-bottom: 16px;
+.botomInfoWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .text {
   font-size: 14px;
   color: var(--text-color);
+  word-break: break-all;
 
   margin-bottom: 16px;
   margin-top: 5px;
@@ -74,5 +78,5 @@
 }
 
 .buttonWrapper {
-  margin: 0 auto;
+  margin-bottom: 12px;
 }

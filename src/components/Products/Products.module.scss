@@ -66,9 +66,9 @@
 }
 
 .bottomOptionsWrapper {
+  position: relative;
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
   flex-direction: column;
   @include mixins.mq(tablet) {
     flex-direction: row;
@@ -77,6 +77,7 @@
 }
 
 .selectWrapper {
+  position: relative;
   text-align: left;
   @include mixins.mq(tablet) {
     text-align: right;
@@ -125,7 +126,7 @@
   }
 }
 
-.btnDark {
+.btnDarkSubscribe {
   @extend .btnLightSubscribe;
   background-color: var(--background-btn-second-color);
   color: var(--second-text-color);

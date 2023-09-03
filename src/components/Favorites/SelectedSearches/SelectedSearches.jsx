@@ -57,7 +57,10 @@ const SelectedSearches = () => {
       .map(el => el.split('='));
     searchParams.forEach(([key, value]) => {
       if (key === 'search') {
-        searchParamsToRender.push(['Пошуковий запит', value]);
+        searchParamsToRender.push([
+          'Пошуковий запит',
+          decodeURIComponent(value),
+        ]);
       }
 
       if (key === 'size') {
@@ -131,7 +134,7 @@ const SelectedSearches = () => {
                   <div className={s.profilebox}>
                     <h5 className={s.username}>{category}</h5>
                   </div>
-                  <div className={s.infowrapper}>
+                  <div>
                     <p className={s.text}>
                       <span className={s.textStyle}>Категорія: </span>
                       {category}
@@ -150,6 +153,8 @@ const SelectedSearches = () => {
                         );
                       })}
                   </div>
+                </div>
+                <div className={s.botomInfoWrapper}>
                   <div className={s.buttonWrapper}>
                     <Button
                       btnClass="btnLight"
@@ -157,12 +162,12 @@ const SelectedSearches = () => {
                       handleClick={() => navigate(`${el}`)}
                     />
                   </div>
+                  <RoundButton
+                    icon={BsTrash}
+                    handleClick={handleDeleteUserSearchSubscription}
+                    id={el}
+                  />
                 </div>
-                <RoundButton
-                  icon={BsTrash}
-                  handleClick={handleDeleteUserSearchSubscription}
-                  id={el}
-                />
               </li>
             );
           })}

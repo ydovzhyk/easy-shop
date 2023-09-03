@@ -15,7 +15,6 @@
     font-size: 20px;
   }
   @include mixins.mq(tablet) {
-    margin-bottom: 5px;
     font-size: 26px;
   }
 }
@@ -29,10 +28,10 @@
   display: flex;
   align-items: center;
   margin-bottom: 10px;
-  @include mixins.mq(mobile) {
+  @include mixins.mq(tablet) {
     margin-bottom: 10px;
   }
-  @include mixins.mq(tablet) {
+  @include mixins.mq(desktop) {
     margin-bottom: 15px;
   }
 }
@@ -63,7 +62,11 @@
     font-size: 18px;
   }
   @include mixins.mq(tablet) {
-    font-size: 20px;
+    font-size: 18px;
+    margin-bottom: 3px;
+  }
+  @include mixins.mq(desktop) {
+    margin-bottom: 10px;
   }
 }
 

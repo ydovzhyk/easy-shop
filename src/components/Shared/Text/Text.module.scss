@@ -275,10 +275,10 @@
 
 .searchQueryContent {
   margin-right: 8px;
-  // font-size: 14px;
-  // @include mixins.mq(mobile) {
-  //   font-size: 18px;
-  // }
+}
+
+.searchQueryContentDisabled {
+  margin-right: 8px;
 }
 
 .errorMessageHeaderForm {
