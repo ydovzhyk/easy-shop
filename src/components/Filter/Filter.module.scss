@@ -121,6 +121,10 @@
 
 .input_check {
   margin-right: 10px;
+  &:focus {
+    outline: none;
+    border: none;
+  }
 }
 
 .filterInputBox {

@@ -27,7 +27,7 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
 
   return (
     <div className={s.paginationSection}>
-      <button 
+      <button
         className={`${s.btnLeft} ${s.pageBox}`}
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
