@@ -7,13 +7,13 @@ import {
   getAllOrders,
   deleteOrderById,
   getUserOrders,
-  getUserSales
+  getUserSales,
 } from './order-operations';
 
 const initialState = {
   message: '',
   loading: false,
-  error: null,
+  error: '',
   allOrders: [],
   orderInCheckout: {
     order: {},
@@ -45,6 +45,25 @@ const orders = createSlice({
     },
     clearOrderInCheckout: store => {
       store.orderInCheckout = [];
+    },
+    clearOrderState: store => {
+      store.message = '';
+      store.error = '';
+      store.allOrders = [];
+      store.orderInCheckout = {
+        order: {},
+        orderProductInfo: [],
+      };
+      store.orderById = {
+        order: {},
+        orderProductInfo: [],
+      };
+      store.userOrders = {
+        orders: [],
+        totalPages: null,
+        totalUserOrders: null,
+      };
+      store.userSales = { sales: [], totalPages: null, totalUserSales: null };
     },
   },
   extraReducers: {
@@ -150,5 +169,10 @@ const orders = createSlice({
 
 export default orders.reducer;
 
-export const { clearOrderMessage, clearOrderError, clearOrders, clearOrderById } =
-  orders.actions;
+export const {
+  clearOrderMessage,
+  clearOrderError,
+  clearOrders,
+  clearOrderById,
+  clearOrderState,
+} = orders.actions;

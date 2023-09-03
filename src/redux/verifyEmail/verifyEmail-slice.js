@@ -23,7 +23,12 @@ const verifyEmailSlice = createSlice({
       store.error = '';
     },
     clearVerifyMessage: store => {
-      store.message = null;
+      store.message = '';
+    },
+    clearVerifyState: store => {
+      store.message = '';
+      store.error = '';
+      store.email = null;
     },
   },
 
@@ -51,4 +56,5 @@ export const {
   verifyConfirmation,
   clearVerifyMessage,
   clearVerifyError,
+  clearVerifyState,
 } = verifyEmailSlice.actions;

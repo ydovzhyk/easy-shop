@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BsTrash } from 'react-icons/bs';
 
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +8,7 @@ import { updateSearchUserSibscribes } from 'redux/auth/auth-operations';
 import {
   selectUserSearchSubscriptions,
   selectTotalUserSearchSubscriptionsPages,
+  getUserMessage,
 } from 'redux/auth/auth-selectors';
 
 import Pagination from 'components/Shared/Pagination/Pagination';
@@ -19,6 +20,7 @@ import { scrollToTop } from 'funcs&hooks/scrollToTop';
 import sizeOption from 'components/AddProduct/Size/sizeTable.json';
 import { filterPrices } from '../../Filter/filterPrice';
 import { filterConditions } from '../../Filter/filterСonditions';
+import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
 
 import s from 'components/Favorites/SelectedSearches/SelectedSearches.module.scss';
 
@@ -31,6 +33,14 @@ const SelectedSearches = () => {
   const totalUserSearchSubscriptionsPages = useSelector(
     selectTotalUserSearchSubscriptionsPages
   );
+  const message = useSelector(getUserMessage);
+  const [questionWindow, setQuestionWindow] = useState(false);
+  const [userSubscriptionUrl, setUserSubscriptionUrl] = useState(null);
+  const [isMessage, setIsMessage] = useState('');
+
+  useEffect(() => {
+    setIsMessage(message);
+  }, [message]);
 
   const handleParseUserSearchSubscriptionUrl = url => {
     let category = 'Каталог';
@@ -110,15 +120,34 @@ const SelectedSearches = () => {
     return [category, subCategory, searchParamsToRender];
   };
 
-  const handleDeleteUserSearchSubscription = url => {
-    dispatch(
-      updateSearchUserSibscribes({ urlSubscription: url, statusDelete: true })
-    );
-  };
-
   const handlePageChange = page => {
     setCurrentPage(page);
     scrollToTop();
+  };
+
+  // for delete subscriptions
+  const handleDeleteUserSearchSubscription = url => {
+    setUserSubscriptionUrl(url);
+    setQuestionWindow(true);
+  };
+
+  const deleteSubscriptions = async choice => {
+    if (choice === 'yes') {
+      await dispatch(
+        updateSearchUserSibscribes({
+          urlSubscription: userSubscriptionUrl,
+          statusDelete: true,
+        })
+      );
+      setQuestionWindow(false);
+    } else if (choice === 'no') {
+      setUserSubscriptionUrl(null);
+      setQuestionWindow(false);
+    }
+  };
+
+  const resetMessage = () => {
+    setIsMessage('');
   };
 
   return (
@@ -185,6 +214,16 @@ const SelectedSearches = () => {
           currentPage={currentPage}
           onPageChange={handlePageChange}
         />
+      )}
+      {questionWindow && (
+        <MessageWindow
+          text={`"Ви впевнені, що хочете видалити підписку?"`}
+          confirmButtons={true}
+          onConfirm={deleteSubscriptions}
+        />
+      )}
+      {isMessage && (
+        <MessageWindow text={`${message}`} onDismiss={resetMessage} />
       )}
     </>
   );

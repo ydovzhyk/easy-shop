@@ -68,6 +68,15 @@ const dialogue = createSlice({
     updateStatusDialogueList: (store, action) => {
       store.statusDialogueList = action.payload;
     },
+    clearDialogueState: store => {
+      store.error = '';
+      store.message = '';
+      store.dialogueStore = [];
+      store.dialoguesArray = [];
+      store.dialoguesArrayNew = [];
+      store.isNewMessage = false;
+      store.statusDialogueList = true;
+    },
   },
 
   extraReducers: {
@@ -153,4 +162,5 @@ export const {
   updateDialoguesArray,
   updateDialogueStore,
   updateStatusDialogueList,
+  clearDialogueState,
 } = dialogue.actions;
