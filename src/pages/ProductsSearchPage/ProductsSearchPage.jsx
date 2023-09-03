@@ -123,6 +123,11 @@ const ProductsSearchPage = () => {
       setSearchParams(searchParams);
     }
 
+    if (currentPage === 1) {
+      searchParams.delete('page');
+      setSearchParams(searchParams);
+    }
+
     dispatch(
       searchProducts({
         payloadData: payload,
