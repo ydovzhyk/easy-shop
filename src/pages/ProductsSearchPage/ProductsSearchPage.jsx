@@ -15,13 +15,12 @@ import {
 
 import Filter from 'components/Filter/Filter';
 import Container from 'components/Shared/Container/Container';
-import { getUrlFilterValues } from '../../funcs&hooks/getUrlFilterValues.js';
-import { translateParamsToUA } from '../../funcs&hooks/translateParamsToUA.js';
-import useScreenResizing from '../../funcs&hooks/useScreenResizing';
-
 import { filterPrices } from 'components/Filter/filterPrice';
 import { filterConditions } from 'components/Filter/filterСonditions';
 import sizeOption from 'components/AddProduct/Size/sizeTable.json';
+import { getUrlFilterValues } from '../../funcs&hooks/getUrlFilterValues.js';
+import { translateParamsToUA } from '../../funcs&hooks/translateParamsToUA.js';
+import useScreenResizing from '../../funcs&hooks/useScreenResizing';
 
 import s from './ProductsSearchPage.module.scss';
 
