@@ -80,7 +80,7 @@ const SelectedSearches = () => {
           for (let i = 0; i < selectedIndexSizesArray.length; i += 1) {
             if (selectedIndexSizesArray[i] === key) {
               allSelectedValues.push(
-                `EU: ${value[0].EU}/UA:${value[1].UA}/IN:${value[2].IN}`
+                `EU:${value[0].EU}/UA:${value[1].UA}/IN:${value[2].IN}`
               );
             }
           }
@@ -217,7 +217,7 @@ const SelectedSearches = () => {
       )}
       {questionWindow && (
         <MessageWindow
-          text={`"Ви впевнені, що хочете видалити підписку?"`}
+          text={'Are you sure you want to delete the subscribtion?'}
           confirmButtons={true}
           onConfirm={deleteSubscriptions}
         />

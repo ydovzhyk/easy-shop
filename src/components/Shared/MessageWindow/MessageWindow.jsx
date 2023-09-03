@@ -77,13 +77,13 @@ export default function MessageWindow({
               className={s.btnYes}
               onClick={() => handleConfirmClick('yes')}
             >
-              Так
+              Yes
             </button>
             <button
               className={s.btnNo}
               onClick={() => handleConfirmClick('no')}
             >
-              Ні
+              No
             </button>
           </div>
         </div>
