@@ -17,7 +17,7 @@ import {
 const initialState = {
   message: '',
   loading: false,
-  error: null,
+  error: '',
   allProducts: [],
   userProducts: [],
   userTotalProducts: null,
@@ -107,6 +107,33 @@ const products = createSlice({
       store.currentProductsPage = payload;
     },
     clearProductsFromOtherUser: store => {
+      store.productsFromOtherUser = [];
+    },
+    clearProductsState: store => {
+      store.message = '';
+      store.loading = false;
+      store.error = '';
+      store.allProducts = [];
+      store.userProducts = [];
+      store.userTotalProducts = null;
+      store.userProductsTotalPages = null;
+      store.productsByQuery = [];
+      store.productsTotalByQuery = [];
+      store.productsByQueryPages = 1;
+      store.vipProducts = [];
+      store.vipPages = 1;
+      store.selectorProducts = [];
+      store.selectorPages = 1;
+      store.productById = {};
+      store.productsFromBasket = [];
+      store.sellersFromBasket = [];
+      store.headerFormReset = false;
+      store.headerFormClick = false;
+      store.headerFormErrors = false;
+      store.filterProduct = false;
+      store.filterFormSubmit = false;
+      store.shownFilterInMobile = false;
+      store.currentProductsPage = 1;
       store.productsFromOtherUser = [];
     },
   },
@@ -288,4 +315,5 @@ export const {
   resetHeaderFormClick,
   setCurrentProductsPage,
   clearProductsFromOtherUser,
+  clearProductsState,
 } = products.actions;

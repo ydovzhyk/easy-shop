@@ -10,7 +10,7 @@ import {
 const initialState = {
   message: '',
   loading: false,
-  error: null,
+  error: '',
   otherUserInfo: {},
   userSubscriptions: [],
   totalPagesSubscription: 1,
@@ -31,6 +31,16 @@ const otherUser = createSlice({
     },
     clearOtherUser: store => {
       store.otherUserInfo = {};
+    },
+    clearOtherUserState: store => {
+      store.message = '';
+      store.error = '';
+      store.otherUserInfo = {};
+      store.userSubscriptions = [];
+      store.totalPagesSubscription = 1;
+      store.userFollowers = [];
+      store.selectedSearches = [];
+      store.totalPagesSelectedSearches = 1;
     },
   },
   extraReducers: {
@@ -96,4 +106,5 @@ const otherUser = createSlice({
 
 export default otherUser.reducer;
 
-export const { clearMessage, clearError, clearOtherUser } = otherUser.actions;
+export const { clearMessage, clearError, clearOtherUser, clearOtherUserState } =
+  otherUser.actions;
