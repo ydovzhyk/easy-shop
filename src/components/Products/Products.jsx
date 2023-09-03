@@ -44,7 +44,6 @@ const Products = () => {
   const message = useSelector(getUserMessage);
   const user = useSelector(getUser);
   const currentPage = useSelector(getCurrentProductsPage);
-  // const [currentPage, setCurrentPage] = useState(1);
   const hasHeaderFormErrors = useSelector(getHeaderFormErrors);
   const totalPages = useSelector(getProductsByQueryPages);
 
@@ -52,7 +51,6 @@ const Products = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { pathname, search } = useLocation();
   const sort = searchParams.get('sort') ?? '';
-  const pageParam = searchParams.get('page');
 
   const products = useSelector(getProductsByQuery);
   const isFilterFormSubmitted = useSelector(getFilterForm);
@@ -64,21 +62,6 @@ const Products = () => {
 
   const viewPort = useScreenResizing();
   const isMobile = viewPort.width < 768;
-
-  // useEffect(() => {
-  //   if (!pageParam) {
-  //     return;
-  //   }
-  //   console.log(Number(pageParam));
-  //   setCurrentPage(Number(pageParam));
-  // }, [pageParam]);
-
-  // useEffect(() => {
-  //   if (currentPage === 1) {
-  //     searchParams.delete('page');
-  //     setSearchParams(searchParams);
-  //   }
-  // }, [currentPage, searchParams, setSearchParams]);
 
   useEffect(() => {
     setIsMessage(message);
