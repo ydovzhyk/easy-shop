@@ -32,6 +32,7 @@ const Filter = ({ onChange }) => {
   const isMobile = viewPort.width < 768;
   const isDesktop = viewPort.width > 1279;
 
+  // const [priceState, setPriceState] = useState('');
   const [filterData, setFilterData] = useState({});
   const [showSizes, setShowSizes] = useState(true);
   const [showPrices, setShowPrices] = useState(true);
@@ -62,6 +63,7 @@ const Filter = ({ onChange }) => {
     },
   });
   const watchPriceFrom = watch('filterPriceFrom');
+  // const watchPriceRadio = getValues('filterPriceRadio');
 
   useEffect(() => {
     if (!shouldFilterProductReset) {
@@ -199,6 +201,20 @@ const Filter = ({ onChange }) => {
       setSelectedSizes([...selectedSizes, formattedSize]);
     }
   };
+  // const handleRadioBtnClick = async value => {
+  //   if (
+  //     watchPriceRadio === priceState &&
+  //     watchPriceRadio !== '' &&
+  //     priceState !== ''
+  //   ) {
+  //     await resetField('filterPriceRadio', { defaultValue: '' });
+  //     console.log(watchPriceRadio);
+  //     console.log(priceState);
+  //     return;
+  //   }
+  //   console.log('456');
+  //   await setPriceState(value);
+  // };
 
   const isSelected = size => {
     return selectedSizes.some(s => s[0].name === size);
@@ -275,7 +291,7 @@ const Filter = ({ onChange }) => {
         {showPrices && (
           <div className={s.optionMainBox}>
             <ul className={s.optionMainBox}>
-              {filterPrices.map(el => {
+              {filterPrices.map((el, index) => {
                 return (
                   <li key={nanoid()} className={s.radioItem}>
                     <div className={s.radioContent}>
@@ -286,6 +302,7 @@ const Filter = ({ onChange }) => {
                           type="radio"
                           value={el}
                           id={el}
+                          // onClick={() => handleRadioBtnClick(el)}
                         />
                         <label htmlFor={el} className={s.labelCheckBox}>
                           <div className={s.iconWrapper}>
