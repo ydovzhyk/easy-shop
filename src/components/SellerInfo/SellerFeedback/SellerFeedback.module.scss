@@ -112,7 +112,6 @@
 
 .reviewsWrapper {
     padding: 4px;
-    flex-grow: 1;
     width: 100%;
 }
 
@@ -199,6 +198,6 @@
 
 .reviewsListBox {
     @include mixins.mq(tablet) {
-        width: 100%;
+        flex-grow: 1;
     }
 }
