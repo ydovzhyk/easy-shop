@@ -12,16 +12,16 @@ import {
   getFilterProduct,
   getShownFilterInMobile,
 } from 'redux/product/product-selectors';
+import { setCurrentProductsPage } from 'redux/product/product-slice';
 
 import Filter from 'components/Filter/Filter';
 import Container from 'components/Shared/Container/Container';
-import { getUrlFilterValues } from '../../funcs&hooks/getUrlFilterValues.js';
-import { translateParamsToUA } from '../../funcs&hooks/translateParamsToUA.js';
-import useScreenResizing from '../../funcs&hooks/useScreenResizing';
-
 import { filterPrices } from 'components/Filter/filterPrice';
 import { filterConditions } from 'components/Filter/filterСonditions';
 import sizeOption from 'components/AddProduct/Size/sizeTable.json';
+import { getUrlFilterValues } from '../../funcs&hooks/getUrlFilterValues.js';
+import { translateParamsToUA } from '../../funcs&hooks/translateParamsToUA.js';
+import useScreenResizing from '../../funcs&hooks/useScreenResizing';
 
 import s from './ProductsSearchPage.module.scss';
 
@@ -35,6 +35,7 @@ const ProductsSearchPage = () => {
   const filterPrice = searchParams.get('price') ?? '';
   const condition = searchParams.get('condition') ?? '';
   const size = searchParams.get('size') ?? '';
+  const pageParam = searchParams.get('page');
 
   const dispatch = useDispatch();
   const isHeaderFormClicked = useSelector(getHeaderFormClick);
@@ -110,6 +111,13 @@ const ProductsSearchPage = () => {
   }, [setSearchParams, searchParams, shouldFilterFormReset]);
 
   useEffect(() => {
+    if (!pageParam) {
+      return;
+    }
+    dispatch(setCurrentProductsPage(Number(pageParam)));
+  }, [pageParam, dispatch]);
+
+  useEffect(() => {
     if (
       !hasHeaderFormErrors &&
       searchQuery === '' &&
@@ -123,6 +131,12 @@ const ProductsSearchPage = () => {
       searchParams.set('page', currentPage);
       setSearchParams(searchParams);
     }
+
+    if (currentPage === 1) {
+      searchParams.delete('page');
+      setSearchParams(searchParams);
+    }
+    // console.log(currentPage);
 
     dispatch(
       searchProducts({

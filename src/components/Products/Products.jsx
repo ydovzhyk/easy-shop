@@ -51,7 +51,6 @@ const Products = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { pathname, search } = useLocation();
   const sort = searchParams.get('sort') ?? '';
-  // const page = searchParams.get('page');
 
   const products = useSelector(getProductsByQuery);
   const isFilterFormSubmitted = useSelector(getFilterForm);
@@ -63,14 +62,6 @@ const Products = () => {
 
   const viewPort = useScreenResizing();
   const isMobile = viewPort.width < 768;
-
-  // useEffect(() => {
-
-  //   if (currentPage === 1) {
-  //     searchParams.delete('page');
-  //     setSearchParams(searchParams);
-  //   }
-  // }, [page, currentPage, searchParams, setSearchParams]);
 
   useEffect(() => {
     setIsMessage(message);

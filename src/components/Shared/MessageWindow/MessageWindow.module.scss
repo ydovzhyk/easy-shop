@@ -191,16 +191,20 @@
 }
 
 .btnYes {
+  color: var(--text-color);
+  background-color: transparent;
   margin-left: 80px;
-  cursor: pointer;
+  transition: color var(--transition-duration) var(--timing-function);
   &:hover {
     color: red;
   }
 }
 
 .btnNo {
+  color: var(--text-color);
+  background-color: transparent;
   margin-right: 80px;
-  cursor: pointer;
+  transition: color var(--transition-duration) var(--timing-function);
   &:hover {
     color: green;
   }
