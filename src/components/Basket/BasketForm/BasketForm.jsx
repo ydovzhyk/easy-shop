@@ -25,8 +25,6 @@ const BasketForm = ({ ownerId, ownerName, products }) => {
   const orderInCheckout = useSelector(selectOrderInCheckout);
   const isDesktop = useMediaQuery({ minWidth: 1280 });
 
-  // console.log('products:', products);
-
   const preOrderedProducts = products.map(product => {
     let modifiedSizes = product.size.map(size => {
       return {
@@ -47,9 +45,7 @@ const BasketForm = ({ ownerId, ownerName, products }) => {
       sum: product.size.length * product.price,
     };
   });
-  // console.log('preOrederedProducts:', preOrderedProducts);
   const [orderedProducts, setOrderedProducts] = useState(preOrderedProducts);
-  // console.log('orderedProducts:', orderedProducts);
 
   const sortedArray = orderedProducts.sort((a, b) => a.sum - b.sum);
   const totalSum = sortedArray.reduce((sum, item) => sum + item.sum, 0);
@@ -61,27 +57,13 @@ const BasketForm = ({ ownerId, ownerName, products }) => {
 
   const deleteProductFrombasket = choice => {
     if (choice === 'yes') {
-      // console.log('yes', productId);
       dispatch(updateUserBasket({ productId: productId }));
       setQuestionWindow(false);
     } else if (choice === 'no') {
-      // console.log('no');
       setProductId(null);
       setQuestionWindow(false);
     }
   };
-
-  // const handleUpdateUserBasket = async (products) => {
-  //   for (const product of products) {
-  //     // await console.log('product._id:', product._id, 'product.size:', product.size);
-  //     await dispatch(
-  //       updateUserBasket({
-  //         productId: product._id,
-  //         selectedSizes: product.size,
-  //       })
-  //     );
-  //   }
-  // };
 
   const handleDecrement = (productId, sizeId) => {
     setOrderedProducts(prevOrderedProducts =>
@@ -148,8 +130,6 @@ const BasketForm = ({ ownerId, ownerName, products }) => {
       products: orderedProducts,
       totalSum: totalSum,
     };
-    // await handleUpdateUserBasket(orderedProducts);
-    // console.log('orderInCheckout', orderInCheckout);
     if (orderInCheckout.sellerId === ownerId) {
       console.log('order exist');
       await dispatch(deleteOrderById(orderInCheckout._id));
@@ -185,7 +165,6 @@ const BasketForm = ({ ownerId, ownerName, products }) => {
               Object.values(translatedParamsObj);
             const sizesForCount =
               orderedProducts.find(item => item._id === _id)?.size || size;
-            // console.log('sizesForCount', sizesForCount);
             return (
               <li className={s.wareItem} key={_id}>
                 <div className={s.photoAndNameAndPrice}>
