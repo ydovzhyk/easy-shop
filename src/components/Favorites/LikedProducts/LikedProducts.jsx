@@ -83,7 +83,7 @@ const LikedProducts = () => {
       )}
       {likedProducts && likedProducts.length === 0 && (
         <Text
-          text={'У вас немає обраних товарів'}
+          text={'You have no subscribed products'}
           textClass="after-title-text-warning"
         />
       )}
