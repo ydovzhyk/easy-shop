@@ -62,53 +62,11 @@
   display: inline-block;
 
   font-size: 14px;
+  line-height: 1.2;
   text-transform: uppercase;
-  line-height: 16px;
 
   color: var(--accent-color);
 }
-
-// .saleLabel {
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-
-//   position: absolute;
-//   top: 42px;
-//   left: 16px;
-
-//   width: 48px;
-//   height: 23px;
-//   border-radius: 18px;
-//   padding: 4px 12px;
-
-//   background: #000000;
-
-//   @include mixins.mq(desktop) {
-//     top: 32px;
-//     left: 6px;
-//   }
-// }
-
-// .saleLabelNoVip {
-//   top: 16px;
-//   left: 16px;
-
-//   @include mixins.mq(desktop) {
-//     top: 6px;
-//     left: 6px;
-//   }
-// }
-
-// .saleLabel > span {
-//   display: inline-block;
-
-//   font-size: 14px;
-//   text-transform: uppercase;
-//   line-height: 16px;
-
-//   color: var(--accent-color);
-// }
 
 .styleDescriptionProductCardBox {
   position: absolute;
@@ -158,7 +116,7 @@
 
   font-weight: 700;
   font-size: 16px;
-  line-height: 22px;
+  line-height: 1.5;
   text-decoration: none;
 
   color: var(--btn-text-color);
@@ -182,7 +140,7 @@
 
   font-weight: 700;
   font-size: 13px;
-  line-height: 11px;
+  line-height: 1.2;
   text-decoration: line-through;
 
   color: #acadac;
@@ -191,7 +149,7 @@
 .newPriceCard {
   font-weight: 700;
   font-size: 18px;
-  line-height: 16px;
+  line-height: 1.2;
 
   color: var(--text-color);
 }
@@ -199,7 +157,7 @@
 .priceCard {
   font-weight: 700;
   font-size: 18px;
-  line-height: 16px;
+  line-height: 1.2;
 
   color: var(--title-text-color);
 }
@@ -223,7 +181,7 @@
   margin-right: 5px;
 
   font-size: 12px;
-  line-height: 16px;
+  line-height: 1.2;
 
   color: var(--second-text-color);
 }

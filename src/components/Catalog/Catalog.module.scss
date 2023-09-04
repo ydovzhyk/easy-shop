@@ -18,6 +18,12 @@
 
   margin-top: 20px;
   margin-bottom: 20px;
+
+  @include mixins.mq(tablet) {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    // margin-right: 36px;
+  }
 }
 
 .button {
@@ -27,7 +33,7 @@
 
   font-weight: 700;
   font-size: 16px;
-  line-height: 10px;
+  line-height: 1.2;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   text-align: center;
@@ -55,9 +61,9 @@
   }
 
   @include mixins.mq(tablet) {
-    padding-top: 25px;
-    padding-bottom: 25px;
-    margin-right: 36px;
+    // padding-top: 25px;
+    // padding-bottom: 25px;
+    // margin-right: 36px;
 
     font-size: 24px;
   }
@@ -79,7 +85,7 @@
     margin-top: 20px; /* Додайте необхідний відступ зверху */
   }
 
-  .button:not(:first-child){
+  .button:not(:first-child) {
     margin-right: 20px;
   }
 }
