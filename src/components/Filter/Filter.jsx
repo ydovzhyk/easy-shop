@@ -32,7 +32,6 @@ const Filter = ({ onChange }) => {
   const isMobile = viewPort.width < 768;
   const isDesktop = viewPort.width > 1279;
 
-  // const [priceState, setPriceState] = useState('');
   const [filterData, setFilterData] = useState({});
   const [showSizes, setShowSizes] = useState(true);
   const [showPrices, setShowPrices] = useState(true);
@@ -41,6 +40,7 @@ const Filter = ({ onChange }) => {
   const [selectedSizes, setSelectedSizes] = useState([]);
 
   const [searchParams] = useSearchParams();
+  const filterPrice = searchParams.get('price');
 
   const shouldFilterProductReset = useSelector(getFilterProduct);
   const dispatch = useDispatch();
@@ -63,7 +63,14 @@ const Filter = ({ onChange }) => {
     },
   });
   const watchPriceFrom = watch('filterPriceFrom');
-  // const watchPriceRadio = getValues('filterPriceRadio');
+  const watchPriceRadio = watch('filterPriceRadio');
+
+  useEffect(() => {
+    if (filterPrice) {
+      return;
+    }
+    resetField('filterPriceRadio', { defaultValue: '' });
+  }, [filterPrice, resetField]);
 
   useEffect(() => {
     if (!shouldFilterProductReset) {
@@ -201,20 +208,12 @@ const Filter = ({ onChange }) => {
       setSelectedSizes([...selectedSizes, formattedSize]);
     }
   };
-  // const handleRadioBtnClick = async value => {
-  //   if (
-  //     watchPriceRadio === priceState &&
-  //     watchPriceRadio !== '' &&
-  //     priceState !== ''
-  //   ) {
-  //     await resetField('filterPriceRadio', { defaultValue: '' });
-  //     console.log(watchPriceRadio);
-  //     console.log(priceState);
-  //     return;
-  //   }
-  //   console.log('456');
-  //   await setPriceState(value);
-  // };
+  const handleRadioBtnClick = async value => {
+    if (watchPriceRadio === value) {
+      await resetField('filterPriceRadio', { defaultValue: '' });
+      return;
+    }
+  };
 
   const isSelected = size => {
     return selectedSizes.some(s => s[0].name === size);
@@ -302,7 +301,7 @@ const Filter = ({ onChange }) => {
                           type="radio"
                           value={el}
                           id={el}
-                          // onClick={() => handleRadioBtnClick(el)}
+                          onClick={() => handleRadioBtnClick(el)}
                         />
                         <label htmlFor={el} className={s.labelCheckBox}>
                           <div className={s.iconWrapper}>
