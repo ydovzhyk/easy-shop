@@ -39,7 +39,7 @@ import { scrollToTop } from '../../funcs&hooks/scrollToTop';
 import s from './Products.module.scss';
 
 const Products = () => {
-  const [filterSelected, setFilterSelected] = useState('');
+  const [filterSortSelected, setFilterSortSelected] = useState('');
   const [isMessage, setIsMessage] = useState('');
   const message = useSelector(getUserMessage);
   const user = useSelector(getUser);
@@ -64,6 +64,13 @@ const Products = () => {
   const isMobile = viewPort.width < 768;
 
   useEffect(() => {
+    if (sort === '') {
+      return;
+    }
+    setFilterSortSelected(options[Number(sort)]);
+  }, [sort]);
+
+  useEffect(() => {
     setIsMessage(message);
   }, [message]);
 
@@ -77,22 +84,17 @@ const Products = () => {
     return subscribedSearchArray.includes(currentUrl);
   };
 
-  const handleChangeFilter = async filterSelected => {
-    await setFilterSelected(filterSelected);
+  const handleChangeFilter = async filterSortSelected => {
+    await setFilterSortSelected(filterSortSelected);
   };
-
-  useEffect(() => {
-    if (sort === '') {
-      return;
-    }
-    setFilterSelected(options[Number(sort)]);
-  }, [sort]);
 
   const productsToRender = useMemo(() => {
     let productsState = [...products];
-    const selectedSortIndex = options.findIndex(el => el === filterSelected);
+    const selectedSortIndex = options.findIndex(
+      el => el === filterSortSelected
+    );
 
-    switch (filterSelected) {
+    switch (filterSortSelected) {
       case 'Популярні':
         searchParams.delete('sort');
         setSearchParams(searchParams);
@@ -118,7 +120,7 @@ const Products = () => {
       default:
         return productsState;
     }
-  }, [products, filterSelected, searchParams, setSearchParams]);
+  }, [products, filterSortSelected, searchParams, setSearchParams]);
 
   const searchQuery =
     JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '';
@@ -241,13 +243,13 @@ const Products = () => {
                       handleChange={value => handleChangeFilter(value.value)}
                       options={options}
                       defaultValue={
-                        filterSelected === ''
+                        filterSortSelected === ''
                           ? { value: 'популярні', label: 'Популярні' }
                           : {
-                              value: filterSelected,
+                              value: filterSortSelected,
                               label:
-                                filterSelected[0].toUpperCase() +
-                                filterSelected.slice(1),
+                                filterSortSelected[0].toUpperCase() +
+                                filterSortSelected.slice(1),
                             }
                       }
                       name="filterSection"

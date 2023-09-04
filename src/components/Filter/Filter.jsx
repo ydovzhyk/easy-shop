@@ -208,9 +208,10 @@ const Filter = ({ onChange }) => {
       setSelectedSizes([...selectedSizes, formattedSize]);
     }
   };
-  const handleRadioBtnClick = async value => {
+
+  const handleRadioBtnClick = value => {
     if (watchPriceRadio === value) {
-      await resetField('filterPriceRadio', { defaultValue: '' });
+      resetField('filterPriceRadio', { defaultValue: '' });
       return;
     }
   };

@@ -35,7 +35,7 @@ const ProductsSearchPage = () => {
   const filterPrice = searchParams.get('price') ?? '';
   const condition = searchParams.get('condition') ?? '';
   const size = searchParams.get('size') ?? '';
-  const pageParam = searchParams.get('page');
+  const page = searchParams.get('page');
 
   const dispatch = useDispatch();
   const isHeaderFormClicked = useSelector(getHeaderFormClick);
@@ -51,13 +51,6 @@ const ProductsSearchPage = () => {
   const payload = useMemo(() => {
     let selectedConditionsArray = [];
     let selectedSizesArray = [];
-    if (condition !== '') {
-      const selectedConditionsIndexArray = condition.split('_');
-      selectedConditionsArray = selectedConditionsIndexArray.map(
-        el => filterConditions[Number(el)]
-      );
-    }
-
     if (size !== '') {
       const selectedIndexSizesArray = size.split('_');
 
@@ -68,6 +61,12 @@ const ProductsSearchPage = () => {
           }
         }
       }
+    }
+    if (condition !== '') {
+      const selectedConditionsIndexArray = condition.split('_');
+      selectedConditionsArray = selectedConditionsIndexArray.map(
+        el => filterConditions[Number(el)]
+      );
     }
     return {
       searchQuery,
@@ -111,11 +110,11 @@ const ProductsSearchPage = () => {
   }, [setSearchParams, searchParams, shouldFilterFormReset]);
 
   useEffect(() => {
-    if (!pageParam) {
+    if (!page) {
       return;
     }
-    dispatch(setCurrentProductsPage(Number(pageParam)));
-  }, [pageParam, dispatch]);
+    dispatch(setCurrentProductsPage(Number(page)));
+  }, [page, dispatch]);
 
   useEffect(() => {
     if (
@@ -132,11 +131,10 @@ const ProductsSearchPage = () => {
       setSearchParams(searchParams);
     }
 
-    if (currentPage === 1) {
-      searchParams.delete('page');
-      setSearchParams(searchParams);
-    }
-    // console.log(currentPage);
+    // if (currentPage === 1) {
+    //   searchParams.delete('page');
+    //   setSearchParams(searchParams);
+    // }
 
     dispatch(
       searchProducts({
