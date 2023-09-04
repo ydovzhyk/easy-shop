@@ -35,7 +35,7 @@
 .optionsList {
   display: flex;
   flex-direction: column;
-  // gap: 8px;
+  gap: 8px;
   @include mixins.mq(tablet) {
     padding-left: 8px;
   }
@@ -69,7 +69,6 @@
     background-color: var(--btn-border-color);
     transition: all var(--transition-duration) var(--timing-function);
   }
-  //   &:focus::before,
   &:hover::before {
     width: 100%;
   }
@@ -102,10 +101,6 @@
 .reviewsWrapper {
   padding: 4px;
   flex-grow: 1;
-  width: 100%;
-  @include mixins.mq(tablet) {
-    width: 70%;
-  }
 }
 
 .reviewBox {

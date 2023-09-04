@@ -63,10 +63,10 @@ const SellerFeedback = () => {
             classNamePrefix="custom-select"
             onChange={value => handleButtonClick(value.value)}
             options={[
-              { value: 'asSeller', label: `Як про продавця ${asSellerFeedback.length}` },
-              { value: 'asCustomer', label: `Як про покупця ${asCustomerFeedback.length}` },
+              { value: 'asSeller', label: `Як про продавця - ${asSellerFeedback.length}` },
+              { value: 'asCustomer', label: `Як про покупця - ${asCustomerFeedback.length}` },
             ]}
-            defaultValue={{ value: 'asSeller', label: `Як про продавця ${asSellerFeedback.length}` }}
+            defaultValue={{ value: 'asSeller', label: `Як про продавця - ${asSellerFeedback.length}` }}
             theme={theme => ({
               ...theme,
               borderRadius: 0,
@@ -84,7 +84,7 @@ const SellerFeedback = () => {
                   }
                   onClick={() => handleButtonClick('asSeller')}
                 >
-                  Як про продавця {asSellerFeedback.length}
+                  Як про продавця - {asSellerFeedback.length}
                 </button>
               
             
@@ -98,7 +98,7 @@ const SellerFeedback = () => {
                   }
                   onClick={() => handleButtonClick('asCustomer')}
                 >
-                  Як про покупця {asCustomerFeedback.length}
+                  Як про покупця - {asCustomerFeedback.length}
                 </button>
               
             </li>
