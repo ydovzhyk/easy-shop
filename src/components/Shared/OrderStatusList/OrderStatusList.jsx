@@ -21,11 +21,6 @@ const OrderStatusList = ({ currentSelector, handleButtonClick }) => {
           theme={theme => ({
             ...theme,
             borderRadius: 0,
-            // colors: {
-            //   ...theme.colors,
-            //   primary25: '#fbef35;',
-            //   primary: '#3b3b3b',
-            // },
           })}
         />
       )}
@@ -68,7 +63,6 @@ const OrderStatusList = ({ currentSelector, handleButtonClick }) => {
               Підтверджені
             </button>
           </li>
-          {/* <li>Виконані</li> */}
           <li>
             <button
               className={

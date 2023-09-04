@@ -1,5 +1,6 @@
 import {  useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 // import { useMediaQuery } from 'react-responsive';
 
 import { getMessage, selectProductsFromBasket, selectSellersFromBasket } from 'redux/product/product-selectors';
@@ -10,6 +11,7 @@ import Container from 'components/Shared/Container/Container';
 import UserUpdateComponent from 'components/Shared/helper/UserUpdateComponent';
 import Text from 'components/Shared/Text/Text';
 import BasketForm from 'components/Basket/BasketForm/BasketForm';
+import { BsBasket } from 'react-icons/bs';
 
 import s from './Basket.module.scss';
 
@@ -59,8 +61,6 @@ const Basket = () => {
     dispatch(getProductsFromBasket(user._id));
   }, [dispatch, user]); 
   
-  // productsFrombasket.length > 0 && console.log('productsFrombasket in Basket:', productsFrombasket);
-  // selectedProductsWithSizes.length > 0 && console.log('selectedProductsWithSizes in Basket:', selectedProductsWithSizes);
   return (
     <Container>
       <section className={s.basketsSection}>
@@ -77,7 +77,16 @@ const Basket = () => {
             </li>
           ))}
         </ul>
-        {groupedProducts.length === 0 && <p>Тут поки пусто</p>}
+        {groupedProducts.length === 0 && (
+          <div className={s.basketMessageBox}>
+            <BsBasket size={46} />
+            <p style={{ fontSize: 28 }}>Тут поки пусто</p>
+            <p>Перегляньте наші новинки та поновіть свій гардероб</p>
+            <NavLink className={s.btnLight} to="/">
+              Перейти до покупок
+            </NavLink>
+          </div>
+        )}
       </section>
     </Container>
   );

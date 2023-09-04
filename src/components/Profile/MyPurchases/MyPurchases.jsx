@@ -156,8 +156,6 @@ const MyShoppings = () => {
                         className={s.orderSum}
                       >{`Сума замовлення: ${orderSum} грн.`}</p>
                     </div>
-
-                    {/* {statusNew === false && ( */}
                     <div className={s.buttonBottomWrapper}>
                       <Button
                         type="button"
@@ -182,7 +180,6 @@ const MyShoppings = () => {
                         />
                       )}
                     </div>
-                    {/* )} */}
                     {isFeedbackWindowOpen && (
                       <FeedbackWindow
                         hideWindow={toggleIsOpen}

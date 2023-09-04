@@ -91,9 +91,6 @@ const FeedbackWindow = ({
             <Controller
               control={control}
               name="feedback"
-              // rules={{
-              //   required: true,
-              // }}
               render={({ field: { onChange, value } }) => (
                 <textarea
                   className={s.textarea}
@@ -124,8 +121,9 @@ const FeedbackWindow = ({
         {sellerFeedback.length === 0 && (
           <p className={s.message}>Відгуків про користувача поки немає</p>
         )}
-
-        <ReviewList review={sellerFeedback} />
+        <div className={s.reviewsWrapper}>
+          <ReviewList review={sellerFeedback} />
+        </div>
       </div>
     </div>
   );

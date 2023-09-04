@@ -13,7 +13,6 @@ import Avatar from 'components/Profile/Avatar/Avatar';
 import StarsList from 'components/Shared/StarsList/StarsList';
 import RoundButton from 'components/Shared/RoundButton/RoundButton';
 import { BsPencil } from 'react-icons/bs';
-// import { updateUserFunc } from 'funcs&hooks/updateUser';
 import s from './MyReviews.module.scss';
 import EditFeedbackWindow from 'components/Shared/EditFeedbackWindow/EditFeedbackWindow';
 
@@ -33,7 +32,6 @@ const MyReviews = () => {
     ({ feedbackType }) => feedbackType === 'asSeller'
   );
     
-  // const [currentSelector, setСurrentSelector] = useState('asSeller');
   const [isEditFeedbackWindowOpen, setIsEditFeedbackWindowOpen] = useState(false);
   const [reviewToFeedbackWindow, setReviewToFeedbackWindow] = useState({});
   const [searchParams, setSearchParams] = useSearchParams();
@@ -52,16 +50,9 @@ const MyReviews = () => {
       }
     }, [dispatch, userId, feedbackTypeParams]);
   const handleButtonClick = optionName => {
-    // setСurrentSelector(optionName);
     setSearchParams({ type: optionName });
   };
   const review = feedbackTypeParams === 'asUser' ? myReview : myFeedback;
-  
-  // const handleButtonTrashClick = async id => {
-  //   await dispatch(deleteReviewById(id));
-  //   dispatch(getUserReviews({ userId }));
-  //   updateUserFunc(dispatch);
-  // };
 
   const toggleIsOpen = (id, rating, feedback) => {
     if (id) {
@@ -88,17 +79,17 @@ const MyReviews = () => {
             options={[
               {
                 value: 'asSeller',
-                label: `Як про продавця ${asSellerFeedback.length}`,
+                label: `Як про продавця - ${asSellerFeedback.length}`,
               },
               {
                 value: 'asCustomer',
-                label: `Як про покупця ${asCustomerFeedback.length}`,
+                label: `Як про покупця - ${asCustomerFeedback.length}`,
               },
-              { value: 'asUser', label: `Мої відгуки ${userReviews.length}` },
+              { value: 'asUser', label: `Мої відгуки - ${userReviews.length}` },
             ]}
             defaultValue={{
               value: 'asSeller',
-              label: `Як про продавця ${asSellerFeedback.length}`,
+              label: `Як про продавця - ${asSellerFeedback.length}`,
             }}
             theme={theme => ({
               ...theme,
@@ -117,7 +108,7 @@ const MyReviews = () => {
                 }
                 onClick={() => handleButtonClick('asSeller')}
               >
-                Як про продавця {asSellerFeedback.length}
+                Як про продавця - {asSellerFeedback.length}
               </button>
             </li>
             <li>
@@ -129,7 +120,7 @@ const MyReviews = () => {
                 }
                 onClick={() => handleButtonClick('asCustomer')}
               >
-                Як про покупця {asCustomerFeedback.length}
+                Як про покупця - {asCustomerFeedback.length}
               </button>
             </li>
             <li>
@@ -141,7 +132,7 @@ const MyReviews = () => {
                 }
                 onClick={() => handleButtonClick('asUser')}
               >
-                Мої відгуки {userReviews.length}
+                Мої відгуки - {userReviews.length}
               </button>
             </li>
           </ul>
@@ -178,12 +169,6 @@ const MyReviews = () => {
                   </div>
                   {feedbackTypeParams === 'asUser' && (
                     <div className={s.buttonTrashWrapper}>
-                      {/* <RoundButton
-                        btnClass={isTablet ? 'roundButton' : 'roundButtonMob'}
-                        icon={BsTrash}
-                        handleClick={handleButtonTrashClick}
-                        id={_id}
-                      /> */}
                       <RoundButton
                         btnClass={isTablet ? 'roundButton' : 'roundButtonMob'}
                         icon={BsPencil}

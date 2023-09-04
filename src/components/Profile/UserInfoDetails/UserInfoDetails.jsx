@@ -94,7 +94,7 @@ const UserInfoDetails = () => {
             isBackgroundChange={isMyReviews}
             value={valueforReview}
           >
-            Мої відгуки
+            Відгуки
           </ProfileLink>
         </li>
         <li className={s.item}>
