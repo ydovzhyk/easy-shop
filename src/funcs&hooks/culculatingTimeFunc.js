@@ -16,6 +16,9 @@ export const getTimePassedFromDate = dateString => {
   if (!dateString) {
     return null;
   }
+  if (difference < 0) {
+    return [0, 0, 0];
+  }
   return [days, hours, minutes];
 };
 
