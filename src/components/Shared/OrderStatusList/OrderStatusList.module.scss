@@ -4,6 +4,9 @@
     @include mixins.mq(mobile-tablet) {
         padding: 0 20px;
     }
+    @include mixins.mq(tablet) {
+        width: 20%;
+    }
 }
 
 .heading {
@@ -16,14 +19,11 @@
 }
 
 .optionsList {
-    // width: 100%;
-    // padding-left: 12px;
     display: flex;
     flex-direction: column;
     gap: 8px;
     @include mixins.mq(tablet) {
-        width: 20%;
-        padding-left: 16px;
+        padding-left: 12px;
     }
     @include mixins.mq(desktop) {
         padding-left: 20px;
