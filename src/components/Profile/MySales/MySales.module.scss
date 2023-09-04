@@ -11,16 +11,12 @@
 }
 
 .ordersList {
-  @include mixins.mq(tablet) {
-    width: 80%;
-  }
-  @include mixins.mq(desktop) {
-  }
+  flex-grow: 1;
 }
 
 .orderItem {
   position: relative;
-  // margin-bottom: 20px;
+  margin-bottom: 20px;
   padding: 12px;
   border: 1px solid var(--border-color);
 
@@ -40,7 +36,6 @@
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  // margin-bottom: 20px;
   padding-bottom: 12px;
   border-bottom: 1px solid var(--border-color);
 }
@@ -85,7 +80,6 @@
   font-weight: 600;
   padding: 8px;
   border-bottom: 1px solid var(--border-color);
-  // text-shadow: var(--hover-text-shadow);
 }
 
 .message {
@@ -152,6 +146,7 @@
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  padding: 0 12px;
   @include mixins.mq(tablet) {
     flex-direction: row;
     justify-content: space-between;
