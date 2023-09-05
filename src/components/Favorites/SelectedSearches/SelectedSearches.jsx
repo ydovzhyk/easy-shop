@@ -20,6 +20,7 @@ import { scrollToTop } from 'funcs&hooks/scrollToTop';
 import sizeOption from 'components/AddProduct/Size/sizeTable.json';
 import { filterPrices } from '../../Filter/filterPrice';
 import { filterConditions } from '../../Filter/filterСonditions';
+import options from 'components/Products/options';
 import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
 
 import s from 'components/Favorites/SelectedSearches/SelectedSearches.module.scss';
@@ -114,6 +115,9 @@ const SelectedSearches = () => {
       }
       if (key === 'brand') {
         searchParamsToRender.push(['Бренд', value]);
+      }
+      if (key === 'sort') {
+        searchParamsToRender.push(['Сортування', options[value]]);
       }
     });
 

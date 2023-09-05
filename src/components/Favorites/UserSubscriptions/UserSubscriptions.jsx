@@ -159,14 +159,14 @@ const UserSubscriptions = () => {
       )}
       {questionWindow && (
         <MessageWindow
-          text={`"Ви впевнені, що хочете видалити підписку?"`}
+          text={'Are you sure you want to delete the subscribtion?'}
           confirmButtons={true}
           onConfirm={deleteSubscriptions}
         />
       )}
       {userSubscriptions && userSubscriptions.length === 0 && (
         <Text
-          text={'У вас немає обраних продавців'}
+          text={'You have no subscribed sellers'}
           textClass="after-title-text-warning"
         />
       )}
