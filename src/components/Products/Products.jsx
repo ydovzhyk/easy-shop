@@ -50,7 +50,9 @@ const Products = () => {
   const { category, subcategory } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const { pathname, search } = useLocation();
-  const sort = searchParams.get('sort') ?? '';
+  const sort = searchParams.get('sort');
+  const searchQuery =
+    JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '';
 
   const products = useSelector(getProductsByQuery);
   const isFilterFormSubmitted = useSelector(getFilterForm);
@@ -58,17 +60,21 @@ const Products = () => {
   const isUserLogin = useSelector(getLogin);
   const dispatch = useDispatch();
 
-  const { control } = useForm();
+  const { control, setValue, reset } = useForm();
 
   const viewPort = useScreenResizing();
   const isMobile = viewPort.width < 768;
 
   useEffect(() => {
-    if (sort === '') {
+    if (filterSortSelected === '') {
       return;
     }
     setFilterSortSelected(options[Number(sort)]);
-  }, [sort]);
+    setValue('filterSection', {
+      value: filterSortSelected,
+      label: filterSortSelected[0].toUpperCase() + filterSortSelected.slice(1),
+    });
+  }, [sort, filterSortSelected, setValue, reset]);
 
   useEffect(() => {
     setIsMessage(message);
@@ -86,33 +92,27 @@ const Products = () => {
 
   const handleChangeFilter = async filterSortSelected => {
     await setFilterSortSelected(filterSortSelected);
+    const selectedSortIndex = options.findIndex(
+      el => el === filterSortSelected
+    );
+    searchParams.set('sort', selectedSortIndex);
+    setSearchParams(searchParams);
   };
 
   const productsToRender = useMemo(() => {
     let productsState = [...products];
-    const selectedSortIndex = options.findIndex(
-      el => el === filterSortSelected
-    );
 
     switch (filterSortSelected) {
       case 'Популярні':
-        searchParams.delete('sort');
-        setSearchParams(searchParams);
         return productsState;
 
       case 'Від найдешевших':
-        searchParams.set('sort', selectedSortIndex);
-        setSearchParams(searchParams);
         return productsState.slice(0).sort((a, b) => a.price - b.price);
 
       case 'Від найдорожчих':
-        searchParams.set('sort', '2');
-        setSearchParams(searchParams);
         return productsState.slice(0).sort((a, b) => b.price - a.price);
 
       case 'За датою':
-        searchParams.set('sort', '3');
-        setSearchParams(searchParams);
         return productsState
           .slice(0)
           .sort((a, b) => -a.date.localeCompare(b.date));
@@ -120,10 +120,7 @@ const Products = () => {
       default:
         return productsState;
     }
-  }, [products, filterSortSelected, searchParams, setSearchParams]);
-
-  const searchQuery =
-    JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '';
+  }, [products, filterSortSelected]);
 
   const handleClearSearchQueryClick = async () => {
     await searchParams.delete('search');
@@ -243,14 +240,15 @@ const Products = () => {
                       handleChange={value => handleChangeFilter(value.value)}
                       options={options}
                       defaultValue={
-                        filterSortSelected === ''
-                          ? { value: 'популярні', label: 'Популярні' }
-                          : {
-                              value: filterSortSelected,
-                              label:
-                                filterSortSelected[0].toUpperCase() +
-                                filterSortSelected.slice(1),
-                            }
+                        { value: 'популярні', label: 'Популярні' }
+                        // filterSortSelected === ''
+                        //   ? { value: 'популярні', label: 'Популярні' }
+                        //   : {
+                        //       value: filterSortSelected,
+                        //       label:
+                        //         filterSortSelected[0].toUpperCase() +
+                        //         filterSortSelected.slice(1),
+                        //     }
                       }
                       name="filterSection"
                     />

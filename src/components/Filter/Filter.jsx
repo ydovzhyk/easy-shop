@@ -40,7 +40,12 @@ const Filter = ({ onChange }) => {
   const [selectedSizes, setSelectedSizes] = useState([]);
 
   const [searchParams] = useSearchParams();
+  const brandName = searchParams.get('brand');
+  const filterPriceFrom = searchParams.get('price_from');
+  const filterPriceTo = searchParams.get('price_to');
   const filterPrice = searchParams.get('price');
+  const condition = searchParams.get('condition');
+  const size = searchParams.get('size');
 
   const shouldFilterProductReset = useSelector(getFilterProduct);
   const dispatch = useDispatch();
@@ -66,11 +71,34 @@ const Filter = ({ onChange }) => {
   const watchPriceRadio = watch('filterPriceRadio');
 
   useEffect(() => {
-    if (filterPrice) {
-      return;
+    if (!size) {
+      setSelectedSizes([]);
     }
-    resetField('filterPriceRadio', { defaultValue: '' });
-  }, [filterPrice, resetField]);
+    if (!filterPrice) {
+      resetField('filterPriceRadio', { defaultValue: '' });
+    }
+    if (!filterPriceFrom) {
+      resetField('filterPriceFrom', { defaultValue: '' });
+    }
+    if (!filterPriceTo) {
+      resetField('filterPriceTo', { defaultValue: '' });
+    }
+    if (!condition) {
+      resetField('filterCondition', { defaultValue: [] });
+    }
+    if (!brandName) {
+      resetField('filterBrand', { defaultValue: '' });
+    }
+    return;
+  }, [
+    filterPrice,
+    brandName,
+    condition,
+    filterPriceFrom,
+    filterPriceTo,
+    size,
+    resetField,
+  ]);
 
   useEffect(() => {
     if (!shouldFilterProductReset) {
