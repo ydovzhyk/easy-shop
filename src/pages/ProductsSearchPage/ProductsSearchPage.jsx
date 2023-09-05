@@ -126,10 +126,10 @@ const ProductsSearchPage = () => {
       return;
     }
 
-    if (currentPage > 1) {
-      searchParams.set('page', currentPage);
-      setSearchParams(searchParams);
-    }
+    // if (currentPage > 1) {
+    //   searchParams.set('page', currentPage);
+    //   setSearchParams(searchParams);
+    // }
 
     // if (currentPage === 1) {
     //   searchParams.delete('page');

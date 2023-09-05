@@ -51,8 +51,7 @@ const Products = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { pathname, search } = useLocation();
   const sort = searchParams.get('sort');
-  const searchQuery =
-    JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '';
+  const page = searchParams.get('page');
 
   const products = useSelector(getProductsByQuery);
   const isFilterFormSubmitted = useSelector(getFilterForm);
@@ -62,8 +61,22 @@ const Products = () => {
 
   const { control, setValue, reset } = useForm();
 
+  const searchQuery =
+    JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '';
+
   const viewPort = useScreenResizing();
   const isMobile = viewPort.width < 768;
+
+  useEffect(() => {
+    if (currentPage > 1) {
+      searchParams.set('page', currentPage);
+      setSearchParams(searchParams);
+    }
+    if (currentPage === 1 && page) {
+      searchParams.delete('page');
+      setSearchParams(searchParams);
+    }
+  }, [currentPage, page, setSearchParams, searchParams]);
 
   useEffect(() => {
     if (filterSortSelected === '') {
