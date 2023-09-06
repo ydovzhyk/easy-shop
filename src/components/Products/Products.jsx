@@ -50,8 +50,8 @@ const Products = () => {
   const { category, subcategory } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const { pathname, search } = useLocation();
-  const sort = searchParams.get('sort');
-  const page = searchParams.get('page');
+  const sortParam = searchParams.get('sort');
+  const pageParam = searchParams.get('page');
 
   const products = useSelector(getProductsByQuery);
   const isFilterFormSubmitted = useSelector(getFilterForm);
@@ -68,26 +68,23 @@ const Products = () => {
   const isMobile = viewPort.width < 768;
 
   useEffect(() => {
-    if (currentPage > 1) {
-      searchParams.set('page', currentPage);
-      setSearchParams(searchParams);
+    if (!pageParam) {
+      dispatch(setCurrentProductsPage(1));
+      return;
     }
-    if (currentPage === 1 && page) {
-      searchParams.delete('page');
-      setSearchParams(searchParams);
-    }
-  }, [currentPage, page, setSearchParams, searchParams]);
+    dispatch(setCurrentProductsPage(Number(pageParam)));
+  }, [pageParam, dispatch]);
 
   useEffect(() => {
     if (filterSortSelected === '') {
       return;
     }
-    setFilterSortSelected(options[Number(sort)]);
+    setFilterSortSelected(options[Number(sortParam)]);
     setValue('filterSection', {
       value: filterSortSelected,
       label: filterSortSelected[0].toUpperCase() + filterSortSelected.slice(1),
     });
-  }, [sort, filterSortSelected, setValue, reset]);
+  }, [sortParam, filterSortSelected, setValue, reset]);
 
   useEffect(() => {
     setIsMessage(message);
@@ -157,6 +154,14 @@ const Products = () => {
   };
 
   const handlePageChange = page => {
+    if (page === 1 && pageParam) {
+      searchParams.delete('page');
+      setSearchParams(searchParams);
+    }
+    if (page > 1) {
+      searchParams.set('page', page);
+      setSearchParams(searchParams);
+    }
     dispatch(setCurrentProductsPage(page));
     scrollToTop();
   };

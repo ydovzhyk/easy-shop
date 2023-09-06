@@ -12,7 +12,6 @@ import {
   getFilterProduct,
   getShownFilterInMobile,
 } from 'redux/product/product-selectors';
-import { setCurrentProductsPage } from 'redux/product/product-slice';
 
 import Filter from 'components/Filter/Filter';
 import Container from 'components/Shared/Container/Container';
@@ -35,7 +34,6 @@ const ProductsSearchPage = () => {
   const filterPrice = searchParams.get('price') ?? '';
   const condition = searchParams.get('condition') ?? '';
   const size = searchParams.get('size') ?? '';
-  const page = searchParams.get('page');
 
   const dispatch = useDispatch();
   const isHeaderFormClicked = useSelector(getHeaderFormClick);
@@ -109,12 +107,12 @@ const ProductsSearchPage = () => {
     setSearchParams(searchParams);
   }, [setSearchParams, searchParams, shouldFilterFormReset]);
 
-  useEffect(() => {
-    if (!page) {
-      return;
-    }
-    dispatch(setCurrentProductsPage(Number(page)));
-  }, [page, dispatch]);
+  // useEffect(() => {
+  //   if (!page) {
+  //     return;
+  //   }
+  //   dispatch(setCurrentProductsPage(Number(page)));
+  // }, [page, dispatch]);
 
   useEffect(() => {
     if (
@@ -125,16 +123,6 @@ const ProductsSearchPage = () => {
     ) {
       return;
     }
-
-    // if (currentPage > 1) {
-    //   searchParams.set('page', currentPage);
-    //   setSearchParams(searchParams);
-    // }
-
-    // if (currentPage === 1) {
-    //   searchParams.delete('page');
-    //   setSearchParams(searchParams);
-    // }
 
     dispatch(
       searchProducts({
