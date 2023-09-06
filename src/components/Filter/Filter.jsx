@@ -261,7 +261,7 @@ const Filter = ({ onChange }) => {
     await onChange(dataForUpload);
     await dispatch(submitFilterForm());
     await dispatch(hideFilterInMobile());
-    await scrollToTop();
+    // await scrollToTop();
   };
 
   return (

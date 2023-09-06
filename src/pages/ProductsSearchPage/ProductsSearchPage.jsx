@@ -21,6 +21,7 @@ import sizeOption from 'components/AddProduct/Size/sizeTable.json';
 import { getUrlFilterValues } from '../../funcs&hooks/getUrlFilterValues.js';
 import { translateParamsToUA } from '../../funcs&hooks/translateParamsToUA.js';
 import useScreenResizing from '../../funcs&hooks/useScreenResizing';
+// import { scrollToTop } from '../../funcs&hooks/scrollToTop';
 
 import s from './ProductsSearchPage.module.scss';
 

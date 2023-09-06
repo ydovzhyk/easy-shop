@@ -132,6 +132,10 @@ const Products = () => {
     }
   }, [products, filterSortSelected]);
 
+  useEffect(() => {
+    scrollToTop();
+  }, [productsToRender]);
+
   const handleClearSearchQueryClick = async () => {
     await searchParams.delete('search');
     await setSearchParams(searchParams);
@@ -163,7 +167,7 @@ const Products = () => {
       setSearchParams(searchParams);
     }
     dispatch(setCurrentProductsPage(page));
-    scrollToTop();
+    // scrollToTop();
   };
 
   const getClassName = () => {
