@@ -21,7 +21,6 @@ import sizeOption from 'components/AddProduct/Size/sizeTable.json';
 import { getUrlFilterValues } from '../../funcs&hooks/getUrlFilterValues.js';
 import { translateParamsToUA } from '../../funcs&hooks/translateParamsToUA.js';
 import useScreenResizing from '../../funcs&hooks/useScreenResizing';
-// import { scrollToTop } from '../../funcs&hooks/scrollToTop';
 
 import s from './ProductsSearchPage.module.scss';
 
@@ -94,27 +93,7 @@ const ProductsSearchPage = () => {
     filterPriceTo,
   ]);
 
-  useEffect(() => {
-    if (!shouldFilterFormReset) {
-      return;
-    }
-    searchParams.delete('size');
-    searchParams.delete('price');
-    searchParams.delete('condition');
-    searchParams.delete('brand');
-    searchParams.delete('price_from');
-    searchParams.delete('price_to');
-    searchParams.delete('page');
-    setSearchParams(searchParams);
-  }, [setSearchParams, searchParams, shouldFilterFormReset]);
-
-  // useEffect(() => {
-  //   if (!page) {
-  //     return;
-  //   }
-  //   dispatch(setCurrentProductsPage(Number(page)));
-  // }, [page, dispatch]);
-
+  //обробка першого рекдеру сторінки//
   useEffect(() => {
     if (
       !hasHeaderFormErrors &&
@@ -124,7 +103,6 @@ const ProductsSearchPage = () => {
     ) {
       return;
     }
-
     dispatch(
       searchProducts({
         payloadData: payload,
@@ -143,6 +121,22 @@ const ProductsSearchPage = () => {
     dispatch,
   ]);
 
+  //обробка скидання форми фільтрів//
+  useEffect(() => {
+    if (!shouldFilterFormReset) {
+      return;
+    }
+    searchParams.delete('size');
+    searchParams.delete('price');
+    searchParams.delete('condition');
+    searchParams.delete('brand');
+    searchParams.delete('price_from');
+    searchParams.delete('price_to');
+    searchParams.delete('page');
+    setSearchParams(searchParams);
+  }, [setSearchParams, searchParams, shouldFilterFormReset]);
+
+  //встановлення url-параметрів після отримання даних заповненої форми фільтрів//
   const dataFilterHandler = dataFilter => {
     const selectedFilterValues = getUrlFilterValues(dataFilter);
     searchParams.delete('size');

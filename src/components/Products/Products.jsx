@@ -41,33 +41,33 @@ import s from './Products.module.scss';
 const Products = () => {
   const [filterSortSelected, setFilterSortSelected] = useState('');
   const [isMessage, setIsMessage] = useState('');
+
   const message = useSelector(getUserMessage);
   const user = useSelector(getUser);
   const currentPage = useSelector(getCurrentProductsPage);
   const hasHeaderFormErrors = useSelector(getHeaderFormErrors);
   const totalPages = useSelector(getProductsByQueryPages);
-
-  const { category, subcategory } = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const { pathname, search } = useLocation();
-  const sortParam = searchParams.get('sort');
-  const pageParam = searchParams.get('page');
-  const searchParam = searchParams.get('search');
-
   const products = useSelector(getProductsByQuery);
   const isFilterFormSubmitted = useSelector(getFilterForm);
   const isLoading = useSelector(getLoadingProducts);
   const isUserLogin = useSelector(getLogin);
   const dispatch = useDispatch();
 
-  const { control, setValue, reset } = useForm();
-
+  const { pathname, search } = useLocation();
+  const { category, subcategory } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sortParam = searchParams.get('sort');
+  const pageParam = searchParams.get('page');
+  const searchParam = searchParams.get('search');
   const searchQuery =
     JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '';
+
+  const { control, setValue, reset } = useForm();
 
   const viewPort = useScreenResizing();
   const isMobile = viewPort.width < 768;
 
+  //обробка пагінації при завантаженні компоненту з наявним url-параметром page//
   useEffect(() => {
     if (!pageParam) {
       dispatch(setCurrentProductsPage(1));
@@ -76,6 +76,7 @@ const Products = () => {
     dispatch(setCurrentProductsPage(Number(pageParam)));
   }, [pageParam, dispatch]);
 
+  //обробка рендерингу компоненту з відсутнім url-параметром search//
   useEffect(() => {
     if (searchParam) {
       return;
@@ -85,6 +86,7 @@ const Products = () => {
     dispatch(setCurrentProductsPage(1));
   }, [searchParam, dispatch]);
 
+  //обробка завантаження компоненту з наявним url-параметром sort//
   useEffect(() => {
     if (filterSortSelected === '') {
       return;
@@ -96,6 +98,7 @@ const Products = () => {
     });
   }, [sortParam, filterSortSelected, setValue, reset]);
 
+  //обробка отриманих інформаційних повідомлень з бекенду//
   useEffect(() => {
     setIsMessage(message);
   }, [message]);
@@ -108,6 +111,12 @@ const Products = () => {
     const subscribedSearchArray = user.userSearchSubscription;
     const currentUrl = pathname + search;
     return subscribedSearchArray.includes(currentUrl);
+  };
+
+  const handleSubscribtionClick = () => {
+    dispatch(
+      updateSearchUserSibscribes({ urlSubscription: pathname + search })
+    );
   };
 
   const handleChangeFilter = async filterSortSelected => {
@@ -142,6 +151,7 @@ const Products = () => {
     }
   }, [products, filterSortSelected]);
 
+  //обробка скролу при кожному новому завантаженні списку товарів//
   useEffect(() => {
     scrollToTop();
   }, [productsToRender]);
@@ -161,6 +171,10 @@ const Products = () => {
     searchParams.get('brand') ||
     searchParams.get('price_from') ||
     searchParams.get('price_to');
+
+  const handleShowFilterClick = () => {
+    dispatch(showFilterInMobile());
+  };
 
   const handleClearFiltersClick = async () => {
     await dispatch(resetFilterProduct());
@@ -182,16 +196,6 @@ const Products = () => {
 
   const getClassName = () => {
     return !isUserLogin ? `${s.selectWrapper}` : `${s.bottomOptionsWrapper}`;
-  };
-
-  const handleSubscribtionClick = () => {
-    dispatch(
-      updateSearchUserSibscribes({ urlSubscription: pathname + search })
-    );
-  };
-
-  const handleShowFilterClick = () => {
-    dispatch(showFilterInMobile());
   };
 
   return (

@@ -27,16 +27,15 @@ import useScreenResizing from '../../funcs&hooks/useScreenResizing';
 import s from './Filter.module.scss';
 
 const Filter = ({ onChange }) => {
-  const viewPort = useScreenResizing();
-  const isMobile = viewPort.width < 768;
-  const isDesktop = viewPort.width > 1279;
-
   const [filterData, setFilterData] = useState({});
   const [showSizes, setShowSizes] = useState(true);
   const [showPrices, setShowPrices] = useState(true);
   const [showCondition, setShowCondition] = useState(true);
   const [showBrand, setShowBrand] = useState(true);
   const [selectedSizes, setSelectedSizes] = useState([]);
+
+  const shouldFilterProductReset = useSelector(getFilterProduct);
+  const dispatch = useDispatch();
 
   const [searchParams] = useSearchParams();
   const brandName = searchParams.get('brand');
@@ -46,8 +45,9 @@ const Filter = ({ onChange }) => {
   const condition = searchParams.get('condition');
   const size = searchParams.get('size');
 
-  const shouldFilterProductReset = useSelector(getFilterProduct);
-  const dispatch = useDispatch();
+  const viewPort = useScreenResizing();
+  const isMobile = viewPort.width < 768;
+  const isDesktop = viewPort.width > 1279;
 
   const {
     handleSubmit,
@@ -69,6 +69,7 @@ const Filter = ({ onChange }) => {
   const watchPriceFrom = watch('filterPriceFrom');
   const watchPriceRadio = watch('filterPriceRadio');
 
+  //обробка компоненту при завантаженні сторінки з відсутніми URL-параметрами//
   useEffect(() => {
     if (!size) {
       setSelectedSizes([]);
@@ -99,33 +100,7 @@ const Filter = ({ onChange }) => {
     resetField,
   ]);
 
-  useEffect(() => {
-    if (!shouldFilterProductReset) {
-      return;
-    }
-    setSelectedSizes([]);
-    setFilterData({
-      size: '[]',
-      brandName: '',
-      condition: [],
-      filterPrice: '',
-      filterPriceFrom: '',
-      filterPriceTo: '',
-    });
-    reset();
-    dispatch(showFilterProduct());
-    onChange(filterData);
-    dispatch(unSubmitFilterForm());
-  }, [
-    shouldFilterProductReset,
-    onChange,
-    dispatch,
-    filterData,
-    selectedSizes,
-    resetField,
-    reset,
-  ]);
-
+  //обробка компоненту при завантаженні сторінки з наявними URL-параметрами//
   useEffect(() => {
     const params = {};
     if (searchParams.size === 0) {
@@ -180,6 +155,35 @@ const Filter = ({ onChange }) => {
     getParsedParamsValues(params);
   }, [searchParams, setValue]);
 
+  //обробка скидання форми фільтрів//
+  useEffect(() => {
+    if (!shouldFilterProductReset) {
+      return;
+    }
+    setSelectedSizes([]);
+    setFilterData({
+      size: '[]',
+      brandName: '',
+      condition: [],
+      filterPrice: '',
+      filterPriceFrom: '',
+      filterPriceTo: '',
+    });
+    reset();
+    dispatch(showFilterProduct());
+    onChange(filterData);
+    dispatch(unSubmitFilterForm());
+  }, [
+    shouldFilterProductReset,
+    onChange,
+    dispatch,
+    filterData,
+    selectedSizes,
+    resetField,
+    reset,
+  ]);
+
+  //обробка скидання значень інпутів(price)//
   useEffect(() => {
     if (dirtyFields.filterPriceFrom || dirtyFields.filterPriceTo) {
       resetField('filterPriceRadio', { defaultValue: '' });
