@@ -52,6 +52,7 @@ const Products = () => {
   const { pathname, search } = useLocation();
   const sortParam = searchParams.get('sort');
   const pageParam = searchParams.get('page');
+  const searchParam = searchParams.get('search');
 
   const products = useSelector(getProductsByQuery);
   const isFilterFormSubmitted = useSelector(getFilterForm);
@@ -74,6 +75,15 @@ const Products = () => {
     }
     dispatch(setCurrentProductsPage(Number(pageParam)));
   }, [pageParam, dispatch]);
+
+  useEffect(() => {
+    if (searchParam) {
+      return;
+    }
+    window.sessionStorage.removeItem('searchQuery');
+    dispatch(resetHeaderForm());
+    dispatch(setCurrentProductsPage(1));
+  }, [searchParam, dispatch]);
 
   useEffect(() => {
     if (filterSortSelected === '') {
