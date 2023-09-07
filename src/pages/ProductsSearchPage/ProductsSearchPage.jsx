@@ -12,7 +12,6 @@ import {
   getFilterProduct,
   getShownFilterInMobile,
 } from 'redux/product/product-selectors';
-import { setCurrentProductsPage } from 'redux/product/product-slice';
 
 import Filter from 'components/Filter/Filter';
 import Container from 'components/Shared/Container/Container';
@@ -35,7 +34,6 @@ const ProductsSearchPage = () => {
   const filterPrice = searchParams.get('price') ?? '';
   const condition = searchParams.get('condition') ?? '';
   const size = searchParams.get('size') ?? '';
-  const page = searchParams.get('page');
 
   const dispatch = useDispatch();
   const isHeaderFormClicked = useSelector(getHeaderFormClick);
@@ -95,27 +93,7 @@ const ProductsSearchPage = () => {
     filterPriceTo,
   ]);
 
-  useEffect(() => {
-    if (!shouldFilterFormReset) {
-      return;
-    }
-    searchParams.delete('size');
-    searchParams.delete('price');
-    searchParams.delete('condition');
-    searchParams.delete('brand');
-    searchParams.delete('price_from');
-    searchParams.delete('price_to');
-    searchParams.delete('page');
-    setSearchParams(searchParams);
-  }, [setSearchParams, searchParams, shouldFilterFormReset]);
-
-  useEffect(() => {
-    if (!page) {
-      return;
-    }
-    dispatch(setCurrentProductsPage(Number(page)));
-  }, [page, dispatch]);
-
+  //обробка першого рекдеру сторінки//
   useEffect(() => {
     if (
       !hasHeaderFormErrors &&
@@ -125,17 +103,6 @@ const ProductsSearchPage = () => {
     ) {
       return;
     }
-
-    if (currentPage > 1) {
-      searchParams.set('page', currentPage);
-      setSearchParams(searchParams);
-    }
-
-    // if (currentPage === 1) {
-    //   searchParams.delete('page');
-    //   setSearchParams(searchParams);
-    // }
-
     dispatch(
       searchProducts({
         payloadData: payload,
@@ -154,6 +121,22 @@ const ProductsSearchPage = () => {
     dispatch,
   ]);
 
+  //обробка скидання форми фільтрів//
+  useEffect(() => {
+    if (!shouldFilterFormReset) {
+      return;
+    }
+    searchParams.delete('size');
+    searchParams.delete('price');
+    searchParams.delete('condition');
+    searchParams.delete('brand');
+    searchParams.delete('price_from');
+    searchParams.delete('price_to');
+    searchParams.delete('page');
+    setSearchParams(searchParams);
+  }, [setSearchParams, searchParams, shouldFilterFormReset]);
+
+  //встановлення url-параметрів після отримання даних заповненої форми фільтрів//
   const dataFilterHandler = dataFilter => {
     const selectedFilterValues = getUrlFilterValues(dataFilter);
     searchParams.delete('size');

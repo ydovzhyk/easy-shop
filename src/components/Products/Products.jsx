@@ -41,35 +41,64 @@ import s from './Products.module.scss';
 const Products = () => {
   const [filterSortSelected, setFilterSortSelected] = useState('');
   const [isMessage, setIsMessage] = useState('');
+
   const message = useSelector(getUserMessage);
   const user = useSelector(getUser);
   const currentPage = useSelector(getCurrentProductsPage);
   const hasHeaderFormErrors = useSelector(getHeaderFormErrors);
   const totalPages = useSelector(getProductsByQueryPages);
-
-  const { category, subcategory } = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const { pathname, search } = useLocation();
-  const sort = searchParams.get('sort') ?? '';
-
   const products = useSelector(getProductsByQuery);
   const isFilterFormSubmitted = useSelector(getFilterForm);
   const isLoading = useSelector(getLoadingProducts);
   const isUserLogin = useSelector(getLogin);
   const dispatch = useDispatch();
 
-  const { control } = useForm();
+  const { pathname, search } = useLocation();
+  const { category, subcategory } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sortParam = searchParams.get('sort');
+  const pageParam = searchParams.get('page');
+  const searchParam = searchParams.get('search');
+  const searchQuery =
+    JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '';
+
+  const { control, setValue, reset } = useForm();
 
   const viewPort = useScreenResizing();
   const isMobile = viewPort.width < 768;
 
+  //обробка пагінації при завантаженні компоненту з наявним url-параметром page//
   useEffect(() => {
-    if (sort === '') {
+    if (!pageParam) {
+      dispatch(setCurrentProductsPage(1));
       return;
     }
-    setFilterSortSelected(options[Number(sort)]);
-  }, [sort]);
+    dispatch(setCurrentProductsPage(Number(pageParam)));
+  }, [pageParam, dispatch]);
 
+  //обробка рендерингу компоненту з відсутнім url-параметром search//
+  useEffect(() => {
+    if (searchParam) {
+      return;
+    }
+    window.sessionStorage.removeItem('searchQuery');
+    dispatch(resetHeaderForm());
+    dispatch(setCurrentProductsPage(1));
+  }, [searchParam, dispatch]);
+
+  //обробка завантаження компоненту з наявним url-параметром sort//
+  useEffect(() => {
+    if (filterSortSelected === '') {
+      return;
+    }
+    setFilterSortSelected(options[Number(sortParam)]);
+    setValue('filterSection', {
+      value: filterSortSelected,
+      label: filterSortSelected[0].toUpperCase() + filterSortSelected.slice(1),
+    });
+  }, [sortParam, filterSortSelected, setValue, reset]);
+
+  //обробка отриманих інформаційних повідомлень з бекенду//
   useEffect(() => {
     setIsMessage(message);
   }, [message]);
@@ -84,35 +113,35 @@ const Products = () => {
     return subscribedSearchArray.includes(currentUrl);
   };
 
+  const handleSubscribtionClick = () => {
+    dispatch(
+      updateSearchUserSibscribes({ urlSubscription: pathname + search })
+    );
+  };
+
   const handleChangeFilter = async filterSortSelected => {
     await setFilterSortSelected(filterSortSelected);
+    const selectedSortIndex = options.findIndex(
+      el => el === filterSortSelected
+    );
+    searchParams.set('sort', selectedSortIndex);
+    setSearchParams(searchParams);
   };
 
   const productsToRender = useMemo(() => {
     let productsState = [...products];
-    const selectedSortIndex = options.findIndex(
-      el => el === filterSortSelected
-    );
 
     switch (filterSortSelected) {
       case 'Популярні':
-        searchParams.delete('sort');
-        setSearchParams(searchParams);
         return productsState;
 
       case 'Від найдешевших':
-        searchParams.set('sort', selectedSortIndex);
-        setSearchParams(searchParams);
         return productsState.slice(0).sort((a, b) => a.price - b.price);
 
       case 'Від найдорожчих':
-        searchParams.set('sort', '2');
-        setSearchParams(searchParams);
         return productsState.slice(0).sort((a, b) => b.price - a.price);
 
       case 'За датою':
-        searchParams.set('sort', '3');
-        setSearchParams(searchParams);
         return productsState
           .slice(0)
           .sort((a, b) => -a.date.localeCompare(b.date));
@@ -120,10 +149,12 @@ const Products = () => {
       default:
         return productsState;
     }
-  }, [products, filterSortSelected, searchParams, setSearchParams]);
+  }, [products, filterSortSelected]);
 
-  const searchQuery =
-    JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '';
+  //обробка скролу при кожному новому завантаженні списку товарів//
+  useEffect(() => {
+    scrollToTop();
+  }, [productsToRender]);
 
   const handleClearSearchQueryClick = async () => {
     await searchParams.delete('search');
@@ -141,28 +172,30 @@ const Products = () => {
     searchParams.get('price_from') ||
     searchParams.get('price_to');
 
+  const handleShowFilterClick = () => {
+    dispatch(showFilterInMobile());
+  };
+
   const handleClearFiltersClick = async () => {
     await dispatch(resetFilterProduct());
     await dispatch(setCurrentProductsPage(1));
   };
 
   const handlePageChange = page => {
+    if (page === 1 && pageParam) {
+      searchParams.delete('page');
+      setSearchParams(searchParams);
+    }
+    if (page > 1) {
+      searchParams.set('page', page);
+      setSearchParams(searchParams);
+    }
     dispatch(setCurrentProductsPage(page));
-    scrollToTop();
+    // scrollToTop();
   };
 
   const getClassName = () => {
     return !isUserLogin ? `${s.selectWrapper}` : `${s.bottomOptionsWrapper}`;
-  };
-
-  const handleSubscribtionClick = () => {
-    dispatch(
-      updateSearchUserSibscribes({ urlSubscription: pathname + search })
-    );
-  };
-
-  const handleShowFilterClick = () => {
-    dispatch(showFilterInMobile());
   };
 
   return (
@@ -243,14 +276,15 @@ const Products = () => {
                       handleChange={value => handleChangeFilter(value.value)}
                       options={options}
                       defaultValue={
-                        filterSortSelected === ''
-                          ? { value: 'популярні', label: 'Популярні' }
-                          : {
-                              value: filterSortSelected,
-                              label:
-                                filterSortSelected[0].toUpperCase() +
-                                filterSortSelected.slice(1),
-                            }
+                        { value: 'популярні', label: 'Популярні' }
+                        // filterSortSelected === ''
+                        //   ? { value: 'популярні', label: 'Популярні' }
+                        //   : {
+                        //       value: filterSortSelected,
+                        //       label:
+                        //         filterSortSelected[0].toUpperCase() +
+                        //         filterSortSelected.slice(1),
+                        //     }
                       }
                       name="filterSection"
                     />

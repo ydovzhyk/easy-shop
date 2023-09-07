@@ -23,15 +23,10 @@ import OptionsHeader from 'components/Shared/OptionsHeader/OptionsHeader';
 import { filterPrices } from './filterPrice';
 import { filterConditions } from './filterСonditions';
 import useScreenResizing from '../../funcs&hooks/useScreenResizing';
-import { scrollToTop } from '../../funcs&hooks/scrollToTop';
 
 import s from './Filter.module.scss';
 
 const Filter = ({ onChange }) => {
-  const viewPort = useScreenResizing();
-  const isMobile = viewPort.width < 768;
-  const isDesktop = viewPort.width > 1279;
-
   const [filterData, setFilterData] = useState({});
   const [showSizes, setShowSizes] = useState(true);
   const [showPrices, setShowPrices] = useState(true);
@@ -39,11 +34,20 @@ const Filter = ({ onChange }) => {
   const [showBrand, setShowBrand] = useState(true);
   const [selectedSizes, setSelectedSizes] = useState([]);
 
-  const [searchParams] = useSearchParams();
-  const filterPrice = searchParams.get('price');
-
   const shouldFilterProductReset = useSelector(getFilterProduct);
   const dispatch = useDispatch();
+
+  const [searchParams] = useSearchParams();
+  const brandName = searchParams.get('brand');
+  const filterPriceFrom = searchParams.get('price_from');
+  const filterPriceTo = searchParams.get('price_to');
+  const filterPrice = searchParams.get('price');
+  const condition = searchParams.get('condition');
+  const size = searchParams.get('size');
+
+  const viewPort = useScreenResizing();
+  const isMobile = viewPort.width < 768;
+  const isDesktop = viewPort.width > 1279;
 
   const {
     handleSubmit,
@@ -65,40 +69,38 @@ const Filter = ({ onChange }) => {
   const watchPriceFrom = watch('filterPriceFrom');
   const watchPriceRadio = watch('filterPriceRadio');
 
+  //обробка компоненту при завантаженні сторінки з відсутніми URL-параметрами//
   useEffect(() => {
-    if (filterPrice) {
-      return;
+    if (!size) {
+      setSelectedSizes([]);
     }
-    resetField('filterPriceRadio', { defaultValue: '' });
-  }, [filterPrice, resetField]);
-
-  useEffect(() => {
-    if (!shouldFilterProductReset) {
-      return;
+    if (!filterPrice) {
+      resetField('filterPriceRadio', { defaultValue: '' });
     }
-    setSelectedSizes([]);
-    setFilterData({
-      size: '[]',
-      brandName: '',
-      condition: [],
-      filterPrice: '',
-      filterPriceFrom: '',
-      filterPriceTo: '',
-    });
-    reset();
-    dispatch(showFilterProduct());
-    onChange(filterData);
-    dispatch(unSubmitFilterForm());
+    if (!filterPriceFrom) {
+      resetField('filterPriceFrom', { defaultValue: '' });
+    }
+    if (!filterPriceTo) {
+      resetField('filterPriceTo', { defaultValue: '' });
+    }
+    if (!condition) {
+      resetField('filterCondition', { defaultValue: [] });
+    }
+    if (!brandName) {
+      resetField('filterBrand', { defaultValue: '' });
+    }
+    return;
   }, [
-    shouldFilterProductReset,
-    onChange,
-    dispatch,
-    filterData,
-    selectedSizes,
+    filterPrice,
+    brandName,
+    condition,
+    filterPriceFrom,
+    filterPriceTo,
+    size,
     resetField,
-    reset,
   ]);
 
+  //обробка компоненту при завантаженні сторінки з наявними URL-параметрами//
   useEffect(() => {
     const params = {};
     if (searchParams.size === 0) {
@@ -153,6 +155,35 @@ const Filter = ({ onChange }) => {
     getParsedParamsValues(params);
   }, [searchParams, setValue]);
 
+  //обробка скидання форми фільтрів//
+  useEffect(() => {
+    if (!shouldFilterProductReset) {
+      return;
+    }
+    setSelectedSizes([]);
+    setFilterData({
+      size: '[]',
+      brandName: '',
+      condition: [],
+      filterPrice: '',
+      filterPriceFrom: '',
+      filterPriceTo: '',
+    });
+    reset();
+    dispatch(showFilterProduct());
+    onChange(filterData);
+    dispatch(unSubmitFilterForm());
+  }, [
+    shouldFilterProductReset,
+    onChange,
+    dispatch,
+    filterData,
+    selectedSizes,
+    resetField,
+    reset,
+  ]);
+
+  //обробка скидання значень інпутів(price)//
   useEffect(() => {
     if (dirtyFields.filterPriceFrom || dirtyFields.filterPriceTo) {
       resetField('filterPriceRadio', { defaultValue: '' });
@@ -233,7 +264,6 @@ const Filter = ({ onChange }) => {
     await onChange(dataForUpload);
     await dispatch(submitFilterForm());
     await dispatch(hideFilterInMobile());
-    await scrollToTop();
   };
 
   return (
