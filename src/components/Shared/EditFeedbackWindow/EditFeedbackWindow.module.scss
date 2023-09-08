@@ -17,7 +17,7 @@
 
 .closeButton {
   position: absolute;
-  color: #000;
+  color: var(--text-color);
   outline: 0;
   width: 32px;
   height: 32px;
@@ -125,6 +125,8 @@
     resize: none;
     outline: none;
     width: 100%;
+    color: var(--text-color);
+    background-color: transparent;
     &:focus-visible {
         border: 1px solid var(--text-selector-option-focused);
     }
