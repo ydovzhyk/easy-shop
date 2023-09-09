@@ -6,7 +6,7 @@
   @include mixins.mq(tablet) {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    // grid-gap: 15px;
+
     padding: 25px 0px;
   }
 
@@ -16,7 +16,6 @@
 .itemLikes {
   display: flex;
   align-items: center;
-  // justify-content: center;
 
   margin-bottom: 8px;
 
@@ -28,10 +27,12 @@
 }
 
 .wrapper {
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  position: relative;
+
   min-height: 25px;
   &::before {
     content: '';
@@ -51,18 +52,15 @@
 }
 
 .activeLink {
-  // color: aqua;
-  // background-color: bisque;
   display: inline-flex;
   align-items: baseline;
-  transition: all var(--transition-duration) var(--timing-function);
+
   text-shadow: var(--hover-text-shadow);
   color: var(--hover-active-color);
+  transition: all var(--transition-duration) var(--timing-function);
 }
 
 .linkStyle {
-  // color: purple;
-  // background-color: aquamarine;
   font-size: 14px;
 
   @include mixins.mq(tablet) {

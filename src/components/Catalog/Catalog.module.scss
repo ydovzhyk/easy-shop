@@ -13,16 +13,14 @@
 
   padding-top: 20px;
   padding-bottom: 20px;
-
-  background-color: var(--bg-footer-header);
-
   margin-top: 20px;
   margin-bottom: 20px;
+
+  background-color: var(--bg-footer-header);
 
   @include mixins.mq(tablet) {
     padding-top: 25px;
     padding-bottom: 25px;
-    // margin-right: 36px;
   }
 }
 
@@ -61,10 +59,6 @@
   }
 
   @include mixins.mq(tablet) {
-    // padding-top: 25px;
-    // padding-bottom: 25px;
-    // margin-right: 36px;
-
     font-size: 24px;
   }
 }
@@ -82,7 +76,7 @@
 
 @media (max-width: 374px) {
   .buttonAdvice {
-    margin-top: 20px; /* Додайте необхідний відступ зверху */
+    margin-top: 20px;
   }
 
   .button:not(:first-child) {
