@@ -26,6 +26,7 @@ export const axiosDeleteProduct = async userData => {
   return data;
 };
 
+// Get all products
 export const axiosGetAllProducts = async () => {
   const { data } = await instance.get(`/product/`);
   return data;

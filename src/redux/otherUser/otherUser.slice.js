@@ -55,7 +55,12 @@ const otherUser = createSlice({
     },
     [getOtherUser.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload.message;
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
     // * POST User Subscriptions
     [updateUserSubscriptions.pending]: store => {
@@ -69,7 +74,12 @@ const otherUser = createSlice({
     },
     [updateUserSubscriptions.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload.message;
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
 
     // * Delete User Subscriptions
@@ -84,7 +94,12 @@ const otherUser = createSlice({
     },
     [deleteUserSubscriptions.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload.message;
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
 
     // * POST Selecte Searches
@@ -99,7 +114,12 @@ const otherUser = createSlice({
     },
     [updateSelectedSearches.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload.message;
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
   },
 });
