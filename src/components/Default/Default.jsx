@@ -20,7 +20,7 @@ const Default = () => {
       {!isUserLogin && (
         <div className={s.defaultTitle}>
           <Text
-            text={'Перш ніж почати зареєструйтеся!'}
+            text={'Перш ніж почати, зареєструйтеся!'}
             textClass="catalogTitle"
           />
         </div>

@@ -63,8 +63,6 @@
 }
 
 .listCard {
-  // margin-bottom: 20px;
-
   @include mixins.mq(tablet) {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

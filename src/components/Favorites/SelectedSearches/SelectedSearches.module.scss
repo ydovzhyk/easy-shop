@@ -18,16 +18,16 @@
 }
 
 .itemCard {
-  max-width: 250px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
   row-gap: 15px;
-  // border: 2px solid yellow;
   margin-bottom: 25px;
   padding: 10px;
   box-shadow: 0 0 20px 3px rgba(0, 0, 0, 0.2);
-  // width: 280px;
+
+  max-width: 250px;
 
   @include mixins.mq(tablet) {
     margin-bottom: 0;
@@ -62,18 +62,17 @@
 }
 
 .text {
+  margin-bottom: 16px;
+  margin-top: 5px;
+
   font-size: 14px;
   color: var(--text-color);
   word-break: break-word;
-
-  margin-bottom: 16px;
-  margin-top: 5px;
-  // text-align: center;
 }
 
 .textStyle {
-  font-weight: 700;
   padding-right: 10px;
+  font-weight: 700;
 }
 
 .buttonWrapper {
