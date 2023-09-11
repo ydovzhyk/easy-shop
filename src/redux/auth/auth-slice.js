@@ -100,7 +100,8 @@ const auth = createSlice({
     },
     [register.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload.data.message;
+      store.error =
+        payload?.data?.message || 'Oops, something went wrong, try again';
     },
     // * LOGIN
     [login.pending]: store => {
@@ -111,7 +112,8 @@ const auth = createSlice({
     [login.rejected]: (store, { payload }) => {
       store.loading = false;
       if (payload && payload.data) {
-        store.error = payload.data.message;
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
       } else {
         store.error = payload.message;
       }
@@ -136,7 +138,12 @@ const auth = createSlice({
     },
     [logout.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload;
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
     // * GET USER
     [updateUser.pending]: store => {
@@ -151,7 +158,12 @@ const auth = createSlice({
     [updateUser.rejected]: (store, { payload }) => {
       store.loading = false;
       store.isRefreshing = false;
-      store.error = payload?.data?.message || '';
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
     // * UPDATE USER SETTINGS
     [updateUserSettings.pending]: store => {
@@ -177,7 +189,8 @@ const auth = createSlice({
     },
     [updateUserSettings.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload;
+      store.error =
+        payload?.data?.message || 'Oops, something went wrong, try again';
     },
     // * UPDATE USER BASKET
     [updateUserBasket.pending]: store => {
@@ -192,7 +205,12 @@ const auth = createSlice({
 
     [updateUserBasket.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload.message;
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
     // * UPDATE USER LIKES
     [updateUserLikes.pending]: store => {
@@ -207,7 +225,12 @@ const auth = createSlice({
     },
     [updateUserLikes.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload.message;
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
     // * GET INFO BASKET & LIKES
     [getUserLikesBasket.pending]: store => {
@@ -223,7 +246,12 @@ const auth = createSlice({
     },
     [getUserLikesBasket.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload.message;
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
 
     // * UPDATE USER SUBSCRIBTIONS
@@ -239,7 +267,12 @@ const auth = createSlice({
     },
     [updateUserSibscribes.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload.message;
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
     // * UPDATE USER SEARCH SUBSCRIBTIONS
     [updateSearchUserSibscribes.pending]: store => {
@@ -256,7 +289,12 @@ const auth = createSlice({
     },
     [updateSearchUserSibscribes.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload.message;
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
   },
 });

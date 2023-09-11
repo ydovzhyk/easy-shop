@@ -92,7 +92,12 @@ const dialogue = createSlice({
     },
     [createDialogue.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload?.data?.message || '';
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
     // * Create current dialogue
     [getDialogue.pending]: store => {
@@ -106,7 +111,12 @@ const dialogue = createSlice({
     },
     [getDialogue.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload?.data?.message || '';
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
     // * Get all dialogues data
     [getAllDialoguesData.pending]: store => {
@@ -122,7 +132,12 @@ const dialogue = createSlice({
     },
     [getAllDialoguesData.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload?.data?.message || '';
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
     // * Delete dialogue
     [deleteDialogue.pending]: store => {
@@ -135,7 +150,12 @@ const dialogue = createSlice({
     },
     [deleteDialogue.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload?.data?.message || '';
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
     // delete new Message
     [deleteDialogueNewMessage.pending]: store => {
@@ -147,7 +167,12 @@ const dialogue = createSlice({
     },
     [deleteDialogueNewMessage.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload?.data?.message || '';
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
   },
 });

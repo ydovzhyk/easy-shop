@@ -45,7 +45,12 @@ const verifyEmailSlice = createSlice({
     },
     [verifyEmail.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload?.data?.message || '';
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
   },
 });

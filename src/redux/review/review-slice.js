@@ -55,7 +55,12 @@ const reviews = createSlice({
     },
     [addReview.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload;
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
     // getReviewById
     [getReviewById.pending]: store => {
@@ -68,7 +73,12 @@ const reviews = createSlice({
     },
     [getReviewById.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload.data.message;
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
     //* deleteReviewById
     [deleteReviewById.pending]: store => {
@@ -81,7 +91,12 @@ const reviews = createSlice({
     },
     [deleteReviewById.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload;
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
     //* get user Reviews
     [getUserReviews.pending]: store => {
@@ -94,7 +109,12 @@ const reviews = createSlice({
     },
     [getUserReviews.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload;
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
     //* get user Feedback
     [getUserFeedback.pending]: store => {
@@ -107,7 +127,12 @@ const reviews = createSlice({
     },
     [getUserFeedback.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload;
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
     //* updateFeedback
     [updateFeedback.pending]: store => {
@@ -120,7 +145,12 @@ const reviews = createSlice({
     },
     [updateFeedback.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload;
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
   },
 });

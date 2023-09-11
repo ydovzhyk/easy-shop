@@ -149,7 +149,12 @@ const products = createSlice({
     },
     [addProduct.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload;
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
     //* updateProduct
     [updateProduct.pending]: store => {
@@ -162,7 +167,12 @@ const products = createSlice({
     },
     [updateProduct.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload;
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
     //* deleteProduct
     [deleteProduct.pending]: store => {
@@ -175,7 +185,12 @@ const products = createSlice({
     },
     [deleteProduct.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload;
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
     [getAllProducts.pending]: store => {
       store.loading = true;
@@ -187,7 +202,12 @@ const products = createSlice({
     },
     [getAllProducts.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload;
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
     //* search Product
     [searchProducts.pending]: store => {
@@ -202,7 +222,12 @@ const products = createSlice({
     },
     [searchProducts.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload;
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
 
     //* get my product
@@ -218,7 +243,12 @@ const products = createSlice({
     },
     [getUserProducts.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload;
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
     //get products page
     [getVipProducts.pending]: store => {
@@ -232,7 +262,12 @@ const products = createSlice({
     },
     [getVipProducts.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload;
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
     //  get SelectorProducts page
     [getProductsBySelector.pending]: store => {
@@ -246,7 +281,12 @@ const products = createSlice({
     },
     [getProductsBySelector.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload;
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
     // getProductById
     [getProductById.pending]: store => {
@@ -259,7 +299,12 @@ const products = createSlice({
     },
     [getProductById.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload;
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
     // get products from user's basket
     [getProductsFromBasket.pending]: store => {
@@ -273,7 +318,12 @@ const products = createSlice({
     },
     [getProductsFromBasket.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload;
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
     // get products from other user
     [getProductsFromOtherUser.pending]: store => {
@@ -286,7 +336,12 @@ const products = createSlice({
     },
     [getProductsFromOtherUser.rejected]: (store, { payload }) => {
       store.loading = false;
-      store.error = payload;
+      if (payload && payload.data) {
+        store.error =
+          payload?.data?.message || 'Oops, something went wrong, try again';
+      } else {
+        store.error = payload.message;
+      }
     },
   },
 });
