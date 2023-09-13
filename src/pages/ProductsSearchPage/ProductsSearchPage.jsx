@@ -13,6 +13,11 @@ import {
   getShownFilterInMobile,
 } from 'redux/product/product-selectors';
 
+import {
+  resetHeaderForm,
+  setCurrentProductsPage,
+} from 'redux/product/product-slice';
+
 import Filter from 'components/Filter/Filter';
 import Container from 'components/Shared/Container/Container';
 import { filterPrices } from 'components/Filter/filterPrice';
@@ -151,6 +156,20 @@ const ProductsSearchPage = () => {
     });
     setSearchParams(searchParams);
   };
+
+  // обробка рендерингу компоненту з відсутнім url-параметром search
+  useEffect(() => {
+    if (
+      !searchQuery &&
+      window.sessionStorage.getItem('searchQuery') !== null &&
+      !shouldHeaderFormReset
+    ) {
+      window.sessionStorage.removeItem('searchQuery');
+      dispatch(resetHeaderForm());
+      dispatch(setCurrentProductsPage(1));
+    }
+    return;
+  }, [searchQuery, shouldHeaderFormReset, dispatch]);
 
   return (
     <div>

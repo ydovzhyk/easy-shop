@@ -76,17 +76,6 @@ const Products = () => {
     dispatch(setCurrentProductsPage(Number(pageParam)));
   }, [pageParam, dispatch]);
 
-  // //обробка рендерингу компоненту з відсутнім url-параметром search//
-  // useEffect(() => {
-  //   if (searchParam && window.sessionStorage.removeItem('searchQuery')) {
-  //     return;
-  //   }
-  //   console.log('123');
-  //   window.sessionStorage.removeItem('searchQuery');
-  //   dispatch(resetHeaderForm());
-  //   dispatch(setCurrentProductsPage(1));
-  // }, [searchParam, dispatch]);
-
   //обробка завантаження компоненту з наявним url-параметром sort//
   useEffect(() => {
     if (filterSortSelected === '') {
