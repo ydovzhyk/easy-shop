@@ -295,20 +295,6 @@ const Products = () => {
                     </button>
                   )}
                 </div>
-                {/* <Controller
-                  control={control}
-                  name="filterSection"
-                  render={({ field: { value } }) => (
-                    <SelectField
-                      value={value}
-                      className={'filterSection'}
-                      handleChange={value => handleChangeFilter(value.value)}
-                      options={options}
-                      defaultValue={{ value: 'популярні', label: 'Популярні' }}
-                      name="filterSection"
-                    />
-                  )}
-                /> */}
               </div>
 
               <ul className={s.listCard}>
