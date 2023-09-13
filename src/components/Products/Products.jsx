@@ -58,7 +58,6 @@ const Products = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const sortParam = searchParams.get('sort');
   const pageParam = searchParams.get('page');
-  const searchParam = searchParams.get('search');
   const searchQuery =
     JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '';
 
