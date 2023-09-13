@@ -76,15 +76,16 @@ const Products = () => {
     dispatch(setCurrentProductsPage(Number(pageParam)));
   }, [pageParam, dispatch]);
 
-  //обробка рендерингу компоненту з відсутнім url-параметром search//
-  useEffect(() => {
-    if (searchParam) {
-      return;
-    }
-    window.sessionStorage.removeItem('searchQuery');
-    dispatch(resetHeaderForm());
-    dispatch(setCurrentProductsPage(1));
-  }, [searchParam, dispatch]);
+  // //обробка рендерингу компоненту з відсутнім url-параметром search//
+  // useEffect(() => {
+  //   if (searchParam && window.sessionStorage.removeItem('searchQuery')) {
+  //     return;
+  //   }
+  //   console.log('123');
+  //   window.sessionStorage.removeItem('searchQuery');
+  //   dispatch(resetHeaderForm());
+  //   dispatch(setCurrentProductsPage(1));
+  // }, [searchParam, dispatch]);
 
   //обробка завантаження компоненту з наявним url-параметром sort//
   useEffect(() => {
@@ -191,7 +192,6 @@ const Products = () => {
       setSearchParams(searchParams);
     }
     dispatch(setCurrentProductsPage(page));
-    // scrollToTop();
   };
 
   const getClassName = () => {
@@ -207,30 +207,71 @@ const Products = () => {
           query={searchQuery}
         />
 
-        <div>
-          {searchQuery && (
-            <button
-              type="button"
-              className={s.filterContent}
-              onClick={handleClearSearchQueryClick}
-            >
-              <Text textClass="searchQueryContent" text={searchQuery} />
-              <MdClose size={isMobile ? 18 : 22} />
-            </button>
-          )}
-          {hasUrlSearchParams && (
-            <button
-              type="button"
-              className={s.filterContent}
-              onClick={handleClearFiltersClick}
-            >
-              <Text textClass="searchQueryContent" text="Скинути фільтри" />
-              <MdClose size={isMobile ? 18 : 22} />
-            </button>
+        <div className={s.btnWrapper}>
+          <div className={s.btnMainWrapper}>
+            <div style={{ marginBottom: '10px' }}>
+              {searchQuery && (
+                <button
+                  type="button"
+                  className={s.filterContent}
+                  onClick={handleClearSearchQueryClick}
+                >
+                  <Text textClass="searchQueryContent" text={searchQuery} />
+                  <MdClose size={isMobile ? 18 : 22} />
+                </button>
+              )}
+              {hasUrlSearchParams && (
+                <button
+                  type="button"
+                  className={s.filterContent}
+                  onClick={handleClearFiltersClick}
+                >
+                  <Text textClass="searchQueryContent" text="Скинути фільтри" />
+                  <MdClose size={isMobile ? 18 : 22} />
+                </button>
+              )}
+            </div>
+            {isUserLogin && !isMobile && (
+              <button
+                type="button"
+                className={
+                  isSubscribedSearch()
+                    ? `${s.btnDarkSubscribe}`
+                    : `${s.btnLightSubscribe}`
+                }
+                onClick={handleSubscribtionClick}
+              >
+                <Text
+                  textClass="searchQueryContent"
+                  text={isSubscribedSearch() ? 'Ви підписані' : 'Підписатися'}
+                />
+                {isSubscribedSearch() ? (
+                  <HiStar size={isMobile ? 18 : 22} />
+                ) : (
+                  <HiOutlineStar size={isMobile ? 18 : 22} />
+                )}
+              </button>
+            )}
+          </div>
+          {productsToRender.length > 0 && (
+            <Controller
+              control={control}
+              name="filterSection"
+              render={({ field: { value } }) => (
+                <SelectField
+                  value={value}
+                  className={'filterSection'}
+                  handleChange={value => handleChangeFilter(value.value)}
+                  options={options}
+                  defaultValue={{ value: 'популярні', label: 'Популярні' }}
+                  name="filterSection"
+                />
+              )}
+            />
           )}
         </div>
         <div style={{ position: 'relative' }}>
-          {isUserLogin && (
+          {isUserLogin && isMobile && (
             <button
               type="button"
               className={
@@ -266,7 +307,7 @@ const Products = () => {
                     </button>
                   )}
                 </div>
-                <Controller
+                {/* <Controller
                   control={control}
                   name="filterSection"
                   render={({ field: { value } }) => (
@@ -275,21 +316,11 @@ const Products = () => {
                       className={'filterSection'}
                       handleChange={value => handleChangeFilter(value.value)}
                       options={options}
-                      defaultValue={
-                        { value: 'популярні', label: 'Популярні' }
-                        // filterSortSelected === ''
-                        //   ? { value: 'популярні', label: 'Популярні' }
-                        //   : {
-                        //       value: filterSortSelected,
-                        //       label:
-                        //         filterSortSelected[0].toUpperCase() +
-                        //         filterSortSelected.slice(1),
-                        //     }
-                      }
+                      defaultValue={{ value: 'популярні', label: 'Популярні' }}
                       name="filterSection"
                     />
                   )}
-                />
+                /> */}
               </div>
 
               <ul className={s.listCard}>

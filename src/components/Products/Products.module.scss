@@ -24,7 +24,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 4px 8px;
-  margin-bottom: 10px;
+  // margin-top: 10px;
   min-width: 100px;
   min-height: 38px;
   cursor: pointer;
@@ -55,13 +55,25 @@
   @include mixins.mq(tablet) {
     padding: 8px 14px;
     &:not(:last-of-type) {
-      margin-right: 15px;
-      margin-bottom: 0;
+      margin-right: 0px;
+      margin-bottom: 10px;
     }
   }
   @include mixins.mq(desktop) {
     padding: 10px 16px;
     font-size: 16px;
+    &:not(:last-of-type) {
+      margin-right: 8px;
+      margin-bottom: 0px;
+    }
+  }
+}
+
+.btnMainWrapper {
+  margin-bottom: 10px;
+
+  @include mixins.mq(tablet) {
+    margin-bottom: 0px;
   }
 }
 
@@ -70,17 +82,20 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  margin-bottom: 10px;
   @include mixins.mq(tablet) {
     flex-direction: row;
-    margin-bottom: 10px;
+    // margin-bottom: 10px;
   }
 }
 
 .selectWrapper {
   position: relative;
   text-align: left;
+  margin-bottom: 10px;
   @include mixins.mq(tablet) {
     text-align: right;
+    margin-bottom: 0;
   }
 }
 
@@ -146,5 +161,14 @@
   @include mixins.mq(mobile) {
     flex-direction: row;
     align-items: center;
+  }
+}
+.btnWrapper {
+  margin-bottom: 0px;
+  @include mixins.mq(tablet) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
   }
 }
