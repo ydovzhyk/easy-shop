@@ -24,7 +24,6 @@
   justify-content: space-between;
   align-items: center;
   padding: 6px 10px;
-  // margin-top: 10px;
   min-width: 196px;
   min-height: 38px;
   cursor: pointer;
@@ -59,10 +58,6 @@
   @include mixins.mq(desktop) {
     padding: 10px 16px;
     font-size: 16px;
-    // &:not(:last-of-type) {
-    //   margin-right: 8px;
-    //   margin-bottom: 10px;
-    // }
   }
 }
 
@@ -91,7 +86,6 @@
   margin-bottom: 10px;
   @include mixins.mq(tablet) {
     flex-direction: row;
-    // margin-bottom: 10px;
   }
 }
 
@@ -111,12 +105,9 @@
   align-items: center;
   width: 196px;
   height: 50px;
-  // width: 158px;
-  // height: 40px;
   background-color: var(--background-btn-main-color);
   border: 1px solid var(--btn-border-color);
   color: var(--btn-text-color);
-  // color: #000;
   border-radius: 10.3108px;
   font-style: normal;
   font-weight: 500;

@@ -98,7 +98,7 @@ const ProductsSearchPage = () => {
     filterPriceTo,
   ]);
 
-  //обробка першого рекдеру сторінки//
+  //обробка першого рендеру сторінки//
   useEffect(() => {
     if (
       !hasHeaderFormErrors &&
@@ -157,19 +157,19 @@ const ProductsSearchPage = () => {
     setSearchParams(searchParams);
   };
 
-  // обробка рендерингу компоненту з відсутнім url-параметром search
-  useEffect(() => {
-    if (
-      !searchQuery &&
-      window.sessionStorage.getItem('searchQuery') !== null &&
-      !shouldHeaderFormReset
-    ) {
-      window.sessionStorage.removeItem('searchQuery');
-      dispatch(resetHeaderForm());
-      dispatch(setCurrentProductsPage(1));
-    }
-    return;
-  }, [searchQuery, shouldHeaderFormReset, dispatch]);
+  // // обробка рендерингу компоненту з відсутнім url-параметром search
+  // useEffect(() => {
+  //   if (
+  //     !searchQuery &&
+  //     window.sessionStorage.getItem('searchQuery') !== null &&
+  //     !shouldHeaderFormReset
+  //   ) {
+  //     window.sessionStorage.removeItem('searchQuery');
+  //     dispatch(resetHeaderForm());
+  //     dispatch(setCurrentProductsPage(1));
+  //   }
+  //   return;
+  // }, [searchQuery, shouldHeaderFormReset, dispatch]);
 
   return (
     <div>

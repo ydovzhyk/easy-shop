@@ -80,11 +80,17 @@ const Products = () => {
     if (filterSortSelected === '') {
       return;
     }
-    setFilterSortSelected(options[Number(sortParam)]);
-    setValue('filterSection', {
-      value: filterSortSelected,
-      label: filterSortSelected[0].toUpperCase() + filterSortSelected.slice(1),
-    });
+    if (sortParam) {
+      setFilterSortSelected(options[Number(sortParam)]);
+      setValue('filterSection', {
+        value: filterSortSelected,
+        label:
+          filterSortSelected[0].toUpperCase() + filterSortSelected.slice(1),
+      });
+    }
+    if (!sortParam) {
+      return;
+    }
   }, [sortParam, filterSortSelected, setValue, reset]);
 
   //обробка отриманих інформаційних повідомлень з бекенду//
