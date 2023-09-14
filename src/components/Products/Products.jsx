@@ -209,7 +209,7 @@ const Products = () => {
                   className={s.filterContent}
                   onClick={handleClearSearchQueryClick}
                 >
-                  <Text textClass="searchQueryContent" text={searchQuery} />
+                  <Text text={searchQuery} />
                   <MdClose size={isMobile ? 18 : 22} />
                 </button>
               )}
