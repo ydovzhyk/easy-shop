@@ -197,7 +197,12 @@ const Products = () => {
 
         <div className={s.btnWrapper}>
           <div className={s.btnMainWrapper}>
-            <div style={{ marginBottom: '10px' }}>
+            <div
+              className={s.box}
+              style={{
+                marginBottom: `${isUserLogin ? '10px' : '0px'}`,
+              }}
+            >
               {searchQuery && (
                 <button
                   type="button"
