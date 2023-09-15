@@ -194,18 +194,17 @@ const Products = () => {
   };
 
   return (
-    <section style={{ flexGrow: 1, position: 'relative' }}>
+    <section style={{ flexGrow: 1 }}>
       <div className={s.container}>
         <TopNavProducts
           category={category}
           subcategory={subcategory}
           query={searchQuery}
         />
-
         <div className={s.btnWrapper}>
           <div className={s.btnMainWrapper}>
             <div
-              className={s.box}
+              className={s.btnBox}
               style={{
                 marginBottom: `${isUserLogin ? '10px' : '0px'}`,
               }}
@@ -213,7 +212,7 @@ const Products = () => {
               {searchQuery && (
                 <button
                   type="button"
-                  className={s.filterContent}
+                  className={s.btnContent}
                   onClick={handleClearSearchQueryClick}
                 >
                   <Text text={searchQuery} />
@@ -223,10 +222,10 @@ const Products = () => {
               {hasUrlSearchParams && (
                 <button
                   type="button"
-                  className={s.filterContent}
+                  className={s.btnContent}
                   onClick={handleClearFiltersClick}
                 >
-                  <Text textClass="searchQueryContent" text="Скинути фільтри" />
+                  <Text textClass="btnContent" text="Скинути фільтри" />
                   <MdClose size={isMobile ? 18 : 22} />
                 </button>
               )}
@@ -242,7 +241,7 @@ const Products = () => {
                 onClick={handleSubscribtionClick}
               >
                 <Text
-                  textClass="searchQueryContent"
+                  textClass="btnContent"
                   text={isSubscribedSearch() ? 'Ви підписані' : 'Підписатися'}
                 />
                 {isSubscribedSearch() ? (
@@ -282,7 +281,7 @@ const Products = () => {
               onClick={handleSubscribtionClick}
             >
               <Text
-                textClass="searchQueryContent"
+                textClass="btnContent"
                 text={isSubscribedSearch() ? 'Ви підписані' : 'Підписатися'}
               />
               {isSubscribedSearch() ? (

@@ -19,7 +19,7 @@
   }
 }
 
-.filterContent {
+.btnContent {
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
@@ -51,7 +51,6 @@
   @include mixins.mq(tablet) {
     padding: 8px 14px;
     &:not(:last-of-type) {
-      // margin-right: 10px;
       margin-bottom: 10px;
     }
   }
@@ -69,7 +68,7 @@
   }
 }
 
-.box {
+.btnBox {
   display: flex;
   flex-direction: column;
   width: 196px;
