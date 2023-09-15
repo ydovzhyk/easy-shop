@@ -76,7 +76,7 @@ const Products = () => {
     }
     dispatch(setCurrentProductsPage(Number(pageParam)));
   }, [pageParam, dispatch]);
-  console.log(filterSortSelected);
+
   //обробка завантаження компоненту з наявним url-параметром sort//
   useEffect(() => {
     if (filterSortSelected === '') {
@@ -122,7 +122,6 @@ const Products = () => {
     await searchParams.delete('page');
     await searchParams.set('sort', selectedSortIndex);
     await setSearchParams(searchParams);
-    await dispatch(setCurrentProductsPage(1));
   };
 
   const productsToRender = useMemo(() => {
