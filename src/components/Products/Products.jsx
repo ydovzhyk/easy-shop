@@ -39,7 +39,12 @@ import { scrollToTop } from '../../funcs&hooks/scrollToTop';
 import s from './Products.module.scss';
 
 const Products = () => {
-  const [filterSortSelected, setFilterSortSelected] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sortParam = searchParams.get('sort');
+  const pageParam = searchParams.get('page');
+  const [filterSortSelected, setFilterSortSelected] = useState(() => {
+    return options[Number(sortParam)] ?? '';
+  });
   const [isMessage, setIsMessage] = useState('');
 
   const message = useSelector(getUserMessage);
@@ -55,9 +60,6 @@ const Products = () => {
 
   const { pathname, search } = useLocation();
   const { category, subcategory } = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const sortParam = searchParams.get('sort');
-  const pageParam = searchParams.get('page');
   const searchQuery =
     JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '';
 
@@ -74,23 +76,21 @@ const Products = () => {
     }
     dispatch(setCurrentProductsPage(Number(pageParam)));
   }, [pageParam, dispatch]);
-
+  console.log(filterSortSelected);
   //обробка завантаження компоненту з наявним url-параметром sort//
   useEffect(() => {
     if (filterSortSelected === '') {
-      return;
-    }
-    if (sortParam) {
-      setFilterSortSelected(options[Number(sortParam)]);
       setValue('filterSection', {
-        value: filterSortSelected,
-        label:
-          filterSortSelected[0].toUpperCase() + filterSortSelected.slice(1),
+        value: options[0].toLowerCase(),
+        label: options[0],
       });
-    }
-    if (!sortParam) {
       return;
     }
+    setFilterSortSelected(options[Number(sortParam)]);
+    setValue('filterSection', {
+      value: filterSortSelected,
+      label: filterSortSelected[0].toUpperCase() + filterSortSelected.slice(1),
+    });
   }, [sortParam, filterSortSelected, setValue, reset]);
 
   //обробка отриманих інформаційних повідомлень з бекенду//
@@ -119,8 +119,10 @@ const Products = () => {
     const selectedSortIndex = options.findIndex(
       el => el === filterSortSelected
     );
-    searchParams.set('sort', selectedSortIndex);
-    setSearchParams(searchParams);
+    await searchParams.delete('page');
+    await searchParams.set('sort', selectedSortIndex);
+    await setSearchParams(searchParams);
+    await dispatch(setCurrentProductsPage(1));
   };
 
   const productsToRender = useMemo(() => {
