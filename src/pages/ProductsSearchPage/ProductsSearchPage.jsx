@@ -93,7 +93,7 @@ const ProductsSearchPage = () => {
     filterPriceTo,
   ]);
 
-  //обробка першого рекдеру сторінки//
+  //обробка першого рендеру сторінки//
   useEffect(() => {
     if (
       !hasHeaderFormErrors &&

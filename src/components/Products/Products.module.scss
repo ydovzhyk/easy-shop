@@ -19,20 +19,19 @@
   }
 }
 
-.filterContent {
+.btnContent {
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
-  padding: 4px 8px;
-  margin-bottom: 10px;
-  min-width: 100px;
+  padding: 6px 10px;
+  min-width: 196px;
   min-height: 38px;
   cursor: pointer;
   background-color: var(--border-color);
   border-radius: 8px;
   border: 1px solid transparent;
-  font-size: 12px;
-  line-height: 16px;
+  font-size: 16px;
+  line-height: 1.14;
   letter-spacing: 0.02em;
   color: var(--text-color);
   transition: box-shadow var(--transition-duration) var(--timing-function),
@@ -40,7 +39,7 @@
     color var(--transition-duration) var(--timing-function),
     background-color var(--transition-duration) var(--timing-function);
   &:not(:last-of-type) {
-    margin-right: 15px;
+    margin-bottom: 10px;
   }
   &:hover {
     background-color: var(--main-color);
@@ -48,15 +47,11 @@
     border: solid 1px var(--btn-border-color);
     box-shadow: var(--hover-box-shadow);
   }
-  @include mixins.mq(mobile) {
-    padding: 8px 14px;
-    font-size: 14px;
-  }
+
   @include mixins.mq(tablet) {
     padding: 8px 14px;
     &:not(:last-of-type) {
-      margin-right: 15px;
-      margin-bottom: 0;
+      margin-bottom: 10px;
     }
   }
   @include mixins.mq(desktop) {
@@ -65,22 +60,41 @@
   }
 }
 
+.btnMainWrapper {
+  margin-bottom: 10px;
+
+  @include mixins.mq(tablet) {
+    margin-bottom: 0px;
+  }
+}
+
+.btnBox {
+  display: flex;
+  flex-direction: column;
+  width: 196px;
+  @include mixins.mq(tablet) {
+    width: auto;
+  }
+}
+
 .bottomOptionsWrapper {
   position: relative;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  margin-bottom: 10px;
   @include mixins.mq(tablet) {
     flex-direction: row;
-    margin-bottom: 10px;
   }
 }
 
 .selectWrapper {
   position: relative;
   text-align: left;
+  margin-bottom: 10px;
   @include mixins.mq(tablet) {
     text-align: right;
+    margin-bottom: 0;
   }
 }
 
@@ -90,12 +104,9 @@
   align-items: center;
   width: 196px;
   height: 50px;
-  // width: 158px;
-  // height: 40px;
   background-color: var(--background-btn-main-color);
   border: 1px solid var(--btn-border-color);
   color: var(--btn-text-color);
-  // color: #000;
   border-radius: 10.3108px;
   font-style: normal;
   font-weight: 500;
@@ -146,5 +157,14 @@
   @include mixins.mq(mobile) {
     flex-direction: row;
     align-items: center;
+  }
+}
+.btnWrapper {
+  margin-bottom: 0px;
+  @include mixins.mq(tablet) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
   }
 }

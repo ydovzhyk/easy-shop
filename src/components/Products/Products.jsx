@@ -39,7 +39,12 @@ import { scrollToTop } from '../../funcs&hooks/scrollToTop';
 import s from './Products.module.scss';
 
 const Products = () => {
-  const [filterSortSelected, setFilterSortSelected] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sortParam = searchParams.get('sort');
+  const pageParam = searchParams.get('page');
+  const [filterSortSelected, setFilterSortSelected] = useState(() => {
+    return options[Number(sortParam)] ?? '';
+  });
   const [isMessage, setIsMessage] = useState('');
 
   const message = useSelector(getUserMessage);
@@ -55,10 +60,6 @@ const Products = () => {
 
   const { pathname, search } = useLocation();
   const { category, subcategory } = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const sortParam = searchParams.get('sort');
-  const pageParam = searchParams.get('page');
-  const searchParam = searchParams.get('search');
   const searchQuery =
     JSON.parse(window.sessionStorage.getItem('searchQuery')) ?? '';
 
@@ -76,19 +77,13 @@ const Products = () => {
     dispatch(setCurrentProductsPage(Number(pageParam)));
   }, [pageParam, dispatch]);
 
-  //обробка рендерингу компоненту з відсутнім url-параметром search//
-  useEffect(() => {
-    if (searchParam) {
-      return;
-    }
-    window.sessionStorage.removeItem('searchQuery');
-    dispatch(resetHeaderForm());
-    dispatch(setCurrentProductsPage(1));
-  }, [searchParam, dispatch]);
-
   //обробка завантаження компоненту з наявним url-параметром sort//
   useEffect(() => {
     if (filterSortSelected === '') {
+      setValue('filterSection', {
+        value: options[0].toLowerCase(),
+        label: options[0],
+      });
       return;
     }
     setFilterSortSelected(options[Number(sortParam)]);
@@ -124,8 +119,9 @@ const Products = () => {
     const selectedSortIndex = options.findIndex(
       el => el === filterSortSelected
     );
-    searchParams.set('sort', selectedSortIndex);
-    setSearchParams(searchParams);
+    await searchParams.delete('page');
+    await searchParams.set('sort', selectedSortIndex);
+    await setSearchParams(searchParams);
   };
 
   const productsToRender = useMemo(() => {
@@ -191,7 +187,6 @@ const Products = () => {
       setSearchParams(searchParams);
     }
     dispatch(setCurrentProductsPage(page));
-    // scrollToTop();
   };
 
   const getClassName = () => {
@@ -199,38 +194,83 @@ const Products = () => {
   };
 
   return (
-    <section style={{ flexGrow: 1, position: 'relative' }}>
+    <section style={{ flexGrow: 1 }}>
       <div className={s.container}>
         <TopNavProducts
           category={category}
           subcategory={subcategory}
           query={searchQuery}
         />
-
-        <div>
-          {searchQuery && (
-            <button
-              type="button"
-              className={s.filterContent}
-              onClick={handleClearSearchQueryClick}
+        <div className={s.btnWrapper}>
+          <div className={s.btnMainWrapper}>
+            <div
+              className={s.btnBox}
+              style={{
+                marginBottom: `${isUserLogin ? '10px' : '0px'}`,
+              }}
             >
-              <Text textClass="searchQueryContent" text={searchQuery} />
-              <MdClose size={isMobile ? 18 : 22} />
-            </button>
-          )}
-          {hasUrlSearchParams && (
-            <button
-              type="button"
-              className={s.filterContent}
-              onClick={handleClearFiltersClick}
-            >
-              <Text textClass="searchQueryContent" text="Скинути фільтри" />
-              <MdClose size={isMobile ? 18 : 22} />
-            </button>
+              {searchQuery && (
+                <button
+                  type="button"
+                  className={s.btnContent}
+                  onClick={handleClearSearchQueryClick}
+                >
+                  <Text text={searchQuery} />
+                  <MdClose size={isMobile ? 18 : 22} />
+                </button>
+              )}
+              {hasUrlSearchParams && (
+                <button
+                  type="button"
+                  className={s.btnContent}
+                  onClick={handleClearFiltersClick}
+                >
+                  <Text textClass="btnContent" text="Скинути фільтри" />
+                  <MdClose size={isMobile ? 18 : 22} />
+                </button>
+              )}
+            </div>
+            {isUserLogin && !isMobile && (
+              <button
+                type="button"
+                className={
+                  isSubscribedSearch()
+                    ? `${s.btnDarkSubscribe}`
+                    : `${s.btnLightSubscribe}`
+                }
+                onClick={handleSubscribtionClick}
+              >
+                <Text
+                  textClass="btnContent"
+                  text={isSubscribedSearch() ? 'Ви підписані' : 'Підписатися'}
+                />
+                {isSubscribedSearch() ? (
+                  <HiStar size={isMobile ? 18 : 22} />
+                ) : (
+                  <HiOutlineStar size={isMobile ? 18 : 22} />
+                )}
+              </button>
+            )}
+          </div>
+          {productsToRender.length > 0 && (
+            <Controller
+              control={control}
+              name="filterSection"
+              render={({ field: { value } }) => (
+                <SelectField
+                  value={value}
+                  className={'filterSection'}
+                  handleChange={value => handleChangeFilter(value.value)}
+                  options={options}
+                  defaultValue={{ value: 'популярні', label: 'Популярні' }}
+                  name="filterSection"
+                />
+              )}
+            />
           )}
         </div>
         <div style={{ position: 'relative' }}>
-          {isUserLogin && (
+          {isUserLogin && isMobile && (
             <button
               type="button"
               className={
@@ -241,7 +281,7 @@ const Products = () => {
               onClick={handleSubscribtionClick}
             >
               <Text
-                textClass="searchQueryContent"
+                textClass="btnContent"
                 text={isSubscribedSearch() ? 'Ви підписані' : 'Підписатися'}
               />
               {isSubscribedSearch() ? (
@@ -266,30 +306,6 @@ const Products = () => {
                     </button>
                   )}
                 </div>
-                <Controller
-                  control={control}
-                  name="filterSection"
-                  render={({ field: { value } }) => (
-                    <SelectField
-                      value={value}
-                      className={'filterSection'}
-                      handleChange={value => handleChangeFilter(value.value)}
-                      options={options}
-                      defaultValue={
-                        { value: 'популярні', label: 'Популярні' }
-                        // filterSortSelected === ''
-                        //   ? { value: 'популярні', label: 'Популярні' }
-                        //   : {
-                        //       value: filterSortSelected,
-                        //       label:
-                        //         filterSortSelected[0].toUpperCase() +
-                        //         filterSortSelected.slice(1),
-                        //     }
-                      }
-                      name="filterSection"
-                    />
-                  )}
-                />
               </div>
 
               <ul className={s.listCard}>

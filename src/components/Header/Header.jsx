@@ -39,7 +39,8 @@ const Header = () => {
   const searchQuery = searchParams.get('search') ?? '';
   const { pathname } = useLocation();
 
-  const isUserAtProductsSearchPage = pathname.includes('/product');
+  const isUserAtProductsSearchPage =
+    pathname.includes('/product') && pathname.split('/').length <= 4;
 
   const isLogin = useSelector(getLogin);
   const dispatch = useDispatch();

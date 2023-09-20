@@ -27,7 +27,7 @@
   -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   @include mixins.mq(tablet) {
-    width: 240px;
+    max-width: 240px;
   }
 }
 
@@ -116,11 +116,7 @@
   min-width: 196px;
   max-width: 240px;
   margin: 0;
-  @include mixins.mq(tablet) {
-    position: absolute;
-    top: -50px;
-    right: 0;
-  }
+  align-self: self-end;
 }
 
 .label.addOrder {
