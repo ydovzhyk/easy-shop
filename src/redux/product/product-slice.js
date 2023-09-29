@@ -39,6 +39,7 @@ const initialState = {
   filterFormSubmit: false,
   shownFilterInMobile: false,
   currentProductsPage: 1,
+  isProductLiked: false,
   productsFromOtherUser: [],
 };
 
@@ -105,6 +106,12 @@ const products = createSlice({
     },
     setCurrentProductsPage: (store, { payload }) => {
       store.currentProductsPage = payload;
+    },
+    setPdoductToLiked: (store, { payload }) => {
+      store.isProductLiked = true;
+    },
+    setPdoductToUnLiked: (store, { payload }) => {
+      store.isProductLiked = false;
     },
     clearProductsFromOtherUser: store => {
       store.productsFromOtherUser = [];
@@ -369,6 +376,8 @@ export const {
   setHeaderFormClick,
   resetHeaderFormClick,
   setCurrentProductsPage,
+  setPdoductToLiked,
+  setPdoductToUnLiked,
   clearProductsFromOtherUser,
   clearProductsState,
 } = products.actions;
