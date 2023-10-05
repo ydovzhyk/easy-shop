@@ -236,7 +236,7 @@ const BasketForm = ({ ownerId, ownerName, products }) => {
       </div>
       {questionWindow && (
         <MessageWindow
-          text="Ви впевнені, що хочете видалити товар з кошика?"
+          text="Are you sure you want to remove the product from the basket?"
           confirmButtons={true}
           onConfirm={deleteProductFrombasket}
         />

@@ -37,6 +37,7 @@ const UserSubscriptions = () => {
 
   const userSubscriptions = useSelector(selectUserSubscriptions);
   const totalPagesSubscription = useSelector(selectTotalPagesUserSubscription);
+  console.log(userSubscriptions);
 
   const getDaysPassedFromDate = dateString => {
     const date = new Date(dateString);
@@ -124,7 +125,9 @@ const UserSubscriptions = () => {
                     <div className={s.profileinfo}>
                       <div className={s.infowrapper}>
                         <BsGeoAlt className={s.iconBefore} />
-                        <p className={s.text}>{cityName}</p>
+                        <p className={s.text}>
+                          {cityName ? cityName : 'Не вказано'}
+                        </p>
                       </div>
                       <div className={s.infowrapper}>
                         <BsPeople className={s.iconBefore} />

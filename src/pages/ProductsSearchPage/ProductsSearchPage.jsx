@@ -11,6 +11,7 @@ import {
   getCurrentProductsPage,
   getFilterProduct,
   getShownFilterInMobile,
+  getIsPdoductLiked,
 } from 'redux/product/product-selectors';
 
 import Filter from 'components/Filter/Filter';
@@ -42,6 +43,7 @@ const ProductsSearchPage = () => {
   const currentPage = useSelector(getCurrentProductsPage);
   const shouldFilterFormReset = useSelector(getFilterProduct);
   const showFilterInMobile = useSelector(getShownFilterInMobile);
+  const isLiked = useSelector(getIsPdoductLiked);
 
   const viewPort = useScreenResizing();
   const isMobile = viewPort.width < 768;
@@ -120,6 +122,16 @@ const ProductsSearchPage = () => {
     setSearchParams,
     dispatch,
   ]);
+
+  //запит на сервер при віднеенні товару до обраних//
+  useEffect(() => {
+    dispatch(
+      searchProducts({
+        payloadData: payload,
+        page: currentPage,
+      })
+    );
+  }, [isLiked, currentPage, payload, dispatch]);
 
   //обробка скидання форми фільтрів//
   useEffect(() => {

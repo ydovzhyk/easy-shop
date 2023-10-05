@@ -55,7 +55,6 @@ const ProductItem = ({
     }
 
     await dispatch(updateUserLikes({ productId: _id }));
-
     const newIsLiked = !isLiked;
     handleLike(newIsLiked);
   };

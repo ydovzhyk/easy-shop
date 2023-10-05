@@ -7,7 +7,7 @@ const developers = [
     email: 'ydovzhyk@gmail.com',
   },
   {
-    devName: 'Наталія Гринук',
+    devName: 'Наталія Гринчук',
     devPhoto: 'https://avatars.githubusercontent.com/u/92783918?v=4',
     gitHubLink: 'https://github.com/NataliiaHrynchuk',
     linkedInLink: 'https://www.linkedin.com/in/nataliia-hrynchuk/',

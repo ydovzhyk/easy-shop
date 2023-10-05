@@ -15,6 +15,7 @@ import {
   getCurrentProductsPage,
   getHeaderFormErrors,
   getProductsByQueryPages,
+  getIsPdoductLiked,
 } from 'redux/product/product-selectors';
 import { getLogin, getUserMessage, getUser } from 'redux/auth/auth-selectors';
 import { updateSearchUserSibscribes } from 'redux/auth/auth-operations';
@@ -23,7 +24,10 @@ import {
   setCurrentProductsPage,
   resetFilterProduct,
   showFilterInMobile,
+  setPdoductToLiked,
+  setPdoductToUnLiked,
 } from 'redux/product/product-slice';
+import { getID } from 'redux/auth/auth-selectors';
 
 import Pagination from 'components/Shared/Pagination/Pagination';
 import MessageWindow from 'components/Shared/MessageWindow/MessageWindow';
@@ -56,6 +60,8 @@ const Products = () => {
   const isFilterFormSubmitted = useSelector(getFilterForm);
   const isLoading = useSelector(getLoadingProducts);
   const isUserLogin = useSelector(getLogin);
+  const userId = useSelector(getID);
+  const isLiked = useSelector(getIsPdoductLiked);
   const dispatch = useDispatch();
 
   const { pathname, search } = useLocation();
@@ -112,6 +118,18 @@ const Products = () => {
     dispatch(
       updateSearchUserSibscribes({ urlSubscription: pathname + search })
     );
+  };
+
+  const handleLike = isLiked => {
+    dispatch(isLiked ? setPdoductToLiked() : setPdoductToUnLiked());
+  };
+
+  const checkUserLike = productId => {
+    const product = products.find(item => item._id === productId);
+    if (product) {
+      return product.userLikes.includes(userId);
+    }
+    return false;
   };
 
   const handleChangeFilter = async filterSortSelected => {
@@ -319,6 +337,8 @@ const Products = () => {
                     section,
                     category,
                     size,
+                    userLikes,
+                    owner,
                   }) => (
                     <ProductItem
                       key={_id}
@@ -326,6 +346,11 @@ const Products = () => {
                       mainPhotoUrl={mainPhotoUrl}
                       section={section}
                       category={category}
+                      isLiked={isLiked}
+                      handleLike={handleLike}
+                      likes={userLikes.length ? userLikes.length : 0}
+                      userLike={checkUserLike(_id)}
+                      owner={owner}
                       description={description}
                       price={price}
                       nameProduct={nameProduct}
