@@ -10,7 +10,7 @@
 
 #### Backend Tech Stack
 
-<div> <a href="https://nodejs.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="40" height="40"/> </a> <a href="https://expressjs.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg" alt="express" width="40" height="40"/> </a>  <a href="https://heroku.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/heroku/heroku-icon.svg" alt="heroku" width="40" height="40"/> </a>  <a href="https://www.mongodb.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original-wordmark.svg" alt="mongodb" width="40" height="40"/> </a> <a href="https://websockets.spec.whatwg.org/" target="_blank" rel="noreferrer"> <img src="/public/images/readme/websocket.png" alt="websocket" width="40" height="40"/> </a> </div>
+<div> <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a> <a href="https://nodejs.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="40" height="40"/> </a> <a href="https://expressjs.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg" alt="express" width="40" height="40"/> </a>  <a href="https://heroku.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/heroku/heroku-icon.svg" alt="heroku" width="40" height="40"/> </a>  <a href="https://www.mongodb.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original-wordmark.svg" alt="mongodb" width="40" height="40"/> </a> <a href="https://websockets.spec.whatwg.org/" target="_blank" rel="noreferrer"> <img src="/public/images/readme/websocket.png" alt="websocket" width="40" height="40"/> </a> </div>
 
 ---
 
@@ -74,8 +74,11 @@ heigth='auto'></img>
 In order to use the entire range of site options, the user needs to
 `register (for new users)/login (for users with an existing account)` by filling
 in the appropriate ones validated forms. Navigation to these pages is displayed
-in the header in desktop version or in the bottom in mobile version.
-Authorization is possible, in particular, through **a Google account**.
+in the header in desktop version or in the bottom in mobile version.  
+**To register**, you must enter your login, e-mail and password (more than 7
+characters). In order **to login** there are two fields to enter e-mail and
+password. Authorization is possible, in particular, through **a Google
+account**.
 
 <img src='/public/images/readme/login.png' alt="Login Page" width='90%'
 heigth='auto'></img>
@@ -107,11 +110,11 @@ clicking the corresponding button "Підтвердити" a special link will b
 the specified email address, which is valid for 10 minutes from the moment of
 its formation and which the user needs to follow.
 
-### Adding a new product to sell
+### Adding a new ad
 
-Every authorized user can `add advertisement` at the special page navigated by
-the button "Додати товар" in the header. For adding new add it is necessary to
-`fill out the fields in the appropriate form`:
+Every authorized user can `add advertisement` at the special page that is
+navigated by the button "Додати товар" in the header. For adding new add it is
+necessary to `fill out the fields in the appropriate form`:
 
 - indicate **the name of the product, its description, brand, number of items,
   price, keywords**;
