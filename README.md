@@ -2,13 +2,13 @@
 
 **_This is a small online marketplace for selling and buying various goods._**
 
-#### Frontend Tech Stack
+#### Frontend
 
 <div> <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a> <a href="https://www.w3.org/html/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/><a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> </a> <a href="https://sass-lang.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/sass/sass-original.svg" alt="sass" width="40" height="40"/> </a> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a>  <a href="https://reactjs.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="40" height="40"/> </a> <a href="https://webpack.js.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/d00d0969292a6569d45b06d3f350f463a0107b0d/icons/webpack/webpack-original-wordmark.svg" alt="webpack" width="40" height="40"/> </a> <a href="https://redux-toolkit.js.org" target="_blank" rel="noreferrer"> <img src="/public/images/readme/redux.svg" alt="redux" width="40" height="40"/></a> <a href="https://axios-http.com/" target="_blank" rel="noreferrer"> <img src="/public/images/readme/axios.png" alt="axios" width="40" height="40"/> </a></div>
 
 ---
 
-#### Backend Tech Stack
+#### Backend
 
 <div> <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a> <a href="https://nodejs.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="40" height="40"/> </a> <a href="https://expressjs.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg" alt="express" width="40" height="40"/> </a>  <a href="https://heroku.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/heroku/heroku-icon.svg" alt="heroku" width="40" height="40"/> </a>  <a href="https://www.mongodb.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original-wordmark.svg" alt="mongodb" width="40" height="40"/> </a> <a href="https://websockets.spec.whatwg.org/" target="_blank" rel="noreferrer"> <img src="/public/images/readme/websocket.png" alt="websocket" width="40" height="40"/> </a> </div>
 
@@ -129,11 +129,11 @@ is focused on such a field, and the page scrolls to the corresponding level.
 <img src='/public/images/readme/add.png' alt="Add Page" width='90%'
 heigth='auto'></img>
 
-### Products page
+### Product page
 
 After the submission of the product search window in header the user occurs on
-**_the product catalog page_**. Navigation of this page is provided by clicking
-on the corresponding buttons at the bottom of the header (on tablet and desktop
+**_the product page_**. Navigation of this page is provided by clicking on the
+corresponding buttons at the bottom of the header (on tablet and desktop
 versions) and consists of four categories: **_"Чоловікам", "Жінкам", "Дитячі
 товари", "Краса та здоров'я"_**. Navigation **_by categories and
 subcategories_** is displayed by opening a modal window in the left part of
@@ -142,17 +142,17 @@ header.
 <img src='/public/images/readme/modal.png' alt="Modal window of the catalog" width='90%'
 heigth='auto'></img>
 
-> **_The product page_** consists of **_a filter section and a section list of
-> products_**.
+> **_The product page_** consists of two sections: \***\*filters and list of
+> products\*\***.
 
-**_The filter section_** allows the user
+**The section of filters** allows the user
 `to search for products according to the selected criteria`: **_size_**(you can
 choose several options), **_price_** (specific or within a certain range),
 **_condition_** (you can choose several options) and **_brand_**. The installed
 filters will be applied to product searches until the moment of filters reset by
 `clicking on the corresponding button or submitting a new search word`.
 
-**The product list section** consists of:
+**The section of products** consists of:
 
 - **_navigation by categories and subcategories of goods_** with displaying the
   number of found products;
