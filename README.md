@@ -203,7 +203,7 @@ as well as **_additional information about the seller_**. The page also contains
 <img src='/public/images/readme/seller_profile.png' alt="Seller's profile page" width='90%'
 heigth='auto'></img>
 
-### Favourites
+### Favourite items
 
 The list of cards of **selected subscriptions to goods, sellers and searches**
 is displayed on the corresponding page, which can be navigated to by
