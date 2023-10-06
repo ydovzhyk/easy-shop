@@ -1,22 +1,22 @@
 # Easy-shop
 
-> **_This is a small online marketplace for selling and buying various goods._**
+**_This is a small online marketplace for selling and buying various goods._**
 
 ---
 
-####Frontend Tech Stack
+#### Frontend Tech Stack
 
-<div align="left"> <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a> <a href="https://www.w3.org/html/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/><a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> </a> <a href="https://sass-lang.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/sass/sass-original.svg" alt="sass" width="40" height="40"/> </a> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a>  <a href="https://reactjs.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="40" height="40"/> </a> <a href="https://webpack.js.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/d00d0969292a6569d45b06d3f350f463a0107b0d/icons/webpack/webpack-original-wordmark.svg" alt="webpack" width="40" height="40"/> </a> <a href="https://redux-toolkit.js.org" target="_blank" rel="noreferrer"> <img src="/public/images/readme/redux.svg" alt="redux" width="40" height="40"/></a> <a href="https://axios-http.com/" target="_blank" rel="noreferrer"> <img src="/public/images/readme/axios.png" alt="axios" width="40" height="40"/> </a></div>
-
----
-
-####Backend Tech Stack
-
-<div align="left"> <a href="https://nodejs.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="40" height="40"/> </a> <a href="https://expressjs.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg" alt="express" width="40" height="40"/> </a>  <a href="https://heroku.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/heroku/heroku-icon.svg" alt="heroku" width="40" height="40"/> </a>  <a href="https://www.mongodb.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original-wordmark.svg" alt="mongodb" width="40" height="40"/> </a> <a href="https://websockets.spec.whatwg.org/" target="_blank" rel="noreferrer"> <img src="/public/images/readme/websocket.png" alt="websocket" width="40" height="40"/> </a> </div>
+<div> <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a> <a href="https://www.w3.org/html/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/><a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> </a> <a href="https://sass-lang.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/sass/sass-original.svg" alt="sass" width="40" height="40"/> </a> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a>  <a href="https://reactjs.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="40" height="40"/> </a> <a href="https://webpack.js.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/d00d0969292a6569d45b06d3f350f463a0107b0d/icons/webpack/webpack-original-wordmark.svg" alt="webpack" width="40" height="40"/> </a> <a href="https://redux-toolkit.js.org" target="_blank" rel="noreferrer"> <img src="/public/images/readme/redux.svg" alt="redux" width="40" height="40"/></a> <a href="https://axios-http.com/" target="_blank" rel="noreferrer"> <img src="/public/images/readme/axios.png" alt="axios" width="40" height="40"/> </a></div>
 
 ---
 
-##General description
+#### Backend Tech Stack
+
+<div> <a href="https://nodejs.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="40" height="40"/> </a> <a href="https://expressjs.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg" alt="express" width="40" height="40"/> </a>  <a href="https://heroku.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/heroku/heroku-icon.svg" alt="heroku" width="40" height="40"/> </a>  <a href="https://www.mongodb.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original-wordmark.svg" alt="mongodb" width="40" height="40"/> </a> <a href="https://websockets.spec.whatwg.org/" target="_blank" rel="noreferrer"> <img src="/public/images/readme/websocket.png" alt="websocket" width="40" height="40"/> </a> </div>
+
+---
+
+## General description
 
 Easy-shop site is made in a concise and stylish design that doesn't distract
 users from their goals. The layout is adaptive with three breakpoints (480px,
@@ -69,9 +69,10 @@ heigth='auto'></img>
 
 ---
 
-##Options
+## Options
 
-###Loginization/registration  
+### Loginization/registration
+
 In order to use the entire range of site options, the user needs to
 `register (for new users)/login (for users with an existing account)` by filling
 in the appropriate ones validated forms. Navigation to these pages is displayed
@@ -81,7 +82,8 @@ Authorization is possible, in particular, through **a Google account**.
 <img src='/public/images/readme/login.png' alt="Login Page" width='90%'
 heigth='auto'></img>
 
-###Profile page  
+### Profile page
+
 Each registered user has own **_profile page_**, that displays: **rating, fact
 of verification (if verifired), number of days since registration, location,
 subscriber count, number of sales and online status**. This page is navigated by
@@ -107,7 +109,8 @@ clicking the corresponding button "Підтвердити" a special link will b
 the specified email address, which is valid for 10 minutes from the moment of
 its formation and which the user needs to follow.
 
-###Adding a new product to sell  
+### Adding a new product to sell
+
 Every authorized user can `add advertisement` at the special page navigated by
 the button "Додати товар" in the header. For adding new add it is necessary to
 `fill out the fields in the appropriate form`:
@@ -125,7 +128,8 @@ is focused on such a field, and the page scrolls to the corresponding level.
 <img src='/public/images/readme/add.png' alt="Add Page" width='90%'
 heigth='auto'></img>
 
-###Products page  
+### Products page
+
 After the submission of the product search window in header the user occurs on
 **_the product catalog page_**. Navigation of this page is provided by clicking
 on the corresponding buttons at the bottom of the header (on tablet and desktop
@@ -158,7 +162,8 @@ filters will be applied to product searches until the moment of filters reset by
 <img src='/public/images/readme/filters.png' alt="Product page" width='90%'
 heigth='auto'></img>
 
-###General product card and Product item page  
+### General product card and Product item page
+
 By viewing **the general product card** at any page the user can get acquainted
 with **_the name of the product, its price, available sizes, the main photo, as
 well as the number of users who assigned the product to their favorites_**. In
@@ -186,7 +191,8 @@ corresponding button.
 <img src='/public/images/readme/productItem.png' alt="Product item page" width='90%'
 heigth='auto'></img>
 
-###Seller's profile page  
+### Seller's profile page
+
 Clicking on the seller's name in the the product item page will take user **to
 seller's profile page**, where there is an opportunity to familiarize yourself
 with **_the list of the seller's ads, reviews_** (as a seller and as a buyer),
@@ -196,7 +202,8 @@ as well as **_additional information about the seller_**. The page also contains
 <img src='/public/images/readme/seller_profile.png' alt="Seller's profile page" width='90%'
 heigth='auto'></img>
 
-###Favourites  
+### Favourites
+
 The list of cards of **selected subscriptions to goods, sellers and searches**
 is displayed on the corresponding page, which can be navigated to by
 `the button in the header of the site`. Each of the subscriptions can be
@@ -205,7 +212,8 @@ is displayed on the corresponding page, which can be navigated to by
 <img src='/public/images/readme/favorites.png' alt="Favourites page" width='90%'
 heigth='auto'></img>
 
-###Dialogues  
+### Dialogues
+
 The dialogues page displays **_active and archived dialogues_** between site
 users. Communication is happening instantly, because the addressee receives the
 message a few seconds after sending. The number of messages changes in the
@@ -214,7 +222,8 @@ header of the site immediately after receiving or reading.
 <img src='/public/images/readme/dialogues.png' alt="Favourites page" width='90%'
 heigth='auto'></img>
 
-###Shopping basket  
+### Shopping basket
+
 **_Shopping basket page_** displays lists of **ads that have been added to the
 basket**, grouped by each seller. At the end of each list, there are buttons for
 `adding other products of this seller (by transition to the seller's profile page) and for ordering`.
@@ -222,7 +231,8 @@ basket**, grouped by each seller. At the end of each list, there are buttons for
 <img src='/public/images/readme/basket.png' alt="Basket page" width='90%'
 heigth='auto'></img>
 
-###Checkout  
+### Checkout
+
 The checkout page displays:
 
 - **general information** about the product;
@@ -236,7 +246,7 @@ order will be saved in the user's profile page in the section "Мої покуп
 a possibility `to finalize` such an order or `ask a question to the seller`.  
  <img src='/public/images/readme/how to do a review.png' alt="Basket page" width='90%' heigth='auto'></img>
 
-###Leaving the review
+### Leaving the review
 
 After placing an order, the user has the opportunity to `leave a review`. Such
 functionality is implemented by **a modal window** with the appropriate
