@@ -11,7 +11,6 @@ const SizesWithoutSelect = ({
   onIncrement,
   id,
 }) => {
-  // console.log('sizes:', sizes);
   const transformedSizes = sizes
     ? sizes.map(item => {
         const sizeId = item.name;
@@ -20,7 +19,6 @@ const SizesWithoutSelect = ({
         return { sizeId, value, quantity };
       })
     : [];
-  // console.log('transformedSizes', transformedSizes);
 
   return (
     <div className={s.wrapper}>

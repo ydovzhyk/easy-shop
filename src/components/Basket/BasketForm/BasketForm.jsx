@@ -131,7 +131,6 @@ const BasketForm = ({ ownerId, ownerName, products }) => {
       totalSum: totalSum,
     };
     if (orderInCheckout.sellerId === ownerId) {
-      console.log('order exist');
       await dispatch(deleteOrderById(orderInCheckout._id));
     }
     const newOrder = await dispatch(addOrder(dataForUpload));

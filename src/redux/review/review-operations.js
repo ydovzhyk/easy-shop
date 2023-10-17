@@ -25,7 +25,6 @@ export const getReviewById = createAsyncThunk(
   'reviews/:id',
   async (userData, { rejectWithValue, dispatch }) => {
     try {
-      // console.log(userData);
       const data = await axiosGetReviewById(userData);
       return data;
     } catch (error) {
@@ -53,7 +52,6 @@ export const getUserReviews = createAsyncThunk(
   async (userData, { rejectWithValue, dispatch }) => {
     try {
       const data = await axiosGetUserReviews(userData);
-      // console.log(data);
       return data;
     } catch (error) {
       const { data, status } = error.response;
@@ -67,7 +65,6 @@ export const getUserFeedback = createAsyncThunk(
   async (userData, { rejectWithValue, dispatch }) => {
     try {
       const data = await axiosGetUserFeedback(userData);
-      // console.log(data);
       return data;
     } catch (error) {
       const { data, status } = error.response;
