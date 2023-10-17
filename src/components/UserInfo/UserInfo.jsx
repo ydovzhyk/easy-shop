@@ -22,13 +22,11 @@ import {
 } from 'redux/auth/auth-selectors';
 import { clearDialogueState } from 'redux/dialogue/dialogue-slice';
 import { clearOtherUserState } from 'redux/otherUser/otherUser.slice';
-import { clearProductsState } from 'redux/product/product-slice';
 import { clearOrderState } from 'redux/order/order-slice';
 import { clearReviewState } from 'redux/review/review-slice';
 import { clearVerifyState } from 'redux/verifyEmail/verifyEmail-slice';
 import { logout } from 'redux/auth/auth-operations';
-// import cartIcon from '../../images/header/cart-icon.svg';
-// import heartIcon from '../../images/header/heart-icon.svg';
+
 import Button from 'components/Shared/Button';
 
 const UserInfo = () => {
@@ -67,7 +65,6 @@ const UserInfo = () => {
     dispatch(clearDialogueState());
     dispatch(clearOtherUserState());
     dispatch(clearOrderState());
-    dispatch(clearProductsState());
     dispatch(clearReviewState());
     dispatch(clearVerifyState());
     await localStorage.setItem('easy-shop.authData', JSON.stringify(authData));

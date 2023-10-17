@@ -21,7 +21,9 @@ export const register = createAsyncThunk(
       const data = await axiosRegister(userData);
       return data;
     } catch (error) {
+      console.log(error.response);
       const { data, status } = error.response;
+
       return rejectWithValue({ data, status });
     }
   }
@@ -95,7 +97,6 @@ export const updateUserBasket = createAsyncThunk(
   async (userData, { rejectWithValue, getState, dispatch }) => {
     try {
       const data = await axiosUpdateUserBasket(userData);
-      // console.log('return data from updateUserBasket', data);
       return data;
     } catch (error) {
       const { data, status } = error.response;
