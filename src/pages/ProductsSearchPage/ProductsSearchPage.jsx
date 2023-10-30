@@ -121,17 +121,8 @@ const ProductsSearchPage = () => {
     currentPage,
     setSearchParams,
     dispatch,
+    isLiked,
   ]);
-
-  //запит на сервер при віднеенні товару до обраних//
-  useEffect(() => {
-    dispatch(
-      searchProducts({
-        payloadData: payload,
-        page: currentPage,
-      })
-    );
-  }, [isLiked, currentPage, payload, dispatch]);
 
   //обробка скидання форми фільтрів//
   useEffect(() => {
