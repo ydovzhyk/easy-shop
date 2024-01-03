@@ -21,9 +21,7 @@ export const register = createAsyncThunk(
       const data = await axiosRegister(userData);
       return data;
     } catch (error) {
-      console.log(error.response);
       const { data, status } = error.response;
-
       return rejectWithValue({ data, status });
     }
   }
