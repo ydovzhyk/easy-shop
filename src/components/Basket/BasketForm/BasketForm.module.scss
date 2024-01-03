@@ -14,11 +14,9 @@
   justify-content: space-between;
   gap: 8px;
   transition: border var(--transition-duration) var(--timing-function);
-
   &:hover {
     border: 1px solid var(--btn-border-color);
   }
-
   @include mixins.mq(tablet) {
     width: 100%;
     flex-direction: row;
@@ -72,12 +70,10 @@
   gap: 20px;
   align-items: flex-start;
   justify-content: center;
-
   @include mixins.mq(tablet) {
     justify-content: flex-start;
     max-width: 336px;
   }
-
   @include mixins.mq(desktop) {
     width: 600px;
   }
