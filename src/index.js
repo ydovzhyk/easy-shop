@@ -20,27 +20,3 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </Provider>
   </BrowserRouter>
 );
-
-// if (process.env.NODE_ENV === 'production') {
-//   ReactDOM.createRoot(document.getElementById('root')).render(
-//     <BrowserRouter basename="/easy-shop/">
-//       <Provider store={store}>
-//         <PersistGate loading={<Loader />} persistor={persistor}>
-//           <App />
-//         </PersistGate>
-//       </Provider>
-//     </BrowserRouter>
-//   );
-// }
-
-// if (process.env.NODE_ENV === 'development') {
-//   ReactDOM.createRoot(document.getElementById('root')).render(
-//     <BrowserRouter>
-//       <Provider store={store}>
-//         <PersistGate loading={<Loader />} persistor={persistor}>
-//           <App />
-//         </PersistGate>
-//       </Provider>
-//     </BrowserRouter>
-//   );
-// }
