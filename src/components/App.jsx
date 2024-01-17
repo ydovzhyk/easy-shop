@@ -132,6 +132,7 @@ export const App = () => {
   useEffect(() => {
     const pageInfo = JSON.parse(localStorage.getItem('easy-shop-page-info'));
     const currentPath = location.pathname;
+    console.log('currentPath', currentPath);
     const currentPathSearch = location.search;
 
     if (pageInfo && pageInfo.lastVisitedPage && pageInfo.lastVisitedTime) {
