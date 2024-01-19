@@ -16,6 +16,14 @@ const token = {
   },
 };
 
+async function getAuthDataFromLocalStorage() {
+  const dataFromLocalStorage = localStorage.getItem('easy-shop.authData');
+  if (dataFromLocalStorage) {
+    return JSON.parse(dataFromLocalStorage);
+  }
+  return null;
+}
+
 instance.interceptors.response.use(
   response => response,
   async error => {
@@ -24,49 +32,53 @@ instance.interceptors.response.use(
       error.response.data.message === 'Unauthorized'
     ) {
       try {
-        const authData = JSON.parse(localStorage.getItem('easy-shop.authData'));
-        const { refreshToken, sid } = authData;
+        const authData = await getAuthDataFromLocalStorage();
+        if (authData.refreshToken) {
+          const { refreshToken, sid } = authData;
 
-        token.set(refreshToken);
-        const { data } = await instance.post('/auth/refresh', { sid });
-        token.unset();
+          token.set(refreshToken);
+          const { data } = await instance.post('/auth/refresh', { sid });
+          token.unset();
 
-        const authNewData = {
-          accessToken: data.newAccessToken,
-          refreshToken: data.newRefreshToken,
-          sid: data.sid,
-        };
+          const authNewData = {
+            accessToken: data.newAccessToken,
+            refreshToken: data.newRefreshToken,
+            sid: data.sid,
+          };
 
-        await localStorage.setItem(
-          'easy-shop.authData',
-          JSON.stringify(authNewData)
-        );
+          await localStorage.setItem(
+            'easy-shop.authData',
+            JSON.stringify(authNewData)
+          );
+        } else {
+          return Promise.reject(error);
+        }
 
         if (error.config.url === '/auth/current') {
-          const authData = JSON.parse(
-            localStorage.getItem('easy-shop.authData')
-          );
-
-          const { accessToken, refreshToken, sid } = authData;
-
-          const originalRequest = error.config;
-          originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
-          originalRequest.data = {
-            accessToken: accessToken,
-            refreshToken: refreshToken,
-            sid: sid,
-          };
-          return instance(originalRequest);
+          const authData = await getAuthDataFromLocalStorage();
+          if (authData.accessToken) {
+            const { accessToken, refreshToken, sid } = authData;
+            const originalRequest = error.config;
+            originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
+            originalRequest.data = {
+              accessToken: accessToken,
+              refreshToken: refreshToken,
+              sid: sid,
+            };
+            return instance(originalRequest);
+          } else {
+            return Promise.reject(error);
+          }
         } else {
-          const authData = JSON.parse(
-            localStorage.getItem('easy-shop.authData')
-          );
-
-          const { accessToken } = authData;
-
-          const originalRequest = error.config;
-          originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
-          return instance(originalRequest);
+          const authData = await getAuthDataFromLocalStorage();
+          if (authData.accessToken) {
+            const { accessToken } = authData;
+            const originalRequest = error.config;
+            originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
+            return instance(originalRequest);
+          } else {
+            return Promise.reject(error);
+          }
         }
       } catch (error) {
         return Promise.reject(error);
@@ -81,7 +93,7 @@ instance.interceptors.response.use(
         sid: null,
       };
       localStorage.setItem('easy-shop.authData', JSON.stringify(authData));
-      return;
+      return Promise.reject(error);
     } else {
       return Promise.reject(error);
     }
