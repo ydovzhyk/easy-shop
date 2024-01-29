@@ -9,7 +9,7 @@ import { persistor, store } from 'redux/store';
 import Loader from 'components/Loader';
 import './styles/styles.scss';
 
-const basename = process.env.NODE_ENV === 'production' ? '/easy-shop' : '/';
+const basename = process.env.PUBLIC_URL || '/';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter basename={basename}>
