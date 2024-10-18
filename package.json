@@ -66,6 +66,7 @@
     ]
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "file-loader": "^6.2.0",
     "svg-url-loader": "^8.0.0"
   }
