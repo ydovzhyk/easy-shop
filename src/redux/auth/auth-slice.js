@@ -158,12 +158,10 @@ const auth = createSlice({
     [updateUser.rejected]: (store, { payload }) => {
       store.loading = false;
       store.isRefreshing = false;
-      if (payload && payload.data) {
-        store.error =
-          payload?.data?.message || 'Oops, something went wrong, try again';
-      } else {
-        store.error = payload.message;
-      }
+      store.error =
+        (payload && payload.data && payload.data.message) ||
+        (payload && payload.message) ||
+        'Oops, something went wrong, try again';
     },
     // * UPDATE USER SETTINGS
     [updateUserSettings.pending]: store => {

@@ -66,8 +66,13 @@ export const updateUser = createAsyncThunk(
       const data = await axiosUpdateUser(userData.accessToken, userData);
       return data;
     } catch (error) {
-      const { data, status } = error.response;
-      return rejectWithValue({ data, status });
+      const data = error.response && error.response.data;
+      const status = error.response && error.response.status;
+      return rejectWithValue({
+        data,
+        status,
+        message: (data && data.message) || error.message,
+      });
     }
   }
 );

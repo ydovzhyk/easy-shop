@@ -4,7 +4,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { register } from 'redux/auth/auth-operations';
 import { NavLink, Navigate, useLocation, Link } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
-import { getError, getNewUserId } from 'redux/auth/auth-selectors';
+import { getError, getLogin, getNewUserId } from 'redux/auth/auth-selectors';
 import { clearUserError } from 'redux/auth/auth-slice';
 
 import { field } from 'components/Shared/TextField/fields';
@@ -21,6 +21,7 @@ import s from './Register.module.scss';
 const Register = () => {
   const errorLogin = useSelector(getError);
   const newUserId = useSelector(getNewUserId);
+  const isLogin = useSelector(getLogin);
   const location = useLocation();
   const dispatch = useDispatch();
   const [userAvatar, setUserAvatar] = useState('');
@@ -68,6 +69,10 @@ const Register = () => {
   const getClassName = ({ isActive }) => {
     return isActive ? `${s.authLink} ${s.activeLink}` : s.authLink;
   };
+
+  if (isLogin) {
+    return <Navigate to="/" />;
+  }
 
   if (!errorLogin && newUserId) {
     return <Navigate to="/login" />;

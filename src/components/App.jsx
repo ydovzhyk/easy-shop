@@ -35,7 +35,7 @@ import Footer from './Footer/Footer';
 import BottomNavigation from './BottomNavigation';
 import Loader from './Loader/Loader';
 import ErrorMessage from './Shared/ErrorMessage/ErrorMessage';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const App = () => {
   const isLogin = useSelector(getLogin);
@@ -62,22 +62,43 @@ export const App = () => {
   const [isConnectionWS, setIsConnectionWS] = useState(false);
 
   const location = useLocation();
+  const navigate = useNavigate();
   const headerFooterHidden =
     location.pathname === '/login' || location.pathname === '/registration';
 
   useEffect(() => {
-    const authData = JSON.parse(localStorage.getItem('easy-shop.authData'));
-    if (authData && authData.accessToken) {
-      const userData = {
-        accessToken: authData.accessToken,
-        refreshToken: authData.refreshToken,
-        sid: authData.sid,
-      };
-      dispatch(updateUser(userData));
-    } else {
+    const params = new URLSearchParams(window.location.search);
+    const accessToken = params.get('accessToken');
+    const refreshToken = params.get('refreshToken');
+    const sid = params.get('sid');
+
+    if (accessToken && refreshToken && sid) {
+      const userData = { accessToken, refreshToken, sid };
+      localStorage.setItem('easy-shop.authData', JSON.stringify(userData));
+      dispatch(updateUser(userData)).finally(() => {
+        navigate('/', { replace: true });
+      });
       return;
     }
-  }, [dispatch]);
+
+    const storedAuth = localStorage.getItem('easy-shop.authData');
+    if (!storedAuth) return;
+
+    try {
+      const authData = JSON.parse(storedAuth);
+      if (authData && authData.accessToken) {
+        dispatch(
+          updateUser({
+            accessToken: authData.accessToken,
+            refreshToken: authData.refreshToken,
+            sid: authData.sid,
+          })
+        );
+      }
+    } catch (error) {
+      localStorage.removeItem('easy-shop.authData');
+    }
+  }, [dispatch, navigate]);
 
   useEffect(() => {
     if (authError) {
